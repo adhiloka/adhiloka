@@ -1,0 +1,97 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Band from '../../components/Band.astro';
+import Interlude from '../../components/Interlude.astro';
+import {
+  SOURCING_INTRO,
+  SOURCING_CHAIN,
+  SOURCING_PASSAGES,
+} from '../../data/pages/sustainability';
+---
+
+<PageLayout intro={SOURCING_INTRO} section="/sustainability/">
+  <section class="section">
+    <div class="frame">
+      <span class="eyebrow" data-reveal="0">Tree to drum</span>
+      <ol class="chain">
+        {
+          SOURCING_CHAIN.map((s, i) => (
+            <li class="chain__step" data-reveal={String(i * 55)}>
+              <span class="chain__n">{s.n}</span>
+              <h3 class="chain__title">{s.title}</h3>
+              <p class="chain__body">{s.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  {
+    SOURCING_PASSAGES.map((p, i) => (
+      <Band
+        id={p.id}
+        eyebrow={p.eyebrow}
+        title={p.title}
+        body={p.body}
+        points={p.points}
+        cta={p.cta}
+        href={p.href}
+        caption={p.caption}
+        image={p.image}
+        reverse={i % 2 === 1}
+        ground={i % 2 === 1 ? 'sunk' : 'paper'}
+      />
+    ))
+  }
+
+  <section class="bridge">
+    <Interlude
+      class="frame"
+      line="Ask us to walk a specific lot back for you."
+      href="/contact/"
+      cta="Contact us"
+      italic
+    />
+  </section>
+</PageLayout>
+
+<style>
+  .chain {
+    list-style: none;
+    margin: clamp(26px, 3vw, 44px) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: clamp(24px, 3vw, 44px);
+  }
+
+  .chain__step {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 18px;
+    border-top: 1px solid var(--rule-strong);
+  }
+
+  .chain__n {
+    font-family: var(--font-display);
+    font-size: var(--type-h3);
+    line-height: 1;
+    color: var(--ink-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .chain__title {
+    font-size: var(--type-h4);
+    line-height: var(--leading-title);
+  }
+
+  .chain__body {
+    font-size: var(--type-ui);
+    line-height: var(--leading-body);
+    color: var(--ink-body);
+  }
+
+  .bridge { background: var(--paper); padding: var(--section-y) var(--gutter); }
+</style>

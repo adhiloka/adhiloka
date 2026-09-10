@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import GetInTouch from '../../components/GetInTouch.astro';
+import Interlude from '../../components/Interlude.astro';
+import { PERFUMERY_INTRO, PERFUMERY_HERO, PERFUMERY_SLIDES } from '../../data/pages/perfumery';
+---
+
+{/* Tiga section: 1 hero foto penuh layar, 2 karusel pintu ke halaman anak +
+    jeda penutup, 3 footer — susunan yang sama dengan halaman hub About.
+
+    BaseLayout langsung, bukan PageLayout: yang disumbang PageLayout hanya kepala
+    halaman dan bilah saudara, dan keduanya sudah digantikan hero dan karusel. */}
+<BaseLayout
+  title={PERFUMERY_INTRO.metaTitle ?? PERFUMERY_INTRO.title}
+  description={PERFUMERY_INTRO.description}
+  headerVariant="over-dark"
+>
+  <Hero slides={PERFUMERY_HERO} label="Perfumery" />
+
+  <section class="hub-tour">
+    <GetInTouch slides={PERFUMERY_SLIDES} label="Perfumery" inset />
+
+    <div class="hub-tour__note">
+      <Interlude
+        class="frame"
+        line="Everything on the palette starts in a forest we buy from."
+        href="/ingredients/"
+        italic
+        tight
+      />
+    </div>
+  </section>
+</BaseLayout>

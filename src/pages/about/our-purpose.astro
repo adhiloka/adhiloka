@@ -1,0 +1,93 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Pullquote from '../../components/Pullquote.astro';
+import Interlude from '../../components/Interlude.astro';
+import { PURPOSE_INTRO, PURPOSE_BODY, PURPOSE_VALUES, PURPOSE_QUOTE } from '../../data/pages/about';
+---
+
+<PageLayout intro={PURPOSE_INTRO} section="/about/">
+  <section class="section">
+    <div class="frame opening">
+      <span class="eyebrow" data-reveal="0">Why we buy this way</span>
+      <div class="opening__prose">
+        {PURPOSE_BODY.map((p, i) => <p class="prose" data-reveal={String(60 + i * 60)}>{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  <Pullquote quote={PURPOSE_QUOTE} />
+
+  <section class="section">
+    <div class="frame">
+      <span class="eyebrow" data-reveal="0">Four habits</span>
+      <ol class="values">
+        {
+          PURPOSE_VALUES.map((v, i) => (
+            <li class="value" data-reveal={String(i * 60)}>
+              <span class="value__index">{String(i + 1).padStart(2, '0')}</span>
+              <h3 class="value__title">{v.title}</h3>
+              <p class="value__body">{v.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="bridge">
+    <Interlude
+      class="frame"
+      line="Read how the habits show up in the supply chain."
+      href="/sustainability/responsible-sourcing/"
+      cta="Responsible sourcing"
+      italic
+    />
+  </section>
+</PageLayout>
+
+<style>
+  .opening {
+    display: grid;
+    grid-template-columns: minmax(0, 0.34fr) minmax(0, 1fr);
+    gap: clamp(24px, 4vw, 72px);
+    align-items: start;
+  }
+  .opening__prose { max-width: var(--measure-body); }
+
+  .values {
+    list-style: none;
+    margin: clamp(26px, 3vw, 44px) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: clamp(24px, 3vw, 48px);
+  }
+  .value {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 18px;
+    border-top: 1px solid var(--rule-strong);
+  }
+  .value__index {
+    font-size: var(--type-micro);
+    letter-spacing: var(--ls-label);
+    color: var(--ink-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .value__title {
+    font-size: var(--type-h4);
+    line-height: var(--leading-title);
+  }
+  .value__body {
+    font-size: var(--type-ui);
+    line-height: var(--leading-body);
+    color: var(--ink-body);
+  }
+
+  .bridge { background: var(--paper-sunk); padding: var(--section-y) var(--gutter); }
+
+  @media (max-width: 899px) {
+    .opening { grid-template-columns: 1fr; gap: 18px; }
+  }
+</style>

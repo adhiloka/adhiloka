@@ -1,0 +1,148 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import NewsList from '../../../components/NewsList.astro';
+import { getImageFor } from '../../../data/images';
+import { NEWS, byDate, formatDate, type Article } from '../../../data/pages/media';
+
+export function getStaticPaths() {
+  return NEWS.map((article) => ({
+    params: { slug: article.slug },
+    props: { article },
+  }));
+}
+
+interface Props {
+  article: Article;
+}
+
+const { article } = Astro.props;
+const photo = getImageFor(article.image);
+
+/* Dua kabar terbaru selain yang sedang dibaca. */
+const more = [...NEWS]
+  .filter((a) => a.slug !== article.slug)
+  .sort(byDate)
+  .slice(0, 3);
+---
+
+<BaseLayout title={article.title} description={article.standfirst} headerVariant="solid">
+  <article class="art">
+    <header class="frame art__head">
+      <Breadcrumb section="/media/" current="News" />
+
+      <div class="art__meta">
+        <time datetime={article.date}>{formatDate(article.date)}</time>
+        <span class="art__cat">{article.category}</span>
+      </div>
+
+      <h1 class="art__title" data-lines>{article.title}</h1>
+      <p class="art__stand" data-reveal="90">{article.standfirst}</p>
+    </header>
+
+    <div class="art__media plate" data-reveal="140">
+      {
+        photo ? (
+          <Image
+            src={photo}
+            alt={article.shot}
+            width={1800}
+            widths={[900, 1400, 1800]}
+            sizes="100vw"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            quality={74}
+          />
+        ) : (
+          <span class="plate__caption">{article.shot}</span>
+        )
+      }
+    </div>
+
+    <div class="frame art__body">
+      {article.body.map((p) => <p class="prose">{p}</p>)}
+
+      <a class="sweep art__back" href="/media/news/">All news</a>
+    </div>
+  </article>
+
+  <section class="section more">
+    <div class="frame">
+      <span class="eyebrow" data-reveal="0">More news</span>
+      <div class="more__grid">
+        <NewsList articles={more} />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .art__head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: clamp(12px, 1.4vw, 18px);
+    padding: calc(var(--header-h) + clamp(38px, 5vw, 76px)) var(--gutter) clamp(30px, 3.6vw, 52px);
+  }
+
+  .art__meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: var(--type-micro);
+    letter-spacing: var(--ls-label);
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .art__cat { padding-left: 12px; border-left: 1px solid var(--rule-strong); }
+
+  .art__title {
+    font-size: var(--type-h1);
+    line-height: var(--leading-title);
+    letter-spacing: var(--ls-title);
+    max-width: 17em;
+  }
+
+  .art__stand {
+    font-size: var(--type-lede);
+    line-height: var(--leading-lede);
+    color: var(--ink-body);
+    max-width: var(--measure-lede);
+  }
+
+  .art__media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 21 / 8;
+    min-height: 240px;
+  }
+  .art__media :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .art__media .plate__caption { left: var(--gutter); right: var(--gutter); bottom: 16px; }
+
+  .art__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: clamp(40px, 5vw, 76px) var(--gutter) 0;
+  }
+  /* .prose sudah memberi jarak antar paragraf; di sini gap yang mengurus. */
+  .art__body :global(.prose + .prose) { margin-top: 0; }
+
+  .art__back { margin-top: clamp(18px, 2.4vw, 30px); }
+
+  .more { background: var(--paper-sunk); margin-top: var(--section-y); }
+  .more__grid { margin-top: clamp(26px, 3vw, 44px); }
+
+  @media (max-width: 899px) {
+    .art__media { aspect-ratio: 3 / 2; }
+  }
+</style>

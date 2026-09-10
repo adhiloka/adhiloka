@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import GetInTouch from '../../components/GetInTouch.astro';
+import Interlude from '../../components/Interlude.astro';
+import { INGREDIENTS_INTRO, INGREDIENTS_HERO, INGREDIENTS_SLIDES } from '../../data/pages/ingredients';
+---
+
+{/* Tiga section: 1 hero foto penuh layar, 2 karusel pintu ke halaman anak +
+    jeda penutup, 3 footer — susunan yang sama dengan halaman hub About.
+
+    BaseLayout langsung, bukan PageLayout: yang disumbang PageLayout hanya kepala
+    halaman dan bilah saudara, dan keduanya sudah digantikan hero dan karusel. */}
+<BaseLayout
+  title={INGREDIENTS_INTRO.metaTitle ?? INGREDIENTS_INTRO.title}
+  description={INGREDIENTS_INTRO.description}
+  headerVariant="over-dark"
+>
+  <Hero slides={INGREDIENTS_HERO} label="Ingredients" />
+
+  <section class="hub-tour">
+    <GetInTouch slides={INGREDIENTS_SLIDES} label="Ingredients" inset />
+
+    <div class="hub-tour__note">
+      <Interlude
+        class="frame"
+        line="Naturals grown, graded and distilled by our own hands."
+        href="/sustainability/"
+        italic
+        tight
+      />
+    </div>
+  </section>
+</BaseLayout>

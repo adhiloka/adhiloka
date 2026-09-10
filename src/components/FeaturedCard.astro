@@ -1,0 +1,157 @@
+---
+import { Image } from 'astro:assets';
+import type { Material } from '../data/materials';
+import { getImageFor } from '../data/images';
+
+interface Props {
+  material: Material;
+  delay: number;
+}
+
+const { material, delay } = Astro.props;
+const img = getImageFor(material.image);
+const name = material.shortName ?? material.name;
+---
+
+<a
+  href={`/ingredients/catalog/#${material.slug}`}
+  class="fcard"
+  data-reveal={delay}
+  aria-label={`${material.name} — ${material.notes ?? material.family}`}
+>
+  <div class="fcard__media">
+    {
+      img ? (
+        <Image
+          src={img}
+          alt=""
+          width={760}
+          widths={[320, 520, 760]}
+          sizes="(max-width: 599px) 90vw, (max-width: 1100px) 45vw, 24vw"
+          loading="lazy"
+          decoding="async"
+          quality={74}
+        />
+      ) : (
+        <span class="fcard__hatch" />
+      )
+    }
+  </div>
+
+  <div class="fcard__scrim" aria-hidden="true"></div>
+
+  <div class="fcard__body">
+    <span class="fcard__name">{name}</span>
+    <div class="fcard__reveal">
+      {material.notes && <span class="fcard__notes">{material.notes}</span>}
+      <span class="fcard__cta"><span>Discover</span></span>
+    </div>
+  </div>
+</a>
+
+<style>
+  .fcard {
+    position: relative;
+    display: block;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: var(--bg-plate);
+  }
+
+  /* Skala hover duduk di pembungkus, bukan di <img>. Gambarnya sendiri sudah
+     memakai transform untuk animasi kemunculan; dua transform pada satu elemen
+     akan saling menimpa. */
+  .fcard__media {
+    position: absolute;
+    inset: 0;
+    transform: scale(1);
+    transition: transform 1400ms var(--ease-glide);
+  }
+  .fcard__media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .fcard:hover .fcard__media,
+  .fcard:focus-visible .fcard__media { transform: scale(1.06); }
+
+  .fcard__hatch {
+    position: absolute;
+    inset: 0;
+    background: var(--bg-plate);
+    background-image: var(--plate-hatch);
+  }
+
+  .fcard__scrim {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 62%;
+    opacity: 0.72;
+    transition: opacity var(--dur-slow) ease;
+    background: linear-gradient(
+      to top,
+      oklch(0.18 0.012 62 / 0.78),
+      oklch(0.18 0.012 62 / 0.28) 46%,
+      transparent
+    );
+  }
+  .fcard:hover .fcard__scrim,
+  .fcard:focus-visible .fcard__scrim { opacity: 1; }
+
+  .fcard__body {
+    position: absolute;
+    left: 22px;
+    right: 22px;
+    bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .fcard__name {
+    font-family: var(--font-display);
+    font-size: clamp(21px, 1.8vw, 29px);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: oklch(1 0 0);
+    text-shadow: 0 1px 18px oklch(0.18 0.012 62 / 0.45);
+  }
+
+  .fcard__reveal {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    transition: max-height 560ms var(--ease-glide), opacity 420ms ease;
+  }
+  .fcard:hover .fcard__reveal,
+  .fcard:focus-visible .fcard__reveal { max-height: 80px; opacity: 1; }
+
+  .fcard__notes {
+    margin-top: 9px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: oklch(1 0 0 / 0.86);
+  }
+
+  .fcard__cta {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: var(--ls-cta);
+    text-transform: uppercase;
+    color: oklch(1 0 0);
+  }
+  .fcard__cta > span {
+    padding-bottom: 4px;
+    border-bottom: 1px solid oklch(1 0 0 / 0.7);
+  }
+</style>

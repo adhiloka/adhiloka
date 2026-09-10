@@ -1,0 +1,123 @@
+---
+import { Image } from 'astro:assets';
+import { getImageFor } from '../data/images';
+import { formatDate, type Article } from '../data/pages/media';
+
+/**
+ * Daftar kabar. `feature` membuat entri pertama memakai pelat besar — cara
+ * ketiga situs rujukan menandai kabar terbaru tanpa menambah warna.
+ */
+interface Props {
+  articles: Article[];
+  feature?: boolean;
+}
+
+const { articles, feature = false } = Astro.props;
+---
+
+<div class:list={['news', feature && 'news--feature']}>
+  {
+    articles.map((a, i) => {
+      const photo = getImageFor(a.image);
+      return (
+        <a href={`/media/news/${a.slug}/`} class="news__item" data-reveal={String(i * 70)}>
+          <span class="news__plate plate">
+            {photo ? (
+              <Image
+                src={photo}
+                alt=""
+                width={900}
+                widths={[420, 900]}
+                sizes="(max-width: 899px) 100vw, 33vw"
+                loading="lazy"
+                decoding="async"
+                quality={70}
+              />
+            ) : (
+              <span class="plate__caption">{a.shot}</span>
+            )}
+          </span>
+
+          <span class="news__meta">
+            <time datetime={a.date}>{formatDate(a.date)}</time>
+            <span class="news__cat">{a.category}</span>
+          </span>
+
+          <span class="news__title">{a.title}</span>
+          <span class="news__stand">{a.standfirst}</span>
+        </a>
+      );
+    })
+  }
+</div>
+
+<style>
+  .news {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(268px, 1fr));
+    gap: clamp(26px, 3vw, 48px);
+  }
+
+  .news__item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .news__plate {
+    display: block;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    margin-bottom: 4px;
+  }
+  .news__plate :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--dur-slower) var(--ease-glide);
+  }
+  .news__item:hover .news__plate :global(img) { transform: scale(1.04); }
+
+  .news__meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: var(--type-micro);
+    letter-spacing: var(--ls-label);
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .news__cat {
+    padding-left: 12px;
+    border-left: 1px solid var(--rule-strong);
+  }
+
+  .news__title {
+    font-family: var(--font-display);
+    font-size: var(--type-h3);
+    line-height: var(--leading-title);
+    letter-spacing: var(--ls-title);
+    text-wrap: balance;
+  }
+  .news__item:hover .news__title { color: var(--gold); }
+
+  .news__stand {
+    font-size: var(--type-ui);
+    line-height: var(--leading-body);
+    color: var(--ink-body);
+  }
+
+  /* Entri pertama mengambil dua kolom dan pelat yang lebih lebar. */
+  .news--feature .news__item:first-child { grid-column: 1 / -1; }
+  .news--feature .news__item:first-child .news__plate { aspect-ratio: 21 / 9; }
+  .news--feature .news__item:first-child .news__title { font-size: var(--type-h2); }
+  .news--feature .news__item:first-child .news__stand { max-width: var(--measure-lede); }
+
+  @media (max-width: 899px) {
+    .news--feature .news__item:first-child .news__plate { aspect-ratio: 4 / 3; }
+  }
+</style>

@@ -1,0 +1,191 @@
+---
+import BeeIcon from './BeeIcon.astro';
+
+/**
+ * Jeda antar bagian: ornamen, satu kalimat, lalu tautan.
+ *
+ * Aturan yang dipegang blok ini: satu bagian punya satu Discover, dan Discover
+ * itu menuju versi yang lebih dalam dari apa yang baru saja dilihat. Kalau
+ * `href` tidak diberikan, tautannya tidak dirender sama sekali — blok itu jadi
+ * label bagian, bukan ajakan.
+ *
+ * Gerakannya berurutan dan pendek: lebah lebih dulu, kalimat menyusul,
+ * tautannya paling akhir. Jarak tempuh 8 px, bukan 28 px — yang membuat gerakan
+ * terasa mahal adalah kelembutan dan kependekannya, bukan panjangnya.
+ */
+interface Props {
+  /** Kalimat utuh dengan titik di ujungnya. */
+  line?: string;
+  /** Label huruf besar sebagai ganti kalimat, untuk pembuka bagian. */
+  eyebrow?: string;
+  /** Tanpa ini, tautannya tidak muncul sama sekali. */
+  href?: string;
+  cta?: string;
+  /** Lebah kecil di atas — satu-satunya bentuk milik merek ini. */
+  mark?: boolean;
+  /** Kalimatnya dimiringkan; dipakai untuk baris yang bernada editorial. */
+  italic?: boolean;
+  /** Jarak lebah–kalimat–tautan dipersempit; untuk blok yang duduk berdekatan
+   *  dengan elemen lain dan tidak butuh jarak selapang biasanya. */
+  tight?: boolean;
+  class?: string;
+}
+
+const {
+  line,
+  eyebrow,
+  href,
+  cta = 'Discover',
+  mark = true,
+  italic = false,
+  tight = false,
+  class: className,
+} = Astro.props;
+---
+
+<div class:list={['interlude', tight && 'is-tight', className]} data-interlude>
+  {
+    mark && (
+      <span class="interlude__mark" aria-hidden="true">
+        <BeeIcon />
+      </span>
+    )
+  }
+  {eyebrow && (
+    <span class="eyebrow interlude__eyebrow"><span>{eyebrow}</span></span>
+  )}
+  {line && (
+    <p class:list={['interlude__line', italic && 'is-italic']}>
+      <span>{line}</span>
+    </p>
+  )}
+
+  {href && <a class="interlude__cta" href={href}>{cta}</a>}
+</div>
+
+<style>
+  .interlude {
+    /* width:100% wajib. Tanpa itu, `margin-inline: auto` dari .frame membatalkan
+       peregangan saat blok ini jadi anak flex, dan lebarnya menyusut mengikuti
+       isi — berbeda-beda di tiap tempat pemakaian. */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: clamp(14px, 1.6vw, 22px);
+  }
+  .interlude.is-tight { gap: clamp(6px, 1vw, 10px); }
+
+  /* ── Kemunculan berurutan ─────────────────────────────────────────────
+     Satu bahasa gerak untuk ketiganya: isinya naik dari balik topeng, sama
+     seperti judul yang dipecah per baris (lihat [data-lines] di global.css).
+     Sebelumnya blok ini memakai tiga jenis gerak berbeda — lebah membesar,
+     kalimat menggeser 8px, tautan memudar — dan tiga jenis gerak dalam satu
+     blok setinggi 100px terbaca sebagai gaduh, bukan berurutan.
+
+     Topengnya diberi ruang napas 0.14em di atas dan bawah, dinetralkan oleh
+     margin negatif seukuran, supaya huruf berkait dan ekor huruf miring tidak
+     terpotong garis topeng. */
+  .interlude__mark {
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    color: #808080;
+    overflow: hidden;
+  }
+  .interlude__mark :global(svg) {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transform: translateY(105%);
+    transition:
+      opacity var(--dur-mark) var(--ease-reveal),
+      transform var(--dur-mark) var(--ease-reveal);
+  }
+  .interlude.is-revealed .interlude__mark :global(svg) {
+    opacity: 1;
+    transform: none;
+  }
+
+  .interlude__eyebrow,
+  .interlude__line {
+    display: block;
+    overflow: hidden;
+    padding-block: 0.14em;
+    margin-block: -0.14em;
+  }
+  .interlude__eyebrow > span,
+  .interlude__line > span {
+    display: block;
+    transform: translateY(110%);
+    transition: transform var(--dur-line) var(--ease-reveal) var(--delay-line);
+  }
+  .interlude.is-revealed .interlude__eyebrow > span,
+  .interlude.is-revealed .interlude__line > span {
+    transform: none;
+  }
+
+  .interlude__line {
+    font-family: var(--font-display);
+    font-size: var(--type-h3);
+    line-height: var(--leading-title);
+    letter-spacing: var(--ls-title);
+    color: var(--ink);
+    max-width: 20em;
+    text-wrap: balance;
+  }
+  .interlude__line.is-italic { font-style: italic; }
+
+  /* Paling kecil dan paling tenang dari ketiganya. Pada rekaman referensi,
+     "Discover" jauh lebih kecil daripada barisnya; di versi sebelumnya ia
+     sebesar eyebrow sehingga label dan aksi terbaca setara. */
+  .interlude__cta {
+    position: relative;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: var(--ls-label);
+    text-transform: uppercase;
+    color: var(--ink);
+    padding-bottom: 6px;
+    opacity: 0;
+    transition:
+      opacity var(--dur-cta) var(--ease-reveal) var(--delay-cta),
+      color var(--dur-fast) ease;
+  }
+  .interlude.is-revealed .interlude__cta { opacity: 1; }
+
+  .interlude__cta::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: var(--rule-strong);
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: transform 520ms var(--ease-underline);
+  }
+
+  /* Garisnya menyapu begitu bloknya disentuh kursor, bukan hanya tautannya. */
+  .interlude:hover .interlude__cta::after,
+  .interlude__cta:focus-visible::after {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+  .interlude:hover .interlude__cta,
+  .interlude__cta:focus-visible { color: var(--gold); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .interlude__mark,
+    .interlude__eyebrow,
+    .interlude__line,
+    .interlude__cta {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>

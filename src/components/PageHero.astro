@@ -1,0 +1,244 @@
+---
+import { Image } from 'astro:assets';
+import { getImageFor, type ImageKey } from '../data/images';
+import Breadcrumb from './Breadcrumb.astro';
+
+/**
+ * Kepala halaman dalam: jejak, eyebrow, judul, lede, lalu pita gambar selebar
+ * layar. Gambarnya opsional — tanpa foto, pelat hatch mengambil tempatnya,
+ * yang di sistem ini adalah keadaan yang sah, bukan tambalan.
+ */
+interface Props {
+  section?: string;
+  eyebrow?: string;
+  title: string;
+  lede?: string;
+  image?: ImageKey;
+  caption: string;
+  /** Halaman hub memakai judul lebih besar daripada halaman anak. */
+  size?: 'hub' | 'page';
+  /** Pita gambar bisa dimatikan pada halaman yang isinya langsung bergambar. */
+  media?: boolean;
+  /** Foto mengisi seluruh layar dan naskahnya duduk di atasnya, alih-alih blok
+   *  teks di atas pita 21:8. Bentuk yang sama dengan hero video di beranda,
+   *  jadi section 1 halaman ini juga tepat satu layar. */
+  cover?: boolean;
+}
+
+const {
+  section,
+  eyebrow,
+  title,
+  lede,
+  image,
+  caption,
+  size = 'page',
+  media = true,
+  cover = false,
+} = Astro.props;
+
+const photo = getImageFor(image);
+---
+
+<section
+  class:list={['phero', size === 'hub' && 'phero--hub', cover && 'phero--cover']}
+  data-section-raw={cover ? '' : undefined}
+>
+  {
+    cover && photo && (
+      <div class="phero__cover">
+        <Image
+          src={photo}
+          alt={caption}
+          width={2200}
+          widths={[900, 1400, 1800, 2200]}
+          sizes="100vw"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          quality={76}
+        />
+        <span class="phero__scrim" aria-hidden="true" />
+      </div>
+    )
+  }
+
+  <div class="frame phero__inner">
+    {section && <Breadcrumb section={section} current={title} />}
+    {eyebrow && !section && <span class="eyebrow">{eyebrow}</span>}
+    <h1 class="phero__title" data-lines>{title}</h1>
+    {lede && <p class="phero__lede" data-reveal="90">{lede}</p>}
+  </div>
+
+  {
+    cover && Astro.slots.has('foot') && (
+      <div class="phero__foot">
+        <slot name="foot" />
+      </div>
+    )
+  }
+
+  {
+    media && !cover && (
+      <div class="phero__media plate" data-reveal="160">
+        {photo ? (
+          <Image
+            src={photo}
+            alt={caption}
+            width={1800}
+            widths={[900, 1400, 1800]}
+            sizes="100vw"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            quality={74}
+          />
+        ) : (
+          <span class="plate__caption">{caption}</span>
+        )}
+      </div>
+    )
+  }
+</section>
+
+<style>
+  .phero {
+    background: var(--paper);
+  }
+
+  /* ── Kepala penuh layar ───────────────────────────────────────────────
+     Foto mengisi section, naskahnya duduk di tepi bawah — susunan yang sama
+     dengan hero video di beranda, jadi halaman ini punya section 1 setinggi
+     tepat satu layar alih-alih blok teks 1,6 layar.
+
+     data-section-raw dipasang di markup: section ini menata isinya sendiri
+     (absolut + flex ke bawah), dan aturan pemusatan milik sistem section akan
+     menariknya ke tengah. */
+  .phero--cover {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    /* Kolom yang dirapatkan ke bawah: naskah menumpuk di atas kaki halaman,
+       dan keduanya duduk di tepi bawah foto. */
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    background: var(--espresso);
+    color: var(--on-image);
+  }
+
+  .phero__cover {
+    position: absolute;
+    inset: 0;
+  }
+  .phero__cover :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Wajah-wajahnya ada di paruh atas foto; titik fokus digeser ke atas supaya
+       pemotongan di layar lebar-pendek tidak memenggal kepala. */
+    object-position: 50% 38%;
+  }
+
+  /* Fotonya terang — dinding putih, meja kayu pucat. Tanpa lapisan gelap yang
+     menebal ke bawah, tulisan putih di atasnya tidak terbaca sama sekali. */
+  .phero__scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      oklch(0.18 0.012 62 / 0.88),
+      oklch(0.18 0.012 62 / 0.52) 42%,
+      oklch(0.18 0.012 62 / 0.16) 74%,
+      oklch(0.18 0.012 62 / 0.06)
+    );
+  }
+
+  .phero--cover .phero__inner {
+    position: relative;
+    z-index: 1;
+    /* Jarak atas 160px milik varian biasa (tinggi header + napas) tidak berlaku
+       di sini: naskahnya ditambatkan ke tepi bawah, jadi jarak itu hanya
+       menambah tinggi tanpa gunanya — dan justru membuat section ini lewat
+       52px dari satu layar. Jarak dari header tetap aman dengan sendirinya
+       selama isinya muat: blok naskah mulai jauh di bawah garis header. */
+    padding-top: clamp(20px, 2.6vw, 40px);
+    padding-bottom: clamp(30px, 3.4vw, 52px);
+  }
+
+  /* Kaki kepala halaman: bilah sub-navigasi yang dulu duduk di section
+     berikutnya. Di sini ia bagian dari section 1, menempel ke tepi bawah. */
+  .phero__foot {
+    position: relative;
+    z-index: 1;
+  }
+  /* Slot yang tidak diisi tetap menghasilkan wadahnya — Astro.slots.has() sudah
+     benar sejak anaknya ditulis, sekalipun ekspresinya bernilai false. Jadi
+     wadah kosongnya dibereskan di sini, bukan dengan logika tambahan. */
+  .phero__foot:empty { display: none; }
+  .phero--cover .phero__title { color: var(--on-image); }
+  /* Eyebrow memakai kelas global dengan warna kelabu tengah (oklch 0.5) — di
+     atas lapisan gelap ini ia nyaris tidak terbaca. */
+  .phero--cover .phero__inner :global(.eyebrow),
+  .phero--cover .phero__lede { color: var(--on-image-dim); }
+
+  .phero__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: clamp(14px, 1.6vw, 22px);
+    /* Ruang atas memperhitungkan header tetap, sama seperti .page-head. */
+    padding: calc(var(--header-h) + clamp(38px, 5vw, 76px)) var(--gutter) clamp(34px, 4vw, 60px);
+  }
+
+  .phero__title {
+    font-size: var(--type-h1);
+    line-height: var(--leading-title);
+    letter-spacing: var(--ls-title);
+    max-width: 18em;
+  }
+  .phero--hub .phero__title {
+    font-size: var(--type-display);
+    line-height: var(--leading-display);
+    letter-spacing: var(--ls-display);
+    max-width: 15em;
+  }
+
+  .phero__lede {
+    font-size: var(--type-lede);
+    line-height: var(--leading-lede);
+    color: var(--ink-body);
+    max-width: var(--measure-lede);
+  }
+  .phero--hub .phero__lede { max-width: 40ch; }
+
+  /* Rasio 21:8 selebar layar menghasilkan pita setinggi 543px di 1440px dan
+     579px di 1536px — dan itu, ditambah blok judul di atasnya, yang membuat
+     hampir semua kepala halaman dalam lebih tinggi daripada satu layar. Rasio
+     tidak tahu apa-apa soal tinggi jendela, jadi diberi batas kedua: sisa layar
+     setelah blok judul (±480px di layar pendek). Di layar tinggi batas ini
+     tidak pernah tercapai dan pitanya selebar-setinggi dulu. */
+  .phero__media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 21 / 8;
+    min-height: 240px;
+    max-height: max(240px, calc(100svh - 480px));
+  }
+  .phero__media :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .phero__media .plate__caption {
+    left: var(--gutter);
+    right: var(--gutter);
+    bottom: 16px;
+  }
+
+  @media (max-width: 899px) {
+    .phero__media { aspect-ratio: 3 / 2; }
+  }
+</style>

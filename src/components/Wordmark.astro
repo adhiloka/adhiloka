@@ -1,0 +1,79 @@
+---
+interface Props {
+  /** Ukuran huruf nama; sisanya menyesuaikan. */
+  size?: string;
+  ringSize?: string;
+  ruleSize?: string;
+  class?: string;
+}
+
+const {
+  size = 'clamp(26px, 2.9vw, 38px)',
+  ringSize = '32px',
+  ruleSize = '9px',
+  class: className,
+} = Astro.props;
+---
+
+<a
+  href="/"
+  class:list={['wordmark', className]}
+  style={`--wm-size:${size};--wm-ring:${ringSize};--wm-rule:${ruleSize}`}
+  aria-label="Adhiloka Group — home"
+>
+  <span class="wordmark__ring" aria-hidden="true"></span>
+  <span class="wordmark__name">Adhiloka</span>
+  <span class="wordmark__rule" aria-hidden="true">
+    <span></span>
+    <em>Group</em>
+    <span></span>
+  </span>
+</a>
+
+<style>
+  .wordmark {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    transition: transform var(--dur-slow) var(--ease-glide);
+  }
+  .wordmark:hover { color: inherit; }
+
+  .wordmark__ring {
+    width: var(--wm-ring);
+    height: var(--wm-ring);
+    border: 1px solid currentColor;
+    border-radius: var(--radius-circle);
+    opacity: 0.55;
+  }
+
+  .wordmark__name {
+    line-height: 1;
+    font-family: var(--font-display);
+    font-size: var(--wm-size);
+    letter-spacing: var(--ls-wordmark);
+    text-transform: uppercase;
+    padding-left: 0.34em;
+    white-space: nowrap;
+  }
+
+  .wordmark__rule {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .wordmark__rule > span {
+    flex: 1;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.5;
+  }
+  .wordmark__rule > em {
+    font-style: normal;
+    font-size: var(--wm-rule);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+</style>

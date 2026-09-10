@@ -1,0 +1,62 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import SocialGrid from '../../components/SocialGrid.astro';
+import Interlude from '../../components/Interlude.astro';
+import { SOCIAL_INTRO, CHANNELS, SOCIAL_NOTE } from '../../data/pages/media';
+---
+
+<PageLayout intro={SOCIAL_INTRO} section="/media/" media={false}>
+  <section class="section">
+    <div class="frame">
+      <span class="eyebrow" data-reveal="0">Official channels</span>
+      <div class="chan__grid">
+        <SocialGrid channels={CHANNELS} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sunk">
+    <div class="frame warn">
+      <h2 class="warn__title" data-lines>Accounts that are not ours</h2>
+      <p class="prose warn__body" data-reveal="70">{SOCIAL_NOTE}</p>
+      <p class="prose warn__body" data-reveal="120">
+        If an account claiming to be Adhiloka contacts you about an order, a payment or a
+        shipment, it is not us. Forward it to the address below and we will have it taken
+        down.
+      </p>
+      <a class="btn-solid" href="/contact/" data-reveal="170">Report an account</a>
+    </div>
+  </section>
+
+  <section class="bridge">
+    <Interlude
+      class="frame"
+      line="Announcements go out here first."
+      href="/media/news/"
+      cta="Read the news"
+      italic
+    />
+  </section>
+</PageLayout>
+
+<style>
+  .chan__grid { margin-top: clamp(26px, 3vw, 44px); }
+  .section--sunk { background: var(--paper-sunk); }
+
+  .warn {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+  .warn__title {
+    font-size: var(--type-h2);
+    line-height: var(--leading-title);
+    letter-spacing: var(--ls-title);
+    max-width: 16em;
+  }
+  .warn__body { max-width: var(--measure-body); }
+  .warn :global(.prose + .prose) { margin-top: 0; }
+
+  .bridge { background: var(--paper); padding: var(--section-y) var(--gutter); }
+</style>

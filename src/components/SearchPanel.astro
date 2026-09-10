@@ -1,0 +1,310 @@
+---
+import { Image } from 'astro:assets';
+import { NAV, SEARCH_SUGGESTIONS } from '../data/site';
+import { MATERIALS } from '../data/materials';
+import { getImageFor } from '../data/images';
+
+/* Indeks pencarian dibangun saat build dan disematkan sebagai JSON — tidak ada
+   permintaan jaringan, dan cocok untuk situs statis sebesar ini.
+   Halamannya diturunkan dari NAV, jadi rute baru langsung terindeks. */
+
+/* Kata kunci tambahan per rute. Judul saja sering tidak cukup: "perfumer"
+   dan "traceability" tidak muncul di judul mana pun. */
+const KEYWORDS: Record<string, string> = {
+  '/about/': 'company group family independent house heritage',
+  '/about/our-business/': 'activities sourcing extraction supply perfumery divisions',
+  '/about/our-leadership/': 'management board executive team directors people',
+  '/about/our-purpose/': 'values mission why forest fifty years',
+  '/about/our-history/': 'heritage timeline generations 1840 ledger sibolga founding',
+  '/about/our-locations/': 'sites offices medan jakarta sibolga tarutung takengon grasse map',
+  '/perfumery/': 'fragrance perfumer bench accord creation composition',
+  '/perfumery/fine-fragrance/': 'accord palette bespoke brief functional base personal home care',
+  '/perfumery/fragrance-innovation/': 'research fractionation analysis gc-ms cananga trial',
+  '/ingredients/': 'raw materials naturals catalogue specification',
+  '/ingredients/catalog/': 'catalogue raw materials eighteen naturals specification origin family',
+  '/ingredients/technology/': 'extraction steam distillation resinoid absolute fractionation laboratory grading',
+  '/sustainability/': 'responsible forest agroforest commitments esg report',
+  '/sustainability/people/': 'households tappers income floor price training advances communities',
+  '/sustainability/responsible-sourcing/': 'traceability register supply chain direct purchase land no deforestation',
+  '/media/': 'press newsroom releases resources',
+  '/media/news/': 'press releases announcements harvest reports',
+  '/media/media-resources/': 'logo images downloads fact sheet report press kit',
+  '/media/social-media/': 'linkedin instagram youtube facebook channels accounts',
+  '/contact/': 'sample request quotation offices grasse jakarta medan enquiry',
+};
+
+const pageEntries = NAV.flatMap((item) => [
+  {
+    title: item.label,
+    sub: item.blurb ?? 'Adhiloka',
+    href: item.href,
+    keywords: `${item.label} ${KEYWORDS[item.href] ?? ''}`,
+  },
+  ...(item.panel?.links ?? []).map((l) => ({
+    title: l.label,
+    sub: item.label,
+    href: l.href,
+    keywords: `${l.label} ${KEYWORDS[l.href] ?? ''}`,
+  })),
+]);
+
+const searchIndex = [
+  ...MATERIALS.map((m) => ({
+    title: m.name,
+    sub: `${m.family} · ${m.origin}`,
+    href: `/ingredients/catalog/#${m.slug}`,
+    keywords: `${m.latin} ${m.family} ${m.origin} ${m.method} ${m.uses}`.toLowerCase(),
+  })),
+  ...pageEntries.map((p) => ({ ...p, keywords: p.keywords.toLowerCase() })),
+];
+
+const cards = MATERIALS.filter((m) =>
+  ['benzoin-sumatra', 'patchouli', 'nutmeg-mace'].includes(m.slug),
+);
+---
+
+<div class="search" id="search-panel" data-search hidden>
+  <div class="search__scrim" data-search-close></div>
+
+  <div class="search__drawer" data-lenis-prevent role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search__head">
+      <button type="button" class="search__close" data-search-close>
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+          <path d="M1 1 14 14M14 1 1 14" stroke="currentColor" stroke-width="1.2" />
+        </svg>
+        <span>Close</span>
+      </button>
+      <svg width="21" height="21" viewBox="0 0 21 21" fill="none" class="search__head-icon" aria-hidden="true">
+        <circle cx="8.6" cy="8.6" r="6.6" stroke="currentColor" stroke-width="1.15" />
+        <path d="M13.6 13.6 19.4 19.4" stroke="currentColor" stroke-width="1.15" />
+      </svg>
+    </div>
+
+    <div class="search__body">
+      <form class="search__field" role="search" data-search-form>
+        <svg width="19" height="19" viewBox="0 0 21 21" fill="none" aria-hidden="true">
+          <circle cx="8.6" cy="8.6" r="6.6" stroke="currentColor" stroke-width="1.15" />
+          <path d="M13.6 13.6 19.4 19.4" stroke="currentColor" stroke-width="1.15" />
+        </svg>
+        <label class="visually-hidden" for="search-input">Search Adhiloka</label>
+        <input
+          id="search-input"
+          type="search"
+          name="q"
+          placeholder="What are you looking for?"
+          autocomplete="off"
+          data-search-input
+          aria-describedby="search-status"
+        />
+        <button type="submit" aria-label="Search">&#8594;</button>
+      </form>
+
+      <p class="search__hint">
+        Search for <a href="/ingredients/catalog/">raw material</a> specifications
+      </p>
+
+      <p class="visually-hidden" id="search-status" role="status" aria-live="polite" data-search-status></p>
+
+      <!-- Hasil langsung -->
+      <div class="search__results" data-search-results hidden>
+        <span class="search__label" data-search-count></span>
+        <div class="search__result-list" data-search-list></div>
+      </div>
+
+      <!-- Keadaan awal: saran & kartu -->
+      <div data-search-default>
+        <div class="search__suggestions">
+          <span class="search__label">Suggestions</span>
+          {SEARCH_SUGGESTIONS.map((s) => <a href={s.href}>{s.label}</a>)}
+        </div>
+
+        <div class="search__cards">
+          <span class="search__cards-title">You may also like</span>
+          <div class="search__cards-grid">
+            {
+              cards.map((m) => {
+                const img = getImageFor(m.image);
+                return (
+                  <a href={`/ingredients/catalog/#${m.slug}`} class="search__card">
+                    <span class="search__card-plate plate">
+                      {img ? (
+                        <Image src={img} alt="" width={320} height={320} loading="lazy" />
+                      ) : (
+                        <span class="plate__caption">{m.shot}</span>
+                      )}
+                    </span>
+                    <span class="search__card-name">{m.name}</span>
+                  </a>
+                );
+              })
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline type="application/json" data-search-index set:html={JSON.stringify(searchIndex)} />
+
+<style>
+  .search { position: fixed; inset: 0; z-index: 190; }
+  .search[hidden] { display: none; }
+
+  .search__scrim {
+    position: absolute;
+    inset: 0;
+    background: var(--surface-scrim);
+    -webkit-backdrop-filter: blur(var(--blur-scrim));
+    backdrop-filter: blur(var(--blur-scrim));
+    opacity: 0;
+    transition: opacity var(--dur-slow) ease;
+  }
+  .search.is-open .search__scrim { opacity: 1; }
+
+  .search__drawer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(900px, 62vw);
+    background: var(--ivory-1);
+    color: var(--espresso);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    box-shadow: var(--shadow-panel);
+    transform: translateX(104%);
+    transition: transform var(--dur-slower) var(--ease-glide);
+  }
+  .search.is-open .search__drawer { transform: none; }
+
+  .search__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: clamp(22px, 2.4vw, 34px) clamp(24px, 3.4vw, 54px) clamp(14px, 1.4vw, 20px);
+    border-bottom: 1px solid var(--border-hairline);
+  }
+  .search__close {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    font-size: 15px;
+    font-weight: 400;
+    transition: opacity var(--dur-fast) ease;
+  }
+  .search__close:hover { opacity: 0.55; }
+  .search__head-icon { opacity: 0.75; }
+
+  .search__body {
+    padding: clamp(28px, 3.4vw, 52px) clamp(24px, 3.4vw, 54px) clamp(40px, 5vw, 80px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(26px, 3vw, 44px);
+  }
+
+  .search__field {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border-hairline);
+  }
+  .search__field svg { flex: none; opacity: 0.7; }
+  .search__field input {
+    flex: 1;
+    min-width: 0;
+    font-family: inherit;
+    font-size: clamp(17px, 1.5vw, 21px);
+    font-weight: 400;
+    color: var(--espresso);
+  }
+  .search__field input::-webkit-search-cancel-button { -webkit-appearance: none; }
+  .search__field button {
+    flex: none;
+    opacity: 0.45;
+    font-size: 19px;
+    transition: opacity var(--dur-fast) ease;
+  }
+  .search__field button:hover { opacity: 1; }
+
+  .search__hint {
+    text-align: right;
+    font-size: 14.5px;
+    font-weight: 400;
+    color: var(--text-body);
+  }
+  .search__hint a {
+    color: var(--espresso);
+    border-bottom: 1px solid oklch(0.215 0.014 62 / 0.5);
+  }
+
+  .search__label {
+    display: block;
+    margin-bottom: 14px;
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--text-caption);
+  }
+
+  .search__suggestions { display: flex; flex-direction: column; gap: 4px; }
+  .search__suggestions a {
+    padding: 9px 0;
+    font-size: 16.5px;
+    font-weight: 400;
+    transition: opacity var(--dur-fast) ease;
+  }
+  .search__suggestions a:hover { opacity: 0.5; color: inherit; }
+
+  .search__results { display: flex; flex-direction: column; }
+  .search__result-list { display: flex; flex-direction: column; }
+  .search__result {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 22px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--border-hairline);
+    transition: background var(--dur-fast) ease;
+  }
+  .search__result:hover { background: var(--ivory-2); color: inherit; }
+  .search__result b { font-family: var(--font-display); font-size: 18px; font-weight: 400; }
+  .search__result span {
+    font-size: 12.5px;
+    letter-spacing: var(--ls-caption);
+    text-transform: uppercase;
+    color: var(--text-caption);
+    text-align: right;
+  }
+  .search__empty { padding: 13px 0; font-size: 15px; color: var(--text-body); }
+
+  .search__cards { display: flex; flex-direction: column; gap: clamp(18px, 2vw, 28px); }
+  .search__cards-title {
+    font-family: var(--font-display);
+    font-size: clamp(19px, 1.7vw, 25px);
+    letter-spacing: 0.01em;
+  }
+  .search__cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(12px, 1.4vw, 20px);
+  }
+  .search__card {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    transition: transform var(--dur-slow) var(--ease-glide);
+  }
+  .search__card:hover { transform: translateY(-6px); color: inherit; }
+  .search__card-plate { display: block; aspect-ratio: 1 / 1; }
+  .search__card-plate :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .search__card-name { font-size: 14.5px; font-weight: 400; }
+
+  @media (max-width: 899px) {
+    .search__drawer { width: 100%; }
+    .search__cards-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  [data-search-default][hidden] { display: none; }
+</style>

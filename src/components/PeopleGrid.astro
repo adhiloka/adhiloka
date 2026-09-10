@@ -1,0 +1,67 @@
+---
+import type { Leader } from '../data/pages/about';
+
+/**
+ * Potret jajaran pimpinan. Belum ada foto, jadi setiap kartu memakai pelat
+ * hatch dengan keterangannya — keadaan yang sah di sistem ini, dan lebih jujur
+ * daripada silhouette abu-abu.
+ */
+interface Props {
+  people: Leader[];
+}
+
+const { people } = Astro.props;
+---
+
+<div class="people">
+  {
+    people.map((p, i) => (
+      <article class="person" data-reveal={String(i * 60)}>
+        <div class="person__plate plate">
+          <span class="plate__caption">{p.shot}</span>
+        </div>
+        <h3 class="person__name">{p.name}</h3>
+        <p class="person__role">{p.role}</p>
+        <p class="person__bio">{p.bio}</p>
+      </article>
+    ))
+  }
+</div>
+
+<style>
+  .people {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: clamp(26px, 3vw, 48px);
+  }
+
+  .person {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .person__plate {
+    aspect-ratio: 4 / 5;
+    margin-bottom: 8px;
+  }
+
+  .person__name {
+    font-size: var(--type-h4);
+    line-height: var(--leading-title);
+  }
+
+  .person__role {
+    font-size: var(--type-micro);
+    letter-spacing: var(--ls-label);
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .person__bio {
+    margin-top: 6px;
+    font-size: var(--type-ui);
+    line-height: var(--leading-body);
+    color: var(--ink-body);
+  }
+</style>

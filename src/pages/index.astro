@@ -1,0 +1,306 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import GetInTouch from '../components/GetInTouch.astro';
+import Interlude from '../components/Interlude.astro';
+import { getImageFor } from '../data/images';
+import { SITE } from '../data/site';
+
+const HIGHLIGHTS = [
+  {
+    title: 'Perfumery',
+    tagline: 'Creative by nature',
+    href: '/perfumery/',
+    image: 'fragrance-petal',
+  },
+  {
+    title: 'Ingredients',
+    tagline: 'Explorers of living nature',
+    href: '/ingredients/',
+    image: 'hero-benzoin-tears',
+  },
+] as const;
+---
+
+<BaseLayout
+  title={SITE.name}
+  description={SITE.description}
+  headerVariant="over-dark"
+  active="/"
+>
+  <Hero />
+
+  <!-- Dua foto besar membawa ke Perfumery dan Ingredients. Tanpa label "Our
+       specialty" — fotonya sendiri sudah cukup jelas sebagai ajakan. -->
+  <section class="highlights">
+    <div class="frame highlights__photos">
+      {
+        HIGHLIGHTS.map((h, i) => {
+          const photo = getImageFor(h.image);
+          return (
+            <a class="hphoto" href={h.href} data-reveal={String(i * 90)}>
+              {photo && (
+                <Image
+                  class="hphoto__img"
+                  src={photo}
+                  alt=""
+                  width={900}
+                  widths={[520, 760, 900]}
+                  sizes="(max-width: 899px) 100vw, 50vw"
+                  loading="lazy"
+                  decoding="async"
+                  quality={76}
+                />
+              )}
+              <span class="hphoto__scrim" aria-hidden="true" />
+              <span class="hphoto__stage">
+                <span class="hphoto__title">{h.title}</span>
+                <span class="hphoto__tagline">{h.tagline}</span>
+              </span>
+              <span class="hphoto__cta-wrap">
+                <span class="hphoto__cta sweep">Discover</span>
+              </span>
+            </a>
+          );
+        })
+      }
+    </div>
+
+    <div class="highlights__note">
+      <Interlude
+        class="frame"
+        line="Create sustainable value for all."
+        href="/sustainability/"
+        italic
+        tight
+      />
+    </div>
+  </section>
+
+  <!-- Karusel penutup: fotonya di kiri, naskahnya di kanan, dan slide
+       pertamanya adalah "Our purpose" — pita tersendiri yang dulu berdiri di
+       sini sekarang jadi pintu masuk karusel yang sebelumnya duduk di bawah.
+       Pitanya ditarik masuk dari kedua tepi, jadi warna section inilah yang
+       terlihat mengelilinginya, dan sisa ruang di bawahnya ditutup oleh jeda
+       yang sama bentuknya dengan penutup section di atas. -->
+  <section class="purpose">
+    <GetInTouch inset />
+
+    <div class="purpose__note">
+      <Interlude
+        class="frame"
+        line="Family-held since the 1840s."
+        href="/about/our-history/"
+        italic
+        tight
+      />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .highlights {
+    background: var(--paper-sunk);
+    /* Jarak ke video hero sengaja kecil, dan bagian bawahnya jauh lebih kecil
+       daripada --section-y: section ini ditutup oleh Discover-nya sendiri,
+       jadi ±50px sesudah itu sudah cukup — sisanya hanya ruang kosong. */
+    padding: clamp(28px, 3.4vw, 48px) var(--gutter) clamp(36px, 4vw, 50px);
+  }
+
+  /* ── Dua foto ──────────────────────────────────────────────────────── */
+  /* Baris fotonya sengaja tidak selebar .frame — dua foto yang membentang
+     penuh dari tepi ke tepi terasa berlebihan untuk sekadar dua pranala.
+     max-width lebih sempit + margin-inline:auto membuatnya mepet ke tengah. */
+  .highlights__photos {
+    /* Tinggi foto ditentukan di satu tempat, lalu dipakai dua kali: sebagai
+       batas tinggi tiap foto DAN sebagai dasar lebar barisnya. */
+    --foto-h: min(486px, calc(100svh - 258px));
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--grid-gap);
+    max-width: 620px;
+    margin-inline: auto;
+  }
+  @media (min-width: 700px) {
+    .highlights__photos {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      /* Lebar barisnya dikunci ke lebar dua foto + jaraknya, bukan 900px mati.
+         Sebabnya: begitu max-height memotong tinggi foto, aspect-ratio ikut
+         memotong LEBARNYA — foto jadi 400px di kolom selebar 438px, dan karena
+         item grid rata kiri, sisa 38px menumpuk di tepi kanan. Pasangan fotonya
+         terlihat melenceng ke kiri, bukan di tengah. Dengan lebar baris yang
+         mengikuti fotonya, kolom dan foto sama persis dan pasangan itu duduk
+         tepat di tengah. */
+      max-width: min(900px, calc(var(--foto-h) * 0.9 * 2 + var(--grid-gap)));
+    }
+  }
+
+  /* Tinggi foto ditentukan lebarnya lewat aspect-ratio, dan itulah yang dulu
+     membuat section ini 25px lebih tinggi daripada layar 694px: rasionya tidak
+     tahu apa-apa soal tinggi jendela. max-height memberinya batas kedua —
+     sisa layar setelah jarak dalam section (48px), jeda penutup (32+102px) dan
+     jarak bawah (50px), dibulatkan jadi 250px. Di layar tinggi batas ini tidak
+     pernah tercapai, jadi fotonya sebesar dulu. */
+  .hphoto {
+    position: relative;
+    display: block;
+    aspect-ratio: 3 / 4;
+    max-height: var(--foto-h, min(486px, calc(100svh - 258px)));
+    overflow: hidden;
+    background: var(--bg-plate);
+  }
+  @media (min-width: 700px) {
+    .hphoto { aspect-ratio: 9 / 10; }
+  }
+
+  .hphoto__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1);
+    transition: transform var(--dur-slower) var(--ease-glide);
+  }
+  .hphoto:hover .hphoto__img,
+  .hphoto:focus-visible .hphoto__img { transform: scale(1.05); }
+
+  .hphoto__scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      oklch(0.18 0.012 62 / 0.82),
+      oklch(0.18 0.012 62 / 0.32) 44%,
+      transparent 70%
+    );
+  }
+
+  /* Judul duduk dekat tepi bawah secara default, lalu naik ke tengah saat
+     di-hover: `bottom` berpindah dari 0 ke 50% sementara transform menaikkan
+     setengah tinggi bloknya sendiri — dua nilai yang diinterpolasi linier,
+     jadi geraknya rata dari awal sampai akhir.
+
+     Versi sebelumnya memakai sepasang spacer flex dengan rasio flex-grow
+     9999:1, dan itulah biang gerakan yang tersendat: posisi blok mengikuti
+     spacerAtas/(spacerAtas+spacerBawah), yang bertahan di ±1,0 sepanjang
+     hampir seluruh durasi lalu terjun ke 0,5 di ujung — mata membacanya
+     sebagai lompatan, bukan perjalanan.
+
+     Jeda judul-ke-tepi (±35px) datang dari kotak tagline yang tetap ada di
+     alur meski belum terlihat; lihat catatan di .hphoto__tagline. */
+  .hphoto__stage {
+    position: absolute;
+    left: clamp(24px, 3vw, 40px);
+    right: clamp(24px, 3vw, 40px);
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transform: translateY(0);
+    /* Kembali dari hover: cepat dan serentak, tanpa jeda bertingkat. */
+    transition:
+      bottom var(--dur-mid) var(--ease-soft),
+      transform var(--dur-mid) var(--ease-soft);
+  }
+  /* --ease-soft, bukan --ease-glide: yang terakhir dipakai untuk panel besar
+     dan awalannya curam — 46% jarak habis di seperdelapan durasi pertama,
+     yang terbaca sebagai sentakan. --ease-soft membagi 33% di rentang yang
+     sama lalu melandai. */
+  .hphoto:hover .hphoto__stage,
+  .hphoto:focus-visible .hphoto__stage {
+    bottom: 50%;
+    transform: translateY(50%);
+    transition:
+      bottom var(--dur-slow) var(--ease-soft),
+      transform var(--dur-slow) var(--ease-soft);
+  }
+
+  .hphoto__title {
+    font-family: var(--font-display);
+    font-size: var(--type-h2);
+    font-weight: 700;
+    line-height: var(--leading-title);
+    letter-spacing: var(--ls-title);
+    text-transform: uppercase;
+    color: var(--on-image);
+  }
+
+  /* Kotak tagline tetap ada di alur walau tersembunyi — jaraknya (margin-top
+     + tinggi barisnya sendiri, ±35px) itulah yang menahan judul agar tidak
+     mentok pas ke tepi foto secara default.
+
+     Jeda 560 ms membuatnya mulai tepat saat judul hampir selesai naik
+     (judul: 620 ms), jadi urutannya terbaca: judul dulu, baru kalimat ini. */
+  .hphoto__tagline {
+    margin-top: 10px;
+    font-size: var(--type-ui);
+    line-height: var(--leading-body);
+    color: var(--on-image-dim);
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity var(--dur-fast) ease,
+      transform var(--dur-fast) ease;
+  }
+  .hphoto:hover .hphoto__tagline,
+  .hphoto:focus-visible .hphoto__tagline {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity var(--dur-mid) var(--ease-soft) 560ms,
+      transform var(--dur-mid) var(--ease-soft) 560ms;
+  }
+
+  /* Giliran terakhir, 940 ms — menyusul tagline yang selesai di 1020 ms.
+     bottom-nya disamakan dengan jarak istirahat judul (lihat catatan di
+     .hphoto__stage) supaya Discover muncul persis di titik yang tadinya
+     ditempati judul, bukan di baris terpisah lebih bawah lagi. */
+  .hphoto__cta-wrap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: clamp(30px, 4vw, 36px);
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity var(--dur-fast) ease,
+      transform var(--dur-fast) ease;
+  }
+  .hphoto:hover .hphoto__cta-wrap,
+  .hphoto:focus-visible .hphoto__cta-wrap {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity var(--dur-mid) var(--ease-soft) 940ms,
+      transform var(--dur-mid) var(--ease-soft) 940ms;
+  }
+
+  .hphoto__cta {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: var(--ls-cta);
+    text-transform: uppercase;
+    color: var(--on-image);
+  }
+  .hphoto__cta::after { background: oklch(1 0 0 / 0.7); }
+
+  /* ── Jeda penutup section ────────────────────────────────────────────── */
+  .highlights__note { margin-top: clamp(20px, 2.4vw, 32px); }
+
+  /* ── Our purpose / karusel ───────────────────────────────────────────── */
+  /* Latar section ini yang dulu jadi latar pita itu sendiri; pitanya sekarang
+     memakai warna lain dan duduk di atasnya. Penutupnya dibentuk sama persis
+     dengan .highlights: jeda, lalu ±50px sebelum batas section berikutnya. */
+  .purpose {
+    background: var(--paper);
+    padding-block: clamp(16px, 2vw, 24px) clamp(36px, 4vw, 50px);
+  }
+  /* Jeda penutup diturunkan 25px dari pitanya: sebelumnya ia duduk terlalu
+     rapat, dan di layar pendek ekornya menyentuh section berikutnya. */
+  .purpose__note { margin-top: calc(clamp(16px, 2vw, 24px) + 25px); }
+</style>

@@ -1,0 +1,210 @@
+---
+import { Font, getImage } from 'astro:assets';
+import { ClientRouter } from 'astro:transitions';
+import { SITE } from '../data/site';
+import { images } from '../data/images';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import BackToTop from '../components/BackToTop.astro';
+import '../styles/global.css';
+
+export type HeaderVariant = 'over-dark' | 'over-light' | 'solid';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Bagaimana header duduk di atas isi halaman saat scroll masih di puncak. */
+  headerVariant?: HeaderVariant;
+  /** Jalur aktif untuk penanda nav; default dari URL saat ini. */
+  active?: string;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description,
+  headerVariant = 'solid',
+  active = Astro.url.pathname,
+  ogImage,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).toString();
+const pageTitle = title === SITE.name ? `${SITE.name} — ${SITE.tagline}` : `${title} — ${SITE.name}`;
+
+// Kartu bagikan: JPEG 1200×630 dihasilkan saat build dari aset yang sama.
+// SVG tidak dipakai di sini karena sebagian besar platform tidak membacanya.
+const og = await getImage({
+  src: images['hero-still-hall'],
+  width: 1200,
+  height: 630,
+  fit: 'cover',
+  format: 'jpeg',
+  quality: 76,
+});
+const ogImageUrl = new URL(ogImage ?? og.src, Astro.site ?? Astro.url.origin).toString();
+
+const organization = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE.legalName,
+  alternateName: SITE.name,
+  url: (Astro.site ?? Astro.url.origin).toString(),
+  description: SITE.description,
+  email: SITE.email,
+  telephone: SITE.phone,
+  foundingDate: '1840',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Jl. Imam Bonjol 21',
+    addressLocality: 'Medan',
+    postalCode: '20112',
+    addressRegion: 'North Sumatra',
+    addressCountry: 'ID',
+  },
+  areaServed: 'Worldwide',
+  knowsAbout: [
+    'Benzoin resinoid',
+    'Patchouli oil',
+    'Nutmeg and mace oil',
+    'Vetiver oil',
+    'Natural aromatic raw materials',
+  ],
+};
+---
+
+<!doctype html>
+<html lang={SITE.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.legalName} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content={SITE.locale} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <meta name="theme-color" content="#f7f3ec" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <Font cssVariable="--font-display-family" preload />
+    <Font cssVariable="--font-body-family" preload />
+
+    <ClientRouter />
+
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(organization)} />
+
+    <script is:inline>
+      // Kelas ini harus sudah terpasang sebelum cat pertama. Kalau keputusannya
+      // diambil di modul yang dimuat belakangan, isi halaman sempat terlihat
+      // lalu tertutup kurtin — persis kesan yang ingin dihindari.
+      (function () {
+        // Penanda bahwa JavaScript hidup. Semua keadaan "tersembunyi sampai
+        // muncul" digerbangi kelas ini, supaya halaman tanpa JavaScript tampil
+        // utuh alih-alih kosong.
+        document.documentElement.classList.add('js');
+        try {
+          var firstVisit = !sessionStorage.getItem('adhiloka:overture');
+          var stillness = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          if (firstVisit && !stillness && location.pathname === '/') {
+            document.documentElement.classList.add('is-overture');
+          }
+        } catch (e) {
+          /* Jendela privat menolak sessionStorage; pembukaan dilewati saja. */
+        }
+      })();
+    </script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div id="route-curtain" aria-hidden="true" transition:persist>
+      <div class="overture" data-overture>
+        <span class="overture__ring"></span>
+        <span class="overture__name">Adhiloka</span>
+        <span class="overture__rule"><span></span><em>Group</em><span></span></span>
+      </div>
+    </div>
+
+    <Header variant={headerVariant} active={active} />
+
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+
+    <Footer />
+    <BackToTop />
+
+    <script>
+      import { initReveal } from '../scripts/reveal';
+      import { initHeader } from '../scripts/header';
+      import { initBackToTop } from '../scripts/back-to-top';
+      import { initSearch } from '../scripts/search';
+      import { initSmoothScroll, resetScroll } from '../scripts/smooth-scroll';
+      import { initSplitLines } from '../scripts/split-lines';
+      import { initImageReveal } from '../scripts/image-reveal';
+      import { initOverture } from '../scripts/overture';
+      import { initSections } from '../scripts/sections';
+
+      const boot = () => {
+        initSmoothScroll();
+        // Sesudah Lenis: pelangkah section meminjam instancenya.
+        initSections();
+        initReveal();
+        initHeader();
+        initBackToTop();
+        initSearch();
+        initImageReveal();
+        // Pemecahan baris menunggu font tiba, lalu meminta reveal memindai ulang
+        // agar judul yang baru ditandai ikut diamati.
+        initSplitLines(initReveal);
+      };
+
+      // Tidak ada pemanggilan langsung di sini: ClientRouter memicu
+      // astro:page-load juga pada muat pertama. Memanggil keduanya membuat tiap
+      // listener elemen terpasang dua kali.
+      document.addEventListener('astro:page-load', boot);
+      initOverture();
+
+      // Kurtin ivory saat berpindah rute — perilaku yang sama seperti prototipe,
+      // tetapi digerakkan oleh navigasi asli, bukan state klien.
+      //
+      // Mengangkatnya TIDAK boleh bergantung pada satu requestAnimationFrame
+      // saja. Kurtin ini menutup seluruh layar (z-index 200, opacity 1); kalau
+      // frame yang menjadwalkan pengangkatannya tidak pernah datang — tab di
+      // latar, view transition yang dibatalkan, tab yang sedang tidak
+      // menggambar — kurtinnya menetap dan halaman terlihat sebagai lembar
+      // ivory kosong. rAF dipertahankan karena ia yang memberi waktu paling
+      // pas, tapi sekarang ada dua jaring lain di belakangnya.
+      const curtain = () => document.getElementById('route-curtain');
+      const angkatKurtin = () => curtain()?.classList.remove('is-on');
+      document.addEventListener('astro:page-load', angkatKurtin);
+      document.addEventListener('astro:before-preparation', () => curtain()?.classList.add('is-on'));
+      document.addEventListener('astro:after-swap', () => {
+        // ClientRouter mengganti atribut <html> dengan milik dokumen baru, dan
+        // kelas `js` dipasang skrip saat muat pertama — jadi ia lenyap begitu
+        // pengguna berpindah halaman lewat tautan. Semua yang digerbangi kelas
+        // itu ikut mati: section berhenti diregangkan setinggi layar, dan
+        // seluruh animasi kemunculan dianggap "tanpa JavaScript" lalu
+        // ditampilkan langsung tanpa gerak.
+        document.documentElement.classList.add('js');
+        window.scrollTo(0, 0);
+        resetScroll();
+        requestAnimationFrame(angkatKurtin);
+        window.setTimeout(angkatKurtin, 300);
+      });
+    </script>
+  </body>
+</html>

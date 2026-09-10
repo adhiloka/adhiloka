@@ -1,0 +1,224 @@
+---
+import { Image } from 'astro:assets';
+import { getImageFor, type ImageKey } from '../data/images';
+
+/**
+ * Pita berpasangan: foto di satu sisi, naskah di sisi lain.
+ *
+ * Fotonya menyentuh tepi layar — itu "struktur tanda tangan" menurut sistem
+ * desain ini. Tapi kolom naskahnya dimulai persis di garis kiri yang sama
+ * dengan isi bermargin di atasnya, lewat `--frame-inset`. Tanpa itu, halaman
+ * terbaca berganti-ganti antara bermargin dan tanpa margin.
+ */
+interface Props {
+  id?: string;
+  eyebrow?: string;
+  title: string;
+  body: string;
+  /** Butir pendek di bawah naskah; dipisah garis rambut. */
+  points?: string[];
+  cta?: string;
+  href?: string;
+  /** Keterangan huruf kecil untuk slot foto; tetap dipakai sebagai alt. */
+  caption: string;
+  image?: ImageKey;
+  /** Titik fokus foto (`object-position`). Kolomnya jauh lebih sempit daripada
+   *  foto lanskap, jadi bawaan `center` kerap memotong subjeknya. */
+  focus?: string;
+  /** Foto pindah ke kiri, naskah ke kanan. */
+  reverse?: boolean;
+  ground?: 'paper' | 'sunk' | 'plate';
+  /** Pita ditarik masuk dari kedua tepi layar, bukan full-bleed. Naskahnya
+   *  ikut kehilangan --frame-inset dan hanya diberi jarak napas dari tepi
+   *  panelnya sendiri, sehingga tepi panel jatuh dekat baris judul. */
+  inset?: boolean;
+}
+
+const {
+  id,
+  eyebrow,
+  title,
+  body,
+  points,
+  cta,
+  href,
+  caption,
+  image,
+  focus,
+  reverse = false,
+  ground = 'paper',
+  inset = false,
+} = Astro.props;
+
+const photo = getImageFor(image);
+---
+
+<section
+  class:list={[
+    'band',
+    reverse && 'band--reverse',
+    ground === 'sunk' && 'band--sunk',
+    ground === 'plate' && 'band--plate',
+    inset && 'band--inset',
+  ]}
+  id={id}
+  data-section-raw
+  aria-labelledby={id ? `${id}-title` : undefined}
+>
+  <div class="band__copy">
+    <div class="band__inner">
+      {eyebrow && <span class="eyebrow" data-reveal="0">{eyebrow}</span>}
+      <h2 class="band__title" id={id ? `${id}-title` : undefined} data-lines>{title}</h2>
+      <p class="band__body" data-reveal="70">{body}</p>
+
+      {
+        points && (
+          <ul class="band__points" data-reveal="140">
+            {points.map((p) => (
+              <li>{p}</li>
+            ))}
+          </ul>
+        )
+      }
+
+      {cta && href && <a class="btn-solid" href={href} data-reveal="210">{cta}</a>}
+    </div>
+  </div>
+
+  <div class="band__media plate" style={focus ? `--band-focus:${focus}` : undefined}>
+    {
+      photo ? (
+        <Image
+          src={photo}
+          alt={caption}
+          width={1100}
+          widths={[600, 900, 1100]}
+          sizes="(max-width: 899px) 100vw, 50vw"
+          loading="lazy"
+          decoding="async"
+          quality={72}
+        />
+      ) : (
+        <span class="plate__caption">{caption}</span>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .band {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    background: var(--paper);
+    align-items: stretch;
+    min-height: var(--band-min-h);
+  }
+  .band--sunk { background: var(--paper-sunk); }
+  .band--plate { background: var(--plate); }
+  .band--reverse .band__copy { order: 2; }
+
+  /* Varian bermargin: pita berhenti sejajar garis bingkai halaman, dan warna
+     latar di sekelilingnya jadi milik section pembungkusnya.
+
+     Dua takaran ruangnya ditulis ulang lebih pendek daripada bawaan pita
+     full-bleed — pita bermargin dipakai bersama jeda penutup di bawahnya,
+     dan keduanya harus muat satu layar. Cukup menimpa variabelnya: tinggi
+     minimum dibaca .band dan .band__media, jarak dalamnya oleh .band__copy. */
+  .band--inset {
+    margin-inline: var(--gutter);
+    --band-min-h: clamp(500px, calc(30vw + 30px), 620px);
+    --band-pad-y: clamp(24px, 2vw, 34px);
+  }
+  .band--inset .band__copy,
+  .band--inset.band--reverse .band__copy {
+    padding-left: clamp(28px, 3vw, 44px);
+    padding-right: clamp(28px, 3vw, 44px);
+  }
+
+  .band__copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: var(--band-pad-y);
+    /* Sisi luar sejajar dengan garis bingkai isi bermargin; sisi dalam diberi
+       ruang napas dari fotonya. */
+    padding-left: var(--frame-inset);
+    padding-right: clamp(32px, 5vw, 88px);
+  }
+  .band--reverse .band__copy {
+    padding-left: clamp(32px, 5vw, 88px);
+    padding-right: var(--frame-inset);
+  }
+
+  /* Naskahnya dibungkus supaya judul, paragraf, butir, dan tombol berbagi satu
+     tepi. Pada pita yang dibalik, bungkus ini didorong ke kanan sehingga tepi
+     kanannya jatuh tepat di garis kanan bingkai — kalau tidak, teksnya
+     mengambang tanpa menyentuh garis mana pun. */
+  .band__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: clamp(16px, 1.8vw, 24px);
+    max-width: var(--measure-lede);
+  }
+  .band--reverse .band__inner { margin-left: auto; }
+
+  .band__title {
+    font-size: var(--type-h2);
+    line-height: var(--leading-title);
+    letter-spacing: var(--ls-title);
+  }
+  .band__body {
+    font-size: var(--type-body);
+    line-height: var(--leading-body);
+    color: var(--ink-body);
+  }
+
+  .band__points {
+    list-style: none;
+    margin: clamp(4px, 0.8vw, 10px) 0 0;
+    padding: 0;
+    align-self: stretch;
+    border-top: 1px solid var(--rule);
+  }
+  .band__points li {
+    padding: 11px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: var(--type-ui);
+    color: var(--ink-body);
+  }
+
+  .band__inner .btn-solid { margin-top: clamp(8px, 1.2vw, 18px); }
+
+  .band__media {
+    min-height: var(--band-min-h);
+    background: var(--plate-deep);
+    background-image: var(--plate-hatch);
+  }
+  .band__media :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--band-focus, 50% 50%);
+  }
+  .band__media :global(.plate__caption) {
+    left: 20px;
+    right: 20px;
+    bottom: 16px;
+    color: var(--ink-muted);
+  }
+
+  @media (max-width: 899px) {
+    .band { grid-template-columns: 1fr; }
+    /* Foto selalu di atas naskah pada satu kolom, apa pun urutannya di desktop. */
+    .band__media { min-height: 340px; order: -1; }
+    .band--reverse .band__copy { order: 0; }
+    .band__copy,
+    .band--reverse .band__copy {
+      padding-inline: var(--gutter);
+    }
+    .band--reverse .band__inner { margin-left: 0; }
+  }
+</style>

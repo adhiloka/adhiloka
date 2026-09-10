@@ -1,0 +1,59 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Band from '../../components/Band.astro';
+import Pullquote from '../../components/Pullquote.astro';
+import Interlude from '../../components/Interlude.astro';
+import { PEOPLE_INTRO, PEOPLE_PASSAGES, PEOPLE_QUOTE } from '../../data/pages/sustainability';
+---
+
+<PageLayout intro={PEOPLE_INTRO} section="/sustainability/">
+  {
+    PEOPLE_PASSAGES.slice(0, 2).map((p, i) => (
+      <Band
+        id={p.id}
+        eyebrow={p.eyebrow}
+        title={p.title}
+        body={p.body}
+        points={p.points}
+        cta={p.cta}
+        href={p.href}
+        caption={p.caption}
+        image={p.image}
+        reverse={i % 2 === 1}
+        ground={i % 2 === 1 ? 'sunk' : 'paper'}
+      />
+    ))
+  }
+
+  <Pullquote quote={PEOPLE_QUOTE} />
+
+  {
+    PEOPLE_PASSAGES.slice(2).map((p) => (
+      <Band
+        id={p.id}
+        eyebrow={p.eyebrow}
+        title={p.title}
+        body={p.body}
+        points={p.points}
+        cta={p.cta}
+        href={p.href}
+        caption={p.caption}
+        image={p.image}
+      />
+    ))
+  }
+
+  <section class="bridge">
+    <Interlude
+      class="frame"
+      line="How the same discipline shows up in the supply chain."
+      href="/sustainability/responsible-sourcing/"
+      cta="Responsible sourcing"
+      italic
+    />
+  </section>
+</PageLayout>
+
+<style>
+  .bridge { background: var(--paper-sunk); padding: var(--section-y) var(--gutter); }
+</style>

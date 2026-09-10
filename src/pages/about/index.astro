@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import GetInTouch from '../../components/GetInTouch.astro';
+import Interlude from '../../components/Interlude.astro';
+import { ABOUT_INTRO, ABOUT_HERO, ABOUT_SLIDES } from '../../data/pages/about';
+---
+
+{/* Tiga section: 1 hero foto penuh layar, 2 karusel lima pintu + jeda penutup,
+    3 footer.
+
+    Halaman ini memakai BaseLayout langsung, bukan PageLayout: yang disumbang
+    PageLayout hanyalah kepala halaman dan bilah saudara, dan keduanya sudah
+    tidak dipakai di sini — kepalanya kini hero, dan kelima halaman anak sudah
+    jadi isi karuselnya. */}
+<BaseLayout
+  title={ABOUT_INTRO.metaTitle ?? ABOUT_INTRO.title}
+  description={ABOUT_INTRO.description}
+  headerVariant="over-dark"
+>
+  <Hero slides={ABOUT_HERO} label="About Adhiloka" />
+
+  <section class="hub-tour">
+    <GetInTouch slides={ABOUT_SLIDES} label="About Adhiloka" inset />
+
+    <div class="hub-tour__note">
+      <Interlude
+        class="frame"
+        line="A forest stays standing because the households can."
+        href="/sustainability/people/"
+        italic
+        tight
+      />
+    </div>
+  </section>
+</BaseLayout>

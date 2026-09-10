@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { NAV } from '../data/site';
+---
+
+<BaseLayout
+  title="Page not found"
+  description="That page is not here. The house, the perfumery, the eighteen naturals, our sustainability work and the sourcing desk are."
+  headerVariant="solid"
+  active="/404/"
+>
+  <section class="page-head page-head--ruled">
+    <div class="frame">
+      <span class="eyebrow">404</span>
+      <h1 class="page-title" data-lines>That page is not here.</h1>
+    </div>
+  </section>
+
+  <section class="section section--lg">
+    <div class="frame">
+      <p class="prose lost__lede">
+        The address you followed does not match anything on this site. What follows is everything
+        that is here.
+      </p>
+
+      <ul class="lost">
+        {
+          NAV.map((item) => (
+            <li>
+              <a href={item.href}>
+                <span class="lost__name">{item.label}</span>
+                <span class="lost__arrow" aria-hidden="true">
+                  &rarr;
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .lost__lede { margin-bottom: clamp(28px, 4vw, 56px); }
+
+  .lost {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--border-hairline);
+    max-width: 44em;
+  }
+  .lost a {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    padding: clamp(18px, 2.4vw, 30px) 0;
+    border-bottom: 1px solid var(--border-hairline);
+    transition: background 520ms ease;
+  }
+  .lost a:hover { background: var(--ivory-2); color: inherit; }
+  .lost__name {
+    font-family: var(--font-display);
+    font-size: var(--type-h4);
+    line-height: 1.2;
+  }
+  .lost__arrow {
+    font-size: 18px;
+    color: var(--text-caption);
+    transition: transform 420ms var(--ease-glide);
+  }
+  .lost a:hover .lost__arrow { transform: translateX(4px); }
+</style>

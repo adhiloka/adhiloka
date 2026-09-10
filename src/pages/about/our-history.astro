@@ -1,0 +1,59 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Timeline from '../../components/Timeline.astro';
+import Interlude from '../../components/Interlude.astro';
+import { HISTORY_INTRO, HISTORY_TIMELINE } from '../../data/pages/about';
+---
+
+<PageLayout intro={HISTORY_INTRO} section="/about/">
+  <section class="section">
+    <div class="frame history">
+      <div class="sticky-col">
+        <div class="sticky-col__inner">
+          <span class="eyebrow" data-reveal="0">Six generations</span>
+          <p class="history__note" data-reveal="60">
+            The dates below are the ones the family ledgers agree on. Where the record is
+            thin we have said so rather than rounded it into a better story.
+          </p>
+        </div>
+      </div>
+
+      <div class="history__body">
+        <Timeline eras={HISTORY_TIMELINE} />
+      </div>
+    </div>
+  </section>
+
+  <section class="bridge">
+    <Interlude
+      class="frame"
+      line="The stations and the works the ledger led to."
+      href="/about/our-locations/"
+      cta="Our locations"
+      italic
+    />
+  </section>
+</PageLayout>
+
+<style>
+  .history {
+    display: grid;
+    grid-template-columns: minmax(0, 0.34fr) minmax(0, 1fr);
+    gap: clamp(24px, 4vw, 72px);
+    align-items: start;
+  }
+
+  .history__note {
+    margin-top: 14px;
+    font-size: var(--type-ui);
+    line-height: var(--leading-body);
+    color: var(--ink-body);
+    max-width: 30ch;
+  }
+
+  .bridge { background: var(--paper-sunk); padding: var(--section-y) var(--gutter); }
+
+  @media (max-width: 899px) {
+    .history { grid-template-columns: 1fr; gap: 22px; }
+  }
+</style>

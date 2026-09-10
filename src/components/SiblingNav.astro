@@ -1,0 +1,98 @@
+---
+import { NAV } from '../data/site';
+
+/**
+ * Bilah sub-navigasi di bawah kepala halaman: Overview plus semua saudara
+ * dalam bagian yang sama. Diturunkan dari NAV, jadi menambah sub-halaman
+ * cukup dilakukan di site.ts.
+ */
+interface Props {
+  section: string;
+  active?: string;
+  /** Bilah duduk di atas foto, bukan di atas kertas: latarnya dilepas, garis
+   *  dan tulisannya dibalik jadi terang, dan tingginya ditambah supaya ia
+   *  terbaca sebagai kaki halaman, bukan sebagai bilah yang menempel. */
+  onImage?: boolean;
+}
+
+const { section, active = Astro.url.pathname, onImage = false } = Astro.props;
+const parent = NAV.find((item) => item.href === section);
+const links = parent?.panel?.links ?? [];
+---
+
+{
+  links.length > 0 && (
+    <nav
+      class:list={['subnav', onImage && 'subnav--on-image']}
+      data-section-skip
+      aria-label={`${parent!.label} sections`}
+    >
+      <div class="frame subnav__inner">
+        <a href={parent!.href} aria-current={active === parent!.href ? 'page' : undefined}>
+          Overview
+        </a>
+        {links.map((l) => (
+          <a href={l.href} aria-current={active === l.href ? 'page' : undefined}>
+            {l.label}
+          </a>
+        ))}
+      </div>
+    </nav>
+  )
+}
+
+<style>
+  .subnav {
+    border-block: 1px solid var(--border-hairline);
+    background: var(--paper);
+  }
+
+  .subnav__inner {
+    display: flex;
+    align-items: stretch;
+    gap: clamp(18px, 2.6vw, 40px);
+    padding-inline: var(--gutter);
+    /* Di layar sempit bilahnya digulir, bukan dibungkus jadi dua baris —
+       tinggi header sudah cukup memakan layar. */
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .subnav__inner::-webkit-scrollbar { display: none; }
+
+  .subnav__inner a {
+    flex: none;
+    padding: 15px 0;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    color: var(--ink-muted);
+    border-bottom: 1px solid transparent;
+    transition: color var(--dur-fast) ease, border-color var(--dur-fast) ease;
+  }
+  .subnav__inner a:hover { color: var(--ink); }
+  .subnav__inner a[aria-current='page'] {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+  }
+
+  /* ── Varian di atas foto ──────────────────────────────────────────────
+     Tinggi tambahannya diletakkan sebagai jarak dalam atas-bawah, bukan
+     height: dengan begitu tautannya tetap di tengah bilah dan tinggi barisnya
+     tidak perlu ditebak. */
+  .subnav--on-image {
+    --subnav-tambahan: 75px;
+    background: transparent;
+    border-block: 0;
+    border-top: 1px solid oklch(1 0 0 / 0.24);
+    padding-block: calc(var(--subnav-tambahan) / 2);
+  }
+  .subnav--on-image .subnav__inner a {
+    color: var(--on-image-dim);
+    border-bottom-color: transparent;
+  }
+  .subnav--on-image .subnav__inner a:hover { color: var(--on-image); }
+  .subnav--on-image .subnav__inner a[aria-current='page'] {
+    color: var(--on-image);
+    border-bottom-color: var(--on-image);
+  }
+</style>

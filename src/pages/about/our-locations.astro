@@ -1,0 +1,73 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import LocationList from '../../components/LocationList.astro';
+import Interlude from '../../components/Interlude.astro';
+import { LOCATIONS_INTRO, SITES } from '../../data/pages/about';
+
+const stations = SITES.filter((s) => s.kind === 'Collection station');
+const rest = SITES.filter((s) => s.kind !== 'Collection station');
+---
+
+<PageLayout intro={LOCATIONS_INTRO} section="/about/">
+  <section class="section">
+    <div class="frame">
+      <div class="section__head">
+        <span class="eyebrow" data-reveal="0">Works and offices</span>
+        <span class="section__count" data-reveal="60">{rest.length}</span>
+      </div>
+      <div class="section__grid">
+        <LocationList sites={rest} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sunk">
+    <div class="frame">
+      <div class="section__head">
+        <span class="eyebrow" data-reveal="0">Collection stations</span>
+        <span class="section__count" data-reveal="60">{stations.length}</span>
+      </div>
+      <p class="prose stations__note" data-reveal="90">
+        Every station buys directly from the households around it and pays on the day.
+        Nothing in the benzoin range reaches us through a consolidator.
+      </p>
+      <div class="section__grid">
+        <LocationList sites={stations} />
+      </div>
+    </div>
+  </section>
+
+  <section class="bridge">
+    <Interlude
+      class="frame"
+      line="What is recorded at each of them, and why."
+      href="/sustainability/responsible-sourcing/"
+      cta="Responsible sourcing"
+      italic
+    />
+  </section>
+</PageLayout>
+
+<style>
+  .section--sunk { background: var(--paper-sunk); }
+
+  .section__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--rule-strong);
+  }
+  .section__count {
+    font-family: var(--font-display);
+    font-size: var(--type-h4);
+    color: var(--ink-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stations__note { margin-top: clamp(18px, 2vw, 26px); }
+  .section__grid { margin-top: clamp(26px, 3vw, 44px); }
+
+  .bridge { background: var(--paper); padding: var(--section-y) var(--gutter); }
+</style>
