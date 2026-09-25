@@ -229,10 +229,12 @@ const { variant, active } = Astro.props;
     border-radius: 0 var(--radius-pill) var(--radius-pill) 0;
     background: var(--gold);
     color: var(--paper);
-    box-shadow: 0 1px 6px rgb(0 0 0 / 0.12);
+    /* Lingkar putih tipis: tombol ini menetap di atas semua section, termasuk
+       pita emas, dan tanpa lingkar ia hilang di sana. */
+    box-shadow: 0 0 0 2px rgb(255 255 255 / 0.9), 0 1px 6px rgb(0 0 0 / 0.12);
     transition: box-shadow 150ms ease-in-out;
   }
-  .menu-btn:hover { box-shadow: 0 0 6px rgb(236 177 31 / 0.58); }
+  .menu-btn:hover { box-shadow: 0 0 0 2px rgb(255 255 255 / 0.9), 0 0 8px rgb(236 177 31 / 0.7); }
 
   /* Tiga garis dari satu elemen: garisnya sendiri + ::before + ::after.
      Saat di-hover garis atas bergeser 9px ke kiri, seperti burger Vale. */
@@ -264,8 +266,8 @@ const { variant, active } = Astro.props;
 
   @media (max-width: 899px) {
     .site-header__brand {
-      width: 250px;
-      height: 118px;
+      width: 300px;
+      height: 128px;
     }
     :global(.site-header__logo) {
       top: 22px;

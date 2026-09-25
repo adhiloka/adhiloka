@@ -1,0 +1,110 @@
+---
+/**
+ * Rel kartu yang digeser mendatar, meniru karusel Swiper di valeindonesia.com
+ * ("Scroll to see more"). Tanpa pustaka: CSS scroll-snap, seret dengan
+ * tetikus, panah kiri/kanan, dan geser mendatar trackpad yang asli.
+ *
+ * Roda vertikal tidak ditelan rel ini: ia tetap melangkah per section lewat
+ * scripts/sections.ts. Isinya slot; tiap anak langsung adalah satu kartu.
+ */
+interface Props {
+  label: string;
+  /** Lebar kartu di layar lebar. */
+  cardWidth?: string;
+  class?: string;
+}
+
+const { label, cardWidth = 'clamp(280px, 26vw, 380px)', class: className } = Astro.props;
+---
+
+<div class:list={['rail', className]} style={`--rail-card:${cardWidth}`} data-rail>
+  <div class="rail__track" data-rail-track role="region" aria-label={label} tabindex="0">
+    <slot />
+  </div>
+
+  <div class="rail__foot">
+    <span class="rail__hint" aria-hidden="true">
+      Scroll to see more
+      <svg width="20" height="14" viewBox="0 0 20 14" fill="none">
+        <path d="M0 7h18M12 1l6 6-6 6" stroke="var(--gold)" stroke-width="1.8"></path>
+      </svg>
+    </span>
+    <div class="rail__nav">
+      <button type="button" class="rail__btn" data-rail-prev aria-label="Previous">
+        <svg width="12" height="20" viewBox="0 0 12 20" fill="none" aria-hidden="true">
+          <path d="M10 2 2 10l8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+        </svg>
+      </button>
+      <button type="button" class="rail__btn" data-rail-next aria-label="Next">
+        <svg width="12" height="20" viewBox="0 0 12 20" fill="none" aria-hidden="true">
+          <path d="M2 2l8 8-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { initRails } from '../scripts/slide-rail';
+  document.addEventListener('astro:page-load', initRails);
+</script>
+
+<style>
+  .rail { position: relative; }
+
+  .rail__track {
+    display: flex;
+    gap: clamp(16px, 1.8vw, 28px);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--frame-inset);
+    padding: 4px var(--frame-inset) 8px;
+    scrollbar-width: none;
+    cursor: grab;
+  }
+  .rail__track::-webkit-scrollbar { display: none; }
+  .rail__track.is-dragging { cursor: grabbing; scroll-snap-type: none; }
+  .rail__track.is-dragging :global(*) { pointer-events: none; }
+
+  .rail__track > :global(*) {
+    flex: 0 0 var(--rail-card);
+    scroll-snap-align: start;
+  }
+
+  .rail__foot {
+    margin-top: clamp(18px, 2vw, 28px);
+    padding-inline: var(--frame-inset);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .rail__hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--ink-muted);
+  }
+  .rail__nav { display: flex; gap: 12px; }
+  .rail__btn {
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 2px solid var(--teal);
+    color: var(--teal);
+    transition: background 150ms ease-in-out, color 150ms ease-in-out, opacity 300ms ease, box-shadow 150ms ease-in-out;
+  }
+  .rail__btn:hover:not(:disabled) {
+    background: var(--teal);
+    color: var(--paper);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+  }
+  .rail__btn:disabled { opacity: 0.35; cursor: default; }
+
+  /* Di atas pita berwarna, petunjuk dan tombolnya ikut tinta gelap. */
+  :global(.on-color) .rail__hint { color: var(--ink); }
+</style>

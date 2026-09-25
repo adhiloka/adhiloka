@@ -1,0 +1,93 @@
+---
+/**
+ * Gelombang di tepi foto, meniru onda-cima / onda-baixa valeindonesia.com.
+ * Bentuknya digambar sendiri dari lengkung logo Adhiloka, bukan disalin.
+ *
+ * - `top`: bidang putih melengkung di sudut kiri atas foto.
+ * - `bottom`: tiga pita warna (biru langit, teal, emas) lalu putih yang menyatu
+ *   dengan latar halaman, di sisi bawah foto.
+ * - `corner`: satu pita emas kecil di sudut kanan bawah (detalhe-onda).
+ *
+ * Induknya harus `position: relative; overflow: hidden`. Warna "putih" bisa
+ * diganti lewat `--wave-ground` supaya gelombang menyatu dengan pita berwarna,
+ * dan pita sudut lewat `--wave-accent` (di atas pita emas, emas tak terlihat).
+ */
+interface Props {
+  kind: 'top' | 'bottom' | 'corner';
+  class?: string;
+}
+
+const { kind, class: className } = Astro.props;
+---
+
+{
+  kind === 'top' && (
+    <svg
+      class:list={['waves waves--top', className]}
+      viewBox="0 0 380 126"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path d="M0 0H380C262 6 150 44 0 126Z" fill="var(--wave-ground, var(--paper))" />
+    </svg>
+  )
+}
+{
+  kind === 'bottom' && (
+    <svg
+      class:list={['waves waves--bottom', className]}
+      viewBox="0 0 380 128"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path d="M0 128V64C118 96 236 38 380 0V128Z" fill="var(--sky)" />
+      <path d="M0 128V82C124 110 244 56 380 22V128Z" fill="var(--teal)" />
+      <path d="M0 128V98C128 122 250 76 380 46V128Z" fill="var(--gold)" />
+      <path d="M0 128V112C132 128 256 96 380 70V128Z" fill="var(--wave-ground, var(--paper))" />
+    </svg>
+  )
+}
+{
+  kind === 'corner' && (
+    <svg
+      class:list={['waves waves--corner', className]}
+      viewBox="0 0 380 128"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path d="M0 128C130 118 262 76 380 0V128Z" fill="var(--wave-accent, var(--gold))" />
+      <path d="M90 128C196 118 296 90 380 44V128Z" fill="var(--wave-ground, var(--paper))" />
+    </svg>
+  )
+}
+
+<style>
+  .waves {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    pointer-events: none;
+  }
+  .waves--top {
+    top: -1px;
+    left: -1px;
+    width: calc(100% + 2px);
+    height: 26%;
+  }
+  .waves--bottom {
+    bottom: -1px;
+    right: -1px;
+    width: calc(100% + 2px);
+    height: 26%;
+  }
+  .waves--corner {
+    bottom: -1px;
+    right: -1px;
+    width: min(17rem, 51%);
+    height: auto;
+    aspect-ratio: 380 / 128;
+  }
+</style>
