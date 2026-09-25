@@ -3,9 +3,12 @@ import { Image } from 'astro:assets';
 import { getImageFor } from '../data/images';
 import { GET_IN_TOUCH } from '../data/pages/home';
 import type { CarouselSlide } from '../data/pages/types';
+import Waves from './Waves.astro';
 
 /**
  * Pita berkarusel: media di kiri, naskah di kanan, panah dan hitungan slide.
+ * Tampilannya meniru kotak Sustainability valeindonesia.com: foto bergelombang
+ * atas-bawah, judul teal, tombol pil, panah bulat teal.
  *
  * Isi bawaannya adalah "Get in touch" di halaman depan — dari situlah nama
  * berkas ini — tetapi bentuknya umum: halaman hub About memakainya untuk lima
@@ -62,19 +65,21 @@ const { slides = GET_IN_TOUCH, label = 'Get in touch', inset = false } = Astro.p
           );
         })
       }
+      <Waves kind="top" />
+      <Waves kind="bottom" />
     </div>
 
     <div class="gt__copy">
       <div class="gt__nav">
         <button type="button" data-gt-prev aria-label="Previous">
-          <svg width="46" height="10" viewBox="0 0 46 10" fill="none" aria-hidden="true">
-            <path d="M45 5H1M1 5l4.4-4M1 5l4.4 4" stroke="currentColor" stroke-width="1.1" />
+          <svg width="12" height="20" viewBox="0 0 12 20" fill="none" aria-hidden="true">
+            <path d="M10 2 2 10l8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
           </svg>
         </button>
         <span class="gt__count" data-gt-count aria-hidden="true">1 / {slides.length}</span>
         <button type="button" data-gt-next aria-label="Next">
-          <svg width="46" height="10" viewBox="0 0 46 10" fill="none" aria-hidden="true">
-            <path d="M1 5h44M45 5l-4.4-4M45 5l-4.4 4" stroke="currentColor" stroke-width="1.1" />
+          <svg width="12" height="20" viewBox="0 0 12 20" fill="none" aria-hidden="true">
+            <path d="M2 2l8 8-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
           </svg>
         </button>
       </div>
@@ -113,66 +118,33 @@ const { slides = GET_IN_TOUCH, label = 'Get in touch', inset = false } = Astro.p
   .gt__band {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    background: var(--bg-band);
-    align-items: stretch;
-    min-height: var(--band-min-h);
-    overflow: hidden;
+    gap: clamp(32px, 5vw, 88px);
+    align-items: center;
+    max-width: var(--measure-max);
+    margin-inline: auto;
     cursor: grab;
     touch-action: pan-y;
   }
   .gt__band.is-dragging { cursor: grabbing; user-select: none; }
-
-  /* Varian bermargin: takarannya disalin dari .band--inset supaya pita ini
-     duduk di garis yang sama dengan pita "Our purpose" yang digantikannya,
-     dan tetap muat satu layar bersama jeda penutup di bawahnya. */
-  .gt__band--inset {
-    margin-inline: var(--gutter);
-    background: var(--plate);
-    /* min() kedua terhadap tinggi layar: bersama jarak section (24px),
-       jeda penutup (24+102px) dan jarak bawah (50px), pita setinggi
-       100svh-210px membuat section ini pas satu layar.
-
-       Angka 275 itu jatah jeda penutup di bawah pita: jarak section (24px atas,
-       50px bawah), jarak ke jeda (49px), tinggi jeda (±102px), plus ±50px sisa
-       napas supaya isinya tidak pernah menyentuh section berikutnya. Angka ini
-       naik dua kali: 210 (sisa 10px, ekor jeda meluber di layar pendek), lalu
-       250 (sisa 25px, masih terasa mepet), kini 275.
-
-       Halaman yang tidak punya jeda boleh meminta pita lebih tinggi lewat
-       --band-fill; nilai di sini cuma cadangannya. Ditulis begini karena
-       --band-min-h disetel langsung pada elemen ini, jadi penulisan ulang dari
-       halaman tidak akan pernah menang tanpa kait yang disediakan. */
-    --band-min-h: var(--band-fill, min(clamp(500px, calc(30vw + 30px), 620px), calc(100svh - 275px)));
-    /* Jarak dalam kolom naskah dirapatkan khusus varian bermargin. Pada slide
-       terpanjang di halaman depan, pita ini tingginya ditentukan ISINYA, bukan
-       tinggi minimumnya — jadi memperlonggar jatah ruang di --band-min-h tidak
-       berpengaruh sama sekali di sana. Yang menurunkan tingginya hanya
-       merapatkan isi: jarak dalam, jarak ke panah, dan jarak antarbaris naskah
-       di bawah. */
-    --band-pad-y: clamp(16px, 1.4vw, 26px);
-    --band-pad-x: clamp(28px, 3vw, 44px);
-  }
+  .gt__band--inset { padding-inline: var(--gutter); }
 
   .gt__media {
     position: relative;
     overflow: hidden;
-    background: var(--bg-plate-deep);
-    background-image: repeating-linear-gradient(122deg, transparent 0 9px, var(--stone-8) 9px 10px);
-    min-height: var(--band-min-h);
+    aspect-ratio: 1 / 0.8;
+    max-height: calc(100svh - 160px);
+    width: 100%;
+    background: var(--plate);
   }
 
   .gt__plate {
     position: absolute;
     inset: 0;
-    background-image: repeating-linear-gradient(122deg, transparent 0 9px, var(--stone-8) 9px 10px);
     opacity: 0;
-    transform: translateX(0);
-    transition: opacity var(--dur-mid) ease, transform 680ms var(--ease-glide);
+    transition: opacity 600ms ease;
   }
   .gt__plate[data-state='current'] { opacity: 1; }
-  .gt__plate .plate__caption { left: 20px; right: 20px; bottom: 16px; color: rgb(var(--shade-rgb) / 0.72); }
-
-  /* Slide berfoto: hatch-nya dimatikan — fotonya menutup seluruh kotak. */
+  .gt__plate .plate__caption { left: 20px; right: 20px; bottom: 30%; }
   .gt__plate--photo { background-image: none; }
   .gt__plate--photo :global(img) {
     position: absolute;
@@ -182,85 +154,73 @@ const { slides = GET_IN_TOUCH, label = 'Get in touch', inset = false } = Astro.p
     object-fit: cover;
     object-position: var(--gt-focus, 50% 50%);
   }
+  .gt__media :global(.waves) { z-index: 3; }
 
   .gt__copy {
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 22px;
-    padding: var(--band-pad-y) var(--band-pad-x);
-    color: var(--espresso);
+    color: var(--ink-body);
   }
 
   .gt__nav {
     display: flex;
     align-items: center;
-    gap: clamp(20px, 2.4vw, 34px);
-    margin-bottom: clamp(8px, 1.4vw, 18px);
+    gap: 16px;
   }
   .gt__nav button {
-    display: flex;
-    align-items: center;
-    padding-block: 7px;
-    color: rgb(var(--shade-rgb) / 0.75);
-    transition: color var(--dur-fast) ease, transform 420ms var(--ease-glide);
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 2px solid var(--teal);
+    color: var(--teal);
+    transition: background 150ms ease-in-out, color 150ms ease-in-out, box-shadow 150ms ease-in-out;
   }
-  .gt__nav button:hover { color: var(--espresso); }
-  .gt__nav [data-gt-prev]:hover { transform: translateX(-4px); }
-  .gt__nav [data-gt-next]:hover { transform: translateX(4px); }
+  .gt__nav button:hover {
+    background: var(--teal);
+    color: var(--paper);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+  }
   .gt__count {
-    font-size: 14.5px;
-    font-weight: 400;
-    letter-spacing: 0.06em;
-    color: var(--text-body);
+    min-width: 3.5em;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ink-body);
   }
 
   .gt__slides { position: relative; }
   .gt__slide {
     display: flex;
     flex-direction: column;
-    gap: 22px;
+    gap: 20px;
     align-items: flex-start;
     opacity: 1;
     transform: translateX(0);
-    transition: opacity var(--dur-mid) ease, transform 680ms var(--ease-glide);
+    transition: opacity 500ms ease, transform 750ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
   .gt__slide[hidden] { display: none; }
   .gt__slide[data-state='out'] { opacity: 0; }
 
   .gt__slide h2 {
-    font-size: var(--type-h1);
-    letter-spacing: var(--ls-snug);
-    line-height: 1.1;
+    font-size: var(--type-h2);
+    font-weight: 500;
+    line-height: var(--leading-title);
+    color: var(--teal);
   }
   .gt__slide p {
     max-width: 34em;
     font-size: var(--type-body);
-    line-height: 1.8;
-    color: var(--text-body);
+    line-height: var(--leading-body);
+    color: var(--ink-body);
   }
-  .gt__slide .btn-pill { margin-top: 8px; }
-
-  /* Naskah "Our purpose" jauh lebih panjang daripada slide lain; pada pita
-     bermargin yang tingginya dibatasi, ukuran judul dan jeda antarelemen
-     diturunkan sedikit supaya tidak ada slide yang melimpah. */
-  .gt__band--inset .gt__slide { gap: clamp(10px, 1.2vw, 16px); }
-  .gt__band--inset .gt__slide h2 { font-size: var(--type-h2); }
-  .gt__band--inset .gt__nav { margin-bottom: clamp(6px, 0.9vw, 12px); }
-
-  /* Layar pendek. Di bawah ±655px tinggi, tinggi pita ini tidak lagi ditentukan
-     jatah ruangnya melainkan panjang naskah slide-nya — dan naskah tidak ikut
-     mengecil mengikuti jendela. Tanpa aturan ini, slide terpanjang di halaman
-     depan meluber ±16px melewati batas section dan menimpa section sesudahnya.
-     Yang dirapatkan hanya jarak, bukan ukuran huruf. */
-  @media (max-height: 655px) {
-    .gt__band--inset .gt__slide { gap: clamp(8px, 1vw, 12px); }
-    .gt__band--inset .gt__slide p { line-height: 1.6; }
-    .gt__band--inset { --band-pad-y: clamp(12px, 1.1vw, 18px); }
-  }
+  .gt__slide :global(.btn-pill) { margin-top: 8px; }
 
   @media (max-width: 899px) {
     .gt__band { grid-template-columns: 1fr; }
-    .gt__media { min-height: 340px; }
+    .gt__media { aspect-ratio: 4 / 3; }
   }
 </style>

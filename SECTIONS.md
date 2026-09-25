@@ -56,7 +56,7 @@ layar, makin banyak yang `fit`.
 
 | Halaman | N | Section |
 |---|---|---|
-| `/` | **4** | 1 hero video · 2 dua foto · 3 karusel Our purpose · 4 footer — **semuanya muat** |
+| `/` | **8** | 1 hero · 2 pembuka + angka · 3 kotak Sustainability · 4 karusel kartu · 5 pita emas · 6 pita biru langit · 7 berita (`tall`) · 8 footer |
 | `/about/` | 5 | 1 kepala hub `tall` · 2 pembuka · 3 angka + kartu `tall` · 4 jeda · 5 footer |
 | `/about/our-business/` | 6 | 1 kepala · 2–4 tiga pita `tall` · 5 jeda · 6 footer |
 | `/about/our-purpose/` | 6 | 1 kepala · 2 naskah · 3 kutipan · 4 nilai · 5 jeda · 6 footer — **semuanya muat** |

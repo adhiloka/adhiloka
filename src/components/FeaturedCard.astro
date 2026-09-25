@@ -55,6 +55,7 @@ const name = material.shortName ?? material.name;
     display: block;
     aspect-ratio: 3 / 4;
     overflow: hidden;
+    border-radius: var(--radius-card);
     background: var(--bg-plate);
   }
 
@@ -114,9 +115,8 @@ const name = material.shortName ?? material.name;
 
   .fcard__name {
     font-family: var(--font-display);
-    font-size: clamp(21px, 1.8vw, 29px);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    font-size: clamp(22px, 1.9vw, 30px);
+    font-weight: 500;
     color: oklch(1 0 0);
     text-shadow: 0 1px 18px rgb(var(--shade-rgb) / 0.45);
   }
@@ -136,22 +136,25 @@ const name = material.shortName ?? material.name;
 
   .fcard__notes {
     margin-top: 9px;
-    font-size: 11px;
+    font-size: 15px;
     font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: oklch(1 0 0 / 0.86);
+    color: oklch(1 0 0 / 0.9);
   }
 
   .fcard__cta {
-    font-size: 11px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 16px;
     font-weight: 500;
-    letter-spacing: var(--ls-cta);
-    text-transform: uppercase;
     color: oklch(1 0 0);
   }
-  .fcard__cta > span {
-    padding-bottom: 4px;
-    border-bottom: 1px solid oklch(1 0 0 / 0.7);
+  /* Panah emas tautan aksi Vale. */
+  .fcard__cta::after {
+    content: '';
+    width: 20px;
+    height: 14px;
+    background: no-repeat center / contain
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 14' fill='none'%3E%3Cpath d='M0 7h18M12 1l6 6-6 6' stroke='%23ECB11F' stroke-width='1.8'/%3E%3C/svg%3E");
   }
 </style>

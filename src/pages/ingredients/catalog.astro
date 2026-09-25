@@ -178,30 +178,29 @@ import { CATALOG_INTRO, CATALOG_NOTE } from '../../data/pages/ingredients';
     padding-block: 15px;
   }
   .filters__label {
-    font-size: 12.5px;
+    font-size: 14px;
     font-weight: 400;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
     color: var(--text-label);
   }
   .filters__set {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: clamp(13px, 2vw, 30px);
+    gap: 10px;
   }
+  /* Saringan sebagai pil ala Vale: garis teal, yang aktif terisi teal. Opacity
+     lama dilepas: abu yang dipudarkan jatuh di bawah 4,5:1. */
   .filters__set button {
-    font-size: 13.5px;
-    font-weight: 400;
-    letter-spacing: var(--ls-caption);
-    text-transform: uppercase;
-    padding: 6px 0;
-    border-bottom: 1px solid transparent;
-    opacity: 0.62;
-    transition: opacity var(--dur-fast) ease, border-color var(--dur-fast) ease;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 6px 16px;
+    border: 1px solid var(--teal);
+    border-radius: var(--radius-pill);
+    color: var(--teal);
+    transition: background 150ms ease-in-out, color 150ms ease-in-out, box-shadow 150ms ease-in-out;
   }
-  .filters__set button:hover { opacity: 1; }
-  .filters__set button[aria-pressed='true'] { opacity: 1; border-bottom-color: currentColor; }
+  .filters__set button:hover { box-shadow: 0 0 6px rgb(0 126 122 / 0.4); }
+  .filters__set button[aria-pressed='true'] { background: var(--teal); color: var(--paper); }
   .filters__count {
     margin-left: auto;
     font-size: 13.5px;
@@ -249,10 +248,8 @@ import { CATALOG_INTRO, CATALOG_NOTE } from '../../data/pages/ingredients';
     position: absolute;
     right: 12px;
     top: 11px;
-    font-size: 11.5px;
+    font-size: 14px;
     font-weight: 400;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
     color: var(--text-caption);
   }
   /* Label putih duduk di atas foto yang terangnya tak bisa ditebak, jadi
@@ -268,14 +265,14 @@ import { CATALOG_INTRO, CATALOG_NOTE } from '../../data/pages/ingredients';
     font-family: var(--font-display);
     font-size: clamp(17px, 1.5vw, 25px);
     line-height: 1.16;
+    color: var(--teal);
+    font-weight: 500;
   }
   .mcard__latin { font-size: 14px; font-style: italic; color: var(--text-caption); }
   .mcard__origin {
     margin-top: 4px;
-    font-size: 12.5px;
+    font-size: 14px;
     font-weight: 400;
-    letter-spacing: var(--ls-cta);
-    text-transform: uppercase;
     color: var(--text-label);
   }
 
@@ -320,10 +317,9 @@ import { CATALOG_INTRO, CATALOG_NOTE } from '../../data/pages/ingredients';
 
   .mdrawer__close {
     margin-bottom: clamp(22px, 3vw, 40px);
-    font-size: 13.5px;
-    letter-spacing: var(--ls-cta);
-    text-transform: uppercase;
+    font-size: 14px;
     color: var(--text-caption);
+    font-weight: 500;
   }
 
   .mdrawer__plate {
@@ -341,10 +337,8 @@ import { CATALOG_INTRO, CATALOG_NOTE } from '../../data/pages/ingredients';
   .mdrawer__family {
     display: block;
     margin-bottom: 12px;
-    font-size: 12.5px;
+    font-size: 14px;
     font-weight: 400;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
     color: var(--ink-muted);
   }
   .mdrawer__name {
@@ -375,10 +369,8 @@ import { CATALOG_INTRO, CATALOG_NOTE } from '../../data/pages/ingredients';
     gap: 22px;
   }
   .spec dt {
-    font-size: 12.5px;
+    font-size: 14px;
     font-weight: 400;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
     color: var(--text-label);
   }
   .spec dd { margin: 0; font-size: 14px; text-align: right; }

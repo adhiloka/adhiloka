@@ -43,7 +43,7 @@ const links = parent?.panel?.links ?? [];
 
 <style>
   .subnav {
-    border-block: 1px solid var(--border-hairline);
+    border-bottom: 1px solid var(--border-hairline);
     background: var(--paper);
   }
 
@@ -58,21 +58,27 @@ const links = parent?.panel?.links ?? [];
     scrollbar-width: none;
   }
   .subnav__inner::-webkit-scrollbar { display: none; }
+  /* Di layar sempit tombol menu pil menempel di kiri atas; tab pertama diberi
+     ruang supaya tidak tertutup saat bilah ini sampai di tepi atas. */
+  @media (max-width: 899px) {
+    .subnav:not(.subnav--on-image) .subnav__inner { padding-left: 86px; }
+  }
 
   .subnav__inner a {
     flex: none;
-    padding: 15px 0;
-    font-size: 13px;
-    letter-spacing: 0.04em;
+    padding: 18px 0 15px;
+    font-size: 16px;
+    font-weight: 500;
     white-space: nowrap;
-    color: var(--ink-muted);
-    border-bottom: 1px solid transparent;
+    color: var(--ink-body);
+    border-bottom: 3px solid transparent;
     transition: color var(--dur-fast) ease, border-color var(--dur-fast) ease;
   }
-  .subnav__inner a:hover { color: var(--ink); }
+  .subnav__inner a:hover { color: var(--teal); }
+  /* Aktif: teal dengan garis emas, seperti penanda terpilih di Vale. */
   .subnav__inner a[aria-current='page'] {
-    color: var(--ink);
-    border-bottom-color: var(--ink);
+    color: var(--teal);
+    border-bottom-color: var(--gold);
   }
 
   /* ── Varian di atas foto ──────────────────────────────────────────────
@@ -83,7 +89,7 @@ const links = parent?.panel?.links ?? [];
     --subnav-tambahan: 75px;
     background: transparent;
     border-block: 0;
-    border-top: 1px solid oklch(1 0 0 / 0.24);
+    border-top: 1px solid rgb(255 255 255 / 0.3);
     padding-block: calc(var(--subnav-tambahan) / 2);
   }
   .subnav--on-image .subnav__inner a {
@@ -93,6 +99,6 @@ const links = parent?.panel?.links ?? [];
   .subnav--on-image .subnav__inner a:hover { color: var(--on-image); }
   .subnav--on-image .subnav__inner a[aria-current='page'] {
     color: var(--on-image);
-    border-bottom-color: var(--on-image);
+    border-bottom-color: var(--gold);
   }
 </style>

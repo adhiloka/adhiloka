@@ -1,6 +1,7 @@
 # Adhiloka — situs publik
 
-Implementasi produksi dari prototipe Claude Design di `../project/Adhiloka v1 editorial.dc.html`.
+Awalnya implementasi prototipe Claude Design (`../project/Adhiloka v1 editorial.dc.html`); sejak
+25 September 2026 tampilannya meniru valeindonesia.com (lihat "Meniru Vale" di bawah).
 Astro 7, statis sepenuhnya, tanpa framework UI.
 
 ```bash
@@ -13,8 +14,7 @@ npm run preview  # menyajikan dist/
 ## Isi
 
 Enam menu, mengikuti susunan givaudan.com, robertet.com dan dsm-firmenich.com: tiap sub-item
-punya halamannya sendiri, bukan anchor. Sejak September 2026 logo duduk di kiri header dan keenam
-menu berjajar di kanannya.
+punya halamannya sendiri, bukan anchor. Semua menu dibuka lewat tombol pil emas di kiri atas.
 
 | Jalur | Halaman |
 | --- | --- |
@@ -59,11 +59,10 @@ src/
                PageLayout.astro   (kepala halaman + bilah saudara, dipakai 20 halaman dalam)
   pages/       index · contact · 404
                about/ · perfumery/ · ingredients/ · sustainability/ · media/
-  scripts/     header · hero · get-in-touch · search · materials · contact-form · reveal · back-to-top
-               split-lines · smooth-scroll · image-reveal · overture
+  scripts/     header · hero · get-in-touch · search · materials · contact-form · reveal
+               scroll-progress · slide-rail · sections · smooth-scroll · image-reveal
   styles/      tokens.css (dari tokens/ bundle desain) · global.css
   assets/      gambar sumber; dioptimasi saat build
-public/media/  hero.mp4
 ```
 
 Semua teks halaman ada di `src/data/`. Menyunting kalimat tidak perlu menyentuh komponen.
@@ -97,30 +96,17 @@ pada entri yang captionnya menyebut tempat.
 
 ## Keputusan yang perlu diketahui
 
-**Dua keluarga huruf, di-host sendiri.** Plus Jakarta Sans (500/600, dengan italic) memikul semua
-judul dan nama pada logo; Public Sans memikul teks dan antarmuka. Keduanya ditarik lewat Fonts API Astro (`fonts` di `astro.config.mjs`), bukan
-`@import` ke Google Fonts — berkasnya ikut ke `dist/`, di-preload, dan punya fallback yang
-metrik-nya disesuaikan.
-
-EB Garamond dilepas saat situs diselaraskan dengan logo baru (September 2026): serif klasik tidak
-senada dengan garis logo yang cair. Plus Jakarta Sans dipilih karena punya italic asli untuk nama
-Latin di katalog dan kebetulan dibuat di Jakarta (Tokotype).
+**Satu keluarga huruf, di-host sendiri.** Mukta 400/500/600, ditarik lewat Fonts API Astro
+(`fonts` di `astro.config.mjs`), bukan `@import` ke Google Fonts: berkasnya ikut ke `dist/`,
+di-preload, dan punya fallback yang metrik-nya disesuaikan. Dipilih sebagai sans humanis gratis
+yang paling dekat dengan Vale Sans.
 
 **Gambar dioptimasi saat build.** Aset mentah berjumlah sekitar 100 MB. `astro:assets` menghasilkan
 WebP berukuran ganda: foto hero 4,2 MB keluar sebagai 59–325 kB tergantung lebar layar. Beranda
 produksi memuat sekitar 350 kB dalam 11 permintaan; JavaScript-nya 16 kB terkirim.
 
-**Video hero diunduh bersyarat.** Berkasnya 11,5 MB dan tidak bisa dikompres di sini. `src`-nya
-sengaja kosong di HTML; `src/scripts/hero.ts` baru memasangnya kalau layar ≥ 600 px, koneksi tidak
-dalam mode hemat data, dan pengguna tidak meminta gerak dikurangi. Selain itu yang tampil adalah
-poster WebP responsif. **Ini yang paling layak dikerjakan berikutnya** — sekali transcode memangkas
-berkasnya sekitar 80%:
-
-```bash
-ffmpeg -i public/media/hero.mp4 -vf "scale=1600:-2" -c:v libx264 -crf 30 -preset slow -an -movflags +faststart public/media/hero-min.mp4
-```
-
-Lalu ganti `data-src` di `src/components/Hero.astro`. Menambah varian WebM/AV1 lebih hemat lagi.
+**Tidak ada video.** Video hero (11,5 MB) dan animasi pembuka dibuang saat situs dirombak ala
+Vale; hero kini karusel foto.
 
 **Foto masih pengganti.** Bundle desain hanya menyertakan lima foto; slot lain memakai pelat hatch
 `Plate` dengan keterangan huruf kecil yang menjelaskan foto apa yang seharusnya ada di situ
@@ -129,10 +115,9 @@ dipertahankan: ia menjadi daftar pemotretan. Untuk memasang foto asli, taruh ber
 `src/assets/images/`, daftarkan di `src/data/images.ts`, lalu berikan `image` pada data terkait.
 
 **Logo di-inline.** `src/components/Logo.astro` memuat SVG dari `../brand/adhiloka-logo.svg`
-(tanda layar/daun enam warna) ditambah nama ADHILOKA dalam huruf judul. Warnanya tidak pernah
-diubah per latar; hanya nama yang mengikuti `currentColor`. Dipakai di header, footer, pembukaan
-beranda, dan sebagai penanda kecil di `Interlude`. Favicon (`public/favicon.svg`) dan
-`apple-touch-icon.png` diturunkan dari berkas yang sama.
+(tanda layar/daun enam warna) ditambah nama ADHILOKA. Warnanya tidak pernah diubah per latar;
+hanya nama yang mengikuti `currentColor`. Dipakai di header dan footer. Favicon
+(`public/favicon.svg`) dan `apple-touch-icon.png` diturunkan dari berkas yang sama.
 
 ## Yang diperbaiki dari prototipe
 
@@ -152,110 +137,93 @@ Rekreasinya mengikuti desain dari ukuran, warna, sampai kurva gerak. Yang berbed
   keadaan gagal, dan perangkap bot. Tautan dari laci material mengisi kolom Brief lebih dulu.
 - **Kontras dinaikkan pada teks kecil.** Semua tinta dan hijau tautan lolos WCAG AA di atas putih;
   hijau logo `#009978` (3,6:1) hanya dipakai untuk garis dan isian, tidak untuk teks. Empat halaman
-  bersih; teks header di atas video hero mengandalkan bayangan seperti pada desain.
+  bersih; teks di atas foto hero dibantu gradien hitam dari kiri, seperti hero Vale.
 - **Sasaran sentuh 24 px.** Titik hero tetap terlihat 5–6 px tetapi area kliknya penuh.
 - **Katalog dua kolom di ponsel.** Satu kolom membuat halaman ini sepanjang 9.600 px; sekarang separuhnya.
-- **`prefers-reduced-motion` dihormati.** Ken Burns, reveal, kurtin, dan autoplay video berhenti.
+- **`prefers-reduced-motion` dihormati.** Kemunculan, tirai, panah mengambang, dan putaran otomatis hero berhenti.
 - **Garis bawah "Discover" di hero disamakan** dengan tautan sejenis lainnya: terlihat saat diam,
   menyapu hilang saat hover. Di prototipe logikanya terbalik.
 
-## Konsep "Discover"
+## Meniru Vale
 
-Satu aturan, dan seluruh beranda mematuhinya: **satu bagian punya satu Discover, dan Discover itu
-menuju versi yang lebih dalam dari apa yang baru saja dilihat.**
+Sejak 25 September 2026 bahasa visual situs ini meniru **valeindonesia.com/indonesia.html** atas
+permintaan pemilik. Warna, takaran huruf, dan durasi gerak diambil dari DOM dan CSS situs itu,
+bukan dikira dari tangkapan layar. Yang **tidak** disalin: foto, naskah, logo, berkas SVG
+lengkung, dan font Vale Sans (milik Vale). Lengkung dan gelombang di sini digambar sendiri dari
+gelombang di logo Adhiloka (`components/Waves.astro`).
 
-| Blok | Tujuan | Kenapa |
-| --- | --- | --- |
-| Atas kartu produk | *tidak ada tautan* | Ini label bagian, bukan ajakan. Kartunya sendiri sudah bisa diklik; menaruh Discover di sini mengulang pekerjaan yang sama. |
-| Bawah kartu produk | `/ingredients/catalog/` | Versi lengkap dari empat kartu di atasnya |
-| Jembatan | `/perfumery/` | Memperkenalkan lini bisnis berikutnya |
+| Unsur Vale | Di Adhiloka |
+| --- | --- |
+| Header tanpa bilah menu: bidang putih melengkung, tombol menu pil emas di tepi kiri, logo | `Header.astro`. Tombol pil menetap di semua section; logo dan pil kanan pergi setelah section 1 |
+| Menu layar penuh tiga kolom (menu teal, panel putih sub-menu, foto bergelombang) | `MenuOverlay.astro`, logikanya di `scripts/header.ts` |
+| Hero foto: redup 0,8, gradien hitam dari kiri, judul dua tingkat, titik vertikal, panah mengambang | `Hero.astro` + `scripts/hero.ts` (memudar 0,6 s, maju sendiri tiap 6 s) |
+| Panah progres gulir di kanan bawah | `ScrollProgress.astro` + `scripts/scroll-progress.ts` |
+| Beranda: pembuka + angka sekilas, kotak Sustainability, karusel kartu, pita emas, pita biru langit, karusel berita | `pages/index.astro` |
+| Kotak foto bergelombang atas-bawah | `GetInTouch.astro` (hub), kotak Sustainability di beranda |
+| Pita foto + naskah berwarna | `Band.astro`: `ground` paper = putih, sunk = emas, plate = biru langit |
+| Kartu foto 4px + kotak teks + "Access … →" | `Tile.astro`, `CardGrid.astro` |
+| Karusel "Scroll to see more" | `SlideRail.astro` + `scripts/slide-rail.ts`, tanpa pustaka |
+| Footer teal | `Footer.astro`; logo di kapsul putih karena gelombang hijau logo hilang di atas teal |
 
-Sebelumnya ada dua Discover berurutan yang dipisahkan kartu produk, dan yang pertama tidak menuju
-apa pun yang masuk akal. Bagian "Continue the conversation" juga dibuang: karusel tepat di bawahnya
-sudah menuju kontak, jadi keduanya mubazir.
+Yang **dipertahankan** dari desain sebelumnya: langkah gulir per section (`scripts/sections.ts`)
+dan gulir momentum Lenis (`scripts/smooth-scroll.ts`). Karusel mendatar tidak menelan roda
+vertikal; roda tetap melangkah per section.
 
-`Interlude.astro` menerima `href` opsional — tanpa `href`, tautannya tidak dirender sama sekali.
-
-## Garis kiri
-
-`Band.astro` memegang pita berpasangan di beranda dan di Fragrances. Fotonya menyentuh tepi layar —
-itu "struktur tanda tangan" menurut sistem desainnya — tapi blok naskahnya selalu menempel ke salah
-satu garis bingkai:
-
-- foto di kanan → tepi kiri naskah di garis kiri bingkai
-- foto di kiri → tepi kanan naskah di garis kanan bingkai
-
-Tokennya `--frame-inset`, memakai `100%` dan bukan `100vw` supaya lebar bilah gulir tidak ikut
-terhitung. Tanpa ini halaman terbaca berganti-ganti antara bermargin dan tanpa margin.
+Yang **dibuang**: video hero, animasi pembuka kunjungan pertama, judul dipecah per baris, ornamen
+di blok jeda, nav enam menu di bilah atas.
 
 ## Sistem visual
 
-Tiga hal yang menjaga situs ini terbaca sebagai satu benda. Semuanya tinggal di
-`src/styles/tokens.css`.
+Semuanya tinggal di `src/styles/tokens.css`.
 
-**Huruf.** Dua keluarga, dan berat tebal praktis tidak dipakai — hierarki datang dari ukuran, jarak
-huruf, dan warna. Plus Jakarta Sans 500 untuk judul, 600 hanya untuk nama pada logo. Public Sans
-400 untuk teks, 500 untuk label dan tombol.
-Italic hanya untuk nama botani Latin dan satu baris editorial di beranda. Skalanya satu tangga
-(`--type-display` sampai `--type-micro`); yang lama tidak koheren karena `--type-h2` justru lebih
-besar daripada `--type-h1`.
+**Huruf.** Satu keluarga, Mukta 400/500/600, untuk judul dan isi, pengganti Vale Sans. Judul
+section 38px/500, judul hero sampai 63px/600, paragraf 18px. Tidak ada huruf kapital berjarak
+lebar; label memakai huruf biasa 14–15px/500. Mukta tidak punya italic, dan `font-synthesis: none`
+melarang peramban memalsukannya, jadi nama Latin di katalog tampil tegak.
 
-**Warna.** Diturunkan dari logo: putih bersih, tinta netral, hijau sebagai warna utama, kuning
-sebagai sorotan. Rasio kontras di atas putih.
+**Warna.** Nilai dari DOM valeindonesia.com. Rasio kontras dihitung, bukan dikira.
 
 | Peran | Token | Catatan |
 | --- | --- | --- |
-| Kertas | `--paper` `#fff`, `--paper-sunk` `#f4f7f5` | Putih dan satu pita abu kehijauan sangat tipis. |
-| Tinta | `--ink` 16,6:1, `--ink-body` 8,3:1, `--ink-muted` 5,9:1 | Netral dengan sedikit hijau. `--ink-muted` masih 5,1:1 di atas `--plate`. |
-| Hijau | `--green-500` `#009978`, `--green-700` `#007a60` | 500 = warna logo, hanya garis/isian (3,6:1). 700 = tautan, hover, latar tombol dengan teks putih (5,3:1). |
-| Dasar gelap | `--green-900` `#0e3b2f` | Footer. Teks putih 12,5:1; hover tautan kuning. |
-| Kuning | `--yellow-300` `#ffd474`, `--yellow-100`, `--amber` | Bukan warna teks. `::selection`, sorotan, hover di atas hijau tua. Teks di atas kuning selalu `--ink`. |
-| Pelat kartu | `--plate-green`, `--plate-sage`, `--plate-yellow`, `--plate-amber` | Dipakai data halaman lewat `var()`, bukan nilai warna mentah. |
-| Peredup foto | `--shade-rgb` | Hijau hutan hampir hitam; komponen memakai `rgb(var(--shade-rgb) / alfa)`. |
+| Utama | `--teal` `#007e7a` | Judul, tautan, tombol, footer. 4,9:1 di atas putih, putih di atasnya 4,9:1 |
+| Hover | `--teal-dark` `#005f5c`, `--teal-deep` `#004a47` | Tombol dan tautan teks |
+| Emas | `--gold` `#ecb11f` | **Bukan warna teks** (1,9:1 di putih, 2,6:1 di teal). Tombol menu, panah, butir, pita |
+| Biru langit | `--sky` `#3cb5e5` | Pita kedua. Putih di atasnya cuma 2,4:1, jadi teksnya `--ink` |
+| Mint | `--mint` `#10b89a` | Gelombang dekoratif saja |
+| Tinta | `--ink` `#222`, `--ink-body` `#555`, `--ink-muted` `#6b6b6b` | 15,9 / 7,5 / 5,3:1 di atas putih |
+| Emas lembut | `--gold-soft` `#f6d27a` | Menu terpilih di atas teal (3,4:1, teks besar) |
 
-`--gold` masih ada sebagai nama peran (hover tautan dan ikon) tapi isinya kini `--green-700`.
+Di atas pita emas dan biru langit semua teks `--ink`; kelas `.on-color` menandainya.
 
-**Ukuran.** `--section-y` naik dari `clamp(42px, 5.2vw, 82px)` ke `clamp(72px, 9vw, 140px)`, dan
-bingkainya turun dari 1560 px ke 1440 px. Ini perubahan yang paling terasa: yang lama membuat
-bagian-bagian terbaca seperti ditumpuk, dan baris teksnya terlalu panjang.
+Nama token lama (`--ivory-*`, `--stone-*`, `--espresso`, `--green-*`, `--yellow-*`, `--acc-text`)
+masih hidup sebagai alias dan kini menunjuk palet Vale.
 
-Nama token lama (`--ivory-*`, `--stone-*`, `--espresso`, `--acc-text`) masih hidup sebagai alias di
-bagian bawah `tokens.css` dan kini menunjuk palet putih-hijau. `--acc-text` sengaja menunjuk tinta,
-bukan hijau, supaya pemakaian yang terlewat jatuh ke keadaan yang benar.
+**Bentuk.** Tombol pil radius 40px dengan pendar warnanya sendiri saat hover (`0 0 6px`), kartu
+dan foto radius 4px, tanpa bayangan.
 
-## Lapisan rasa
+## Gerak
 
-Selain rekreasi desainnya, ada satu lapisan yang mengurus bagaimana situs bergerak. Semuanya
-bekerja di dalam aturan sistem — satu kurva `--ease-glide`, garis rambut, sudut siku — dan semuanya
-mati saat `prefers-reduced-motion: reduce`.
+Semuanya mati saat `prefers-reduced-motion: reduce`.
 
-| Apa | Di mana | Catatan |
+| Apa | Di mana | Takaran (dari CSS Vale) |
 | --- | --- | --- |
-| Judul dipecah per baris | `scripts/split-lines.ts` | Tiap baris naik dari balik topeng, di-stagger 90 ms. Menunggu `document.fonts.ready` supaya pemenggalan dihitung dengan font sungguhan, dan dihitung ulang saat resize. Dipasang lewat `data-lines`. |
-| Gulir momentum | `scripts/smooth-scroll.ts` | Lenis, hanya untuk roda dan trackpad pada layar ≥900 px. Sentuhan dibiarkan native. Semua gulir terprogram lewat `scrollToY()` supaya satu kurva. |
-| Gambar muncul | `scripts/image-reveal.ts` | Skala 1,06 → 1 sambil memudar. Gambar `eager` dilewati karena poster hero adalah elemen LCP. |
-| Pembukaan | `scripts/overture.ts` | Tanda logo naik, lalu nama merapat, di atas kurtin putih. Hanya beranda, sekali per sesi, ≤900 ms, dan langsung minggir kalau pengguna menggulir. |
-| Morph kartu → laci | `scripts/materials.ts` | `document.startViewTransition()` dengan `view-transition-name: material-plate`. Peramban tanpa dukungan tetap mendapat laci geser biasa. |
-| Eyebrow menempel | `pages/sustainability.astro` | Hanya di kolom "Position". Di Group tidak dipasang: pelat 4/5 di sana lebih tinggi daripada teksnya, jadi sticky-nya tidak akan pernah terlihat. |
-| Jeda antar bagian | `components/Interlude.astro` | Tiga gerakan berurutan: tanda logo (700 ms), kalimat naik 8 px (800 ms, jeda 120 ms), lalu tautan memudar (260 ms, jeda 480 ms). Kurvanya `--ease-soft`. Versi sebelumnya benar-benar diam mengikuti rekaman dior.com; sekarang sedikit lebih hidup atas permintaan. |
-| Garis bawah menyapu | `Interlude.astro`, `Hero.astro` | Bereaksi saat **bloknya** disentuh kursor, bukan hanya tautannya. |
+| Elemen masuk dari arahnya | `data-reveal` + `data-reveal-from="left\|right"`, `scripts/reveal.ts` | transform 0,75 s + opacity 0,55 s linear, jeda 0,3 s |
+| Tirai gambar | `scripts/image-reveal.ts` (`.plate`, `[data-curtain]`) | lapisan teal bergeser keluar 1 s saat gambar terlihat |
+| Hero | `scripts/hero.ts` | memudar 0,6 s; panah mengambang 1rem, 2 s |
+| Menu | `MenuOverlay.astro` | panel 0,3 s; isi menyusul 0,6 s jeda 0,5 s; tirai foto 0,6 s jeda 0,5 s; sub-menu 0,5 s |
+| Burger | `Header.astro` | garis atas bergeser 9px saat hover, 0,3 s |
+| Panah progres | `scripts/scroll-progress.ts` | cincin mengikuti persen gulir; panah berbalik 0,4 s di dasar |
+| Gulir momentum | `scripts/smooth-scroll.ts` | Lenis, tidak diubah |
+| Langkah per section | `scripts/sections.ts` | tidak diubah |
+| Morph kartu → laci | `scripts/materials.ts` | tidak diubah |
 
-Tiga aturan yang mudah dilanggar tanpa sengaja:
+Dua aturan yang mudah dilanggar tanpa sengaja:
 
-- **Reveal itu pendek.** Yang lama 28 px selama 1400 ms dengan jeda sampai 900 ms — blok "Our
-  specialty" perlu 2,3 detik untuk selesai, sementara transisi terpanjang di robertet.com adalah
-  0,6 detik. Sekarang 10 px, 620 ms, jeda 70 ms. `--ease-glide` sengaja tidak dipakai untuk reveal:
-  awalannya terlalu curam sehingga ekornya terasa merayap. Ia tetap dipakai untuk panel besar.
-
-- **CSS tidak boleh menyembunyikan gambar sendirian.** Kelas `is-pending` hanya dipasang skrip, dan
-  skrip itu selalu melepasnya kembali — termasuk lewat penghitung waktu cadangan tiga detik. Kalau
-  JavaScript gagal dimuat, gambar tetap tampil.
 - **CSS tidak boleh menyembunyikan isi sendirian.** Semua keadaan "tersembunyi sampai muncul"
-  digerbangi `html.js`, yang dipasang skrip inline di `<head>` sebelum cat pertama. Tanpa
-  JavaScript, halaman tampil utuh alih-alih kosong.
-- **`overflow-x` memakai `clip`, bukan `hidden`.** Keduanya memotong luapan mendatar, tetapi
-  `hidden` menjadikan elemennya wadah gulir, dan itu membuat bilah penyaring lengket di
-  `/ingredients/catalog/` menempel pada kotak yang salah.
+  digerbangi `html.js`, dan kelas tirai `.curtain` hanya dipasang skrip. Tanpa JavaScript,
+  halaman tampil utuh.
+- **`overflow-x` memakai `clip`, bukan `hidden`.** `hidden` menjadikan elemennya wadah gulir,
+  dan itu membuat bilah penyaring lengket di `/ingredients/catalog/` menempel pada kotak yang salah.
 
 ## Isi yang dibuang
 
@@ -269,9 +237,9 @@ membedakan Adhiloka dari pemasok lain. Naskah lamanya ada di riwayat git.
 - **Dwibahasa.** Pemilih bahasa dipertahankan persis seperti desain, tetapi belum tersambung ke
   terjemahan; kedua pilihan menuju halaman yang sama. Menyambungkannya berarti menambah rute `/id/`
   dan memindahkan teks di `src/data/` ke berkas per bahasa.
-- **Kompresi video** (perintahnya di atas).
 - **Kursor kustom, angka menghitung naik, parallax pita, dan mode gelap** — dipertimbangkan lalu
   ditolak. Ketiganya yang pertama membuat situs pemasok terbaca seperti situs portofolio; yang
-  terakhir belum dipikirkan untuk palet putih-hijau.
+  terakhir belum dipikirkan untuk palet Vale.
+- **Widget A+ / A- / Contrast** milik Vale sengaja tidak ditiru, atas keputusan pemilik.
 - **Halaman sendiri per material.** Sekarang spesifikasi tinggal di laci. Semua 18 panelnya ada di
   HTML sehingga terbaca mesin telusur, tetapi halaman tersendiri akan lebih baik untuk pencarian.

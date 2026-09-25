@@ -24,34 +24,58 @@ const { eras } = Astro.props;
 </ol>
 
 <style>
+  /* Linimasa ala Vale: garis teal tegak di kiri, titik emas di tiap tahun. */
   .tl {
+    position: relative;
     list-style: none;
     margin: 0;
-    padding: 0;
-    border-top: 1px solid var(--rule-strong);
+    padding: 0 0 0 34px;
+  }
+  .tl::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 14px;
+    bottom: 14px;
+    width: 2px;
+    background: var(--teal);
+    opacity: 0.35;
   }
 
   .tl__row {
+    position: relative;
     display: grid;
     grid-template-columns: minmax(120px, 0.22fr) minmax(0, 1fr);
     gap: clamp(20px, 3vw, 56px);
-    padding: clamp(24px, 2.8vw, 40px) 0;
-    border-bottom: 1px solid var(--rule);
+    padding: clamp(22px, 2.6vw, 36px) 0;
+  }
+  .tl__row::before {
+    content: '';
+    position: absolute;
+    left: -34px;
+    top: calc(clamp(22px, 2.6vw, 36px) + 0.35em);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 0 4px var(--paper);
   }
 
   .tl__year {
     font-family: var(--font-display);
-    font-size: clamp(24px, 2.4vw, 36px);
+    font-size: clamp(26px, 2.4vw, 38px);
+    font-weight: 600;
     line-height: 1.1;
-    letter-spacing: var(--ls-title);
-    color: var(--ink);
+    color: var(--teal);
     font-variant-numeric: tabular-nums;
   }
 
   .tl__title {
     font-size: var(--type-h4);
+    font-weight: 500;
     line-height: var(--leading-title);
     margin-bottom: 10px;
+    color: var(--ink);
   }
 
   .tl__text {

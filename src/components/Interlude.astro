@@ -1,186 +1,83 @@
 ---
-import Logo from './Logo.astro';
-
 /**
- * Jeda antar bagian: ornamen, satu kalimat, lalu tautan.
+ * Blok ajakan antar bagian, dalam bahasa visual valeindonesia.com: satu
+ * kalimat teal besar, lalu tautan aksi teal berpanah emas. Dulu jeda editorial
+ * berornamen (lebah, lalu tanda logo); ornamennya dicabut karena Vale tidak
+ * memakai hiasan semacam itu.
  *
- * Aturan yang dipegang blok ini: satu bagian punya satu Discover, dan Discover
- * itu menuju versi yang lebih dalam dari apa yang baru saja dilihat. Kalau
- * `href` tidak diberikan, tautannya tidak dirender sama sekali — blok itu jadi
- * label bagian, bukan ajakan.
+ * Aturan yang dipegang blok ini: satu bagian punya satu ajakan, dan ajakan itu
+ * menuju versi yang lebih dalam dari apa yang baru saja dilihat. Tanpa `href`,
+ * tautannya tidak dirender dan blok ini jadi label bagian.
  *
- * Gerakannya berurutan dan pendek: tanda logo lebih dulu, kalimat menyusul,
- * tautannya paling akhir. Jarak tempuh 8 px, bukan 28 px — yang membuat gerakan
- * terasa mahal adalah kelembutan dan kependekannya, bukan panjangnya.
+ * Gerak: kalimat naik dari bawah (gaya .animar Vale), tautannya menyusul.
  */
 interface Props {
   /** Kalimat utuh dengan titik di ujungnya. */
   line?: string;
-  /** Label huruf besar sebagai ganti kalimat, untuk pembuka bagian. */
+  /** Label kecil sebagai ganti kalimat, untuk pembuka bagian. */
   eyebrow?: string;
   /** Tanpa ini, tautannya tidak muncul sama sekali. */
   href?: string;
   cta?: string;
-  /** Tanda logo kecil di atas; menggantikan lebah sejak logo baru. */
+  /** Nama lama; ornamen tidak lagi dirender. */
   mark?: boolean;
-  /** Kalimatnya dimiringkan; dipakai untuk baris yang bernada editorial. */
+  /** Nama lama; Mukta tidak punya italic, kalimat selalu tegak. */
   italic?: boolean;
-  /** Jarak tanda–kalimat–tautan dipersempit; untuk blok yang duduk berdekatan
-   *  dengan elemen lain dan tidak butuh jarak selapang biasanya. */
+  /** Jarak kalimat–tautan dipersempit. */
   tight?: boolean;
   class?: string;
 }
 
-const {
-  line,
-  eyebrow,
-  href,
-  cta = 'Discover',
-  mark = true,
-  italic = false,
-  tight = false,
-  class: className,
-} = Astro.props;
+const { line, eyebrow, href, cta = 'Discover more', tight = false, class: className } = Astro.props;
 ---
 
 <div class:list={['interlude', tight && 'is-tight', className]} data-interlude>
-  {
-    mark && (
-      <span class="interlude__mark" aria-hidden="true">
-        <Logo size="30px" markOnly plain />
-      </span>
-    )
-  }
-  {eyebrow && (
-    <span class="eyebrow interlude__eyebrow"><span>{eyebrow}</span></span>
-  )}
-  {line && (
-    <p class:list={['interlude__line', italic && 'is-italic']}>
-      <span>{line}</span>
-    </p>
-  )}
-
-  {href && <a class="interlude__cta" href={href}>{cta}</a>}
+  {eyebrow && <span class="eyebrow interlude__eyebrow">{eyebrow}</span>}
+  {line && <p class="interlude__line">{line}</p>}
+  {href && <a class="interlude__cta action-link" href={href}>{cta}</a>}
 </div>
 
 <style>
   .interlude {
-    /* width:100% wajib. Tanpa itu, `margin-inline: auto` dari .frame membatalkan
-       peregangan saat blok ini jadi anak flex, dan lebarnya menyusut mengikuti
-       isi — berbeda-beda di tiap tempat pemakaian. */
+    /* width:100% wajib: tanpa itu `margin-inline: auto` dari .frame
+       membatalkan peregangan saat blok ini jadi anak flex. */
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: clamp(14px, 1.6vw, 22px);
+    gap: clamp(18px, 2vw, 28px);
   }
-  .interlude.is-tight { gap: clamp(6px, 1vw, 10px); }
-
-  /* ── Kemunculan berurutan ─────────────────────────────────────────────
-     Satu bahasa gerak untuk ketiganya: isinya naik dari balik topeng, sama
-     seperti judul yang dipecah per baris (lihat [data-lines] di global.css).
-     Sebelumnya blok ini memakai tiga jenis gerak berbeda — lebah membesar,
-     kalimat menggeser 8px, tautan memudar — dan tiga jenis gerak dalam satu
-     blok setinggi 100px terbaca sebagai gaduh, bukan berurutan.
-
-     Topengnya diberi ruang napas 0.14em di atas dan bawah, dinetralkan oleh
-     margin negatif seukuran, supaya huruf berkait dan ekor huruf miring tidak
-     terpotong garis topeng. */
-  .interlude__mark {
-    width: 34px;
-    height: 30px;
-    display: grid;
-    place-items: center;
-    overflow: hidden;
-  }
-  .interlude__mark :global(.logo) {
-    opacity: 0;
-    transform: translateY(105%);
-    transition:
-      opacity var(--dur-mark) var(--ease-reveal),
-      transform var(--dur-mark) var(--ease-reveal);
-  }
-  .interlude.is-revealed .interlude__mark :global(.logo) {
-    opacity: 1;
-    transform: none;
-  }
+  .interlude.is-tight { gap: clamp(10px, 1.2vw, 16px); }
 
   .interlude__eyebrow,
-  .interlude__line {
-    display: block;
-    overflow: hidden;
-    padding-block: 0.14em;
-    margin-block: -0.14em;
+  .interlude__line,
+  .interlude__cta {
+    opacity: 0;
+    transform: translateY(40px);
+    transition:
+      transform 750ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 300ms,
+      opacity 550ms linear 300ms;
   }
-  .interlude__eyebrow > span,
-  .interlude__line > span {
-    display: block;
-    transform: translateY(110%);
-    transition: transform var(--dur-line) var(--ease-reveal) var(--delay-line);
-  }
-  .interlude.is-revealed .interlude__eyebrow > span,
-  .interlude.is-revealed .interlude__line > span {
+  .interlude__cta { transition-delay: 550ms, 550ms; }
+  .interlude.is-revealed :is(.interlude__eyebrow, .interlude__line, .interlude__cta) {
+    opacity: 1;
     transform: none;
   }
 
   .interlude__line {
     font-family: var(--font-display);
-    font-size: var(--type-h3);
+    font-size: var(--type-h2);
+    font-weight: 500;
     line-height: var(--leading-title);
-    letter-spacing: var(--ls-title);
-    color: var(--ink);
-    max-width: 20em;
+    color: var(--teal);
+    max-width: 22em;
     text-wrap: balance;
   }
-  /* Italic sans lebih sempit daripada tegaknya; tracking judul yang negatif
-     membuat spasi antarkata nyaris hilang, jadi dinetralkan di sini. */
-  .interlude__line.is-italic { font-style: italic; letter-spacing: 0; }
 
-  /* Paling kecil dan paling tenang dari ketiganya. Pada rekaman referensi,
-     "Discover" jauh lebih kecil daripada barisnya; di versi sebelumnya ia
-     sebesar eyebrow sehingga label dan aksi terbaca setara. */
-  .interlude__cta {
-    position: relative;
-    font-family: var(--font-body);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: var(--ls-label);
-    text-transform: uppercase;
-    color: var(--ink);
-    padding-bottom: 6px;
-    opacity: 0;
-    transition:
-      opacity var(--dur-cta) var(--ease-reveal) var(--delay-cta),
-      color var(--dur-fast) ease;
-  }
-  .interlude.is-revealed .interlude__cta { opacity: 1; }
-
-  .interlude__cta::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 1px;
-    background: var(--rule-strong);
-    transform: scaleX(1);
-    transform-origin: left;
-    transition: transform 520ms var(--ease-underline);
-  }
-
-  /* Garisnya menyapu begitu bloknya disentuh kursor, bukan hanya tautannya. */
-  .interlude:hover .interlude__cta::after,
-  .interlude__cta:focus-visible::after {
-    transform: scaleX(0);
-    transform-origin: right;
-  }
-  .interlude:hover .interlude__cta,
-  .interlude__cta:focus-visible { color: var(--gold); }
+  .interlude__cta { font-size: clamp(17px, 1.2vw, 20px); }
 
   @media (prefers-reduced-motion: reduce) {
-    .interlude__mark,
-    .interlude__mark :global(.logo),
     .interlude__eyebrow,
     .interlude__line,
     .interlude__cta {

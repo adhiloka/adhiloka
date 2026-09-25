@@ -2,7 +2,8 @@
  *  per gerakan.
  *
  *  Kosakatanya: tiap halaman punya section bernomor 1..N dari atas ke bawah.
- *  Halaman depan: 1 hero video, 2 dua foto, 3 karusel Our purpose, 4 footer.
+ *  Halaman depan: 1 hero, 2 pembuka, 3 kotak Sustainability, 4 karusel kartu,
+ *  5 pita emas, 6 pita biru langit, 7 berita, 8 footer.
  *  Nomor itu ditulis ke DOM sebagai `data-section`, jadi bisa dilihat di
  *  inspektur dan dipakai sebagai rujukan saat bicara.
  *

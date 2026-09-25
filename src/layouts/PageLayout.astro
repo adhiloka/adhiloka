@@ -29,7 +29,7 @@ const { intro, section, size = 'page', media = true, subnav = true, cover = fals
 <BaseLayout
   title={intro.metaTitle ?? intro.title}
   description={intro.description}
-  headerVariant={cover ? 'over-dark' : 'solid'}
+  headerVariant={cover || (media && intro.image) ? 'over-dark' : 'solid'}
 >
   <PageHero
     section={size === 'hub' ? undefined : section}

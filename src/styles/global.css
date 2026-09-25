@@ -417,8 +417,7 @@ html:not(.js) .curtain::after { display: none; }
 
 /* Blok jeda antar bagian menyembunyikan isinya lewat kelas .is-revealed yang
    hanya dipasang skrip, jadi ia juga harus dibatalkan di sini. */
-html:not(.js)
-  :is(.interlude__mark .logo, .interlude__eyebrow > span, .interlude__line > span, .interlude__cta) {
+html:not(.js) :is(.interlude__eyebrow, .interlude__line, .interlude__cta) {
   opacity: 1;
   transform: none;
 }

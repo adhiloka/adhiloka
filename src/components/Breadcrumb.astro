@@ -4,19 +4,22 @@ import { NAV } from '../data/site';
 /**
  * Jejak dua tingkat: bagian induk, lalu halaman ini. Induknya dicari dari NAV
  * lewat `section`, jadi tidak ada label yang perlu ditulis dua kali.
+ * Gaya Vale: huruf biasa, bukan kapital; pemisah panah emas kecil.
  */
 interface Props {
   section: string;
   current: string;
+  /** Di atas spanduk foto, teksnya putih. */
+  onImage?: boolean;
 }
 
-const { section, current } = Astro.props;
+const { section, current, onImage = false } = Astro.props;
 const parent = NAV.find((item) => item.href === section);
 ---
 
-<nav class="crumbs" aria-label="Breadcrumb">
+<nav class:list={['crumbs', onImage && 'crumbs--image']} aria-label="Breadcrumb">
   <ol>
-    <li><a href="/">Adhiloka</a></li>
+    <li><a href="/">Home</a></li>
     {
       parent && (
         <li>
@@ -33,26 +36,35 @@ const parent = NAV.find((item) => item.href === section);
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 8px 10px;
+    gap: 6px 10px;
     margin: 0;
     padding: 0;
     list-style: none;
-    font-size: var(--type-micro);
-    font-weight: 400;
-    letter-spacing: var(--ls-label);
-    text-transform: uppercase;
-    color: var(--ink-muted);
+    font-size: 15px;
+    color: var(--ink-body);
   }
 
-  /* Pemisahnya dibuat dari CSS, bukan diketik ke markup: pembaca layar tidak
-     perlu mendengar "garis miring" di antara tiap tingkat. */
+  /* Pemisahnya dari CSS: pembaca layar tidak perlu mendengar tanda panah. */
   .crumbs li + li::before {
-    content: '/';
-    margin-right: 10px;
-    opacity: 0.5;
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-right: 12px;
+    border-top: 2px solid var(--gold);
+    border-right: 2px solid var(--gold);
+    transform: translateY(-2px) rotate(45deg);
   }
 
-  .crumbs a { transition: color var(--dur-fast) ease; }
-  .crumbs a:hover { color: var(--ink); }
-  .crumbs [aria-current='page'] { color: var(--ink); }
+  .crumbs a {
+    color: var(--teal);
+    font-weight: 500;
+  }
+  .crumbs a:hover { color: var(--teal-deep); text-decoration: underline; text-underline-offset: 3px; }
+  .crumbs [aria-current='page'] { color: var(--ink-body); }
+
+  .crumbs--image ol { color: var(--on-image); text-shadow: 0 1px 3px rgb(0 0 0 / 0.35); }
+  .crumbs--image a,
+  .crumbs--image a:hover,
+  .crumbs--image [aria-current='page'] { color: var(--on-image); }
 </style>
