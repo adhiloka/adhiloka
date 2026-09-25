@@ -1,9 +1,7 @@
 ---
-import { Image } from 'astro:assets';
-import { NAV } from '../data/site';
-import { getImageFor } from '../data/images';
 import Logo from './Logo.astro';
 import SearchPanel from './SearchPanel.astro';
+import MenuOverlay from './MenuOverlay.astro';
 
 interface Props {
   variant: 'over-dark' | 'over-light' | 'solid';
@@ -11,168 +9,77 @@ interface Props {
 }
 
 const { variant, active } = Astro.props;
-const isActive = (href: string) => active === href || active.startsWith(href);
-
-const panelled = NAV.filter((item) => item.panel);
 ---
 
+<!-- Header meniru valeindonesia.com: tidak ada bilah menu. Di kiri atas bidang
+     putih melengkung memikul tombol menu pil emas dan logo; di kanan atas pil
+     putih berisi tombol cari dan tombol bahasa bulat. Semua navigasi lewat
+     tombol menu, yang membuka MenuOverlay. -->
 <header class="site-header" data-variant={variant} data-site-header>
-  <div class="site-header__bar">
-    <div class="site-header__grid">
-      <!-- Kolom 1 — logo -->
-      <Logo class="site-header__mark" size="clamp(34px, 2.9vw, 42px)" />
+  <div class="site-header__brand">
+    <svg
+      class="site-header__swoosh"
+      viewBox="0 0 560 300"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path d="M0 0H560C470 22 392 96 318 160 222 242 118 288 0 300Z" fill="currentColor"></path>
+    </svg>
+    <Logo class="site-header__logo" size="clamp(30px, 2.6vw, 44px)" />
+  </div>
 
-      <!-- Kolom 2 — navigasi, rata kanan -->
-      <nav class="site-nav" aria-label="Primary">
-        {
-          NAV.map((item) => (
-            <a
-              href={item.href}
-              class="site-nav__link"
-              data-nav-link
-              data-panel={item.panel ? item.label : undefined}
-              aria-current={isActive(item.href) ? 'page' : undefined}
-            >
-              {item.label}
-            </a>
-          ))
-        }
-      </nav>
-
-      <!-- Kolom 3 — pemilih bahasa -->
-      <div class="lang" data-lang>
-        <button
-          type="button"
-          class="lang__toggle"
-          aria-expanded="false"
-          aria-controls="lang-menu"
-          data-lang-toggle
-        >
-          <span>English</span>
-          <svg width="11" height="7" viewBox="0 0 11 7" fill="none" aria-hidden="true">
-            <path d="M1 1.2 5.5 5.6 10 1.2" stroke="currentColor" stroke-width="1.1" />
-          </svg>
-        </button>
-        <div class="lang__menu" id="lang-menu" role="menu" data-lang-menu>
-          <a role="menuitem" href="/" hreflang="id" lang="id">Bahasa Indonesia</a>
-          <a role="menuitem" href="/" hreflang="en" lang="en" aria-current="true">English</a>
-        </div>
-      </div>
-
-      <!-- Kolom 4 — cari / menu -->
+  <div class="site-header__tools">
+    <div class="tools-pill">
       <button
         type="button"
-        class="site-header__search"
+        class="tools-pill__search"
         data-search-open
         aria-label="Open search"
         aria-controls="search-panel"
         aria-expanded="false"
       >
+        <span>Search</span>
         <svg width="17" height="17" viewBox="0 0 21 21" fill="none" aria-hidden="true">
-          <circle cx="8.6" cy="8.6" r="6.6" stroke="currentColor" stroke-width="1.5" />
-          <path d="M13.6 13.6 19.4 19.4" stroke="currentColor" stroke-width="1.5" />
+          <circle cx="8.6" cy="8.6" r="6.6" stroke="currentColor" stroke-width="1.8"></circle>
+          <path d="M13.6 13.6 19.4 19.4" stroke="currentColor" stroke-width="1.8"></path>
         </svg>
       </button>
+    </div>
 
+    <div class="lang" data-lang>
       <button
         type="button"
-        class="site-header__burger"
-        data-menu-toggle
-        aria-label="Open menu"
-        aria-controls="mobile-menu"
+        class="lang__toggle"
         aria-expanded="false"
+        aria-controls="lang-menu"
+        aria-label="Language: English"
+        data-lang-toggle
       >
-        <span></span><span></span>
+        EN
       </button>
+      <div class="lang__menu" id="lang-menu" role="menu" data-lang-menu>
+        <a role="menuitem" href="/" hreflang="id" lang="id">Bahasa Indonesia</a>
+        <a role="menuitem" href="/" hreflang="en" lang="en" aria-current="true">English</a>
+      </div>
     </div>
-  </div>
-
-  <!-- Mega menu. Dua kolom: pelat lebar berjudul di kiri — judulnya duduk di
-       atas fotonya bersama panah yang bergeser saat di-hover — dan peta situs
-       bagian itu di kanan. Contact tidak punya panel, jadi tautannya langsung. -->
-  <div class="mega" data-mega inert>
-    {
-      panelled.map((item) => {
-        const photo = getImageFor(item.panel!.image);
-        return (
-          <div class="mega__panel" data-mega-panel={item.label} hidden>
-            <div class="mega__inner">
-              <a
-                href={item.href}
-                class:list={['mega__feature', photo && 'mega__feature--photo']}
-              >
-                <span class="mega__shot plate">
-                  {photo && (
-                    <Image
-                      src={photo}
-                      alt={item.panel!.shot}
-                      width={1040}
-                      widths={[520, 1040]}
-                      sizes="(max-width: 1279px) 460px, 640px"
-                      loading="lazy"
-                      decoding="async"
-                      quality={66}
-                    />
-                  )}
-                </span>
-                <span class="mega__label">
-                  <span class="mega__label-text">{item.panel!.title}</span>
-                  <svg
-                    class="mega__arrow"
-                    width="46"
-                    height="10"
-                    viewBox="0 0 46 10"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M0 5h44M39.4 1 44 5l-4.6 4"
-                      stroke="currentColor"
-                      stroke-width="1.1"
-                    />
-                  </svg>
-                </span>
-              </a>
-
-              <nav class="mega__links" aria-label={item.label}>
-                {item.panel!.links.map((l) => (
-                  <a href={l.href} class="mega__link">
-                    {l.label}
-                  </a>
-                ))}
-              </nav>
-            </div>
-          </div>
-        );
-      })
-    }
   </div>
 </header>
 
-<!-- Menu layar sempit. Sub-tautan ikut tampil: dengan enam bagian, daftar
-     tingkat satu saja menyembunyikan sebagian besar situs. -->
-<div class="mobile-menu" id="mobile-menu" data-mobile-menu data-lenis-prevent hidden>
-  <nav aria-label="Mobile">
-    {
-      NAV.map((item) => (
-        <div class="mobile-menu__group">
-          <a href={item.href} class="mobile-menu__link">
-            {item.label}
-          </a>
-          {item.panel && (
-            <div class="mobile-menu__sub">
-              {item.panel.links.map((l) => (
-                <a href={l.href}>{l.label}</a>
-              ))}
-            </div>
-          )}
-        </div>
-      ))
-    }
-  </nav>
-  <button type="button" data-menu-toggle class="mobile-menu__close">Close</button>
-</div>
+<!-- Tombol menu pil emas. Di luar <header> supaya tetap menempel di kiri atas
+     sepanjang halaman, sementara logo dan pil kanan pergi setelah section 1. -->
+<button
+  type="button"
+  class="menu-btn"
+  data-menu-toggle
+  aria-label="Open menu"
+  aria-controls="site-menu"
+  aria-expanded="false"
+>
+  <span class="menu-btn__lines" aria-hidden="true"></span>
+</button>
 
+<MenuOverlay active={active} />
 <SearchPanel />
 
 <style>
@@ -182,400 +89,196 @@ const panelled = NAV.filter((item) => item.panel);
     left: 0;
     right: 0;
     z-index: 150;
-    color: var(--espresso);
-    background: transparent;
-    border-bottom: 1px solid transparent;
-    transform: translateY(0);
-    transition:
-      background 700ms ease,
-      border-color 700ms ease,
-      color 700ms ease,
-      opacity 380ms ease,
-      transform 520ms var(--ease-standard);
-  }
-
-  /* Header padat: di halaman tanpa hero, saat mega menu terbuka, saat digulir
-     di halaman yang headernya memang padat — dan, di beranda, HANYA saat
-     kursor berada di atasnya.
-     Beranda sengaja dikecualikan dari `.is-scrolled`: di sana bilah berwarna
-     bukan lagi akibat menggulir, melainkan akibat menghampiri menunya. */
-  .site-header[data-variant='solid'],
-  .site-header:not([data-variant='over-dark']).is-scrolled,
-  .site-header[data-variant='over-dark']:hover,
-  .site-header[data-variant='over-dark']:focus-within,
-  .site-header.is-open {
-    background: rgb(255 255 255 / 0.96);
-    -webkit-backdrop-filter: blur(var(--blur-header));
-    backdrop-filter: blur(var(--blur-header));
-    border-bottom-color: var(--border-hairline);
-    color: var(--espresso);
-  }
-
-  /* Di atas hero gelap teks jadi putih dengan bayangan tipis agar terbaca.
-     Begitu header lewat dari hero (.is-scrolled), warnanya kembali ke tinta
-     bawaan — bilahnya tetap bening, tapi tulisannya harus tetap terbaca di
-     atas section berlatar krem. Saat di-hover bilahnya padat, jadi putih
-     dilepas juga. */
-  .site-header[data-variant='over-dark']:not(.is-scrolled):not(.is-open):not(.is-menu):not(:hover):not(:focus-within) {
-    color: oklch(1 0 0);
-  }
-  .site-header[data-variant='over-dark']:not(.is-scrolled):not(.is-open):not(.is-menu):not(:hover):not(:focus-within) .site-nav__link,
-  .site-header[data-variant='over-dark']:not(.is-scrolled):not(.is-open):not(.is-menu):not(:hover):not(:focus-within) .lang__toggle,
-  .site-header[data-variant='over-dark']:not(.is-scrolled):not(.is-open):not(.is-menu):not(:hover):not(:focus-within) :global(.logo__name) {
-    text-shadow: 0 1px 12px rgb(var(--shade-rgb) / 0.5);
-  }
-
-  /* Di luar section 1, di halaman mana pun: menubar pergi sepenuhnya.
-     pointer-events dimatikan supaya bilah yang sudah tak terlihat tidak lagi
-     menangkap hover dan memanggil balik keadaan berwarnanya. */
-  .site-header.is-away {
-    transform: translateY(-100%);
-    opacity: 0;
+    height: 0;
     pointer-events: none;
   }
 
-  .site-header__bar {
-    max-width: var(--measure-max);
-    margin-inline: auto;
-    padding-inline: var(--gutter);
-  }
-
-  .site-header__grid {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto auto;
-    align-items: center;
-    column-gap: clamp(20px, 2.2vw, 40px);
-    height: var(--header-h);
-  }
-
-  /* Logo adalah akar komponen lain, sehingga di luar jangkauan style
-     ber-scope berkas ini — karena itu :global(). Mengecil dari kiri saat
-     header padat, bukan dari tengah. */
-  :global(.site-header__mark) {
-    grid-column: 1;
-    justify-self: start;
-  }
-  .site-header.is-scrolled :global(.site-header__mark),
-  .site-header.is-open :global(.site-header__mark) { transform: scale(0.86); }
-
-  /* ── Pemilih bahasa ──────────────────────────────────────────────── */
-  .lang { grid-column: 3; position: relative; z-index: 3; }
-  .lang__toggle {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: var(--type-label);
-    font-weight: 400;
-    letter-spacing: 0.06em;
-    white-space: nowrap;
-    color: currentColor;
-    transition: color var(--dur-fast) ease;
-  }
-  .lang__toggle svg { transition: transform 420ms var(--ease-glide); }
-  .lang__toggle[aria-expanded='true'] svg { transform: rotate(180deg); }
-
-  .lang__menu {
+  /* ── Bidang putih melengkung + logo ─────────────────────────────────── */
+  .site-header__brand {
     position: absolute;
-    top: calc(100% + 12px);
-    right: -14px;
-    min-width: 172px;
-    background: var(--ivory-1);
-    border: 1px solid var(--border-hairline);
-    box-shadow: var(--shadow-dropdown);
-    padding: 8px 0;
-    opacity: 0;
-    transform: translateY(-8px);
+    top: 0;
+    left: 0;
+    width: clamp(300px, 29vw, 560px);
+    height: clamp(150px, 15.6vw, 300px);
+    color: var(--paper);
     pointer-events: none;
-    transition: opacity 340ms ease, transform var(--dur-mid) var(--ease-glide);
+    transition: transform 500ms ease, opacity 400ms ease;
   }
-  .lang.is-open .lang__menu { opacity: 1; transform: none; pointer-events: auto; }
-  .lang__menu a {
-    display: block;
-    padding: 10px 22px;
-    font-size: 12.5px;
-    font-weight: 500;
-    color: var(--espresso);
-    transition: background var(--dur-fast) ease;
-  }
-  .lang__menu a:hover { background: var(--stone-1); color: var(--espresso); }
-  .lang__menu a[aria-current] { color: var(--ink); }
-
-  /* ── Navigasi ────────────────────────────────────────────────────── */
-  .site-nav {
-    grid-column: 2;
-    justify-self: end;
-    display: flex;
-    align-items: center;
-    gap: clamp(16px, 1.9vw, 34px);
-  }
-
-  .site-nav__link {
-    font-size: 13px;
-    font-weight: 400;
-    letter-spacing: 0.075em;
-    padding-bottom: 4px;
-    white-space: nowrap;
-    border-bottom: 2px solid transparent;
-    opacity: 0.95;
-    transition: opacity 380ms ease, border-color 380ms ease;
-  }
-  /* Garis bawahnya hijau logo, bukan warna teks: garis 2px bukan teks,
-     jadi #009978 boleh dipakai di sini meski hanya 3,6:1. */
-  .site-nav__link:hover,
-  .site-nav__link:focus-visible {
-    opacity: 1;
-    border-bottom-color: var(--green-500);
-    color: inherit;
-  }
-  .site-nav__link[aria-current='page'] {
-    opacity: 1;
-    border-bottom-color: var(--green-500);
-  }
-
-  .site-header__search {
-    grid-column: 4;
-    justify-self: end;
-    padding: 6px;
-    transition: opacity var(--dur-fast) ease;
-  }
-  .site-header__search:hover { opacity: 0.55; }
-
-  .site-header__burger {
-    grid-column: 4;
-    justify-self: end;
-    display: none;
-    flex-direction: column;
-    gap: 6px;
-    padding: 10px 0;
-    width: 28px;
-  }
-  .site-header__burger span { height: 1px; background: currentColor; width: 100%; }
-  /* Selama menu terbuka, tombol Close milik menu yang mengambil tempatnya. */
-  .site-header.is-menu .site-header__burger { visibility: hidden; }
-
-  /* ── Mega menu ───────────────────────────────────────────────────── */
-  /* Wadah ini tidak boleh punya latar sendiri: saat tertutup, tinggi border
-     transparannya masih terlihat sebagai garis putih selebar halaman. */
-  .mega {
-    overflow: hidden;
-    max-height: 0;
-    transition: max-height var(--dur-slow) var(--ease-glide);
-  }
-  .site-header.is-open .mega {
-    max-height: 520px;
-    border-top: 1px solid var(--border-hairline);
-  }
-  .mega__panel { background: var(--ivory-1); }
-
-  /* Dua kolom: pelat lebar di kiri, peta situs di kanan. Pelatnya sengaja
-     lebih lebar daripada tinggi (21/9) supaya judul dan panahnya duduk pada
-     satu baris di dalam fotonya. */
-  .mega__inner {
-    max-width: var(--measure-max);
-    margin-inline: auto;
-    padding: clamp(24px, 2.6vw, 40px) var(--gutter) clamp(26px, 3vw, 44px);
-    display: grid;
-    grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
-    gap: clamp(30px, 5.5vw, 104px);
-    align-items: center;
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: opacity var(--dur-mid) ease, transform var(--dur-slow) var(--ease-glide);
-  }
-  .site-header.is-open .mega__panel:not([hidden]) .mega__inner {
-    opacity: 1;
-    transform: none;
-  }
-
-  /* ── Pelat berjudul ─────────────────────────────────────────────── */
-  .mega__feature {
-    position: relative;
-    display: block;
-    color: var(--espresso);
-  }
-  .mega__feature--photo { color: var(--on-image); }
-
-  .mega__shot {
-    position: relative;
-    display: block;
-    aspect-ratio: 21 / 9;
-    overflow: hidden;
-  }
-  .mega__shot :global(img) {
+  .site-header__swoosh {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    transform: scale(1.0001);
-    transition: transform 900ms var(--ease-glide);
+    filter: drop-shadow(0 2px 10px rgb(0 0 0 / 0.06));
   }
-  .mega__feature:hover .mega__shot :global(img),
-  .mega__feature:focus-visible .mega__shot :global(img) { transform: scale(1.045); }
-
-  /* Gradien hanya kalau ada foto di belakangnya: di pelat hatch judulnya sudah
-     tinta di atas latar terang dan tidak butuh peredup. */
-  .mega__feature--photo .mega__shot::after {
-    content: '';
+  :global(.site-header__logo) {
     position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to top,
-      rgb(var(--shade-rgb) / 0.7) 0%,
-      rgb(var(--shade-rgb) / 0.26) 44%,
-      transparent 74%
-    );
-    pointer-events: none;
+    top: clamp(26px, 2.3vw, 38px);
+    left: clamp(104px, 7.4vw, 118px);
+    color: var(--ink);
+    pointer-events: auto;
   }
-  /* Sebagian foto punya bagian pucat tepat di sudut kiri bawah; gradien saja
-     tidak selalu cukup menahan judulnya. */
-  .mega__feature--photo .mega__label { text-shadow: 0 1px 14px rgb(var(--shade-rgb) / 0.55); }
 
-  .mega__label {
+  /* Halaman tanpa foto sampul sudah berlatar putih: bidang lengkungnya
+     tidak dibutuhkan, dan bayangannya hanya terbaca sebagai garis abu. */
+  .site-header[data-variant='solid'] .site-header__swoosh { display: none; }
+
+  /* ── Pil kanan: cari + bahasa ───────────────────────────────────────── */
+  .site-header__tools {
     position: absolute;
-    left: clamp(18px, 2vw, 32px);
-    bottom: clamp(15px, 1.8vw, 27px);
-    z-index: 1;
+    top: clamp(24px, 2.2vw, 38px);
+    right: clamp(20px, 3vw, 60px);
     display: flex;
     align-items: center;
-    gap: clamp(14px, 1.4vw, 22px);
+    gap: clamp(12px, 1.2vw, 20px);
+    pointer-events: auto;
+    transition: transform 500ms ease, opacity 400ms ease;
   }
-  .mega__label-text {
-    font-size: clamp(16px, 1.45vw, 22px);
-    font-weight: 400;
-    letter-spacing: 0.15em;
-    line-height: 1;
-    text-transform: uppercase;
-  }
-  /* Panah bergeser ke kanan saat kursor ada di atas pelatnya. */
-  .mega__arrow {
-    flex: none;
-    transition: transform 520ms var(--ease-glide);
-  }
-  .mega__feature:hover .mega__arrow,
-  .mega__feature:focus-visible .mega__arrow { transform: translateX(13px); }
 
-  /* ── Peta situs ─────────────────────────────────────────────────── */
-  .mega__links {
+  .tools-pill {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: clamp(11px, 1.4vw, 19px);
+    align-items: center;
+    height: 42px;
+    padding: 0 20px;
+    border-radius: var(--radius-pill);
+    background: var(--paper);
+    box-shadow: 0 1px 6px rgb(0 0 0 / 0.08);
   }
-  /* Garis bawahnya tumbuh dari kiri saat di-hover, bukan muncul sekaligus. */
-  .mega__link {
+  .tools-pill__search {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: var(--type-ui);
+    font-weight: 500;
+    color: var(--ink-body);
+    transition: color 150ms ease-in-out;
+  }
+  .tools-pill__search svg { color: var(--teal); }
+  .tools-pill__search:hover { color: var(--teal); }
+
+  .lang { position: relative; }
+  .lang__toggle {
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 2px solid var(--teal);
+    background: var(--paper);
+    color: var(--teal);
+    font-size: 15px;
+    font-weight: 600;
+    transition: background 150ms ease-in-out, color 150ms ease-in-out, box-shadow 150ms ease-in-out;
+  }
+  /* Hover tombol bahasa Vale: isi teal, huruf putih, bayangan 0 2px 8px. */
+  .lang__toggle:hover,
+  .lang__toggle:focus-visible,
+  .lang.is-open .lang__toggle {
+    background: var(--teal);
+    color: var(--paper);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+  }
+
+  .lang__menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    min-width: 180px;
+    padding: 8px 0;
+    background: var(--paper);
+    border-radius: var(--radius-card);
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.14);
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity 300ms ease, transform 300ms ease;
+  }
+  .lang.is-open .lang__menu { opacity: 1; transform: none; pointer-events: auto; }
+  .lang__menu a {
+    display: block;
+    padding: 10px 20px;
+    font-size: 15px;
+    color: var(--ink-body);
+  }
+  .lang__menu a:hover { background: var(--paper-sunk); color: var(--teal); }
+  .lang__menu a[aria-current] { color: var(--teal); font-weight: 500; }
+
+  /* Di luar section 1 logo dan pil kanan pergi; tombol menu tetap. */
+  .site-header.is-away .site-header__brand {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  .site-header.is-away .site-header__tools {
+    transform: translateY(-160%);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .site-header.is-away :global(.site-header__logo) { pointer-events: none; }
+
+  /* ── Tombol menu pil emas ───────────────────────────────────────────── */
+  .menu-btn {
+    position: fixed;
+    z-index: 190;
+    top: clamp(26px, 2.3vw, 38px);
+    left: 0;
+    width: clamp(70px, 4.4vw, 84px);
+    height: clamp(40px, 2.4vw, 46px);
+    padding-left: clamp(22px, 1.6vw, 30px);
+    display: flex;
+    align-items: center;
+    border-radius: 0 var(--radius-pill) var(--radius-pill) 0;
+    background: var(--gold);
+    color: var(--paper);
+    box-shadow: 0 1px 6px rgb(0 0 0 / 0.12);
+    transition: box-shadow 150ms ease-in-out;
+  }
+  .menu-btn:hover { box-shadow: 0 0 6px rgb(236 177 31 / 0.58); }
+
+  /* Tiga garis dari satu elemen: garisnya sendiri + ::before + ::after.
+     Saat di-hover garis atas bergeser 9px ke kiri, seperti burger Vale. */
+  .menu-btn__lines,
+  .menu-btn__lines::before,
+  .menu-btn__lines::after {
+    display: block;
+    width: 22px;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+  }
+  .menu-btn__lines {
     position: relative;
-    font-size: clamp(14px, 1.06vw, 16px);
-    font-weight: 400;
-    letter-spacing: 0.015em;
-    line-height: 1.3;
-    padding-bottom: 4px;
-    color: var(--espresso);
-    opacity: 0.7;
-    transition: opacity var(--dur-fast) ease;
+    top: -7px;
   }
-  .mega__link::after {
+  .menu-btn__lines::before,
+  .menu-btn__lines::after {
     content: '';
     position: absolute;
     left: 0;
-    right: 0;
-    bottom: 0;
-    height: 1px;
-    background: currentColor;
-    transform: scaleX(0);
-    transform-origin: left center;
-    transition: transform 460ms var(--ease-glide);
   }
-  .mega__link:hover,
-  .mega__link:focus-visible {
-    opacity: 1;
-    color: var(--espresso);
+  .menu-btn__lines::before {
+    transform: translateY(7px);
+    transition: transform 300ms ease-in-out;
   }
-  .mega__link:hover::after,
-  .mega__link:focus-visible::after { transform: scaleX(1); }
+  .menu-btn__lines::after { transform: translateY(14px); }
+  .menu-btn:hover .menu-btn__lines::before { transform: translateX(-9px) translateY(7px); }
 
-  @media (prefers-reduced-motion: reduce) {
-    .mega__shot :global(img),
-    .mega__arrow,
-    .mega__link::after { transition: none; }
-    .mega__feature:hover .mega__shot :global(img) { transform: none; }
-    .mega__feature:hover .mega__arrow { transform: none; }
-  }
-
-  /* ── Tier menengah ───────────────────────────────────────────────── */
-  /* Enam label butuh ruang lebih dari empat. Di bawah 1280px nav dipadatkan
-     sebelum jatuh ke burger. */
-  @media (min-width: 1080px) and (max-width: 1279px) {
-    .site-nav { gap: 14px; }
-    .site-nav__link { font-size: 12px; letter-spacing: 0.05em; }
-    .site-header__grid { column-gap: 18px; }
-    .lang__toggle { font-size: 11px; gap: 6px; }
-  }
-
-  /* ── Menu layar sempit ───────────────────────────────────────────── */
-  .mobile-menu {
-    position: fixed;
-    inset: 0;
-    z-index: 149;
-    background: var(--bg-page);
-    color: var(--espresso);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    padding: clamp(76px, 16vw, 120px) clamp(24px, 7vw, 72px) clamp(40px, 10vw, 80px);
-    animation: rise 500ms var(--ease-glide) both;
-  }
-  .mobile-menu nav {
-    display: flex;
-    flex-direction: column;
-    gap: clamp(20px, 4vw, 30px);
-    margin: auto 0;
-  }
-  .mobile-menu__group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding-bottom: clamp(16px, 3vw, 24px);
-    border-bottom: 1px solid var(--border-hairline);
-  }
-  .mobile-menu__group:last-child { border-bottom: none; }
-  .mobile-menu__link {
-    font-family: var(--font-display);
-    font-size: clamp(27px, 7vw, 44px);
-    line-height: 1.12;
-  }
-  .mobile-menu__sub {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 20px;
-  }
-  .mobile-menu__sub a {
-    font-size: 13.5px;
-    line-height: 1.5;
-    color: var(--ink-muted);
-  }
-  .mobile-menu__sub a:hover { color: var(--green-700); }
-  .mobile-menu__close {
-    position: fixed;
-    top: clamp(20px, 3vw, 34px);
-    right: clamp(20px, 4vw, 64px);
-    font-size: 13.5px;
-    letter-spacing: var(--ls-cta);
-    text-transform: uppercase;
-    opacity: 0.6;
-  }
-
-  /* Enam menu tidak muat di bawah 1080px tanpa berdesakan, jadi burger naik
-     dari 900px ke sini. */
-  @media (max-width: 1079px) {
-    .lang,
-    .site-nav,
-    .site-header__search,
-    .mega { display: none; }
-    .site-header__burger { display: flex; }
-    .site-header__grid { grid-template-columns: 1fr auto; }
-    .site-header__burger { grid-column: 2; }
+  @media (max-width: 899px) {
+    .site-header__brand {
+      width: 250px;
+      height: 118px;
+    }
+    :global(.site-header__logo) {
+      top: 22px;
+      left: 82px;
+    }
+    .menu-btn {
+      top: 22px;
+      width: 64px;
+      height: 38px;
+      padding-left: 20px;
+    }
+    .tools-pill { display: none; }
+    .site-header__tools { top: 18px; right: 16px; }
+    .lang__toggle { width: 42px; height: 42px; font-size: 14px; }
   }
 </style>

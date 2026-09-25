@@ -4,7 +4,7 @@ import type { CarouselSlide } from './types';
 /* ── Hero ────────────────────────────────────────────────────────────── */
 
 export type HeroSlide = {
-  kind: 'video' | 'photo';
+  kind: 'photo';
   eyebrow: string;
   headline: string;
   sub?: string;
@@ -17,11 +17,12 @@ export type HeroSlide = {
 
 export const HERO_SLIDES: HeroSlide[] = [
   {
-    kind: 'video',
+    kind: 'photo',
     eyebrow: 'Natural Raw Materials',
     headline: 'All Natural.',
-    shot: 'aerial, Tapanuli benzoin gardens',
+    shot: 'forest canopy from below, green leaves against the sky',
     href: '/ingredients/',
+    image: 'hero-poster',
   },
   {
     kind: 'photo',

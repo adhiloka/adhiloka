@@ -1,54 +1,104 @@
-/** Perilaku header: kondisi scroll, mega menu, pemilih bahasa, menu layar sempit. */
+/** Perilaku header dan menu layar penuh (MenuOverlay).
+ *
+ *  - Logo dan pil kanan hanya ada selama section 1; tombol menu pil emas tetap.
+ *  - Menu: buka/tutup, pilih bagian (panel sub-menu + foto), tombol kembali di
+ *    layar sempit, jebakan fokus, Escape, dan gulir halaman dijeda selama
+ *    menu terbuka.
+ *  - Pemilih bahasa. */
 
 import { pauseScroll, resumeScroll } from './smooth-scroll';
 
 let scrollBound = false;
 let docBound = false;
-
-/** Satu jalur untuk membuka dan menutup menu layar sempit, dipakai baik oleh
- *  tombolnya maupun oleh Escape di tingkat dokumen. */
-function setMobileMenu(open: boolean) {
-  const menu = document.querySelector<HTMLElement>('[data-mobile-menu]');
-  if (!menu || !menu.hidden === open) return;
-
-  menu.hidden = !open;
-  // Menu berlatar putih: header harus lepas dari teks putih varian over-dark.
-  document.querySelector('[data-site-header]')?.classList.toggle('is-menu', open);
-  document.documentElement.style.overflow = open ? 'hidden' : '';
-  if (open) pauseScroll();
-  else resumeScroll();
-
-  const toggles = document.querySelectorAll<HTMLButtonElement>('[data-menu-toggle]');
-  toggles.forEach((t) => t.setAttribute('aria-expanded', String(open)));
-  if (open) menu.querySelector<HTMLAnchorElement>('a')?.focus();
-  else toggles[0]?.focus();
-}
+let closeTimer = 0;
 
 const q = <T extends Element>(sel: string) => document.querySelector<T>(sel);
+
+const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 function syncScrollState() {
   const header = q<HTMLElement>('[data-site-header]');
   if (!header) return;
 
   const y = window.scrollY;
-
-  // Mengecilkan logo, dan di beranda menghentikan teks putih milik varian
-  // over-dark. Aturan "sembunyi saat menggulir turun, muncul lagi saat naik"
-  // sudah dicabut: menubar tidak lagi datang dan pergi mengikuti arah gulir.
   header.classList.toggle('is-scrolled', y > 40);
 
-  // Menubar hanya ada selama SECTION 1 — di semua halaman. Begitu tepi bawah
-  // section itu mencapai header, menubarnya pergi, dan tidak kembali sampai
-  // digulir naik lagi ke section 1.
-  //
-  // Batasnya diambil dari tinggi section 1 yang sebenarnya, bukan angka tetap:
-  // di beranda section 1 adalah hero setinggi 100svh, di halaman dalam ia
-  // kepala halaman yang tingginya bisa lebih dari satu layar. Selama JavaScript
-  // belum menandai section (atau di halaman tanpa section sama sekali), tinggi
-  // jendela dipakai sebagai gantinya.
+  // Logo dan pil kanan hanya ada selama SECTION 1, di semua halaman. Batasnya
+  // tinggi section 1 yang sebenarnya; sebelum section ditandai, tinggi jendela.
   const satu = document.querySelector<HTMLElement>('[data-section="1"]');
-  const batas = (satu?.offsetHeight ?? window.innerHeight) - header.offsetHeight;
-  header.classList.toggle('is-away', !header.classList.contains('is-open') && y > batas);
+  const batas = (satu?.offsetHeight ?? window.innerHeight) - 160;
+  header.classList.toggle('is-away', y > batas);
+}
+
+/* ── Menu ───────────────────────────────────────────────────────────────── */
+
+const menuEl = () => q<HTMLElement>('[data-site-menu]');
+const isMenuOpen = () => menuEl()?.classList.contains('is-open') ?? false;
+
+function selectItem(menu: HTMLElement, index: string | null) {
+  menu.querySelectorAll<HTMLButtonElement>('[data-menu-item]').forEach((b) => {
+    b.setAttribute('aria-expanded', String(b.dataset.menuItem === index));
+  });
+  menu.querySelectorAll<HTMLElement>('[data-menu-sub]').forEach((sub) => {
+    const on = sub.dataset.menuSub === index;
+    sub.classList.toggle('is-open', on);
+    if (on) sub.removeAttribute('inert');
+    else sub.setAttribute('inert', '');
+  });
+  const want = index ?? 'default';
+  const photos = Array.from(menu.querySelectorAll<HTMLElement>('[data-menu-photo]'));
+  const hasPhoto = photos.some((p) => p.dataset.menuPhoto === want);
+  photos.forEach((p) =>
+    p.classList.toggle('is-shown', p.dataset.menuPhoto === (hasPhoto ? want : 'default')),
+  );
+}
+
+function setMenu(open: boolean) {
+  const menu = menuEl();
+  if (!menu || isMenuOpen() === open) return;
+
+  const toggles = document.querySelectorAll<HTMLButtonElement>('[data-menu-toggle]');
+  window.clearTimeout(closeTimer);
+
+  if (open) {
+    selectItem(menu, null);
+    menu.removeAttribute('inert');
+    // Satu bingkai jeda supaya transisi masuk berjalan dari keadaan tertutup.
+    requestAnimationFrame(() => menu.classList.add('is-open'));
+    document.documentElement.classList.add('is-menu-open');
+    pauseScroll();
+    toggles.forEach((t) => t.setAttribute('aria-expanded', 'true'));
+    window.setTimeout(() => menu.querySelector<HTMLElement>('[data-menu-close]')?.focus(), 60);
+  } else {
+    menu.classList.remove('is-open');
+    document.documentElement.classList.remove('is-menu-open');
+    resumeScroll();
+    toggles.forEach((t) => t.setAttribute('aria-expanded', 'false'));
+    closeTimer = window.setTimeout(() => {
+      menu.setAttribute('inert', '');
+      selectItem(menu, null);
+    }, 420);
+    toggles[0]?.focus();
+  }
+}
+
+/** Tab dan Shift+Tab berputar di dalam menu selama ia terbuka. */
+function trapFocus(e: KeyboardEvent) {
+  const menu = menuEl();
+  if (!menu || !isMenuOpen() || e.key !== 'Tab') return;
+  const items = Array.from(menu.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
+    (el) => !el.closest('[inert]') && el.offsetParent !== null,
+  );
+  if (!items.length) return;
+  const first = items[0];
+  const last = items[items.length - 1];
+  if (e.shiftKey && document.activeElement === first) {
+    e.preventDefault();
+    last.focus();
+  } else if (!e.shiftKey && document.activeElement === last) {
+    e.preventDefault();
+    first.focus();
+  }
 }
 
 export function initHeader() {
@@ -56,89 +106,58 @@ export function initHeader() {
   if (!header) return;
 
   syncScrollState();
-
   if (!scrollBound) {
     window.addEventListener('scroll', syncScrollState, { passive: true });
+    window.addEventListener('resize', syncScrollState);
     scrollBound = true;
   }
 
-  /* ── Mega menu ─────────────────────────────────────────────────────── */
-  const mega = header.querySelector<HTMLElement>('[data-mega]');
-  const panels = Array.from(header.querySelectorAll<HTMLElement>('[data-mega-panel]'));
-  const navLinks = Array.from(header.querySelectorAll<HTMLAnchorElement>('[data-nav-link]'));
+  /* ── Menu ──────────────────────────────────────────────────────────── */
+  document.querySelectorAll<HTMLButtonElement>('[data-menu-toggle]').forEach((t) =>
+    t.addEventListener('click', () => setMenu(!isMenuOpen())),
+  );
 
-  const closeMega = () => {
-    header.classList.remove('is-open');
-    panels.forEach((p) => (p.hidden = true));
-    mega?.setAttribute('inert', '');
-    navLinks.forEach((l) => l.removeAttribute('aria-expanded'));
-  };
+  const menu = menuEl();
+  if (menu) {
+    menu.querySelector('[data-menu-close]')?.addEventListener('click', () => setMenu(false));
 
-  const openMega = (label: string) => {
-    let matched = false;
-    panels.forEach((p) => {
-      const on = p.dataset.megaPanel === label;
-      p.hidden = !on;
-      matched ||= on;
-    });
-    if (!matched) return closeMega();
-    header.classList.add('is-open');
-    mega?.removeAttribute('inert');
-    navLinks.forEach((l) => {
-      if (l.dataset.panel) l.setAttribute('aria-expanded', String(l.dataset.panel === label));
-    });
-  };
+    menu.querySelectorAll<HTMLButtonElement>('[data-menu-item]').forEach((btn) =>
+      btn.addEventListener('click', () => {
+        const already = btn.getAttribute('aria-expanded') === 'true';
+        selectItem(menu, already ? null : btn.dataset.menuItem!);
+        if (!already) {
+          // Fokus ikut ke panel supaya pengguna papan ketik langsung tiba di
+          // tautan "Access the page".
+          const sub = menu.querySelector<HTMLElement>(`[data-menu-sub="${btn.dataset.menuItem}"]`);
+          window.setTimeout(() => sub?.querySelector<HTMLElement>('a')?.focus({ preventScroll: true }), 520);
+        }
+      }),
+    );
 
-  navLinks.forEach((link) => {
-    const label = link.dataset.panel;
+    menu.querySelectorAll<HTMLButtonElement>('[data-menu-back]').forEach((b) =>
+      b.addEventListener('click', () => {
+        const idx = b.closest<HTMLElement>('[data-menu-sub]')?.dataset.menuSub;
+        selectItem(menu, null);
+        menu.querySelector<HTMLElement>(`[data-menu-item="${idx}"]`)?.focus();
+      }),
+    );
 
-    // Contact tidak punya panel. Hover di atasnya harus menutup panel yang
-    // sedang terbuka, bukan membuka panel bernama "undefined".
-    if (!label) {
-      link.addEventListener('mouseenter', closeMega);
-      link.addEventListener('focus', closeMega);
-      return;
-    }
-
-    link.addEventListener('mouseenter', () => openMega(label));
-    link.addEventListener('focus', () => openMega(label));
-  });
-
-  header.addEventListener('mouseleave', closeMega);
+    // Tautan di dalam menu berpindah halaman lewat ClientRouter; menu harus
+    // tertutup tanpa menunggu transisi keluarnya.
+    menu.querySelectorAll<HTMLAnchorElement>('a[href]').forEach((a) =>
+      a.addEventListener('click', () => setMenu(false)),
+    );
+  }
 
   /* ── Pemilih bahasa ────────────────────────────────────────────────── */
   const lang = header.querySelector<HTMLElement>('[data-lang]');
   const langToggle = header.querySelector<HTMLButtonElement>('[data-lang-toggle]');
-
-  const closeLang = () => {
-    lang?.classList.remove('is-open');
-    langToggle?.setAttribute('aria-expanded', 'false');
-  };
-
   langToggle?.addEventListener('click', () => {
     const open = lang!.classList.toggle('is-open');
     langToggle.setAttribute('aria-expanded', String(open));
   });
 
-  /* ── Menu layar sempit ─────────────────────────────────────────────── */
-  document
-    .querySelectorAll<HTMLButtonElement>('[data-menu-toggle]')
-    .forEach((t) =>
-      t.addEventListener('click', () => {
-        const menu = q<HTMLElement>('[data-mobile-menu]');
-        setMobileMenu(menu?.hidden ?? true);
-      }),
-    );
-
-  /* ── Escape menutup apa pun yang terbuka ───────────────────────────── */
-  header.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closeMega();
-      closeLang();
-    }
-  });
-
-  // Listener tingkat dokumen dipasang sekali saja; keduanya membaca ulang DOM
+  // Listener tingkat dokumen dipasang sekali saja; semuanya membaca ulang DOM
   // supaya tetap benar setelah view transition mengganti isi halaman.
   if (!docBound) {
     docBound = true;
@@ -152,7 +171,26 @@ export function initHeader() {
     });
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') setMobileMenu(false);
+      if (e.key === 'Escape') {
+        if (isMenuOpen()) {
+          const m = menuEl()!;
+          // Escape pertama menutup panel sub-menu di layar sempit, kedua menutup menu.
+          const openSub = m.querySelector<HTMLElement>('[data-menu-sub].is-open');
+          if (openSub && window.matchMedia('(max-width: 1079px)').matches) {
+            selectItem(m, null);
+            return;
+          }
+          setMenu(false);
+        }
+        const el = q<HTMLElement>('[data-lang]');
+        el?.classList.remove('is-open');
+      }
+      trapFocus(e);
+    });
+
+    // Setelah pindah halaman, menu yang mungkin masih terbuka dibereskan.
+    document.addEventListener('astro:before-swap', () => {
+      document.documentElement.classList.remove('is-menu-open');
     });
   }
 }

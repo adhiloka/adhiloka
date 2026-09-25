@@ -5,8 +5,7 @@ import { SITE } from '../data/site';
 import { images } from '../data/images';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import BackToTop from '../components/BackToTop.astro';
-import Logo from '../components/Logo.astro';
+import ScrollProgress from '../components/ScrollProgress.astro';
 import '../styles/global.css';
 
 export type HeaderVariant = 'over-dark' | 'over-light' | 'solid';
@@ -102,42 +101,26 @@ const organization = {
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <Font cssVariable="--font-display-family" preload />
-    <Font cssVariable="--font-body-family" preload />
 
     <ClientRouter />
 
     <script type="application/ld+json" is:inline set:html={JSON.stringify(organization)} />
 
     <script is:inline>
-      // Kelas ini harus sudah terpasang sebelum cat pertama. Kalau keputusannya
-      // diambil di modul yang dimuat belakangan, isi halaman sempat terlihat
-      // lalu tertutup kurtin — persis kesan yang ingin dihindari.
+      // Kelas ini harus sudah terpasang sebelum cat pertama, supaya keadaan
+      // "tersembunyi sampai muncul" tidak sempat berkedip.
       (function () {
         // Penanda bahwa JavaScript hidup. Semua keadaan "tersembunyi sampai
         // muncul" digerbangi kelas ini, supaya halaman tanpa JavaScript tampil
         // utuh alih-alih kosong.
         document.documentElement.classList.add('js');
-        try {
-          var firstVisit = !sessionStorage.getItem('adhiloka:overture');
-          var stillness = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-          if (firstVisit && !stillness && location.pathname === '/') {
-            document.documentElement.classList.add('is-overture');
-          }
-        } catch (e) {
-          /* Jendela privat menolak sessionStorage; pembukaan dilewati saja. */
-        }
       })();
     </script>
   </head>
 
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <div id="route-curtain" aria-hidden="true" transition:persist>
-      <div class="overture" data-overture>
-        <Logo class="overture__mark" size="clamp(64px, 7vw, 92px)" markOnly plain />
-        <span class="overture__name">Adhiloka</span>
-      </div>
-    </div>
+    <div id="route-curtain" aria-hidden="true" transition:persist></div>
 
     <Header variant={headerVariant} active={active} />
 
@@ -146,17 +129,14 @@ const organization = {
     </main>
 
     <Footer />
-    <BackToTop />
+    <ScrollProgress />
 
     <script>
       import { initReveal } from '../scripts/reveal';
       import { initHeader } from '../scripts/header';
-      import { initBackToTop } from '../scripts/back-to-top';
       import { initSearch } from '../scripts/search';
       import { initSmoothScroll, resetScroll } from '../scripts/smooth-scroll';
-      import { initSplitLines } from '../scripts/split-lines';
       import { initImageReveal } from '../scripts/image-reveal';
-      import { initOverture } from '../scripts/overture';
       import { initSections } from '../scripts/sections';
 
       const boot = () => {
@@ -165,19 +145,14 @@ const organization = {
         initSections();
         initReveal();
         initHeader();
-        initBackToTop();
         initSearch();
         initImageReveal();
-        // Pemecahan baris menunggu font tiba, lalu meminta reveal memindai ulang
-        // agar judul yang baru ditandai ikut diamati.
-        initSplitLines(initReveal);
       };
 
       // Tidak ada pemanggilan langsung di sini: ClientRouter memicu
       // astro:page-load juga pada muat pertama. Memanggil keduanya membuat tiap
       // listener elemen terpasang dua kali.
       document.addEventListener('astro:page-load', boot);
-      initOverture();
 
       // Kurtin putih saat berpindah rute — perilaku yang sama seperti prototipe,
       // tetapi digerakkan oleh navigasi asli, bukan state klien.

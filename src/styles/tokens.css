@@ -1,109 +1,119 @@
 /* ── Adhiloka design tokens ──────────────────────────────────────────────
-   Diturunkan dari logo (25 September 2026): tiga hijau dan tiga kuning-amber.
-   Dasarnya putih bersih dengan tinta netral gelap. Hijau memikul tautan dan
-   tombol, kuning hanya menyorot. Hijau logo #009978 cuma 3,6:1 di atas putih,
-   jadi untuk teks dipakai langkah yang lebih gelap, --green-700. */
+   Palet dan bahasa visual meniru valeindonesia.com (September 2026, atas
+   permintaan user). Nilai warnanya diambil dari DOM situs itu: teal #007E7A,
+   emas #ECB11F, biru langit #3CB5E5, teks abu #555.
+
+   Aturan kontras yang tidak boleh dilanggar (dihitung, bukan dikira):
+   - teal di atas putih 4,9:1, putih di atas teal 4,9:1: aman untuk teks;
+   - emas di atas putih 1,9:1 dan di atas teal 2,6:1: EMAS BUKAN WARNA TEKS,
+     hanya panah, garis, isian, tombol menu;
+   - putih di atas biru langit 2,4:1: teks di atas biru langit dan emas
+     selalu --ink (6,8:1 dan 8,2:1). */
 
 :root {
-  /* ── Warna logo ─────────────────────────────────────────────────────── */
-  --green-300: #49bc88;
-  --green-400: #21a87a;
-  --green-500: #009978;                  /* isian besar, garis; bukan teks  3,6:1 */
-  --green-700: #007a60;                  /* tautan, latar tombol            5,3:1 */
-  --green-900: #0e3b2f;                  /* dasar gelap, footer                   */
-  --green-50: #eef7f2;                   /* pelat hijau muda                      */
-
-  --yellow-100: #fff6d6;
-  --yellow-200: #ffeeab;
-  --yellow-300: #ffd474;                 /* sorotan, seleksi; teks di atasnya --ink */
-  --amber: #ffbc54;                      /* aksen dekoratif, bukan warna teks     */
+  /* ── Warna Vale ─────────────────────────────────────────────────────── */
+  --teal: #007e7a;                       /* judul, tautan, tombol, footer   4,9:1 */
+  --teal-dark: #005f5c;                  /* hover tombol teal; putih 7,5:1        */
+  --teal-deep: #004a47;                  /* hover tautan teks                     */
+  --gold: #ecb11f;                       /* panah, tombol menu, pita; BUKAN teks  */
+  --gold-soft: #f6d27a;                  /* tekanan lembut di atas teal (ikon)    */
+  --sky: #3cb5e5;                        /* pita kedua, tombol sekunder           */
+  --mint: #10b89a;                       /* gelombang dekoratif saja              */
 
   /* ── Kertas ─────────────────────────────────────────────────────────── */
-  --paper: #ffffff;                      /* dasar halaman */
-  --paper-sunk: #f4f7f5;                 /* pita yang direndahkan */
+  --paper: #ffffff;
+  --paper-sunk: #f5f7f7;
 
   /* Pelat pengganti foto: dua tingkat, cukup untuk pola hatch-nya. */
-  --plate: #eaf0ec;
-  --plate-deep: #d6e2da;
+  --plate: #e9efee;
+  --plate-deep: #d5e0df;
 
-  /* Warna pelat kartu di data halaman. Dulu nilai cokelat mentah di tiap
-     berkas data; sekarang empat nada yang semuanya duduk di keluarga logo. */
-  --plate-green: #e3f1e9;
-  --plate-sage: #e6ece8;
-  --plate-yellow: #fdf1cf;
-  --plate-amber: #fbe6c4;
-  /* Versi gelap untuk slide foto hero (warna tunggu sebelum gambar turun). */
-  --plate-dark-1: #1f4a3d;
-  --plate-dark-2: #2b5a3c;
-  --plate-dark-3: #0e3b2f;
-  --plate-dark-1-stripe: #173d32;
-  --plate-dark-2-stripe: #224c32;
-  --plate-dark-3-stripe: #0a3026;
+  /* Warna pelat kartu di data halaman: empat nada dari keluarga Vale. */
+  --plate-green: #dcefed;
+  --plate-sage: #e9efee;
+  --plate-yellow: #fbefcf;
+  --plate-amber: #d9eff9;
+  --plate-dark-1: #0b5552;
+  --plate-dark-2: #1c4f63;
+  --plate-dark-3: #004a47;
+  --plate-dark-1-stripe: #094744;
+  --plate-dark-2-stripe: #184357;
+  --plate-dark-3-stripe: #003d3a;
 
   /* ── Tinta ──────────────────────────────────────────────────────────── */
-  /* Tiga langkah netral dengan sedikit hijau. Rasio di atas putih. */
-  --ink: #1c1f1e;                        /* judul, teks utama        16,6:1 */
-  --ink-body: #4a504d;                   /* paragraf                  8,3:1 */
-  --ink-muted: #5f6662;                  /* label, keterangan, meta   5,9:1 */
+  --ink: #222222;                        /* judul gelap, teks di atas emas/biru 15,9:1 */
+  --ink-body: #555555;                   /* paragraf, seperti Vale             7,5:1 */
+  --ink-muted: #6b6b6b;                  /* label, meta                        5,3:1 */
 
   /* ── Garis ──────────────────────────────────────────────────────────── */
-  --rule: #e3e8e5;
-  --rule-strong: #ccd4cf;
+  --rule: #e2e6e6;
+  --rule-strong: #c9d0d0;
 
   /* ── Dasar gelap ────────────────────────────────────────────────────── */
-  --ground-dark: var(--green-900);
+  --ground-dark: var(--teal);
 
-  /* ── Aksen ──────────────────────────────────────────────────────────── */
-  /* --gold dipertahankan sebagai nama peran (hover tautan dan ikon), tapi
-     isinya kini hijau tautan. */
-  --gold: var(--green-700);
-  --focus-ring: var(--green-700);
+  /* ── Aksen dan fokus ────────────────────────────────────────────────── */
+  --link-hover: var(--teal-deep);
+  --focus-ring: var(--teal);
 
-  /* Satu-satunya warna semantik. Merah bata, 5,6:1 di atas putih. */
+  /* Satu-satunya warna semantik. Merah bata, 5,7:1 di atas putih. */
   --warn: #b3412a;
 
   /* ── Di atas gambar ─────────────────────────────────────────────────── */
   --on-image: #ffffff;
-  --on-image-dim: rgb(255 255 255 / 0.76);
-  /* Peredup foto: hijau hutan yang hampir hitam, bukan cokelat, supaya
-     gradien di atas foto satu keluarga dengan footer. Komponen memakai
-     rgb(var(--shade-rgb) / alfa). */
-  --shade-rgb: 8 30 24;
-  --scrim: rgb(var(--shade-rgb) / 0.22);
+  --on-image-dim: rgb(255 255 255 / 0.86);
+  /* Peredup foto netral hitam, seperti gradien hero Vale (0,65 ke 0). */
+  --shade-rgb: 0 0 0;
+  --scrim: rgb(var(--shade-rgb) / 0.3);
+
+  /* ── Bentuk ─────────────────────────────────────────────────────────── */
+  --radius-card: 4px;
+
+  /* ── Nama lama untuk palet sebelumnya ───────────────────────────────── */
+  /* Komponen yang belum dirombak masih merujuk nama ini. */
+  --green-300: var(--mint);
+  --green-400: var(--mint);
+  --green-500: var(--teal);
+  --green-700: var(--teal);
+  --green-900: var(--teal-dark);
+  --green-50: var(--plate-green);
+  --yellow-100: var(--plate-yellow);
+  --yellow-200: var(--gold-soft);
+  --yellow-300: var(--gold);
+  --amber: var(--gold);
 
   /* ── Huruf ──────────────────────────────────────────────────────────── */
-  /* Dua keluarga, dua-duanya sans. Plus Jakarta Sans (Tokotype, Jakarta)
-     memikul judul dan punya italic asli untuk nama Latin; Public Sans untuk
-     isi. Variabel *-family disuntikkan Astro Fonts API. */
-  --font-display: var(--font-display-family, 'Plus Jakarta Sans', system-ui, sans-serif);
-  --font-body: var(--font-body-family, 'Public Sans', system-ui, sans-serif);
+  /* Satu keluarga, Mukta, pengganti Vale Sans (proprietary). Judul dan isi
+     sama-sama Mukta; hierarki dari ukuran dan berat 400/500/600. Mukta tidak
+     punya italic, jadi tidak ada teks yang dimiringkan. */
+  --font-display: var(--font-display-family, 'Mukta', system-ui, sans-serif);
+  --font-body: var(--font-display-family, 'Mukta', system-ui, sans-serif);
 
-  /* Satu tangga, tanpa lompatan menganga dan tanpa h2 yang lebih besar dari h1. */
-  /* Sekitar 10% lebih kecil dari skala Garamond: mata huruf sans jauh lebih
-     tinggi, jadi ukuran yang sama terbaca lebih besar. */
-  --type-display: clamp(36px, 6.3vw, 92px);
-  --type-h1: clamp(28px, 4vw, 58px);
-  --type-h2: clamp(23px, 2.7vw, 38px);
-  --type-h3: clamp(19px, 1.9vw, 27px);
-  --type-h4: clamp(17px, 1.45vw, 21px);
+  /* Satu tangga, mengikuti takaran Vale: judul hero sampai 63px/600, judul
+     section 38px/500, paragraf 18px. */
+  --type-display: clamp(38px, 4.4vw, 63px);
+  --type-h1: clamp(31px, 3.4vw, 52px);
+  --type-h2: clamp(27px, 2.5vw, 38px);
+  --type-h3: clamp(21px, 1.7vw, 27px);
+  --type-h4: clamp(18px, 1.35vw, 21px);
 
-  --type-lede: clamp(17px, 1.35vw, 21px);
-  --type-body: clamp(16px, 1.05vw, 17.5px);
-  --type-ui: 14.5px;
-  --type-label: 12px;
-  --type-micro: 11px;
+  --type-lede: clamp(18px, 1.35vw, 21px);
+  --type-body: clamp(16px, 1.15vw, 18px);
+  --type-ui: 16px;
+  --type-label: 13px;
+  --type-micro: 12px;
 
-  --leading-display: 1.04;
-  --leading-title: 1.16;
-  --leading-lede: 1.62;
-  --leading-body: 1.72;
+  --leading-display: 1.14;
+  --leading-title: 1.2;
+  --leading-lede: 1.6;
+  --leading-body: 1.65;
 
-  /* Empat, bukan enam plus nilai lepas yang berserakan di komponen. */
-  --ls-display: -0.03em;
-  --ls-title: -0.015em;
-  --ls-label: 0.18em;
-  --ls-wide: 0.26em;
-  --ls-wordmark: 0.34em;
+  /* Vale tidak memakai huruf besar berjarak lebar; tracking dibuat nyaris nol. */
+  --ls-display: -0.005em;
+  --ls-title: 0em;
+  --ls-label: 0.04em;
+  --ls-wide: 0.08em;
+  --ls-wordmark: 0.2em;
 
   /* ── Ruang dan bingkai ──────────────────────────────────────────────── */
   --measure-max: 1440px;
@@ -129,7 +139,7 @@
   --measure-lede: 28em;
 
   --radius-none: 0;
-  --radius-pill: 999px;
+  --radius-pill: 40px;
   --radius-circle: 50%;
 
   /* ── Gerak ──────────────────────────────────────────────────────────── */
@@ -184,7 +194,7 @@
 /* ── Alias untuk nama lama ───────────────────────────────────────────────
    Komponen masih merujuk nama-nama dari prototipe. Alias ini membuat halaman
    tidak patah selama rujukannya dibersihkan satu per satu. Perhatikan
-   --acc-text: ia sengaja menunjuk tinta, bukan hijau, supaya pemakaian teks
+   --acc-text: ia sengaja menunjuk tinta, bukan warna aksen, supaya pemakaian teks
    yang terlewat jatuh ke keadaan yang benar. */
 :root {
   --ivory-1: var(--paper);
@@ -207,7 +217,7 @@
   --ink-4: var(--ink-muted);
   --ink-5: var(--ink-muted);
 
-  --acc: var(--gold);
+  --acc: var(--teal);
   --acc-text: var(--ink-muted);
   --gold-clay: var(--warn);
 
@@ -221,13 +231,11 @@
   --surface-footer: var(--ground-dark);
   --surface-scrim: var(--scrim);
 
-  /* Footer: blok hijau hutan penuh lebar dengan tinta putih. Dulu panel
-     putih mengambang di atas alas krem; --footer-margin 0 meratakannya ke
-     tepi layar tanpa merombak struktur komponennya. */
-  --footer-panel: var(--green-900);
+  /* Footer: blok teal penuh lebar dengan tinta putih, seperti Vale. */
+  --footer-panel: var(--teal);
   --footer-ink: #ffffff;
-  --footer-ink-dim: rgb(255 255 255 / 0.74);
-  --footer-ground: var(--green-900);
+  --footer-ink-dim: #ffffff;
+  --footer-ground: var(--teal);
   --footer-margin: 0px;
   /* Tinggi tambahan untuk section footer, di luar --footer-margin. Duduknya di
      dasar panel putih, bukan di alas: jarak panel ke tepi alas harus tetap sama
@@ -240,11 +248,11 @@
   --text-label: var(--ink-muted);
   --text-placeholder: var(--ink-muted);
   --text-on-dark: var(--paper);
-  --text-on-dark-dim: rgb(255 255 255 / 0.74);
+  --text-on-dark-dim: #ffffff;
 
   --border-hairline: var(--rule);
   --border-field: var(--rule-strong);
-  --border-on-ink: rgb(255 255 255 / 0.18);
+  --border-on-ink: rgb(255 255 255 / 0.35);
 
   --font-accent: var(--font-display);
 

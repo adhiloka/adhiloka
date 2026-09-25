@@ -4,180 +4,146 @@ import Logo from './Logo.astro';
 const year = new Date().getFullYear();
 ---
 
-<footer class="site-footer">
-  <div class="site-footer__panel">
-    <div class="frame">
-      <div class="site-footer__cols">
-        {
-          FOOTER_COLUMNS.map((col) => (
-            <nav class="site-footer__col" aria-label={col.title}>
-              <h2 class="site-footer__title">{col.title}</h2>
-              <div class="site-footer__links">
-                {col.links.map((l) => (
-                  <a href={l.href}>{l.label}</a>
-                ))}
-              </div>
-            </nav>
-          ))
-        }
-      </div>
+<!-- Footer ala valeindonesia.com: blok teal penuh lebar, teks putih, kolom
+     tautan, lalu baris dasar dengan hak cipta. Logo duduk di kapsul putih,
+     karena gelombang hijau pada logo hilang di atas teal. -->
+<footer class="site-footer on-dark">
+  <div class="site-footer__inner">
+    <div class="site-footer__top">
+      <Logo class="site-footer__logo" size="clamp(34px, 2.6vw, 42px)" />
+      <p class="site-footer__tagline">{SITE.tagline}</p>
+    </div>
 
-      <div class="site-footer__base" data-footer-base>
-        <div class="site-footer__social">
-          <span>Follow Us</span>
+    <div class="site-footer__cols">
+      {
+        FOOTER_COLUMNS.map((col) => (
+          <nav class="site-footer__col" aria-label={col.title}>
+            <h2 class="site-footer__title">{col.title}</h2>
+            <ul class="site-footer__links">
+              {col.links.map((l) => (
+                <li>
+                  <a href={l.href}>{l.label}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))
+      }
+      <nav class="site-footer__col" aria-label="Contact and social">
+        <h2 class="site-footer__title">Contact</h2>
+        <ul class="site-footer__links">
+          <li><a href="/contact/">Contact us</a></li>
+          <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+          <li><a href={`tel:${SITE.phone.replace(/\s/g, '')}`}>{SITE.phone}</a></li>
+        </ul>
+        <ul class="site-footer__social" aria-label="Follow us">
           {
             SOCIAL.map((s) => (
-              <a href={s.href} rel="noopener noreferrer me" target="_blank">
-                {s.label}
-              </a>
+              <li>
+                <a href={s.href} rel="noopener noreferrer me" target="_blank">
+                  {s.label}
+                </a>
+              </li>
             ))
           }
-        </div>
+        </ul>
+      </nav>
+    </div>
 
-        <Logo class="site-footer__mark" size="clamp(34px, 3vw, 44px)" />
-
-        <button type="button" class="site-footer__region" data-region-note>
-          <span>Country / Region</span>
-          <span class="site-footer__region-value">{SITE.region}</span>
-          <span aria-hidden="true">&#8250;</span>
-        </button>
-      </div>
-
-      <p class="site-footer__legal">
-        &copy; {year} {SITE.legalName}. Medan, North Sumatra, Indonesia.
-      </p>
+    <div class="site-footer__base" data-footer-base>
+      <p class="site-footer__legal">&copy; {year} {SITE.legalName} | All rights reserved.</p>
+      <p class="site-footer__region">{SITE.region} · Medan, North Sumatra, Indonesia</p>
     </div>
   </div>
 </footer>
 
 <style>
-  /* Footer: blok hijau hutan penuh lebar. Strukturnya masih panel di atas
-     alas (sisa desain panel mengambang), tapi --footer-margin kini 0 dan alas
-     serta panelnya sewarna, jadi keduanya terbaca sebagai satu blok.
-
-     Token "on dark" ditimpa di dalam panel, bukan diganti satu per satu di
-     tiap aturan: seluruh isi footer sudah membacanya. */
   .site-footer {
-    background: var(--footer-ground);
-    padding: var(--footer-margin);
+    background: var(--teal);
+    color: var(--paper);
   }
 
-  .site-footer__panel {
-    --text-on-dark: var(--footer-ink);
-    --text-on-dark-dim: var(--footer-ink-dim);
-    background: var(--footer-panel);
-    color: var(--footer-ink);
-    /* Jarak dalam kirinya lebih rapat daripada --gutter yang dipakai footer
-       lama: panel ini sudah berjarak 50px dari tepi layar, dan menumpuk
-       gutter penuh di atasnya menyempitkan baris kolom sampai salah satunya
-       jatuh ke baris kedua. */
-    padding: min(clamp(48px, 5.6vw, 88px), 11svh) clamp(24px, 3vw, 56px)
-      calc(clamp(28px, 2.8vw, 42px) + var(--footer-tail));
+  .site-footer__inner {
+    max-width: var(--measure-max);
+    margin-inline: auto;
+    padding: clamp(48px, 5vw, 80px) var(--gutter) clamp(28px, 3vw, 44px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(36px, 4vw, 56px);
+  }
+
+  .site-footer__top {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px 28px;
+  }
+  /* Kapsul putih untuk logo: tanda berwarna penuhnya tetap terbaca. */
+  :global(.site-footer__logo) {
+    padding: 10px 26px 10px 18px;
+    border-radius: var(--radius-pill);
+    background: var(--paper);
+    color: var(--ink);
+  }
+  :global(.site-footer__logo):hover { color: var(--ink); }
+  .site-footer__tagline {
+    font-size: clamp(18px, 1.3vw, 21px);
+    font-weight: 500;
   }
 
   .site-footer__cols {
     display: grid;
-    /* Lebar minimum kolom terikat pada jarak panel ke tepi layar: makin lebar
-       jaraknya, makin sempit ruang yang tersisa untuk lima kolom. Takaran di
-       bawah ini masih menyisakan kelegaan sampai --footer-margin ±100px; di
-       atas itu kolom kelima turun ke baris kedua. */
-    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-    gap: clamp(28px, 3.2vw, 52px);
-    /* Rongga ke garis pemisah di bawahnya. Takaran lama (maks 120px, dan 107px
-       di layar 1536px) membuat tinggi seluruh footer melewati layar pendek
-       sekitar 33px, sehingga baris hak cipta baru terbaca setelah digulir.
-       Ini satu-satunya jarak di footer yang benar-benar ruang kosong, jadi di
-       sinilah selisih itu diambil — bukan dari jarak yang menopang naskah. */
-    padding-bottom: clamp(44px, 4.6vw, 84px);
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: clamp(28px, 3vw, 48px);
   }
 
   .site-footer__title {
-    font-family: var(--font-display);
+    margin-bottom: 18px;
+    font-size: clamp(18px, 1.3vw, 21px);
     font-weight: 500;
-    font-size: clamp(20px, 1.7vw, 26px);
-    line-height: 1.2;
-    letter-spacing: 0.005em;
-    margin: 0 0 26px;
+    line-height: 1.25;
   }
 
-  .site-footer__links {
+  .site-footer__links,
+  .site-footer__social {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    align-items: flex-start;
+    gap: 10px;
   }
-  .site-footer__links a {
-    font-size: 15px;
-    font-weight: 400;
-    line-height: 1.5;
-    color: var(--text-on-dark-dim);
-    transition: color var(--dur-fast) ease;
-  }
-  .site-footer__links a:hover,
-  .site-footer__links a:focus-visible { color: var(--text-on-dark); }
-
-  .site-footer__base {
-    padding-top: clamp(22px, 2.4vw, 36px);
-    border-top: 1px solid var(--border-on-ink);
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: 24px;
-  }
-
-  .site-footer__social {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 18px;
-    font-size: 14.5px;
-    font-weight: 400;
-  }
-  .site-footer__social > span { color: var(--text-on-dark-dim); }
+  .site-footer__links a,
   .site-footer__social a {
-    color: var(--text-on-dark);
-    transition: opacity var(--dur-fast) ease;
+    font-size: 16px;
+    line-height: 1.45;
+    color: var(--paper);
+    overflow-wrap: anywhere;
   }
-  .site-footer__social a:hover,
-  .site-footer__social a:focus-visible { opacity: 0.55; color: var(--text-on-dark); }
-
-  :global(.site-footer__mark) { justify-self: center; }
   .site-footer__links a:hover,
   .site-footer__links a:focus-visible,
   .site-footer__social a:hover,
-  .site-footer__social a:focus-visible { color: var(--yellow-300); opacity: 1; }
+  .site-footer__social a:focus-visible {
+    color: var(--paper);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
 
-  .site-footer__region {
-    justify-self: end;
+  .site-footer__social {
+    margin-top: 22px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+  }
+  .site-footer__social a { font-weight: 500; }
+
+  .site-footer__base {
+    padding-top: clamp(20px, 2vw, 28px);
+    border-top: 1px solid var(--border-on-ink);
     display: flex;
-    align-items: center;
-    padding-block: 4px;
-    gap: 12px;
-    font-size: 14.5px;
-    font-weight: 400;
-    white-space: nowrap;
-    color: var(--text-on-dark-dim);
-    transition: opacity var(--dur-fast) ease;
-  }
-  .site-footer__region:hover { opacity: 0.6; }
-  .site-footer__region-value { color: var(--text-on-dark); }
-
-  .site-footer__legal {
-    margin-top: clamp(20px, 2.2vw, 32px);
-    font-size: 12.5px;
-    letter-spacing: 0.04em;
-    color: var(--text-on-dark-dim);
-  }
-
-  @media (max-width: 899px) {
-    .site-footer__base {
-      grid-template-columns: 1fr;
-      justify-items: center;
-      text-align: center;
-      gap: 32px;
-    }
-    .site-footer__social { justify-content: center; }
-    .site-footer__region { justify-self: center; }
-    .site-footer__legal { text-align: center; }
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 24px;
+    font-size: 14px;
   }
 </style>

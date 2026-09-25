@@ -1,41 +1,54 @@
-/** Foto masuk dengan skala 1,06 ke 1 sambil memudar dari pelat hangat, alih-alih
- *  meloncat muncul begitu lazy-load selesai. Pelat hatch sistem tetap terlihat
- *  di bawahnya selama memuat — keadaan memuat itu sendiri sudah on-brand.
+/** Tirai gambar, meniru animacao-item di valeindonesia.com: lapisan teal
+ *  menutupi foto lalu bergeser keluar ke kanan selama 1 detik begitu foto
+ *  masuk layar dan sudah termuat.
  *
- *  Kelas penyembunyi hanya dipasang oleh skrip ini, tidak pernah oleh CSS saja.
- *  Kalau JavaScript gagal dimuat, atau event `load` hilang, gambar tetap
- *  terlihat — efek yang gagal tidak boleh menghapus isi halaman. */
+ *  Kelas penutup hanya dipasang oleh skrip ini, tidak pernah oleh CSS saja.
+ *  Kalau JavaScript gagal, atau event `load` hilang, foto tetap terlihat:
+ *  ada penghitung waktu cadangan yang selalu membuka tirainya. */
 
-const SCOPES = '.plate, .mcard__plate, .fcard__media, .search__card-plate, .mdrawer__plate';
+const SCOPES = '.plate, .mcard__plate, .fcard__media, [data-curtain]';
 
-/** Jaring pengaman: sesudah ini gambar ditampilkan apa pun yang terjadi. */
-const FALLBACK_MS = 3000;
+/** Jaring pengaman: sekian lama setelah wadahnya terlihat, tirai dibuka
+ *  walaupun fotonya belum juga termuat. */
+const FALLBACK_MS = 3500;
+
+let observer: IntersectionObserver | null = null;
+
+const open = (el: Element) => {
+  el.classList.add('curtain-open');
+  observer?.unobserve(el);
+};
 
 export function initImageReveal() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  document.querySelectorAll<HTMLImageElement>(`:is(${SCOPES}) img`).forEach((img) => {
-    // Poster hero adalah elemen LCP. Menundanya demi efek merusak Core Web
-    // Vitals, jadi gambar eager dilewati.
-    if (img.loading === 'eager' || img.dataset.imgReveal !== undefined) return;
+  observer?.disconnect();
+  observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target as HTMLElement;
+        const img = el.querySelector('img');
+        if (!img || (img.complete && img.naturalWidth > 0)) open(el);
+        else {
+          img.addEventListener('load', () => open(el), { once: true });
+          img.addEventListener('error', () => open(el), { once: true });
+          window.setTimeout(() => open(el), FALLBACK_MS);
+        }
+      });
+    },
+    { rootMargin: '0px 0px -12% 0px', threshold: 0.05 },
+  );
 
-    img.dataset.imgReveal = '';
+  document.querySelectorAll<HTMLElement>(SCOPES).forEach((el) => {
+    // Hanya wadah yang memang berisi foto, dan bukan foto hero (LCP).
+    const img = el.querySelector('img');
+    if (!img || img.loading === 'eager' || el.classList.contains('curtain')) return;
+    // Wadah yang sudah terlihat saat muat tidak ditutup: tirai yang muncul
+    // lalu langsung pergi hanya terbaca sebagai kedipan.
+    if (el.getBoundingClientRect().top < window.innerHeight * 0.85) return;
 
-    // Gambar dari cache tidak akan pernah mengirim event load lagi, jadi
-    // dibiarkan tampil apa adanya tanpa animasi.
-    if (img.complete && img.naturalWidth > 0) return;
-
-    img.classList.add('is-pending');
-
-    let done = false;
-    const reveal = () => {
-      if (done) return;
-      done = true;
-      img.classList.remove('is-pending');
-    };
-
-    img.addEventListener('load', reveal, { once: true });
-    img.addEventListener('error', reveal, { once: true });
-    window.setTimeout(reveal, FALLBACK_MS);
+    el.classList.add('curtain');
+    observer!.observe(el);
   });
 }

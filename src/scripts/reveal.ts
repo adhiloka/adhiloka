@@ -1,7 +1,8 @@
-/** Dua jenis kemunculan.
+/** Kemunculan saat digulir, bergaya .animar milik valeindonesia.com.
  *
- *  `data-reveal` — naik 10 px sambil memudar, dipakai untuk kisi dan daftar.
- *  Nilainya adalah jeda dalam milidetik.
+ *  `data-reveal` dan `data-lines` — datang dari arahnya sendiri sambil
+ *  memudar (CSS di global.css; arah lewat data-reveal-from). Nilai
+ *  data-reveal adalah jeda tambahan dalam milidetik.
  *
  *  `data-cta-reveal` — hanya memudar, tanpa gerak, dan jedanya diurus CSS.
  *
@@ -13,7 +14,7 @@
  *  dihitung terlihat, supaya jeda tautannya mulai saat blok benar-benar sudah
  *  nyaman dibaca — bukan saat baru menyembul dari bawah. */
 
-const SELECTOR = '[data-reveal], [data-cta-reveal], [data-interlude]';
+const SELECTOR = '[data-reveal], [data-lines], [data-cta-reveal], [data-interlude]';
 
 const REDUCED = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 

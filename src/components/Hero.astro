@@ -1,13 +1,15 @@
 ---
 import { Image } from 'astro:assets';
 import { HERO_SLIDES, type HeroSlide } from '../data/pages/home';
-import { getImageFor, images } from '../data/images';
+import { getImageFor } from '../data/images';
 
 /**
- * Hero setinggi layar. Isi bawaannya karusel empat slide di beranda — dari
- * situlah seluruh takarannya berasal — tapi ia menerima daftar slide mana pun.
- * Dengan satu slide, panah dan titiknya tidak dirender dan yang tersisa adalah
- * foto ber-Ken Burns, judul yang naik, Discover, dan panah bawah.
+ * Hero setinggi layar, meniru hero valeindonesia.com: foto penuh diredupkan
+ * (brightness 0,8) dengan gradien hitam dari kiri, judul dua tingkat di kiri
+ * atas (baris pengantar 38px/500, judul 52–63px/600), titik slide vertikal di
+ * tepi kiri, dan panah putih yang mengambang di tengah bawah. Slide berganti
+ * dengan memudar 0,6 detik dan maju sendiri; dengan satu slide, titik dan
+ * putaran otomatisnya tidak ada.
  */
 interface Props {
   slides?: HeroSlide[];
@@ -17,11 +19,7 @@ interface Props {
 
 const { slides = HERO_SLIDES, label = 'Adhiloka' } = Astro.props;
 const banyak = slides.length > 1;
-
-// Bingkai pertama video dipakai sebagai gambar hero. Ia dirender sebagai
-// <Image> responsif, bukan atribut `poster` yang hanya menerima satu ukuran —
-// di ponsel yang tampil versi ~400px, bukan 1920px.
-const posterImage = images['hero-poster'];
+const first = slides[0];
 ---
 
 <section
@@ -43,85 +41,43 @@ const posterImage = images['hero-poster'];
             data-state={i === 0 ? 'current' : 'idle'}
             role="group"
             aria-roledescription="slide"
-            aria-label={`${i + 1} of ${slides.length} — ${slide.headline}`}
+            aria-label={`${i + 1} of ${slides.length}: ${slide.headline}`}
             aria-hidden={i === 0 ? undefined : 'true'}
           >
-            <!-- Sumber video sengaja belum dipasang (data-src). Berkasnya 11 MB;
-                 skrip hero yang memutuskan apakah layar dan koneksi ini pantas
-                 mengunduhnya. Kalau tidak, poster WebP-nya yang tampil. -->
-            <div class="hero__ken">
-              {slide.kind === 'video' ? (
-                <Fragment>
-                  <Image
-                    class="hero__poster"
-                    src={posterImage}
-                    alt={slide.shot}
-                    width={1920}
-                    widths={[600, 900, 1400, 1920]}
-                    sizes="100vw"
-                    loading="eager"
-                    fetchpriority="high"
-                    quality={62}
-                  />
-                  <video
-                    data-hero-video
-                    data-src="/media/hero.mp4"
-                    muted
-                    loop
-                    playsinline
-                    preload="none"
-                  ></video>
-                </Fragment>
-              ) : img ? (
-                <Image
-                  src={img}
-                  alt={slide.shot}
-                  width={1920}
-                  widths={[900, 1400, 1920, 2560]}
-                  sizes="100vw"
-                  loading={i === 0 ? 'eager' : 'lazy'}
-                  fetchpriority={i === 0 ? 'high' : undefined}
-                  decoding="async"
-                  quality={60}
-                />
-              ) : (
-                <div
-                  class="hero__plate"
-                  style={`background:${slide.bg};background-image:repeating-linear-gradient(122deg,transparent 0 11px,${slide.stripe} 11px 12px)`}
-                />
-              )}
-            </div>
+            {img ? (
+              <Image
+                src={img}
+                alt={slide.shot}
+                width={1920}
+                widths={[900, 1400, 1920, 2560]}
+                sizes="100vw"
+                loading={i === 0 ? 'eager' : 'lazy'}
+                fetchpriority={i === 0 ? 'high' : undefined}
+                decoding="async"
+                quality={62}
+              />
+            ) : (
+              <div
+                class="hero__plate"
+                style={`background:${slide.bg};background-image:repeating-linear-gradient(122deg,transparent 0 11px,${slide.stripe} 11px 12px)`}
+              />
+            )}
           </div>
         );
       })
     }
   </div>
 
-  <div class="hero__veil" aria-hidden="true"></div>
-
-  {
-    banyak && (
-      <Fragment>
-        <button type="button" class="hero__arrow hero__arrow--prev" data-hero-prev aria-label="Previous slide">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-            <path d="M14 3 6 11l8 8" stroke="currentColor" stroke-width="1.3" stroke-linecap="square" />
-          </svg>
-        </button>
-        <button type="button" class="hero__arrow hero__arrow--next" data-hero-next aria-label="Next slide">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-            <path d="M8 3l8 8-8 8" stroke="currentColor" stroke-width="1.3" stroke-linecap="square" />
-          </svg>
-        </button>
-      </Fragment>
-    )
-  }
-
-  <div class="hero__content" data-hero-content>
-    <h1 class="hero__headline" data-hero-headline>{slides[0].headline}</h1>
+  <div class="hero__caption" data-hero-content>
+    <p class="hero__intro" data-hero-intro>{first.sub ?? first.eyebrow}</p>
+    <h1 class="hero__headline" data-hero-headline>{first.headline}</h1>
     {
-      slides[0].href && (
-        <a class="hero__cta sweep" href={slides[0].href} data-hero-cta>
+      first.href && (
+        <a class="hero__cta" href={first.href} data-hero-cta>
           Discover
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
+            <path d="M0 6h14M9.5 1.5 14 6l-4.5 4.5" stroke="currentColor" stroke-width="1.6" />
+          </svg>
         </a>
       )
     }
@@ -136,6 +92,7 @@ const posterImage = images['hero-poster'];
             role="tab"
             data-hero-dot={i}
             data-href={slide.href}
+            data-intro={slide.sub ?? slide.eyebrow}
             aria-selected={i === 0 ? 'true' : 'false'}
             aria-label={slide.headline}
           />
@@ -144,15 +101,9 @@ const posterImage = images['hero-poster'];
     )
   }
 
+  <!-- Panah mengambang (seta-navegacao di Vale): naik-turun 1rem, 2 detik. -->
   <button type="button" class="hero__cue" data-hero-cue aria-label="Scroll to next section">
-    <svg width="24" height="15" viewBox="0 0 24 15" fill="none" aria-hidden="true">
-      <path
-        d="M2.6 2.6 12 12 21.4 2.6"
-        stroke="currentColor"
-        stroke-width="3.6"
-        stroke-linecap="round"
-        stroke-linejoin="round"></path>
-    </svg>
+    <span class="hero__cue-arrow" aria-hidden="true"></span>
   </button>
 </section>
 
@@ -165,148 +116,119 @@ const posterImage = images['hero-poster'];
   .hero {
     position: relative;
     height: 100svh;
-    min-height: 520px;
+    min-height: 560px;
     overflow: hidden;
-    display: flex;
-    align-items: flex-end;
-    background: var(--espresso);
-    color: var(--ivory-1);
+    background: var(--teal-dark);
+    color: var(--on-image);
     touch-action: pan-y;
   }
 
   .hero__stage { position: absolute; inset: 0; }
 
+  /* Pergantian slide memudar 0,6 detik, seperti carousel-fade di Vale. */
   .hero__layer {
     position: absolute;
     inset: 0;
     overflow: hidden;
     opacity: 0;
     z-index: 0;
+    transition: opacity 600ms ease;
   }
-  .hero__layer[data-state='current'] {
-    opacity: 1;
-    z-index: 1;
-    animation: heroDissolveIn 1200ms ease forwards;
-  }
-  .hero__layer[data-state='leaving'] {
-    opacity: 1;
-    z-index: 0;
-    animation: heroDissolveOut 1200ms ease forwards;
-  }
+  .hero__layer[data-state='current'] { opacity: 1; z-index: 1; }
+  .hero__layer[data-state='leaving'] { opacity: 0; z-index: 1; }
 
-  .hero__ken { position: absolute; inset: 0; }
-  .hero__layer[data-state='current'] .hero__ken,
-  .hero__layer[data-state='leaving'] .hero__ken {
-    animation: heroKen 9000ms cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
-  }
-
-  .hero__ken :global(img),
-  .hero__ken video,
+  .hero__layer :global(img),
   .hero__plate {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center top;
+    filter: brightness(0.8);
   }
-  /* Video duduk di atas posternya; selama belum ada sumber ia transparan,
-     jadi yang terlihat adalah gambar di bawahnya. */
-  .hero__ken video { z-index: 1; background: transparent; }
-  .hero__ken :global(.hero__poster) { z-index: 0; }
 
-  .hero__veil {
+  /* Gradien hitam dari tepi kiri ke tengah: judul putih selalu terbaca
+     tanpa menggelapkan seluruh foto. */
+  .hero__layer::before {
+    content: '';
     position: absolute;
-    inset: 0;
-    z-index: 2;
+    inset: 0 auto 0 0;
+    width: 50%;
+    z-index: 1;
+    background: linear-gradient(to right, rgb(0 0 0 / 0.65) 0%, rgb(0 0 0 / 0) 100%);
     pointer-events: none;
-    background: linear-gradient(
-      to top,
-      rgb(var(--shade-rgb) / 0.82) 0%,
-      rgb(var(--shade-rgb) / 0.16) 46%,
-      rgb(var(--shade-rgb) / 0.52) 100%
-    );
   }
 
-  .hero__arrow {
+  /* ── Judul ──────────────────────────────────────────────────────────── */
+  .hero__caption {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 5;
-    color: var(--ivory-1);
-    padding: 12px;
-    opacity: 0.72;
-    filter: drop-shadow(0 1px 10px rgb(var(--shade-rgb) / 0.65));
-    transition: opacity 280ms ease;
-  }
-  .hero__arrow:hover { opacity: 1; color: var(--ivory-1); }
-  .hero__arrow--prev { left: clamp(14px, 2.4vw, 36px); }
-  .hero__arrow--next { right: clamp(14px, 2.4vw, 36px); }
-
-  .hero__content {
-    position: relative;
     z-index: 4;
-    pointer-events: none;
-    width: 100%;
-    max-width: var(--measure-max);
-    margin-inline: auto;
-    padding: 0 var(--gutter) clamp(88px, 10.6vw, 132px);
-    text-align: center;
+    top: max(21vh, calc(var(--hero-top-clear, 190px) + 24px));
+    left: 10vw;
+    max-width: min(40vw, 640px);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    animation: heroTextIn 1100ms cubic-bezier(0.22, 1, 0.36, 1);
+    align-items: flex-start;
+    animation: heroTextIn 700ms ease both;
   }
 
-  /* Berat 500, bukan 600: pada ukuran display Plus Jakarta Sans 600 terlalu
-     padat di atas video dan bersaing dengan logo di header. */
-  .hero__headline {
+  .hero__intro {
     font-family: var(--font-display);
     font-weight: 500;
-    font-size: clamp(34px, 5vw, 72px);
+    font-size: clamp(26px, 2.5vw, 38px);
+    line-height: 1.25;
+    color: var(--on-image);
+    text-shadow: 0 1px 4px rgb(0 0 0 / 0.35);
+  }
+
+  .hero__headline {
+    margin-top: clamp(14px, 1.6vw, 24px);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--type-display);
     line-height: var(--leading-display);
     letter-spacing: var(--ls-display);
     color: var(--on-image);
-    text-shadow: 0 1px 30px rgb(var(--shade-rgb) / 0.5);
-    max-width: 16em;
+    text-shadow: 0 1px 4px rgb(0 0 0 / 0.35);
   }
 
   .hero__cta {
-    margin-top: clamp(16px, 1.8vw, 26px);
-    pointer-events: auto;
-    font-size: var(--type-label);
-    font-weight: 500;
-    letter-spacing: var(--ls-label);
-    text-transform: uppercase;
-    padding-bottom: 5px;
+    margin-top: clamp(22px, 2.4vw, 34px);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 28px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--on-image);
     color: var(--on-image);
-    text-shadow: 0 1px 14px rgb(var(--shade-rgb) / 0.6);
+    font-size: var(--type-ui);
+    font-weight: 500;
+    transition: background 150ms ease-in-out, color 150ms ease-in-out, box-shadow 150ms ease-in-out;
   }
+  .hero__cta svg { color: var(--gold); }
   .hero__cta:hover,
-  .hero__cta:focus-visible { color: var(--on-image); }
-
-  /* Garisnya menyapu begitu kursor masuk ke hero, bukan hanya ke tautannya. */
-  .hero:hover .hero__cta::after {
-    transform: scaleX(0);
-    transform-origin: right;
+  .hero__cta:focus-visible {
+    background: var(--on-image);
+    color: var(--teal);
+    box-shadow: 0 0 6px rgb(255 255 255 / 0.6);
   }
 
+  /* ── Titik slide: vertikal di tepi kiri ─────────────────────────────── */
   .hero__dots {
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: clamp(37px, 5.4vw, 65px);
     z-index: 4;
+    left: clamp(16px, 2vw, 32px);
+    top: 50%;
+    transform: translateY(-50%);
     display: flex;
-    align-items: center;
-    gap: 3px;
-    filter: drop-shadow(0 1px 6px rgb(var(--shade-rgb) / 0.7));
+    flex-direction: column;
+    gap: 12px;
   }
-  /* Titiknya kecil karena desainnya begitu, tapi sasaran kliknya 24px —
-     syarat minimum WCAG 2.5.8 tanpa mengubah tampilan. */
+  /* Titiknya 16px seperti Vale; sasaran kliknya 32px. */
   .hero__dots button {
-    flex: 0 0 auto;
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
     padding: 0;
     display: grid;
     place-items: center;
@@ -314,33 +236,82 @@ const posterImage = images['hero-poster'];
   }
   .hero__dots button::before {
     content: '';
-    width: 5px;
-    height: 5px;
-    border-radius: var(--radius-pill);
-    background: rgb(255 255 255 / 0.4);
-    transition: background 280ms ease, width 280ms ease, height 280ms ease;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1.5px solid var(--on-image);
+    background: transparent;
+    transition: background 300ms ease, border-color 300ms ease;
   }
   .hero__dots button[aria-selected='true']::before {
-    width: 6px;
-    height: 6px;
-    background: var(--ivory-1);
+    background: var(--sky);
+    border-color: var(--sky);
   }
+  .hero__dots button:hover::before { border-color: var(--sky); }
 
+  /* ── Panah mengambang ───────────────────────────────────────────────── */
   .hero__cue {
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: clamp(10px, 1.6vw, 20px);
     z-index: 4;
-    padding: 10px 16px;
-    color: oklch(1 0 0);
-    filter: drop-shadow(0 1px 10px rgb(var(--shade-rgb) / 0.65));
-    transition: opacity 300ms ease;
+    left: 50%;
+    bottom: 1.25rem;
+    margin-left: -24px;
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    animation: floating 2s ease-in-out infinite;
   }
-  .hero__cue:hover { opacity: 0.6; color: oklch(1 0 0); }
-  .hero__cue svg { animation: cue 1.6s ease-in-out infinite; }
+  .hero__cue-arrow {
+    position: relative;
+    width: 1rem;
+    height: 1.5rem;
+  }
+  .hero__cue-arrow::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 1px;
+    margin: auto;
+    width: 2px;
+    height: 1.25rem;
+    border-radius: 10px;
+    background: var(--on-image);
+    box-shadow: 0 0 4px rgb(0 0 0 / 0.5);
+  }
+  .hero__cue-arrow::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 1px;
+    margin: auto;
+    width: 0.625rem;
+    height: 0.625rem;
+    border-bottom: 2px solid var(--on-image);
+    border-right: 2px solid var(--on-image);
+    transform: rotate(45deg);
+  }
 
-  @media (max-width: 599px) {
-    .hero__arrow { display: none; }
+  @media (max-width: 899px) {
+    .hero__caption {
+      top: auto;
+      bottom: clamp(88px, 16vh, 140px);
+      left: var(--gutter);
+      right: var(--gutter);
+      max-width: none;
+    }
+    .hero__layer::before {
+      width: 100%;
+      background: linear-gradient(to top, rgb(0 0 0 / 0.6) 0%, rgb(0 0 0 / 0) 70%);
+    }
+    .hero__dots {
+      top: auto;
+      bottom: clamp(88px, 16vh, 140px);
+      transform: none;
+      left: auto;
+      right: 8px;
+    }
   }
 </style>

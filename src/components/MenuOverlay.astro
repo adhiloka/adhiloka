@@ -1,0 +1,460 @@
+---
+import { Image } from 'astro:assets';
+import { NAV } from '../data/site';
+import { getImageFor } from '../data/images';
+
+/**
+ * Menu layar penuh, meniru menu-lateral valeindonesia.com.
+ *
+ * Tiga kolom di layar lebar: kolom menu teal di kiri, panel putih sub-menu
+ * yang meluncur keluar dari bawah kolom menu, dan foto bagian yang dipilih di
+ * kanan dengan gelombang mint/emas di dasarnya. Di layar sempit tinggal satu
+ * kolom; memilih menu menggeser panel sub-menu masuk dari kanan.
+ *
+ * Gerak (takaran dari CSS Vale): panel masuk dari kiri 0,3 detik; daftar menu
+ * menyusul 0,6 detik dengan jeda 0,5 detik; foto dibuka tirai teal 0,6 detik
+ * dengan jeda yang sama; panel sub-menu meluncur 0,5 detik sambil memudar
+ * 0,3 detik; menu yang dipilih bergeser 1,25rem ke kanan, berganti warna, dan
+ * memunculkan segitiga putih penunjuk.
+ */
+interface Props {
+  active: string;
+}
+
+const { active } = Astro.props;
+const isActive = (href: string) => active === href || active.startsWith(href);
+
+const defaultPhoto = getImageFor('hero-poster');
+---
+
+<div
+  class="smenu"
+  id="site-menu"
+  data-site-menu
+  data-lenis-prevent
+  role="dialog"
+  aria-modal="true"
+  aria-label="Site menu"
+  inert
+>
+  <div class="smenu__ground" aria-hidden="true"></div>
+
+  <div class="smenu__nav">
+    <button type="button" class="smenu__close" data-menu-close>
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+        <path d="M3 3l20 20M23 3 3 23" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"></path>
+      </svg>
+      <span>Close</span>
+    </button>
+
+    <ul class="smenu__list">
+      {
+        NAV.map((item, i) => (
+          <li class="smenu__item" style={`--i:${i}`}>
+            {item.panel ? (
+              <button
+                type="button"
+                class="smenu__link"
+                data-menu-item={i}
+                aria-expanded="false"
+                aria-controls={`smenu-sub-${i}`}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
+                <span>{item.label}</span>
+                <svg class="smenu__chev" width="16" height="30" viewBox="0 0 16 30" fill="none" aria-hidden="true">
+                  <path d="M2 2l12 13L2 28" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+                </svg>
+              </button>
+            ) : (
+              <a
+                class="smenu__link"
+                href={item.href}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
+                <span>{item.label}</span>
+                <svg class="smenu__chev" width="16" height="30" viewBox="0 0 16 30" fill="none" aria-hidden="true">
+                  <path d="M2 2l12 13L2 28" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+                </svg>
+              </a>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+    <hr class="smenu__rule" />
+  </div>
+
+  {
+    NAV.map(
+      (item, i) =>
+        item.panel && (
+          <section class="smenu__sub" id={`smenu-sub-${i}`} data-menu-sub={i} aria-label={item.label} inert>
+            <button type="button" class="smenu__back" data-menu-back>
+              <svg width="10" height="18" viewBox="0 0 10 18" fill="none" aria-hidden="true">
+                <path d="M8.5 1.5 1.5 9l7 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+              Back
+            </button>
+            <h2 class="smenu__title">{item.label}</h2>
+            {item.blurb && <p class="smenu__blurb">{item.blurb}</p>}
+            <a class="action-link smenu__access" href={item.href}>
+              Access the page
+            </a>
+            <hr class="smenu__sub-rule" />
+            <ul class="smenu__sublinks">
+              {item.panel.links.map((l) => (
+                <li>
+                  <a class="action-link" href={l.href}>
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ),
+    )
+  }
+
+  <div class="smenu__media" aria-hidden="true">
+    {
+      defaultPhoto && (
+        <Image
+          class="smenu__photo is-shown"
+          data-menu-photo="default"
+          src={defaultPhoto}
+          alt=""
+          width={1100}
+          widths={[600, 1100]}
+          sizes="32vw"
+          loading="lazy"
+          decoding="async"
+          quality={62}
+        />
+      )
+    }
+    {
+      NAV.map((item, i) => {
+        const photo = item.panel ? getImageFor(item.panel.image) : undefined;
+        return (
+          photo && (
+            <Image
+              class="smenu__photo"
+              data-menu-photo={i}
+              src={photo}
+              alt=""
+              width={1100}
+              widths={[600, 1100]}
+              sizes="32vw"
+              loading="lazy"
+              decoding="async"
+              quality={62}
+            />
+          )
+        );
+      })
+    }
+    <span class="smenu__curtain"></span>
+  </div>
+
+  <!-- Gelombang di dasar, digambar dari lengkung logo: bukit mint di kiri,
+       bidang emas yang terus naik ke kanan. -->
+  <svg class="smenu__waves" viewBox="0 0 1000 360" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <path d="M0 360C140 250 290 192 424 186V360Z" fill="var(--mint)"></path>
+    <path d="M424 186C610 180 812 112 1000 0V360H424Z" fill="var(--gold)"></path>
+  </svg>
+</div>
+
+<style>
+  .smenu {
+    position: fixed;
+    inset: 0;
+    z-index: 180;
+    overflow: hidden;
+    visibility: hidden;
+    transition: visibility 0s linear 400ms;
+  }
+  .smenu.is-open {
+    visibility: visible;
+    transition: none;
+  }
+
+  /* ── Alas teal: masuk dari kiri 0,3 detik ───────────────────────────── */
+  .smenu__ground {
+    position: absolute;
+    inset: 0 32vw 0 0;
+    background: var(--teal);
+    transform: translateX(-100%);
+    transition: transform 300ms ease;
+  }
+  .smenu.is-open .smenu__ground { transform: none; }
+
+  /* ── Kolom menu ─────────────────────────────────────────────────────── */
+  .smenu__nav {
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 27vw;
+    min-width: 400px;
+    padding: 34px 40px 40px;
+    background: var(--teal);
+    color: var(--paper);
+    overflow-y: auto;
+    overflow-x: hidden;
+    transform: translateX(-100%);
+    transition: transform 300ms ease;
+  }
+  .smenu.is-open .smenu__nav { transform: none; }
+
+  .smenu__close {
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--paper);
+  }
+  .smenu__close svg { color: var(--gold); }
+  .smenu__close:hover span { text-decoration: underline; }
+
+  .smenu__list {
+    list-style: none;
+    margin: clamp(48px, 7vh, 78px) 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(10px, 1.6vh, 20px);
+  }
+
+  /* Isi kolom menyusul setelah alasnya berhenti: 0,6 detik, jeda 0,5 detik. */
+  .smenu__item {
+    opacity: 0;
+    transform: translateX(-48px);
+    transition:
+      opacity 600ms ease calc(500ms + var(--i) * 40ms),
+      transform 600ms cubic-bezier(0.22, 0.61, 0.36, 1) calc(500ms + var(--i) * 40ms);
+  }
+  .smenu.is-open .smenu__item { opacity: 1; transform: none; }
+
+  .smenu__link {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 6px 0;
+    font-size: clamp(22px, 1.45vw, 27px);
+    font-weight: 500;
+    line-height: 1.2;
+    text-align: left;
+    color: var(--paper);
+    transition: margin 400ms ease, color 300ms ease;
+  }
+  .smenu__chev { flex: none; transition: transform 300ms ease; }
+
+  /* Menu terpilih: bergeser 1,25rem, berganti warna, segitiga putih muncul
+     di tepi kanan kolom menunjuk ke panel putih. Warnanya emas lembut, bukan
+     emas penuh: emas penuh di atas teal cuma 2,6:1, emas lembut 3,4:1 (teks
+     besar 22px ke atas butuh 3:1). */
+  .smenu__link:hover,
+  .smenu__link:focus-visible,
+  .smenu__link[aria-expanded='true'] {
+    margin-left: 1.25rem;
+    color: var(--gold-soft);
+  }
+  .smenu__link[aria-current='page'] > span { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; }
+
+  .smenu__link::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -64px;
+    width: 0;
+    height: 0;
+    margin-top: -14px;
+    border-style: solid;
+    border-width: 14px 14px 14px 0;
+    border-color: transparent var(--paper) transparent transparent;
+    opacity: 0;
+    transition: opacity 300ms ease, right 400ms ease;
+  }
+  /* Tepi kanan tautan berjarak 40px (padding kolom) dari tepi kolom; saat
+     terpilih tautan bergeser 1,25rem ke kanan, jadi sisa jaraknya 40px - 1,25rem. */
+  .smenu__link[aria-expanded='true']::after {
+    opacity: 1;
+    right: calc(-40px + 1.25rem);
+  }
+
+  .smenu__rule {
+    margin: clamp(24px, 4vh, 44px) 0 0;
+    border: 0;
+    border-top: 1px solid rgb(255 255 255 / 0.6);
+    opacity: 0;
+    transition: opacity 600ms ease 800ms;
+  }
+  .smenu.is-open .smenu__rule { opacity: 1; }
+
+  /* ── Panel putih sub-menu ───────────────────────────────────────────── */
+  /* Meluncur dari bawah kolom menu (left 0 ke 27vw) sambil memudar. */
+  .smenu__sub {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 41vw;
+    padding: clamp(80px, 12vh, 130px) clamp(40px, 3.2vw, 64px) 48px;
+    background: var(--paper);
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    transition: left 500ms ease, opacity 300ms ease, visibility 0s linear 500ms;
+  }
+  .smenu__sub.is-open {
+    left: max(27vw, 400px);
+    opacity: 1;
+    visibility: visible;
+    transition: left 500ms ease, opacity 300ms ease, visibility 0s;
+  }
+
+  .smenu__back { display: none; }
+
+  .smenu__title {
+    font-size: clamp(34px, 2.8vw, 52px);
+    font-weight: 500;
+    line-height: 1.15;
+    color: var(--teal);
+  }
+  .smenu__blurb {
+    margin-top: 28px;
+    max-width: 30em;
+    font-size: clamp(18px, 1.2vw, 21px);
+    line-height: 1.6;
+    color: var(--ink-body);
+  }
+  .smenu__access {
+    margin-top: 36px;
+    font-size: clamp(18px, 1.2vw, 22px);
+  }
+  .smenu__sub-rule {
+    max-width: 530px;
+    margin: 36px 0;
+    border: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .smenu__sublinks {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(18px, 3vh, 34px);
+  }
+  .smenu__sublinks :global(.action-link) { font-size: clamp(18px, 1.2vw, 22px); }
+
+  /* ── Foto kanan ─────────────────────────────────────────────────────── */
+  .smenu__media {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 32vw;
+    overflow: hidden;
+    background: var(--teal-dark);
+  }
+  .smenu__media :global(.smenu__photo) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 500ms ease;
+  }
+  .smenu__media :global(.smenu__photo.is-shown) { opacity: 1; }
+
+  /* Tirai teal menutup foto lalu bergeser keluar ke kanan, 0,6 detik dengan
+     jeda 0,5 detik, seperti images-animation-overlay di Vale. */
+  .smenu__curtain {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: var(--teal);
+    transform: translateX(0);
+    transition: transform 200ms ease-in 200ms;
+  }
+  .smenu.is-open .smenu__curtain {
+    transform: translateX(100%);
+    transition: transform 600ms ease-in 500ms;
+  }
+
+  .smenu__waves {
+    position: absolute;
+    z-index: 4;
+    right: 0;
+    bottom: -1px;
+    width: 56.75vw;
+    height: auto;
+    aspect-ratio: 1000 / 360;
+    pointer-events: none;
+    transform: translateY(100%);
+    transition: transform 600ms ease 300ms;
+  }
+  .smenu.is-open .smenu__waves { transform: none; }
+
+  /* ── Layar sempit: satu kolom, sub-menu masuk dari kanan ────────────── */
+  @media (max-width: 1079px) {
+    .smenu__ground { inset: 0; }
+    .smenu__nav {
+      width: 100%;
+      min-width: 0;
+      padding: 26px 24px 140px;
+    }
+    .smenu__link { max-width: none; }
+    .smenu__link::after { display: none; }
+    .smenu__link:hover,
+    .smenu__link:focus-visible,
+    .smenu__link[aria-expanded='true'] { margin-left: 0; }
+    .smenu__rule { max-width: none; }
+
+    .smenu__sub {
+      z-index: 5;
+      left: 100%;
+      width: 100%;
+      padding: 30px 24px 140px;
+    }
+    .smenu__sub.is-open { left: 0; }
+
+    .smenu__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 36px;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--teal);
+    }
+    .smenu__back svg { color: var(--gold); }
+
+    .smenu__media { display: none; }
+    .smenu__waves {
+      z-index: 6;
+      width: 100%;
+      height: 90px;
+      aspect-ratio: auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .smenu__ground,
+    .smenu__nav,
+    .smenu__item,
+    .smenu__sub,
+    .smenu__curtain,
+    .smenu__waves,
+    .smenu__rule { transition: none !important; }
+  }
+</style>

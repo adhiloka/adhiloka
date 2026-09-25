@@ -4,31 +4,36 @@
 
 /* `clip`, bukan `hidden`: keduanya memotong luapan mendatar, tetapi `hidden`
    menjadikan elemennya wadah gulir — dan itu membuat `position: sticky` di
-   dalamnya menempel pada kotak yang salah. */
+   dalamnya menempel pada kotak yang salah.
+   font-synthesis: none — Mukta tidak punya italic dan tebal palsu; peramban
+   dilarang memalsukannya, jadi <em> dan nama Latin tampil tegak. */
 html {
   scroll-behavior: smooth;
   overflow-x: clip;
+  font-synthesis: none;
 }
 
 body {
   margin: 0;
   background: var(--bg-page);
-  color: var(--text-primary);
+  color: var(--ink-body);
   font-family: var(--font-body);
+  font-size: var(--type-body);
   font-weight: 400;
+  line-height: var(--leading-body);
   -webkit-font-smoothing: antialiased;
   text-wrap: pretty;
   overflow-x: clip;
   font-feature-settings: 'kern' 1, 'liga' 1;
 }
 
-/* Judul diseimbangkan panjang barisnya. Tanpa ini judul 106px kerap berakhir
-   dengan satu kata sendirian di baris terakhir. Sengaja tidak dipakai pada
-   paragraf: di sana `pretty` (di body) lebih murah dan lebih tepat. */
+/* Judul diseimbangkan panjang barisnya. Warnanya diwarisi: judul section
+   yang teal ala Vale diberi kelas .section-title atau diatur komponennya. */
 h1, h2, h3, h4 {
   font-family: var(--font-display);
   font-weight: 500;
   margin: 0;
+  color: inherit;
   text-wrap: balance;
 }
 p { margin: 0; }
@@ -39,7 +44,7 @@ p { margin: 0; }
 .spec dd { font-variant-numeric: tabular-nums; }
 
 a { color: inherit; text-decoration: none; }
-a:hover { color: var(--gold); }
+a:hover { color: var(--link-hover); }
 
 button, input, textarea, select {
   font: inherit;
@@ -56,21 +61,27 @@ img, video { max-width: 100%; display: block; }
    bawaan [hidden]. Aturan ini membuat atribut hidden tetap berarti. */
 [hidden] { display: none !important; }
 
-::selection { background: var(--yellow-300); color: var(--ink); }
+::selection { background: var(--gold); color: var(--ink); }
 ::placeholder { color: var(--text-placeholder); opacity: 1; }
 
-/* ── Fokus keyboard ──────────────────────────────────────────────────────
-   Prototipe tidak punya indikator fokus sama sekali. Ini wajib. */
+/* Menu layar penuh terbuka: halaman diam, tombol pil emas menyingkir karena
+   menu punya tombol Close sendiri. */
+html.is-menu-open { overflow: hidden; }
+html.is-menu-open .menu-btn { opacity: 0; pointer-events: none; }
+
+/* ── Fokus keyboard ──────────────────────────────────────────────────── */
 :focus { outline: none; }
 :focus-visible {
   outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
-  border-radius: 1px;
+  border-radius: 2px;
 }
+/* Di atas teal dan foto, cincinnya putih: emas di atas teal cuma 2,6:1. */
 .on-dark :focus-visible,
 .hero :focus-visible,
+.smenu__nav :focus-visible,
 footer :focus-visible {
-  outline-color: var(--yellow-300);
+  outline-color: var(--paper);
 }
 
 .skip-link {
@@ -80,14 +91,14 @@ footer :focus-visible {
   z-index: 300;
   transform: translateY(-140%);
   padding: 12px 22px;
-  background: var(--espresso);
-  color: var(--ivory-1);
-  font-size: 13.5px;
-  letter-spacing: var(--ls-cta);
-  text-transform: uppercase;
+  border-radius: 0 0 var(--radius-card) var(--radius-card);
+  background: var(--teal);
+  color: var(--paper);
+  font-size: 15px;
+  font-weight: 500;
   transition: transform var(--dur-fast) var(--ease-standard);
 }
-.skip-link:focus-visible { transform: translateY(0); color: var(--ivory-1); }
+.skip-link:focus-visible { transform: translateY(0); color: var(--paper); }
 
 .visually-hidden {
   position: absolute;
@@ -141,29 +152,39 @@ html [data-section][data-section-fit='fit']:not([data-section-raw]) { align-cont
 .section { padding: var(--section-y) var(--gutter); }
 .section--lg { padding: var(--section-y-lg) var(--gutter); }
 
-/* Judul halaman dalam (Group, Raw materials, Sustainability, Contact) —
-   diberi ruang untuk header tetap. */
+/* Judul halaman dalam — diberi ruang untuk bidang logo di kiri atas. */
 .page-head {
-  padding: calc(clamp(96px, 9vw, 120px) + clamp(34px, 4vw, 60px)) var(--gutter) clamp(32px, 3.8vw, 58px);
+  padding: calc(clamp(120px, 12vw, 190px) + clamp(20px, 2vw, 40px)) var(--gutter) clamp(32px, 3.8vw, 58px);
 }
 .page-head--ruled { border-bottom: 1px solid var(--border-hairline); }
 .page-head__lede { max-width: 38em; margin-top: clamp(18px, 2.2vw, 30px); }
 
+/* Label kecil di atas judul. Vale tidak memakai huruf besar berjarak lebar;
+   labelnya teal, tegak, berat 500. */
 .eyebrow {
   display: block;
   font-family: var(--font-body);
-  font-size: var(--type-label);
+  font-size: 15px;
   font-weight: 500;
-  letter-spacing: var(--ls-wide);
-  text-transform: uppercase;
-  color: var(--ink-muted);
+  letter-spacing: 0.02em;
+  color: var(--teal);
 }
 
 .page-title {
-  font-size: var(--type-display);
-  line-height: var(--leading-display);
+  font-size: var(--type-h1);
+  font-weight: 500;
+  line-height: var(--leading-title);
   letter-spacing: var(--ls-display);
-  max-width: 14em;
+  color: var(--teal);
+  max-width: 18em;
+}
+
+/* Judul section ala Vale: 38px/500, teal. */
+.section-title {
+  font-size: var(--type-h2);
+  font-weight: 500;
+  line-height: var(--leading-title);
+  color: var(--teal);
 }
 
 .prose {
@@ -180,6 +201,7 @@ html [data-section][data-section-fit='fit']:not([data-section-raw]) { align-cont
 .plate {
   position: relative;
   overflow: hidden;
+  border-radius: var(--radius-card);
   background: var(--bg-plate);
   background-image: var(--plate-hatch);
 }
@@ -189,63 +211,99 @@ html [data-section][data-section-fit='fit']:not([data-section-raw]) { align-cont
   font-size: var(--type-micro);
   font-weight: 400;
   letter-spacing: var(--ls-label);
-  text-transform: uppercase;
   color: var(--ink-muted);
 }
 
 /* ── Tombol ──────────────────────────────────────────────────────────── */
-.btn-solid {
+/* Pil ala Vale: radius 40px, padding ±10px 30px, 16px/500. Saat di-hover
+   tombol memendarkan warnanya sendiri (0 0 6px), bukan berubah bentuk. */
+.btn-solid,
+.btn-pill,
+.btn-gold,
+.btn-sky {
   align-self: flex-start;
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  padding: 16px 32px;
-  background: var(--green-700);
-  color: var(--paper);
-  font-size: 12.5px;
+  padding: 10px 30px;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  font-size: var(--type-ui);
   font-weight: 500;
-  letter-spacing: var(--ls-label);
-  text-transform: uppercase;
-  transition: background var(--dur-mid) ease;
+  line-height: 1.4;
+  transition:
+    color 150ms ease-in-out,
+    background-color 150ms ease-in-out,
+    border-color 150ms ease-in-out,
+    box-shadow 150ms ease-in-out;
 }
-.btn-solid:hover { background: var(--green-900); color: var(--paper); }
+.btn-solid { background: var(--teal); color: var(--paper); }
+.btn-solid:hover,
+.btn-solid:focus-visible {
+  background: var(--teal-dark);
+  color: var(--paper);
+  box-shadow: 0 0 6px rgb(0 126 122 / 0.5);
+}
 
-.btn-pill {
-  align-self: flex-start;
+.btn-pill { border-color: var(--teal); color: var(--teal); }
+.btn-pill:hover,
+.btn-pill:focus-visible {
+  background: var(--teal);
+  color: var(--paper);
+  box-shadow: 0 0 6px rgb(0 126 122 / 0.5);
+}
+
+.btn-gold { background: var(--gold); color: var(--ink); }
+.btn-gold:hover,
+.btn-gold:focus-visible { color: var(--ink); box-shadow: 0 0 6px rgb(236 177 31 / 0.58); }
+
+/* Teks di atas biru langit gelap: putih cuma 2,4:1. */
+.btn-sky { background: var(--sky); color: var(--ink); }
+.btn-sky:hover,
+.btn-sky:focus-visible { color: var(--ink); box-shadow: 0 0 6px rgb(60 181 229 / 0.67); }
+
+/* ── Tautan aksi: teks teal + panah emas ─────────────────────────────── */
+/* Pola "Access the page →" Vale. .sweep adalah nama lamanya; komponen yang
+   belum dirombak ikut tampil dengan gaya ini. */
+.action-link,
+.sweep {
   display: inline-flex;
   align-items: center;
-  padding: 16px 32px;
-  border: 1px solid currentColor;
-  border-radius: var(--radius-pill);
-  font-size: 13.5px;
+  gap: 14px;
+  font-size: var(--type-ui);
   font-weight: 500;
-  transition: background var(--dur-fast) ease, color var(--dur-fast) ease;
+  line-height: 1.35;
+  color: var(--teal);
+  text-decoration: none;
 }
-.btn-pill:hover { background: var(--green-700); border-color: var(--green-700); color: var(--paper); }
-
-/* Tautan "Discover" bergaris bawah yang menyapu — motif berulang di beranda. */
-.sweep {
-  position: relative;
-  display: inline-block;
-  padding-bottom: 6px;
-  font-size: var(--type-label);
-  font-weight: 500;
-  letter-spacing: var(--ls-label);
-  text-transform: uppercase;
-  color: var(--ink);
-}
+.action-link::after,
 .sweep::after {
   content: '';
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  height: 1px;
-  background: currentColor;
-  transform: scaleX(1);
-  transform-origin: left;
-  transition: transform 520ms var(--ease-underline);
+  flex: none;
+  width: 20px;
+  height: 14px;
+  background: no-repeat center / contain
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 14' fill='none'%3E%3Cpath d='M0 7h18M12 1l6 6-6 6' stroke='%23ECB11F' stroke-width='1.8'/%3E%3C/svg%3E");
+  transition: transform 300ms ease;
 }
-.sweep:hover, .sweep:focus-visible { color: var(--text-primary); }
-.sweep:hover::after, .sweep:focus-visible::after { transform: scaleX(0); transform-origin: right; }
+.action-link:hover,
+.action-link:focus-visible,
+.sweep:hover,
+.sweep:focus-visible {
+  color: var(--teal-deep);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.action-link:hover::after,
+.action-link:focus-visible::after,
+.sweep:hover::after,
+.sweep:focus-visible::after { transform: translateX(4px); }
+
+/* Di atas teal atau foto, teksnya putih; panahnya tetap emas. */
+.on-dark .action-link,
+.on-dark .sweep,
+.on-dark .action-link:hover,
+.on-dark .sweep:hover { color: var(--paper); }
 
 /* ── Section karusel halaman hub ─────────────────────────────────────────
    Bentuk yang sama dengan section "Our purpose" di halaman depan: pita ditarik
@@ -260,121 +318,47 @@ html [data-section][data-section-fit='fit']:not([data-section-raw]) { align-cont
    yang sama di halaman depan. */
 .hub-tour__note { margin-top: calc(clamp(16px, 2vw, 24px) + 25px); }
 
-/* ── Reveal saat scroll ──────────────────────────────────────────────── */
-/* Reveal umum. Jarak tempuhnya dinaikkan dari 10px ke 18px dan waktunya dari
-   620ms ke 1100ms, dengan --ease-reveal menggantikan `ease` biasa.
-   Kuncinya bukan sekadar "lebih lambat": `ease` membagi waktunya nyaris rata,
-   jadi memanjangkannya memang akan terasa lambat. --ease-reveal menghabiskan
-   hampir seluruh jaraknya di awal lalu melandai panjang — 1100ms terbaca
-   sebagai mendarat pelan, bukan sebagai menunggu. */
-[data-reveal] {
+/* ── Kemunculan saat digulir ─────────────────────────────────────────── */
+/* Meniru .animar → .na-tela di Vale: elemen datang dari arahnya sendiri
+   (--from-x, --from-y) dengan transform 0,75 detik dan opacity 0,55 detik
+   linear, keduanya berjeda 0,3 detik. Arah bawaan dari bawah; atribut
+   data-reveal-from="left|right" mengubahnya. Nilai data-reveal tetap jeda
+   tambahan per elemen (lihat scripts/reveal.ts). */
+:is([data-reveal], [data-lines]) {
+  --from-x: 0px;
+  --from-y: 40px;
   opacity: 0;
-  transform: translateY(18px);
+  transform: translate(var(--from-x), var(--from-y));
   transition:
-    opacity var(--reveal-dur, var(--dur-reveal)) var(--ease-reveal),
-    transform var(--reveal-dur, var(--dur-reveal)) var(--ease-reveal);
-  will-change: opacity, transform;
+    transform 750ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 300ms,
+    opacity 550ms linear 300ms;
 }
-[data-reveal].is-revealed { opacity: 1; transform: none; }
+[data-reveal-from='left'] { --from-x: -80px; --from-y: 0px; }
+[data-reveal-from='right'] { --from-x: 80px; --from-y: 0px; }
+:is([data-reveal], [data-lines]).is-revealed { opacity: 1; transform: none; }
 
-/* Blok antar bagian. Ornamen dan kalimatnya tidak bergerak sama sekali —
-   keduanya tampil penuh begitu masuk layar. Hanya tautannya yang datang, dan
-   datangnya pelan setelah barisnya sudah diam. Diukur dari rekaman referensi:
-   teks tampil penuh pada detik 7,10; tautannya baru muncul pada 7,70 dan
-   selesai pada 7,90. */
 [data-cta-reveal] {
   opacity: 0;
-  transition: opacity var(--dur-cta) ease var(--delay-cta);
+  transition: opacity 550ms linear 300ms;
 }
 [data-cta-reveal].is-revealed { opacity: 1; }
 
-/* ── Reveal judul per baris ──────────────────────────────────────────── */
-/* Judul yang akan dipecah disembunyikan sejak awal, supaya tidak ada kedip
-   antara teks utuh dan teks yang sudah tersusun per baris. */
-[data-lines] { opacity: 0; }
-[data-lines].is-split { opacity: 1; }
-
-/* Kemunculan judul yang dipecah tidak boleh ikut memudar: satu-satunya gerakan
-   yang boleh terlihat adalah baris yang naik dari balik topeng. Tanpa aturan
-   ini, transisi opacity dari [data-reveal] ikut berjalan dan hasilnya dua
-   gerakan bertumpuk. */
-[data-reveal][data-lines] { transition: none; }
-
-/* Topengnya diberi ruang napas 0.14em di atas dan bawah, dinetralkan margin
-   negatif seukuran. Pada leading 1.04 ekor huruf sans (g, p, y) turun lebih
-   jauh daripada kotak barisnya dan terpotong tanpa ruang ini. */
-[data-lines] .line {
-  display: block;
-  overflow: hidden;
-  padding-block: 0.14em;
-  margin-block: -0.14em;
-}
-[data-lines] .line > span {
-  display: block;
-  transform: translateY(110%);
-  transition: transform var(--dur-line) var(--ease-reveal);
-  transition-delay: var(--line-delay, 0ms);
-}
-[data-lines].is-revealed .line > span { transform: none; }
-
-/* Kalau judul yang dipecah juga memakai data-reveal, fade-up luarnya dimatikan.
-   Gerakannya sudah dibawa topeng baris; dua gerakan sekaligus terasa gaduh. */
-[data-reveal][data-lines].is-split { transform: none; }
-
-/* ── Gambar muncul, bukan meloncat ───────────────────────────────────── */
-/* Keadaan diam adalah terlihat. Yang menyembunyikan hanyalah kelas is-pending
-   yang dipasang skrip, dan skrip itu selalu melepasnya kembali — termasuk lewat
-   penghitung waktu cadangan. Tanpa JavaScript, gambar tampil seperti biasa. */
-img[data-img-reveal] {
-  transition:
-    opacity 900ms var(--ease-glide),
-    transform 1200ms var(--ease-glide);
-}
-img[data-img-reveal].is-pending { opacity: 0; transform: scale(1.06); }
-
-/* ── Pembukaan kunjungan pertama ─────────────────────────────────────── */
-.is-overture #route-curtain { opacity: 1; }
-
-.overture {
+/* ── Tirai gambar ────────────────────────────────────────────────────── */
+/* Meniru animacao-item Vale: lapisan teal menutupi gambar lalu bergeser ke
+   kanan selama 1 detik saat gambar masuk layar. Kelas .curtain hanya dipasang
+   scripts/image-reveal.ts; tanpa JavaScript gambar tampil biasa. */
+.curtain { position: relative; overflow: hidden; }
+.curtain::after {
+  content: '';
   position: absolute;
   inset: 0;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  color: var(--text-primary);
+  z-index: 5;
+  background: var(--teal);
+  transform: translateX(0);
+  transition: transform 1s ease;
+  pointer-events: none;
 }
-.is-overture .overture { display: flex; }
-
-/* Tanda logo naik dan membesar pelan, lalu nama merapatkan jaraknya di
-   bawahnya. Dulu cincin + garis GROUP milik wordmark lama. */
-#route-curtain .overture__mark {
-  margin-bottom: clamp(14px, 1.6vw, 22px);
-  opacity: 0;
-  transform: translateY(10px) scale(0.86);
-  transform-origin: center;
-  transition: opacity 480ms ease, transform 760ms var(--ease-glide);
-}
-.overture__name {
-  line-height: 1;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(24px, 2.8vw, 36px);
-  text-transform: uppercase;
-  letter-spacing: 0.62em;
-  padding-left: 0.62em;
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity 520ms ease, letter-spacing 760ms var(--ease-glide),
-    padding-left 760ms var(--ease-glide);
-}
-#route-curtain .overture.step-ring .overture__mark { opacity: 1; transform: none; }
-.overture.step-name .overture__name {
-  opacity: 1;
-  letter-spacing: 0.2em;
-  padding-left: 0.2em;
-}
+.curtain.curtain-open::after { transform: translateX(101%); }
 
 /* ── Morph pelat: kartu material ke laci spesifikasi ─────────────────── */
 /* Saat View Transition mengambil alih, animasi geser laci dimatikan. Kalau
@@ -429,13 +413,12 @@ html:not(.js) :is([data-reveal], [data-cta-reveal], [data-lines]) {
   opacity: 1;
   transform: none;
 }
-html:not(.js) [data-lines] .line > span { transform: none; }
+html:not(.js) .curtain::after { display: none; }
 
 /* Blok jeda antar bagian menyembunyikan isinya lewat kelas .is-revealed yang
-   hanya dipasang skrip, jadi ia juga harus dibatalkan di sini — kalau tidak,
-   tanpa JavaScript blok ini kosong melompong. */
+   hanya dipasang skrip, jadi ia juga harus dibatalkan di sini. */
 html:not(.js)
-  :is(.interlude__mark svg, .interlude__eyebrow > span, .interlude__line > span, .interlude__cta) {
+  :is(.interlude__mark .logo, .interlude__eyebrow > span, .interlude__line > span, .interlude__cta) {
   opacity: 1;
   transform: none;
 }
@@ -449,21 +432,13 @@ html:not(.js)
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-  [data-reveal] { opacity: 1; transform: none; }
-  [data-cta-reveal] { opacity: 1; }
-  [data-lines] { opacity: 1; }
-  [data-lines] .line > span { transform: none; }
-  img[data-img-reveal] { opacity: 1; transform: none; }
-  img[data-img-reveal].is-pending { opacity: 1; transform: none; }
+  :is([data-reveal], [data-lines], [data-cta-reveal]) { opacity: 1; transform: none; }
+  .curtain::after { display: none; }
   #route-curtain { display: none; }
-  .overture { display: none !important; }
 }
 
 /* ── Animasi bernama ─────────────────────────────────────────────────── */
-@keyframes ken { from { transform: scale(1.02); } to { transform: scale(1.14); } }
-@keyframes cue { 0%, 100% { transform: translateY(0); opacity: 0.55; } 50% { transform: translateY(15px); opacity: 1; } }
+/* floating: panah hero Vale, naik-turun 1rem. */
+@keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(1rem); } }
 @keyframes rise { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
-@keyframes heroKen { from { transform: scale(1); } to { transform: scale(1.12); } }
-@keyframes heroDissolveIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes heroDissolveOut { from { opacity: 1; } to { opacity: 0; } }
-@keyframes heroTextIn { 0% { opacity: 0; transform: translateY(14px); } 40% { opacity: 0; } 100% { opacity: 1; transform: none; } }
+@keyframes heroTextIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
