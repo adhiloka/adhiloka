@@ -203,7 +203,7 @@ export const SUSTAINABILITY_SLIDES: CarouselSlide[] = [
     shot: 'kemenyan agroforest canopy',
     image: 'hero-agroforest',
     href: '/sustainability/people/',
-    bg: 'oklch(0.864 0.02 118)',
+    bg: 'var(--plate-green)',
   },
   {
     title: 'Responsible Sourcing',

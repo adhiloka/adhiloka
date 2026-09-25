@@ -163,7 +163,7 @@ import { CATALOG_INTRO, CATALOG_NOTE } from '../../data/pages/ingredients';
     position: sticky;
     top: calc(var(--header-h) + 1px);
     z-index: 100;
-    background: oklch(0.972 0.009 84 / 0.94);
+    background: rgb(255 255 255 / 0.94);
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
     border-top: 1px solid var(--border-hairline);
@@ -243,7 +243,7 @@ import { CATALOG_INTRO, CATALOG_NOTE } from '../../data/pages/ingredients';
     right: 0;
     top: 0;
     height: 38%;
-    background: linear-gradient(to bottom, oklch(0.18 0.012 62 / 0.42), transparent);
+    background: linear-gradient(to bottom, rgb(var(--shade-rgb) / 0.42), transparent);
   }
   .mcard__family {
     position: absolute;
@@ -260,7 +260,7 @@ import { CATALOG_INTRO, CATALOG_NOTE } from '../../data/pages/ingredients';
   .mcard__family--on-photo {
     font-weight: 500;
     color: oklch(1 0 0);
-    text-shadow: 0 1px 8px oklch(0.18 0.012 62 / 0.75);
+    text-shadow: 0 1px 8px rgb(var(--shade-rgb) / 0.75);
   }
 
   .mcard__meta { display: flex; flex-direction: column; gap: 6px; }
@@ -295,7 +295,7 @@ import { CATALOG_INTRO, CATALOG_NOTE } from '../../data/pages/ingredients';
   .mdrawer__scrim {
     position: absolute;
     inset: 0;
-    background: oklch(0.24 0.016 62 / 0.5);
+    background: rgb(var(--shade-rgb) / 0.5);
     opacity: 0;
     transition: opacity 480ms ease;
   }

@@ -221,9 +221,9 @@ const posterImage = images['hero-poster'];
     pointer-events: none;
     background: linear-gradient(
       to top,
-      oklch(0.18 0.014 62 / 0.82) 0%,
-      oklch(0.18 0.014 62 / 0.16) 46%,
-      oklch(0.18 0.014 62 / 0.52) 100%
+      rgb(var(--shade-rgb) / 0.82) 0%,
+      rgb(var(--shade-rgb) / 0.16) 46%,
+      rgb(var(--shade-rgb) / 0.52) 100%
     );
   }
 
@@ -235,7 +235,7 @@ const posterImage = images['hero-poster'];
     color: var(--ivory-1);
     padding: 12px;
     opacity: 0.72;
-    filter: drop-shadow(0 1px 10px oklch(0.18 0.014 62 / 0.65));
+    filter: drop-shadow(0 1px 10px rgb(var(--shade-rgb) / 0.65));
     transition: opacity 280ms ease;
   }
   .hero__arrow:hover { opacity: 1; color: var(--ivory-1); }
@@ -257,17 +257,16 @@ const posterImage = images['hero-poster'];
     animation: heroTextIn 1100ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  /* Marcellus dipaksa berat 700 di prototipe padahal ia hanya punya 400 —
-     peramban memalsukannya dengan menebalkan garis. EB Garamond 400 pada
-     ukuran display jauh lebih berwibawa daripada serif tebal palsu 20 px. */
+  /* Berat 500, bukan 600: pada ukuran display Plus Jakarta Sans 600 terlalu
+     padat di atas video dan bersaing dengan logo di header. */
   .hero__headline {
     font-family: var(--font-display);
-    font-weight: 400;
+    font-weight: 500;
     font-size: clamp(34px, 5vw, 72px);
     line-height: var(--leading-display);
     letter-spacing: var(--ls-display);
     color: var(--on-image);
-    text-shadow: 0 1px 30px oklch(0.18 0.014 62 / 0.5);
+    text-shadow: 0 1px 30px rgb(var(--shade-rgb) / 0.5);
     max-width: 16em;
   }
 
@@ -280,7 +279,7 @@ const posterImage = images['hero-poster'];
     text-transform: uppercase;
     padding-bottom: 5px;
     color: var(--on-image);
-    text-shadow: 0 1px 14px oklch(0.18 0.014 62 / 0.6);
+    text-shadow: 0 1px 14px rgb(var(--shade-rgb) / 0.6);
   }
   .hero__cta:hover,
   .hero__cta:focus-visible { color: var(--on-image); }
@@ -300,7 +299,7 @@ const posterImage = images['hero-poster'];
     display: flex;
     align-items: center;
     gap: 3px;
-    filter: drop-shadow(0 1px 6px oklch(0.18 0.014 62 / 0.7));
+    filter: drop-shadow(0 1px 6px rgb(var(--shade-rgb) / 0.7));
   }
   /* Titiknya kecil karena desainnya begitu, tapi sasaran kliknya 24px —
      syarat minimum WCAG 2.5.8 tanpa mengubah tampilan. */
@@ -318,7 +317,7 @@ const posterImage = images['hero-poster'];
     width: 5px;
     height: 5px;
     border-radius: var(--radius-pill);
-    background: oklch(0.972 0.009 84 / 0.4);
+    background: rgb(255 255 255 / 0.4);
     transition: background 280ms ease, width 280ms ease, height 280ms ease;
   }
   .hero__dots button[aria-selected='true']::before {
@@ -335,7 +334,7 @@ const posterImage = images['hero-poster'];
     z-index: 4;
     padding: 10px 16px;
     color: oklch(1 0 0);
-    filter: drop-shadow(0 1px 10px oklch(0.18 0.014 62 / 0.65));
+    filter: drop-shadow(0 1px 10px rgb(var(--shade-rgb) / 0.65));
     transition: opacity 300ms ease;
   }
   .hero__cue:hover { opacity: 0.6; color: oklch(1 0 0); }

@@ -12,6 +12,8 @@ function setMobileMenu(open: boolean) {
   if (!menu || !menu.hidden === open) return;
 
   menu.hidden = !open;
+  // Menu berlatar putih: header harus lepas dari teks putih varian over-dark.
+  document.querySelector('[data-site-header]')?.classList.toggle('is-menu', open);
   document.documentElement.style.overflow = open ? 'hidden' : '';
   if (open) pauseScroll();
   else resumeScroll();
@@ -30,7 +32,7 @@ function syncScrollState() {
 
   const y = window.scrollY;
 
-  // Mengecilkan wordmark, dan di beranda menghentikan teks putih milik varian
+  // Mengecilkan logo, dan di beranda menghentikan teks putih milik varian
   // over-dark. Aturan "sembunyi saat menggulir turun, muncul lagi saat naik"
   // sudah dicabut: menubar tidak lagi datang dan pergi mengikuti arah gulir.
   header.classList.toggle('is-scrolled', y > 40);

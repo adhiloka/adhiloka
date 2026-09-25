@@ -170,7 +170,7 @@ const { slides = GET_IN_TOUCH, label = 'Get in touch', inset = false } = Astro.p
     transition: opacity var(--dur-mid) ease, transform 680ms var(--ease-glide);
   }
   .gt__plate[data-state='current'] { opacity: 1; }
-  .gt__plate .plate__caption { left: 20px; right: 20px; bottom: 16px; color: oklch(0.215 0.014 62 / 0.72); }
+  .gt__plate .plate__caption { left: 20px; right: 20px; bottom: 16px; color: rgb(var(--shade-rgb) / 0.72); }
 
   /* Slide berfoto: hatch-nya dimatikan — fotonya menutup seluruh kotak. */
   .gt__plate--photo { background-image: none; }
@@ -202,7 +202,7 @@ const { slides = GET_IN_TOUCH, label = 'Get in touch', inset = false } = Astro.p
     display: flex;
     align-items: center;
     padding-block: 7px;
-    color: oklch(0.215 0.014 62 / 0.75);
+    color: rgb(var(--shade-rgb) / 0.75);
     transition: color var(--dur-fast) ease, transform 420ms var(--ease-glide);
   }
   .gt__nav button:hover { color: var(--espresso); }

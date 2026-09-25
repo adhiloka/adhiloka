@@ -34,7 +34,7 @@ const show = (el: HTMLElement) => {
  *  bawah, yang tidak pernah melewati garis -25% milik pengamat di bawah dan
  *  karena itu dulu baru muncul satu langkah gulir kemudian.
  *
- *  Jeda per elemen tetap dihormati, jadi urutannya (lebah, kalimat, tautan)
+ *  Jeda per elemen tetap dihormati, jadi urutannya (tanda logo, kalimat, tautan)
  *  tidak berubah — yang berubah hanya kapan hitungannya dimulai. */
 export function revealWithin(root: HTMLElement) {
   if (REDUCED()) {

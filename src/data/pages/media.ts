@@ -191,8 +191,8 @@ export type Resource = {
    di /media/ sebelum terbit, atau hapus barisnya. */
 export const RESOURCES: Resource[] = [
   {
-    title: 'Wordmark and ring',
-    body: 'Primary wordmark, ring mark and the one-colour variants, with the clearance rules.',
+    title: 'Logo and wordmark',
+    body: 'The sail mark in full colour, the horizontal lockup with the Adhiloka name, and the colour values of the six fields.',
     kind: 'ZIP · SVG, PNG, EPS',
     size: '2.4 MB',
     href: '/contact/',
@@ -296,7 +296,7 @@ export const MEDIA_SLIDES: CarouselSlide[] = [
     shot: 'grading floor, Medan works',
     image: 'material-nutmeg',
     href: '/media/news/',
-    bg: 'oklch(0.882 0.022 52)',
+    bg: 'var(--plate-amber)',
   },
   {
     title: 'Media Resources',
@@ -305,7 +305,7 @@ export const MEDIA_SLIDES: CarouselSlide[] = [
     shot: 'still hall, Medan works',
     image: 'hero-benzoin-tears',
     href: '/media/media-resources/',
-    bg: 'oklch(0.872 0.016 80)',
+    bg: 'var(--plate-sage)',
   },
   {
     title: 'Social Media',
@@ -314,6 +314,6 @@ export const MEDIA_SLIDES: CarouselSlide[] = [
     shot: 'kemenyan agroforest canopy',
     image: 'agroforest-canopy',
     href: '/media/social-media/',
-    bg: 'oklch(0.864 0.02 118)',
+    bg: 'var(--plate-green)',
   },
 ];

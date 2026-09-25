@@ -92,8 +92,8 @@ const name = material.shortName ?? material.name;
     transition: opacity var(--dur-slow) ease;
     background: linear-gradient(
       to top,
-      oklch(0.18 0.012 62 / 0.78),
-      oklch(0.18 0.012 62 / 0.28) 46%,
+      rgb(var(--shade-rgb) / 0.78),
+      rgb(var(--shade-rgb) / 0.28) 46%,
       transparent
     );
   }
@@ -118,7 +118,7 @@ const name = material.shortName ?? material.name;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: oklch(1 0 0);
-    text-shadow: 0 1px 18px oklch(0.18 0.012 62 / 0.45);
+    text-shadow: 0 1px 18px rgb(var(--shade-rgb) / 0.45);
   }
 
   .fcard__reveal {

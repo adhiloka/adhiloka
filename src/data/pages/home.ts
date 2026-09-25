@@ -31,8 +31,8 @@ export const HERO_SLIDES: HeroSlide[] = [
     shot: 'rose, fine fragrance materials',
     href: '/about/our-history/',
     image: 'hero-still-hall',
-    bg: 'oklch(0.44 0.02 62)',
-    stripe: 'oklch(0.385 0.02 60)',
+    bg: 'var(--plate-dark-1)',
+    stripe: 'var(--plate-dark-1-stripe)',
   },
   {
     kind: 'photo',
@@ -41,8 +41,8 @@ export const HERO_SLIDES: HeroSlide[] = [
     shot: 'cassia bark, Kerinci',
     href: '/ingredients/catalog/',
     image: 'hero-benzoin-tears',
-    bg: 'oklch(0.455 0.03 52)',
-    stripe: 'oklch(0.4 0.028 50)',
+    bg: 'var(--plate-dark-2)',
+    stripe: 'var(--plate-dark-2-stripe)',
   },
   {
     kind: 'photo',
@@ -51,8 +51,8 @@ export const HERO_SLIDES: HeroSlide[] = [
     shot: 'leaf, close',
     href: '/sustainability/',
     image: 'material-patchouli',
-    bg: 'oklch(0.415 0.03 118)',
-    stripe: 'oklch(0.36 0.03 116)',
+    bg: 'var(--plate-dark-3)',
+    stripe: 'var(--plate-dark-3-stripe)',
   },
 ];
 
@@ -81,7 +81,7 @@ export const GET_IN_TOUCH: GetInTouchSlide[] = [
     shot: 'sample dispatch bench, Medan works',
     image: 'fragrance-resin',
     href: '/contact/',
-    bg: 'oklch(0.872 0.016 80)',
+    bg: 'var(--plate-sage)',
   },
   {
     title: 'Request a sample',
@@ -90,7 +90,7 @@ export const GET_IN_TOUCH: GetInTouchSlide[] = [
     shot: 'ten-gram vials, ready to ship',
     image: 'material-ginger',
     href: '/contact/',
-    bg: 'oklch(0.886 0.018 74)',
+    bg: 'var(--plate-yellow)',
   },
   {
     title: 'Traceable to the household',
@@ -99,7 +99,7 @@ export const GET_IN_TOUCH: GetInTouchSlide[] = [
     shot: 'kemenyan agroforest canopy',
     image: 'agroforest-canopy',
     href: '/sustainability/responsible-sourcing/',
-    bg: 'oklch(0.864 0.02 118)',
+    bg: 'var(--plate-green)',
   },
   {
     title: 'Inside the Medan works',
@@ -108,7 +108,7 @@ export const GET_IN_TOUCH: GetInTouchSlide[] = [
     shot: 'still hall, Medan works',
     image: 'hero-benzoin-tears',
     href: '/about/our-locations/',
-    bg: 'oklch(0.878 0.014 62)',
+    bg: 'var(--plate-sage)',
   },
   {
     title: 'Composed at the bench',
@@ -117,7 +117,7 @@ export const GET_IN_TOUCH: GetInTouchSlide[] = [
     shot: 'perfumery bench, Medan works',
     image: 'fragrance-petal',
     href: '/perfumery/',
-    bg: 'oklch(0.858 0.024 96)',
+    bg: 'var(--plate-green)',
   },
   {
     title: 'Eighteen naturals',
@@ -126,6 +126,6 @@ export const GET_IN_TOUCH: GetInTouchSlide[] = [
     shot: 'sorted benzoin tears',
     image: 'material-benzoin',
     href: '/ingredients/catalog/',
-    bg: 'oklch(0.882 0.022 52)',
+    bg: 'var(--plate-amber)',
   },
 ];

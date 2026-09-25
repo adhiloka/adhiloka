@@ -64,7 +64,7 @@ export const ABOUT_SLIDES: CarouselSlide[] = [
     shot: 'the grading floor, Medan works',
     image: 'about-table',
     href: '/about/our-leadership/',
-    bg: 'oklch(0.872 0.016 80)',
+    bg: 'var(--plate-sage)',
   },
   {
     title: 'Our Purpose',
@@ -82,7 +82,7 @@ export const ABOUT_SLIDES: CarouselSlide[] = [
     shot: 'the first benzoin ledger, 1840s',
     image: 'material-benzoin',
     href: '/about/our-history/',
-    bg: 'oklch(0.882 0.022 52)',
+    bg: 'var(--plate-amber)',
   },
   {
     title: 'Our Locations',
@@ -91,7 +91,7 @@ export const ABOUT_SLIDES: CarouselSlide[] = [
     shot: 'collection station, Tapanuli uplands',
     image: 'hero-agroforest',
     href: '/about/our-locations/',
-    bg: 'oklch(0.864 0.02 118)',
+    bg: 'var(--plate-green)',
   },
 ];
 

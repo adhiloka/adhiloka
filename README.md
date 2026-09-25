@@ -13,8 +13,8 @@ npm run preview  # menyajikan dist/
 ## Isi
 
 Enam menu, mengikuti susunan givaudan.com, robertet.com dan dsm-firmenich.com: tiap sub-item
-punya halamannya sendiri, bukan anchor. Header memecah daftar ini tiga di kiri dan tiga di kanan
-wordmark, jadi jumlahnya harus tetap genap.
+punya halamannya sendiri, bukan anchor. Sejak September 2026 logo duduk di kiri header dan keenam
+menu berjajar di kanannya.
 
 | Jalur | Halaman |
 | --- | --- |
@@ -51,7 +51,7 @@ Rute lama `/our-story/`, `/fragrances/` dan `/raw-materials/` diarahkan lewat `r
 src/
   data/        materials.ts · site.ts · images.ts
     pages/     types · home · about · perfumery · ingredients · sustainability · media · contact
-  components/  Header · SearchPanel · Footer · Hero · GetInTouch · FeaturedCard · Plate · Wordmark
+  components/  Header · SearchPanel · Footer · Hero · GetInTouch · FeaturedCard · Plate · Logo
                BackToTop · Interlude · Band · PageHero · Breadcrumb · SiblingNav · CardGrid
                StatRow · Pullquote · Timeline · PeopleGrid · LocationList · NewsList
                DownloadList · SocialGrid
@@ -97,14 +97,14 @@ pada entri yang captionnya menyebut tempat.
 
 ## Keputusan yang perlu diketahui
 
-**Dua keluarga huruf, di-host sendiri.** EB Garamond memikul semua judul; Public Sans memikul
-teks dan antarmuka. Keduanya ditarik lewat Fonts API Astro (`fonts` di `astro.config.mjs`), bukan
+**Dua keluarga huruf, di-host sendiri.** Plus Jakarta Sans (500/600, dengan italic) memikul semua
+judul dan nama pada logo; Public Sans memikul teks dan antarmuka. Keduanya ditarik lewat Fonts API Astro (`fonts` di `astro.config.mjs`), bukan
 `@import` ke Google Fonts — berkasnya ikut ke `dist/`, di-preload, dan punya fallback yang
-metrik-nya disesuaikan. Tiga berkas, 74 kB.
+metrik-nya disesuaikan.
 
-Marcellus dibuang. Ia hanya punya satu berat dan tanpa italic, sehingga nama Latin dimiringkan
-secara palsu dan judul hero ditebalkan secara palsu oleh peramban. EB Garamond punya italic asli
-dan bertahan di teks panjang.
+EB Garamond dilepas saat situs diselaraskan dengan logo baru (September 2026): serif klasik tidak
+senada dengan garis logo yang cair. Plus Jakarta Sans dipilih karena punya italic asli untuk nama
+Latin di katalog dan kebetulan dibuat di Jakarta (Tokotype).
 
 **Gambar dioptimasi saat build.** Aset mentah berjumlah sekitar 100 MB. `astro:assets` menghasilkan
 WebP berukuran ganda: foto hero 4,2 MB keluar sebagai 59–325 kB tergantung lebar layar. Beranda
@@ -128,8 +128,11 @@ Lalu ganti `data-src` di `src/components/Hero.astro`. Menambah varian WebM/AV1 l
 dipertahankan: ia menjadi daftar pemotretan. Untuk memasang foto asli, taruh berkasnya di
 `src/assets/images/`, daftarkan di `src/data/images.ts`, lalu berikan `image` pada data terkait.
 
-**Tidak ada berkas logo.** Wordmark disusun dari tipografi — cincin, nama berjarak huruf lebar, dan
-garis GROUP (`src/components/Wordmark.astro`), persis seperti pada desain.
+**Logo di-inline.** `src/components/Logo.astro` memuat SVG dari `../brand/adhiloka-logo.svg`
+(tanda layar/daun enam warna) ditambah nama ADHILOKA dalam huruf judul. Warnanya tidak pernah
+diubah per latar; hanya nama yang mengikuti `currentColor`. Dipakai di header, footer, pembukaan
+beranda, dan sebagai penanda kecil di `Interlude`. Favicon (`public/favicon.svg`) dan
+`apple-touch-icon.png` diturunkan dari berkas yang sama.
 
 ## Yang diperbaiki dari prototipe
 
@@ -137,7 +140,7 @@ Rekreasinya mengikuti desain dari ukuran, warna, sampai kurva gerak. Yang berbed
 
 - **Navigasi jadi tautan sungguhan.** Prototipe memakai `<a href="#">` dengan state klien untuk
   semua rute. Sekarang lima halaman asli dengan URL, tombol maju/mundur, dan sitemap. Perpindahannya
-  tetap memudar lewat kurtin ivory, kini digerakkan View Transitions.
+  tetap memudar lewat kurtin putih, kini digerakkan View Transitions.
 - **Fokus papan ketik terlihat.** Prototipe tidak punya indikator fokus sama sekali. Ditambah, plus
   tautan lewati-ke-konten.
 - **Laci pencarian benar-benar mencari.** Di desain kolomnya hiasan. Sekarang menyaring indeks statis
@@ -147,8 +150,8 @@ Rekreasinya mengikuti desain dari ukuran, warna, sampai kurva gerak. Yang berbed
 - **Penyaring tersimpan di URL.** `?family=spice` bisa dibagikan.
 - **Formulir memvalidasi dan mengirim.** Ada pesan galat per kolom, `aria-invalid`, keadaan mengirim,
   keadaan gagal, dan perangkap bot. Tautan dari laci material mengisi kolom Brief lebih dulu.
-- **Kontras dinaikkan pada teks kecil.** Emas `--acc` dipertahankan untuk angka besar dan hover;
-  `--acc-text` yang lebih gelap dipakai untuk eyebrow dan label agar lolos WCAG AA. Empat halaman
+- **Kontras dinaikkan pada teks kecil.** Semua tinta dan hijau tautan lolos WCAG AA di atas putih;
+  hijau logo `#009978` (3,6:1) hanya dipakai untuk garis dan isian, tidak untuk teks. Empat halaman
   bersih; teks header di atas video hero mengandalkan bayangan seperti pada desain.
 - **Sasaran sentuh 24 px.** Titik hero tetap terlihat 5–6 px tetapi area kliknya penuh.
 - **Katalog dua kolom di ponsel.** Satu kolom membuat halaman ini sepanjang 9.600 px; sekarang separuhnya.
@@ -191,27 +194,34 @@ Tiga hal yang menjaga situs ini terbaca sebagai satu benda. Semuanya tinggal di
 `src/styles/tokens.css`.
 
 **Huruf.** Dua keluarga, dan berat tebal praktis tidak dipakai — hierarki datang dari ukuran, jarak
-huruf, dan warna. EB Garamond selalu 400. Public Sans 400 untuk teks, 500 untuk label dan tombol.
+huruf, dan warna. Plus Jakarta Sans 500 untuk judul, 600 hanya untuk nama pada logo. Public Sans
+400 untuk teks, 500 untuk label dan tombol.
 Italic hanya untuk nama botani Latin dan satu baris editorial di beranda. Skalanya satu tangga
 (`--type-display` sampai `--type-micro`); yang lama tidak koheren karena `--type-h2` justru lebih
 besar daripada `--type-h1`.
 
-**Warna.** Kertas, tinta, satu dasar gelap.
+**Warna.** Diturunkan dari logo: putih bersih, tinta netral, hijau sebagai warna utama, kuning
+sebagai sorotan. Rasio kontras di atas putih.
 
 | Peran | Token | Catatan |
 | --- | --- | --- |
-| Kertas | `--paper`, `--paper-sunk` | Dua, bukan sepuluh. Abu-abu lama berbeda 0,002–0,01 lightness — selisih yang tidak terlihat mata. |
-| Tinta | `--ink`, `--ink-body`, `--ink-muted` | Tiga langkah, semuanya lolos AA. `--ink-muted` sengaja 0,50 bukan 0,52 karena keterangan pelat duduk di atas `--plate` yang lebih gelap daripada kertas. |
-| Dasar gelap | `--ground-dark` | Espresso, bukan navy. Ivory hangat yang ditutup navy dingin adalah tabrakan suhu. |
-| Aksen | `--gold` | **Bukan warna teks.** Hanya lima momen: hover tautan, hover tombol padat, sorotan teks, cincin fokus, cincin wordmark. |
+| Kertas | `--paper` `#fff`, `--paper-sunk` `#f4f7f5` | Putih dan satu pita abu kehijauan sangat tipis. |
+| Tinta | `--ink` 16,6:1, `--ink-body` 8,3:1, `--ink-muted` 5,9:1 | Netral dengan sedikit hijau. `--ink-muted` masih 5,1:1 di atas `--plate`. |
+| Hijau | `--green-500` `#009978`, `--green-700` `#007a60` | 500 = warna logo, hanya garis/isian (3,6:1). 700 = tautan, hover, latar tombol dengan teks putih (5,3:1). |
+| Dasar gelap | `--green-900` `#0e3b2f` | Footer. Teks putih 12,5:1; hover tautan kuning. |
+| Kuning | `--yellow-300` `#ffd474`, `--yellow-100`, `--amber` | Bukan warna teks. `::selection`, sorotan, hover di atas hijau tua. Teks di atas kuning selalu `--ink`. |
+| Pelat kartu | `--plate-green`, `--plate-sage`, `--plate-yellow`, `--plate-amber` | Dipakai data halaman lewat `var()`, bukan nilai warna mentah. |
+| Peredup foto | `--shade-rgb` | Hijau hutan hampir hitam; komponen memakai `rgb(var(--shade-rgb) / alfa)`. |
+
+`--gold` masih ada sebagai nama peran (hover tautan dan ikon) tapi isinya kini `--green-700`.
 
 **Ukuran.** `--section-y` naik dari `clamp(42px, 5.2vw, 82px)` ke `clamp(72px, 9vw, 140px)`, dan
 bingkainya turun dari 1560 px ke 1440 px. Ini perubahan yang paling terasa: yang lama membuat
 bagian-bagian terbaca seperti ditumpuk, dan baris teksnya terlalu panjang.
 
 Nama token lama (`--ivory-*`, `--stone-*`, `--espresso`, `--acc-text`) masih hidup sebagai alias di
-bagian bawah `tokens.css`. `--acc-text` sengaja menunjuk tinta, bukan emas, supaya pemakaian yang
-terlewat jatuh ke keadaan yang benar.
+bagian bawah `tokens.css` dan kini menunjuk palet putih-hijau. `--acc-text` sengaja menunjuk tinta,
+bukan hijau, supaya pemakaian yang terlewat jatuh ke keadaan yang benar.
 
 ## Lapisan rasa
 
@@ -224,10 +234,10 @@ mati saat `prefers-reduced-motion: reduce`.
 | Judul dipecah per baris | `scripts/split-lines.ts` | Tiap baris naik dari balik topeng, di-stagger 90 ms. Menunggu `document.fonts.ready` supaya pemenggalan dihitung dengan font sungguhan, dan dihitung ulang saat resize. Dipasang lewat `data-lines`. |
 | Gulir momentum | `scripts/smooth-scroll.ts` | Lenis, hanya untuk roda dan trackpad pada layar ≥900 px. Sentuhan dibiarkan native. Semua gulir terprogram lewat `scrollToY()` supaya satu kurva. |
 | Gambar muncul | `scripts/image-reveal.ts` | Skala 1,06 → 1 sambil memudar. Gambar `eager` dilewati karena poster hero adalah elemen LCP. |
-| Pembukaan | `scripts/overture.ts` | Wordmark tersusun di atas kurtin ivory. Hanya beranda, sekali per sesi, ≤900 ms, dan langsung minggir kalau pengguna menggulir. |
+| Pembukaan | `scripts/overture.ts` | Tanda logo naik, lalu nama merapat, di atas kurtin putih. Hanya beranda, sekali per sesi, ≤900 ms, dan langsung minggir kalau pengguna menggulir. |
 | Morph kartu → laci | `scripts/materials.ts` | `document.startViewTransition()` dengan `view-transition-name: material-plate`. Peramban tanpa dukungan tetap mendapat laci geser biasa. |
 | Eyebrow menempel | `pages/sustainability.astro` | Hanya di kolom "Position". Di Group tidak dipasang: pelat 4/5 di sana lebih tinggi daripada teksnya, jadi sticky-nya tidak akan pernah terlihat. |
-| Jeda antar bagian | `components/Interlude.astro` | Tiga gerakan berurutan: cincin (700 ms), kalimat naik 8 px (800 ms, jeda 120 ms), lalu tautan memudar (260 ms, jeda 480 ms). Kurvanya `--ease-soft`. Versi sebelumnya benar-benar diam mengikuti rekaman dior.com; sekarang sedikit lebih hidup atas permintaan. |
+| Jeda antar bagian | `components/Interlude.astro` | Tiga gerakan berurutan: tanda logo (700 ms), kalimat naik 8 px (800 ms, jeda 120 ms), lalu tautan memudar (260 ms, jeda 480 ms). Kurvanya `--ease-soft`. Versi sebelumnya benar-benar diam mengikuti rekaman dior.com; sekarang sedikit lebih hidup atas permintaan. |
 | Garis bawah menyapu | `Interlude.astro`, `Hero.astro` | Bereaksi saat **bloknya** disentuh kursor, bukan hanya tautannya. |
 
 Tiga aturan yang mudah dilanggar tanpa sengaja:
@@ -262,6 +272,6 @@ membedakan Adhiloka dari pemasok lain. Naskah lamanya ada di riwayat git.
 - **Kompresi video** (perintahnya di atas).
 - **Kursor kustom, angka menghitung naik, parallax pita, dan mode gelap** — dipertimbangkan lalu
   ditolak. Ketiganya yang pertama membuat situs pemasok terbaca seperti situs portofolio; yang
-  terakhir melawan dasar ivory hangat yang menjadi seluruh paletnya.
+  terakhir belum dipikirkan untuk palet putih-hijau.
 - **Halaman sendiri per material.** Sekarang spesifikasi tinggal di laci. Semua 18 panelnya ada di
   HTML sehingga terbaca mesin telusur, tetapi halaman tersendiri akan lebih baik untuk pencarian.

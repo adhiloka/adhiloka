@@ -1,6 +1,6 @@
 ---
 import { FOOTER_COLUMNS, SOCIAL, SITE } from '../data/site';
-import Wordmark from './Wordmark.astro';
+import Logo from './Logo.astro';
 const year = new Date().getFullYear();
 ---
 
@@ -34,12 +34,7 @@ const year = new Date().getFullYear();
           }
         </div>
 
-        <Wordmark
-          class="site-footer__mark"
-          size="clamp(21px, 2.1vw, 30px)"
-          ringSize="30px"
-          ruleSize="9.5px"
-        />
+        <Logo class="site-footer__mark" size="clamp(34px, 3vw, 44px)" />
 
         <button type="button" class="site-footer__region" data-region-note>
           <span>Country / Region</span>
@@ -56,14 +51,12 @@ const year = new Date().getFullYear();
 </footer>
 
 <style>
-  /* Footer bukan lagi blok gelap penuh lebar: sebuah panel putih yang
-     mengambang di atas alas hangat, dengan jarak yang sama di keempat sisi.
-     Alasnya juga yang menutup halaman, jadi warnanya harus berbeda dari
-     --paper — kalau tidak, panelnya tidak terlihat mengambang.
+  /* Footer: blok hijau hutan penuh lebar. Strukturnya masih panel di atas
+     alas (sisa desain panel mengambang), tapi --footer-margin kini 0 dan alas
+     serta panelnya sewarna, jadi keduanya terbaca sebagai satu blok.
 
-     Tiga token "on dark" ditimpa di dalam panel, bukan diganti satu per satu
-     di tiap aturan: seluruh isi footer sudah membacanya, termasuk garis
-     pemisah dan wordmark yang memakai currentColor. */
+     Token "on dark" ditimpa di dalam panel, bukan diganti satu per satu di
+     tiap aturan: seluruh isi footer sudah membacanya. */
   .site-footer {
     background: var(--footer-ground);
     padding: var(--footer-margin);
@@ -71,8 +64,7 @@ const year = new Date().getFullYear();
 
   .site-footer__panel {
     --text-on-dark: var(--footer-ink);
-    --text-on-dark-dim: var(--footer-ink);
-    --border-on-ink: var(--footer-ink);
+    --text-on-dark-dim: var(--footer-ink-dim);
     background: var(--footer-panel);
     color: var(--footer-ink);
     /* Jarak dalam kirinya lebih rapat daripada --gutter yang dipakai footer
@@ -101,7 +93,7 @@ const year = new Date().getFullYear();
 
   .site-footer__title {
     font-family: var(--font-display);
-    font-weight: 400;
+    font-weight: 500;
     font-size: clamp(20px, 1.7vw, 26px);
     line-height: 1.2;
     letter-spacing: 0.005em;
@@ -150,11 +142,10 @@ const year = new Date().getFullYear();
   .site-footer__social a:focus-visible { opacity: 0.55; color: var(--text-on-dark); }
 
   :global(.site-footer__mark) { justify-self: center; }
-  :global(.site-footer__mark):hover { transform: scale(1.06); }
-  /* Cincin dan garis wordmark disetel 0,5-0,55 supaya lembut di atas latar
-     gelap; di atas putih takaran itu terbaca kelabu, bukan hitam. */
-  :global(.site-footer__mark .wordmark__ring),
-  :global(.site-footer__mark .wordmark__rule > span) { opacity: 1; }
+  .site-footer__links a:hover,
+  .site-footer__links a:focus-visible,
+  .site-footer__social a:hover,
+  .site-footer__social a:focus-visible { color: var(--yellow-300); opacity: 1; }
 
   .site-footer__region {
     justify-self: end;

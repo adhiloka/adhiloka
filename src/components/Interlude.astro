@@ -1,5 +1,5 @@
 ---
-import BeeIcon from './BeeIcon.astro';
+import Logo from './Logo.astro';
 
 /**
  * Jeda antar bagian: ornamen, satu kalimat, lalu tautan.
@@ -9,7 +9,7 @@ import BeeIcon from './BeeIcon.astro';
  * `href` tidak diberikan, tautannya tidak dirender sama sekali — blok itu jadi
  * label bagian, bukan ajakan.
  *
- * Gerakannya berurutan dan pendek: lebah lebih dulu, kalimat menyusul,
+ * Gerakannya berurutan dan pendek: tanda logo lebih dulu, kalimat menyusul,
  * tautannya paling akhir. Jarak tempuh 8 px, bukan 28 px — yang membuat gerakan
  * terasa mahal adalah kelembutan dan kependekannya, bukan panjangnya.
  */
@@ -21,11 +21,11 @@ interface Props {
   /** Tanpa ini, tautannya tidak muncul sama sekali. */
   href?: string;
   cta?: string;
-  /** Lebah kecil di atas — satu-satunya bentuk milik merek ini. */
+  /** Tanda logo kecil di atas; menggantikan lebah sejak logo baru. */
   mark?: boolean;
   /** Kalimatnya dimiringkan; dipakai untuk baris yang bernada editorial. */
   italic?: boolean;
-  /** Jarak lebah–kalimat–tautan dipersempit; untuk blok yang duduk berdekatan
+  /** Jarak tanda–kalimat–tautan dipersempit; untuk blok yang duduk berdekatan
    *  dengan elemen lain dan tidak butuh jarak selapang biasanya. */
   tight?: boolean;
   class?: string;
@@ -47,7 +47,7 @@ const {
   {
     mark && (
       <span class="interlude__mark" aria-hidden="true">
-        <BeeIcon />
+        <Logo size="30px" markOnly plain />
       </span>
     )
   }
@@ -88,23 +88,20 @@ const {
      margin negatif seukuran, supaya huruf berkait dan ekor huruf miring tidak
      terpotong garis topeng. */
   .interlude__mark {
-    width: 30px;
+    width: 34px;
     height: 30px;
     display: grid;
     place-items: center;
-    color: #808080;
     overflow: hidden;
   }
-  .interlude__mark :global(svg) {
-    width: 100%;
-    height: 100%;
+  .interlude__mark :global(.logo) {
     opacity: 0;
     transform: translateY(105%);
     transition:
       opacity var(--dur-mark) var(--ease-reveal),
       transform var(--dur-mark) var(--ease-reveal);
   }
-  .interlude.is-revealed .interlude__mark :global(svg) {
+  .interlude.is-revealed .interlude__mark :global(.logo) {
     opacity: 1;
     transform: none;
   }
@@ -136,7 +133,9 @@ const {
     max-width: 20em;
     text-wrap: balance;
   }
-  .interlude__line.is-italic { font-style: italic; }
+  /* Italic sans lebih sempit daripada tegaknya; tracking judul yang negatif
+     membuat spasi antarkata nyaris hilang, jadi dinetralkan di sini. */
+  .interlude__line.is-italic { font-style: italic; letter-spacing: 0; }
 
   /* Paling kecil dan paling tenang dari ketiganya. Pada rekaman referensi,
      "Discover" jauh lebih kecil daripada barisnya; di versi sebelumnya ia
@@ -181,6 +180,7 @@ const {
 
   @media (prefers-reduced-motion: reduce) {
     .interlude__mark,
+    .interlude__mark :global(.logo),
     .interlude__eyebrow,
     .interlude__line,
     .interlude__cta {

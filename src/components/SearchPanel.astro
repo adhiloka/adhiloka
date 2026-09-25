@@ -237,7 +237,7 @@ const cards = MATERIALS.filter((m) =>
   }
   .search__hint a {
     color: var(--espresso);
-    border-bottom: 1px solid oklch(0.215 0.014 62 / 0.5);
+    border-bottom: 1px solid rgb(var(--shade-rgb) / 0.5);
   }
 
   .search__label {
@@ -269,7 +269,7 @@ const cards = MATERIALS.filter((m) =>
     transition: background var(--dur-fast) ease;
   }
   .search__result:hover { background: var(--ivory-2); color: inherit; }
-  .search__result b { font-family: var(--font-display); font-size: 18px; font-weight: 400; }
+  .search__result b { font-family: var(--font-display); font-size: 18px; font-weight: 500; }
   .search__result span {
     font-size: 12.5px;
     letter-spacing: var(--ls-caption);

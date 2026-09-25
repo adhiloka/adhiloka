@@ -22,19 +22,20 @@ export default defineConfig({
   // Font di-host sendiri dan di-preload lewat Fonts API. Tidak ada permintaan
   // ke fonts.googleapis.com saat runtime: satu request eksternal hilang,
   // dan fallback metrics menghilangkan layout shift.
-  // Dua keluarga. EB Garamond memikul semua judul — ia punya italic asli yang
-  // situs ini butuh untuk nama Latin, dan bertahan di teks panjang. Marcellus
-  // dibuang: satu berat, tanpa italic, dan melemah di huruf kecil panjang.
+  // Dua keluarga, dua-duanya sans, mengikuti logo (September 2026). Plus
+  // Jakarta Sans memikul semua judul dan nama pada logo: bentuknya geometris
+  // dengan lengkung lembut yang senada dengan garis logo, dan ia punya italic
+  // asli yang situs ini butuh untuk nama Latin. EB Garamond dilepas.
   fonts: [
     {
-      name: 'EB Garamond',
+      name: 'Plus Jakarta Sans',
       cssVariable: '--font-display-family',
       provider: fontProviders.google(),
-      weights: [400],
+      weights: [500, 600],
       styles: ['normal', 'italic'],
       subsets: ['latin'],
       display: 'swap',
-      fallbacks: ['Times New Roman', 'serif'],
+      fallbacks: ['system-ui', 'sans-serif'],
     },
     {
       name: 'Public Sans',

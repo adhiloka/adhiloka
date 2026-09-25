@@ -27,7 +27,7 @@ body {
    paragraf: di sana `pretty` (di body) lebih murah dan lebih tepat. */
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 500;
   margin: 0;
   text-wrap: balance;
 }
@@ -56,7 +56,7 @@ img, video { max-width: 100%; display: block; }
    bawaan [hidden]. Aturan ini membuat atribut hidden tetap berarti. */
 [hidden] { display: none !important; }
 
-::selection { background: var(--gold); color: var(--paper); }
+::selection { background: var(--yellow-300); color: var(--ink); }
 ::placeholder { color: var(--text-placeholder); opacity: 1; }
 
 /* ── Fokus keyboard ──────────────────────────────────────────────────────
@@ -70,7 +70,7 @@ img, video { max-width: 100%; display: block; }
 .on-dark :focus-visible,
 .hero :focus-visible,
 footer :focus-visible {
-  outline-color: var(--ivory-1);
+  outline-color: var(--yellow-300);
 }
 
 .skip-link {
@@ -200,7 +200,7 @@ html [data-section][data-section-fit='fit']:not([data-section-raw]) { align-cont
   align-items: center;
   gap: 12px;
   padding: 16px 32px;
-  background: var(--ink);
+  background: var(--green-700);
   color: var(--paper);
   font-size: 12.5px;
   font-weight: 500;
@@ -208,7 +208,7 @@ html [data-section][data-section-fit='fit']:not([data-section-raw]) { align-cont
   text-transform: uppercase;
   transition: background var(--dur-mid) ease;
 }
-.btn-solid:hover { background: var(--gold); color: var(--paper); }
+.btn-solid:hover { background: var(--green-900); color: var(--paper); }
 
 .btn-pill {
   align-self: flex-start;
@@ -221,7 +221,7 @@ html [data-section][data-section-fit='fit']:not([data-section-raw]) { align-cont
   font-weight: 500;
   transition: background var(--dur-fast) ease, color var(--dur-fast) ease;
 }
-.btn-pill:hover { background: var(--ink); color: var(--paper); }
+.btn-pill:hover { background: var(--green-700); border-color: var(--green-700); color: var(--paper); }
 
 /* Tautan "Discover" bergaris bawah yang menyapu — motif berulang di beranda. */
 .sweep {
@@ -300,7 +300,15 @@ html [data-section][data-section-fit='fit']:not([data-section-raw]) { align-cont
    gerakan bertumpuk. */
 [data-reveal][data-lines] { transition: none; }
 
-[data-lines] .line { display: block; overflow: hidden; }
+/* Topengnya diberi ruang napas 0.14em di atas dan bawah, dinetralkan margin
+   negatif seukuran. Pada leading 1.04 ekor huruf sans (g, p, y) turun lebih
+   jauh daripada kotak barisnya dan terpotong tanpa ruang ini. */
+[data-lines] .line {
+  display: block;
+  overflow: hidden;
+  padding-block: 0.14em;
+  margin-block: -0.14em;
+}
 [data-lines] .line > span {
   display: block;
   transform: translateY(110%);
@@ -339,19 +347,20 @@ img[data-img-reveal].is-pending { opacity: 0; transform: scale(1.06); }
 }
 .is-overture .overture { display: flex; }
 
-.overture__ring {
-  width: 40px;
-  height: 40px;
-  border: 1px solid currentColor;
-  border-radius: var(--radius-circle);
+/* Tanda logo naik dan membesar pelan, lalu nama merapatkan jaraknya di
+   bawahnya. Dulu cincin + garis GROUP milik wordmark lama. */
+#route-curtain .overture__mark {
+  margin-bottom: clamp(14px, 1.6vw, 22px);
   opacity: 0;
-  transform: scale(0.6);
-  transition: opacity 400ms ease, transform 640ms var(--ease-glide);
+  transform: translateY(10px) scale(0.86);
+  transform-origin: center;
+  transition: opacity 480ms ease, transform 760ms var(--ease-glide);
 }
 .overture__name {
   line-height: 1;
   font-family: var(--font-display);
-  font-size: clamp(30px, 3.6vw, 46px);
+  font-weight: 600;
+  font-size: clamp(24px, 2.8vw, 36px);
   text-transform: uppercase;
   letter-spacing: 0.62em;
   padding-left: 0.62em;
@@ -360,42 +369,12 @@ img[data-img-reveal].is-pending { opacity: 0; transform: scale(1.06); }
   transition: opacity 520ms ease, letter-spacing 760ms var(--ease-glide),
     padding-left 760ms var(--ease-glide);
 }
-.overture__rule {
-  align-self: stretch;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: min(320px, 62vw);
-  margin-inline: auto;
-  opacity: 0;
-  transition: opacity 400ms ease;
-}
-.overture__rule > span {
-  flex: 1;
-  height: 1px;
-  background: currentColor;
-  opacity: 0.5;
-  transform: scaleX(0);
-  transition: transform 560ms var(--ease-glide);
-}
-.overture__rule > span:first-child { transform-origin: right; }
-.overture__rule > span:last-child { transform-origin: left; }
-.overture__rule > em {
-  font-style: normal;
-  font-size: 10px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-}
-
-.overture.step-ring .overture__ring { opacity: 0.55; transform: none; }
+#route-curtain .overture.step-ring .overture__mark { opacity: 1; transform: none; }
 .overture.step-name .overture__name {
   opacity: 1;
-  letter-spacing: var(--ls-wordmark);
-  padding-left: var(--ls-wordmark);
+  letter-spacing: 0.2em;
+  padding-left: 0.2em;
 }
-.overture.step-rule .overture__rule { opacity: 1; }
-.overture.step-rule .overture__rule > span { transform: none; }
 
 /* ── Morph pelat: kartu material ke laci spesifikasi ─────────────────── */
 /* Saat View Transition mengambil alih, animasi geser laci dimatikan. Kalau

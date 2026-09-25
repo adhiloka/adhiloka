@@ -189,6 +189,6 @@ export const PERFUMERY_SLIDES: CarouselSlide[] = [
     shot: 'fractionation line, Medan works',
     image: 'material-ginger',
     href: '/perfumery/fragrance-innovation/',
-    bg: 'oklch(0.878 0.014 62)',
+    bg: 'var(--plate-sage)',
   },
 ];

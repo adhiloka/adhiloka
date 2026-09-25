@@ -1,4 +1,4 @@
-/** Pembukaan kunjungan pertama: wordmark tersusun di atas kurtin ivory sebelum
+/** Pembukaan kunjungan pertama: logo tersusun di atas kurtin putih sebelum
  *  situs terbuka. Hanya di beranda, sekali per sesi, dan tidak pernah dijalankan
  *  saat pengguna meminta gerak dikurangi.
  *
@@ -25,11 +25,10 @@ export function initOverture() {
     /* Jendela privat menolak penyimpanan; pembukaan tetap jalan sekali ini. */
   }
 
-  // Cincin, lalu nama merapatkan jaraknya, lalu garis GROUP menarik dari tengah.
+  // Tanda logo, lalu nama merapatkan jaraknya.
   const steps: [number, string][] = [
     [40, 'step-ring'],
-    [190, 'step-name'],
-    [470, 'step-rule'],
+    [260, 'step-name'],
   ];
   const timers = steps.map(([at, cls]) => window.setTimeout(() => stage.classList.add(cls), at));
 

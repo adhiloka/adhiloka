@@ -142,7 +142,7 @@ export const INGREDIENTS_SLIDES: CarouselSlide[] = [
     shot: 'grading floor, Medan works',
     image: 'material-nutmeg',
     href: '/ingredients/catalog/',
-    bg: 'oklch(0.882 0.022 52)',
+    bg: 'var(--plate-amber)',
   },
   {
     title: 'Technology',
@@ -151,6 +151,6 @@ export const INGREDIENTS_SLIDES: CarouselSlide[] = [
     shot: 'still hall, Medan works',
     image: 'fragrance-resin',
     href: '/ingredients/technology/',
-    bg: 'oklch(0.872 0.016 80)',
+    bg: 'var(--plate-sage)',
   },
 ];

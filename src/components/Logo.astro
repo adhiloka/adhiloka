@@ -1,0 +1,78 @@
+---
+/**
+ * Logo Adhiloka: tanda layar/daun dari brand/adhiloka-logo.svg ditambah nama.
+ * SVG-nya di-inline supaya tidak ada request tambahan dan warnanya tetap
+ * penuh di atas latar apa pun. Nama memakai currentColor, jadi ikut putih di
+ * atas hero gelap dan footer, dan ikut tinta di atas putih.
+ */
+interface Props {
+  /** Tinggi tanda; nama menyesuaikan. */
+  size?: string;
+  /** Tanpa nama, hanya tanda. */
+  markOnly?: boolean;
+  /** Bukan tautan (misalnya penanda di dalam blok lain). */
+  plain?: boolean;
+  class?: string;
+}
+
+const { size = '38px', markOnly = false, plain = false, class: className } = Astro.props;
+const Tag = plain ? 'span' : 'a';
+---
+
+<Tag
+  href={plain ? undefined : '/'}
+  class:list={['logo', markOnly && 'logo--mark', className]}
+  style={`--logo-h:${size}`}
+  aria-label={plain ? undefined : 'Adhiloka Group — home'}
+  aria-hidden={plain ? 'true' : undefined}
+>
+  <svg
+    class="logo__mark"
+    viewBox="12 8.5 366.5 328"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <path fill="#FFEEAB" d="M197.500 10.500C226.440 120.631 284.248 190.730 336.649 256.996C303.909 216.726 254.365 170.465 155.545 227.519C200.080 163.306 200.185 78.351 197.500 10.500Z" />
+    <path fill="#FFD474" d="M155.545 227.519C254.365 170.465 303.909 216.726 336.649 256.996C340.125 261.392 343.577 265.771 346.996 270.144C305.969 236.224 268.598 205.328 118.101 267.410C133.167 255.461 145.489 242.019 155.545 227.519Z" />
+    <path fill="#FFBC54" d="M118.101 267.410C268.598 205.328 305.969 236.224 346.996 270.144C357.222 283.225 367.146 296.249 376.500 309.500C255.327 170.528 171.941 367.021 14.000 313.500C30.359 312.443 45.302 307.872 58.990 300.383C82.307 291.505 101.809 280.331 118.101 267.410Z" />
+    <path fill="#009978" d="M14.000 313.500C171.941 367.021 255.327 170.528 376.500 309.500C246.171 245.393 207.466 384.528 14.000 313.500Z" />
+    <path fill="#21A87A" d="M197.500 10.500C171.737 129.108 134.455 259.091 58.990 300.383C82.307 291.505 101.809 280.331 118.101 267.410C133.167 255.461 145.489 242.019 155.545 227.519C200.080 163.306 200.185 78.351 197.500 10.500Z" />
+    <path fill="#49BC88" d="M197.500 10.500C154.255 91.668 58.910 244.668 14.000 313.500C30.359 312.443 45.302 307.872 58.990 300.383C134.455 259.091 171.737 129.108 197.500 10.500Z" />
+  </svg>
+  {!markOnly && <span class="logo__name">Adhiloka</span>}
+</Tag>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(var(--logo-h) * 0.32);
+    color: inherit;
+    transition: transform var(--dur-slow) var(--ease-glide);
+    transform-origin: left center;
+  }
+  .logo:hover { color: inherit; }
+
+  .logo__mark {
+    display: block;
+    height: var(--logo-h);
+    width: auto;
+    aspect-ratio: 366.5 / 328;
+    flex: none;
+  }
+
+  /* Nama duduk di tengah tinggi tanda. Huruf besar berjarak lebar, berat 600
+     supaya tidak kalah bobot dari bidang-bidang warna di sebelahnya. */
+  .logo__name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: calc(var(--logo-h) * 0.5);
+    line-height: 1;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    /* Tracking juga ditambahkan setelah huruf terakhir; tarik kembali supaya
+       sisi kanan nama rata dengan hurufnya, bukan dengan ruang kosong. */
+    margin-right: -0.2em;
+  }
+</style>

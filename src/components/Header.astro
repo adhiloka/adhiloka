@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import { NAV } from '../data/site';
 import { getImageFor } from '../data/images';
-import Wordmark from './Wordmark.astro';
+import Logo from './Logo.astro';
 import SearchPanel from './SearchPanel.astro';
 
 interface Props {
@@ -13,16 +13,33 @@ interface Props {
 const { variant, active } = Astro.props;
 const isActive = (href: string) => active === href || active.startsWith(href);
 
-/* Enam menu dibagi rata di kiri dan kanan wordmark. Kalau jumlahnya berubah,
-   ubah angka ini bersamanya — bukan slice-nya. */
-const SPLIT = Math.ceil(NAV.length / 2);
 const panelled = NAV.filter((item) => item.panel);
 ---
 
 <header class="site-header" data-variant={variant} data-site-header>
   <div class="site-header__bar">
     <div class="site-header__grid">
-      <!-- Kolom 1 — pemilih bahasa -->
+      <!-- Kolom 1 — logo -->
+      <Logo class="site-header__mark" size="clamp(34px, 2.9vw, 42px)" />
+
+      <!-- Kolom 2 — navigasi, rata kanan -->
+      <nav class="site-nav" aria-label="Primary">
+        {
+          NAV.map((item) => (
+            <a
+              href={item.href}
+              class="site-nav__link"
+              data-nav-link
+              data-panel={item.panel ? item.label : undefined}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+
+      <!-- Kolom 3 — pemilih bahasa -->
       <div class="lang" data-lang>
         <button
           type="button"
@@ -42,44 +59,7 @@ const panelled = NAV.filter((item) => item.panel);
         </div>
       </div>
 
-      <!-- Kolom 2 — nav kiri -->
-      <nav class="site-nav site-nav--left" aria-label="Primary">
-        {
-          NAV.slice(0, SPLIT).map((item) => (
-            <a
-              href={item.href}
-              class="site-nav__link"
-              data-nav-link
-              data-panel={item.panel ? item.label : undefined}
-              aria-current={isActive(item.href) ? 'page' : undefined}
-            >
-              {item.label}
-            </a>
-          ))
-        }
-      </nav>
-
-      <!-- Kolom 3 — wordmark -->
-      <Wordmark class="site-header__mark" />
-
-      <!-- Kolom 4 — nav kanan -->
-      <nav class="site-nav site-nav--right" aria-label="Secondary">
-        {
-          NAV.slice(SPLIT).map((item) => (
-            <a
-              href={item.href}
-              class="site-nav__link"
-              data-nav-link
-              data-panel={item.panel ? item.label : undefined}
-              aria-current={isActive(item.href) ? 'page' : undefined}
-            >
-              {item.label}
-            </a>
-          ))
-        }
-      </nav>
-
-      <!-- Kolom 5 — cari / menu -->
+      <!-- Kolom 4 — cari / menu -->
       <button
         type="button"
         class="site-header__search"
@@ -224,7 +204,7 @@ const panelled = NAV.filter((item) => item.panel);
   .site-header[data-variant='over-dark']:hover,
   .site-header[data-variant='over-dark']:focus-within,
   .site-header.is-open {
-    background: oklch(0.972 0.009 84 / 0.96);
+    background: rgb(255 255 255 / 0.96);
     -webkit-backdrop-filter: blur(var(--blur-header));
     backdrop-filter: blur(var(--blur-header));
     border-bottom-color: var(--border-hairline);
@@ -232,16 +212,17 @@ const panelled = NAV.filter((item) => item.panel);
   }
 
   /* Di atas hero gelap teks jadi putih dengan bayangan tipis agar terbaca.
-     Begitu header lewat dari hero (.is-scrolled), warnanya kembali ke espresso
+     Begitu header lewat dari hero (.is-scrolled), warnanya kembali ke tinta
      bawaan — bilahnya tetap bening, tapi tulisannya harus tetap terbaca di
      atas section berlatar krem. Saat di-hover bilahnya padat, jadi putih
      dilepas juga. */
-  .site-header[data-variant='over-dark']:not(.is-scrolled):not(.is-open):not(:hover):not(:focus-within) {
+  .site-header[data-variant='over-dark']:not(.is-scrolled):not(.is-open):not(.is-menu):not(:hover):not(:focus-within) {
     color: oklch(1 0 0);
   }
-  .site-header[data-variant='over-dark']:not(.is-scrolled):not(.is-open):not(:hover):not(:focus-within) .site-nav__link,
-  .site-header[data-variant='over-dark']:not(.is-scrolled):not(.is-open):not(:hover):not(:focus-within) .lang__toggle {
-    text-shadow: 0 1px 12px oklch(0.18 0.014 62 / 0.5);
+  .site-header[data-variant='over-dark']:not(.is-scrolled):not(.is-open):not(.is-menu):not(:hover):not(:focus-within) .site-nav__link,
+  .site-header[data-variant='over-dark']:not(.is-scrolled):not(.is-open):not(.is-menu):not(:hover):not(:focus-within) .lang__toggle,
+  .site-header[data-variant='over-dark']:not(.is-scrolled):not(.is-open):not(.is-menu):not(:hover):not(:focus-within) :global(.logo__name) {
+    text-shadow: 0 1px 12px rgb(var(--shade-rgb) / 0.5);
   }
 
   /* Di luar section 1, di halaman mana pun: menubar pergi sepenuhnya.
@@ -261,23 +242,24 @@ const panelled = NAV.filter((item) => item.panel);
 
   .site-header__grid {
     display: grid;
-    grid-template-columns: minmax(84px, auto) minmax(0, 1fr) auto minmax(0, 1fr) minmax(74px, auto);
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
     align-items: center;
+    column-gap: clamp(20px, 2.2vw, 40px);
     height: var(--header-h);
   }
 
-  /* Wordmark adalah akar komponen lain, sehingga di luar jangkauan style
-     ber-scope berkas ini — karena itu :global(). */
+  /* Logo adalah akar komponen lain, sehingga di luar jangkauan style
+     ber-scope berkas ini — karena itu :global(). Mengecil dari kiri saat
+     header padat, bukan dari tengah. */
   :global(.site-header__mark) {
-    grid-column: 3;
-    justify-self: center;
-    transform: scale(0.75);
+    grid-column: 1;
+    justify-self: start;
   }
   .site-header.is-scrolled :global(.site-header__mark),
-  .site-header.is-open :global(.site-header__mark) { transform: scale(0.53); }
+  .site-header.is-open :global(.site-header__mark) { transform: scale(0.86); }
 
   /* ── Pemilih bahasa ──────────────────────────────────────────────── */
-  .lang { grid-column: 1; position: relative; z-index: 3; }
+  .lang { grid-column: 3; position: relative; z-index: 3; }
   .lang__toggle {
     display: flex;
     align-items: center;
@@ -295,7 +277,7 @@ const panelled = NAV.filter((item) => item.panel);
   .lang__menu {
     position: absolute;
     top: calc(100% + 12px);
-    left: -14px;
+    right: -14px;
     min-width: 172px;
     background: var(--ivory-1);
     border: 1px solid var(--border-hairline);
@@ -320,19 +302,11 @@ const panelled = NAV.filter((item) => item.panel);
 
   /* ── Navigasi ────────────────────────────────────────────────────── */
   .site-nav {
+    grid-column: 2;
+    justify-self: end;
     display: flex;
     align-items: center;
     gap: clamp(16px, 1.9vw, 34px);
-  }
-  .site-nav--left {
-    grid-column: 2;
-    justify-self: end;
-    margin-right: clamp(-20px, -1.1vw, -6px);
-  }
-  .site-nav--right {
-    grid-column: 4;
-    justify-self: start;
-    margin-left: clamp(-20px, -1.1vw, -6px);
   }
 
   .site-nav__link {
@@ -341,23 +315,25 @@ const panelled = NAV.filter((item) => item.panel);
     letter-spacing: 0.075em;
     padding-bottom: 4px;
     white-space: nowrap;
-    border-bottom: 1px solid transparent;
+    border-bottom: 2px solid transparent;
     opacity: 0.95;
     transition: opacity 380ms ease, border-color 380ms ease;
   }
+  /* Garis bawahnya hijau logo, bukan warna teks: garis 2px bukan teks,
+     jadi #009978 boleh dipakai di sini meski hanya 3,6:1. */
   .site-nav__link:hover,
   .site-nav__link:focus-visible {
     opacity: 1;
-    border-bottom-color: currentColor;
+    border-bottom-color: var(--green-500);
     color: inherit;
   }
   .site-nav__link[aria-current='page'] {
     opacity: 1;
-    border-bottom-color: currentColor;
+    border-bottom-color: var(--green-500);
   }
 
   .site-header__search {
-    grid-column: 5;
+    grid-column: 4;
     justify-self: end;
     padding: 6px;
     transition: opacity var(--dur-fast) ease;
@@ -365,7 +341,7 @@ const panelled = NAV.filter((item) => item.panel);
   .site-header__search:hover { opacity: 0.55; }
 
   .site-header__burger {
-    grid-column: 5;
+    grid-column: 4;
     justify-self: end;
     display: none;
     flex-direction: column;
@@ -374,10 +350,12 @@ const panelled = NAV.filter((item) => item.panel);
     width: 28px;
   }
   .site-header__burger span { height: 1px; background: currentColor; width: 100%; }
+  /* Selama menu terbuka, tombol Close milik menu yang mengambil tempatnya. */
+  .site-header.is-menu .site-header__burger { visibility: hidden; }
 
   /* ── Mega menu ───────────────────────────────────────────────────── */
   /* Wadah ini tidak boleh punya latar sendiri: saat tertutup, tinggi border
-     transparannya masih terlihat sebagai garis ivory selebar halaman. */
+     transparannya masih terlihat sebagai garis putih selebar halaman. */
   .mega {
     overflow: hidden;
     max-height: 0;
@@ -436,22 +414,22 @@ const panelled = NAV.filter((item) => item.panel);
   .mega__feature:focus-visible .mega__shot :global(img) { transform: scale(1.045); }
 
   /* Gradien hanya kalau ada foto di belakangnya: di pelat hatch judulnya sudah
-     espresso di atas latar terang dan tidak butuh peredup. */
+     tinta di atas latar terang dan tidak butuh peredup. */
   .mega__feature--photo .mega__shot::after {
     content: '';
     position: absolute;
     inset: 0;
     background: linear-gradient(
       to top,
-      oklch(0.2 0.012 60 / 0.7) 0%,
-      oklch(0.2 0.012 60 / 0.26) 44%,
+      rgb(var(--shade-rgb) / 0.7) 0%,
+      rgb(var(--shade-rgb) / 0.26) 44%,
       transparent 74%
     );
     pointer-events: none;
   }
   /* Sebagian foto punya bagian pucat tepat di sudut kiri bawah; gradien saja
      tidak selalu cukup menahan judulnya. */
-  .mega__feature--photo .mega__label { text-shadow: 0 1px 14px oklch(0.18 0.014 62 / 0.55); }
+  .mega__feature--photo .mega__label { text-shadow: 0 1px 14px rgb(var(--shade-rgb) / 0.55); }
 
   .mega__label {
     position: absolute;
@@ -530,7 +508,7 @@ const panelled = NAV.filter((item) => item.panel);
   @media (min-width: 1080px) and (max-width: 1279px) {
     .site-nav { gap: 14px; }
     .site-nav__link { font-size: 12px; letter-spacing: 0.05em; }
-    .site-header__grid { grid-template-columns: minmax(70px, auto) minmax(0, 1fr) auto minmax(0, 1fr) minmax(54px, auto); }
+    .site-header__grid { column-gap: 18px; }
     .lang__toggle { font-size: 11px; gap: 6px; }
   }
 
@@ -578,7 +556,7 @@ const panelled = NAV.filter((item) => item.panel);
     line-height: 1.5;
     color: var(--ink-muted);
   }
-  .mobile-menu__sub a:hover { color: var(--gold); }
+  .mobile-menu__sub a:hover { color: var(--green-700); }
   .mobile-menu__close {
     position: fixed;
     top: clamp(20px, 3vw, 34px);
@@ -597,8 +575,7 @@ const panelled = NAV.filter((item) => item.panel);
     .site-header__search,
     .mega { display: none; }
     .site-header__burger { display: flex; }
-    .site-header__grid { grid-template-columns: 1fr auto 1fr; }
-    :global(.site-header__mark) { grid-column: 2; }
-    .site-header__burger { grid-column: 3; }
+    .site-header__grid { grid-template-columns: 1fr auto; }
+    .site-header__burger { grid-column: 2; }
   }
 </style>
