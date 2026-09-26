@@ -103,7 +103,7 @@ const LATEST = [...NEWS].sort(byDate);
         </svg>
         <div class="wave-box__text">
           <p>{SUSTAINABILITY_INTRO.lede}</p>
-          <a class="btn-white" href="/sustainability/">Our sustainability approach</a>
+          <a class="btn-solid" href="/sustainability/">Our sustainability approach</a>
         </div>
       </div>
 
@@ -342,7 +342,9 @@ const LATEST = [...NEWS].sort(byDate);
     line-height: 1.5;
     font-weight: 500;
   }
-  .wave-box__text :global(.btn-white) { margin-top: 16px; }
+  /* Tombol teal seperti di Vale; cincin putih tipis supaya tidak hilang di
+     atas biru dalam (teal dan biru itu sama gelapnya). */
+  .wave-box__text :global(.btn-solid) { margin-top: 16px; border: 2px solid var(--paper); }
 
   /* ── Karusel kartu ──────────────────────────────────────────────────── */
   .explore { padding: var(--pad-y) 0; }

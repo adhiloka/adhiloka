@@ -62,12 +62,13 @@ const Tag = plain ? 'span' : 'a';
   }
 
   /* Abu seperti teks logo Vale (#77787b, di sini digelapkan sedikit ke
-     #707174 supaya 4,9:1 di atas putih), berat 500, tinggi huruf sekitar 0,42
-     tinggi tanda. */
+     #707174 supaya 4,9:1 di atas putih), berat 500. Tinggi huruf besar
+     Mukta 0,73 em (diukur), jadi 0,685 x tinggi tanda membuat huruf setinggi
+     tepat setengah tinggi logo. Layar sempit menimpa --name-scale. */
   .logo__name {
     font-family: var(--font-display);
     font-weight: 500;
-    font-size: calc(var(--logo-h) * 0.42);
+    font-size: calc(var(--logo-h) * var(--name-scale, 0.685));
     line-height: 1;
     letter-spacing: 0.14em;
     text-transform: uppercase;

@@ -87,7 +87,7 @@
   --menu-top: clamp(18px, 1.78vw, 34px);
   --menu-w: clamp(70px, 4.4vw, 84px);
   --menu-h: clamp(40px, 2.4vw, 46px);
-  --menu-gap: clamp(14px, 1.3vw, 25px);
+  --menu-gap: clamp(7px, 0.65vw, 12.5px);
 
   /* ── Nama lama untuk palet sebelumnya ───────────────────────────────── */
   /* Komponen yang belum dirombak masih merujuk nama ini. */
@@ -302,6 +302,6 @@
     --menu-top: 22px;
     --menu-w: 64px;
     --menu-h: 38px;
-    --menu-gap: 14px;
+    --menu-gap: 7px;
   }
 }
