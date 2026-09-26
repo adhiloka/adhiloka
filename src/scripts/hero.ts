@@ -5,6 +5,7 @@
  *  berikutnya. */
 
 import { scrollToY } from './smooth-scroll';
+import { langkahHalaman } from './sections';
 
 const INTERVAL = 6000;
 const FADE = 600;
@@ -27,10 +28,14 @@ export function initHero() {
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* Panah bawah menggulir tepat ke bagian berikutnya. */
-  hero.querySelector('[data-hero-cue]')?.addEventListener('click', () => {
-    scrollToY(hero.getBoundingClientRect().bottom + window.scrollY);
-  });
+  /* Panah mengambang dan tombol Discover (di halaman selain beranda)
+     menggulir tepat ke bagian berikutnya, memakai langkah yang sama dengan
+     tombol progres gulir. */
+  const turun = () => {
+    if (!langkahHalaman(1)) scrollToY(hero.getBoundingClientRect().bottom + window.scrollY);
+  };
+  hero.querySelector('[data-hero-cue]')?.addEventListener('click', turun);
+  hero.querySelector('[data-hero-cta-scroll]')?.addEventListener('click', turun);
 
   if (layers.length < 2) return;
 

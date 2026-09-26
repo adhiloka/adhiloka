@@ -18,11 +18,11 @@
  *     utama SESUDAHNYA, karena catatan dan saringan selalu mendahului isinya.
  *
  *  2. MENGUKUR. Tinggi alami tiap kelompok dibandingkan tinggi layar:
- *       fit  -> muat satu layar; blok terakhirnya diregangkan sehingga seluruh
- *               kelompok jadi tepat satu layar.
+ *       fit  -> muat satu layar. Tingginya dibiarkan apa adanya: sejak
+ *               September 2026 section tidak lagi diregangkan jadi satu layar
+ *               penuh, tinggi ditentukan isi dan padding masing-masing.
  *       tall -> memang lebih tinggi dari layar (katalog 18 bahan, linimasa,
- *               daftar berita). Tidak diregangkan dan tidak dipaksa muat:
- *               memaksanya berarti memotong isi.
+ *               daftar berita). Gulir dilepas bebas di dalamnya.
  *
  *  3. MELANGKAH. Satu gerakan roda memindahkan tepat satu section. Yang
  *     dihitung adalah GERAKAN, bukan kejadian: trackpad mengirim puluhan
@@ -45,12 +45,16 @@
  *  prefers-reduced-motion, halaman bergulir seperti biasa.
  */
 
-import { getLenis } from './smooth-scroll';
+import { getLenis, scrollToY } from './smooth-scroll';
 import { revealWithin } from './reveal';
 
 /** Di bawah pecahan tinggi layar ini, sebuah blok dianggap tempelan. */
 const AMBANG_TEMPEL = 0.45;
 const SLACK = 8;
+
+/** Sakelar: false mematikan langkah per section, dan roda/papan ketik kembali
+ *  ke gulir halus Lenis biasa. Tombol panah tetap memakai `langkahHalaman`. */
+const LANGKAH_PER_SECTION = true;
 const DURASI = 0.85;
 
 /** Jarak waktu antar-kejadian roda yang memisahkan gerakan baru dari ekor
@@ -74,6 +78,7 @@ let kejadianTerakhir = 0;
 let terpasang = false;
 
 const bisaMelangkah = () =>
+  LANGKAH_PER_SECTION &&
   !!getLenis() &&
   window.matchMedia('(pointer: fine)').matches &&
   window.matchMedia('(min-width: 900px)').matches &&
@@ -104,7 +109,6 @@ function bersihkan(els: HTMLElement[]) {
     el.removeAttribute('data-section');
     el.removeAttribute('data-section-total');
     el.removeAttribute('data-section-fit');
-    el.style.removeProperty('--section-fill');
   });
 }
 
@@ -159,28 +163,13 @@ function susun() {
     });
 
     g.akhir.setAttribute('data-section-fit', muat ? 'fit' : 'tall');
-    if (muat) {
-      // Yang diregangkan hanya blok terakhir kelompok, sebesar sisa layar
-      // setelah tempelan di atasnya — sehingga kelompoknya, bukan bloknya,
-      // yang berakhir setinggi satu layar.
-      const lain = Math.round(total - (tinggi.get(g.akhir) ?? 0));
-      g.akhir.style.setProperty('--section-fill', 'calc(100svh - ' + lain + 'px)');
-    }
   });
 
   grup = baru;
 
   // Lenis menyimpan batas gulirnya sendiri (tinggi dokumen dikurangi tinggi
-  // layar) dan hanya menghitungnya ulang kalau diminta. Fungsi inilah yang
-  // MENGUBAH tinggi dokumen — meregangkan tiap section yang muat jadi setinggi
-  // layar — jadi di sinilah Lenis harus diberi tahu.
-  //
-  // Tanpa ini, urutannya salah saat berpindah halaman: resetScroll() memanggil
-  // resize() pada astro:after-swap, ketika section baru belum ditandai sama
-  // sekali. Di halaman About, Lenis mengukur dokumen setinggi 2027px lalu
-  // halamannya menjadi 2082px sepersekian detik kemudian. Batas gulir yang ia
-  // percayai jadi 55px lebih pendek daripada yang sebenarnya, dan langkah
-  // terakhir berhenti sebelum sampai.
+  // layar) dan hanya menghitungnya ulang kalau diminta. Pengukuran ulang di
+  // sini murah dan menjaga batasnya benar setelah huruf dan foto mengendap.
   getLenis()?.resize();
 }
 
@@ -191,6 +180,53 @@ function indeksSekarang() {
     if (atas(g.awal) <= y + SLACK) cur = i;
   });
   return cur;
+}
+
+/** Indeks grup tujuan dihitung dari POSISI gulir, bukan dari "section saat
+ *  ini". Turun: grup pertama yang tepinya di bawah layar. Naik: grup terakhir
+ *  yang tepinya di atas layar. Dengan begitu naik dari posisi yang tak selaras
+ *  (16px di atas footer, atau di tengah section pertama) mendarat di tepi
+ *  terdekat, tidak melompati satu section dan tidak berhenti tanpa berbuat apa
+ *  pun. -1 berarti sudah di ujung halaman. */
+function tujuanDariPosisi(arah: number): number {
+  const y = window.scrollY;
+  if (arah > 0) {
+    const maks = document.documentElement.scrollHeight - window.innerHeight;
+    if (y >= maks - SLACK) return -1;
+    return grup.findIndex((g) => atas(g.awal) > y + SLACK);
+  }
+  for (let i = grup.length - 1; i >= 0; i--) {
+    if (atas(grup[i].awal) < y - SLACK) return i;
+  }
+  return -1;
+}
+
+/** Satu langkah untuk tombol panah (progres gulir, panah hero). Di dalam
+ *  kelompok yang lebih tinggi dari layar ia menggulir 0,85 layar; di tempat
+ *  lain ia ke tepi section berikutnya (atau sebelumnya). Berfungsi juga di
+ *  layar sentuh, karena grup section selalu dihitung. Mengembalikan false
+ *  bila sudah di ujung. */
+export function langkahHalaman(arah: 1 | -1): boolean {
+  const y = window.scrollY;
+  const layar = window.innerHeight;
+  const g = grup[indeksSekarang()];
+  let target: number | null = null;
+
+  if (g && g.akhir.getAttribute('data-section-fit') === 'tall') {
+    const atasnya = atas(g.awal);
+    const bawahnya = g.akhir.getBoundingClientRect().bottom + y;
+    if (arah > 0 && bawahnya > y + layar + SLACK) target = Math.min(y + layar * 0.85, bawahnya - layar);
+    if (arah < 0 && atasnya < y - SLACK) target = Math.max(y - layar * 0.85, atasnya);
+  }
+
+  if (target === null) {
+    const i = tujuanDariPosisi(arah);
+    if (i >= 0) target = atas(grup[i].awal);
+  }
+  if (target === null) return false;
+
+  scrollToY(Math.round(target));
+  return true;
 }
 
 function keSection(i: number) {
@@ -257,23 +293,28 @@ function onWheel(e: WheelEvent) {
   // Di dalam section yang lebih tinggi dari layar, gulir memang dilepas bebas.
   if (!sibuk && bebas(arah)) return;
 
-  // Selebihnya roda tidak pernah menggulir bebas: entah ia melangkah, entah ia
+  // Langkah baru boleh menyambung langkah yang sedang berjalan — itulah yang
+  // membuat dua sentakan beruntun terasa langsung menyahut, bukan mati. Yang
+  // menyambung memakai indeks tujuan; yang baru memakai posisi gulir.
+  const tujuan = sibuk ? indeks + arah : tujuanDariPosisi(arah);
+  const ada = tujuan >= 0 && tujuan <= grup.length - 1;
+
+  // Tidak ada tujuan dan tidak sedang melangkah: kita di ujung halaman. Roda
+  // dilepas, tidak ditelan, supaya tidak pernah ada gerakan yang hilang begitu
+  // saja.
+  if (!ada && !sibuk) return;
+
+  // Selebihnya roda tidak menggulir bebas: entah ia melangkah, entah ia
   // ditelan. Yang ditelan pun harus dicegat, kalau tidak ekor inersia akan
   // menggeser halaman keluar dari perhentiannya.
   e.preventDefault();
   e.stopPropagation();
 
-  if (!gerakanBaru) return;
+  if (!gerakanBaru || !ada) return;
 
-  // Langkah baru boleh menyambung langkah yang sedang berjalan — itulah yang
-  // membuat dua sentakan beruntun terasa langsung menyahut, bukan mati.
-  // Kecualinya: kalau yang sedang dituju adalah section yang lebih tinggi dari
-  // layar, biarkan mendarat dulu — menyambung berarti melewatkan isinya.
+  // Kalau yang sedang dituju adalah section yang lebih tinggi dari layar,
+  // biarkan mendarat dulu — menyambung berarti melewatkan isinya.
   if (sibuk && tinggiSection(grup[indeks]) === 'tall') return;
-
-  const dari = sibuk ? indeks : indeksSekarang();
-  const tujuan = dari + arah;
-  if (tujuan < 0 || tujuan > grup.length - 1) return;
 
   keSection(tujuan);
 }
@@ -294,8 +335,10 @@ function onKey(e: KeyboardEvent) {
 
   if (arah) {
     if (!sibuk && bebas(arah)) return;
+    const tujuan = sibuk ? indeks + arah : tujuanDariPosisi(arah);
+    if (tujuan < 0 || tujuan > grup.length - 1) return;
     e.preventDefault();
-    keSection((sibuk ? indeks : indeksSekarang()) + arah);
+    keSection(tujuan);
     return;
   }
 

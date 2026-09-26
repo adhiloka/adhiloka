@@ -7,10 +7,11 @@ import {
   SOURCING_CHAIN,
   SOURCING_PASSAGES,
 } from '../../data/pages/sustainability';
+import { groundAt, bridgeAfter } from '../../data/ground';
 ---
 
 <PageLayout intro={SOURCING_INTRO} section="/sustainability/">
-  <section class="section">
+  <section class="section bg-tint-sky">
     <div class="frame">
       <span class="eyebrow" data-reveal="0">Tree to drum</span>
       <ol class="chain">
@@ -40,12 +41,12 @@ import {
         caption={p.caption}
         image={p.image}
         reverse={i % 2 === 1}
-        ground={i % 2 === 1 ? 'sunk' : 'paper'}
+        ground={groundAt(i)}
       />
     ))
   }
 
-  <section class="bridge">
+  <section class="bridge" style={`--bridge-bg:${bridgeAfter(groundAt(SOURCING_PASSAGES.length - 1))}`}>
     <Interlude
       class="frame"
       line="Ask us to walk a specific lot back for you."
@@ -93,5 +94,5 @@ import {
     color: var(--ink-body);
   }
 
-  .bridge { background: var(--paper); padding: var(--section-y) var(--gutter); }
+  .bridge { background: var(--bridge-bg, var(--paper)); padding: var(--section-y) var(--gutter); }
 </style>

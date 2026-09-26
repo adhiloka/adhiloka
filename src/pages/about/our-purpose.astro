@@ -17,7 +17,7 @@ import { PURPOSE_INTRO, PURPOSE_BODY, PURPOSE_VALUES, PURPOSE_QUOTE } from '../.
 
   <Pullquote quote={PURPOSE_QUOTE} />
 
-  <section class="section">
+  <section class="section bg-tint-gold">
     <div class="frame">
       <span class="eyebrow" data-reveal="0">Four habits</span>
       <ol class="values">
@@ -85,7 +85,7 @@ import { PURPOSE_INTRO, PURPOSE_BODY, PURPOSE_VALUES, PURPOSE_QUOTE } from '../.
     color: var(--ink-body);
   }
 
-  .bridge { background: var(--paper-sunk); padding: var(--section-y) var(--gutter); }
+  .bridge { background: var(--bridge-bg, var(--paper)); padding: var(--section-y) var(--gutter); }
 
   @media (max-width: 899px) {
     .opening { grid-template-columns: 1fr; gap: 18px; }

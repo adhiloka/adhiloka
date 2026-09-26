@@ -20,6 +20,17 @@
   --sky: #3cb5e5;                        /* pita kedua, tombol sekunder           */
   --mint: #10b89a;                       /* gelombang dekoratif saja              */
 
+  /* Latar section pucat untuk variasi irama halaman. Sengaja pucat: teal
+     #007e7a di atasnya tetap 4,5:1 (teks kecil). Warna yang lebih tegas
+     dipikul pita solid teal, emas, dan biru langit. */
+  --tint-teal: #f0f8f7;
+  --tint-sky: #eff8fd;
+  --tint-gold: #fdf6e0;
+  --orange: #ee6f16;                     /* oranye Vale; hanya bilah aksen foto */
+
+  /* Teks logo. Vale memakai #77787b; ini sedikit lebih gelap supaya lolos 4,5:1. */
+  --logo-gray: #707174;
+
   /* ── Kertas ─────────────────────────────────────────────────────────── */
   --paper: #ffffff;
   --paper-sunk: #f5f7f7;

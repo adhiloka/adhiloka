@@ -6,7 +6,7 @@ import { LEADERSHIP_INTRO, LEADERSHIP } from '../../data/pages/about';
 ---
 
 <PageLayout intro={LEADERSHIP_INTRO} section="/about/" media={false}>
-  <section class="section">
+  <section class="section bg-tint-teal">
     <div class="frame">
       <span class="eyebrow" data-reveal="0">Executive leadership</span>
       <div class="people-wrap">
@@ -33,7 +33,7 @@ import { LEADERSHIP_INTRO, LEADERSHIP } from '../../data/pages/about';
     </div>
   </section>
 
-  <section class="bridge">
+  <section class="bridge" style={`--bridge-bg:${'var(--tint-gold)'}`}>
     <Interlude
       class="frame"
       line="The people above answer for the price paid at the station."
@@ -46,7 +46,7 @@ import { LEADERSHIP_INTRO, LEADERSHIP } from '../../data/pages/about';
 
 <style>
   .people-wrap { margin-top: clamp(26px, 3vw, 44px); }
-  .section--sunk { background: var(--paper-sunk); }
+  .section--sunk { background: var(--paper); }
 
   .gov__title {
     font-size: var(--type-h2);
@@ -61,5 +61,5 @@ import { LEADERSHIP_INTRO, LEADERSHIP } from '../../data/pages/about';
     gap: clamp(20px, 3vw, 56px);
   }
 
-  .bridge { background: var(--paper); padding: var(--section-y) var(--gutter); }
+  .bridge { background: var(--bridge-bg, var(--paper)); padding: var(--section-y) var(--gutter); }
 </style>

@@ -45,8 +45,10 @@ const Tag = plain ? 'span' : 'a';
 <style>
   .logo {
     display: inline-flex;
-    align-items: center;
-    gap: calc(var(--logo-h) * 0.32);
+    /* Nama duduk di garis bawah tanda, bukan di tengah: begitu "VALE" pada
+       logo Vale, dan itu yang membuat keduanya terbaca satu lockup. */
+    align-items: flex-end;
+    gap: calc(var(--logo-h) * 0.28);
     transition: transform var(--dur-slow) var(--ease-glide);
     transform-origin: left center;
   }
@@ -59,18 +61,20 @@ const Tag = plain ? 'span' : 'a';
     flex: none;
   }
 
-  /* Nama duduk di tengah tinggi tanda. Huruf besar berjarak lebar, berat 600
-     supaya tidak kalah bobot dari bidang-bidang warna di sebelahnya. */
+  /* Abu seperti teks logo Vale (#77787b, di sini digelapkan sedikit ke
+     #707174 supaya 4,9:1 di atas putih), berat 500, tinggi huruf sekitar 0,42
+     tinggi tanda. */
   .logo__name {
     font-family: var(--font-display);
-    font-weight: 600;
-    font-size: calc(var(--logo-h) * 0.5);
+    font-weight: 500;
+    font-size: calc(var(--logo-h) * 0.42);
     line-height: 1;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     white-space: nowrap;
+    color: var(--logo-gray);
     /* Tracking juga ditambahkan setelah huruf terakhir; tarik kembali supaya
        sisi kanan nama rata dengan hurufnya, bukan dengan ruang kosong. */
-    margin-right: -0.2em;
+    margin-right: -0.14em;
   }
 </style>

@@ -195,6 +195,16 @@ melarang peramban memalsukannya, jadi nama Latin di katalog tampil tegak.
 
 Di atas pita emas dan biru langit semua teks `--ink`; kelas `.on-color` menandainya.
 
+**Irama warna.** Halaman tidak monoton: tidak ada dua section berdampingan yang sewarna, urutannya
+putih, tint pucat (`--tint-teal|sky|gold`), lalu pita solid teal, emas, biru langit, lalu putih lagi.
+`Band` mengikuti `groundAt()` di `src/data/ground.ts` (putih, emas, teal, biru langit) dan foto
+diberi bilah aksen 25px di sisi kiri (oranye di pita emas, emas di pita teal). Latar section polos
+lewat kelas `bg-tint-*` / `bg-teal` (`global.css`). Tint sengaja pucat supaya teal kecil di atasnya
+tetap 4,5:1.
+
+**Toolbar dev Astro dimatikan** (`devToolbar.enabled: false`): pil hitamnya menutupi panah hero di
+tengah bawah dan menangkap kliknya.
+
 Nama token lama (`--ivory-*`, `--stone-*`, `--espresso`, `--green-*`, `--yellow-*`, `--acc-text`)
 masih hidup sebagai alias dan kini menunjuk palet Vale.
 
@@ -212,7 +222,7 @@ Semuanya mati saat `prefers-reduced-motion: reduce`.
 | Hero | `scripts/hero.ts` | memudar 0,6 s; panah mengambang 1rem, 2 s |
 | Menu | `MenuOverlay.astro` | panel 0,3 s; isi menyusul 0,6 s jeda 0,5 s; tirai foto 0,6 s jeda 0,5 s; sub-menu 0,5 s |
 | Burger | `Header.astro` | garis atas bergeser 9px saat hover, 0,3 s |
-| Panah progres | `scripts/scroll-progress.ts` | cincin mengikuti persen gulir; panah berbalik 0,4 s di dasar |
+| Panah progres | `scripts/scroll-progress.ts` | cincin transparan mengikuti persen gulir; panah berbalik 0,4 s di dasar; klik = satu langkah (`langkahHalaman` di `sections.ts`) |
 | Gulir momentum | `scripts/smooth-scroll.ts` | Lenis, tidak diubah |
 | Langkah per section | `scripts/sections.ts` | tidak diubah |
 | Morph kartu → laci | `scripts/materials.ts` | tidak diubah |

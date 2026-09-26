@@ -11,7 +11,7 @@ import {
 ---
 
 <PageLayout intro={RESOURCES_INTRO} section="/media/" media={false}>
-  <section class="section">
+  <section class="section bg-tint-teal">
     <div class="frame">
       <span class="eyebrow" data-reveal="0">Downloads</span>
       <div class="res__grid">
@@ -39,7 +39,7 @@ import {
     </div>
   </section>
 
-  <section class="bridge">
+  <section class="bridge" style={`--bridge-bg:${'var(--tint-gold)'}`}>
     <Interlude
       class="frame"
       line="What we have announced so far."
@@ -52,7 +52,7 @@ import {
 
 <style>
   .res__grid { margin-top: clamp(26px, 3vw, 44px); }
-  .section--sunk { background: var(--paper-sunk); }
+  .section--sunk { background: var(--paper); }
 
   .terms {
     display: grid;
@@ -63,7 +63,7 @@ import {
   .terms__body { max-width: var(--measure-body); }
   .terms__body .btn-solid { margin-top: clamp(18px, 2.2vw, 30px); }
 
-  .bridge { background: var(--paper); padding: var(--section-y) var(--gutter); }
+  .bridge { background: var(--bridge-bg, var(--paper)); padding: var(--section-y) var(--gutter); }
 
   @media (max-width: 899px) {
     .terms { grid-template-columns: 1fr; gap: 18px; }

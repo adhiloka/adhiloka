@@ -102,7 +102,9 @@ const Heading = level;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-  .tile__cta { margin-top: auto; padding-top: 6px; }
+  /* Kartu putih tetap berteks teal walau berada di section teal (.on-dark). */
+  .tile .tile__cta { margin-top: auto; padding-top: 6px; color: var(--teal); }
+  .tile .tile__link:hover .tile__cta { color: var(--teal-deep); }
   .tile__link:hover .tile__cta {
     color: var(--teal-deep);
     text-decoration: underline;

@@ -6,7 +6,7 @@ import { HISTORY_INTRO, HISTORY_TIMELINE } from '../../data/pages/about';
 ---
 
 <PageLayout intro={HISTORY_INTRO} section="/about/">
-  <section class="section">
+  <section class="section bg-tint-teal" style="--tl-bg: var(--tint-teal)">
     <div class="frame history">
       <div class="sticky-col">
         <div class="sticky-col__inner">
@@ -51,7 +51,7 @@ import { HISTORY_INTRO, HISTORY_TIMELINE } from '../../data/pages/about';
     max-width: 30ch;
   }
 
-  .bridge { background: var(--paper-sunk); padding: var(--section-y) var(--gutter); }
+  .bridge { background: var(--bridge-bg, var(--paper)); padding: var(--section-y) var(--gutter); }
 
   @media (max-width: 899px) {
     .history { grid-template-columns: 1fr; gap: 22px; }

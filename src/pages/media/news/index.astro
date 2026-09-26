@@ -8,7 +8,7 @@ const articles = [...NEWS].sort(byDate);
 ---
 
 <PageLayout intro={NEWS_INTRO} section="/media/" media={false}>
-  <section class="section">
+  <section class="section bg-tint-teal">
     <div class="frame">
       <div class="news__head">
         <span class="eyebrow" data-reveal="0">All announcements</span>
@@ -48,5 +48,5 @@ const articles = [...NEWS].sort(byDate);
   }
   .news__grid { margin-top: clamp(30px, 3.6vw, 52px); }
 
-  .bridge { background: var(--paper-sunk); padding: var(--section-y) var(--gutter); }
+  .bridge { background: var(--bridge-bg, var(--paper)); padding: var(--section-y) var(--gutter); }
 </style>

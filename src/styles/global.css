@@ -115,37 +115,20 @@ footer :focus-visible {
 :target { scroll-margin-top: calc(var(--header-h) + 24px); }
 
 /* ── Section ─────────────────────────────────────────────────────────────
-   Ditulis dengan dua atribut plus `html` dengan sengaja. Gaya berlingkup Astro
-   menambahkan [data-astro-cid-…] pada penyeleksinya, jadi `.band { min-height:
-   … }` milik komponen bernilai sama dengan dua penyeleksi dan — karena gaya
-   komponen disisipkan sesudah berkas ini — akan menang. Itu persis yang terjadi
-   pada pita foto: min-height-nya bertahan di 560px dan section-nya tidak pernah
-   teregang.
-   Tiap halaman dibagi menjadi section bernomor 1..N (lihat scripts/sections.ts).
-   Section yang tinggi alaminya muat satu layar diregangkan jadi tepat satu
-   layar, sehingga satu langkah gulir memperlihatkannya utuh. Section yang
-   memang lebih tinggi dari layar — katalog, linimasa, daftar berita — dibiarkan
-   apa adanya; meregangkannya tidak menolong dan memotongnya merusak isi.
+   Tinggi section ditentukan isi dan padding masing-masing. Dulu tiap section
+   yang muat satu layar diregangkan jadi tepat 100svh (min-height dari
+   data-section-fit); aturan itu dicabut pada 26 September 2026 supaya tata
+   ruang mengikuti estetika, bukan tinggi jendela. Penanda data-section tetap
+   dipasang scripts/sections.ts untuk langkah gulir dan kemunculan isi. */
 
-   Penjaganya bukan kelas .js melainkan atribut data-section itu sendiri, yang
-   memang hanya ada kalau skripnya berjalan — penjagaan yang sama kuatnya, tapi
-   kebal terhadap pergantian atribut <html> oleh ClientRouter saat berpindah
-   halaman. Awalan `html` dipakai semata untuk menaikkan spesifisitas.
-
-   100svh, bukan 100vh: di peramban telepon yang bilah alamatnya menyusut, vh
-   mengukur keadaan terbesar dan itu membuat section terpotong justru saat
-   pertama dilihat. */
-html [data-section][data-section-fit='fit'] { min-height: var(--section-fill, 100svh); }
-
-/* Isi didudukkan di tengah ruang yang baru itu. align-content, BUKAN
-   display:flex + justify-content: sebagian section adalah grid dua kolom
-   (pita foto+naskah), dan menimpa display-nya akan menumpuk foto di atas
-   naskah. align-content memusatkan isi tanpa menyentuh display sama sekali —
-   berlaku untuk wadah block, grid, maupun flex.
-
-   Dikecualikan lewat data-section-raw untuk blok yang tata letaknya sudah
-   diatur sendiri: hero video menata naskahnya ke tepi bawah. */
-html [data-section][data-section-fit='fit']:not([data-section-raw]) { align-content: center; }
+/* Latar section untuk irama warna halaman. Aturannya: tidak ada dua section
+   berdampingan yang sewarna; putih, tint, lalu pita solid (teal, emas, biru
+   langit), lalu putih lagi. Section teal juga diberi kelas on-dark. */
+.bg-white { background: var(--paper); }
+.bg-tint-teal { background: var(--tint-teal); }
+.bg-tint-sky { background: var(--tint-sky); }
+.bg-tint-gold { background: var(--tint-gold); }
+.bg-teal { background: var(--teal); color: var(--paper); }
 
 /* ── Bingkai halaman ─────────────────────────────────────────────────── */
 .frame { max-width: var(--measure-max); margin-inline: auto; }
@@ -219,6 +202,7 @@ html [data-section][data-section-fit='fit']:not([data-section-raw]) { align-cont
    tombol memendarkan warnanya sendiri (0 0 6px), bukan berubah bentuk. */
 .btn-solid,
 .btn-pill,
+.btn-white,
 .btn-gold,
 .btn-sky {
   align-self: flex-start;
@@ -252,6 +236,11 @@ html [data-section][data-section-fit='fit']:not([data-section-raw]) { align-cont
   color: var(--paper);
   box-shadow: 0 0 6px rgb(0 126 122 / 0.5);
 }
+
+/* Di atas pita teal tombol teal tidak terlihat; tombol putih berteks teal. */
+.btn-white { background: var(--paper); color: var(--teal); }
+.btn-white:hover,
+.btn-white:focus-visible { color: var(--teal-dark); box-shadow: 0 0 6px rgb(255 255 255 / 0.7); }
 
 .btn-gold { background: var(--gold); color: var(--ink); }
 .btn-gold:hover,
@@ -311,7 +300,8 @@ html [data-section][data-section-fit='fit']:not([data-section-raw]) { align-cont
    lalu jeda penutup di bawahnya. Dipakai enam halaman, jadi ia tinggal di sini
    alih-alih disalin ke tiap berkas halaman. */
 .hub-tour {
-  background: var(--paper);
+  background: var(--tint-teal);
+  --wave-ground: var(--tint-teal);
   padding-block: clamp(16px, 2vw, 24px) clamp(36px, 4vw, 50px);
 }
 /* Jeda penutup duduk 25px lebih rendah daripada jarak biasa; lihat catatan

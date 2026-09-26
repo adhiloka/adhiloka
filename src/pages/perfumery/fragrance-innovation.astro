@@ -3,6 +3,7 @@ import PageLayout from '../../layouts/PageLayout.astro';
 import Band from '../../components/Band.astro';
 import Interlude from '../../components/Interlude.astro';
 import { INNOVATION_INTRO, INNOVATION_PASSAGES } from '../../data/pages/perfumery';
+import { groundAt, bridgeAfter } from '../../data/ground';
 ---
 
 <PageLayout intro={INNOVATION_INTRO} section="/perfumery/">
@@ -19,12 +20,12 @@ import { INNOVATION_INTRO, INNOVATION_PASSAGES } from '../../data/pages/perfumer
         caption={p.caption}
         image={p.image}
         reverse={i % 2 === 1}
-        ground={i % 2 === 1 ? 'sunk' : 'paper'}
+        ground={groundAt(i)}
       />
     ))
   }
 
-  <section class="bridge">
+  <section class="bridge" style={`--bridge-bg:${bridgeAfter(groundAt(INNOVATION_PASSAGES.length - 1))}`}>
     <Interlude
       class="frame"
       line="The extraction routes behind all of it."
@@ -36,5 +37,5 @@ import { INNOVATION_INTRO, INNOVATION_PASSAGES } from '../../data/pages/perfumer
 </PageLayout>
 
 <style>
-  .bridge { background: var(--paper-sunk); padding: var(--section-y) var(--gutter); }
+  .bridge { background: var(--bridge-bg, var(--paper)); padding: var(--section-y) var(--gutter); }
 </style>

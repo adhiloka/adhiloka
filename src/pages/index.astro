@@ -71,7 +71,7 @@ const LATEST = [...NEWS].sort(byDate);
 
   <!-- Kotak Sustainability (box-conecta di Vale): foto bergelombang atas dan
        bawah yang dibuka tirai, lalu judul teal dan tombol pil. -->
-  <section class="box">
+  <section class="box bg-tint-teal">
     <div class="frame box__grid">
       <div class="box__media" data-curtain>
         {
@@ -104,9 +104,9 @@ const LATEST = [...NEWS].sort(byDate);
   </section>
 
   <!-- Karusel kartu (Governance di Vale). -->
-  <section class="explore">
+  <section class="explore bg-teal on-dark">
     <div class="frame explore__head" data-reveal>
-      <h2 class="section-title">Explore Adhiloka</h2>
+      <h2 class="explore__title">Explore Adhiloka</h2>
       <p class="explore__sub">
         Sourcing, the works in Medan, the bench, and the catalog behind all of it.
       </p>
@@ -264,7 +264,10 @@ const LATEST = [...NEWS].sort(byDate);
   .intro__media :global(img) { width: 100%; height: 100%; object-fit: cover; }
 
   /* ── Kotak Sustainability ───────────────────────────────────────────── */
-  .box { padding: clamp(48px, 6vw, 96px) var(--gutter); }
+  .box {
+    padding: clamp(48px, 6vw, 96px) var(--gutter);
+    --wave-ground: var(--tint-teal);
+  }
   .box__grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -287,12 +290,15 @@ const LATEST = [...NEWS].sort(byDate);
   .box__text :global(.btn-solid) { margin-top: 32px; }
 
   /* ── Karusel kartu ──────────────────────────────────────────────────── */
-  .explore {
-    padding: clamp(48px, 6vw, 96px) 0;
-    background: var(--paper-sunk);
+  .explore { padding: clamp(48px, 6vw, 96px) 0; }
+  .explore__title {
+    font-size: var(--type-h2);
+    font-weight: 500;
+    line-height: var(--leading-title);
+    color: var(--paper);
   }
   .explore__head { padding-inline: var(--gutter); margin-bottom: clamp(28px, 3vw, 44px); }
-  .explore__sub { margin-top: 12px; max-width: 40em; font-size: var(--type-lede); }
+  .explore__sub { margin-top: 12px; max-width: 40em; font-size: var(--type-lede); color: var(--paper); }
 
   /* ── Pita emas / biru langit ────────────────────────────────────────── */
   .band { padding: clamp(56px, 6vw, 96px) var(--gutter); color: var(--ink); }

@@ -107,4 +107,9 @@ const { label, cardWidth = 'clamp(280px, 26vw, 380px)', class: className } = Ast
 
   /* Di atas pita berwarna, petunjuk dan tombolnya ikut tinta gelap. */
   :global(.on-color) .rail__hint { color: var(--ink); }
+
+  /* Di atas teal: petunjuk dan tombol putih; panah emas tetap terlihat. */
+  :global(.on-dark) .rail__hint { color: var(--paper); }
+  :global(.on-dark) .rail__btn { border-color: var(--paper); color: var(--paper); }
+  :global(.on-dark) .rail__btn:hover:not(:disabled) { background: var(--paper); color: var(--teal); }
 </style>

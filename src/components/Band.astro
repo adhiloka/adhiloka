@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { getImageFor, type ImageKey } from '../data/images';
 import Waves from './Waves.astro';
+import type { Ground } from '../data/ground';
 
 /**
  * Pita naskah + foto, meniru secao-imagem di valeindonesia.com: latar pita
@@ -9,9 +10,11 @@ import Waves from './Waves.astro';
  * bingkai bersudut 4px dengan gelombang di sudut kanan bawah di sisi lain.
  * Naskah masuk dari sisinya, foto dibuka tirai teal.
  *
- * `ground` memetakan nama lama ke warna Vale: paper = putih, sunk = emas,
- * plate = biru langit. Halaman yang berselang-seling paper/sunk otomatis
- * mendapat pita putih dan emas bergantian.
+ * `ground` memetakan ke warna Vale: paper = putih, sunk = emas, plate = biru
+ * langit, tint = teal sangat pucat, teal = teal solid. Urutan di halaman
+ * diatur `groundAt()` di data/ground.ts. Foto diberi bilah aksen 25px di sisi
+ * kiri seperti foto di Vale: oranye di pita emas, emas di pita teal, teal di
+ * pita lain.
  */
 interface Props {
   id?: string;
@@ -29,7 +32,7 @@ interface Props {
   focus?: string;
   /** Foto pindah ke kiri, naskah ke kanan. */
   reverse?: boolean;
-  ground?: 'paper' | 'sunk' | 'plate';
+  ground?: Ground;
   /** Nama lama; pita kini selalu berbingkai. */
   inset?: boolean;
 }
@@ -50,11 +53,21 @@ const {
 } = Astro.props;
 
 const photo = getImageFor(image);
-const tone = ground === 'sunk' ? 'gold' : ground === 'plate' ? 'sky' : 'white';
+const TONES: Record<Ground, string> = {
+  paper: 'white',
+  sunk: 'gold',
+  plate: 'sky',
+  tint: 'tint',
+  teal: 'teal',
+};
+const tone = TONES[ground];
+// Emas dan biru langit memakai teks gelap; teal memakai teks putih.
+const onColor = tone === 'gold' || tone === 'sky';
+const onDark = tone === 'teal';
 ---
 
 <section
-  class:list={['band', `band--${tone}`, reverse && 'band--reverse', tone !== 'white' && 'on-color']}
+  class:list={['band', `band--${tone}`, reverse && 'band--reverse', onColor && 'on-color', onDark && 'on-dark']}
   id={id}
   aria-labelledby={id ? `${id}-title` : undefined}
 >
@@ -74,7 +87,7 @@ const tone = ground === 'sunk' ? 'gold' : ground === 'plate' ? 'sky' : 'white';
         )
       }
 
-      {cta && href && <a class="btn-solid" href={href}>{cta}</a>}
+      {cta && href && <a class={onDark ? 'btn-white' : 'btn-solid'} href={href}>{cta}</a>}
     </div>
 
     <div class="band__media plate" data-curtain style={focus ? `--band-focus:${focus}` : undefined}>
@@ -105,8 +118,11 @@ const tone = ground === 'sunk' ? 'gold' : ground === 'plate' ? 'sky' : 'white';
     background: var(--paper);
     color: var(--ink-body);
   }
-  .band--gold { background: var(--gold); --wave-ground: var(--gold); --wave-accent: var(--teal); }
-  .band--sky { background: var(--sky); --wave-ground: var(--sky); }
+  .band--gold { background: var(--gold); --wave-ground: var(--gold); --wave-accent: var(--teal); --band-bar: var(--orange); }
+  .band--sky { background: var(--sky); --wave-ground: var(--sky); --band-bar: var(--teal); }
+  .band--tint { background: var(--tint-teal); --wave-ground: var(--tint-teal); --band-bar: var(--teal); }
+  .band--teal { background: var(--teal); color: var(--paper); --wave-ground: var(--teal); --wave-accent: var(--gold); --band-bar: var(--gold); }
+  .band--white { --band-bar: var(--teal); }
 
   .band__grid {
     display: grid;
@@ -173,11 +189,30 @@ const tone = ground === 'sunk' ? 'gold' : ground === 'plate' ? 'sky' : 'white';
   .on-color .band__points li { color: var(--ink); }
   .on-color .band__points li::before { border-color: var(--teal); }
 
+  /* Pita teal: semua teks putih, panah butir emas. */
+  .on-dark .band__title,
+  .on-dark .band__eyebrow,
+  .on-dark .band__body,
+  .on-dark .band__points li { color: var(--paper); }
+  .on-dark .band__points li::before { border-color: var(--gold); }
+
   .band__media {
     position: relative;
     overflow: hidden;
     border-radius: var(--radius-card);
     aspect-ratio: 16 / 11;
+  }
+  /* Bilah aksen di sisi kiri foto (animacao-caixa di Vale). */
+  .band__media::before {
+    content: '';
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: clamp(16px, 1.7vw, 25px);
+    background: var(--band-bar, var(--teal));
+    pointer-events: none;
   }
   .band__media :global(img) {
     position: absolute;

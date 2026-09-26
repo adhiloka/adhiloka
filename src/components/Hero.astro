@@ -20,6 +20,11 @@ interface Props {
 const { slides = HERO_SLIDES, label = 'Adhiloka' } = Astro.props;
 const banyak = slides.length > 1;
 const first = slides[0];
+
+// Di beranda "Discover" membuka halaman tiap slide. Di halaman lain (hub dan
+// Contact) section 1 hanya satu foto, dan Discover menggulir ke section
+// berikutnya alih-alih membuka halaman baru.
+const scrollCta = Astro.url.pathname !== '/';
 ---
 
 <section
@@ -72,13 +77,22 @@ const first = slides[0];
     <p class="hero__intro" data-hero-intro>{first.sub ?? first.eyebrow}</p>
     <h1 class="hero__headline" data-hero-headline>{first.headline}</h1>
     {
-      first.href && (
-        <a class="hero__cta" href={first.href} data-hero-cta>
+      scrollCta ? (
+        <button type="button" class="hero__cta" data-hero-cta-scroll>
           Discover
-          <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
-            <path d="M0 6h14M9.5 1.5 14 6l-4.5 4.5" stroke="currentColor" stroke-width="1.6" />
+          <svg width="12" height="16" viewBox="0 0 12 16" fill="none" aria-hidden="true">
+            <path d="M6 1v13M1.5 9.5 6 14l4.5-4.5" stroke="currentColor" stroke-width="1.6" />
           </svg>
-        </a>
+        </button>
+      ) : (
+        first.href && (
+          <a class="hero__cta" href={first.href} data-hero-cta>
+            Discover
+            <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
+              <path d="M0 6h14M9.5 1.5 14 6l-4.5 4.5" stroke="currentColor" stroke-width="1.6" />
+            </svg>
+          </a>
+        )
       )
     }
   </div>

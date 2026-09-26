@@ -3,10 +3,11 @@ import PageLayout from '../../layouts/PageLayout.astro';
 import Band from '../../components/Band.astro';
 import Interlude from '../../components/Interlude.astro';
 import { TECHNOLOGY_INTRO, ROUTES, TECHNOLOGY_PASSAGES } from '../../data/pages/ingredients';
+import { groundAt, bridgeAfter } from '../../data/ground';
 ---
 
 <PageLayout intro={TECHNOLOGY_INTRO} section="/ingredients/">
-  <section class="section">
+  <section class="section bg-tint-sky">
     <div class="frame">
       <span class="eyebrow" data-reveal="0">Extraction routes</span>
       <dl class="routes">
@@ -38,12 +39,12 @@ import { TECHNOLOGY_INTRO, ROUTES, TECHNOLOGY_PASSAGES } from '../../data/pages/
         caption={p.caption}
         image={p.image}
         reverse={i % 2 === 1}
-        ground={i % 2 === 1 ? 'sunk' : 'paper'}
+        ground={groundAt(i)}
       />
     ))
   }
 
-  <section class="bridge">
+  <section class="bridge" style={`--bridge-bg:${bridgeAfter(groundAt(TECHNOLOGY_PASSAGES.length - 1))}`}>
     <Interlude
       class="frame"
       line="Every route above, applied to eighteen materials."
@@ -93,7 +94,7 @@ import { TECHNOLOGY_INTRO, ROUTES, TECHNOLOGY_PASSAGES } from '../../data/pages/
     max-width: var(--measure-body);
   }
 
-  .bridge { background: var(--paper); padding: var(--section-y) var(--gutter); }
+  .bridge { background: var(--bridge-bg, var(--paper)); padding: var(--section-y) var(--gutter); }
 
   @media (max-width: 899px) {
     .route { grid-template-columns: 1fr; gap: 12px; }

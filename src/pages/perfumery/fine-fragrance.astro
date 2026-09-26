@@ -4,6 +4,7 @@ import Band from '../../components/Band.astro';
 import Pullquote from '../../components/Pullquote.astro';
 import Interlude from '../../components/Interlude.astro';
 import { FINE_INTRO, FINE_PASSAGES, FINE_QUOTE } from '../../data/pages/perfumery';
+import { groundAt, bridgeAfter } from '../../data/ground';
 ---
 
 <PageLayout intro={FINE_INTRO} section="/perfumery/">
@@ -20,7 +21,7 @@ import { FINE_INTRO, FINE_PASSAGES, FINE_QUOTE } from '../../data/pages/perfumer
         caption={p.caption}
         image={p.image}
         reverse={i % 2 === 1}
-        ground={i % 2 === 1 ? 'sunk' : 'paper'}
+        ground={groundAt(i)}
       />
     ))
   }
@@ -28,7 +29,7 @@ import { FINE_INTRO, FINE_PASSAGES, FINE_QUOTE } from '../../data/pages/perfumer
   <Pullquote quote={FINE_QUOTE} />
 
   {
-    FINE_PASSAGES.slice(2).map((p) => (
+    FINE_PASSAGES.slice(2).map((p, i) => (
       <Band
         id={p.id}
         eyebrow={p.eyebrow}
@@ -39,11 +40,12 @@ import { FINE_INTRO, FINE_PASSAGES, FINE_QUOTE } from '../../data/pages/perfumer
         href={p.href}
         caption={p.caption}
         image={p.image}
+        ground={groundAt(i, 3)}
       />
     ))
   }
 
-  <section class="bridge">
+  <section class="bridge" style={`--bridge-bg:${bridgeAfter(groundAt(FINE_PASSAGES.slice(2).length - 1, 3))}`}>
     <Interlude
       class="frame"
       line="What we are still working out at the bench."
@@ -55,5 +57,5 @@ import { FINE_INTRO, FINE_PASSAGES, FINE_QUOTE } from '../../data/pages/perfumer
 </PageLayout>
 
 <style>
-  .bridge { background: var(--paper-sunk); padding: var(--section-y) var(--gutter); }
+  .bridge { background: var(--bridge-bg, var(--paper)); padding: var(--section-y) var(--gutter); }
 </style>

@@ -8,6 +8,11 @@ const site = process.env.SITE_URL || 'https://adhiloka.com';
 export default defineConfig({
   site,
   trailingSlash: 'always',
+
+  // Toolbar dev Astro (pil hitam di tengah bawah layar) menutupi panah hero
+  // dan menangkap kliknya, sehingga tombol "scroll down" terlihat rusak saat
+  // `npm run dev`. Dimatikan; tidak ada pengaruhnya pada build produksi.
+  devToolbar: { enabled: false },
   integrations: [sitemap()],
 
   // Tiga rute lama dari susunan menu sebelumnya. Tautan luar dan hasil telusur

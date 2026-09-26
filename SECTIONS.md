@@ -21,8 +21,10 @@ yang disaringnya ada di layar berikutnya adalah halaman yang rusak.
 
 **Muat atau tidak.** Tinggi alami tiap section dibandingkan tinggi layar:
 
-- `fit` — muat satu layar. Section diregangkan jadi **tepat** satu layar dan
-  isinya didudukkan di tengah. Satu langkah gulir memperlihatkannya utuh.
+- `fit` — muat satu layar. Tingginya **dibiarkan apa adanya**: aturan lama yang
+  meregangkan tiap section jadi tepat 100svh dicabut pada 26 September 2026,
+  supaya tata ruang mengikuti estetika, bukan tinggi jendela. Hero beranda dan
+  hub tetap setinggi layar karena itu memang desain hero.
 - `tall` — memang lebih tinggi dari layar: katalog 18 bahan, linimasa enam
   generasi, daftar berita, formulir kontak. Section ini **tidak** diregangkan
   dan **tidak** dipaksa muat. Memaksanya berarti memotong isi.
@@ -53,6 +55,17 @@ bila JavaScript gagal.
 
 Diukur di 1536×694. Jumlah section berubah mengikuti tinggi layar: makin tinggi
 layar, makin banyak yang `fit`.
+
+**Tujuan langkah dihitung dari posisi gulir.** Turun ke tepi section pertama
+yang ada di bawah layar; naik ke tepi section terakhir yang ada di atas layar.
+Dulu tujuan dihitung dari "section saat ini" sehingga naik dari posisi tak
+selaras melompati satu section, dan di section pertama roda ke atas ditelan
+tanpa berbuat apa-apa. Tombol panah (progres gulir, panah hero, Discover di hub)
+memakai `langkahHalaman()` dari berkas yang sama. Sakelar
+`LANGKAH_PER_SECTION` di `sections.ts` mematikan langkah per section.
+
+> Tabel di bawah ditulis sebelum rombak ala Vale dan jumlah section beberapa
+> halaman sudah berubah; peta yang benar ada di `petaSection()` (konsol).
 
 | Halaman | N | Section |
 |---|---|---|
