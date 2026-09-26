@@ -103,7 +103,7 @@ const LATEST = [...NEWS].sort(byDate);
         </svg>
         <div class="wave-box__text">
           <p>{SUSTAINABILITY_INTRO.lede}</p>
-          <a class="btn-solid" href="/sustainability/">Our sustainability approach</a>
+          <a class="btn-white" href="/sustainability/">Our sustainability approach</a>
         </div>
       </div>
 
@@ -329,18 +329,20 @@ const LATEST = [...NEWS].sort(byDate);
     width: 100%;
     height: 100%;
   }
-  .wave-box__shape path { fill: var(--sky); }
+  /* Teks putih seperti di Vale; biru dipilih 4,8:1 dengan putih (biru langit
+     Vale #3cb5e5 hanya 2,4:1). */
+  .wave-box__shape path { fill: var(--sky-deep); }
   .wave-box__text {
     position: relative;
     padding: 0 12%;
-    color: var(--ink);
+    color: var(--paper);
   }
   .wave-box__text p {
     font-size: clamp(16px, 1.15vw, 19px);
     line-height: 1.5;
     font-weight: 500;
   }
-  .wave-box__text :global(.btn-solid) { margin-top: 16px; }
+  .wave-box__text :global(.btn-white) { margin-top: 16px; }
 
   /* ── Karusel kartu ──────────────────────────────────────────────────── */
   .explore { padding: var(--pad-y) 0; }
@@ -410,7 +412,7 @@ const LATEST = [...NEWS].sort(byDate);
     .wave-box__photo--left, .wave-box__photo--right { margin: 0; }
     .wave-box__shape { display: none; }
     .wave-box__panel {
-      background: var(--sky);
+      background: var(--sky-deep);
       border-radius: var(--radius-card);
       padding: 24px 0;
     }

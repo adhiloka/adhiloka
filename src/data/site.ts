@@ -123,12 +123,16 @@ export const NAV_LINKS: NavLink[] = NAV.flatMap((item) => [
   ...(item.panel?.links ?? []),
 ]);
 
-/* Kolom footer diturunkan dari NAV, bukan disalin. Versi lama ditulis terpisah
-   dan sudah menyimpang dari menunya. */
-export const FOOTER_COLUMNS = NAV.filter((item) => item.panel).map((item) => ({
-  title: item.label,
-  links: [{ label: 'Overview', href: item.href }, ...item.panel!.links],
-}));
+/* Grup kedua di footer, meniru kolom "Investors" di Vale: beberapa halaman
+   dalam yang paling sering dicari. Sengaja pendek; footer Vale sederhana. */
+export const FOOTER_EXPLORE: NavLink[] = [
+  { label: 'Ingredients Catalog', href: '/ingredients/catalog/' },
+  { label: 'Technology', href: '/ingredients/technology/' },
+  { label: 'Fine Fragrance', href: '/perfumery/fine-fragrance/' },
+  { label: 'Responsible Sourcing', href: '/sustainability/responsible-sourcing/' },
+  { label: 'News', href: '/media/news/' },
+  { label: 'Media Resources', href: '/media/media-resources/' },
+];
 
 export const SOCIAL = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/' },

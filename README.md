@@ -154,7 +154,7 @@ gelombang di logo Adhiloka (`components/Waves.astro`).
 
 | Unsur Vale | Di Adhiloka |
 | --- | --- |
-| Header tanpa bilah menu: bidang putih melengkung, tombol menu pil emas di tepi kiri, logo | `Header.astro`. Tombol pil menetap di semua section; logo dan pil kanan pergi setelah section 1 |
+| Header tanpa bilah menu: bidang putih melengkung (±27vw x 10vw, proporsi Vale), tombol menu pil emas di tepi kiri, dan tanda logo yang **setinggi dan sejajar atas-bawah dengan tombol**, berjarak 25px | `Header.astro`; ukurannya token `--menu-top/-w/-h/-gap` di `tokens.css`, dipakai tombol dan logo sekaligus |
 | Menu layar penuh tiga kolom (menu teal, panel putih sub-menu, foto bergelombang) | `MenuOverlay.astro`, logikanya di `scripts/header.ts` |
 | Hero foto: redup 0,8, gradien hitam dari kiri, judul dua tingkat, titik vertikal, panah mengambang | `Hero.astro` + `scripts/hero.ts` (memudar 0,6 s, maju sendiri tiap 6 s) |
 | Panah progres gulir di kanan bawah | `ScrollProgress.astro` + `scripts/scroll-progress.ts` |
@@ -163,7 +163,7 @@ gelombang di logo Adhiloka (`components/Waves.astro`).
 | Pita foto + naskah berwarna | `Band.astro`: `ground` paper = putih, sunk = emas, plate = biru langit |
 | Kartu foto 4px + kotak teks + "Access … →" | `Tile.astro`, `CardGrid.astro` |
 | Karusel "Scroll to see more" | `SlideRail.astro` + `scripts/slide-rail.ts`, tanpa pustaka |
-| Footer teal | `Footer.astro`; logo di kapsul putih karena gelombang hijau logo hilang di atas teal |
+| Footer teal sesederhana Vale: judul "Adhiloka" + ikon sosial bulat, daftar halaman utama, grup "Explore", satu baris hak cipta | `Footer.astro`, `FOOTER_EXPLORE` di `data/site.ts` |
 
 **Gulir** kembali manual bawaan peramban. Gulir per section dan gulir halus Lenis sempat
 dipertahankan, lalu dicabut pada 26 September 2026 atas permintaan pemilik (roda harus berputar

@@ -18,6 +18,7 @@
   --gold: #ecb11f;                       /* panah, tombol menu, pita; BUKAN teks  */
   --gold-soft: #f6d27a;                  /* tekanan lembut di atas teal (ikon)    */
   --sky: #3cb5e5;                        /* pita kedua, tombol sekunder           */
+  --sky-deep: #187aa8;                   /* biru dalam untuk teks putih (4,8:1)   */
   --mint: #10b89a;                       /* gelombang dekoratif saja              */
 
   /* Latar section pucat untuk variasi irama halaman. Sengaja pucat: teal
@@ -79,6 +80,14 @@
 
   /* ── Bentuk ─────────────────────────────────────────────────────────── */
   --radius-card: 4px;
+
+  /* Ukuran tombol menu pil emas. Logo memakai tinggi, garis atas, dan jarak
+     yang sama (meniru header Vale: tanda logo setinggi tombol, sejajar atas
+     dan bawah, jaraknya ±25px dari tombol). */
+  --menu-top: clamp(18px, 1.78vw, 34px);
+  --menu-w: clamp(70px, 4.4vw, 84px);
+  --menu-h: clamp(40px, 2.4vw, 46px);
+  --menu-gap: clamp(14px, 1.3vw, 25px);
 
   /* ── Nama lama untuk palet sebelumnya ───────────────────────────────── */
   /* Komponen yang belum dirombak masih merujuk nama ini. */
@@ -286,4 +295,13 @@
 
   --measure-body-narrow: var(--measure-lede);
   --leading-body-tight: var(--leading-lede);
+}
+
+@media (max-width: 899px) {
+  :root {
+    --menu-top: 22px;
+    --menu-w: 64px;
+    --menu-h: 38px;
+    --menu-gap: 14px;
+  }
 }

@@ -1,54 +1,79 @@
 ---
-import { FOOTER_COLUMNS, SOCIAL, SITE } from '../data/site';
-import Logo from './Logo.astro';
+import { NAV, SOCIAL, SITE, FOOTER_EXPLORE } from '../data/site';
 const year = new Date().getFullYear();
+
+/* Ikon sosial bergaya garis (bentuk dasar dari Feather Icons, MIT). Hanya
+   empat yang punya ikon; sisanya (Podcasts) tidak ditampilkan. */
+const ICONS: Record<string, string> = {
+  LinkedIn:
+    '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>',
+  Instagram:
+    '<rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>',
+  Facebook: '<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>',
+  YouTube:
+    '<path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/>',
+};
+const social = SOCIAL.filter((s) => ICONS[s.label]);
 ---
 
-<!-- Footer ala valeindonesia.com: blok teal pendek dengan satu baris kolom.
-     Kolom pertama memuat merek, sosial, dan kontak (seperti kolom "Vale" +
-     ikon sosial di Vale); sisanya satu kolom per menu utama kita, judul 18px
-     dan tautan 14px. Logo duduk di kapsul putih karena gelombang hijau pada
-     logo hilang di atas teal. -->
+<!-- Footer sesederhana footer Vale: blok teal, judul "Adhiloka" dengan ikon
+     sosial bulat dan satu tautan, satu daftar halaman utama, satu grup
+     "Explore", lalu satu baris hak cipta. Tidak lebih banyak dari itu. -->
 <footer class="site-footer on-dark">
   <div class="site-footer__inner">
-    <div class="site-footer__cols">
+    <div class="site-footer__grid">
       <div class="site-footer__brand">
-        <Logo class="site-footer__logo" size="clamp(30px, 2.4vw, 38px)" />
-        <p class="site-footer__tagline">{SITE.tagline}</p>
+        <h2 class="site-footer__title">Adhiloka</h2>
         <ul class="site-footer__social" aria-label="Follow us">
           {
-            SOCIAL.map((s) => (
+            social.map((s) => (
               <li>
-                <a href={s.href} rel="noopener noreferrer me" target="_blank">
-                  {s.label}
+                <a href={s.href} rel="noopener noreferrer me" target="_blank" aria-label={s.label}>
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                    set:html={ICONS[s.label]}
+                  />
                 </a>
               </li>
             ))
           }
         </ul>
-        <a class="site-footer__mail" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        <a class="site-footer__note" href="/contact/">Contact us</a>
       </div>
 
-      {
-        FOOTER_COLUMNS.map((col) => (
-          <nav class="site-footer__col" aria-label={col.title}>
-            <h2 class="site-footer__title">{col.title}</h2>
-            <ul class="site-footer__links">
-              {col.links.map((l) => (
-                <li>
-                  <a href={l.href}>{l.label}</a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        ))
-      }
+      <ul class="site-footer__list">
+        {
+          NAV.map((item) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="site-footer__group">
+        <h2 class="site-footer__title">Explore</h2>
+        <ul class="site-footer__list">
+          {
+            FOOTER_EXPLORE.map((l) => (
+              <li>
+                <a href={l.href}>{l.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
     </div>
 
-    <div class="site-footer__base" data-footer-base>
-      <p>&copy; {year} {SITE.legalName} | All rights reserved.</p>
-      <p>{SITE.region} · Medan, North Sumatra, Indonesia · <a href="/contact/">Contact</a></p>
-    </div>
+    <p class="site-footer__base" data-footer-base>&copy; {year} {SITE.legalName} | All rights reserved.</p>
   </div>
 </footer>
 
@@ -58,93 +83,87 @@ const year = new Date().getFullYear();
     color: var(--paper);
   }
 
-  /* Padding atas-bawah 32px seperti blok teal Vale (py-5 = 32px). */
   .site-footer__inner {
     max-width: var(--measure-max);
     margin-inline: auto;
     padding: 32px var(--gutter) 20px;
   }
 
-  .site-footer__cols {
+  /* Tiga bagian dengan lebar seperti footer Vale (3 : 4 : 5). */
+  .site-footer__grid {
     display: grid;
-    grid-template-columns: minmax(200px, 1.25fr) repeat(5, minmax(0, 1fr));
-    gap: 20px clamp(18px, 2vw, 32px);
+    grid-template-columns: 3fr 4fr 5fr;
+    gap: 24px clamp(20px, 3vw, 56px);
+    align-items: start;
   }
-
-  .site-footer__brand {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-  /* Kapsul putih untuk logo: tanda berwarna penuhnya tetap terbaca. */
-  :global(.site-footer__logo) {
-    padding: 8px 20px 8px 14px;
-    border-radius: var(--radius-pill);
-    background: var(--paper);
-  }
-  .site-footer__tagline { font-size: 14px; line-height: 1.4; }
 
   .site-footer__title {
-    margin-bottom: 10px;
-    font-size: 18px;
+    margin-bottom: 14px;
+    font-size: 26px;
     font-weight: 500;
-    line-height: 1.25;
+    line-height: 1.2;
   }
+  /* Bagian tengah tidak punya judul (seperti kolom tengah Vale); daftarnya
+     turun sejajar dengan ikon sosial. */
+  .site-footer__list { margin-top: 46px; }
+  .site-footer__group .site-footer__list { margin-top: 0; }
 
-  .site-footer__links,
-  .site-footer__social {
+  .site-footer__list {
     list-style: none;
-    margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 24px;
   }
-  .site-footer__links a,
-  .site-footer__social a,
-  .site-footer__mail,
-  .site-footer__base a {
-    font-size: 14px;
-    line-height: 1.45;
+  .site-footer__list a,
+  .site-footer__note {
+    font-size: 15px;
+    line-height: 1.4;
     color: var(--paper);
     overflow-wrap: anywhere;
   }
-  .site-footer__links a:hover,
-  .site-footer__links a:focus-visible,
-  .site-footer__social a:hover,
-  .site-footer__social a:focus-visible,
-  .site-footer__mail:hover,
-  .site-footer__base a:hover {
+  .site-footer__list a:hover,
+  .site-footer__list a:focus-visible,
+  .site-footer__note:hover {
     color: var(--paper);
     text-decoration: underline;
     text-underline-offset: 3px;
   }
 
-  /* Sosial dalam satu baris, seperti deretan ikon sosial di Vale. */
+  /* Ikon sosial bulat bergaris putih. */
   .site-footer__social {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 4px 14px;
-  }
-  .site-footer__social a { font-weight: 500; }
-
-  .site-footer__base {
-    margin-top: 20px;
-    padding-top: 14px;
-    border-top: 1px solid var(--border-on-ink);
+    list-style: none;
+    margin: 0 0 14px;
+    padding: 0;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 4px 24px;
-    font-size: 13px;
+    gap: 12px;
+  }
+  .site-footer__social a {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border: 1.5px solid var(--paper);
+    border-radius: 50%;
+    color: var(--paper);
+    transition: background 150ms ease-in-out, color 150ms ease-in-out;
+  }
+  .site-footer__social a:hover,
+  .site-footer__social a:focus-visible {
+    background: var(--paper);
+    color: var(--teal);
   }
 
-  @media (max-width: 1079px) {
-    .site-footer__cols { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .site-footer__brand { grid-column: 1 / -1; }
+  .site-footer__base {
+    margin: 22px 0 0;
+    padding-top: 14px;
+    border-top: 1px solid var(--border-on-ink);
+    font-size: 14px;
   }
-  @media (max-width: 599px) {
-    .site-footer__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  @media (max-width: 899px) {
+    .site-footer__grid { grid-template-columns: 1fr; }
+    .site-footer__list { margin-top: 0; }
   }
 </style>
