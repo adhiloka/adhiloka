@@ -29,9 +29,6 @@
   --tint-gold: #fdf6e0;
   --orange: #ee6f16;                     /* oranye Vale; hanya bilah aksen foto */
 
-  /* Teks logo. Vale memakai #77787b; ini sedikit lebih gelap supaya lolos 4,5:1. */
-  --logo-gray: #707174;
-
   /* ── Kertas ─────────────────────────────────────────────────────────── */
   --paper: #ffffff;
   --paper-sunk: #f5f7f7;

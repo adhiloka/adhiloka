@@ -295,9 +295,6 @@ const { variant, active } = Astro.props;
   .menu-btn:hover .menu-btn__lines::before { transform: translateX(-9px) translateY(7px); }
 
   @media (max-width: 899px) {
-    /* Nama lebih kecil di HP (0,55 bukan 0,685) dan bidang putih dilebarkan
-       supaya seluruh nama tetap di dalam lengkung. */
-    :global(.site-header__logo) { --name-scale: 0.55; }
     .site-header__brand {
       width: 384px;
       height: 104px;

@@ -114,10 +114,14 @@ Vale; hero kini karusel foto.
 dipertahankan: ia menjadi daftar pemotretan. Untuk memasang foto asli, taruh berkasnya di
 `src/assets/images/`, daftarkan di `src/data/images.ts`, lalu berikan `image` pada data terkait.
 
-**Logo di-inline.** `src/components/Logo.astro` memuat SVG dari `../brand/adhiloka-logo.svg`
-(tanda layar/daun enam warna) ditambah nama ADHILOKA. Warnanya tidak pernah diubah per latar;
-hanya nama yang mengikuti `currentColor`. Dipakai di header dan footer. Favicon
-(`public/favicon.svg`) dan `apple-touch-icon.png` diturunkan dari berkas yang sama.
+**Logo (27 September 2026).** Logo resmi datang dari `../logo` dan `../lockup` (desain pemilik):
+tanda layar/daun berpalet pekat (hijau `#248F76 #026A5B #034C44`, oker `#E3CCA5 #D9AA5A #D58207`)
+dengan garis halus, dan lockup yang memuat tulisan ADHILOKA abu `#77787B` setinggi setengah tanda.
+`src/components/Logo.astro` hanya memasang `public/brand/adhiloka-lockup.svg` sebagai gambar; tidak
+ada lagi tulisan yang disetel lewat CSS. Favicon lengkap (`favicon.ico`, `favicon.svg` dari versi
+persegi, `favicon-32.png`, `apple-touch-icon.png`, `icon-192/512.png`) dan `site.webmanifest` ada di
+`public/`. Palet situs tetap palet Vale (teal, emas, biru langit); palet logo hanya dipakai di logo.
+`og.png` (gambar bagikan sosial) belum diganti.
 
 ## Yang diperbaiki dari prototipe
 
