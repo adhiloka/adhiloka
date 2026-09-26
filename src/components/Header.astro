@@ -17,17 +17,31 @@ const { variant, active } = Astro.props;
      tombol menu, yang membuka MenuOverlay. -->
 <header class="site-header" data-variant={variant} data-site-header>
   <div class="site-header__brand">
+    <!-- Lekukan putih: SATU kurva Bezier kubik dengan kedua ujung mendatar,
+         seperti lekukan Vale (svg 433x168, titik kontrol di 46% dan 64%
+         lebar). Kelengkungannya berubah mulus di seluruh panjang; dua kurva
+         yang disambung (versi sebelumnya) menyisakan lonjakan kelengkungan di
+         simpul yang terlihat sebagai patahan. Titik kontrol di 62% dan 80%
+         membuatnya lebih penuh daripada Vale supaya nama ADHILOKA yang besar
+         muat dengan jarak aman >= 27px di semua lebar layar (dihitung).
+         Di HP dipakai kurva kedua yang lebih penuh karena layarnya sempit. -->
     <svg
-      class="site-header__swoosh"
+      class="site-header__swoosh site-header__swoosh--wide"
       viewBox="0 0 540 192"
       preserveAspectRatio="none"
       aria-hidden="true"
       focusable="false"
     >
-      <!-- Dua kurva Bezier yang arahnya menyambung: kurva pertama berangkat
-           mendatar dari garis atas (kontrol 490,0), dan titik kontrol di kedua
-           sisi simpul (380,90) segaris (-60,45), jadi tidak ada patahan. -->
-      <path d="M0 0H540C490 0 440 45 380 90C320 135 140 190 0 190Z" fill="currentColor"></path>
+      <path d="M0 0H540C432 0 335 192 0 192Z" fill="currentColor"></path>
+    </svg>
+    <svg
+      class="site-header__swoosh site-header__swoosh--narrow"
+      viewBox="0 0 390 104"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path d="M0 0H390C359 0 312 104 0 104Z" fill="currentColor"></path>
     </svg>
     <Logo class="site-header__logo" size="var(--menu-h)" />
   </div>
@@ -103,8 +117,8 @@ const { variant, active } = Astro.props;
     left: 0;
     /* Lebih pendek dan landai daripada sebelumnya: proporsi lengkung Vale
        (±28vw x 10vw). */
-    width: clamp(260px, 27vw, 520px);
-    height: clamp(100px, 10vw, 192px);
+    width: clamp(470px, 27vw, 530px);
+    height: clamp(150px, 10vw, 192px);
     color: var(--paper);
     pointer-events: none;
     transition: transform 500ms ease, opacity 400ms ease;
@@ -114,7 +128,8 @@ const { variant, active } = Astro.props;
     inset: 0;
     width: 100%;
     height: 100%;
-    filter: drop-shadow(0 2px 10px rgb(0 0 0 / 0.06));
+    /* Bayangan halus seperti bayangan lekukan Vale (dy 5, blur 6, 7%). */
+    filter: drop-shadow(0 5px 6px rgb(0 0 0 / 0.07));
   }
   /* Tanda logo sejajar atas-bawah dengan tombol menu, dan hanya
      --menu-gap dari tepi kanan tombol. */
@@ -129,6 +144,14 @@ const { variant, active } = Astro.props;
   /* Halaman tanpa foto sampul sudah berlatar putih: bidang lengkungnya
      tidak dibutuhkan, dan bayangannya hanya terbaca sebagai garis abu. */
   .site-header[data-variant='solid'] .site-header__swoosh { display: none; }
+
+  /* Satu kurva untuk layar lebar, satu untuk HP. */
+  .site-header__swoosh--narrow { display: none; }
+  @media (max-width: 899px) {
+    .site-header__swoosh--wide { display: none; }
+    .site-header[data-variant='solid'] .site-header__swoosh--narrow { display: none; }
+    .site-header:not([data-variant='solid']) .site-header__swoosh--narrow { display: block; }
+  }
 
   /* ── Pil kanan: cari + bahasa ───────────────────────────────────────── */
   .site-header__tools {
