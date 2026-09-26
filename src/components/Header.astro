@@ -24,7 +24,10 @@ const { variant, active } = Astro.props;
       aria-hidden="true"
       focusable="false"
     >
-      <path d="M0 0H540C520 10 470 50 420 90C340 140 170 180 0 190Z" fill="currentColor"></path>
+      <!-- Dua kurva Bezier yang arahnya menyambung: kurva pertama berangkat
+           mendatar dari garis atas (kontrol 490,0), dan titik kontrol di kedua
+           sisi simpul (380,90) segaris (-60,45), jadi tidak ada patahan. -->
+      <path d="M0 0H540C490 0 440 45 380 90C320 135 140 190 0 190Z" fill="currentColor"></path>
     </svg>
     <Logo class="site-header__logo" size="var(--menu-h)" />
   </div>
