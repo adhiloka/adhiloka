@@ -1,5 +1,5 @@
 ---
-import Logo from './Logo.astro';
+import Wordmark from './Wordmark.astro';
 import SearchPanel from './SearchPanel.astro';
 import MenuOverlay from './MenuOverlay.astro';
 
@@ -11,90 +11,74 @@ interface Props {
 const { variant, active } = Astro.props;
 ---
 
-<!-- Header meniru valeindonesia.com: tidak ada bilah menu. Di kiri atas bidang
-     putih melengkung memikul tombol menu pil emas dan logo; di kanan atas pil
-     putih berisi tombol cari dan tombol bahasa bulat. Semua navigasi lewat
-     tombol menu, yang membuka MenuOverlay. -->
+<!-- Header meniru pola louisvuitton.com: satu bar tiga kolom. Kiri tombol Menu
+     dan Search, tengah wordmark tulisan saja, kanan Contact dan pemilih bahasa.
+     Di atas foto sampul bar-nya transparan dengan huruf putih; setelah section 1
+     (atau di halaman tanpa foto sampul) ia menjadi bar putih berhuruf gelap.
+     Tombol Menu membuka MenuOverlay ala Vale. -->
 <header class="site-header" data-variant={variant} data-site-header>
-  <div class="site-header__brand">
-    <!-- Lekukan putih: SATU kurva Bezier kubik dengan kedua ujung mendatar,
-         seperti lekukan Vale (svg 433x168, titik kontrol di 46% dan 64%
-         lebar). Kelengkungannya berubah mulus di seluruh panjang; dua kurva
-         yang disambung (versi sebelumnya) menyisakan lonjakan kelengkungan di
-         simpul yang terlihat sebagai patahan. Titik kontrol di 62% dan 80%
-         membuatnya lebih penuh daripada Vale supaya nama ADHILOKA yang besar
-         muat dengan jarak aman >= 27px di semua lebar layar (dihitung).
-         Di HP dipakai kurva kedua yang lebih penuh karena layarnya sempit. -->
-    <svg
-      class="site-header__swoosh site-header__swoosh--wide"
-      viewBox="0 0 540 192"
-      preserveAspectRatio="none"
-      aria-hidden="true"
-      focusable="false"
-    >
-      <path d="M0 0H540C432 0 335 192 0 192Z" fill="currentColor"></path>
-    </svg>
-    <svg
-      class="site-header__swoosh site-header__swoosh--narrow"
-      viewBox="0 0 390 104"
-      preserveAspectRatio="none"
-      aria-hidden="true"
-      focusable="false"
-    >
-      <path d="M0 0H390C359 0 312 104 0 104Z" fill="currentColor"></path>
-    </svg>
-    <Logo class="site-header__logo" size="var(--menu-h)" />
-  </div>
-
-  <div class="site-header__tools">
-    <div class="tools-pill">
+  <div class="site-header__bar">
+    <div class="site-header__side site-header__side--left">
       <button
         type="button"
-        class="tools-pill__search"
+        class="hbtn hbtn--menu"
+        data-menu-toggle
+        aria-controls="site-menu"
+        aria-expanded="false"
+      >
+        <span class="burger" aria-hidden="true"><span class="burger__line"></span></span>
+        <span class="hbtn__label">Menu</span>
+      </button>
+
+      <button
+        type="button"
+        class="hbtn"
         data-search-open
-        aria-label="Open search"
         aria-controls="search-panel"
         aria-expanded="false"
       >
-        <span>Search</span>
-        <svg width="17" height="17" viewBox="0 0 21 21" fill="none" aria-hidden="true">
-          <circle cx="8.6" cy="8.6" r="6.6" stroke="currentColor" stroke-width="1.8"></circle>
-          <path d="M13.6 13.6 19.4 19.4" stroke="currentColor" stroke-width="1.8"></path>
+        <svg width="19" height="19" viewBox="0 0 21 21" fill="none" aria-hidden="true">
+          <circle cx="8.6" cy="8.6" r="6.9" stroke="currentColor" stroke-width="1.5"></circle>
+          <path d="M13.8 13.8 19.6 19.6" stroke="currentColor" stroke-width="1.5"></path>
         </svg>
+        <span class="hbtn__label">Search</span>
       </button>
     </div>
 
-    <div class="lang" data-lang>
-      <button
-        type="button"
-        class="lang__toggle"
-        aria-expanded="false"
-        aria-controls="lang-menu"
-        aria-label="Language: English"
-        data-lang-toggle
-      >
-        EN
-      </button>
-      <div class="lang__menu" id="lang-menu" role="menu" data-lang-menu>
-        <a role="menuitem" href="/" hreflang="id" lang="id">Bahasa Indonesia</a>
-        <a role="menuitem" href="/" hreflang="en" lang="en" aria-current="true">English</a>
+    <Wordmark class="site-header__wordmark" size="clamp(19px, 1.62vw, 31px)" />
+
+    <div class="site-header__side site-header__side--right">
+      <a class="hbtn" href="/contact/" aria-current={active.startsWith('/contact') ? 'page' : undefined}>
+        <svg class="hbtn__icon-narrow" width="20" height="16" viewBox="0 0 20 16" fill="none" aria-hidden="true">
+          <rect x="1" y="1" width="18" height="14" rx="1.5" stroke="currentColor" stroke-width="1.5"></rect>
+          <path d="m1.5 2 8.5 7 8.5-7" stroke="currentColor" stroke-width="1.5"></path>
+        </svg>
+        <span class="hbtn__label">Contact</span>
+      </a>
+
+      <div class="lang" data-lang>
+        <button
+          type="button"
+          class="hbtn lang__toggle"
+          aria-expanded="false"
+          aria-controls="lang-menu"
+          aria-label="Language: English"
+          data-lang-toggle
+        >
+          <span class="lang__long">English</span>
+          <span class="lang__short">EN</span>
+          <svg width="11" height="7" viewBox="0 0 11 7" fill="none" aria-hidden="true">
+            <path d="m1 1 4.5 4.5L10 1" stroke="currentColor" stroke-width="1.5"></path>
+          </svg>
+        </button>
+        <div class="lang__menu" id="lang-menu" role="menu" data-lang-menu>
+          <a role="menuitem" href="/" hreflang="id" lang="id">Bahasa Indonesia</a>
+          <a role="menuitem" href="/" hreflang="en" lang="en" aria-current="true">English</a>
+        </div>
       </div>
     </div>
   </div>
 </header>
-
-<!-- Tombol menu pil emas. Di luar <header> supaya tetap menempel di kiri atas
-     sepanjang halaman, sementara logo dan pil kanan pergi setelah section 1. -->
-<button
-  type="button"
-  class="menu-btn"
-  data-menu-toggle
-  aria-label="Open menu"
-  aria-controls="site-menu"
-  aria-expanded="false"
->
-  <span class="menu-btn__lines" aria-hidden="true"></span>
-</button>
 
 <MenuOverlay active={active} />
 <SearchPanel />
@@ -106,114 +90,114 @@ const { variant, active } = Astro.props;
     left: 0;
     right: 0;
     z-index: 150;
-    height: 0;
+    height: var(--header-h);
+    color: var(--on-image);
+    background: transparent;
+    transition: background 300ms ease, color 300ms ease, box-shadow 300ms ease;
+  }
+
+  /* Di atas foto: bayang gelap tipis dari atas supaya huruf putih tetap
+     terbaca di foto yang terang. Hilang begitu bar menjadi putih. */
+  .site-header::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 -40px;
+    background: linear-gradient(to bottom, rgb(0 0 0 / 0.34), rgb(0 0 0 / 0));
     pointer-events: none;
+    transition: opacity 300ms ease;
   }
 
-  /* ── Bidang putih melengkung + logo ─────────────────────────────────── */
-  .site-header__brand {
-    position: absolute;
-    top: 0;
-    left: 0;
-    /* Lebih pendek dan landai daripada sebelumnya: proporsi lengkung Vale
-       (±28vw x 10vw). */
-    width: clamp(470px, 27vw, 530px);
-    height: clamp(150px, 10vw, 192px);
-    color: var(--paper);
-    pointer-events: none;
-    transition: transform 500ms ease, opacity 400ms ease;
-  }
-  .site-header__swoosh {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    /* Bayangan halus seperti bayangan lekukan Vale (dy 5, blur 6, 7%). */
-    filter: drop-shadow(0 5px 6px rgb(0 0 0 / 0.07));
-  }
-  /* Tanda logo sejajar atas-bawah dengan tombol menu, dan hanya
-     --menu-gap dari tepi kanan tombol. */
-  :global(.site-header__logo) {
-    position: absolute;
-    top: var(--menu-top);
-    left: calc(var(--menu-w) + var(--menu-gap));
-    color: var(--ink);
-    pointer-events: auto;
-  }
-
-  /* Halaman tanpa foto sampul sudah berlatar putih: bidang lengkungnya
-     tidak dibutuhkan, dan bayangannya hanya terbaca sebagai garis abu. */
-  .site-header[data-variant='solid'] .site-header__swoosh { display: none; }
-
-  /* Satu kurva untuk layar lebar, satu untuk HP. */
-  .site-header__swoosh--narrow { display: none; }
-  @media (max-width: 899px) {
-    .site-header__swoosh--wide { display: none; }
-    .site-header[data-variant='solid'] .site-header__swoosh--narrow { display: none; }
-    .site-header:not([data-variant='solid']) .site-header__swoosh--narrow { display: block; }
-  }
-
-  /* ── Pil kanan: cari + bahasa ───────────────────────────────────────── */
-  .site-header__tools {
-    position: absolute;
-    top: clamp(24px, 2.2vw, 38px);
-    right: clamp(20px, 3vw, 60px);
-    display: flex;
-    align-items: center;
-    gap: clamp(12px, 1.2vw, 20px);
-    pointer-events: auto;
-    transition: transform 500ms ease, opacity 400ms ease;
-  }
-
-  .tools-pill {
-    display: flex;
-    align-items: center;
-    height: 42px;
-    padding: 0 20px;
-    border-radius: var(--radius-pill);
+  /* Bar putih: halaman tanpa foto sampul, atau setelah section 1. */
+  .site-header[data-variant='solid'],
+  .site-header.is-solid {
     background: var(--paper);
-    box-shadow: 0 1px 6px rgb(0 0 0 / 0.08);
+    color: var(--ink);
+    box-shadow: 0 1px 0 rgb(0 0 0 / 0.08);
   }
-  .tools-pill__search {
+  .site-header[data-variant='solid']::before,
+  .site-header.is-solid::before { opacity: 0; }
+
+  .site-header__bar {
+    position: relative;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding-inline: var(--header-gutter);
+  }
+
+  .site-header__side {
+    display: flex;
+    align-items: center;
+    gap: clamp(22px, 2.6vw, 50px);
+  }
+  .site-header__side--right { justify-content: flex-end; gap: clamp(22px, 2.2vw, 42px); }
+
+  :global(.site-header__wordmark) { justify-self: center; }
+
+  /* ── Tombol teks + ikon ─────────────────────────────────────────────── */
+  .hbtn {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    font-size: var(--type-ui);
-    font-weight: 500;
-    color: var(--ink-body);
-    transition: color 150ms ease-in-out;
+    gap: 14px;
+    height: 44px;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1;
+    color: inherit;
   }
-  .tools-pill__search svg { color: var(--teal); }
-  .tools-pill__search:hover { color: var(--teal); }
+  .hbtn:hover,
+  .hbtn:focus-visible { color: inherit; }
+  .hbtn__label {
+    padding-block: 3px;
+    background: linear-gradient(currentColor, currentColor) no-repeat left bottom / 0 1px;
+    transition: background-size 300ms ease;
+  }
+  .hbtn:hover .hbtn__label,
+  .hbtn:focus-visible .hbtn__label,
+  .hbtn[aria-current='page'] .hbtn__label { background-size: 100% 1px; }
+  .hbtn__icon-narrow { display: none; }
 
+  /* Burger tiga garis, takaran burger Vale: 18px x 2px, jarak 7px. Saat
+     di-hover garis tengah bergeser 9px ke kiri (0,3 detik). */
+  .burger {
+    position: relative;
+    width: 18px;
+    height: 16px;
+  }
+  .burger__line,
+  .burger__line::before,
+  .burger__line::after {
+    position: absolute;
+    left: 0;
+    width: 18px;
+    height: 2px;
+    border-radius: 5px;
+    background: currentColor;
+  }
+  .burger__line { top: 0; }
+  .burger__line::before,
+  .burger__line::after { content: ''; }
+  .burger__line::before {
+    transform: translateY(7px);
+    transition: transform 300ms ease-in-out;
+  }
+  .burger__line::after { transform: translateY(14px); }
+  .hbtn--menu:hover .burger__line::before,
+  .hbtn--menu:focus-visible .burger__line::before { transform: translateX(-9px) translateY(7px); }
+
+  /* ── Pemilih bahasa ─────────────────────────────────────────────────── */
   .lang { position: relative; }
-  .lang__toggle {
-    width: 46px;
-    height: 46px;
-    display: grid;
-    place-items: center;
-    border-radius: 50%;
-    border: 2px solid var(--teal);
-    background: var(--paper);
-    color: var(--teal);
-    font-size: 15px;
-    font-weight: 600;
-    transition: background 150ms ease-in-out, color 150ms ease-in-out, box-shadow 150ms ease-in-out;
-  }
-  /* Hover tombol bahasa Vale: isi teal, huruf putih, bayangan 0 2px 8px. */
-  .lang__toggle:hover,
-  .lang__toggle:focus-visible,
-  .lang.is-open .lang__toggle {
-    background: var(--teal);
-    color: var(--paper);
-    box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
-  }
+  .lang__toggle { gap: 10px; }
+  .lang__toggle svg { transition: transform 300ms ease; }
+  .lang.is-open .lang__toggle svg { transform: rotate(180deg); }
+  .lang__short { display: none; }
 
   .lang__menu {
     position: absolute;
-    top: calc(100% + 10px);
+    top: calc(100% + 12px);
     right: 0;
-    min-width: 180px;
+    min-width: 190px;
     padding: 8px 0;
     background: var(--paper);
     border-radius: var(--radius-card);
@@ -233,75 +217,22 @@ const { variant, active } = Astro.props;
   .lang__menu a:hover { background: var(--paper-sunk); color: var(--teal); }
   .lang__menu a[aria-current] { color: var(--teal); font-weight: 500; }
 
-  /* Di luar section 1 logo dan pil kanan pergi; tombol menu tetap. */
-  .site-header.is-away .site-header__brand {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  .site-header.is-away .site-header__tools {
-    transform: translateY(-160%);
-    opacity: 0;
-    pointer-events: none;
-  }
-  .site-header.is-away :global(.site-header__logo) { pointer-events: none; }
-
-  /* ── Tombol menu pil emas ───────────────────────────────────────────── */
-  .menu-btn {
-    position: fixed;
-    z-index: 190;
-    top: var(--menu-top);
-    left: 0;
-    width: var(--menu-w);
-    height: var(--menu-h);
-    padding-left: clamp(22px, 1.6vw, 30px);
-    display: flex;
-    align-items: center;
-    border-radius: 0 var(--radius-pill) var(--radius-pill) 0;
-    background: var(--gold);
-    color: var(--paper);
-    /* Lingkar putih tipis: tombol ini menetap di atas semua section, termasuk
-       pita emas, dan tanpa lingkar ia hilang di sana. */
-    box-shadow: 0 0 0 2px rgb(255 255 255 / 0.9), 0 1px 6px rgb(0 0 0 / 0.12);
-    transition: box-shadow 150ms ease-in-out;
-  }
-  .menu-btn:hover { box-shadow: 0 0 0 2px rgb(255 255 255 / 0.9), 0 0 8px rgb(236 177 31 / 0.7); }
-
-  /* Tiga garis dari satu elemen: garisnya sendiri + ::before + ::after.
-     Saat di-hover garis atas bergeser 9px ke kiri, seperti burger Vale. */
-  .menu-btn__lines,
-  .menu-btn__lines::before,
-  .menu-btn__lines::after {
-    display: block;
-    width: 22px;
-    height: 2px;
-    border-radius: 2px;
-    background: currentColor;
-  }
-  .menu-btn__lines {
-    position: relative;
-    top: -7px;
-  }
-  .menu-btn__lines::before,
-  .menu-btn__lines::after {
-    content: '';
-    position: absolute;
-    left: 0;
-  }
-  .menu-btn__lines::before {
-    transform: translateY(7px);
-    transition: transform 300ms ease-in-out;
-  }
-  .menu-btn__lines::after { transform: translateY(14px); }
-  .menu-btn:hover .menu-btn__lines::before { transform: translateX(-9px) translateY(7px); }
-
-  @media (max-width: 899px) {
-    .site-header__brand {
-      width: 384px;
-      height: 104px;
+  /* ── HP: ikon saja, seperti LV ──────────────────────────────────────── */
+  @media (max-width: 767px) {
+    /* Label disembunyikan secara visual saja: tetap jadi nama tombol. */
+    .hbtn__label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
     }
-    .menu-btn { padding-left: 20px; }
-    .tools-pill { display: none; }
-    .site-header__tools { top: 18px; right: 16px; }
-    .lang__toggle { width: 42px; height: 42px; font-size: 14px; }
+    .hbtn__icon-narrow { display: block; }
+    .lang__long { display: none; }
+    .lang__short { display: inline; font-size: 15px; font-weight: 500; }
+    .lang__toggle svg { display: none; }
+    .site-header__side { gap: 18px; }
+    .site-header__side--right { gap: 18px; }
   }
 </style>

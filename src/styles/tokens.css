@@ -78,13 +78,6 @@
   /* ── Bentuk ─────────────────────────────────────────────────────────── */
   --radius-card: 4px;
 
-  /* Ukuran tombol menu pil emas. Logo memakai tinggi, garis atas, dan jarak
-     yang sama (meniru header Vale: tanda logo setinggi tombol, sejajar atas
-     dan bawah, jaraknya ±25px dari tombol). */
-  --menu-top: clamp(18px, 1.78vw, 34px);
-  --menu-w: clamp(70px, 4.4vw, 84px);
-  --menu-h: clamp(40px, 2.4vw, 46px);
-  --menu-gap: clamp(7px, 0.65vw, 12.5px);
 
   /* ── Nama lama untuk palet sebelumnya ───────────────────────────────── */
   /* Komponen yang belum dirombak masih merujuk nama ini. */
@@ -147,7 +140,9 @@
   --band-pad-x: clamp(40px, 6vw, 112px);
   --grid-gap: clamp(16px, 1.6vw, 26px);
   --grid-gap-lg: clamp(32px, 5vw, 96px);
-  --header-h: clamp(68px, 5.4vw, 84px);
+  /* Bar header ala LV: ±104px di layar 1900px, 64px di HP. */
+  --header-h: clamp(64px, 5.45vw, 104px);
+  --header-gutter: clamp(18px, 2.75vw, 52px);
 
   /* Jarak dari tepi layar ke garis kiri isi. Dipakai oleh pita full-bleed
      supaya kolom teksnya sejajar dengan kartu di atasnya. `100%` dan bukan
@@ -294,11 +289,3 @@
   --leading-body-tight: var(--leading-lede);
 }
 
-@media (max-width: 899px) {
-  :root {
-    --menu-top: 22px;
-    --menu-w: 64px;
-    --menu-h: 38px;
-    --menu-gap: 7px;
-  }
-}

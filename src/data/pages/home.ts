@@ -15,15 +15,9 @@ export type HeroSlide = {
   stripe?: string;
 };
 
+/* Tiga slide foto dari hero versi awal. Slide pertama versi awal (video
+   "All Natural.") sengaja dibuang; hero hanya memakai foto. */
 export const HERO_SLIDES: HeroSlide[] = [
-  {
-    kind: 'photo',
-    eyebrow: 'Natural Raw Materials',
-    headline: 'All Natural.',
-    shot: 'forest canopy from below, green leaves against the sky',
-    href: '/ingredients/',
-    image: 'hero-poster',
-  },
   {
     kind: 'photo',
     eyebrow: 'Est. 1840s',

@@ -14,7 +14,7 @@ npm run preview  # menyajikan dist/
 ## Isi
 
 Enam menu, mengikuti susunan givaudan.com, robertet.com dan dsm-firmenich.com: tiap sub-item
-punya halamannya sendiri, bukan anchor. Semua menu dibuka lewat tombol pil emas di kiri atas.
+punya halamannya sendiri, bukan anchor. Semua menu dibuka lewat tombol ☰ Menu di kiri atas header.
 
 | Jalur | Halaman |
 | --- | --- |
@@ -51,7 +51,7 @@ Rute lama `/our-story/`, `/fragrances/` dan `/raw-materials/` diarahkan lewat `r
 src/
   data/        materials.ts · site.ts · images.ts
     pages/     types · home · about · perfumery · ingredients · sustainability · media · contact
-  components/  Header · SearchPanel · Footer · Hero · GetInTouch · FeaturedCard · Plate · Logo
+  components/  Header · SearchPanel · Footer · Hero · GetInTouch · FeaturedCard · Plate · Wordmark
                BackToTop · Interlude · Band · PageHero · Breadcrumb · SiblingNav · CardGrid
                StatRow · Pullquote · Timeline · PeopleGrid · LocationList · NewsList
                DownloadList · SocialGrid
@@ -117,8 +117,10 @@ dipertahankan: ia menjadi daftar pemotretan. Untuk memasang foto asli, taruh ber
 **Logo (27 September 2026).** Logo resmi datang dari `../logo` dan `../lockup` (desain pemilik):
 tanda layar/daun berpalet pekat (hijau `#248F76 #026A5B #034C44`, oker `#E3CCA5 #D9AA5A #D58207`)
 dengan garis halus, dan lockup yang memuat tulisan ADHILOKA abu `#77787B` setinggi setengah tanda.
-`src/components/Logo.astro` hanya memasang `public/brand/adhiloka-lockup.svg` sebagai gambar; tidak
-ada lagi tulisan yang disetel lewat CSS. Favicon lengkap (`favicon.ico`, `favicon.svg` dari versi
+Sejak 27 September 2026 tanda logo hanya dipakai sebagai favicon. Header memakai
+`src/components/Wordmark.astro`, yaitu path tulisan ADHILOKA dari lockup resmi yang disalin apa
+adanya, dengan viewBox dipangkas dan `fill="currentColor"` (putih di atas foto, gelap di bar putih).
+`public/brand/adhiloka-lockup.svg` tetap tersedia untuk bahan pers. Favicon lengkap (`favicon.ico`, `favicon.svg` dari versi
 persegi, `favicon-32.png`, `apple-touch-icon.png`, `icon-192/512.png`) dan `site.webmanifest` ada di
 `public/`. Palet situs tetap palet Vale (teal, emas, biru langit); palet logo hanya dipakai di logo.
 `og.png` (gambar bagikan sosial) belum diganti.
@@ -141,10 +143,10 @@ Rekreasinya mengikuti desain dari ukuran, warna, sampai kurva gerak. Yang berbed
   keadaan gagal, dan perangkap bot. Tautan dari laci material mengisi kolom Brief lebih dulu.
 - **Kontras dinaikkan pada teks kecil.** Semua tinta dan hijau tautan lolos WCAG AA di atas putih;
   hijau logo `#009978` (3,6:1) hanya dipakai untuk garis dan isian, tidak untuk teks. Empat halaman
-  bersih; teks di atas foto hero dibantu gradien hitam dari kiri, seperti hero Vale.
+  bersih; teks di atas foto hero dibantu selubung gelap dari bawah dan atas.
 - **Sasaran sentuh 24 px.** Titik hero tetap terlihat 5–6 px tetapi area kliknya penuh.
 - **Katalog dua kolom di ponsel.** Satu kolom membuat halaman ini sepanjang 9.600 px; sekarang separuhnya.
-- **`prefers-reduced-motion` dihormati.** Kemunculan, tirai, panah mengambang, dan putaran otomatis hero berhenti.
+- **`prefers-reduced-motion` dihormati.** Kemunculan, tirai, menu, zoom Ken Burns, dan crossfade hero berhenti.
 - **Garis bawah "Discover" di hero disamakan** dengan tautan sejenis lainnya: terlihat saat diam,
   menyapu hilang saat hover. Di prototipe logikanya terbalik.
 
@@ -158,9 +160,17 @@ gelombang di logo Adhiloka (`components/Waves.astro`).
 
 | Unsur Vale | Di Adhiloka |
 | --- | --- |
-| Header tanpa bilah menu: bidang putih melengkung (±27vw x 10vw, proporsi Vale), tombol menu pil emas di tepi kiri, dan tanda logo yang **setinggi dan sejajar atas-bawah dengan tombol**, berjarak 25px | `Header.astro`; ukurannya token `--menu-top/-w/-h/-gap` di `tokens.css`, dipakai tombol dan logo sekaligus |
-| Menu layar penuh tiga kolom (menu teal, panel putih sub-menu, foto bergelombang) | `MenuOverlay.astro`, logikanya di `scripts/header.ts` |
-| Hero foto: redup 0,8, gradien hitam dari kiri, judul dua tingkat, titik vertikal, panah mengambang | `Hero.astro` + `scripts/hero.ts` (memudar 0,6 s, maju sendiri tiap 6 s) |
+| Menu layar penuh tiga kolom (menu teal, panel putih sub-menu, foto bergelombang), mekanismenya disalin dari CSS/JS menu-lateral Vale dan diukur di Chrome | `MenuOverlay.astro`, logikanya di `scripts/header.ts` |
+
+**Yang sengaja BUKAN Vale (27 September 2026):**
+- **Header** memakai pola louisvuitton.com, bukan lekukan putih Vale (lekukan itu cocok untuk logo
+  V yang pendek, tidak untuk tulisan ADHILOKA). Satu bar tiga kolom: ☰ Menu + Search di kiri,
+  wordmark di tengah, Contact + pemilih bahasa di kanan. Transparan berhuruf putih di atas foto
+  section 1, bar putih (`is-solid`) setelahnya. Tinggi `--header-h`, tepi `--header-gutter`.
+- **Hero (section 1)** dikembalikan ke versi awal situs (branch `main`): karusel tiga foto,
+  crossfade 1,2 s, zoom Ken Burns 9 s, judul di tengah bawah, Discover bergaris bawah, panah
+  kiri/kanan, titik kecil, panah bawah berdenyut, tidak maju sendiri. Tanpa video; judul Mukta.
+  Dipakai juga oleh hero hub dan Contact (di sana Discover menggulir ke section berikutnya).
 | Panah progres gulir di kanan bawah | `ScrollProgress.astro` + `scripts/scroll-progress.ts` |
 | Beranda: pembuka + angka sekilas, kotak Sustainability, karusel kartu, pita emas, pita biru langit, karusel berita | `pages/index.astro` |
 | Kotak foto bergelombang atas-bawah | `GetInTouch.astro` (hub), kotak Sustainability di beranda |
@@ -226,9 +236,8 @@ Semuanya mati saat `prefers-reduced-motion: reduce`.
 | --- | --- | --- |
 | Elemen masuk dari arahnya | `data-reveal` + `data-reveal-from="left\|right"`, `scripts/reveal.ts` | transform 0,75 s + opacity 0,55 s linear, jeda 0,3 s |
 | Tirai gambar | `scripts/image-reveal.ts` (`.plate`, `[data-curtain]`) | lapisan teal bergeser keluar 1 s saat gambar terlihat |
-| Hero | `scripts/hero.ts` | memudar 0,6 s; panah mengambang 1rem, 2 s |
-| Menu | `MenuOverlay.astro` | panel 0,3 s; isi menyusul 0,6 s jeda 0,5 s; tirai foto 0,6 s jeda 0,5 s; sub-menu 0,5 s |
-| Burger | `Header.astro` | garis atas bergeser 9px saat hover, 0,3 s |
+| Menu | `MenuOverlay.astro` | lapisan memudar 0,3 s; isi kolom `left:-100%→0` 0,6 s ease-in jeda 0,5 s; tirai `fixed` 48%→100% 0,6 s ease-in jeda 0,5 s; tutup 0,2 s jeda 0,2 s; sub-menu muncul saat hover/fokus (opacity 0,3 s), item bergeser 1,25rem 0,4 s, segitiga 20×26px −4,75→−3,5rem; HP: masuk dari kanan 0,3 s, halaman terdorong 7,5rem |
+| Burger | `Header.astro` | garis tengah bergeser 9px saat hover, 0,3 s |
 | Panah progres | `scripts/scroll-progress.ts` | cincin transparan mengikuti persen gulir; panah berbalik 0,4 s di dasar; klik = satu langkah (`langkahHalaman` di `sections.ts`) |
 | Gulir | bawaan peramban | Lenis dan langkah per section dicabut (26 Sep 2026): gulir manual biasa |
 | Tombol panah | `scripts/sections.ts` `langkahHalaman` | menggulir ke section berikutnya |

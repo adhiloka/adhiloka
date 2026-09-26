@@ -1,9 +1,11 @@
 /** Perilaku header dan menu layar penuh (MenuOverlay).
  *
- *  - Logo dan pil kanan hanya ada selama section 1; tombol menu pil emas tetap.
- *  - Menu: buka/tutup, pilih bagian (panel sub-menu + foto), tombol kembali di
- *    layar sempit, jebakan fokus, Escape. Gulir halaman dikunci CSS
- *    (`html.is-menu-open`) selama menu terbuka.
+ *  - Header ala LV: transparan berhuruf putih di atas section 1 yang berfoto,
+ *    bar putih (`is-solid`) begitu section 1 terlewati.
+ *  - Menu ala Vale: buka/tutup, jebakan fokus, Escape. Di desktop panel
+ *    sub-menu dikendalikan CSS (:hover/:focus-within); di HP item diklik untuk
+ *    membuka panel yang masuk dari kanan, dan Go Back menutupnya. Gulir halaman
+ *    dikunci CSS (`html.is-menu-open`) selama menu terbuka.
  *  - Pemilih bahasa. */
 
 let scrollBound = false;
@@ -14,18 +16,18 @@ const q = <T extends Element>(sel: string) => document.querySelector<T>(sel);
 
 const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
+/** Titik patah Vale: di bawah 768px sub-menu berupa panel geser. */
+const narrow = () => window.matchMedia('(max-width: 767px)').matches;
+
 function syncScrollState() {
   const header = q<HTMLElement>('[data-site-header]');
   if (!header) return;
 
-  const y = window.scrollY;
-  header.classList.toggle('is-scrolled', y > 40);
-
-  // Logo dan pil kanan hanya ada selama SECTION 1, di semua halaman. Batasnya
-  // tinggi section 1 yang sebenarnya; sebelum section ditandai, tinggi jendela.
+  // Bar menjadi putih begitu section 1 lewat di bawah header. Batasnya tinggi
+  // section 1 yang sebenarnya; sebelum section ditandai, tinggi jendela.
   const satu = document.querySelector<HTMLElement>('[data-section="1"]');
-  const batas = (satu?.offsetHeight ?? window.innerHeight) - 160;
-  header.classList.toggle('is-away', y > batas);
+  const batas = (satu?.offsetHeight ?? window.innerHeight) - header.offsetHeight;
+  header.classList.toggle('is-solid', window.scrollY > batas);
 }
 
 /* ── Menu ───────────────────────────────────────────────────────────────── */
@@ -33,22 +35,21 @@ function syncScrollState() {
 const menuEl = () => q<HTMLElement>('[data-site-menu]');
 const isMenuOpen = () => menuEl()?.classList.contains('is-open') ?? false;
 
+/** Membuka panel sub-menu `index` di HP (null = semua tertutup). Di desktop
+ *  panel tampil lewat hover/fokus, jadi di sana fungsi ini hanya menjaga
+ *  atribut `inert` dan `aria-expanded`. */
 function selectItem(menu: HTMLElement, index: string | null) {
+  const kecil = narrow();
   menu.querySelectorAll<HTMLButtonElement>('[data-menu-item]').forEach((b) => {
-    b.setAttribute('aria-expanded', String(b.dataset.menuItem === index));
+    b.setAttribute('aria-expanded', String(kecil && b.dataset.menuItem === index));
   });
   menu.querySelectorAll<HTMLElement>('[data-menu-sub]').forEach((sub) => {
-    const on = sub.dataset.menuSub === index;
+    const on = kecil && sub.dataset.menuSub === index;
     sub.classList.toggle('is-open', on);
-    if (on) sub.removeAttribute('inert');
-    else sub.setAttribute('inert', '');
+    // Panel yang menunggu di luar layar (HP) tidak boleh terjangkau Tab.
+    if (kecil && !on) sub.setAttribute('inert', '');
+    else sub.removeAttribute('inert');
   });
-  const want = index ?? 'default';
-  const photos = Array.from(menu.querySelectorAll<HTMLElement>('[data-menu-photo]'));
-  const hasPhoto = photos.some((p) => p.dataset.menuPhoto === want);
-  photos.forEach((p) =>
-    p.classList.toggle('is-shown', p.dataset.menuPhoto === (hasPhoto ? want : 'default')),
-  );
 }
 
 function setMenu(open: boolean) {
@@ -70,10 +71,11 @@ function setMenu(open: boolean) {
     menu.classList.remove('is-open');
     document.documentElement.classList.remove('is-menu-open');
     toggles.forEach((t) => t.setAttribute('aria-expanded', 'false'));
+    // Lapisan memudar 0,3 detik; setelah itu baru dikunci.
     closeTimer = window.setTimeout(() => {
       menu.setAttribute('inert', '');
       selectItem(menu, null);
-    }, 420);
+    }, 320);
     toggles[0]?.focus();
   }
 }
@@ -83,7 +85,7 @@ function trapFocus(e: KeyboardEvent) {
   const menu = menuEl();
   if (!menu || !isMenuOpen() || e.key !== 'Tab') return;
   const items = Array.from(menu.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
-    (el) => !el.closest('[inert]') && el.offsetParent !== null,
+    (el) => !el.closest('[inert]') && el.offsetParent !== null && getComputedStyle(el).visibility !== 'hidden',
   );
   if (!items.length) return;
   const first = items[0];
@@ -115,18 +117,17 @@ export function initHeader() {
 
   const menu = menuEl();
   if (menu) {
-    menu.querySelector('[data-menu-close]')?.addEventListener('click', () => setMenu(false));
-
     menu.querySelectorAll<HTMLButtonElement>('[data-menu-item]').forEach((btn) =>
       btn.addEventListener('click', () => {
-        const already = btn.getAttribute('aria-expanded') === 'true';
-        selectItem(menu, already ? null : btn.dataset.menuItem!);
-        if (!already) {
-          // Fokus ikut ke panel supaya pengguna papan ketik langsung tiba di
-          // tautan "Access the page".
-          const sub = menu.querySelector<HTMLElement>(`[data-menu-sub="${btn.dataset.menuItem}"]`);
-          window.setTimeout(() => sub?.querySelector<HTMLElement>('a')?.focus({ preventScroll: true }), 520);
+        // Desktop: panel sudah tampil lewat hover/fokus. Klik cukup memastikan
+        // fokus ada di tombol, supaya layar sentuh juga memicu :focus-within.
+        if (!narrow()) {
+          btn.focus();
+          return;
         }
+        selectItem(menu, btn.dataset.menuItem!);
+        const sub = menu.querySelector<HTMLElement>(`[data-menu-sub="${btn.dataset.menuItem}"]`);
+        window.setTimeout(() => sub?.querySelector<HTMLElement>('[data-menu-back]')?.focus({ preventScroll: true }), 320);
       }),
     );
 
@@ -136,6 +137,10 @@ export function initHeader() {
         selectItem(menu, null);
         menu.querySelector<HTMLElement>(`[data-menu-item="${idx}"]`)?.focus();
       }),
+    );
+
+    menu.querySelectorAll<HTMLElement>('[data-menu-close]').forEach((c) =>
+      c.addEventListener('click', () => setMenu(false)),
     );
 
     // Tautan di dalam menu berpindah halaman lewat ClientRouter; menu harus
@@ -172,7 +177,7 @@ export function initHeader() {
           const m = menuEl()!;
           // Escape pertama menutup panel sub-menu di layar sempit, kedua menutup menu.
           const openSub = m.querySelector<HTMLElement>('[data-menu-sub].is-open');
-          if (openSub && window.matchMedia('(max-width: 1079px)').matches) {
+          if (openSub && narrow()) {
             selectItem(m, null);
             return;
           }
@@ -187,6 +192,12 @@ export function initHeader() {
     // Setelah pindah halaman, menu yang mungkin masih terbuka dibereskan.
     document.addEventListener('astro:before-swap', () => {
       document.documentElement.classList.remove('is-menu-open');
+    });
+
+    // Pindah melewati 768px selagi menu terbuka: atribut inert panel disusun ulang.
+    window.matchMedia('(max-width: 767px)').addEventListener('change', () => {
+      const m = menuEl();
+      if (m) selectItem(m, null);
     });
   }
 }

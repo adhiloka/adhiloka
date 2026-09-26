@@ -65,12 +65,19 @@ img, video { max-width: 100%; display: block; }
 
 /* Wadah yang menggulir sendiri (menu, laci cari, laci material) tidak boleh
    merambatkan guliran ke halaman di belakangnya saat isinya sudah mentok. */
-.smenu, .smenu__nav, .smenu__sub, .search__drawer, .mdrawer__panel { overscroll-behavior: contain; }
+.smenu, .smenu__col, .smenu__sub, .search__drawer, .mdrawer__panel { overscroll-behavior: contain; }
 
-/* Menu layar penuh terbuka: halaman diam, tombol pil emas menyingkir karena
-   menu punya tombol Close sendiri. */
+/* Menu layar penuh terbuka: halaman diam. Di HP, seperti Vale, halaman
+   terdorong 7,5rem ke kiri sementara menu masuk dari kanan. */
 html.is-menu-open { overflow: hidden; }
-html.is-menu-open .menu-btn { opacity: 0; pointer-events: none; }
+@media (max-width: 767px) {
+  body > .site-header,
+  body > main,
+  body > footer { transition: transform 300ms; }
+  html.is-menu-open body > .site-header,
+  html.is-menu-open body > main,
+  html.is-menu-open body > footer { transform: translateX(-7.5rem); }
+}
 
 /* ── Fokus keyboard ──────────────────────────────────────────────────── */
 :focus { outline: none; }
@@ -82,7 +89,8 @@ html.is-menu-open .menu-btn { opacity: 0; pointer-events: none; }
 /* Di atas teal dan foto, cincinnya putih: emas di atas teal cuma 2,6:1. */
 .on-dark :focus-visible,
 .hero :focus-visible,
-.smenu__nav :focus-visible,
+.smenu__col > :not(.smenu__list) :focus-visible,
+.smenu__list > li > .smenu__link:focus-visible,
 footer :focus-visible {
   outline-color: var(--paper);
 }
@@ -429,7 +437,10 @@ html:not(.js) :is(.interlude__eyebrow, .interlude__line, .interlude__cta) {
 }
 
 /* ── Animasi bernama ─────────────────────────────────────────────────── */
-/* floating: panah hero Vale, naik-turun 1rem. */
-@keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(1rem); } }
 @keyframes rise { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
-@keyframes heroTextIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+/* Hero versi awal: crossfade, zoom Ken Burns, judul naik, panah bawah berdenyut. */
+@keyframes heroTextIn { 0% { opacity: 0; transform: translateY(14px); } 40% { opacity: 0; } 100% { opacity: 1; transform: none; } }
+@keyframes heroKen { from { transform: scale(1); } to { transform: scale(1.12); } }
+@keyframes heroDissolveIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes heroDissolveOut { from { opacity: 1; } to { opacity: 0; } }
+@keyframes cue { 0%, 100% { transform: translateY(0); opacity: 0.55; } 50% { transform: translateY(15px); opacity: 1; } }

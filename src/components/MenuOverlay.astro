@@ -4,18 +4,30 @@ import { NAV } from '../data/site';
 import { getImageFor } from '../data/images';
 
 /**
- * Menu layar penuh, meniru menu-lateral valeindonesia.com.
+ * Menu layar penuh, disalin dari mekanisme menu-lateral valeindonesia.com
+ * (CSS dan JS inline fragmen `vale-fragmento-menu-lateral`, diukur di Chrome
+ * pada 1440px). Struktur dan takarannya sengaja sama:
  *
- * Tiga kolom di layar lebar: kolom menu teal di kiri, panel putih sub-menu
- * yang meluncur keluar dari bawah kolom menu, dan foto bagian yang dipilih di
- * kanan dengan gelombang mint/emas di dasarnya. Di layar sempit tinggal satu
- * kolom; memilih menu menggeser panel sub-menu masuk dari kanan.
+ * - Seluruh lapisan teal MEMUDAR masuk 0,3 detik; tidak meluncur.
+ * - Isi kolom (daftar + garis), kecuali tombol Close, meluncur bersama dari
+ *   `left:-100%` ke 0 dalam 0,6 detik ease-in dengan jeda 0,5 detik. Kolomnya
+ *   overflow tersembunyi, jadi yang pertama muncul ujung panah-panahnya.
+ * - Tirai teal `fixed` dari 48% lebar layar, selebar 75vw, bergeser ke 100%
+ *   (0,6 detik ease-in, jeda 0,5 detik) dan membuka foto serta gelombang.
+ * - Menutup: lapisan memudar 0,3 detik; isi dan tirai kembali 0,2 detik
+ *   ease-in dengan jeda 0,2 detik.
+ * - Desktop: panel putih sub-menu muncul saat item di-HOVER atau difokus
+ *   (opacity 0,3 detik di tempat, mulai 25% + tepi kiri kolom, lebar 75%),
+ *   membawa foto dan gelombangnya sendiri. Panel ada di DALAM <li>, jadi
+ *   kursor boleh pindah dari item ke panel tanpa panelnya hilang.
+ * - Item terpilih bergeser 1,25rem ke kanan (0,4 detik), berganti warna, dan
+ *   segitiga putih 20 x 26px muncul menunjuk dari panel.
+ * - HP (<768px): menu masuk dari kanan 0,3 detik, halaman terdorong 7,5rem
+ *   (global.css), sub-menu masuk dari kanan 0,3 detik dengan tombol Go Back.
  *
- * Gerak (takaran dari CSS Vale): panel masuk dari kiri 0,3 detik; daftar menu
- * menyusul 0,6 detik dengan jeda 0,5 detik; foto dibuka tirai teal 0,6 detik
- * dengan jeda yang sama; panel sub-menu meluncur 0,5 detik sambil memudar
- * 0,3 detik; menu yang dipilih bergeser 1,25rem ke kanan, berganti warna, dan
- * memunculkan segitiga putih penunjuk.
+ * Yang berbeda dari Vale hanya warna item terpilih (--gold-soft, bukan emas
+ * penuh: 3,4:1 lawan 2,6:1 di atas teal) dan tepi kiri kolom, yang disamakan
+ * dengan tepi header supaya Close tepat menggantikan tombol Menu.
  */
 interface Props {
   active: string;
@@ -25,6 +37,8 @@ const { active } = Astro.props;
 const isActive = (href: string) => active === href || active.startsWith(href);
 
 const defaultPhoto = getImageFor('hero-poster');
+
+const chevron = 'M2 2l12 13L2 28';
 ---
 
 <div
@@ -36,92 +50,119 @@ const defaultPhoto = getImageFor('hero-poster');
   aria-label="Site menu"
   inert
 >
-  <div class="smenu__ground" aria-hidden="true"></div>
-
-  <div class="smenu__nav">
-    <button type="button" class="smenu__close" data-menu-close>
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-        <!-- Dua batang bersilang seperti silang Vale: putih (\) lalu emas (/) di atasnya. -->
-        <path d="M14.5 14.5 33.5 33.5" stroke="#ffffff" stroke-width="2.8" stroke-linecap="round"></path>
-        <path d="M33.5 14.5 14.5 33.5" stroke="var(--gold)" stroke-width="2.8" stroke-linecap="round"></path>
-      </svg>
-      <span>Close</span>
-    </button>
+  <div class="smenu__col">
+    <div class="smenu__close-row">
+      <button type="button" class="smenu__close" data-menu-close>
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <!-- Dua batang bersilang seperti silang Vale: putih (\) lalu emas (/) di atasnya. -->
+          <path d="M14.5 14.5 33.5 33.5" stroke="#ffffff" stroke-width="2.8" stroke-linecap="round"></path>
+          <path d="M33.5 14.5 14.5 33.5" stroke="var(--gold)" stroke-width="2.8" stroke-linecap="round"></path>
+        </svg>
+        <span>Close</span>
+      </button>
+    </div>
 
     <ul class="smenu__list">
       {
-        NAV.map((item, i) => (
-          <li class="smenu__item" style={`--i:${i}`}>
-            {item.panel ? (
-              <button
-                type="button"
-                class="smenu__link"
-                data-menu-item={i}
-                aria-expanded="false"
-                aria-controls={`smenu-sub-${i}`}
-                aria-current={isActive(item.href) ? 'page' : undefined}
-              >
-                <span>{item.label}</span>
-                <svg class="smenu__chev" width="16" height="30" viewBox="0 0 16 30" fill="none" aria-hidden="true">
-                  <path d="M2 2l12 13L2 28" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
-                </svg>
-              </button>
-            ) : (
-              <a
-                class="smenu__link"
-                href={item.href}
-                aria-current={isActive(item.href) ? 'page' : undefined}
-              >
-                <span>{item.label}</span>
-                <svg class="smenu__chev" width="16" height="30" viewBox="0 0 16 30" fill="none" aria-hidden="true">
-                  <path d="M2 2l12 13L2 28" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
-                </svg>
-              </a>
-            )}
-          </li>
-        ))
+        NAV.map((item, i) => {
+          const photo = item.panel ? getImageFor(item.panel.image) : undefined;
+          return (
+            <li class="smenu__item" data-menu-li={i}>
+              {item.panel ? (
+                <button
+                  type="button"
+                  class="smenu__link"
+                  data-menu-item={i}
+                  aria-expanded="false"
+                  aria-controls={`smenu-sub-${i}`}
+                  aria-current={isActive(item.href) ? 'page' : undefined}
+                >
+                  <span>{item.label}</span>
+                  <svg class="smenu__chev" width="16" height="30" viewBox="0 0 16 30" fill="none" aria-hidden="true">
+                    <path d={chevron} stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </button>
+              ) : (
+                <a class="smenu__link" href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+                  <span>{item.label}</span>
+                  <svg class="smenu__chev" width="16" height="30" viewBox="0 0 16 30" fill="none" aria-hidden="true">
+                    <path d={chevron} stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </a>
+              )}
+
+              {item.panel && (
+                <section class="smenu__sub" id={`smenu-sub-${i}`} data-menu-sub={i} aria-label={item.label}>
+                  <div class="smenu__sub-main">
+                    <div class="smenu__sub-top">
+                      <button type="button" class="smenu__back" data-menu-back>
+                        <svg width="10" height="18" viewBox="0 0 10 18" fill="none" aria-hidden="true">
+                          <path d="M8.5 1.5 1.5 9l7 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                        Go Back
+                      </button>
+                      <button type="button" class="smenu__sub-close" data-menu-close aria-label="Close menu">
+                        <svg width="40" height="40" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                          <path d="M14.5 14.5 33.5 33.5" stroke="var(--teal)" stroke-width="2.8" stroke-linecap="round" />
+                          <path d="M33.5 14.5 14.5 33.5" stroke="var(--gold)" stroke-width="2.8" stroke-linecap="round" />
+                        </svg>
+                      </button>
+                    </div>
+                    <p class="smenu__title" role="heading" aria-level="2">
+                      {item.label}
+                    </p>
+                    {item.blurb && <p class="smenu__blurb">{item.blurb}</p>}
+                    <a class="action-link smenu__access" href={item.href}>
+                      Access the page
+                    </a>
+                    <hr class="smenu__sub-rule" />
+                    <ul class="smenu__sublinks">
+                      {item.panel.links.map((l) => (
+                        <li>
+                          <a class="action-link" href={l.href}>
+                            {l.label}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div class="smenu__sub-media" aria-hidden="true">
+                    {photo && (
+                      <Image
+                        class="smenu__photo smenu__photo--sub"
+                        src={photo}
+                        alt=""
+                        width={1100}
+                        widths={[600, 1100]}
+                        sizes="32vw"
+                        loading="lazy"
+                        decoding="async"
+                        quality={62}
+                      />
+                    )}
+                    <svg class="smenu__waves smenu__waves--sub" viewBox="0 0 1000 360" preserveAspectRatio="none" focusable="false">
+                      <path d="M0 360C140 250 290 192 436.1 186V360Z" fill="var(--mint)" />
+                      <path d="M436.1 186C610 180 812 112 1000 0V360H436.1Z" fill="var(--gold)" />
+                    </svg>
+                  </div>
+                </section>
+              )}
+            </li>
+          );
+        })
       }
     </ul>
     <hr class="smenu__rule" />
   </div>
 
-  {
-    NAV.map(
-      (item, i) =>
-        item.panel && (
-          <section class="smenu__sub" id={`smenu-sub-${i}`} data-menu-sub={i} aria-label={item.label} inert>
-            <button type="button" class="smenu__back" data-menu-back>
-              <svg width="10" height="18" viewBox="0 0 10 18" fill="none" aria-hidden="true">
-                <path d="M8.5 1.5 1.5 9l7 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-              </svg>
-              Back
-            </button>
-            <h2 class="smenu__title">{item.label}</h2>
-            {item.blurb && <p class="smenu__blurb">{item.blurb}</p>}
-            <a class="action-link smenu__access" href={item.href}>
-              Access the page
-            </a>
-            <hr class="smenu__sub-rule" />
-            <ul class="smenu__sublinks">
-              {item.panel.links.map((l) => (
-                <li>
-                  <a class="action-link" href={l.href}>
-                    {l.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </section>
-        ),
-    )
-  }
-
   <div class="smenu__media" aria-hidden="true">
+    <!-- Tirai: images-animation-overlay di Vale. -->
+    <span class="smenu__curtain"></span>
     {
       defaultPhoto && (
         <Image
-          class="smenu__photo is-shown"
-          data-menu-photo="default"
+          class="smenu__photo"
           src={defaultPhoto}
           alt=""
           width={1100}
@@ -133,219 +174,167 @@ const defaultPhoto = getImageFor('hero-poster');
         />
       )
     }
-    {
-      NAV.map((item, i) => {
-        const photo = item.panel ? getImageFor(item.panel.image) : undefined;
-        return (
-          photo && (
-            <Image
-              class="smenu__photo"
-              data-menu-photo={i}
-              src={photo}
-              alt=""
-              width={1100}
-              widths={[600, 1100]}
-              sizes="32vw"
-              loading="lazy"
-              decoding="async"
-              quality={62}
-            />
-          )
-        );
-      })
-    }
-    <span class="smenu__curtain"></span>
+    <!-- Gelombang di dasar, digambar dari lengkung logo: bukit mint di kiri,
+         bidang emas yang terus naik ke kanan. Lebar svg 56.75vw dan foto
+         32vw, jadi tepi kiri bidang emas jatuh di 436.1 dari 1000
+         ((56.75 - 32) / 56.75): tepat di garis kiri foto. -->
+    <svg class="smenu__waves" viewBox="0 0 1000 360" preserveAspectRatio="none" focusable="false">
+      <path d="M0 360C140 250 290 192 436.1 186V360Z" fill="var(--mint)"></path>
+      <path d="M436.1 186C610 180 812 112 1000 0V360H436.1Z" fill="var(--gold)"></path>
+    </svg>
   </div>
-
-  <!-- Gelombang di dasar, digambar dari lengkung logo: bukit mint di kiri,
-       bidang emas yang terus naik ke kanan. Lebar svg 56.75vw dan kolom foto
-       32vw, jadi tepi kiri bidang emas jatuh di 436.1 dari 1000
-       ((56.75 - 32) / 56.75): tepat di garis kiri foto, lurus dengannya. -->
-  <svg class="smenu__waves" viewBox="0 0 1000 360" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-    <path d="M0 360C140 250 290 192 436.1 186V360Z" fill="var(--mint)"></path>
-    <path d="M436.1 186C610 180 812 112 1000 0V360H436.1Z" fill="var(--gold)"></path>
-  </svg>
 </div>
 
 <style>
+  /* ── Lapisan: memudar 0,3 detik ─────────────────────────────────────── */
   .smenu {
     position: fixed;
     inset: 0;
     z-index: 180;
+    display: flex;
     overflow: hidden;
-    visibility: hidden;
-    transition: visibility 0s linear 400ms;
-  }
-  .smenu.is-open {
-    visibility: visible;
-    transition: none;
-  }
-
-  /* ── Alas teal: masuk dari kiri 0,3 detik ───────────────────────────── */
-  .smenu__ground {
-    position: absolute;
-    inset: 0 32vw 0 0;
-    background: var(--teal);
-    transform: translateX(-100%);
-    transition: transform 300ms ease;
-  }
-  .smenu.is-open .smenu__ground { transform: none; }
-
-  /* ── Kolom menu ─────────────────────────────────────────────────────── */
-  .smenu__nav {
-    position: absolute;
-    z-index: 3;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 27vw;
-    min-width: 400px;
-    padding: 34px 40px 40px;
     background: var(--teal);
     color: var(--paper);
-    overflow-y: auto;
-    overflow-x: hidden;
-    transform: translateX(-100%);
-    transition: transform 300ms ease;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 300ms, visibility 300ms;
   }
-  .smenu.is-open .smenu__nav { transform: none; }
+  .smenu.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
 
+  /* ── Kolom menu (Vale: .content, col-lg-3 + ml 2rem + pr 4,5rem) ───── */
+  .smenu__col {
+    position: relative;
+    flex: 0 0 auto;
+    width: 25%;
+    margin-left: var(--header-gutter);
+    padding: 0 4.5rem 2rem 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+  .smenu__col::-webkit-scrollbar { display: none; }
+
+  /* Close setinggi header, tepat di tempat tombol Menu. */
+  .smenu__close-row {
+    height: var(--header-h);
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
   .smenu__close {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    margin-left: -12px;
-    font-size: 22px;
-    font-weight: 500;
+    gap: 4px;
+    margin-left: -15px;
+    font-size: 17px;
+    font-weight: 400;
     color: var(--paper);
   }
-  /* Silang dua warna seperti di Vale: satu batang putih, satu emas. */
   .smenu__close svg { flex: none; }
-  .smenu__close:hover span { text-decoration: underline; }
 
   .smenu__list {
     list-style: none;
-    margin: clamp(48px, 7vh, 78px) 0 0;
+    margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: clamp(10px, 1.6vh, 20px);
   }
 
-  /* Isi kolom menyusul setelah alasnya berhenti: 0,6 detik, jeda 0,5 detik. */
   .smenu__item {
-    opacity: 0;
-    transform: translateX(-48px);
-    transition:
-      opacity 600ms ease calc(500ms + var(--i) * 40ms),
-      transform 600ms cubic-bezier(0.22, 0.61, 0.36, 1) calc(500ms + var(--i) * 40ms);
+    position: relative;
+    transition: margin 400ms;
   }
-  .smenu.is-open .smenu__item { opacity: 1; transform: none; }
 
   .smenu__link {
-    position: relative;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
-    padding: 6px 0;
-    font-size: clamp(22px, 1.45vw, 27px);
+    gap: 16px;
+    padding: 8.5px 0;
+    font-size: 22px;
     font-weight: 500;
-    line-height: 1.2;
+    line-height: 32px;
     text-align: left;
-    color: var(--paper);
-    transition: margin 400ms ease, color 300ms ease;
+    color: inherit;
   }
-  .smenu__chev { flex: none; transition: transform 300ms ease; }
-
-  /* Menu terpilih: bergeser 1,25rem, berganti warna, segitiga putih muncul
-     di tepi kanan kolom menunjuk ke panel putih. Warnanya emas lembut, bukan
-     emas penuh: emas penuh di atas teal cuma 2,6:1, emas lembut 3,4:1 (teks
-     besar 22px ke atas butuh 3:1). */
   .smenu__link:hover,
-  .smenu__link:focus-visible,
-  .smenu__link[aria-expanded='true'] {
-    margin-left: 1.25rem;
-    color: var(--gold-soft);
-  }
-  .smenu__link[aria-current='page'] > span { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; }
-
-  .smenu__link::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    right: -64px;
-    width: 0;
-    height: 0;
-    margin-top: -14px;
-    border-style: solid;
-    border-width: 14px 14px 14px 0;
-    border-color: transparent var(--paper) transparent transparent;
-    opacity: 0;
-    transition: opacity 300ms ease, right 400ms ease;
-  }
-  /* Tepi kanan tautan berjarak 40px (padding kolom) dari tepi kolom; saat
-     terpilih tautan bergeser 1,25rem ke kanan, jadi sisa jaraknya 40px - 1,25rem. */
-  .smenu__link[aria-expanded='true']::after {
-    opacity: 1;
-    right: calc(-40px + 1.25rem);
+  .smenu__link:focus-visible { color: inherit; }
+  .smenu__chev { flex: none; margin-right: -2px; }
+  .smenu__link[aria-current='page'] > span {
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    text-decoration-thickness: 1px;
   }
 
   .smenu__rule {
-    margin: clamp(24px, 4vh, 44px) 0 0;
+    margin: 1.5rem 0 0;
     border: 0;
-    border-top: 1px solid rgb(255 255 255 / 0.6);
-    opacity: 0;
-    transition: opacity 600ms ease 800ms;
+    border-top: 1px solid var(--paper);
+    box-shadow: 0 1px 0 rgb(0 0 0 / 0.16);
+    opacity: 0.41;
   }
-  .smenu.is-open .smenu__rule { opacity: 1; }
 
   /* ── Panel putih sub-menu ───────────────────────────────────────────── */
-  /* Meluncur dari bawah kolom menu (left 0 ke 27vw) sambil memudar. */
   .smenu__sub {
-    position: absolute;
-    z-index: 2;
+    position: fixed;
     top: 0;
-    bottom: 0;
-    left: 0;
-    width: 41vw;
-    padding: clamp(80px, 12vh, 130px) clamp(40px, 3.2vw, 64px) 48px;
+    left: 100%;
+    z-index: 30;
+    width: 100%;
+    height: 100%;
+    display: flex;
     background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
     overflow-y: auto;
-    opacity: 0;
-    visibility: hidden;
-    transition: left 500ms ease, opacity 300ms ease, visibility 0s linear 500ms;
+    transition: left 300ms;
   }
-  .smenu__sub.is-open {
-    left: max(27vw, 400px);
-    opacity: 1;
-    visibility: visible;
-    transition: left 500ms ease, opacity 300ms ease, visibility 0s;
+  .smenu__sub.is-open { left: 0; }
+
+  .smenu__sub-main {
+    position: relative;
+    z-index: 30;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 3rem 3rem;
   }
 
-  .smenu__back { display: none; }
+  .smenu__sub-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 1.25rem;
+    margin-bottom: 3rem;
+  }
+  .smenu__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 16px;
+    color: var(--ink);
+  }
+  .smenu__back svg { color: var(--gold); }
+  .smenu__sub-close { margin-right: -12px; }
 
   .smenu__title {
-    font-size: clamp(34px, 2.8vw, 52px);
+    font-size: clamp(30px, 2.65vw, 38px);
     font-weight: 500;
-    line-height: 1.15;
+    line-height: 1.16;
     color: var(--teal);
+    margin-bottom: 1.5rem;
   }
   .smenu__blurb {
-    margin-top: 28px;
     max-width: 30em;
-    font-size: clamp(18px, 1.2vw, 21px);
+    margin-bottom: 2rem;
+    font-size: 16px;
     line-height: 1.6;
     color: var(--ink-body);
   }
-  .smenu__access {
-    margin-top: 36px;
-    font-size: clamp(18px, 1.2vw, 22px);
-  }
+  .smenu__access { align-self: flex-start; margin-bottom: 2rem; }
   .smenu__sub-rule {
-    max-width: 530px;
-    margin: 36px 0;
+    margin: 0 0 2rem;
     border: 0;
     border-top: 1px solid var(--rule);
   }
@@ -355,111 +344,172 @@ const defaultPhoto = getImageFor('hero-poster');
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: clamp(18px, 3vh, 34px);
+    gap: 1.9rem;
   }
-  .smenu__sublinks :global(.action-link) { font-size: clamp(18px, 1.2vw, 22px); }
 
-  /* ── Foto kanan ─────────────────────────────────────────────────────── */
-  .smenu__media {
-    position: absolute;
-    z-index: 1;
+  .smenu__sub-media { display: none; }
+
+  /* ── Foto kanan, gelombang, tirai ───────────────────────────────────── */
+  .smenu__media { display: none; }
+
+  .smenu__media :global(.smenu__photo),
+  .smenu__sub-media :global(.smenu__photo) {
+    position: fixed;
     top: 0;
-    bottom: 0;
     right: 0;
     width: 32vw;
-    overflow: hidden;
-    background: var(--teal-dark);
-  }
-  .smenu__media :global(.smenu__photo) {
-    position: absolute;
-    inset: 0;
-    width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0;
-    transition: opacity 500ms ease;
   }
-  .smenu__media :global(.smenu__photo.is-shown) { opacity: 1; }
-
-  /* Tirai teal menutup foto lalu bergeser keluar ke kanan, 0,6 detik dengan
-     jeda 0,5 detik, seperti images-animation-overlay di Vale. */
-  .smenu__curtain {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    background: var(--teal);
-    transform: translateX(0);
-    transition: transform 200ms ease-in 200ms;
-  }
-  .smenu.is-open .smenu__curtain {
-    transform: translateX(100%);
-    transition: transform 600ms ease-in 500ms;
-  }
+  .smenu__media :global(.smenu__photo) { z-index: 10; }
 
   .smenu__waves {
-    position: absolute;
-    z-index: 4;
+    position: fixed;
     right: 0;
-    bottom: -1px;
+    bottom: 0;
+    z-index: 20;
     width: 56.75vw;
     height: auto;
     aspect-ratio: 1000 / 360;
     pointer-events: none;
-    transform: translateY(100%);
-    transition: transform 600ms ease 300ms;
   }
-  .smenu.is-open .smenu__waves { transform: none; }
 
-  /* ── Layar sempit: satu kolom, sub-menu masuk dari kanan ────────────── */
-  @media (max-width: 1079px) {
-    .smenu__ground { inset: 0; }
-    .smenu__nav {
-      width: 100%;
-      min-width: 0;
-      padding: 26px 24px 140px;
+  /* ── ≥768px: sub-menu di tempat, muncul saat hover/fokus ────────────── */
+  @media (min-width: 768px) {
+    .smenu__col { width: 33.333%; }
+
+    .smenu__item:hover,
+    .smenu__item:focus-within {
+      margin-left: 1.25rem;
+      margin-right: -1.25rem;
+      color: var(--gold-soft);
     }
-    .smenu__link { max-width: none; }
-    .smenu__link::after { display: none; }
-    .smenu__link:hover,
-    .smenu__link:focus-visible,
-    .smenu__link[aria-expanded='true'] { margin-left: 0; }
-    .smenu__rule { max-width: none; }
+
+    /* Segitiga putih penunjuk: 20 x 26px. Diam di -4,75rem, meluncur ke
+       -3,5rem sambil muncul (opacity 0,3 detik, right 0,4 detik). */
+    .smenu__item::after {
+      content: '';
+      position: absolute;
+      top: calc(50% - 0.78125rem);
+      right: -4.75rem;
+      width: 100%;
+      height: 54%;
+      box-sizing: border-box;
+      border-style: solid;
+      border-width: 12.5px 20px 12.5px 0;
+      border-color: transparent var(--paper) transparent transparent;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0s, visibility 0s;
+    }
+    .smenu__item:has(> .smenu__sub):hover::after,
+    .smenu__item:has(> .smenu__sub):focus-within::after {
+      opacity: 1;
+      visibility: visible;
+      right: -3.5rem;
+      transition: opacity 300ms, right 400ms;
+    }
 
     .smenu__sub {
-      z-index: 5;
+      left: calc(33.333% + var(--header-gutter)) !important;
+      width: 75%;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 300ms, visibility 300ms;
+    }
+    .smenu__item:hover > .smenu__sub,
+    .smenu__item:focus-within > .smenu__sub {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .smenu__sub-main {
+      flex: 0 0 75%;
+      max-width: 75%;
+      padding: 3rem 0 4.5rem 3rem;
+    }
+    /* Baris Go Back tetap memakan tempat (1,25rem + 2rem) tapi tak
+       terlihat, seperti Vale: judul panel jatuh di y 100px. */
+    .smenu__sub-top {
+      visibility: hidden;
+      height: 1.25rem;
+      min-height: 0;
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+  }
+
+  /* ── ≥992px: foto, gelombang, tirai, dan animasi buka ───────────────── */
+  @media (min-width: 992px) {
+    .smenu__col { width: 25%; }
+    .smenu__sub { left: calc(25% + var(--header-gutter)) !important; }
+    .smenu__sub-main {
+      flex-basis: 41.667%;
+      max-width: 41.667%;
+    }
+
+    .smenu__media,
+    .smenu__sub-media { display: block; }
+    .smenu__sub-media :global(.smenu__photo) { z-index: 30; }
+    .smenu__sub-media .smenu__waves { z-index: 40; }
+
+    /* Isi kolom kecuali Close meluncur dari kiri. */
+    .smenu__col > :not(.smenu__close-row) {
+      position: relative;
+      left: -100%;
+      transition: left 0.2s ease-in 0.2s;
+    }
+    .smenu.is-open .smenu__col > :not(.smenu__close-row) {
+      left: 0;
+      transition: left 0.6s ease-in 0.5s;
+    }
+
+    .smenu__curtain {
+      position: fixed;
+      top: 0;
+      left: 48%;
+      z-index: 200;
+      width: 75%;
+      height: 100%;
+      background: var(--teal);
+      visibility: hidden;
+      transition: left 0.2s ease-in 0.2s, visibility 0s 0.4s;
+    }
+    .smenu.is-open .smenu__curtain {
       left: 100%;
-      width: 100%;
-      padding: 30px 24px 140px;
+      visibility: visible;
+      transition: left 0.6s ease-in 0.5s;
     }
-    .smenu__sub.is-open { left: 0; }
+  }
 
-    .smenu__back {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 36px;
-      font-size: 18px;
-      font-weight: 500;
-      color: var(--teal);
-    }
-    .smenu__back svg { color: var(--gold); }
-
-    .smenu__media { display: none; }
-    .smenu__waves {
-      z-index: 6;
+  /* ── HP: menu masuk dari kanan, sub-menu juga ───────────────────────── */
+  @media (max-width: 767px) {
+    .smenu__col {
       width: 100%;
-      height: 90px;
-      aspect-ratio: auto;
+      margin-left: 0;
+      padding: 0 var(--header-gutter) 3rem;
     }
+    .smenu__close-row { margin-bottom: 1.5rem; }
+    .smenu__link { padding: 6px 0; margin-bottom: 0.5rem; }
+    /* Vale di HP: masuk utuh dari kanan (transform 0,3 detik, opacity 0s);
+       menutup tetap memudar 0,3 detik. */
+    .smenu.is-open {
+      transition: opacity 0s, visibility 0s;
+      animation: smenuFromRight 300ms;
+    }
+    .smenu__sub-main { width: 100%; padding: 1rem var(--header-gutter) 3rem; }
+    .smenu__sub-top { min-height: var(--header-h); margin: -1rem 0 2rem; }
+  }
+
+  @keyframes smenuFromRight {
+    from { transform: translateX(100%); }
+    to { transform: none; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .smenu__ground,
-    .smenu__nav,
-    .smenu__item,
-    .smenu__sub,
-    .smenu__curtain,
-    .smenu__waves,
-    .smenu__rule { transition: none !important; }
+    .smenu,
+    .smenu *,
+    .smenu__col > * { transition: none !important; animation: none !important; }
   }
 </style>
