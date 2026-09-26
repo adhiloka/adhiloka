@@ -165,9 +165,12 @@ gelombang di logo Adhiloka (`components/Waves.astro`).
 | Karusel "Scroll to see more" | `SlideRail.astro` + `scripts/slide-rail.ts`, tanpa pustaka |
 | Footer teal | `Footer.astro`; logo di kapsul putih karena gelombang hijau logo hilang di atas teal |
 
-Yang **dipertahankan** dari desain sebelumnya: langkah gulir per section (`scripts/sections.ts`)
-dan gulir momentum Lenis (`scripts/smooth-scroll.ts`). Karusel mendatar tidak menelan roda
-vertikal; roda tetap melangkah per section.
+**Gulir** kembali manual bawaan peramban. Gulir per section dan gulir halus Lenis sempat
+dipertahankan, lalu dicabut pada 26 September 2026 atas permintaan pemilik (roda harus berputar
+berkali-kali sebelum halaman bergerak). Paket `lenis` masih terpasang di `package.json` tapi tidak
+lagi dipakai; boleh dibuang dengan `npm uninstall lenis`. Section juga tidak lagi diregangkan
+setinggi layar: tingginya mengikuti isi (padding `--pad-y` 28-48px) sehingga dua section muat
+dalam satu layar, seperti di Vale.
 
 Yang **dibuang**: video hero, animasi pembuka kunjungan pertama, judul dipecah per baris, ornamen
 di blok jeda, nav enam menu di bilah atas.
@@ -223,8 +226,8 @@ Semuanya mati saat `prefers-reduced-motion: reduce`.
 | Menu | `MenuOverlay.astro` | panel 0,3 s; isi menyusul 0,6 s jeda 0,5 s; tirai foto 0,6 s jeda 0,5 s; sub-menu 0,5 s |
 | Burger | `Header.astro` | garis atas bergeser 9px saat hover, 0,3 s |
 | Panah progres | `scripts/scroll-progress.ts` | cincin transparan mengikuti persen gulir; panah berbalik 0,4 s di dasar; klik = satu langkah (`langkahHalaman` di `sections.ts`) |
-| Gulir momentum | `scripts/smooth-scroll.ts` | Lenis, tidak diubah |
-| Langkah per section | `scripts/sections.ts` | tidak diubah |
+| Gulir | bawaan peramban | Lenis dan langkah per section dicabut (26 Sep 2026): gulir manual biasa |
+| Tombol panah | `scripts/sections.ts` `langkahHalaman` | menggulir ke section berikutnya |
 | Morph kartu → laci | `scripts/materials.ts` | tidak diubah |
 
 Dua aturan yang mudah dilanggar tanpa sengaja:

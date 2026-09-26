@@ -2,11 +2,9 @@
  *
  *  - Logo dan pil kanan hanya ada selama section 1; tombol menu pil emas tetap.
  *  - Menu: buka/tutup, pilih bagian (panel sub-menu + foto), tombol kembali di
- *    layar sempit, jebakan fokus, Escape, dan gulir halaman dijeda selama
- *    menu terbuka.
+ *    layar sempit, jebakan fokus, Escape. Gulir halaman dikunci CSS
+ *    (`html.is-menu-open`) selama menu terbuka.
  *  - Pemilih bahasa. */
-
-import { pauseScroll, resumeScroll } from './smooth-scroll';
 
 let scrollBound = false;
 let docBound = false;
@@ -66,13 +64,11 @@ function setMenu(open: boolean) {
     // Satu bingkai jeda supaya transisi masuk berjalan dari keadaan tertutup.
     requestAnimationFrame(() => menu.classList.add('is-open'));
     document.documentElement.classList.add('is-menu-open');
-    pauseScroll();
     toggles.forEach((t) => t.setAttribute('aria-expanded', 'true'));
     window.setTimeout(() => menu.querySelector<HTMLElement>('[data-menu-close]')?.focus(), 60);
   } else {
     menu.classList.remove('is-open');
     document.documentElement.classList.remove('is-menu-open');
-    resumeScroll();
     toggles.forEach((t) => t.setAttribute('aria-expanded', 'false'));
     closeTimer = window.setTimeout(() => {
       menu.setAttribute('inert', '');

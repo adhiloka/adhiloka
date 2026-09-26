@@ -1,91 +1,38 @@
-/** Pembagian halaman menjadi SECTION, dan gulir yang melangkah satu section
- *  per gerakan.
+/** Pembagian halaman menjadi SECTION.
  *
  *  Kosakatanya: tiap halaman punya section bernomor 1..N dari atas ke bawah.
- *  Halaman depan: 1 hero, 2 pembuka, 3 kotak Sustainability, 4 karusel kartu,
- *  5 pita emas, 6 pita biru langit, 7 berita, 8 footer.
  *  Nomor itu ditulis ke DOM sebagai `data-section`, jadi bisa dilihat di
  *  inspektur dan dipakai sebagai rujukan saat bicara.
  *
- *  Tiga hal yang dikerjakan berkas ini.
+ *  Gulir halaman sepenuhnya bawaan peramban (manual). Gulir per section dan
+ *  gulir halus Lenis dicabut pada 26 September 2026 atas permintaan pemilik:
+ *  roda harus berputar berkali-kali sebelum halaman bergerak. Yang tersisa dari
+ *  berkas ini hanya tiga hal.
  *
  *  1. MENGELOMPOKKAN. Anak langsung <main> (ditambah footer) dipilah jadi blok
  *     utama dan blok tempelan. Tempelan adalah blok yang lebih pendek daripada
- *     45% layar — catatan satu baris, bilah saring, bilah saudara — dan blok
- *     semacam itu tidak pantas jadi perhentian gulir tersendiri: bilah saring
- *     yang memenuhi satu layar penuh sementara isi yang disaringnya ada di
- *     layar berikutnya adalah halaman yang rusak. Tempelan bergabung ke blok
- *     utama SESUDAHNYA, karena catatan dan saringan selalu mendahului isinya.
+ *     45% layar (catatan satu baris, bilah saring, bilah saudara); ia
+ *     bergabung ke blok utama SESUDAHNYA.
  *
- *  2. MENGUKUR. Tinggi alami tiap kelompok dibandingkan tinggi layar:
- *       fit  -> muat satu layar. Tingginya dibiarkan apa adanya: sejak
- *               September 2026 section tidak lagi diregangkan jadi satu layar
- *               penuh, tinggi ditentukan isi dan padding masing-masing.
- *       tall -> memang lebih tinggi dari layar (katalog 18 bahan, linimasa,
- *               daftar berita). Gulir dilepas bebas di dalamnya.
+ *  2. MENGUKUR. Tinggi alami tiap kelompok dibandingkan tinggi layar (`fit`
+ *     atau `tall`). Tingginya tidak diubah.
  *
- *  3. MELANGKAH. Satu gerakan roda memindahkan tepat satu section. Yang
- *     dihitung adalah GERAKAN, bukan kejadian: trackpad mengirim puluhan
- *     kejadian roda per sentakan, dan semua kejadian yang datang rapat-rapat
- *     sesudahnya dianggap ekor inersia dari sentakan yang sama.
- *
- *     Sentakan baru boleh menyambung langkah yang sedang berjalan — dua
- *     sentakan beruntun berarti dua section, tanpa perlu menunggu yang pertama
- *     mendarat. Versi sebelumnya menelan setiap gerakan selama animasi plus
- *     260ms sesudahnya, dan karena jaring pengamannya mengulang hitungan itu,
- *     ada ±1,4 detik di mana roda tidak berbuat apa-apa — persis yang terbaca
- *     sebagai "harus beberapa kali menggulir baru bergeser".
- *
- *     Di dalam kelompok "tall", gulir dilepas bebas sampai tepinya tercapai —
- *     barulah gerakan berikutnya melangkah. Tanpa itu isi setinggi tiga layar
- *     akan terlewat begitu saja.
- *
- *  Semua digerbangi kelas `.js` dan syarat yang sama dengan Lenis (tetikus
- *  presisi, layar >=900px, bukan prefers-reduced-motion). Di telepon dan pada
- *  prefers-reduced-motion, halaman bergulir seperti biasa.
+ *  3. MELAYANI TOMBOL. `langkahHalaman()` dipakai tombol panah (progres gulir,
+ *     panah hero, Discover di hub) untuk menggulir ke section berikutnya, dan
+ *     pengamat kemunculan memunculkan isi section yang muat satu layar.
  */
 
-import { getLenis, scrollToY } from './smooth-scroll';
+import { scrollToY } from './smooth-scroll';
 import { revealWithin } from './reveal';
 
 /** Di bawah pecahan tinggi layar ini, sebuah blok dianggap tempelan. */
 const AMBANG_TEMPEL = 0.45;
 const SLACK = 8;
 
-/** Sakelar: false mematikan langkah per section, dan roda/papan ketik kembali
- *  ke gulir halus Lenis biasa. Tombol panah tetap memakai `langkahHalaman`. */
-const LANGKAH_PER_SECTION = true;
-const DURASI = 0.85;
-
-/** Jarak waktu antar-kejadian roda yang memisahkan gerakan baru dari ekor
- *  inersia. Trackpad mengirim kejadian tiap ±16ms selama meluncur, dan roda
- *  tetikus yang diputar sekali mengirimnya berjarak ratusan milidetik — angka
- *  ini duduk di antaranya, jadi satu sentakan tetap satu langkah sementara
- *  putaran demi putaran tetap dihitung sendiri-sendiri. */
-const JEDA_GERAKAN = 110;
-
-/** Kurva langkah: hampir seluruh jarak ditempuh di awal lalu melandai panjang —
- *  keluarga yang sama dengan --ease-reveal milik kemunculan. */
-const KURVA = (t: number) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t));
-
 type Grup = { els: HTMLElement[]; awal: HTMLElement; akhir: HTMLElement };
 
 let grup: Grup[] = [];
-let indeks = 0;
-let sibuk = false;
-let langkahKe = 0;
-let kejadianTerakhir = 0;
 let terpasang = false;
-
-const bisaMelangkah = () =>
-  LANGKAH_PER_SECTION &&
-  !!getLenis() &&
-  window.matchMedia('(pointer: fine)').matches &&
-  window.matchMedia('(min-width: 900px)').matches &&
-  !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-/** Gulir sedang dikunci oleh laci pencarian atau menu layar sempit. */
-const terkunci = () => document.documentElement.style.overflow === 'hidden';
 
 const atas = (el: HTMLElement) => el.getBoundingClientRect().top + window.scrollY;
 
@@ -167,10 +114,6 @@ function susun() {
 
   grup = baru;
 
-  // Lenis menyimpan batas gulirnya sendiri (tinggi dokumen dikurangi tinggi
-  // layar) dan hanya menghitungnya ulang kalau diminta. Pengukuran ulang di
-  // sini murah dan menjaga batasnya benar setelah huruf dan foto mengendap.
-  getLenis()?.resize();
 }
 
 function indeksSekarang() {
@@ -229,128 +172,6 @@ export function langkahHalaman(arah: 1 | -1): boolean {
   return true;
 }
 
-function keSection(i: number) {
-  const g = grup[Math.max(0, Math.min(grup.length - 1, i))];
-  if (!g) return;
-
-  indeks = grup.indexOf(g);
-  const lenis = getLenis();
-  if (!lenis) return;
-
-  // Nomor langkah: jaring pengaman di bawah hanya boleh melepas langkah yang
-  // MEMANG dijaganya. Tanpa penanda ini, jaring dari langkah sebelumnya ikut
-  // melepas langkah yang sedang berjalan.
-  const ini = ++langkahKe;
-  sibuk = true;
-
-  // Sengaja TANPA `lock: true`. Kunci milik Lenis baru terbuka saat animasinya
-  // selesai, dan animasi itu digerakkan requestAnimationFrame — yang berhenti
-  // total di tab latar. Sekali melangkah lalu berpindah tab akan meninggalkan
-  // halaman yang tidak bisa digulir sampai tab itu dilihat lagi.
-  lenis.scrollTo(g.awal, {
-    duration: DURASI,
-    easing: KURVA,
-    onComplete: () => {
-      if (ini === langkahKe) sibuk = false;
-    },
-  });
-  window.setTimeout(() => {
-    if (ini === langkahKe) sibuk = false;
-  }, DURASI * 1000 + 200);
-}
-
-/** Benar bila gulir harus dibiarkan apa adanya: kita sedang di dalam kelompok
- *  yang lebih tinggi dari layar dan tepinya belum tercapai. */
-function bebas(arah: number) {
-  const g = grup[indeksSekarang()];
-  if (!g || g.akhir.getAttribute('data-section-fit') !== 'tall') return false;
-
-  const atasnya = g.awal.getBoundingClientRect().top;
-  const bawahnya = g.akhir.getBoundingClientRect().bottom;
-  return arah > 0 ? bawahnya > window.innerHeight + SLACK : atasnya < -SLACK;
-}
-
-function abaikan(t: EventTarget | null) {
-  const el = t as HTMLElement | null;
-  return !!el?.closest?.('[data-lenis-prevent]');
-}
-
-const tinggiSection = (g: Grup) => g.akhir.getAttribute('data-section-fit');
-
-function onWheel(e: WheelEvent) {
-  if (!bisaMelangkah() || terkunci() || e.ctrlKey) return;
-  if (abaikan(e.target)) return;
-
-  const sekarang = Date.now();
-  // Sebuah kejadian roda memulai gerakan baru hanya kalau ada jeda sebelumnya.
-  // Ekor inersia datang rapat-rapat dan tidak pernah lolos syarat ini.
-  const gerakanBaru = sekarang - kejadianTerakhir > JEDA_GERAKAN;
-  kejadianTerakhir = sekarang;
-
-  const arah = e.deltaY > 0 ? 1 : e.deltaY < 0 ? -1 : 0;
-  if (!arah) return;
-
-  // Di dalam section yang lebih tinggi dari layar, gulir memang dilepas bebas.
-  if (!sibuk && bebas(arah)) return;
-
-  // Langkah baru boleh menyambung langkah yang sedang berjalan — itulah yang
-  // membuat dua sentakan beruntun terasa langsung menyahut, bukan mati. Yang
-  // menyambung memakai indeks tujuan; yang baru memakai posisi gulir.
-  const tujuan = sibuk ? indeks + arah : tujuanDariPosisi(arah);
-  const ada = tujuan >= 0 && tujuan <= grup.length - 1;
-
-  // Tidak ada tujuan dan tidak sedang melangkah: kita di ujung halaman. Roda
-  // dilepas, tidak ditelan, supaya tidak pernah ada gerakan yang hilang begitu
-  // saja.
-  if (!ada && !sibuk) return;
-
-  // Selebihnya roda tidak menggulir bebas: entah ia melangkah, entah ia
-  // ditelan. Yang ditelan pun harus dicegat, kalau tidak ekor inersia akan
-  // menggeser halaman keluar dari perhentiannya.
-  e.preventDefault();
-  e.stopPropagation();
-
-  if (!gerakanBaru || !ada) return;
-
-  // Kalau yang sedang dituju adalah section yang lebih tinggi dari layar,
-  // biarkan mendarat dulu — menyambung berarti melewatkan isinya.
-  if (sibuk && tinggiSection(grup[indeks]) === 'tall') return;
-
-  keSection(tujuan);
-}
-
-function onKey(e: KeyboardEvent) {
-  if (!bisaMelangkah() || terkunci()) return;
-
-  const t = e.target as HTMLElement | null;
-  if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
-  if (abaikan(e.target)) return;
-
-  const arah =
-    e.key === 'PageDown' || (e.key === ' ' && !e.shiftKey)
-      ? 1
-      : e.key === 'PageUp' || (e.key === ' ' && e.shiftKey)
-        ? -1
-        : 0;
-
-  if (arah) {
-    if (!sibuk && bebas(arah)) return;
-    const tujuan = sibuk ? indeks + arah : tujuanDariPosisi(arah);
-    if (tujuan < 0 || tujuan > grup.length - 1) return;
-    e.preventDefault();
-    keSection(tujuan);
-    return;
-  }
-
-  if (e.key === 'Home') {
-    e.preventDefault();
-    keSection(0);
-  } else if (e.key === 'End') {
-    e.preventDefault();
-    keSection(grup.length - 1);
-  }
-}
-
 /* ── Kemunculan isi section ──────────────────────────────────────────────
    Pengamat di reveal.ts memakai rootMargin -25%: sebuah elemen baru dihitung
    terlihat setelah masuk 75% teratas layar. Aturan itu benar untuk halaman yang
@@ -399,9 +220,6 @@ function onResize() {
 export function initSections() {
   susun();
   amatiKemunculan();
-  indeks = indeksSekarang();
-  sibuk = false;
-  langkahKe += 1;
 
   // Label fit/tall diputuskan dari tinggi saat ini, dan saat boot huruf
   // tampilan belum tentu tiba dan foto malas belum termuat — keduanya
@@ -410,11 +228,6 @@ export function initSections() {
   window.setTimeout(susunUlang, 900);
 
   if (terpasang) return;
-  // Fase tangkap di window: Lenis memasang penangan rodanya sendiri di window,
-  // dan stopPropagation di sini yang menahan gerakan yang sudah dipakai untuk
-  // melangkah agar tidak ikut menggulir bebas.
-  window.addEventListener('wheel', onWheel, { passive: false, capture: true });
-  window.addEventListener('keydown', onKey);
   window.addEventListener('resize', onResize);
   terpasang = true;
 }

@@ -114,7 +114,7 @@ const onDark = tone === 'teal';
 
 <style>
   .band {
-    padding: clamp(56px, 6vw, 96px) var(--gutter);
+    padding: var(--pad-y) var(--gutter);
     background: var(--paper);
     color: var(--ink-body);
   }
@@ -124,20 +124,23 @@ const onDark = tone === 'teal';
   .band--teal { background: var(--teal); color: var(--paper); --wave-ground: var(--teal); --wave-accent: var(--gold); --band-bar: var(--gold); }
   .band--white { --band-bar: var(--teal); }
 
+  /* Kolom naskah sedikit lebih lebar supaya baris lebih sedikit dan pita
+     lebih pendek; pada pita terbalik urutan lebarnya ikut terbalik. */
   .band__grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: clamp(32px, 5vw, 88px);
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: clamp(28px, 4vw, 64px);
     align-items: center;
   }
+  .band--reverse .band__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); }
   .band--reverse .band__copy { order: 2; }
 
   .band__copy {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: clamp(16px, 1.6vw, 22px);
-    max-width: 36em;
+    gap: clamp(12px, 1.2vw, 16px);
+    max-width: 44em;
   }
 
   .band__title {
@@ -147,8 +150,8 @@ const onDark = tone === 'teal';
     color: var(--teal);
   }
   .band__body {
-    font-size: var(--type-body);
-    line-height: var(--leading-body);
+    font-size: 16px;
+    line-height: 1.55;
   }
 
   .band__points {
@@ -200,7 +203,9 @@ const onDark = tone === 'teal';
     position: relative;
     overflow: hidden;
     border-radius: var(--radius-card);
-    aspect-ratio: 16 / 11;
+    aspect-ratio: 16 / 9;
+    max-height: 320px;
+    width: 100%;
   }
   /* Bilah aksen di sisi kiri foto (animacao-caixa di Vale). */
   .band__media::before {
@@ -229,7 +234,8 @@ const onDark = tone === 'teal';
   }
 
   @media (max-width: 899px) {
-    .band__grid { grid-template-columns: 1fr; }
+    .band__grid,
+    .band--reverse .band__grid { grid-template-columns: 1fr; }
     .band__media { order: -1; }
     .band--reverse .band__copy { order: 0; }
   }

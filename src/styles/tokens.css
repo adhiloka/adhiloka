@@ -130,9 +130,11 @@
   --measure-max: 1440px;
   --gutter: clamp(22px, 4.5vw, 72px);
 
-  /* Perubahan tunggal yang paling terasa: bagian diberi ruang, bukan ditumpuk. */
-  --section-y: clamp(72px, 9vw, 140px);
-  --section-y-lg: clamp(96px, 12vw, 180px);
+  /* Section dibuat pendek seperti di Vale (padding 48px): dua section harus
+     muat dalam satu layar. --pad-y untuk pita dan section beranda. */
+  --pad-y: clamp(28px, 3vw, 48px);
+  --section-y: clamp(36px, 4vw, 64px);
+  --section-y-lg: clamp(48px, 5vw, 80px);
 
   --band-min-h: 560px;
   --band-pad-y: clamp(48px, 6vw, 96px);

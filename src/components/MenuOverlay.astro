@@ -31,7 +31,6 @@ const defaultPhoto = getImageFor('hero-poster');
   class="smenu"
   id="site-menu"
   data-site-menu
-  data-lenis-prevent
   role="dialog"
   aria-modal="true"
   aria-label="Site menu"
@@ -42,7 +41,9 @@ const defaultPhoto = getImageFor('hero-poster');
   <div class="smenu__nav">
     <button type="button" class="smenu__close" data-menu-close>
       <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-        <path d="M14 14l20 20M34 14 14 34" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"></path>
+        <!-- Dua batang bersilang seperti silang Vale: putih (\) lalu emas (/) di atasnya. -->
+        <path d="M14.5 14.5 33.5 33.5" stroke="#ffffff" stroke-width="2.8" stroke-linecap="round"></path>
+        <path d="M33.5 14.5 14.5 33.5" stroke="var(--gold)" stroke-width="2.8" stroke-linecap="round"></path>
       </svg>
       <span>Close</span>
     </button>
@@ -157,10 +158,12 @@ const defaultPhoto = getImageFor('hero-poster');
   </div>
 
   <!-- Gelombang di dasar, digambar dari lengkung logo: bukit mint di kiri,
-       bidang emas yang terus naik ke kanan. -->
+       bidang emas yang terus naik ke kanan. Lebar svg 56.75vw dan kolom foto
+       32vw, jadi tepi kiri bidang emas jatuh di 436.1 dari 1000
+       ((56.75 - 32) / 56.75): tepat di garis kiri foto, lurus dengannya. -->
   <svg class="smenu__waves" viewBox="0 0 1000 360" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-    <path d="M0 360C140 250 290 192 424 186V360Z" fill="var(--mint)"></path>
-    <path d="M424 186C610 180 812 112 1000 0V360H424Z" fill="var(--gold)"></path>
+    <path d="M0 360C140 250 290 192 436.1 186V360Z" fill="var(--mint)"></path>
+    <path d="M436.1 186C610 180 812 112 1000 0V360H436.1Z" fill="var(--gold)"></path>
   </svg>
 </div>
 
@@ -216,8 +219,8 @@ const defaultPhoto = getImageFor('hero-poster');
     font-weight: 500;
     color: var(--paper);
   }
-  /* Silang putih, seperti di Vale (fill #fff pada SVG close mereka). */
-  .smenu__close svg { color: var(--paper); }
+  /* Silang dua warna seperti di Vale: satu batang putih, satu emas. */
+  .smenu__close svg { flex: none; }
   .smenu__close:hover span { text-decoration: underline; }
 
   .smenu__list {

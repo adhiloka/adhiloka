@@ -14,7 +14,7 @@ interface Props {
   class?: string;
 }
 
-const { label, cardWidth = 'clamp(280px, 26vw, 380px)', class: className } = Astro.props;
+const { label, cardWidth = 'clamp(260px, 22vw, 330px)', class: className } = Astro.props;
 ---
 
 <div class:list={['rail', className]} style={`--rail-card:${cardWidth}`} data-rail>

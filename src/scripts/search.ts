@@ -6,7 +6,6 @@ type Entry = { title: string; sub: string; href: string; keywords: string };
 const FOCUSABLE =
   'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
-import { pauseScroll, resumeScroll } from './smooth-scroll';
 
 let lastFocused: HTMLElement | null = null;
 
@@ -50,7 +49,6 @@ export function initSearch() {
     panel.classList.remove('is-open');
     openers.forEach((o) => o.setAttribute('aria-expanded', 'false'));
     document.documentElement.style.overflow = '';
-    resumeScroll();
     window.setTimeout(() => {
       panel.hidden = true;
     }, 620);
@@ -62,7 +60,6 @@ export function initSearch() {
     lastFocused = document.activeElement as HTMLElement;
     panel.hidden = false;
     document.documentElement.style.overflow = 'hidden';
-    pauseScroll();
     openers.forEach((o) => o.setAttribute('aria-expanded', 'true'));
     // Reflow paksa, bukan requestAnimationFrame: rAF tidak berjalan di tab
     // yang tidak sedang digambar, dan laci akan tersangkut di luar layar.

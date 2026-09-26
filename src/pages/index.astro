@@ -14,11 +14,14 @@ import { PERFUMERY_INTRO } from '../data/pages/perfumery';
 import { NEWS, byDate, formatDate } from '../data/pages/media';
 
 /* Beranda mengikuti urutan beranda valeindonesia.com: hero, pembuka + angka
-   sekilas, kotak Sustainability, karusel kartu, pita emas, pita biru langit,
-   karusel berita, footer. Semua naskah diambil dari data yang sudah ada. */
+   sekilas, section Sustainability bergelombang (dua foto dengan panel biru
+   melengkung di antaranya), karusel kartu, pita emas, pita biru langit,
+   karusel berita, footer. Tiap section dibuat pendek supaya dua section muat
+   dalam satu layar. Semua naskah diambil dari data yang sudah ada. */
 
 const introPhoto = getImageFor('about-table');
-const boxPhoto = getImageFor('agroforest-canopy');
+const leftPhoto = getImageFor('agroforest-canopy');
+const rightPhoto = getImageFor('purpose-generations');
 const goldPhoto = getImageFor('fragrance-petal');
 const skyPhoto = getImageFor('material-ginger');
 
@@ -30,8 +33,8 @@ const LATEST = [...NEWS].sort(byDate);
 <BaseLayout title={SITE.name} description={SITE.description} headerVariant="over-dark" active="/">
   <Hero />
 
-  <!-- Pembuka: "Welcome to…" abu, naskah, dan angka sekilas. Teks masuk dari
-       kiri, foto dari kanan (pola .animar di Vale). -->
+  <!-- Pembuka: "Welcome to…" abu, naskah, dan angka sekilas dalam satu baris.
+       Teks masuk dari kiri, foto dari kanan (pola .animar di Vale). -->
   <section class="intro">
     <div class="frame intro__grid">
       <div class="intro__text" data-reveal data-reveal-from="left">
@@ -69,47 +72,65 @@ const LATEST = [...NEWS].sort(byDate);
     </div>
   </section>
 
-  <!-- Kotak Sustainability (box-conecta di Vale): foto bergelombang atas dan
-       bawah yang dibuka tirai, lalu judul teal dan tombol pil. -->
-  <section class="box bg-tint-teal">
-    <div class="frame box__grid">
-      <div class="box__media" data-curtain>
+  <!-- Section bergelombang (bentuk "Sustainability" di Vale): foto kiri turun,
+       foto kanan naik, dan panel biru langit berlekuk S menyambung keduanya.
+       Ukurannya dalam persen lebar kolom (foto 16:10, geseran 20%), jadi
+       lekuknya selalu bertemu sudut kedua foto di lebar layar berapa pun. -->
+  <section class="wave-box bg-tint-teal">
+    <div class="frame wave-box__grid">
+      <h2 class="wave-box__title" data-reveal data-reveal-from="left">Sustainability</h2>
+
+      <div class="wave-box__photo wave-box__photo--left" data-curtain>
         {
-          boxPhoto && (
+          leftPhoto && (
             <Image
-              src={boxPhoto}
+              src={leftPhoto}
               alt="Forest canopy seen from below"
-              width={1000}
-              widths={[520, 1000]}
-              sizes="(max-width: 899px) 90vw, 50vw"
+              width={800}
+              widths={[400, 800]}
+              sizes="(max-width: 899px) 90vw, 33vw"
               loading="lazy"
               decoding="async"
               quality={66}
             />
           )
         }
-        <Waves kind="top" />
-        <Waves kind="bottom" />
       </div>
-      <div class="box__text" data-reveal data-reveal-from="right">
-        <h2 class="section-title">Sustainability</h2>
-        <p class="box__lede">{SUSTAINABILITY_INTRO.lede}</p>
-        <p class="box__body">
-          Sustainability is the value everything else answers to: floor prices agreed before the
-          season, traceability to the household, and progress reported as it is.
-        </p>
-        <a class="btn-solid" href="/sustainability/">Our sustainability approach</a>
+
+      <div class="wave-box__panel" data-reveal>
+        <svg class="wave-box__shape" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <path d="M0 24.2C38 24.2 58 0 100 0V75.8C62 75.8 42 100 0 100Z"></path>
+        </svg>
+        <div class="wave-box__text">
+          <p>{SUSTAINABILITY_INTRO.lede}</p>
+          <a class="btn-solid" href="/sustainability/">Our sustainability approach</a>
+        </div>
+      </div>
+
+      <div class="wave-box__photo wave-box__photo--right" data-curtain>
+        {
+          rightPhoto && (
+            <Image
+              src={rightPhoto}
+              alt="Two children running through a summer meadow"
+              width={800}
+              widths={[400, 800]}
+              sizes="(max-width: 899px) 90vw, 33vw"
+              loading="lazy"
+              decoding="async"
+              quality={66}
+              style="object-position: 20% 50%"
+            />
+          )
+        }
       </div>
     </div>
   </section>
 
-  <!-- Karusel kartu (Governance di Vale). -->
+  <!-- Karusel kartu (Governance di Vale), di atas teal solid. -->
   <section class="explore bg-teal on-dark">
     <div class="frame explore__head" data-reveal>
       <h2 class="explore__title">Explore Adhiloka</h2>
-      <p class="explore__sub">
-        Sourcing, the works in Medan, the bench, and the catalog behind all of it.
-      </p>
     </div>
     <div data-reveal="120">
       <SlideRail label="Explore Adhiloka">
@@ -201,19 +222,16 @@ const LATEST = [...NEWS].sort(byDate);
         }
       </SlideRail>
     </div>
-    <div class="frame news__foot">
-      <a class="btn-pill" href="/media/news/">Access all news</a>
-    </div>
   </section>
 </BaseLayout>
 
 <style>
   /* ── Pembuka ────────────────────────────────────────────────────────── */
-  .intro { padding: clamp(64px, 7vw, 110px) var(--gutter); }
+  .intro { padding: var(--pad-y) var(--gutter); }
   .intro__grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-    gap: clamp(32px, 5vw, 88px);
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: clamp(28px, 4vw, 64px);
     align-items: center;
   }
   .intro__title {
@@ -223,91 +241,125 @@ const LATEST = [...NEWS].sort(byDate);
     color: var(--ink-body);
   }
   .intro__lede {
-    margin-top: 24px;
-    max-width: 36em;
-    font-size: var(--type-lede);
-    line-height: var(--leading-lede);
+    margin-top: 14px;
+    max-width: 38em;
+    font-size: 17px;
+    line-height: 1.55;
   }
   .intro__glance {
-    margin-top: clamp(32px, 3.4vw, 48px);
+    margin-top: 20px;
     font-size: var(--type-h4);
     font-weight: 500;
     color: var(--teal);
   }
+  /* Angka sekilas dalam satu baris empat kolom: hemat tinggi. */
   .intro__stats {
-    margin: 18px 0 0;
+    margin: 12px 0 0;
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px 32px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
   }
   .intro__stat {
-    padding-left: 16px;
+    padding-left: 12px;
     border-left: 3px solid var(--gold);
   }
   .intro__stat dt {
-    font-size: clamp(30px, 2.6vw, 42px);
+    font-size: clamp(26px, 2.2vw, 34px);
     font-weight: 600;
     line-height: 1.1;
     color: var(--teal);
   }
   .intro__stat dd {
-    margin: 4px 0 0;
-    font-size: 16px;
+    margin: 2px 0 0;
+    font-size: 14px;
+    line-height: 1.35;
     color: var(--ink-body);
   }
   .intro__media {
     position: relative;
     overflow: hidden;
     border-radius: var(--radius-card);
-    aspect-ratio: 4 / 3.4;
+    aspect-ratio: 16 / 10;
+    max-height: 340px;
+    width: 100%;
   }
   .intro__media :global(img) { width: 100%; height: 100%; object-fit: cover; }
 
-  /* ── Kotak Sustainability ───────────────────────────────────────────── */
-  .box {
-    padding: clamp(48px, 6vw, 96px) var(--gutter);
+  /* ── Section bergelombang ───────────────────────────────────────────── */
+  .wave-box {
+    padding: var(--pad-y) var(--gutter);
     --wave-ground: var(--tint-teal);
   }
-  .box__grid {
+  .wave-box__grid {
+    position: relative;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: clamp(32px, 5vw, 88px);
-    align-items: center;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-  .box__media {
+  /* Judul duduk di celah di atas foto kiri (celah = 20% lebar kolom). */
+  .wave-box__title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: var(--type-h2);
+    font-weight: 500;
+    line-height: 1.1;
+    color: var(--teal);
+  }
+  /* align-self: start supaya rasio 16:10 berlaku (stretch akan menimpanya).
+     Margin persen pada anak grid dihitung terhadap lebar kolomnya. */
+  .wave-box__photo {
     position: relative;
     overflow: hidden;
-    aspect-ratio: 1 / 0.86;
+    align-self: start;
+    aspect-ratio: 16 / 10;
   }
-  .box__media :global(img) { width: 100%; height: 100%; object-fit: cover; }
-  .box__lede {
-    margin-top: 24px;
-    font-size: var(--type-lede);
-    line-height: var(--leading-lede);
-    color: var(--ink-body);
+  .wave-box__photo--left { margin-top: 20%; }
+  .wave-box__photo--right { margin-bottom: 20%; }
+  .wave-box__photo :global(img) { width: 100%; height: 100%; object-fit: cover; }
+
+  .wave-box__panel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  .box__body { margin-top: 16px; max-width: 34em; }
-  .box__text :global(.btn-solid) { margin-top: 32px; }
+  .wave-box__shape {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .wave-box__shape path { fill: var(--sky); }
+  .wave-box__text {
+    position: relative;
+    padding: 0 12%;
+    color: var(--ink);
+  }
+  .wave-box__text p {
+    font-size: clamp(16px, 1.15vw, 19px);
+    line-height: 1.5;
+    font-weight: 500;
+  }
+  .wave-box__text :global(.btn-solid) { margin-top: 16px; }
 
   /* ── Karusel kartu ──────────────────────────────────────────────────── */
-  .explore { padding: clamp(48px, 6vw, 96px) 0; }
+  .explore { padding: var(--pad-y) 0; }
+  .explore__head { padding-inline: var(--gutter); margin-bottom: 20px; }
   .explore__title {
     font-size: var(--type-h2);
     font-weight: 500;
     line-height: var(--leading-title);
     color: var(--paper);
   }
-  .explore__head { padding-inline: var(--gutter); margin-bottom: clamp(28px, 3vw, 44px); }
-  .explore__sub { margin-top: 12px; max-width: 40em; font-size: var(--type-lede); color: var(--paper); }
 
   /* ── Pita emas / biru langit ────────────────────────────────────────── */
-  .band { padding: clamp(56px, 6vw, 96px) var(--gutter); color: var(--ink); }
+  .band { padding: var(--pad-y) var(--gutter); color: var(--ink); }
   .band--gold { background: var(--gold); --wave-ground: var(--gold); --wave-accent: var(--teal); }
   .band--sky { background: var(--sky); --wave-ground: var(--sky); }
   .band__grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: clamp(32px, 5vw, 88px);
+    gap: clamp(28px, 4vw, 64px);
     align-items: center;
   }
   .band__title {
@@ -317,42 +369,50 @@ const LATEST = [...NEWS].sort(byDate);
     color: var(--ink);
   }
   .band__lede {
-    margin-top: 22px;
-    max-width: 32em;
-    font-size: var(--type-lede);
-    line-height: var(--leading-lede);
+    margin-top: 14px;
+    max-width: 34em;
+    font-size: 17px;
+    line-height: 1.55;
     color: var(--ink);
   }
-  .band__text :global(.btn-solid) { margin-top: 32px; }
+  .band__text :global(.btn-solid) { margin-top: 20px; }
   .band__media {
     position: relative;
     overflow: hidden;
     border-radius: var(--radius-card);
-    aspect-ratio: 16 / 11;
+    aspect-ratio: 16 / 9;
+    max-height: 320px;
+    width: 100%;
   }
   .band__media :global(img) { width: 100%; height: 100%; object-fit: cover; }
 
   /* ── Berita ─────────────────────────────────────────────────────────── */
-  .news { padding: clamp(56px, 6vw, 96px) 0; }
+  .news { padding: var(--pad-y) 0; }
   .news__head {
     padding-inline: var(--gutter);
-    margin-bottom: clamp(28px, 3vw, 44px);
+    margin-bottom: 20px;
     display: flex;
     align-items: baseline;
     justify-content: space-between;
     gap: 20px;
   }
   .news :global(.tile__text) { background: var(--paper-sunk); }
-  .news__foot {
-    padding: clamp(28px, 3vw, 44px) var(--gutter) 0;
-    display: flex;
-    justify-content: center;
-  }
 
   @media (max-width: 899px) {
     .intro__grid,
-    .box__grid,
     .band__grid { grid-template-columns: 1fr; }
     .band__media { order: -1; }
+    .intro__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    /* Satu kolom: geseran dan lekuk dibuang, panel jadi kotak biru bersudut. */
+    .wave-box__grid { grid-template-columns: 1fr; gap: 16px; }
+    .wave-box__title { position: static; }
+    .wave-box__photo--left, .wave-box__photo--right { margin: 0; }
+    .wave-box__shape { display: none; }
+    .wave-box__panel {
+      background: var(--sky);
+      border-radius: var(--radius-card);
+      padding: 24px 0;
+    }
   }
 </style>

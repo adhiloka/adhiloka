@@ -8,7 +8,6 @@
    font-synthesis: none — Mukta tidak punya italic dan tebal palsu; peramban
    dilarang memalsukannya, jadi <em> dan nama Latin tampil tegak. */
 html {
-  scroll-behavior: smooth;
   overflow-x: clip;
   font-synthesis: none;
 }
@@ -63,6 +62,10 @@ img, video { max-width: 100%; display: block; }
 
 ::selection { background: var(--gold); color: var(--ink); }
 ::placeholder { color: var(--text-placeholder); opacity: 1; }
+
+/* Wadah yang menggulir sendiri (menu, laci cari, laci material) tidak boleh
+   merambatkan guliran ke halaman di belakangnya saat isinya sudah mentok. */
+.smenu, .smenu__nav, .smenu__sub, .search__drawer, .mdrawer__panel { overscroll-behavior: contain; }
 
 /* Menu layar penuh terbuka: halaman diam, tombol pil emas menyingkir karena
    menu punya tombol Close sendiri. */
@@ -414,7 +417,6 @@ html:not(.js) :is(.interlude__eyebrow, .interlude__line, .interlude__cta) {
 
 /* ── Hormati preferensi gerak ────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;

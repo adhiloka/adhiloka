@@ -1,7 +1,6 @@
 /** Katalog bahan baku: penyaring keluarga yang tersinkron ke URL, dan laci
  *  spesifikasi yang bisa ditautkan langsung lewat hash. */
 
-import { pauseScroll, resumeScroll } from './smooth-scroll';
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
@@ -119,7 +118,6 @@ export function initMaterials() {
 
       drawer.hidden = false;
       document.documentElement.style.overflow = 'hidden';
-      pauseScroll();
       // Reflow paksa agar transisi mulai dari translateX(100%) tanpa
       // bergantung pada requestAnimationFrame.
       void drawer.offsetHeight;
@@ -147,7 +145,6 @@ export function initMaterials() {
     const apply = () => {
       drawer.classList.remove('is-open');
       document.documentElement.style.overflow = '';
-      resumeScroll();
       closeTimer = window.setTimeout(() => {
         drawer.hidden = true;
         articles.forEach((a) => (a.hidden = true));
@@ -165,7 +162,6 @@ export function initMaterials() {
         drawer.hidden = true;
         articles.forEach((a) => (a.hidden = true));
         document.documentElement.style.overflow = '';
-        resumeScroll();
         const card = backTo();
         if (card) card.style.viewTransitionName = PLATE;
       });

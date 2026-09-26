@@ -56,13 +56,12 @@ bila JavaScript gagal.
 Diukur di 1536×694. Jumlah section berubah mengikuti tinggi layar: makin tinggi
 layar, makin banyak yang `fit`.
 
-**Tujuan langkah dihitung dari posisi gulir.** Turun ke tepi section pertama
-yang ada di bawah layar; naik ke tepi section terakhir yang ada di atas layar.
-Dulu tujuan dihitung dari "section saat ini" sehingga naik dari posisi tak
-selaras melompati satu section, dan di section pertama roda ke atas ditelan
-tanpa berbuat apa-apa. Tombol panah (progres gulir, panah hero, Discover di hub)
-memakai `langkahHalaman()` dari berkas yang sama. Sakelar
-`LANGKAH_PER_SECTION` di `sections.ts` mematikan langkah per section.
+**Gulir manual bawaan.** Gulir per section dan gulir halus Lenis dicabut pada
+26 September 2026 atas permintaan pemilik: roda harus berputar berkali-kali
+sebelum halaman bergerak. Sekarang satu putaran roda menggulir 100px seperti
+situs biasa. Penanda `data-section` tetap dipasang untuk tombol panah (progres
+gulir, panah hero, Discover di hub), yang memakai `langkahHalaman()` di
+`sections.ts` untuk menggulir ke section berikutnya.
 
 > Tabel di bawah ditulis sebelum rombak ala Vale dan jumlah section beberapa
 > halaman sudah berubah; peta yang benar ada di `petaSection()` (konsol).

@@ -135,13 +135,10 @@ const organization = {
       import { initReveal } from '../scripts/reveal';
       import { initHeader } from '../scripts/header';
       import { initSearch } from '../scripts/search';
-      import { initSmoothScroll, resetScroll } from '../scripts/smooth-scroll';
       import { initImageReveal } from '../scripts/image-reveal';
       import { initSections } from '../scripts/sections';
 
       const boot = () => {
-        initSmoothScroll();
-        // Sesudah Lenis: pelangkah section meminjam instancenya.
         initSections();
         initReveal();
         initHeader();
@@ -177,7 +174,8 @@ const organization = {
         // ditampilkan langsung tanpa gerak.
         document.documentElement.classList.add('js');
         window.scrollTo(0, 0);
-        resetScroll();
+        // Kunci gulir milik laci/menu yang masih terbuka tidak boleh terbawa.
+        document.documentElement.style.overflow = '';
         requestAnimationFrame(angkatKurtin);
         window.setTimeout(angkatKurtin, 300);
       });
