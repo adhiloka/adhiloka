@@ -3,36 +3,62 @@ import { Image } from 'astro:assets';
 import { images } from '../../data/images';
 import type { HeroSlide } from '../../data/pages/home';
 
-/* Hero beranda ala `.banner-slider` adani.com: foto selayar dengan bayangan
- * hitam dari bawah, judul 44 px di kiri bawah, satu baris teks dan tombol
- * garis putih; di kanan bawah deret kartu slide berikutnya, nomor slide,
- * garis progres 400 px, dan dua panah bulat. Tombol "Watch Video" Adani
- * menjadi "Know More" karena kita tidak memakai video. */
+/* Hero beranda, tiruan `.banner-slider` adani.com — mekanismenya dibaca dari
+ * customJsbundleOptimized.js dan bundle.css Adani (v94), bukan dikira:
+ *
+ * - Deret kartu di kanan bawah (165 × 260, jarak 20) HANYA muncul di awal
+ *   dan akhir tiap slide: tersembunyi selama 25–90 % sisa waktu tunggu.
+ * - Saat berganti, kartu slide berikutnya membesar dari posisinya sampai
+ *   selayar dalam 1,1 s (Back.easeOut), menutupi slide lama beserta teksnya,
+ *   sementara deret kartu bergeser satu tempat ke kiri (1 s).
+ * - Setelah itu judul, baris pendek dan tombol naik 50 px sambil muncul,
+ *   masing-masing 1,1 s dengan jeda 0,5 / 0,75 / 1 s.
+ * - Panah dimatikan 2 s sesudah pergantian; garis progres terisi selama
+ *   waktu tunggu 11 s. */
 
 interface Props {
   slides: HeroSlide[];
 }
 const { slides } = Astro.props;
-const pad = (n: number) => String(n).padStart(2, '0');
 ---
 
 <section class="hero" data-hero aria-roledescription="carousel" aria-label="Highlights">
   {
     slides.map((s, i) => (
-      <div class:list={['hero__slide', { 'is-active': i === 0 }]} data-slide aria-hidden={i === 0 ? 'false' : 'true'}>
-        <Image quality={70}
-          class="hero__img"
-          src={images[s.image]}
-          alt={s.alt}
-          widths={[768, 1280, 1920]}
-          sizes="100vw"
-          loading={i === 0 ? 'eager' : 'lazy'}
-          fetchpriority={i === 0 ? 'high' : 'auto'}
-        />
+      <div
+        class:list={['hero__slide', { 'is-active': i === 0 }]}
+        data-slide
+        role="group"
+        aria-roledescription="slide"
+        aria-label={`${i + 1} of ${slides.length}`}
+        aria-hidden={i === 0 ? 'false' : 'true'}
+      >
+        <div class="hero__box" data-box>
+          <Image
+            quality={70}
+            class="hero__img"
+            src={images[s.image]}
+            alt={s.alt}
+            widths={[768, 1280, 1920]}
+            sizes="100vw"
+            loading={i === 0 ? 'eager' : 'lazy'}
+            fetchpriority={i === 0 ? 'high' : 'auto'}
+          />
+        </div>
         <div class="hero__text">
-          {i === 0 ? <h1 class="hero__title">{s.title}</h1> : <p class="hero__title">{s.title}</p>}
-          <p class="hero__line">{s.line}</p>
-          <div class="hero__btns">
+          {i === 0 ? (
+            <h1 class="hero__title" data-anim>
+              {s.title.map((t, k) => (<>{k > 0 && <br />}{t}</>))}
+            </h1>
+          ) : (
+            <p class="hero__title" data-anim>
+              {s.title.map((t, k) => (<>{k > 0 && <br />}{t}</>))}
+            </p>
+          )}
+          <p class="hero__line" data-anim>
+            {s.line.map((t, k) => (<>{k > 0 && <br />}{t}</>))}
+          </p>
+          <div class="hero__btns" data-anim>
             <a class="btn btn--light" href={s.href} tabindex={i === 0 ? undefined : -1}>
               <span class="btn__label">Know More</span>
             </a>
@@ -42,20 +68,18 @@ const pad = (n: number) => String(n).padStart(2, '0');
     ))
   }
 
-  <div class="hero__cards" data-cards>
+  <div class="hero__cards" data-cards style={`--n: ${slides.length}`}>
     {
       slides.map((s, i) => (
-        <button class="hero__card" type="button" data-goto={i} aria-label={`Show slide ${i + 1}: ${s.title}`}>
-          <Image quality={70} src={images[s.image]} alt="" widths={[240, 400]} sizes="180px" loading="lazy" />
-          <span>{s.title}</span>
+        <button class="hero__card" type="button" data-card={i} aria-label={`Show slide ${i + 1}: ${s.title.join(' ')}`}>
+          <Image quality={70} src={images[s.image]} alt="" widths={[240, 400]} sizes="165px" loading="lazy" />
         </button>
       ))
     }
   </div>
 
   <div class="hero__ctrl">
-    <span class="hero__num" data-num aria-hidden="true">{pad(1)}</span>
-    <span class="hero__bar"><span class="hero__fill" data-fill></span></span>
+    <span class="hero__bar" aria-hidden="true"><span class="hero__fill" data-fill></span></span>
     <button class="hero__arrow" type="button" data-prev aria-label="Previous slide">
       <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="m14.5 6-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
     </button>
@@ -81,37 +105,48 @@ const pad = (n: number) => String(n).padStart(2, '0');
     color: #fff;
   }
 
+  /* `#layer1` / `#layer2` Adani: slide aktif di atas, slide lama tetap
+     terlihat di bawahnya sampai tertutup kotak yang membesar. */
   .hero__slide {
     position: absolute;
     inset: 0;
-    opacity: 0;
     visibility: hidden;
-    transition:
-      opacity 0.9s ease,
-      visibility 0s linear 0.9s;
   }
   .hero__slide.is-active {
-    opacity: 1;
     visibility: visible;
-    transition: opacity 0.9s ease;
+    z-index: 2;
   }
-  /* Bayangan `img-box::after` Adani: transparan → hitam, 0,7. */
-  .hero__slide::after {
+  .hero__slide.is-prev {
+    visibility: visible;
+    z-index: 1;
+  }
+
+  .hero__box {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  /* Bayangan `img-box::after`: transparan → hitam; 0,5 di lapisan atas,
+     0,7 di lapisan bawah, persis dua nilai Adani. */
+  .hero__box::after {
     content: '';
     position: absolute;
     inset: 0;
     background: linear-gradient(transparent 0, #000 100%);
-    opacity: 0.7;
+    opacity: 0.5;
   }
+  .is-prev .hero__box::after { opacity: 0.7; }
   .hero__img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transform: scale(1.06);
-    transition: transform 7s linear;
   }
-  .is-active .hero__img { transform: scale(1); }
 
+  /* `.text-wraper`: kiri 5,56 %, 105 px dari bawah, lebar maks 53 %
+     (59 % di bawah 1550 px). Ukuran dalam rem Adani. */
   .hero__text {
     position: absolute;
     z-index: 2;
@@ -119,115 +154,83 @@ const pad = (n: number) => String(n).padStart(2, '0');
     bottom: 105px;
     max-width: 53%;
   }
+  @media (max-width: 1549px) {
+    .hero__text { max-width: 59%; }
+  }
   .hero__title {
-    font-size: clamp(32px, 3.06vw, 44px);
+    font-size: calc(4.4 * var(--rem));
     line-height: 1;
-    font-weight: 600;
+    font-weight: 530;
+    letter-spacing: 0.006em;
     color: #fff;
   }
   .hero__line {
     margin-top: 24px;
-    font-size: clamp(17px, 1.53vw, 22px);
-    line-height: 1.35;
+    font-size: calc(2.2 * var(--rem));
+    line-height: normal;
     color: #fff;
-    max-width: 640px;
   }
-  .hero__btns { margin-top: 40px; }
+  .hero__btns { margin-top: 37px; }
 
-  .hero__title,
-  .hero__line,
-  .hero__btns {
-    opacity: 0;
-    transform: translateY(30px);
-    transition:
-      opacity 0.7s ease,
-      transform 0.7s ease;
-  }
-  .is-active .hero__title,
-  .is-active .hero__line,
-  .is-active .hero__btns {
-    opacity: 1;
-    transform: none;
-  }
-  .is-active .hero__line { transition-delay: 0.15s; }
-  .is-active .hero__btns { transition-delay: 0.3s; }
-
-  /* Kartu slide berikutnya: `.scard` 180 × 260 dengan bayangan. */
+  /* Kartu: `.card-wrapper` menempel di tepi kanan, 115 px dari bawah, lebar
+     180 × (n − 1) maks 770 px; Swiper membaginya jadi kartu 165 px. Kartu
+     aktif tak terlihat, kartu sebelumnya transparan. */
   .hero__cards {
     position: absolute;
     z-index: 3;
-    right: 5.56%;
+    right: 0;
     bottom: 115px;
-    display: flex;
-    gap: 16px;
+    width: min(770px, calc(180px * (var(--n) - 1)));
+    height: 260px;
+    transition: opacity 0.3s linear;
+  }
+  .hero__cards.is-hidden {
+    opacity: 0;
+    pointer-events: none;
   }
   .hero__card {
-    position: relative;
-    width: 150px;
-    height: 220px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--card-w, 165px);
+    height: 100%;
     overflow: hidden;
+    background: #fff;
     box-shadow: 2px 3px 4px #333;
-    transition: transform 0.4s ease;
+    transform: translateX(calc(var(--slot, 0) * var(--pitch, 185px)));
   }
-  .hero__card:hover { transform: translateY(-6px); }
+  .hero__card.is-moving { transition: transform 1s ease; }
+  .hero__card.is-current { visibility: hidden; }
+  .hero__card.is-gone { opacity: 0; }
   .hero__card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-  .hero__card::after {
-    content: '';
-    position: absolute;
-    inset: 40% 0 0;
-    background: linear-gradient(transparent, rgb(0 0 0 / 0.8));
-  }
-  .hero__card span {
-    position: absolute;
-    z-index: 1;
-    left: 12px;
-    right: 12px;
-    bottom: 12px;
-    font-size: 13px;
-    line-height: 1.25;
-    text-align: left;
-    color: #fff;
-  }
-  .hero__card.is-current { display: none; }
 
+  /* Garis progres 400 px (280 px di bawah 1550) tepat 20 px di kiri dua
+     panah bulat bergaris putih. */
   .hero__ctrl {
     position: absolute;
     z-index: 3;
-    right: 5.56%;
-    bottom: 34px;
+    right: calc(5.56% - 27px);
+    bottom: 58px;
     display: flex;
     align-items: center;
-    gap: 16px;
-  }
-  .hero__num {
-    font-size: clamp(40px, 4.4vw, 64px);
-    line-height: 1;
-    color: rgb(253 247 238 / 0.4);
-    margin-right: 8px;
-    font-variant-numeric: tabular-nums;
+    gap: 11px;
   }
   .hero__bar {
     position: relative;
-    width: min(400px, 28vw);
+    width: 400px;
     height: 2px;
+    margin-right: 9px;
     background: #fff;
-    margin-right: 12px;
   }
   .hero__fill {
     position: absolute;
     inset: 0 auto 0 0;
     width: 0;
     background: var(--grad-bar);
-  }
-  .hero__fill.is-running {
-    animation: fill var(--hero-ms, 7000ms) linear forwards;
-  }
-  @keyframes fill {
-    to { width: 100%; }
   }
   .hero__arrow {
     display: grid;
@@ -237,23 +240,25 @@ const pad = (n: number) => String(n).padStart(2, '0');
     border: 1px solid #fff;
     border-radius: 50%;
     color: #fff;
-    transition: background 0.2s, color 0.2s;
+    transition: opacity 0.3s, background 0.2s, color 0.2s;
   }
   .hero__arrow:hover { background: #fff; color: #000; }
+  .hero__arrow:disabled { opacity: 0.35; cursor: default; }
+  .hero__arrow:disabled:hover { background: none; color: #fff; }
+
+  @media (max-width: 1549px) {
+    .hero__ctrl { bottom: 49px; }
+    .hero__bar { width: 280px; }
+    .hero__arrow { width: 43px; height: 43px; }
+  }
 
   @media (max-width: 1026px) {
     .hero__cards { display: none; }
-    .hero__text { max-width: 88%; bottom: 120px; }
+    .hero__text { max-width: none; right: 20px; left: 20px; bottom: 120px; }
+    .hero__title { font-size: 32px; }
+    .hero__line { font-size: 18px; }
     .hero__ctrl { left: 20px; right: 20px; bottom: 30px; }
-    .hero__num { display: none; }
     .hero__bar { flex: 1; width: auto; }
     .hero__arrow { width: 42px; height: 42px; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hero__img,
-    .hero__title,
-    .hero__line,
-    .hero__btns { transition: none; transform: none; }
   }
 </style>

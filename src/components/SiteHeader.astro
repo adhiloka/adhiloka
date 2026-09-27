@@ -57,17 +57,17 @@ const isActive = (href: string) => active === href || active.startsWith(href);
             </li>
           ))
         }
-        <li class="hdr__item hdr__item--search">
-          <button class="hdr__icon" type="button" data-search-open aria-label="Search">
-            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"></circle><path d="m15.5 15.5 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>
-          </button>
-        </li>
         <li class="hdr__item hdr__item--lang" data-item>
           <a class="hdr__link has-child" href="#" data-top>ENG</a>
           <div class="lang" data-mega>
             <a href="/" aria-current="true">ENG</a>
             <a href="#" lang="id">IND</a>
           </div>
+        </li>
+        <li class="hdr__item hdr__item--search">
+          <button class="hdr__icon" type="button" data-search-open aria-label="Search">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"></circle><path d="m15.5 15.5 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>
+          </button>
         </li>
       </ul>
     </nav>
@@ -80,6 +80,8 @@ const isActive = (href: string) => active === href || active.startsWith(href);
 </script>
 
 <style>
+  /* `header` Adani: putih 70 % + blur 10 px, dan TIDAK memutih saat hover —
+     foto hero tetap tembus di balik menu. Hanya laci mobile yang padat. */
   .hdr {
     position: fixed;
     inset: 0 0 auto;
@@ -89,8 +91,6 @@ const isActive = (href: string) => active === href || active.startsWith(href);
     backdrop-filter: blur(10px);
     transition: background 0.3s;
   }
-  .hdr:hover,
-  .hdr.is-open { background: #fff; }
 
   .hdr__bar {
     display: flex;
@@ -98,6 +98,10 @@ const isActive = (href: string) => active === href || active.startsWith(href);
     height: var(--header-h);
   }
 
+  /* `.logo` Adani lebarnya 7 % kontainer, jadi ikut membesar dengan layar
+     (31 px tinggi di 1440, 43 px di 1920). Lockup kita jauh lebih lebar dan
+     tulisannya lebih kecil daripada wordmark Adani, maka tingginya dihitung
+     dari rumus yang sama lalu diperbesar ±25 % agar bobot visualnya setara. */
   .hdr__logo {
     flex: none;
     display: inline-flex;
@@ -105,7 +109,10 @@ const isActive = (href: string) => active === href || active.startsWith(href);
     padding: 6px 6px 6px 0;
     margin-right: 3%;
   }
-  .hdr__logo img { height: 34px; width: auto; }
+  .hdr__logo img {
+    height: clamp(30px, calc((6.22vw - 6px) / 2.1), 46px);
+    width: auto;
+  }
 
   .hdr__nav { flex: 1; height: 100%; }
   .hdr__list {
@@ -114,31 +121,42 @@ const isActive = (href: string) => active === href || active.startsWith(href);
     align-items: stretch;
     height: 100%;
   }
+
+  /* `nav ul li` Adani: jarak antarmenu berubah per lebar layar
+     (18 → 15 → 11 → 6 → 4/5 → 3 px), ditambah padding tautan 10 px, atau
+     20 px di KEDUA sisi untuk menu berpanah. */
   .hdr__item {
     display: flex;
     align-items: center;
-    padding: 0 6px;
+    padding: 0 18px;
   }
+  @media (max-width: 2099px) { .hdr__item { padding: 0 15px; } }
+  @media (max-width: 1799px) { .hdr__item { padding: 0 11px; } }
+  @media (max-width: 1679px) { .hdr__item { padding: 0 6px; } }
+  @media (max-width: 1599px) { .hdr__item { padding: 0 4px; } }
+  @media (max-width: 1549px) { .hdr__item { padding: 0 5px; } }
+  @media (max-width: 1365px) { .hdr__item { padding: 0 3px; } }
 
-  /* `nav ul li a` Adani: 14 px semibold kapital, chevron 7 px dari garis
-     sudut yang diputar, garis gradien 4 px di bawah saat hover/aktif. */
+  /* `nav ul li a`: 1,4 rem semibold kapital, panah 7 px dari garis sudut
+     yang diputar, garis gradien 4 px menempel di tepi bawah header. */
   .hdr__link {
     position: relative;
     display: inline-flex;
     align-items: center;
     height: 100%;
     padding: 0 10px;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: calc(1.4 * var(--rem));
+    font-weight: 530;
+    letter-spacing: 0.006em;
     color: #000;
     text-transform: uppercase;
     white-space: nowrap;
   }
-  .hdr__link.has-child { padding-right: 24px; }
+  .hdr__link.has-child { padding: 0 20px; }
   .hdr__link.has-child::after {
     content: '';
     position: absolute;
-    right: 8px;
+    right: 5px;
     top: calc(50% - 6px);
     width: 7px;
     height: 7px;
@@ -152,13 +170,28 @@ const isActive = (href: string) => active === href || active.startsWith(href);
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 12px;
+    bottom: 0;
     height: 4px;
     background: var(--grad-bar);
     transform: scale(0);
     transition: transform 0.3s ease-out;
   }
   .hdr__item.is-active > .hdr__link::before { transform: scale(1); }
+
+  /* Pemilih bahasa Adani memakai segitiga padat 4 px, bukan panah garis. */
+  @media (min-width: 1027px) {
+    .hdr__item--lang .hdr__link.has-child { padding: 0 16px 0 10px; }
+    .hdr__item--lang .hdr__link.has-child::after {
+      right: 2px;
+      top: calc(50% - 2px);
+      width: 0;
+      height: 0;
+      border: 4px solid transparent;
+      border-top-color: #000;
+      border-bottom: 0;
+      transform: none;
+    }
+  }
 
   .hdr__icon {
     display: grid;
@@ -175,8 +208,8 @@ const isActive = (href: string) => active === href || active.startsWith(href);
   @media (min-width: 1027px) {
     .hdr__item:hover > .hdr__link::before,
     .hdr__item:focus-within > .hdr__link::before { transform: scale(1); }
-    .hdr__item:hover > .hdr__link.has-child::after,
-    .hdr__item:focus-within > .hdr__link.has-child::after {
+    .hdr__item:not(.hdr__item--lang):hover > .hdr__link.has-child::after,
+    .hdr__item:not(.hdr__item--lang):focus-within > .hdr__link.has-child::after {
       transform: rotate(45deg);
       top: calc(50% - 2px);
     }
@@ -223,7 +256,7 @@ const isActive = (href: string) => active === href || active.startsWith(href);
     .lang a {
       padding: 12px 20px;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 530;
       color: #000;
     }
     .lang a[aria-current] { opacity: 0.5; }
@@ -236,7 +269,7 @@ const isActive = (href: string) => active === href || active.startsWith(href);
     margin-bottom: 8px;
     border-bottom: 1px solid var(--line);
     font-size: 20px;
-    font-weight: 400;
+    font-weight: 360;
     color: #000;
     white-space: nowrap;
   }
@@ -250,16 +283,14 @@ const isActive = (href: string) => active === href || active.startsWith(href);
   .mega__links a:hover { opacity: 1; text-decoration: underline; }
 
   @media (max-width: 1399px) and (min-width: 1027px) {
-    .hdr__item { padding: 0 2px; }
-    .hdr__link { padding: 0 6px; font-size: 13px; }
-    .hdr__link.has-child { padding-right: 20px; }
     .mega__head { font-size: 18px; white-space: normal; }
     .mega__links li { padding-top: 8px; }
   }
 
   /* ── Laci mobile (≤1026 px) ──────────────────────────────────────────── */
   @media (max-width: 1026px) {
-    .hdr__logo img { height: 28px; }
+    .hdr.is-open { background: #fff; }
+    .hdr__logo img { height: 34px; }
 
     .hdr__search-m {
       display: grid;

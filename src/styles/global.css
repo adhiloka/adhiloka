@@ -33,12 +33,23 @@
 
   --font: var(--font-sans), system-ui, sans-serif;
 
-  --header-h: 64px;
+  --header-h: 65px;
+
+  /* Satuan rem Adani: html 62,5 % = 10 px, turun ke 50,5 % (1220–1399 px) dan
+     52,5 % (1027–1219 px). Header dan hero memakainya supaya menyusut di
+     laptop persis seperti Adani, tanpa mengubah rem seluruh situs. */
+  --rem: 10px;
   --wrap: 88.88%;
   --sec-pad: 80px;
 
   --h2: clamp(28px, 3.06vw, 44px);
   --lead: clamp(17px, 1.39vw, 20px);
+}
+@media (min-width: 1220px) and (max-width: 1399px) {
+  :root { --rem: 8.08px; }
+}
+@media (min-width: 1027px) and (max-width: 1219px) {
+  :root { --rem: 8.4px; }
 }
 
 *,
@@ -62,7 +73,9 @@ body {
   color: var(--ink);
   font-family: var(--font);
   font-size: 16px;
+  font-weight: 360;
   line-height: 1.5;
+  letter-spacing: 0.02em;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
 }
@@ -87,7 +100,9 @@ button { cursor: pointer; }
 h1,
 h2,
 h3,
-h4 { font-weight: 600; text-wrap: balance; }
+h4 { font-weight: 530; letter-spacing: 0.006em; text-wrap: balance; }
+b,
+strong { font-weight: 670; }
 [hidden] { display: none !important; }
 
 :focus-visible {
@@ -137,14 +152,14 @@ h4 { font-weight: 600; text-wrap: balance; }
 .h2 {
   font-size: var(--h2);
   line-height: 1;
-  font-weight: 600;
+  font-weight: 530;
   text-transform: uppercase;
   color: var(--ink);
 }
 .h3 {
   font-size: clamp(22px, 1.8vw, 26px);
   line-height: 1.2;
-  font-weight: 600;
+  font-weight: 530;
   color: var(--ink);
 }
 
@@ -190,7 +205,7 @@ h4 { font-weight: 600; text-wrap: balance; }
   border-radius: 8px;
   font-size: 18px;
   line-height: 1;
-  font-weight: 500;
+  font-weight: 440;
   color: var(--ink);
   white-space: nowrap;
   transition: color 0.3s, border-color 0.3s;

@@ -24,15 +24,19 @@ export default defineConfig({
 
   // Font di-host sendiri dan di-preload lewat Fonts API; tidak ada permintaan
   // ke fonts.googleapis.com saat runtime.
-  // Situs meniru adani.com (September 2026), yang memakai font "Adani" milik
-  // mereka sendiri. Penggantinya Manrope: sans geometris gratis dengan rasa
-  // yang paling dekat. Tulisan di lockup tetap Crimson Text, sudah jadi kurva.
+  // Situs meniru adani.com. Font "Adani" mereka sebenarnya Rubrik (Miles
+  // Newlyn) yang diganti nama, berlisensi khusus Adani Group, jadi berkasnya
+  // tidak boleh dipakai. Penggantinya Rubik, versi variabel: dari puluhan font
+  // Google yang diuji piksel lawan glyph Rubrik, Rubik paling dekat (g satu
+  // tingkat, sudut kotak-bulat, lebar sama). Rubik sedikit lebih gelap, jadi
+  // bobotnya digeser di CSS: 400→360, 500→440, 600→530, 700→670 (hasil
+  // pencocokan tinta), plus tracking +0,02em.
   fonts: [
     {
-      name: 'Manrope',
+      name: 'Rubik',
       cssVariable: '--font-sans',
       provider: fontProviders.google(),
-      weights: [300, 400, 500, 600, 700],
+      weights: ['300 700'],
       styles: ['normal'],
       subsets: ['latin'],
       display: 'swap',

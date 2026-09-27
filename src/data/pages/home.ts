@@ -7,10 +7,18 @@ import type { ImageKey } from '../images';
 
 /* ── Hero slider ─────────────────────────────────────────────────────── */
 
+/* SEMENTARA lorem ipsum (permintaan pemilik, 27 Sep 2026): naskah final
+ * menyusul. Yang dijaga adalah takaran slider adani.com — judul dua baris
+ * dengan pemisah baris eksplisit (panjang tiap baris setara judul Adani),
+ * lalu satu baris pendek di bawahnya, setara nama anak usaha di Adani
+ * ("Adani Power Ltd", "Natural Resources"). Enam slide seperti Adani, supaya
+ * deret kartunya berisi tiga kartu dan satu kartu terpotong di tepi layar. */
+
 export type HeroSlide = {
-  title: string;
-  /** Baris di bawah judul — tempat tagar di slider Adani. */
-  line: string;
+  /** Judul, satu atau dua baris; tiap elemen dicetak di barisnya sendiri. */
+  title: string[];
+  /** Baris pendek di bawah judul; boleh dua baris seperti tagar slide 1 Adani. */
+  line: string[];
   href: string;
   image: ImageKey;
   /** Keterangan isi foto yang sebenarnya, untuk alt. */
@@ -19,32 +27,46 @@ export type HeroSlide = {
 
 export const HERO_SLIDES: HeroSlide[] = [
   {
-    title: 'Six generations of Indonesian naturals',
-    line: 'Family-held since the 1840s, still buying benzoin from the Sumatran forests our great-great-grandfathers did.',
-    href: '/about/our-history/',
+    title: ['Lorem ipsum dolor…'],
+    line: ['#LoremIpsumDolor', '#SitAmet'],
+    href: '#',
+    image: 'agroforest-canopy',
+    alt: 'Green tree canopy seen from below',
+  },
+  {
+    title: ["Lorem's Leading Integrated Ipsum", 'for Dolor and Sit Amet'],
+    line: ['Lorem Ipsum & Dolor Ltd'],
+    href: '#',
     image: 'material-benzoin',
     alt: 'Sorted benzoin resin tears',
   },
   {
-    title: 'Eighteen naturals, every note',
-    line: 'Resins, leaf oils, roots, spices and one wood, each with a published specification.',
-    href: '/ingredients/catalog/',
-    image: 'hero-benzoin-tears',
-    alt: 'Cassia bark, close',
-  },
-  {
-    title: 'Forest first',
-    line: 'A benzoin tree is tapped, not felled. Everything else follows from that.',
-    href: '/sustainability/',
+    title: ['Consectetur Adipiscing', 'Elit Sed Goal for 2030'],
+    line: ['Adipiscing Elit Ltd'],
+    href: '#',
     image: 'material-patchouli',
     alt: 'Green leaves with dew',
   },
   {
-    title: 'What we grow, we also compose',
-    line: 'Accords built at a bench a day from the gardens its materials come from.',
-    href: '/perfumery/',
+    title: ["Lorem's Largest Private Sector", 'Tempor Incididunt Ut Labore'],
+    line: ['Magna Aliqua Ltd'],
+    href: '#',
     image: 'fragrance-petal',
     alt: 'Orange petals, close',
+  },
+  {
+    title: ["Lorem's Largest Private Sector", 'Nostrud Exercitation Company'],
+    line: ['Ullamco Laboris Solutions Ltd'],
+    href: '#',
+    image: 'hero-benzoin-tears',
+    alt: 'Cassia bark, close',
+  },
+  {
+    title: ['Inspired by Lorem,', 'Driven by Ipsum'],
+    line: ['Dolor Sit Amet'],
+    href: '#',
+    image: 'material-nutmeg',
+    alt: 'Whole nutmegs',
   },
 ];
 
