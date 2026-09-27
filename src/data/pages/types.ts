@@ -41,18 +41,3 @@ export type Passage = {
 
 export type Quote = { text: string; attribution: string };
 
-/** Satu slide pada pita berkarusel — dipakai halaman depan (Get in touch) dan
- *  halaman hub About. Slide berfoto memakai `image`; slide tanpa foto memakai
- *  pelat hatch berwarna `bg` dengan `shot` sebagai keterangannya. */
-export type CarouselSlide = {
-  title: string;
-  body: string;
-  cta: string;
-  shot: string;
-  href: string;
-  bg?: string;
-  image?: ImageKey;
-  /** Titik fokus foto (`object-position`); kolomnya sempit, bawaan `center`
-   *  kerap memotong subjeknya. */
-  focus?: string;
-};

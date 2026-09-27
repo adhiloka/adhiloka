@@ -1,5 +1,4 @@
-import type { CarouselSlide, LinkCard, PageIntro, Passage, Stat } from './types';
-import type { HeroSlide } from './home';
+import type { LinkCard, PageIntro, Passage, Stat } from './types';
 
 /* ── Hub ─────────────────────────────────────────────────────────────── */
 
@@ -31,11 +30,13 @@ export const INGREDIENTS_CARDS: LinkCard[] = [
     title: 'Ingredients Catalog',
     body: 'All eighteen naturals, filterable by botanical family, each with its full specification and sample request.',
     href: '/ingredients/catalog/',
+    image: 'material-nutmeg',
   },
   {
     title: 'Technology',
     body: 'The extraction routes behind the catalog — steam, resinoid, absolute, fractionation — and the analysis that keeps them honest.',
     href: '/ingredients/technology/',
+    image: 'fragrance-resin',
   },
 ];
 
@@ -119,38 +120,5 @@ export const TECHNOLOGY_PASSAGES: Passage[] = [
     href: '/contact/',
     caption: 'laboratory, Medan works',
     image: 'material-patchouli',
-  },
-];
-
-/* ── Halaman hub: hero + karusel ────────────────────────────────────────── */
-export const INGREDIENTS_HERO: HeroSlide[] = [
-  {
-    kind: 'photo',
-    eyebrow: 'Ingredients',
-    headline: 'Eighteen Naturals.',
-    shot: 'cassia bark, Kerinci',
-    href: '/ingredients/catalog/',
-    image: 'hero-benzoin-tears',
-  },
-];
-
-export const INGREDIENTS_SLIDES: CarouselSlide[] = [
-  {
-    title: 'Ingredients Catalog',
-    body: 'All eighteen naturals, filterable by botanical family, each with its full specification and sample request.',
-    cta: 'Browse the catalog',
-    shot: 'grading floor, Medan works',
-    image: 'material-nutmeg',
-    href: '/ingredients/catalog/',
-    bg: 'var(--plate-amber)',
-  },
-  {
-    title: 'Technology',
-    body: 'The extraction routes behind the catalog — steam, resinoid, absolute, fractionation — and the analysis that keeps them honest.',
-    cta: 'See the technology',
-    shot: 'still hall, Medan works',
-    image: 'fragrance-resin',
-    href: '/ingredients/technology/',
-    bg: 'var(--plate-sage)',
   },
 ];

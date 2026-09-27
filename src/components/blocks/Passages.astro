@@ -1,0 +1,33 @@
+---
+import Feature from './Feature.astro';
+import type { Passage } from '../../data/pages/types';
+
+/* Deret Passage sebagai blok Feature: sisi foto dan latar berselang,
+ * seperti section-section halaman dalam adani.com. Id Passage jadi id
+ * section, dan mega-menu menautkan ke sana. */
+interface Props {
+  passages: Passage[];
+  /** Latar section pertama abu. */
+  startGrey?: boolean;
+}
+const { passages, startGrey = false } = Astro.props;
+---
+
+{
+  passages.map((p, i) => (
+    <Feature
+      id={p.id}
+      heading={p.eyebrow ?? p.title}
+      subheading={p.eyebrow ? p.title : undefined}
+      body={p.body}
+      points={p.points}
+      cta={p.cta}
+      href={p.href}
+      image={p.image}
+      alt={p.caption}
+      shot={p.caption}
+      flip={i % 2 === 1}
+      grey={(i % 2 === 0) === startGrey}
+    />
+  ))
+}

@@ -1,0 +1,13 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Intro from '../../components/blocks/Intro.astro';
+import PeopleCards from '../../components/blocks/PeopleCards.astro';
+import SiblingCards from '../../components/blocks/SiblingCards.astro';
+import { LEADERSHIP_INTRO, LEADERSHIP } from '../../data/pages/about';
+---
+
+<PageLayout intro={LEADERSHIP_INTRO}>
+  <Intro title="Always on the floor" paragraphs={[LEADERSHIP_INTRO.lede]} />
+  <PeopleCards title="Executive Leadership" people={LEADERSHIP} showBio grey />
+  <SiblingCards />
+</PageLayout>

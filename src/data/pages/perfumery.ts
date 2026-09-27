@@ -1,5 +1,4 @@
-import type { CarouselSlide, LinkCard, PageIntro, Passage, Quote, Stat } from './types';
-import type { HeroSlide } from './home';
+import type { LinkCard, PageIntro, Passage, Quote, Stat } from './types';
 
 /* ── Hub ─────────────────────────────────────────────────────────────── */
 
@@ -30,11 +29,13 @@ export const PERFUMERY_CARDS: LinkCard[] = [
     title: 'Fine Fragrance',
     body: 'Accords built for perfumers, led by naturals and kept deliberately legible. Bespoke work from brief to production formula.',
     href: '/perfumery/fine-fragrance/',
+    image: 'fragrance-resin',
   },
   {
     title: 'Fragrance Innovation',
     body: 'What we are working on at the bench: extraction routes that change a material, and the analytical work that proves it.',
     href: '/perfumery/fragrance-innovation/',
+    image: 'material-ginger',
   },
 ];
 
@@ -152,43 +153,5 @@ export const INNOVATION_PASSAGES: Passage[] = [
     href: '/contact/',
     caption: 'kemenyan agroforest canopy',
     image: 'agroforest-canopy',
-  },
-];
-
-/* ── Halaman hub: hero + karusel ──────────────────────────────────────────
-   Bentuk yang sama dengan halaman hub About. Fotonya, keterangannya, dan
-   naskah tiap slide diambil dari data halaman ini sendiri — hero memakai foto
-   PERFUMERY_INTRO, tiap slide memakai foto dan keterangan halaman anaknya.
-
-   "Creative by nature" bukan kalimat baru: itu tagline Perfumery yang sudah
-   dipakai di dua foto besar halaman depan. */
-export const PERFUMERY_HERO: HeroSlide[] = [
-  {
-    kind: 'photo',
-    eyebrow: 'Perfumery',
-    headline: 'Creative by Nature.',
-    shot: 'petal, close',
-    href: '/perfumery/fine-fragrance/',
-    image: 'fragrance-petal',
-  },
-];
-
-export const PERFUMERY_SLIDES: CarouselSlide[] = [
-  {
-    title: 'Fine Fragrance',
-    body: 'Accords built for perfumers, led by naturals and kept deliberately legible. Bespoke work from brief to production formula.',
-    cta: 'See fine fragrance',
-    shot: 'dried rhizome',
-    href: '/perfumery/fine-fragrance/',
-    image: 'fragrance-resin',
-  },
-  {
-    title: 'Fragrance Innovation',
-    body: 'What we are working on at the bench: extraction routes that change a material, and the analytical work that proves it.',
-    cta: 'See the bench work',
-    shot: 'fractionation line, Medan works',
-    image: 'material-ginger',
-    href: '/perfumery/fragrance-innovation/',
-    bg: 'var(--plate-sage)',
   },
 ];

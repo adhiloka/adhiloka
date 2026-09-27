@@ -1,0 +1,63 @@
+---
+import type { Leader } from '../../data/pages/about';
+
+/* "Always leading by example" adani.com: kartu potret tegak, nama dan
+ * jabatan. Potret belum ada, jadi setiap kartu memakai pelat berketerangan
+ * foto yang dibutuhkan. Nama di LEADERSHIP masih placeholder. */
+
+interface Props {
+  title: string;
+  people: Leader[];
+  viewAll?: string;
+  showBio?: boolean;
+  grey?: boolean;
+}
+const { title, people, viewAll, showBio = false, grey = false } = Astro.props;
+---
+
+<section class:list={['sec', { 'sec--grey': grey }]}>
+  <div class="wrap">
+    <div class="head-row">
+      <h2 class="h2">{title}</h2>
+      {viewAll && <a class="btn" href={viewAll}><span class="btn__label">View All</span></a>}
+    </div>
+    <ul class="ppl">
+      {
+        people.map((p, i) => (
+          <li class="ppl__item" data-fx style={`--i:${i % 4}`}>
+            <span class="ppl__photo cover">
+              <span class="plate">{p.shot}</span>
+            </span>
+            <h3 class="ppl__name">{p.name}</h3>
+            <p class="ppl__role">{p.role}</p>
+            {showBio && <p class="ppl__bio">{p.bio}</p>}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .ppl {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 48px 2.4%;
+    margin-top: 48px;
+  }
+  .ppl__photo { display: block; aspect-ratio: 3 / 4; }
+  .ppl__name {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .ppl__role { margin-top: 6px; font-size: 16px; color: var(--ink-muted); }
+  .ppl__bio { margin-top: 14px; font-size: 16px; line-height: 1.6; color: var(--ink); }
+  @media (max-width: 1026px) {
+    .ppl { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 480px) {
+    .ppl { grid-template-columns: 1fr; }
+  }
+</style>

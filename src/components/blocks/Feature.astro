@@ -1,0 +1,98 @@
+---
+import { Image } from 'astro:assets';
+import { images, type ImageKey } from '../../data/images';
+
+/* Blok naskah bergambar ala `.Com_company_vision` dan `.contentWithRightImage`
+ * adani.com: judul kapital, naskah, butir dan tombol di satu sisi, foto
+ * besar di sisi lain. Sisi foto berselang lewat prop `flip`. */
+
+interface Props {
+  id?: string;
+  heading: string;
+  subheading?: string;
+  body: string | string[];
+  points?: string[];
+  cta?: string;
+  href?: string;
+  image?: ImageKey;
+  alt?: string;
+  shot?: string;
+  flip?: boolean;
+  grey?: boolean;
+}
+const { id, heading, subheading, body, points, cta, href, image, alt = '', shot, flip = false, grey = false } = Astro.props;
+const paras = Array.isArray(body) ? body : [body];
+---
+
+<section class:list={['sec', 'feat', { 'sec--grey': grey, 'feat--flip': flip }]} id={id}>
+  <div class="wrap feat__grid">
+    <div class="feat__text" data-fx>
+      <h2 class="h2 feat__h">{heading}</h2>
+      {subheading && <p class="feat__sub">{subheading}</p>}
+      <div class="prose feat__body">
+        {paras.map((p) => <p>{p}</p>)}
+      </div>
+      {
+        points && points.length > 0 && (
+          <ul class="feat__points">
+            {points.map((p) => <li>{p}</li>)}
+          </ul>
+        )
+      }
+      {cta && href && <a class="btn feat__btn" href={href}><span class="btn__label">{cta}</span></a>}
+    </div>
+    <div class="feat__media cover zoom" data-fx style="--i:1">
+      {image ? <Image quality={70} src={images[image]} alt={alt} widths={[640, 960, 1400]} sizes="(max-width: 1026px) 100vw, 55vw" loading="lazy" /> : <span class="plate">{shot}</span>}
+    </div>
+  </div>
+</section>
+
+<style>
+  .feat { scroll-margin-top: var(--header-h); }
+  .feat__grid {
+    display: grid;
+    grid-template-columns: 40% 1fr;
+    gap: 6%;
+    align-items: center;
+  }
+  .feat--flip .feat__grid { grid-template-columns: 1fr 40%; }
+  .feat--flip .feat__text { order: 2; }
+
+  .feat__h { font-size: clamp(26px, 2.5vw, 36px); line-height: 1.05; }
+  .feat__sub {
+    margin-top: 20px;
+    font-size: clamp(20px, 1.67vw, 24px);
+    line-height: 1.25;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .feat__body { margin-top: 20px; }
+  .feat__body :global(p) { font-size: 17px; line-height: 1.6; }
+
+  .feat__points { margin-top: 24px; border-top: 1px solid var(--line); }
+  .feat__points li {
+    position: relative;
+    padding: 12px 0 12px 24px;
+    border-bottom: 1px solid var(--line);
+    font-size: 16px;
+    line-height: 1.4;
+  }
+  .feat__points li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 19px;
+    width: 10px;
+    height: 4px;
+    background: var(--grad-bar);
+  }
+  .feat__btn { margin-top: 32px; }
+
+  .feat__media { aspect-ratio: 4 / 3; }
+
+  @media (max-width: 1026px) {
+    .feat__grid,
+    .feat--flip .feat__grid { grid-template-columns: 1fr; gap: 32px; }
+    .feat--flip .feat__text { order: 0; }
+  }
+</style>

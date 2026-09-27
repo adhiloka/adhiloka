@@ -1,0 +1,181 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { OFFICES, ENQUIRY_KINDS, CONTACT_INTRO } from '../data/pages/contact';
+import { MATERIALS } from '../data/materials';
+import { SITE } from '../data/site';
+
+/* Contact ala adani.com/contact-us: banner, lalu formulir di kiri dan
+ * alamat kantor di kanan. Formulir dan skripnya (contact-form.ts) tetap yang
+ * lama: Web3Forms bila PUBLIC_FORM_ACCESS_KEY diisi, mailto bila belum. */
+
+// Peta slug ke nama, supaya ?material=nutmeg-mace terisi "Nutmeg & Mace".
+const materialNames = Object.fromEntries(MATERIALS.map((m) => [m.slug, m.name]));
+
+const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? 'https://api.web3forms.com/submit';
+const accessKey = import.meta.env.PUBLIC_FORM_ACCESS_KEY ?? '';
+const configured = accessKey.length > 0;
+---
+
+<PageLayout intro={{ ...CONTACT_INTRO, image: 'about-table', caption: 'Three people talking over a laid table' }} bannerTitle="Contact Us" lineInBanner>
+  <section class="sec">
+    <div class="wrap contact">
+      <div class="contact__form">
+        <h2 class="h2">Get in Touch</h2>
+        <p class="lead contact__lead">{CONTACT_INTRO.title}</p>
+
+        <div class="sent" data-sent hidden>
+          <p class="sent__title">Thank you — we have it.</p>
+          <p class="sent__body">
+            Someone from the sourcing team will reply within two working days. Sample sets ship from Medan on Tuesdays and Fridays.
+          </p>
+          <button type="button" class="btn" data-reset><span class="btn__label">Send another</span></button>
+        </div>
+
+        <form
+          class="form"
+          data-form
+          data-endpoint={endpoint}
+          data-configured={String(configured)}
+          data-materials={JSON.stringify(materialNames)}
+          method="post"
+          action={endpoint}
+          novalidate
+        >
+          <input type="hidden" name="access_key" value={accessKey} />
+          <input type="hidden" name="subject" value="Enquiry from adhiloka.com" />
+          <input type="hidden" name="from_name" value="Adhiloka website" />
+          <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" hidden />
+
+          <div class="form__row">
+            <label class="field">
+              <span class="field__label">Name*</span>
+              <input type="text" name="name" autocomplete="name" required aria-describedby="err-name" />
+              <span class="field__error" id="err-name" data-error-for="name"></span>
+            </label>
+            <label class="field">
+              <span class="field__label">Company</span>
+              <input type="text" name="company" autocomplete="organization" />
+            </label>
+          </div>
+
+          <div class="form__row">
+            <label class="field">
+              <span class="field__label">Email*</span>
+              <input type="email" name="email" autocomplete="email" required aria-describedby="err-email" />
+              <span class="field__error" id="err-email" data-error-for="email"></span>
+            </label>
+            <label class="field">
+              <span class="field__label">Enquiry</span>
+              <select name="kind" data-kind>
+                {ENQUIRY_KINDS.map((k) => <option value={k}>{k}</option>)}
+              </select>
+            </label>
+          </div>
+
+          <label class="field">
+            <span class="field__label">Message*</span>
+            <textarea rows="5" name="message" placeholder="Materials, volumes, timing, specification" required aria-describedby="err-message"></textarea>
+            <span class="field__error" id="err-message" data-error-for="message"></span>
+          </label>
+
+          <div class="form__foot">
+            <button type="submit" class="btn" data-submit><span class="btn__label" data-submit-label>Send enquiry</span></button>
+            <p class="form__status" role="status" aria-live="polite" data-status></p>
+          </div>
+
+          {
+            !configured && (
+              <p class="form__notice">
+                Delivery is not connected yet, so this button opens your email client instead. You can also write to{' '}
+                <a href={`mailto:${SITE.email}`}>{SITE.email}</a> directly.
+              </p>
+            )
+          }
+        </form>
+      </div>
+
+      <aside class="offices" aria-label="Our offices">
+        {
+          OFFICES.map((o) => (
+            <div class="office">
+              <p class="office__role">{o.role}</p>
+              <h3 class="office__city">{o.city}</h3>
+              <p class="office__line">{o.address}</p>
+              <a class="office__contact" href={o.href}>{o.contact}</a>
+            </div>
+          ))
+        }
+      </aside>
+    </div>
+  </section>
+</PageLayout>
+
+<script>
+  import { initContactForm } from '../scripts/contact-form';
+  initContactForm();
+</script>
+
+<style>
+  .contact {
+    display: grid;
+    grid-template-columns: 1fr 34%;
+    gap: 8%;
+    align-items: start;
+  }
+  .contact__lead { margin-top: 20px; }
+
+  .form { display: flex; flex-direction: column; gap: 28px; margin-top: 40px; }
+  .form[hidden] { display: none; }
+  .form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .field { display: flex; flex-direction: column; gap: 8px; }
+  .field__label { font-size: 15px; color: var(--ink-muted); }
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font-size: 16px;
+    color: var(--ink);
+    background: #fff;
+    transition: border-color 0.2s;
+  }
+  .field textarea { resize: vertical; line-height: 1.6; }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus { border-color: var(--brand-green); outline: none; }
+  .field :global([aria-invalid='true']) { border-color: #b3261e; }
+  .field__error { min-height: 1em; font-size: 14px; color: #b3261e; }
+  .form__foot { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+  .form__status { font-size: 15px; color: var(--ink-muted); }
+  .form__notice { font-size: 14px; line-height: 1.6; color: var(--ink-muted); }
+  .form__notice a { text-decoration: underline; }
+
+  .sent { margin-top: 40px; padding: 32px; background: var(--bg-grey); }
+  .sent__title { font-size: 24px; font-weight: 600; }
+  .sent__body { margin: 12px 0 24px; font-size: 17px; line-height: 1.6; }
+
+  .offices { display: flex; flex-direction: column; }
+  .office { padding: 28px 0; border-bottom: 1px solid var(--line); }
+  .office:first-child { padding-top: 0; }
+  .office__role { font-size: 14px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+  .office__city { margin-top: 8px; font-size: 24px; font-weight: 600; color: var(--ink); }
+  .office__line { margin-top: 10px; font-size: 16px; line-height: 1.6; }
+  .office__contact {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .office__contact:hover { color: var(--brand-green); }
+
+  @media (max-width: 1026px) {
+    .contact { grid-template-columns: 1fr; gap: 56px; }
+  }
+  @media (max-width: 600px) {
+    .form__row { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,102 @@
+---
+import type { Era } from '../../data/pages/about';
+
+/* Dua bentuk "Our Journey" adani.com.
+ * - teaser: judul + satu kalimat, rentang tahun besar dan View Timeline;
+ * - penuh: garis waktu mendatar yang bisa digeser, tiap era satu kartu. */
+
+interface Props {
+  eras: Era[];
+  lead: string;
+  full?: boolean;
+  grey?: boolean;
+}
+const { eras, lead, full = false, grey = true } = Astro.props;
+const first = eras[0]?.year;
+const last = eras[eras.length - 1]?.year;
+---
+
+<section class:list={['sec', 'jr', { 'sec--grey': grey }]}>
+  <div class="wrap">
+    <div class="head-row">
+      <div class="head-row__text">
+        <h2 class="h2">Our Journey</h2>
+        <p>{lead}</p>
+      </div>
+      {!full && <a class="btn" href="/about/our-history/"><span class="btn__label">View Timeline</span></a>}
+    </div>
+
+    {
+      !full ? (
+        <div class="jr__range" data-fx>
+          <span>{first}</span>
+          <span class="jr__line" aria-hidden="true" />
+          <span>{last}</span>
+        </div>
+      ) : (
+        <ol class="jr__list">
+          {eras.map((e, i) => (
+            <li class="jr__era" data-fx style={`--i:${i % 4}`}>
+              <span class="jr__year">{e.year}</span>
+              <span class="jr__dot" aria-hidden="true" />
+              <h3 class="jr__title">{e.title}</h3>
+              <p class="jr__body">{e.body}</p>
+            </li>
+          ))}
+        </ol>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .jr__range {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    margin-top: 56px;
+    font-size: clamp(48px, 6.1vw, 88px);
+    line-height: 1;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .jr__line {
+    flex: 1;
+    height: 4px;
+    background: var(--grad-bar);
+  }
+
+  .jr__list {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(280px, 23%);
+    gap: 32px;
+    margin-top: 56px;
+    padding-bottom: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    background: linear-gradient(var(--line), var(--line)) 0 67px / 100% 1px no-repeat;
+  }
+  .jr__era { scroll-snap-align: start; }
+  .jr__year {
+    display: block;
+    font-size: 40px;
+    line-height: 1;
+    font-weight: 600;
+    background: var(--grad-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .jr__dot {
+    display: block;
+    width: 13px;
+    height: 13px;
+    margin: 20px 0 24px;
+    border-radius: 50%;
+    background: var(--brand-green);
+    box-shadow: 0 0 0 5px var(--bg-grey);
+  }
+  .jr__title { font-size: 20px; font-weight: 600; color: var(--ink); }
+  .jr__body { margin-top: 12px; font-size: 16px; line-height: 1.6; color: var(--ink); }
+</style>

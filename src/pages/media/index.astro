@@ -1,0 +1,16 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Intro from '../../components/blocks/Intro.astro';
+import NewsCards from '../../components/NewsCards.astro';
+import CardGrid from '../../components/blocks/CardGrid.astro';
+import PressContact from '../../components/blocks/PressContact.astro';
+import { MEDIA_INTRO, MEDIA_CARDS, NEWS, byDate } from '../../data/pages/media';
+
+const latest = [...NEWS].sort(byDate).slice(0, 3);
+---
+
+<PageLayout intro={MEDIA_INTRO} bannerTitle="Newsroom" lineInBanner>
+  <NewsCards title="Latest News" viewAll="/media/news/" articles={latest} />
+  <CardGrid title="Media Centre" cards={MEDIA_CARDS} grey />
+  <PressContact grey={false} />
+</PageLayout>

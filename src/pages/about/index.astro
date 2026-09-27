@@ -1,0 +1,66 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import QuoteSplit from '../../components/QuoteSplit.astro';
+import Feature from '../../components/blocks/Feature.astro';
+import CounterGrid from '../../components/blocks/CounterGrid.astro';
+import PeopleCards from '../../components/blocks/PeopleCards.astro';
+import InfoGrid from '../../components/blocks/InfoGrid.astro';
+import Journey from '../../components/blocks/Journey.astro';
+import CardGrid from '../../components/blocks/CardGrid.astro';
+import {
+  ABOUT_INTRO,
+  ABOUT_OPENING,
+  ABOUT_STATS,
+  ABOUT_CARDS,
+  LEADERSHIP,
+  PURPOSE_VALUES,
+  HISTORY_INTRO,
+  HISTORY_TIMELINE,
+} from '../../data/pages/about';
+
+/* Susunan halaman /about-us adani.com: banner, kutipan terbelah, visi,
+ * konten + foto, angka, pimpinan, nilai, perjalanan. Section "Awards &
+ * Accolades" dilewati: kita tidak punya penghargaan untuk dicantumkan. */
+---
+
+<PageLayout intro={ABOUT_INTRO} bannerTitle="About Adhiloka">
+  <QuoteSplit
+    text="We are not trying to *grow quickly*. We are trying to be the house *still buying from these slopes* when the people tapping them now have *grandchildren*."
+    name="Adhiloka Group"
+    role="Family-held since the 1840s"
+    cta="Our Purpose"
+    href="/about/our-purpose/"
+    image="agroforest-canopy"
+    alt="Tree canopy seen from below"
+  />
+
+  <Feature
+    heading="Who We Are"
+    subheading={ABOUT_INTRO.title}
+    body={[ABOUT_INTRO.lede, ABOUT_OPENING[0]]}
+    image="material-benzoin"
+    alt="Sorted benzoin resin tears"
+    grey
+  />
+
+  <Feature
+    heading="How We Work"
+    subheading="Know the household, grade by hand, publish the specification."
+    body={ABOUT_OPENING[1]}
+    cta="Our Business"
+    href="/about/our-business/"
+    image="hero-benzoin-tears"
+    alt="Cassia bark, close"
+    flip
+  />
+
+  <CounterGrid title="Six Generations in Numbers" stats={ABOUT_STATS} />
+
+  <PeopleCards title="Leading from the Grading Floor" people={LEADERSHIP.slice(0, 4)} viewAll="/about/our-leadership/" />
+
+  <InfoGrid title="Our Values" items={PURPOSE_VALUES} grey />
+
+  <Journey eras={HISTORY_TIMELINE} lead={HISTORY_INTRO.lede} grey={false} />
+
+  <CardGrid title="Explore About Adhiloka" cards={ABOUT_CARDS} grey />
+</PageLayout>

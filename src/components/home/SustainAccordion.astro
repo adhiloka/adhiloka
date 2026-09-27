@@ -13,7 +13,7 @@ import { PILLARS, PILLAR_HEADLINE } from '../../data/pages/home';
   {
     PILLARS.map((p, i) => (
       <article class:list={['sa__card', { 'is-active': i === 0 }]} data-acc-item>
-        <Image class="sa__img" src={images[p.image]} alt={p.alt} widths={[640, 1280, 1920]} sizes="(max-width: 1026px) 100vw, 82vw" loading="lazy" />
+        <Image quality={70} class="sa__img" src={images[p.image]} alt={p.alt} widths={[640, 1280, 1920]} sizes="(max-width: 1026px) 100vw, 82vw" loading="lazy" />
         <button class="sa__label" type="button" data-acc-btn aria-expanded={i === 0 ? 'true' : 'false'}>
           <span>{p.label}</span>
         </button>

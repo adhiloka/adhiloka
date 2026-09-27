@@ -1,5 +1,4 @@
-import type { CarouselSlide, LinkCard, PageIntro, Passage, Quote, Stat } from './types';
-import type { HeroSlide } from './home';
+import type { LinkCard, PageIntro, Passage, Quote, Stat } from './types';
 
 /* ── Hub ─────────────────────────────────────────────────────────────── */
 
@@ -31,11 +30,13 @@ export const SUSTAINABILITY_CARDS: LinkCard[] = [
     title: 'Driving progress for people',
     body: 'Income security for tapping households, training, and what we do in the seasons when the crop fails.',
     href: '/sustainability/people/',
+    image: 'material-patchouli',
   },
   {
     title: 'Responsible Sourcing',
     body: 'How a lot moves from a forest garden to a drum, and what is recorded at each step.',
     href: '/sustainability/responsible-sourcing/',
+    image: 'hero-benzoin-tears',
   },
 ];
 
@@ -175,42 +176,5 @@ export const SOURCING_PASSAGES: Passage[] = [
     href: '/about/our-purpose/',
     caption: 'kemenyan agroforest canopy',
     image: 'agroforest-canopy',
-  },
-];
-
-/* ── Halaman hub: hero + karusel ──────────────────────────────────────────
-   Judul hero "Forest First." diambil apa adanya dari slide hero halaman depan
-   yang justru menuju halaman ini. Halaman ini tidak punya foto sendiri di
-   SUSTAINABILITY_INTRO — hanya pelat hatch berketerangan — jadi heronya memakai
-   foto daun, dengan keterangan apa yang benar-benar terlihat, bukan mengaku
-   sebagai tajuk kebun kemenyan. */
-export const SUSTAINABILITY_HERO: HeroSlide[] = [
-  {
-    kind: 'photo',
-    eyebrow: 'Sustainability',
-    headline: 'Forest First.',
-    shot: 'leaf, close',
-    href: '/sustainability/people/',
-    image: 'material-patchouli',
-  },
-];
-
-export const SUSTAINABILITY_SLIDES: CarouselSlide[] = [
-  {
-    title: 'Driving progress for people',
-    body: 'Income security for tapping households, training, and what we do in the seasons when the crop fails.',
-    cta: 'See the work',
-    shot: 'kemenyan agroforest canopy',
-    image: 'hero-agroforest',
-    href: '/sustainability/people/',
-    bg: 'var(--plate-green)',
-  },
-  {
-    title: 'Responsible Sourcing',
-    body: 'How a lot moves from a forest garden to a drum, and what is recorded at each step.',
-    cta: 'Responsible sourcing',
-    shot: 'cassia bark, Kerinci',
-    href: '/sustainability/responsible-sourcing/',
-    image: 'hero-benzoin-tears',
   },
 ];

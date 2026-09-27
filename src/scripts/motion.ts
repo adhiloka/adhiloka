@@ -10,6 +10,8 @@ function countUp(el: HTMLElement) {
   const m = target.match(/^([^\d]*)([\d,.]+)(.*)$/);
   if (!m || reduce) return;
   const [, pre, num, post] = m;
+  // Tahun (1840s, 2019) tidak dihitung naik: "0 → 2019" bukan angka capaian.
+  if (/^(1[5-9]|20)\d\d$/.test(num)) return;
   const end = parseFloat(num.replace(/,/g, ''));
   const decimals = (num.split('.')[1] || '').length;
   const comma = num.includes(',');

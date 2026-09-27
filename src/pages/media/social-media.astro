@@ -1,0 +1,30 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Intro from '../../components/blocks/Intro.astro';
+import InfoGrid from '../../components/blocks/InfoGrid.astro';
+import SiblingCards from '../../components/blocks/SiblingCards.astro';
+import { SOCIAL_INTRO, CHANNELS, SOCIAL_NOTE } from '../../data/pages/media';
+---
+
+<PageLayout intro={SOCIAL_INTRO}>
+  <Intro title="Our official accounts" paragraphs={[SOCIAL_INTRO.lede]} />
+  <InfoGrid
+    title="Follow Us"
+    items={CHANNELS.map((c) => ({ title: c.name, sub: c.handle, body: c.body, href: c.href, linkLabel: `Visit ${c.name}` }))}
+    grey
+  >
+    <p class="note">{SOCIAL_NOTE}</p>
+  </InfoGrid>
+  <SiblingCards />
+</PageLayout>
+
+<style>
+  .note {
+    margin-top: 48px;
+    padding: 24px 28px;
+    border-left: 4px solid var(--brand-green);
+    background: #fff;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+</style>

@@ -1,0 +1,77 @@
+---
+import { Image } from 'astro:assets';
+import { images } from '../../data/images';
+import type { Site } from '../../data/pages/about';
+
+/* Kartu lokasi: foto, kota dan wilayah, jenis situs, naskah, dan chip
+ * kegiatan — chip bergaya chip foto besar di section Business beranda. */
+interface Props {
+  sites: Site[];
+}
+const { sites } = Astro.props;
+---
+
+<section class="sec sec--grey">
+  <div class="wrap">
+    <ul class="loc">
+      {
+        sites.map((s, i) => (
+          <li class="loc__item" data-fx style={`--i:${i % 3}`}>
+            <span class="loc__media cover shade">
+              {s.image ? <Image quality={70} src={images[s.image]} alt="" widths={[480, 800]} sizes="(max-width: 767px) 100vw, 30vw" loading="lazy" /> : <span class="plate">{s.shot}</span>}
+              <span class="loc__kind">{s.kind}</span>
+            </span>
+            <div class="loc__body">
+              <h3 class="loc__city">{s.city}</h3>
+              <p class="loc__region">{s.region}</p>
+              <p class="loc__text">{s.body}</p>
+              <ul class="loc__chips">
+                {s.detail.map((d) => <li>{d}</li>)}
+              </ul>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .loc {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px 2.4%;
+  }
+  .loc__item { background: #fff; }
+  .loc__media { display: block; aspect-ratio: 16 / 10; }
+  .loc__kind {
+    position: absolute;
+    z-index: 1;
+    left: 20px;
+    bottom: 16px;
+    font-size: 16px;
+    color: #fff;
+  }
+  .loc__body { padding: 24px; }
+  .loc__city { font-size: 24px; font-weight: 600; color: var(--ink); }
+  .loc__region { margin-top: 4px; font-size: 14px; color: var(--ink-muted); }
+  .loc__text { margin-top: 14px; font-size: 16px; line-height: 1.6; }
+  .loc__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+  }
+  .loc__chips li {
+    padding: 7px 12px;
+    background: var(--bg-grey);
+    font-size: 14px;
+    color: var(--ink);
+  }
+  @media (max-width: 1026px) {
+    .loc { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .loc { grid-template-columns: 1fr; }
+  }
+</style>

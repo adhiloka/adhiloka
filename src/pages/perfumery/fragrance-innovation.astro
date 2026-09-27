@@ -1,0 +1,13 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Intro from '../../components/blocks/Intro.astro';
+import Passages from '../../components/blocks/Passages.astro';
+import SiblingCards from '../../components/blocks/SiblingCards.astro';
+import { INNOVATION_INTRO, INNOVATION_PASSAGES } from '../../data/pages/perfumery';
+---
+
+<PageLayout intro={INNOVATION_INTRO}>
+  <Intro title="More from a tree, not more of it" paragraphs={[INNOVATION_INTRO.lede]} />
+  <Passages passages={INNOVATION_PASSAGES} startGrey />
+  <SiblingCards />
+</PageLayout>

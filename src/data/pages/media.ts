@@ -1,5 +1,4 @@
-import type { CarouselSlide, LinkCard, PageIntro } from './types';
-import type { HeroSlide } from './home';
+import type { LinkCard, PageIntro } from './types';
 import type { ImageKey } from '../images';
 
 /* ── Hub ─────────────────────────────────────────────────────────────── */
@@ -20,16 +19,19 @@ export const MEDIA_CARDS: LinkCard[] = [
     title: 'News',
     body: 'Announcements about the crop, the works, and the people who supply us.',
     href: '/media/news/',
+    image: 'material-nutmeg',
   },
   {
     title: 'Media Resources',
     body: 'Logos, cleared photography, the company fact sheet and the current sustainability report.',
     href: '/media/media-resources/',
+    image: 'hero-benzoin-tears',
   },
   {
     title: 'Social Media',
     body: 'Where we post between announcements, and which account is actually ours.',
     href: '/media/social-media/',
+    image: 'agroforest-canopy',
   },
 ];
 
@@ -275,45 +277,3 @@ export const CHANNELS: Channel[] = [
 
 export const SOCIAL_NOTE =
   'These four accounts are the only ones we operate. We never ask for payment, deposits or documents through social media, and we will not message you first about an order.';
-
-/* ── Halaman hub: hero + karusel ────────────────────────────────────────── */
-export const MEDIA_HERO: HeroSlide[] = [
-  {
-    kind: 'photo',
-    eyebrow: 'Media',
-    headline: 'From the Works.',
-    shot: 'benzoin resin, hand-graded',
-    href: '/media/news/',
-    image: 'material-benzoin',
-  },
-];
-
-export const MEDIA_SLIDES: CarouselSlide[] = [
-  {
-    title: 'News',
-    body: 'Announcements about the crop, the works, and the people who supply us.',
-    cta: 'Read the news',
-    shot: 'grading floor, Medan works',
-    image: 'material-nutmeg',
-    href: '/media/news/',
-    bg: 'var(--plate-amber)',
-  },
-  {
-    title: 'Media Resources',
-    body: 'Logos, cleared photography, the company fact sheet and the current sustainability report.',
-    cta: 'Get the resources',
-    shot: 'still hall, Medan works',
-    image: 'hero-benzoin-tears',
-    href: '/media/media-resources/',
-    bg: 'var(--plate-sage)',
-  },
-  {
-    title: 'Social Media',
-    body: 'Where we post between announcements, and which account is actually ours.',
-    cta: 'See the channels',
-    shot: 'kemenyan agroforest canopy',
-    image: 'agroforest-canopy',
-    href: '/media/social-media/',
-    bg: 'var(--plate-green)',
-  },
-];

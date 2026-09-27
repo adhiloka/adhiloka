@@ -1,0 +1,20 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Intro from '../../components/blocks/Intro.astro';
+import CounterGrid from '../../components/blocks/CounterGrid.astro';
+import SustainAccordion from '../../components/home/SustainAccordion.astro';
+import CardGrid from '../../components/blocks/CardGrid.astro';
+import {
+  SUSTAINABILITY_INTRO,
+  SUSTAINABILITY_OPENING,
+  SUSTAINABILITY_STATS,
+  SUSTAINABILITY_CARDS,
+} from '../../data/pages/sustainability';
+---
+
+<PageLayout intro={SUSTAINABILITY_INTRO} bannerTitle="Sustainability" lineInBanner>
+  <Intro title={SUSTAINABILITY_INTRO.title} paragraphs={SUSTAINABILITY_OPENING} />
+  <CounterGrid title="What We Can Show" stats={SUSTAINABILITY_STATS} />
+  <SustainAccordion />
+  <CardGrid title="Our Approach" cards={SUSTAINABILITY_CARDS} />
+</PageLayout>

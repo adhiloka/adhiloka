@@ -1,0 +1,26 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import PageBanner from '../components/blocks/PageBanner.astro';
+import type { PageIntro } from '../data/pages/types';
+
+/* Kerangka halaman dalam: banner selayar ala adani.com, lalu isi. Judul
+ * banner memakai `bannerTitle` bila ada — judul hub berupa kalimat panjang,
+ * sedangkan banner Adani berjudul pendek ("The Adani Group"). */
+interface Props {
+  intro: PageIntro;
+  bannerTitle?: string;
+  /** Lede ditampilkan di banner, bukan di blok pembuka. */
+  lineInBanner?: boolean;
+}
+const { intro, bannerTitle, lineInBanner = false } = Astro.props;
+---
+
+<BaseLayout title={intro.metaTitle ?? intro.title} description={intro.description}>
+  <PageBanner
+    title={bannerTitle ?? intro.metaTitle ?? intro.title}
+    image={intro.image}
+    alt={intro.caption}
+    line={lineInBanner ? intro.lede : undefined}
+  />
+  <slot />
+</BaseLayout>

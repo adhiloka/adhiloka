@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SEARCH_SUGGESTIONS } from '../data/site';
+---
+
+<BaseLayout title="Page not found" description="The page you were looking for could not be found.">
+  <section class="sec nf">
+    <div class="wrap">
+      <p class="nf__code">404</p>
+      <h1 class="h2">Page not found</h1>
+      <p class="lead nf__lead">The page you were looking for has moved or no longer exists. These are the pages most people look for:</p>
+      <ul class="nf__links">
+        {SEARCH_SUGGESTIONS.map((s) => <li><a href={s.href}>{s.label}</a></li>)}
+      </ul>
+      <a class="btn" href="/"><span class="btn__label">Back to Home</span></a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf { padding-top: calc(var(--header-h) + 100px); min-height: 80vh; }
+  .nf__code {
+    font-size: clamp(80px, 12vw, 160px);
+    line-height: 1;
+    font-weight: 700;
+    background: var(--grad-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .nf .h2 { margin-top: 20px; }
+  .nf__lead { margin-top: 20px; max-width: 700px; }
+  .nf__links { display: flex; flex-wrap: wrap; gap: 12px; margin: 32px 0 40px; }
+  .nf__links a {
+    display: inline-block;
+    padding: 10px 18px;
+    border: 1px solid var(--line);
+    border-radius: 40px;
+  }
+  .nf__links a:hover { border-color: var(--ink); }
+</style>

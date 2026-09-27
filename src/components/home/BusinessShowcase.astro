@@ -72,7 +72,7 @@ const perfumery = [
           panes.map((p, i) => (
             <li>
               <button class:list={['tile', 'shade', { 'is-active': i === 0 }]} type="button" data-pick={p.key} aria-pressed={i === 0 ? 'true' : 'false'}>
-                <Image src={images[p.image]} alt="" widths={[320, 520]} sizes="(max-width: 767px) 50vw, 18vw" loading="lazy" />
+                <Image quality={70} src={images[p.image]} alt="" widths={[320, 520]} sizes="(max-width: 767px) 50vw, 18vw" loading="lazy" />
                 <span class="tile__text">
                   {p.label}
                   <svg class="tile__arrow" viewBox="0 0 18 12" width="17" height="11" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4"></path></svg>
@@ -87,7 +87,7 @@ const perfumery = [
         {
           panes.map((p, i) => (
             <div class="big" data-pane={p.key} hidden={i !== 0}>
-              <Image class="big__img" src={images[p.image]} alt="" widths={[640, 960, 1400]} sizes="(max-width: 1026px) 100vw, 55vw" loading="lazy" />
+              <Image quality={70} class="big__img" src={images[p.image]} alt="" widths={[640, 960, 1400]} sizes="(max-width: 1026px) 100vw, 55vw" loading="lazy" />
               <div class="big__links">
                 <ul>
                   {p.chips.map((c) => (
@@ -110,7 +110,7 @@ const perfumery = [
           perfumery.map((p) => (
             <li>
               <a class="tile shade" href={p.href}>
-                <Image src={images[p.image]} alt="" widths={[320, 520]} sizes="(max-width: 767px) 50vw, 22vw" loading="lazy" />
+                <Image quality={70} src={images[p.image]} alt="" widths={[320, 520]} sizes="(max-width: 767px) 50vw, 22vw" loading="lazy" />
                 <span class="tile__text">
                   {p.label}
                   <svg class="tile__arrow" viewBox="0 0 18 12" width="17" height="11" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4"></path></svg>
@@ -139,7 +139,7 @@ const perfumery = [
     flex-wrap: wrap;
   }
 
-  /* Tab: 20 px medium abu, aktif = teks bergradien + garis gradien 4 px. */
+  /* Tab: 20 px medium, aktif = teks bergradien + garis gradien 4 px. */
   .biz__tabs { display: flex; }
   .tab {
     position: relative;
@@ -147,7 +147,8 @@ const perfumery = [
     border-bottom: 1px solid var(--line);
     font-size: 20px;
     font-weight: 500;
-    color: var(--line);
+    /* Adani memakai #c1c1c1 (1,7:1); digelapkan supaya tab tetap terbaca. */
+    color: var(--ink-muted);
     letter-spacing: 0.2px;
   }
   .tab::after {
@@ -161,7 +162,7 @@ const perfumery = [
     transform: scaleX(0);
     transition: transform 0.3s;
   }
-  .tab:hover { color: var(--ink-muted); }
+  .tab:hover { color: var(--ink); }
   .tab.is-active {
     background: var(--grad-text);
     -webkit-background-clip: text;

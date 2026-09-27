@@ -1,6 +1,5 @@
 import type { ImageKey } from '../images';
-import type { CarouselSlide, LinkCard, PageIntro, Passage, Quote, Stat } from './types';
-import type { HeroSlide } from './home';
+import type { LinkCard, PageIntro, Passage, Quote, Stat } from './types';
 
 /* ── Hub ─────────────────────────────────────────────────────────────── */
 
@@ -27,103 +26,38 @@ export const ABOUT_OPENING = [
   'The trade began with benzoin. It still ends there, in the sense that benzoin is the material we are judged on and the one that taught us to treat a forest as a supplier rather than a resource. Seventeen other naturals joined it over a century and a half, but the method has not changed much: know the household, grade by hand, publish the specification.',
 ];
 
-/* Hero halaman hub: satu slide, bentuk dan gerak yang sama dengan hero beranda
-   — Ken Burns pelan, judul yang naik, Discover, dan panah bawah. Karena hanya
-   satu slide, panah samping dan titik pemilih tidak dirender.
-
-   "Family-Held." diambil apa adanya dari jeda penutup di beranda ("Family-held
-   since the 1840s."), jadi tidak ada naskah baru yang dikarang di sini. */
-export const ABOUT_HERO: HeroSlide[] = [
-  {
-    kind: 'photo',
-    eyebrow: 'About Adhiloka',
-    headline: 'Family-Held.',
-    shot: 'a chick among buttercups in long grass',
-    href: '/about/our-history/',
-    image: 'about-chick',
-  },
-];
-
-/* Lima pintu ke halaman anak, sebagai pita berkarusel — bentuk yang sama
-   dengan pita "Our purpose" di halaman depan. Dua di antaranya berfoto
-   sungguhan; tiga sisanya memakai pelat hatch dengan keterangan foto yang
-   dibutuhkan, dan itu keadaan yang sah di sistem desain ini. */
-export const ABOUT_SLIDES: CarouselSlide[] = [
-  {
-    title: 'Our Business',
-    body: 'Three activities under one roof — sourcing and extraction, ingredient supply, and perfumery — each feeding the next.',
-    cta: 'See our business',
-    shot: 'benzoin resin, hand-graded',
-    href: '/about/our-business/',
-    image: 'material-benzoin',
-  },
-  {
-    title: 'Our Leadership',
-    body: 'The people accountable for what leaves the works, and for the price paid at the collection point.',
-    cta: 'Meet the leadership',
-    shot: 'the grading floor, Medan works',
-    image: 'about-table',
-    href: '/about/our-leadership/',
-    bg: 'var(--plate-sage)',
-  },
-  {
-    title: 'Our Purpose',
-    body: 'Why we buy the way we do, and what we are trying to leave standing in fifty years.',
-    cta: 'Our purpose',
-    shot: 'two children running through a summer meadow at dusk',
-    href: '/about/our-purpose/',
-    image: 'purpose-generations',
-    focus: '18% 50%',
-  },
-  {
-    title: 'Our History',
-    body: 'From a single ledger in Sibolga to a fractionation line in Medan, in six generations.',
-    cta: 'Read the history',
-    shot: 'the first benzoin ledger, 1840s',
-    image: 'material-benzoin',
-    href: '/about/our-history/',
-    bg: 'var(--plate-amber)',
-  },
-  {
-    title: 'Our Locations',
-    body: 'Where the gardens, the stations, the works and the desks are, and what each of them does.',
-    cta: 'See our locations',
-    shot: 'collection station, Tapanuli uplands',
-    image: 'hero-agroforest',
-    href: '/about/our-locations/',
-    bg: 'var(--plate-green)',
-  },
-];
-
-/* Blok pembuka, deret angka dan kartu di bawah ini TIDAK dipakai lagi sejak
-   halaman hub About dipadatkan jadi tiga section (foto penuh, karusel, footer).
-   Naskahnya disimpan di sini supaya tidak hilang — kalau nanti butuh tempat,
-   isinya sudah siap pakai. */
+/* Kartu lima halaman anak, dipakai grid penutup halaman hub About dan
+   bilah "Explore more" di halaman anaknya. */
 export const ABOUT_CARDS: LinkCard[] = [
   {
     title: 'Our Business',
     body: 'Three activities under one roof — sourcing and extraction, ingredient supply, and perfumery — each feeding the next.',
     href: '/about/our-business/',
+    image: 'material-benzoin',
   },
   {
     title: 'Our Leadership',
     body: 'The people accountable for what leaves the works, and for the price paid at the collection point.',
     href: '/about/our-leadership/',
+    image: 'about-table',
   },
   {
     title: 'Our Purpose',
     body: 'Why we buy the way we do, and what we are trying to leave standing in fifty years.',
     href: '/about/our-purpose/',
+    image: 'purpose-generations',
   },
   {
     title: 'Our History',
     body: 'From a single ledger in Sibolga to a fractionation line in Medan, in six generations.',
     href: '/about/our-history/',
+    image: 'hero-benzoin-tears',
   },
   {
     title: 'Our Locations',
     body: 'Where the gardens, the stations, the works and the desks are, and what each of them does.',
     href: '/about/our-locations/',
+    image: 'agroforest-canopy',
   },
 ];
 

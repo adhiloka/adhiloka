@@ -1,0 +1,30 @@
+---
+import { MEDIA_CONTACT } from '../../data/pages/media';
+
+/* Pita kontak pers di ujung halaman Media — "Media Contacts" adani.com. */
+interface Props {
+  grey?: boolean;
+}
+const { grey = true } = Astro.props;
+---
+
+<section class:list={['sec', { 'sec--grey': grey }]}>
+  <div class="wrap press">
+    <div>
+      <h2 class="h2">{MEDIA_CONTACT.title}</h2>
+      <p class="lead press__body">{MEDIA_CONTACT.body}</p>
+    </div>
+    <a class="btn" href={`mailto:${MEDIA_CONTACT.email}`}><span class="btn__label">{MEDIA_CONTACT.email}</span></a>
+  </div>
+</section>
+
+<style>
+  .press {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .press__body { margin-top: 20px; max-width: 720px; }
+</style>

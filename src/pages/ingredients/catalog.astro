@@ -1,0 +1,177 @@
+---
+import { Image } from 'astro:assets';
+import PageLayout from '../../layouts/PageLayout.astro';
+import Intro from '../../components/blocks/Intro.astro';
+import { images } from '../../data/images';
+import { MATERIALS, FAMILY_FILTERS } from '../../data/materials';
+import { CATALOG_INTRO, CATALOG_NOTE } from '../../data/pages/ingredients';
+
+/* Katalog: tab keluarga bergaya tab "Verticals / Listed Companies" Adani
+ * menyaring grid kartu material. Tiap kartu memegang spesifikasi ringkasnya
+ * dan tautan permintaan sampel (?material=slug mengisi formulir kontak).
+ * Id kartu = slug, ditautkan dari mega-menu dan pencarian. */
+const cats = FAMILY_FILTERS.map((f) => ({ key: f.value === 'All' ? 'all' : f.value, label: f.label }));
+---
+
+<PageLayout intro={CATALOG_INTRO}>
+  <Intro title="Eighteen naturals" paragraphs={[CATALOG_INTRO.lede, CATALOG_NOTE]} />
+
+  <section class="sec sec--grey cat" data-tabs data-filter>
+    <div class="wrap">
+      <div class="cat__bar">
+        <div class="cat__tabs" role="tablist" aria-label="Filter by family">
+          {
+            cats.map((c, i) => (
+              <button class:list={['ctab', { 'is-active': i === 0 }]} type="button" role="tab" data-tab={c.key} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>
+                {c.label}
+              </button>
+            ))
+          }
+        </div>
+        <span class="cat__count" role="status" aria-live="polite" data-filter-count>{MATERIALS.length} items</span>
+      </div>
+
+      <ul class="cat__grid" data-filter-grid>
+        {
+          MATERIALS.map((m) => (
+            <li class="mat" id={m.slug} data-cat={m.family}>
+              <span class="mat__media cover shade">
+                {m.image ? <Image quality={70} src={images[m.image]} alt="" widths={[400, 720]} sizes="(max-width: 767px) 100vw, 30vw" loading="lazy" /> : <span class="plate">{m.shot}</span>}
+                <span class="mat__family">{m.family}</span>
+              </span>
+              <div class="mat__body">
+                <h2 class="mat__name">{m.name}</h2>
+                <p class="mat__latin">{m.latin}</p>
+                <dl class="mat__spec">
+                  <div><dt>Origin</dt><dd>{m.origin}</dd></div>
+                  <div><dt>Method</dt><dd>{m.method}</dd></div>
+                  <div><dt>Harvest</dt><dd>{m.harvest}</dd></div>
+                  <div><dt>Uses</dt><dd>{m.uses}</dd></div>
+                </dl>
+                <details class="mat__note">
+                  <summary>About this material</summary>
+                  <p>{m.note}</p>
+                </details>
+                <a class="mat__cta" href={`/contact/?material=${m.slug}`}>Request a sample</a>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</PageLayout>
+
+<script>
+  import { initTabs } from '../../scripts/tabs';
+  initTabs();
+  // Tautan #slug dari menu/pencarian: pastikan kartunya tidak tersaring.
+  const hash = decodeURIComponent(location.hash.slice(1));
+  if (hash && document.getElementById(hash)?.hidden) {
+    document.querySelector<HTMLButtonElement>('[data-tab="all"]')?.click();
+  }
+</script>
+
+<style>
+  .cat__bar {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .cat__tabs {
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--line);
+  }
+  .ctab {
+    position: relative;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--ink-muted);
+  }
+  .ctab::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 4px;
+    background: var(--grad-bar);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+  .ctab:hover { color: var(--ink); }
+  .ctab.is-active {
+    background: var(--grad-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .ctab.is-active::after { transform: none; }
+  .cat__count { font-size: 15px; color: var(--ink-muted); }
+
+  .cat__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px 2.4%;
+    margin-top: 40px;
+  }
+  .mat {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    scroll-margin-top: calc(var(--header-h) + 20px);
+  }
+  .mat:target { outline: 3px solid var(--brand-green-light); }
+  .mat__media { display: block; aspect-ratio: 16 / 10; }
+  .mat__family {
+    position: absolute;
+    z-index: 1;
+    left: 20px;
+    bottom: 16px;
+    font-size: 16px;
+    color: #fff;
+  }
+  .mat__body { display: flex; flex-direction: column; flex: 1; padding: 24px; }
+  .mat__name { font-size: 22px; font-weight: 600; color: var(--ink); }
+  .mat__latin { margin-top: 4px; font-size: 15px; font-style: italic; color: var(--ink-muted); }
+  .mat__spec { margin-top: 18px; border-top: 1px solid var(--line-soft); }
+  .mat__spec div {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    gap: 12px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--line-soft);
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .mat__spec dt { color: var(--ink-muted); }
+  .mat__note { margin-top: 16px; font-size: 15px; line-height: 1.6; }
+  .mat__note summary {
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .mat__note p { margin-top: 10px; }
+  .mat__cta {
+    align-self: flex-start;
+    margin-top: auto;
+    padding-top: 20px;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+  }
+  .mat__cta:hover { color: var(--brand-green); }
+
+  @media (max-width: 1026px) {
+    .cat__grid { grid-template-columns: 1fr 1fr; }
+    .ctab { padding: 8px 14px; font-size: 16px; }
+  }
+  @media (max-width: 640px) {
+    .cat__grid { grid-template-columns: 1fr; }
+  }
+</style>

@@ -29,9 +29,9 @@ export type NavItem = {
   };
 };
 
-/* Enam menu. Header memecah daftar ini jadi tiga di kiri dan tiga di kanan
-   wordmark, jadi jumlahnya harus tetap genap dan urutannya menentukan sisi.
-   Contact sengaja tanpa panel: ia tujuan, bukan bagian. */
+/* Enam menu utama, urutan kiri ke kanan di header. `panel.links` adalah
+   halaman anak: sumber remah roti, indeks pencarian dan 404. Susunan kolom
+   mega-menu ala Adani ada di menu.ts. Contact tanpa panel: ia tujuan. */
 export const NAV: NavItem[] = [
   {
     label: 'About Adhiloka',
@@ -122,17 +122,6 @@ export const NAV_LINKS: NavLink[] = NAV.flatMap((item) => [
   { label: item.label, href: item.href },
   ...(item.panel?.links ?? []),
 ]);
-
-/* Grup kedua di footer, meniru kolom "Investors" di Vale: beberapa halaman
-   dalam yang paling sering dicari. Sengaja pendek; footer Vale sederhana. */
-export const FOOTER_EXPLORE: NavLink[] = [
-  { label: 'Ingredients Catalog', href: '/ingredients/catalog/' },
-  { label: 'Technology', href: '/ingredients/technology/' },
-  { label: 'Fine Fragrance', href: '/perfumery/fine-fragrance/' },
-  { label: 'Responsible Sourcing', href: '/sustainability/responsible-sourcing/' },
-  { label: 'News', href: '/media/news/' },
-  { label: 'Media Resources', href: '/media/media-resources/' },
-];
 
 export const SOCIAL = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/' },

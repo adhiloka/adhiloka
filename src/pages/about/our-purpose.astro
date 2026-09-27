@@ -1,0 +1,22 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Intro from '../../components/blocks/Intro.astro';
+import QuoteSplit from '../../components/QuoteSplit.astro';
+import InfoGrid from '../../components/blocks/InfoGrid.astro';
+import SiblingCards from '../../components/blocks/SiblingCards.astro';
+import { PURPOSE_INTRO, PURPOSE_BODY, PURPOSE_QUOTE, PURPOSE_VALUES } from '../../data/pages/about';
+---
+
+<PageLayout intro={PURPOSE_INTRO}>
+  <Intro title="Fifty years from now" paragraphs={[PURPOSE_INTRO.lede, ...PURPOSE_BODY]} />
+  <QuoteSplit
+    text={PURPOSE_QUOTE.text}
+    name={PURPOSE_QUOTE.attribution}
+    role="Family-held since the 1840s"
+    image="purpose-generations"
+    alt="Two children running through a meadow at dusk"
+    grey
+  />
+  <InfoGrid title="What It Means in Practice" items={PURPOSE_VALUES} />
+  <SiblingCards />
+</PageLayout>

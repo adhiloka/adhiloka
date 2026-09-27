@@ -1,0 +1,13 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Intro from '../../components/blocks/Intro.astro';
+import Passages from '../../components/blocks/Passages.astro';
+import SiblingCards from '../../components/blocks/SiblingCards.astro';
+import { BUSINESS_INTRO, BUSINESS_PASSAGES } from '../../data/pages/about';
+---
+
+<PageLayout intro={BUSINESS_INTRO}>
+  <Intro title="Three activities, one chain" paragraphs={[BUSINESS_INTRO.lede]} />
+  <Passages passages={BUSINESS_PASSAGES} startGrey />
+  <SiblingCards />
+</PageLayout>

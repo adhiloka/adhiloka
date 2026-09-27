@@ -1,0 +1,123 @@
+---
+import { Image } from 'astro:assets';
+import { images, type ImageKey } from '../../data/images';
+import { NAV, NAV_LINKS } from '../../data/site';
+
+/* Banner halaman dalam ala adani.com (mis. /about-us): foto selayar dengan
+ * bayangan hitam dari bawah, remah roti dan judul 44 px di kiri bawah.
+ * Remah dirakit dari NAV, jadi label halaman tidak ditulis dua kali. */
+
+interface Props {
+  title: string;
+  image?: ImageKey;
+  alt?: string;
+  /** Kalimat di bawah judul (lede halaman). */
+  line?: string;
+}
+const { title, image, alt = '', line } = Astro.props;
+
+const path = Astro.url.pathname;
+const label = (href: string) => NAV_LINKS.find((l) => l.href === href)?.label;
+const section = NAV.find((n) => path.startsWith(n.href) && n.href !== '/');
+const crumbs = [{ label: 'Home', href: '/' }];
+if (section && path !== section.href) crumbs.push({ label: section.label, href: section.href });
+if (section && path !== section.href) {
+  // Halaman anak; artikel berita menambah "News" sebagai jenjang antara.
+  const parts = path.split('/').filter(Boolean);
+  const mid = `/${parts.slice(0, 2).join('/')}/`;
+  if (parts.length > 2 && label(mid)) crumbs.push({ label: label(mid)!, href: mid });
+}
+---
+
+<section class="banner">
+  <div class="banner__media">
+    {
+      image ? (
+        <Image quality={70} src={images[image]} alt={alt} widths={[768, 1280, 1920]} sizes="100vw" loading="eager" fetchpriority="high" />
+      ) : (
+        <span class="plate" />
+      )
+    }
+  </div>
+  <div class="wrap banner__text">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <ol>
+        {crumbs.map((c) => <li><a href={c.href}>{c.label}</a></li>)}
+        <li aria-current="page">{title}</li>
+      </ol>
+    </nav>
+    <h1 class="banner__title">{title}</h1>
+    {line && <p class="banner__line">{line}</p>}
+  </div>
+</section>
+
+<style>
+  .banner {
+    position: relative;
+    height: 100vh;
+    height: 100svh;
+    min-height: 520px;
+    overflow: hidden;
+    background: #111;
+    color: #fff;
+  }
+  .banner__media {
+    position: absolute;
+    inset: 0;
+  }
+  .banner__media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .banner__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(transparent 0, #000 100%);
+    opacity: 0.7;
+  }
+
+  .banner__text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 90px;
+    z-index: 1;
+  }
+  .crumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 0;
+    font-size: 14px;
+    color: rgb(255 255 255 / 0.8);
+  }
+  .crumbs li:not(:last-child)::after {
+    content: '/';
+    margin: 0 10px;
+    opacity: 0.6;
+  }
+  .crumbs a:hover { text-decoration: underline; color: #fff; }
+  .crumbs [aria-current] { color: #fff; }
+
+  .banner__title {
+    margin-top: 24px;
+    max-width: 900px;
+    font-size: clamp(32px, 3.06vw, 44px);
+    line-height: 1.05;
+    font-weight: 600;
+    color: #fff;
+  }
+  .banner__line {
+    margin-top: 20px;
+    max-width: 760px;
+    font-size: clamp(17px, 1.39vw, 20px);
+    line-height: 1.4;
+    color: rgb(255 255 255 / 0.92);
+  }
+
+  @media (max-width: 1026px) {
+    .banner { height: 72vh; }
+    .banner__text { bottom: 48px; }
+  }
+</style>

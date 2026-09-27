@@ -24,7 +24,7 @@ import { JOIN_US } from '../../data/pages/home';
         JOIN_US.cards.map((c, i) => (
           <li class:list={['join__card', { 'is-active': i === 0 }]} data-fx style={`--i:${i}`}>
             <a class="join__link cover shade" href="#">
-              <Image src={images[c.image]} alt={c.alt} widths={[480, 800, 1000]} sizes="(max-width: 1026px) 90vw, 36vw" loading="lazy" />
+              <Image quality={70} src={images[c.image]} alt={c.alt} widths={[480, 800, 1000]} sizes="(max-width: 1026px) 90vw, 36vw" loading="lazy" />
               <span class="join__label">
                 {c.label}
                 <svg viewBox="0 0 18 12" width="17" height="11" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4"></path></svg>

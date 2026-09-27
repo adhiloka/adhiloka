@@ -1,0 +1,15 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Intro from '../../components/blocks/Intro.astro';
+import Passages from '../../components/blocks/Passages.astro';
+import QuoteSplit from '../../components/QuoteSplit.astro';
+import SiblingCards from '../../components/blocks/SiblingCards.astro';
+import { PEOPLE_INTRO, PEOPLE_PASSAGES, PEOPLE_QUOTE } from '../../data/pages/sustainability';
+---
+
+<PageLayout intro={{ ...PEOPLE_INTRO, image: 'material-patchouli', caption: 'Green leaves with dew' }}>
+  <Intro title="Making the arithmetic hold" paragraphs={[PEOPLE_INTRO.lede]} />
+  <Passages passages={PEOPLE_PASSAGES} startGrey />
+  <QuoteSplit text={PEOPLE_QUOTE.text} name={PEOPLE_QUOTE.attribution} image="agroforest-canopy" alt="Tree canopy seen from below" />
+  <SiblingCards />
+</PageLayout>
