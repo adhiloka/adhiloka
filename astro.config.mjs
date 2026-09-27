@@ -9,9 +9,7 @@ export default defineConfig({
   site,
   trailingSlash: 'always',
 
-  // Toolbar dev Astro (pil hitam di tengah bawah layar) menutupi panah hero
-  // dan menangkap kliknya, sehingga tombol "scroll down" terlihat rusak saat
-  // `npm run dev`. Dimatikan; tidak ada pengaruhnya pada build produksi.
+  // Toolbar dev Astro menutupi kontrol slider hero di kanan bawah.
   devToolbar: { enabled: false },
   integrations: [sitemap()],
 
@@ -24,18 +22,17 @@ export default defineConfig({
   },
   build: { inlineStylesheets: 'auto' },
 
-  // Font di-host sendiri dan di-preload lewat Fonts API. Tidak ada permintaan
-  // ke fonts.googleapis.com saat runtime: satu request eksternal hilang,
-  // dan fallback metrics menghilangkan layout shift.
-  // Satu keluarga, Mukta 400/500/600, untuk judul dan isi (September 2026).
-  // Situs meniru valeindonesia.com, yang memakai Vale Sans; font itu milik
-  // Vale, jadi dipilih sans humanis gratis yang paling dekat rasanya.
+  // Font di-host sendiri dan di-preload lewat Fonts API; tidak ada permintaan
+  // ke fonts.googleapis.com saat runtime.
+  // Situs meniru adani.com (September 2026), yang memakai font "Adani" milik
+  // mereka sendiri. Penggantinya Manrope: sans geometris gratis dengan rasa
+  // yang paling dekat. Tulisan di lockup tetap Crimson Text, sudah jadi kurva.
   fonts: [
     {
-      name: 'Mukta',
-      cssVariable: '--font-display-family',
+      name: 'Manrope',
+      cssVariable: '--font-sans',
       provider: fontProviders.google(),
-      weights: [400, 500, 600],
+      weights: [300, 400, 500, 600, 700],
       styles: ['normal'],
       subsets: ['latin'],
       display: 'swap',

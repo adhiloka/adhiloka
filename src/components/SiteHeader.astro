@@ -1,0 +1,349 @@
+---
+import { MENU } from '../data/menu';
+
+/* Header ala adani.com: tetap di atas, putih 70 % dengan blur, lockup di kiri
+ * dan menu kapital di kanan. Mega-menu desktop terbuka saat hover (≥1027 px),
+ * di bawahnya menjadi laci dari kanan dengan akordeon, persis perilaku Adani.
+ * Menu utamanya tetap menu Adhiloka (NAV di site.ts). */
+
+interface Props {
+  active: string;
+}
+const { active } = Astro.props;
+
+const isActive = (href: string) => active === href || active.startsWith(href);
+---
+
+<header class="hdr" data-header>
+  <div class="wrap hdr__bar">
+    <a class="hdr__logo" href="/" aria-label="Adhiloka, home">
+      <img src="/brand/adhiloka-lockup.svg" alt="Adhiloka" width="166" height="34" />
+    </a>
+
+    <button class="hdr__search-m" type="button" data-search-open aria-label="Search">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"></circle><path d="m15.5 15.5 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>
+    </button>
+
+    <button class="hdr__burger" type="button" data-burger aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
+      <span></span><span></span><span></span><span></span>
+    </button>
+
+    <nav class="hdr__nav" id="site-nav" aria-label="Main" data-nav>
+      <ul class="hdr__list">
+        {
+          MENU.map((item) => (
+            <li class:list={['hdr__item', { 'is-active': isActive(item.href), 'has-mega': item.columns.length > 0 }]} data-item>
+              <a class:list={['hdr__link', { 'has-child': item.columns.length > 0 }]} href={item.href} data-top>
+                {item.label}
+              </a>
+              {item.columns.length > 0 && (
+                <div class="mega" data-mega>
+                  <div class="mega__wrap">
+                    {item.columns.map((col) => (
+                      <div class="mega__col">
+                        <a class="mega__head" href={col.head.href}>{col.head.label}</a>
+                        {col.links && (
+                          <ul class="mega__links">
+                            {col.links.map((l) => (
+                              <li><a href={l.href}>{l.label}</a></li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </li>
+          ))
+        }
+        <li class="hdr__item hdr__item--search">
+          <button class="hdr__icon" type="button" data-search-open aria-label="Search">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"></circle><path d="m15.5 15.5 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>
+          </button>
+        </li>
+        <li class="hdr__item hdr__item--lang" data-item>
+          <a class="hdr__link has-child" href="#" data-top>ENG</a>
+          <div class="lang" data-mega>
+            <a href="/" aria-current="true">ENG</a>
+            <a href="#" lang="id">IND</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  import { initNav } from '../scripts/nav';
+  initNav();
+</script>
+
+<style>
+  .hdr {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 9991;
+    background: rgb(255 255 255 / 0.7);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    transition: background 0.3s;
+  }
+  .hdr:hover,
+  .hdr.is-open { background: #fff; }
+
+  .hdr__bar {
+    display: flex;
+    align-items: center;
+    height: var(--header-h);
+  }
+
+  .hdr__logo {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 6px 6px 0;
+    margin-right: 3%;
+  }
+  .hdr__logo img { height: 34px; width: auto; }
+
+  .hdr__nav { flex: 1; height: 100%; }
+  .hdr__list {
+    display: flex;
+    justify-content: flex-end;
+    align-items: stretch;
+    height: 100%;
+  }
+  .hdr__item {
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+  }
+
+  /* `nav ul li a` Adani: 14 px semibold kapital, chevron 7 px dari garis
+     sudut yang diputar, garis gradien 4 px di bawah saat hover/aktif. */
+  .hdr__link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .hdr__link.has-child { padding-right: 24px; }
+  .hdr__link.has-child::after {
+    content: '';
+    position: absolute;
+    right: 8px;
+    top: calc(50% - 6px);
+    width: 7px;
+    height: 7px;
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
+    transform: rotate(-135deg);
+    transition: transform 0.2s, top 0.2s;
+  }
+  .hdr__link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 12px;
+    height: 4px;
+    background: var(--grad-bar);
+    transform: scale(0);
+    transition: transform 0.3s ease-out;
+  }
+  .hdr__item.is-active > .hdr__link::before { transform: scale(1); }
+
+  .hdr__icon {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    color: #000;
+  }
+
+  .hdr__search-m,
+  .hdr__burger { display: none; }
+
+  /* ── Mega-menu desktop ─────────────────────────────────────────────── */
+  @media (min-width: 1027px) {
+    .hdr__item:hover > .hdr__link::before,
+    .hdr__item:focus-within > .hdr__link::before { transform: scale(1); }
+    .hdr__item:hover > .hdr__link.has-child::after,
+    .hdr__item:focus-within > .hdr__link.has-child::after {
+      transform: rotate(45deg);
+      top: calc(50% - 2px);
+    }
+
+    .mega {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: var(--header-h);
+      background: var(--bg-menu);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+      box-shadow: 0 10px 20px rgb(0 0 0 / 0.06);
+    }
+    .hdr__item:hover > .mega,
+    .hdr__item:focus-within > .mega { max-height: 80vh; }
+
+    .mega__wrap {
+      display: flex;
+      gap: 60px;
+      width: var(--wrap);
+      max-width: 1920px;
+      margin: 0 auto;
+      padding: 40px 0 50px;
+    }
+    .mega__col { flex: 0 1 20%; min-width: 0; }
+
+    .hdr__item--lang { position: relative; }
+    .lang {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      min-width: 120px;
+      max-height: 0;
+      overflow: hidden;
+      background: var(--bg-menu);
+      transition: max-height 0.3s ease;
+    }
+    .hdr__item--lang:hover .lang,
+    .hdr__item--lang:focus-within .lang { max-height: 200px; }
+    .lang a {
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #000;
+    }
+    .lang a[aria-current] { opacity: 0.5; }
+  }
+
+  /* Kepala kolom: 20 px, garis bawah #c1c1c1, persis `.column-head span`. */
+  .mega__head {
+    display: block;
+    padding-bottom: 20px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+    font-size: 20px;
+    font-weight: 400;
+    color: #000;
+    white-space: nowrap;
+  }
+  .mega__head:hover { text-decoration: underline; }
+  .mega__links li { padding: 13.5px 0 0; }
+  .mega__links a {
+    font-size: 16px;
+    color: #000;
+    opacity: 0.6;
+  }
+  .mega__links a:hover { opacity: 1; text-decoration: underline; }
+
+  @media (max-width: 1399px) and (min-width: 1027px) {
+    .hdr__item { padding: 0 2px; }
+    .hdr__link { padding: 0 6px; font-size: 13px; }
+    .hdr__link.has-child { padding-right: 20px; }
+    .mega__head { font-size: 18px; white-space: normal; }
+    .mega__links li { padding-top: 8px; }
+  }
+
+  /* ── Laci mobile (≤1026 px) ──────────────────────────────────────────── */
+  @media (max-width: 1026px) {
+    .hdr__logo img { height: 28px; }
+
+    .hdr__search-m {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      margin-left: auto;
+      color: #000;
+    }
+
+    .hdr__burger {
+      position: relative;
+      display: block;
+      width: 30px;
+      height: 21px;
+      margin-left: 12px;
+    }
+    .hdr__burger span {
+      position: absolute;
+      left: 10%;
+      width: 80%;
+      height: 2px;
+      border-radius: 25px;
+      background: #000;
+      transition: 0.25s ease-in-out;
+    }
+    .hdr__burger span:nth-child(1) { top: 0; }
+    .hdr__burger span:nth-child(2),
+    .hdr__burger span:nth-child(3) { top: 9px; }
+    .hdr__burger span:nth-child(4) { top: 18px; }
+    .is-open .hdr__burger span:nth-child(1),
+    .is-open .hdr__burger span:nth-child(4) { top: 9px; width: 0; left: 50%; }
+    .is-open .hdr__burger span:nth-child(2) { transform: rotate(45deg); }
+    .is-open .hdr__burger span:nth-child(3) { transform: rotate(-45deg); }
+
+    .hdr__nav {
+      position: fixed;
+      top: var(--header-h);
+      right: -100%;
+      width: 100%;
+      height: calc(100dvh - var(--header-h));
+      overflow-y: auto;
+      background: #fff;
+      transition: right 0.4s ease-in-out;
+    }
+    .is-open .hdr__nav { right: 0; }
+
+    .hdr__list {
+      display: block;
+      width: 88.88%;
+      height: auto;
+      margin: 0 auto;
+      padding: 10px 0 40px;
+    }
+    .hdr__item {
+      display: block;
+      padding: 0;
+      border-bottom: 1px solid #808080;
+    }
+    .hdr__item--search { display: none; }
+    .hdr__link {
+      display: block;
+      height: auto;
+      padding: 20px 0;
+      font-size: 18px;
+    }
+    .hdr__link.has-child { padding-right: 30px; }
+    .hdr__link.has-child::after {
+      right: 4px;
+      top: 26px;
+      width: 10px;
+      height: 10px;
+    }
+    .hdr__item.is-sub > .hdr__link.has-child::after { transform: rotate(45deg); top: 30px; }
+    .hdr__link::before { display: none; }
+
+    .mega,
+    .lang { display: none; }
+    .is-sub > .mega,
+    .is-sub > .lang { display: block; }
+    .mega__wrap { padding: 0 0 12px 16px; }
+    .mega__col { padding-bottom: 16px; }
+    .mega__head { border: 0; padding-bottom: 6px; font-size: 17px; white-space: normal; }
+    .mega__links li { padding: 6px 0; }
+    .lang a { display: block; padding: 0 0 16px 16px; font-size: 16px; }
+  }
+</style>

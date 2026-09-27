@@ -1,0 +1,330 @@
+---
+import { Image } from 'astro:assets';
+import { images, type ImageKey } from '../../data/images';
+import { MATERIALS, type Family } from '../../data/materials';
+import { ROUTES } from '../../data/pages/ingredients';
+import { FINE_PASSAGES, INNOVATION_PASSAGES } from '../../data/pages/perfumery';
+
+/* Section "BUSINESSES" adani.com, diisi usaha Adhiloka.
+ * Tab kanan atas: Ingredients (seperti "Verticals": grid tile 2 kolom di kiri,
+ * foto besar dengan chip dan Explore More di kanan; tile memilih fotonya) dan
+ * Perfumery (seperti "Listed Companies": grid penuh 4 kolom berisi tautan). */
+
+type Pane = {
+  key: string;
+  label: string;
+  image: ImageKey;
+  chips: { label: string; href: string }[];
+  more: string;
+};
+
+const FAMILIES: { family: Family; label: string }[] = [
+  { family: 'Resin', label: 'Resins' },
+  { family: 'Wood', label: 'Woods' },
+  { family: 'Leaf', label: 'Leaf Oils' },
+  { family: 'Spice', label: 'Spices' },
+  { family: 'Flower', label: 'Flowers' },
+  { family: 'Root', label: 'Roots' },
+  { family: 'Citrus', label: 'Citrus' },
+];
+
+const panes: Pane[] = [
+  ...FAMILIES.map(({ family, label }) => {
+    const items = MATERIALS.filter((m) => m.family === family);
+    return {
+      key: family.toLowerCase(),
+      label,
+      image: (items[0]?.image ?? 'material-benzoin') as ImageKey,
+      chips: items.map((m) => ({ label: m.name, href: `/ingredients/catalog/#${m.slug}` })),
+      more: '/ingredients/catalog/',
+    };
+  }),
+  {
+    key: 'technology',
+    label: 'Technology',
+    image: 'fragrance-resin',
+    chips: ROUTES.map((r) => ({ label: r.name, href: '/ingredients/technology/' })),
+    more: '/ingredients/technology/',
+  },
+];
+
+const perfumery = [
+  { label: 'Fine Fragrance', href: '/perfumery/fine-fragrance/', image: 'fragrance-petal' as ImageKey },
+  { label: 'Fragrance Innovation', href: '/perfumery/fragrance-innovation/', image: 'material-ginger' as ImageKey },
+  ...FINE_PASSAGES.map((p) => ({ label: p.eyebrow ?? p.title, href: `/perfumery/fine-fragrance/#${p.id}`, image: (p.image ?? 'fragrance-petal') as ImageKey })),
+  ...INNOVATION_PASSAGES.map((p) => ({ label: p.eyebrow ?? p.title, href: `/perfumery/fragrance-innovation/#${p.id}`, image: (p.image ?? 'fragrance-resin') as ImageKey })),
+];
+---
+
+<section class="sec sec--grey biz" data-tabs>
+  <div class="wrap">
+    <div class="biz__head">
+      <h2 class="h2">Our Business</h2>
+      <div class="biz__tabs" role="tablist" aria-label="Business">
+        <button class="tab is-active" type="button" role="tab" data-tab="ingredients" aria-selected="true">Ingredients</button>
+        <button class="tab" type="button" role="tab" data-tab="perfumery" aria-selected="false" tabindex="-1">Perfumery</button>
+      </div>
+    </div>
+
+    <div class="biz__panel" data-panel="ingredients" role="tabpanel" data-picker>
+      <ul class="biz__tiles">
+        {
+          panes.map((p, i) => (
+            <li>
+              <button class:list={['tile', 'shade', { 'is-active': i === 0 }]} type="button" data-pick={p.key} aria-pressed={i === 0 ? 'true' : 'false'}>
+                <Image src={images[p.image]} alt="" widths={[320, 520]} sizes="(max-width: 767px) 50vw, 18vw" loading="lazy" />
+                <span class="tile__text">
+                  {p.label}
+                  <svg class="tile__arrow" viewBox="0 0 18 12" width="17" height="11" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4"></path></svg>
+                </span>
+              </button>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="biz__big">
+        {
+          panes.map((p, i) => (
+            <div class="big" data-pane={p.key} hidden={i !== 0}>
+              <Image class="big__img" src={images[p.image]} alt="" widths={[640, 960, 1400]} sizes="(max-width: 1026px) 100vw, 55vw" loading="lazy" />
+              <div class="big__links">
+                <ul>
+                  {p.chips.map((c) => (
+                    <li><a href={c.href}>{c.label}</a></li>
+                  ))}
+                </ul>
+                <div class="big__more">
+                  <a href={p.more}>Explore More</a>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="biz__panel" data-panel="perfumery" role="tabpanel" hidden>
+      <ul class="biz__tiles biz__tiles--full">
+        {
+          perfumery.map((p) => (
+            <li>
+              <a class="tile shade" href={p.href}>
+                <Image src={images[p.image]} alt="" widths={[320, 520]} sizes="(max-width: 767px) 50vw, 22vw" loading="lazy" />
+                <span class="tile__text">
+                  {p.label}
+                  <svg class="tile__arrow" viewBox="0 0 18 12" width="17" height="11" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4"></path></svg>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initTabs, initPickers } from '../../scripts/tabs';
+  initTabs();
+  initPickers();
+</script>
+
+<style>
+  .biz__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  /* Tab: 20 px medium abu, aktif = teks bergradien + garis gradien 4 px. */
+  .biz__tabs { display: flex; }
+  .tab {
+    position: relative;
+    padding: 10px 24px;
+    border-bottom: 1px solid var(--line);
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--line);
+    letter-spacing: 0.2px;
+  }
+  .tab::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 4px;
+    background: var(--grad-bar);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+  .tab:hover { color: var(--ink-muted); }
+  .tab.is-active {
+    background: var(--grad-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .tab.is-active::after { transform: none; }
+
+  .biz__panel:not([hidden]) {
+    display: flex;
+    align-items: stretch;
+    gap: 0.8%;
+    margin-top: 40px;
+  }
+
+  .biz__tiles {
+    width: 38.4%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    align-content: start;
+  }
+  .biz__tiles--full {
+    width: 100%;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .tile {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 2 / 1;
+    overflow: hidden;
+    background: #222;
+    text-align: left;
+  }
+  .biz__tiles--full .tile { aspect-ratio: 16 / 9; }
+  .tile :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1s ease;
+  }
+  .tile:hover :global(img) { transform: scale(1.1); }
+  /* Lapisan gradien yang menyapu tile aktif (`thumb-image::after`). */
+  .tile::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: var(--grad-bar);
+    opacity: 0.92;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  .tile.is-active::before { transform: none; }
+  .tile.is-active::after { opacity: 0; }
+
+  .tile__text {
+    position: absolute;
+    z-index: 2;
+    left: 20px;
+    right: 20px;
+    bottom: 22px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 16px;
+    color: #fff;
+    letter-spacing: 0.16px;
+  }
+  .tile__text::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -7px;
+    height: 2px;
+    width: 100%;
+    background: #fff;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  .tile:hover .tile__text::after,
+  .tile.is-active .tile__text::after { transform: none; }
+  .tile__arrow { display: none; margin-left: auto; }
+  .tile:hover .tile__arrow,
+  .tile.is-active .tile__arrow { display: block; }
+
+  .biz__big { position: relative; width: 61.1%; min-height: 420px; }
+  .big {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background: #222;
+  }
+  .big__img { width: 100%; height: 100%; object-fit: cover; }
+  .big::after {
+    content: '';
+    position: absolute;
+    inset: 50% 0 0;
+    background: linear-gradient(transparent, #000);
+    pointer-events: none;
+  }
+  .big__links {
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    right: 0;
+    bottom: 30px;
+    padding: 0 30px;
+  }
+  .big__links ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 10px;
+    padding: 20px 0 8px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .big__links li {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 12px;
+    background: rgb(0 0 0 / 0.6);
+  }
+  .big__links li::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--grad-bar);
+    transform: translateX(-101%);
+    transition: transform 0.3s ease;
+  }
+  .big__links li:hover::after { transform: none; }
+  .big__links li a {
+    position: relative;
+    z-index: 1;
+    display: block;
+    padding: 12px 13px 12px 12px;
+    font-size: 16px;
+    color: #dcdcdc;
+    letter-spacing: 0.16px;
+  }
+  .big__links li:hover a { color: #fff; }
+  .big__more { padding-top: 20px; }
+  .big__more a {
+    font-size: 16px;
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+  }
+
+  @media (max-width: 1026px) {
+    .biz__panel:not([hidden]) { flex-direction: column; gap: 20px; }
+    .biz__tiles { width: 100%; }
+    .biz__tiles--full { grid-template-columns: 1fr 1fr; }
+    .biz__big { width: 100%; min-height: 0; aspect-ratio: 4 / 3; }
+    .tab { padding: 10px 16px; font-size: 17px; }
+  }
+  @media (max-width: 480px) {
+    .biz__big { aspect-ratio: 3 / 4; }
+    .big__links { padding: 0 16px; bottom: 16px; }
+    .big__links li a { font-size: 14px; padding: 9px 10px; }
+    .tile__text { left: 12px; bottom: 14px; font-size: 14px; }
+  }
+</style>

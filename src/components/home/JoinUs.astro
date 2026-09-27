@@ -1,0 +1,112 @@
+---
+import { Image } from 'astro:assets';
+import { images } from '../../data/images';
+import { JOIN_US } from '../../data/pages/home';
+
+/* "JOIN US" adani.com: judul + satu kalimat + Know More, lalu empat kartu foto
+ * setinggi ±600 px. Kartu aktif lebar (490 px pada 1440), tiga lainnya sempit;
+ * hover atau fokus memindahkan lebarnya. Halaman karier belum ada, jadi semua
+ * tautannya kosong. */
+---
+
+<section class="sec sec--grey join">
+  <div class="wrap">
+    <div class="head-row">
+      <div class="head-row__text">
+        <h2 class="h2">{JOIN_US.title}</h2>
+        <p>{JOIN_US.body}</p>
+      </div>
+      <a class="btn" href="#"><span class="btn__label">{JOIN_US.cta}</span></a>
+    </div>
+
+    <ul class="join__cards" data-join>
+      {
+        JOIN_US.cards.map((c, i) => (
+          <li class:list={['join__card', { 'is-active': i === 0 }]} data-fx style={`--i:${i}`}>
+            <a class="join__link cover shade" href="#">
+              <Image src={images[c.image]} alt={c.alt} widths={[480, 800, 1000]} sizes="(max-width: 1026px) 90vw, 36vw" loading="lazy" />
+              <span class="join__label">
+                {c.label}
+                <svg viewBox="0 0 18 12" width="17" height="11" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4"></path></svg>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-join]').forEach((list) => {
+    const cards = [...list.querySelectorAll<HTMLElement>('.join__card')];
+    const activate = (card: HTMLElement) => cards.forEach((c) => c.classList.toggle('is-active', c === card));
+    cards.forEach((c) => {
+      c.addEventListener('mouseenter', () => activate(c));
+      c.addEventListener('focusin', () => activate(c));
+    });
+  });
+</script>
+
+<style>
+  .join__cards {
+    display: flex;
+    gap: 2.3%;
+    height: clamp(420px, 41.6vw, 600px);
+    margin-top: 56px;
+  }
+  .join__card {
+    flex: 1 1 0;
+    min-width: 0;
+    transition: flex-grow 0.5s ease;
+  }
+  .join__card.is-active { flex-grow: 2.14; }
+
+  .join__link {
+    display: block;
+    height: 100%;
+  }
+  .join__link :global(img) { transition: transform 1s ease; }
+  .join__link:hover :global(img) { transform: scale(1.05); }
+
+  .join__label {
+    position: absolute;
+    z-index: 1;
+    left: 20px;
+    right: 20px;
+    bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 18px;
+    line-height: 1.2;
+    color: #fff;
+  }
+  .join__label svg { flex: none; display: none; }
+  .is-active .join__label svg { display: block; }
+  .join__label::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -12px;
+    width: 72%;
+    height: 3px;
+    background: var(--grad-bar);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .is-active .join__label::after { transform: none; }
+
+  @media (max-width: 1026px) {
+    .join__cards {
+      height: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 36px;
+    }
+    .join__link { aspect-ratio: 3 / 4; height: auto; }
+    .join__label svg { display: block; }
+  }
+</style>

@@ -1,126 +1,130 @@
 import type { ImageKey } from '../images';
-import type { CarouselSlide } from './types';
 
-/* ── Hero ────────────────────────────────────────────────────────────── */
+/* Naskah beranda, disusun menurut urutan section adani.com:
+ * hero slider → kutipan terbelah → Our Business → akordeon keberlanjutan →
+ * Latest News → Join Us → kotak peringatan. Section Business dan News
+ * mengambil isinya langsung dari materials.ts dan media.ts. */
+
+/* ── Hero slider ─────────────────────────────────────────────────────── */
 
 export type HeroSlide = {
-  kind: 'photo';
-  eyebrow: string;
-  headline: string;
-  sub?: string;
-  shot: string;
+  title: string;
+  /** Baris di bawah judul — tempat tagar di slider Adani. */
+  line: string;
   href: string;
-  image?: ImageKey;
-  bg?: string;
-  stripe?: string;
+  image: ImageKey;
+  /** Keterangan isi foto yang sebenarnya, untuk alt. */
+  alt: string;
 };
 
-/* Tiga slide foto dari hero versi awal. Slide pertama versi awal (video
-   "All Natural.") sengaja dibuang; hero hanya memakai foto. */
 export const HERO_SLIDES: HeroSlide[] = [
   {
-    kind: 'photo',
-    eyebrow: 'Est. 1840s',
-    headline: 'Six Generations.',
-    sub: 'Family-held since the 1840s, still buying benzoin from the Sumatran forests our great-great-grandfathers did.',
-    shot: 'rose, fine fragrance materials',
+    title: 'Six generations of Indonesian naturals',
+    line: 'Family-held since the 1840s, still buying benzoin from the Sumatran forests our great-great-grandfathers did.',
     href: '/about/our-history/',
-    image: 'hero-still-hall',
-    bg: 'var(--plate-dark-1)',
-    stripe: 'var(--plate-dark-1-stripe)',
+    image: 'material-benzoin',
+    alt: 'Sorted benzoin resin tears',
   },
   {
-    kind: 'photo',
-    eyebrow: 'Eighteen Naturals',
-    headline: 'Every Note.',
-    shot: 'cassia bark, Kerinci',
+    title: 'Eighteen naturals, every note',
+    line: 'Resins, leaf oils, roots, spices and one wood, each with a published specification.',
     href: '/ingredients/catalog/',
     image: 'hero-benzoin-tears',
-    bg: 'var(--plate-dark-2)',
-    stripe: 'var(--plate-dark-2-stripe)',
+    alt: 'Cassia bark, close',
   },
   {
-    kind: 'photo',
-    eyebrow: 'Sustainability',
-    headline: 'Forest First.',
-    shot: 'leaf, close',
+    title: 'Forest first',
+    line: 'A benzoin tree is tapped, not felled. Everything else follows from that.',
     href: '/sustainability/',
     image: 'material-patchouli',
-    bg: 'var(--plate-dark-3)',
-    stripe: 'var(--plate-dark-3-stripe)',
-  },
-];
-
-/* ── Karusel sebelum footer ──────────────────────────────────────────── */
-
-/** Tipe slide-nya sudah dipakai halaman lain, jadi ia tinggal di types.ts. */
-export type GetInTouchSlide = CarouselSlide;
-
-/* Slide pertama memegang naskah "Our purpose" — dulu pita tersendiri di atas
-   karusel ini, sekarang jadi pintu masuknya. Dia satu-satunya slide yang
-   memakai foto sungguhan; sisanya masih pelat hatch berketerangan. */
-export const GET_IN_TOUCH: GetInTouchSlide[] = [
-  {
-    title: 'Our purpose',
-    body: 'The naturals trade only works if the forest and the families who tend it are still there in fifty years. That conviction shapes every purchase we make, from the price posted at the collection station to the fact that a benzoin tree is tapped rather than felled. Growing responsibly, sourcing transparently and refining in our own works is how we intend to keep supplying this industry for another six generations.',
-    cta: 'Our purpose',
-    shot: 'two children running through a summer meadow at dusk',
-    href: '/about/our-purpose/',
-    image: 'purpose-generations',
-    focus: '18% 50%',
+    alt: 'Green leaves with dew',
   },
   {
-    title: 'Get in touch',
-    body: "Sourcing, sustainability and sample requests all reach a person rather than a queue. We'd like to hear from you.",
-    cta: 'Contact us',
-    shot: 'sample dispatch bench, Medan works',
-    image: 'fragrance-resin',
-    href: '/contact/',
-    bg: 'var(--plate-sage)',
-  },
-  {
-    title: 'Request a sample',
-    body: 'Ten grams of any listed material, dispatched from Medan with its batch certificate and GC trace. Most requests leave within three working days.',
-    cta: 'Request a sample',
-    shot: 'ten-gram vials, ready to ship',
-    image: 'material-ginger',
-    href: '/contact/',
-    bg: 'var(--plate-yellow)',
-  },
-  {
-    title: 'Traceable to the household',
-    body: 'Every benzoin lot carries the collection point and the family it came from, recorded at grading rather than reconstructed afterwards.',
-    cta: 'Responsible sourcing',
-    shot: 'kemenyan agroforest canopy',
-    image: 'agroforest-canopy',
-    href: '/sustainability/responsible-sourcing/',
-    bg: 'var(--plate-green)',
-  },
-  {
-    title: 'Inside the Medan works',
-    body: 'Two distillation halls, a resin grading floor and a fractionation line, all within a day of the gardens they draw from.',
-    cta: 'See our locations',
-    shot: 'still hall, Medan works',
-    image: 'hero-benzoin-tears',
-    href: '/about/our-locations/',
-    bg: 'var(--plate-sage)',
-  },
-  {
-    title: 'Composed at the bench',
-    body: 'Accords and functional bases built from naturals we grew ourselves, developed close enough to the source to smell a lot the week it comes in.',
-    cta: 'See the perfumery',
-    shot: 'perfumery bench, Medan works',
-    image: 'fragrance-petal',
+    title: 'What we grow, we also compose',
+    line: 'Accords built at a bench a day from the gardens its materials come from.',
     href: '/perfumery/',
-    bg: 'var(--plate-green)',
-  },
-  {
-    title: 'Eighteen naturals',
-    body: 'Resins, leaf oils, roots and spices, each with a published specification, seasonal availability and extraction route.',
-    cta: 'Browse the catalog',
-    shot: 'sorted benzoin tears',
-    image: 'material-benzoin',
-    href: '/ingredients/catalog/',
-    bg: 'var(--plate-amber)',
+    image: 'fragrance-petal',
+    alt: 'Orange petals, close',
   },
 ];
+
+/* ── Kutipan terbelah ────────────────────────────────────────────────── */
+
+/* Kata yang diapit *bintang* dicetak tebal, seperti kata kunci pada kutipan
+   di beranda Adani. Naskahnya PURPOSE_QUOTE dari about.ts. */
+export const HOME_QUOTE = {
+  text: 'We are not trying to *grow quickly*. We are trying to be the house *still buying from these slopes* when the people tapping them now have *grandchildren*.',
+  name: 'Adhiloka Group',
+  role: 'Family-held since the 1840s',
+  cta: 'Our Leadership',
+  href: '/about/our-leadership/',
+  image: 'purpose-generations' as ImageKey,
+  alt: 'Two children running through a meadow at dusk',
+};
+
+/* ── Akordeon keberlanjutan ──────────────────────────────────────────── */
+
+export type Pillar = {
+  label: string;
+  stat: string;
+  cta: string;
+  href: string;
+  image: ImageKey;
+  alt: string;
+};
+
+/* Judul besar di panel yang terbuka — dari judul halaman Sustainability. */
+export const PILLAR_HEADLINE = ['The forest', 'is a supplier,', 'not a resource'];
+
+export const PILLARS: Pillar[] = [
+  {
+    label: 'Forest First',
+    stat: '0 hectares cleared for our supply',
+    cta: 'View Responsible Sourcing',
+    href: '/sustainability/responsible-sourcing/',
+    image: 'agroforest-canopy',
+    alt: 'Tree canopy seen from below',
+  },
+  {
+    label: 'Tapping Households',
+    stat: '1,400+ households in the register',
+    cta: 'View Progress for People',
+    href: '/sustainability/people/',
+    image: 'material-patchouli',
+    alt: 'Green leaves with dew',
+  },
+  {
+    label: 'Traceable to the Household',
+    stat: '100% of benzoin traceable to its collection point',
+    cta: 'View Our Approach',
+    href: '/sustainability/',
+    image: 'material-benzoin',
+    alt: 'Sorted benzoin resin tears',
+  },
+];
+
+/* ── Join Us ─────────────────────────────────────────────────────────── */
+
+/* Belum ada halaman karier: semua tautan di section ini sengaja kosong (#). */
+export const JOIN_US = {
+  title: 'Join Us',
+  body: 'We look for people who would rather learn a material properly than sell it quickly — at the stations, on the grading floor and at the bench.',
+  cta: 'Know More',
+  cards: [
+    { label: 'Job Opportunities', image: 'about-table' as ImageKey, alt: 'Three people talking over a laid table' },
+    { label: 'Our Values', image: 'material-benzoin' as ImageKey, alt: 'Sorted benzoin resin tears' },
+    { label: 'Life at Adhiloka', image: 'fragrance-resin' as ImageKey, alt: 'Dried rhizome, close' },
+    { label: 'Diversity & Inclusion', image: 'fragrance-bloom' as ImageKey, alt: 'Hibiscus bloom, close' },
+  ],
+};
+
+/* ── Kotak peringatan ────────────────────────────────────────────────── */
+
+export const NOTICE = {
+  title: 'NOTICE — Beware of fraudulent communications',
+  paragraphs: [
+    'We are aware of individuals falsely claiming to act for Adhiloka Group and asking members of the public, farmers and suppliers for money in connection with supply contracts, sample orders, recruitment or registration.',
+    'Adhiloka Group does not charge any fee for supplier or household registration, for job applications or interviews, or for sample requests. We never ask for payment, deposits or documents through social media or personal email addresses, and we will not message you first about an order.',
+    'Please verify any request through the contacts published on this website. Adhiloka Group accepts no liability for dealings with persons who are not authorised to act for it.',
+  ],
+};

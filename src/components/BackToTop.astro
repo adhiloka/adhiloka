@@ -1,0 +1,40 @@
+---
+/* Tombol bulat kembali-ke-atas di kanan bawah, muncul setelah satu layar
+   digulir — tombol yang sama di adani.com (chevron ganda dalam lingkaran). */
+---
+
+<button class="top" type="button" data-top-btn aria-label="Back to top" hidden>
+  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+    <path d="m6 12 6-6 6 6M6 18l6-6 6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+  </svg>
+</button>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('[data-top-btn]');
+  if (btn) {
+    const update = () => (btn.hidden = window.scrollY < window.innerHeight * 0.8);
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    btn.addEventListener('click', () => window.scrollTo({ top: 0 }));
+  }
+</script>
+
+<style>
+  .top {
+    position: fixed;
+    right: 20px;
+    bottom: 24px;
+    z-index: 900;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--ink-muted);
+    border-radius: 50%;
+    background: rgb(255 255 255 / 0.8);
+    color: var(--ink);
+    transition: border-color 0.2s;
+  }
+  .top:hover { border-color: var(--brand-green-light); color: var(--brand-green); }
+</style>

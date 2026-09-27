@@ -1,0 +1,191 @@
+---
+import { SOCIAL } from '../data/site';
+
+/* Footer ala adani.com: logo dan ikon sosial di kiri, dua kolom berjudul,
+ * satu kolom tautan tebal, lalu bar abu #c1c1c1 berisi hak cipta dan tautan
+ * legal. Adani memakai foto gedung pucat sebagai latar; di sini penggantinya
+ * tanda layar Adhiloka yang sangat samar. Tautan tanpa halaman dibiarkan
+ * kosong (`#`) sesuai permintaan. */
+
+const COLUMNS = [
+  {
+    head: { label: 'About Adhiloka', href: '/about/' },
+    links: [
+      { label: 'Our Business', href: '/about/our-business/' },
+      { label: 'Our Leadership', href: '/about/our-leadership/' },
+      { label: 'Our Purpose', href: '/about/our-purpose/' },
+      { label: 'Our History', href: '/about/our-history/' },
+      { label: 'Our Locations', href: '/about/our-locations/' },
+    ],
+  },
+  {
+    head: { label: 'Ingredients', href: '/ingredients/' },
+    links: [
+      { label: 'Ingredients Catalog', href: '/ingredients/catalog/' },
+      { label: 'Technology', href: '/ingredients/technology/' },
+      { label: 'Fine Fragrance', href: '/perfumery/fine-fragrance/' },
+      { label: 'Fragrance Innovation', href: '/perfumery/fragrance-innovation/' },
+    ],
+  },
+];
+
+const MAJOR = [
+  { label: 'Perfumery', href: '/perfumery/' },
+  { label: 'Sustainability', href: '/sustainability/' },
+  { label: 'Media', href: '/media/' },
+  { label: 'Careers', href: '#' },
+  { label: 'Downloads', href: '/media/media-resources/' },
+  { label: 'Contact Us', href: '/contact/' },
+];
+
+const LEGAL = ['Legal Disclaimer', 'Privacy Notice', 'Terms & Conditions', 'Cookie Policy'];
+
+const ICONS: Record<string, string> = {
+  Facebook:
+    '<path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.3H8v3h2.5V21h3Z" fill="currentColor"/>',
+  Instagram:
+    '<rect x="4" y="4" width="16" height="16" rx="4.5" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="3.6" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="16.8" cy="7.2" r="1.1" fill="currentColor"/>',
+  YouTube:
+    '<path d="M21 8.2c-.2-1.3-1-2.1-2.3-2.2C16.7 5.8 12 5.8 12 5.8s-4.7 0-6.7.2C4 6.1 3.2 6.9 3 8.2 2.8 9.5 2.8 12 2.8 12s0 2.5.2 3.8c.2 1.3 1 2.1 2.3 2.2 2 .2 6.7.2 6.7.2s4.7 0 6.7-.2c1.3-.1 2.1-.9 2.3-2.2.2-1.3.2-3.8.2-3.8s0-2.5-.2-3.8ZM10.2 14.8V9.2l4.9 2.8-4.9 2.8Z" fill="currentColor"/>',
+  LinkedIn:
+    '<path d="M6.9 20H3.8V9.5h3.1V20ZM5.3 8.1a1.8 1.8 0 1 1 0-3.6 1.8 1.8 0 0 1 0 3.6ZM20.2 20h-3.1v-5.1c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V20h-3.1V9.5h3v1.4c.4-.8 1.4-1.7 3-1.7 3.2 0 3.8 2.1 3.8 4.8V20Z" fill="currentColor"/>',
+  Podcasts:
+    '<circle cx="12" cy="10" r="2.4" fill="currentColor"/><path d="M11 14h2l.6 6.5h-3.2L11 14Z" fill="currentColor"/><path d="M7.2 14.6a6 6 0 1 1 9.6 0M4.6 16.8a9 9 0 1 1 14.8 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
+};
+---
+
+<footer class="ftr">
+  <div class="ftr__bg">
+    <img class="ftr__mark" src="/brand/adhiloka-logo.svg" alt="" aria-hidden="true" width="760" height="640" loading="lazy" />
+    <div class="wrap ftr__upper">
+      <div class="ftr__brand">
+        <a href="/" aria-label="Adhiloka, home">
+          <img src="/brand/adhiloka-lockup.svg" alt="Adhiloka" width="176" height="36" loading="lazy" />
+        </a>
+        <ul class="ftr__social">
+          {
+            SOCIAL.filter((s) => ICONS[s.label]).map((s) => (
+              <li>
+                <a href={s.href} rel="noopener" target="_blank" aria-label={s.label}>
+                  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" set:html={ICONS[s.label]} />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      {
+        COLUMNS.map((col) => (
+          <div class="ftr__col">
+            <a class="ftr__head" href={col.head.href}>{col.head.label}</a>
+            <ul>
+              {col.links.map((l) => (
+                <li><a href={l.href}>{l.label}</a></li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+
+      <ul class="ftr__major">
+        {MAJOR.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </div>
+  </div>
+
+  <div class="ftr__policy">
+    <div class="wrap ftr__policy-row">
+      <p>© {new Date().getFullYear()} Adhiloka Group</p>
+      <ul>
+        {LEGAL.map((l) => <li><a href="#">{l}</a></li>)}
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .ftr { color: var(--ink); }
+
+  .ftr__bg {
+    position: relative;
+    overflow: hidden;
+    padding: 50px 0 70px;
+    background: linear-gradient(180deg, #fafafa 0%, #f1f2f1 100%);
+  }
+  .ftr__mark {
+    position: absolute;
+    right: -4%;
+    bottom: -18%;
+    width: min(760px, 60vw);
+    height: auto;
+    opacity: 0.06;
+    pointer-events: none;
+  }
+
+  .ftr__upper {
+    position: relative;
+    display: grid;
+    grid-template-columns: 24.3% 18.2% 18.2% 1fr;
+    align-items: start;
+  }
+
+  .ftr__brand img { width: 176px; height: auto; }
+  .ftr__social {
+    display: flex;
+    gap: 14px;
+    margin-top: 22px;
+  }
+  .ftr__social a {
+    display: grid;
+    place-items: center;
+    color: #000;
+    transition: color 0.2s;
+  }
+  .ftr__social a:hover { color: var(--brand-green-light); }
+
+  /* Kepala kolom 18 px medium, tautan 14 px — takaran footer Adani. */
+  .ftr__head {
+    display: block;
+    padding-bottom: 33px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #000;
+  }
+  .ftr__col li + li { margin-top: 16px; }
+  .ftr__col li a {
+    font-size: 14px;
+    color: var(--ink);
+  }
+  .ftr__major li + li { margin-top: 18px; }
+  .ftr__major a {
+    font-size: 18px;
+    font-weight: 500;
+    color: #000;
+  }
+  .ftr a:hover { text-decoration: underline; }
+  .ftr__social a:hover { text-decoration: none; }
+
+  .ftr__policy { background: var(--line); }
+  .ftr__policy-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 56px;
+    font-size: 13px;
+    color: var(--ink);
+  }
+  .ftr__policy ul { display: flex; gap: 28px; flex-wrap: wrap; }
+
+  @media (max-width: 1026px) {
+    .ftr__upper { grid-template-columns: 1fr 1fr; gap: 40px 20px; }
+    .ftr__brand { grid-column: 1 / -1; }
+    .ftr__head { padding-bottom: 20px; }
+  }
+  @media (max-width: 600px) {
+    .ftr__upper { grid-template-columns: 1fr; }
+    .ftr__policy-row { flex-direction: column; align-items: flex-start; padding-block: 16px; }
+    .ftr__policy ul { gap: 10px 20px; }
+  }
+</style>

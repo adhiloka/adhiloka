@@ -1,0 +1,187 @@
+---
+import { Image } from 'astro:assets';
+import { images } from '../../data/images';
+import { PILLARS, PILLAR_HEADLINE } from '../../data/pages/home';
+
+/* Akordeon keberlanjutan ala `.sustainabilityCompWrap` adani.com: tiga panel
+ * foto setinggi 92vh. Panel aktif melebar, dua lainnya menyempit jadi pita
+ * 124 px berjudul tegak; klik (atau fokus) membuka panel itu. Di layar
+ * sempit panelnya bertumpuk dan yang tertutup jadi pita 150 px. */
+---
+
+<section class="sa" aria-label="Sustainability" data-accordion>
+  {
+    PILLARS.map((p, i) => (
+      <article class:list={['sa__card', { 'is-active': i === 0 }]} data-acc-item>
+        <Image class="sa__img" src={images[p.image]} alt={p.alt} widths={[640, 1280, 1920]} sizes="(max-width: 1026px) 100vw, 82vw" loading="lazy" />
+        <button class="sa__label" type="button" data-acc-btn aria-expanded={i === 0 ? 'true' : 'false'}>
+          <span>{p.label}</span>
+        </button>
+        <div class="sa__content" data-acc-content>
+          <p class="sa__headline">
+            {PILLAR_HEADLINE.map((l) => (
+              <span>{l}</span>
+            ))}
+          </p>
+          <div class="sa__stat">
+            <p>{p.stat}</p>
+            <a class="sa__cta" href={p.href}>{p.cta}</a>
+          </div>
+        </div>
+      </article>
+    ))
+  }
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-accordion]').forEach((root) => {
+    const items = [...root.querySelectorAll<HTMLElement>('[data-acc-item]')];
+    const open = (item: HTMLElement) => {
+      items.forEach((it) => {
+        const on = it === item;
+        it.classList.toggle('is-active', on);
+        it.querySelector('[data-acc-btn]')!.setAttribute('aria-expanded', String(on));
+      });
+    };
+    items.forEach((it) => {
+      it.addEventListener('click', (e) => {
+        if (!it.classList.contains('is-active') && !(e.target as HTMLElement).closest('a')) open(it);
+      });
+      it.querySelector('[data-acc-btn]')!.addEventListener('click', () => open(it));
+    });
+  });
+</script>
+
+<style>
+  .sa {
+    display: flex;
+    width: 100%;
+    height: 92vh;
+    min-height: 560px;
+    overflow: hidden;
+    background: #111;
+  }
+
+  .sa__card {
+    position: relative;
+    flex: 0 0 124px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: flex-basis 0.5s ease;
+  }
+  .sa__card.is-active {
+    flex: 1 1 auto;
+    cursor: default;
+  }
+  .sa__card + .sa__card { border-left: 1px solid rgb(255 255 255 / 0.15); }
+
+  .sa__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .sa__card:not(.is-active):hover .sa__img { transform: scale(1.05); }
+  .sa__card::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    height: 70%;
+    background: linear-gradient(to bottom, transparent, #000);
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  .sa__card:not(.is-active)::after { height: 100%; opacity: 0.55; }
+
+  /* Judul tegak dalam kotak hitam 40 %, dibaca dari bawah ke atas. */
+  .sa__label {
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    bottom: 60px;
+    padding: 25px 10px;
+    background: rgb(0 0 0 / 0.4);
+    color: #fff;
+    font-size: 26px;
+    font-weight: 300;
+    line-height: 1.15;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    text-align: left;
+    white-space: nowrap;
+  }
+  .sa__card:not(.is-active) .sa__label { left: 37px; }
+
+  .sa__content {
+    position: absolute;
+    z-index: 2;
+    left: 90px;
+    right: 60px;
+    bottom: 60px;
+    display: flex;
+    align-items: flex-end;
+    gap: clamp(40px, 8vw, 140px);
+    color: #fff;
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+  }
+  .is-active .sa__content {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    transition-delay: 0.3s;
+  }
+
+  .sa__headline {
+    display: flex;
+    flex-direction: column;
+    font-size: clamp(30px, 3.06vw, 44px);
+    line-height: 1.1;
+    font-weight: 600;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .sa__stat { max-width: 320px; padding-bottom: 6px; }
+  .sa__stat p {
+    font-size: clamp(18px, 1.67vw, 24px);
+    line-height: 1.24;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .sa__cta {
+    display: inline-block;
+    margin-top: 16px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #fff;
+    font-size: 18px;
+    font-weight: 300;
+    color: #fff;
+  }
+  .sa__cta:hover { border-color: var(--brand-gold); }
+
+  @media (max-width: 1026px) {
+    .sa { flex-direction: column; height: auto; min-height: 0; }
+    .sa__card { flex: none; height: 110px; transition: height 0.5s ease; }
+    .sa__card.is-active { flex: none; height: 78vh; min-height: 480px; }
+    .sa__card + .sa__card { border-left: 0; border-top: 1px solid rgb(255 255 255 / 0.15); }
+    .sa__label,
+    .sa__card:not(.is-active) .sa__label {
+      left: 20px;
+      top: 0;
+      bottom: auto;
+      padding: 14px 16px;
+      font-size: 20px;
+      writing-mode: horizontal-tb;
+      transform: none;
+    }
+    .sa__card:not(.is-active) .sa__label { top: 50%; transform: translateY(-50%); background: none; padding: 0; }
+    .sa__content { left: 20px; right: 20px; bottom: 30px; flex-direction: column; align-items: flex-start; gap: 24px; }
+    .sa__headline { white-space: normal; }
+  }
+</style>

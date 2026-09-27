@@ -1,0 +1,167 @@
+---
+import { Image } from 'astro:assets';
+import { images, type ImageKey } from '../data/images';
+
+/* Kutipan terbelah ala `.growth-section` adani.com: foto setinggi layar di
+ * kiri (42,1 %), kutipan di kanan dengan padding 8,4 % / 9,8 %. Kata-katanya
+ * berubah dari abu #c1c1c1 ke gelap mengikuti gulir, kata kunci (*bintang*
+ * di naskah) dicetak tebal, lalu garis balon, nama, jabatan dan tombol. */
+
+interface Props {
+  text: string;
+  name: string;
+  role?: string;
+  cta?: string;
+  href?: string;
+  image?: ImageKey;
+  alt?: string;
+  /** Pelat pengganti bila foto belum ada. */
+  shot?: string;
+  grey?: boolean;
+}
+const { text, name, role, cta, href, image, alt = '', shot, grey = false } = Astro.props;
+
+// "*kata kunci*" → token tebal; sisanya dipecah per kata.
+const tokens = text
+  .split(/(\*[^*]+\*)/)
+  .filter(Boolean)
+  .flatMap((part) => {
+    const bold = part.startsWith('*');
+    return part
+      .replace(/\*/g, '')
+      .split(/(\s+)/)
+      .filter((w) => w.length)
+      .map((w) => ({ w, bold, space: /^\s+$/.test(w) }));
+  });
+---
+
+<section class:list={['qs', { 'sec--grey': grey }]} data-quote>
+  <div class="qs__media cover zoom">
+    {image ? <Image src={images[image]} alt={alt} widths={[640, 960, 1280]} sizes="(max-width: 1026px) 100vw, 42vw" /> : <span class="plate">{shot}</span>}
+  </div>
+  <div class="qs__body">
+    <blockquote class="qs__quote">
+      <p>
+        {tokens.map((t) => (t.space ? t.w : <span class:list={['qs__w', { 'qs__b': t.bold }]}>{t.w}</span>))}
+      </p>
+    </blockquote>
+    <div class="qs__rule" aria-hidden="true"></div>
+    <p class="qs__name">{name}</p>
+    {role && <p class="qs__role">{role}</p>}
+    {cta && href && (
+      <a class="btn qs__btn" href={href}><span class="btn__label">{cta}</span></a>
+    )}
+  </div>
+</section>
+
+<script>
+  // Kata menyala satu per satu saat section melintasi layar, seperti span
+  // ber-opacity pada kutipan Adani.
+  document.querySelectorAll<HTMLElement>('[data-quote]').forEach((sec) => {
+    const words = [...sec.querySelectorAll<HTMLElement>('.qs__w')];
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      words.forEach((w) => w.classList.add('is-on'));
+      return;
+    }
+    const update = () => {
+      const r = sec.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const p = Math.min(1, Math.max(0, (vh * 0.9 - r.top) / (r.height * 0.8)));
+      const lit = Math.round(p * words.length);
+      words.forEach((w, i) => w.classList.toggle('is-on', i < lit));
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+  });
+</script>
+
+<style>
+  .qs {
+    display: flex;
+    align-items: center;
+    background: var(--bg);
+  }
+  .qs.sec--grey { background: var(--bg-grey); }
+
+  .qs__media {
+    flex: none;
+    width: 42.1%;
+    height: 101vh;
+    min-height: 560px;
+  }
+  .qs__media :global(img) { height: 100%; }
+
+  .qs__body {
+    flex: 1;
+    padding: 60px 9.8% 60px 8.4%;
+  }
+
+  .qs__quote {
+    position: relative;
+    font-size: clamp(20px, 1.8vw, 26px);
+    line-height: 1.24;
+    color: var(--line);
+  }
+  .qs__quote::before {
+    content: '“';
+    position: absolute;
+    left: -0.8em;
+    top: -0.1em;
+    font-size: 2em;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .qs__quote p::after {
+    content: '”';
+    font-size: 1.6em;
+    line-height: 0;
+    vertical-align: -0.25em;
+    color: var(--line);
+  }
+  .qs__w {
+    transition: color 0.3s;
+  }
+  .qs__w.is-on { color: var(--ink); }
+  .qs__b { font-weight: 700; }
+  .js .qs__w:not(.is-on) { color: var(--line); }
+  html:not(.js) .qs__w { color: var(--ink); }
+
+  /* Garis balon: garis tipis dengan ekor segitiga di kiri, di atas nama. */
+  .qs__rule {
+    position: relative;
+    height: 1px;
+    margin: 32px 0 28px;
+    background: var(--line);
+  }
+  .qs__rule::after {
+    content: '';
+    position: absolute;
+    left: 60px;
+    top: -1px;
+    width: 18px;
+    height: 18px;
+    background: var(--bg);
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    transform: translateY(-50%) rotate(45deg) translate(6px, 6px);
+  }
+  .sec--grey .qs__rule::after { background: var(--bg-grey); }
+
+  .qs__name {
+    font-size: clamp(20px, 1.67vw, 24px);
+    color: var(--ink);
+  }
+  .qs__role {
+    margin-top: 6px;
+    font-size: 14px;
+    color: var(--ink-muted);
+  }
+  .qs__btn { margin-top: 28px; }
+
+  @media (max-width: 1026px) {
+    .qs { flex-direction: column; align-items: stretch; }
+    .qs__media { width: 100%; height: 60vh; min-height: 320px; }
+    .qs__body { padding: 50px 20px 50px 48px; }
+  }
+</style>

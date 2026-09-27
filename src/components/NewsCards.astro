@@ -1,0 +1,129 @@
+---
+import { Image } from 'astro:assets';
+import { images } from '../data/images';
+import { formatDate, type Article } from '../data/pages/media';
+
+/* Kartu berita ala "LATEST NEWS" adani.com: foto dengan label kategori di
+ * kiri bawahnya, tanggal abu 16 px, judul 20 px. Dipakai beranda (tiga
+ * kartu + View All), halaman Media, daftar berita dan kaki artikel. */
+
+interface Props {
+  articles: Article[];
+  /** Judul section; kosongkan bila kartunya ditanam di section lain. */
+  title?: string;
+  viewAll?: string;
+  grey?: boolean;
+  /** Tempelkan data-cat pada tiap kartu, untuk tab penyaring. */
+  filterable?: boolean;
+  headingLevel?: 'h2' | 'h3';
+}
+const { articles, title, viewAll, grey = false, filterable = false, headingLevel = 'h3' } = Astro.props;
+const H = headingLevel;
+---
+
+{
+  title ? (
+    <section class:list={['sec', { 'sec--grey': grey }]}>
+      <div class="wrap">
+        <div class="head-row">
+          <h2 class="h2">{title}</h2>
+          {viewAll && (
+            <a class="btn" href={viewAll}><span class="btn__label">View All</span></a>
+          )}
+        </div>
+        <ul class="news">
+          {articles.map((a, i) => (
+            <li class="news__item" data-fx style={`--i:${i}`}>
+              <a class="news__card" href={`/media/news/${a.slug}/`}>
+                <span class="news__media cover shade">
+                  {a.image ? <Image src={images[a.image]} alt="" widths={[400, 720]} sizes="(max-width: 767px) 85vw, 28vw" loading="lazy" /> : <span class="plate">{a.shot}</span>}
+                  <span class="news__cat">{a.category}</span>
+                </span>
+                <time class="news__date" datetime={a.date}>{formatDate(a.date)}</time>
+                <H class="news__title">{a.title}</H>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  ) : (
+    <ul class="news news--grid" data-filter-grid>
+      {articles.map((a) => (
+        <li class="news__item" data-cat={filterable ? a.category : undefined}>
+          <a class="news__card" href={`/media/news/${a.slug}/`}>
+            <span class="news__media cover shade">
+              {a.image ? <Image src={images[a.image]} alt="" widths={[400, 720]} sizes="(max-width: 767px) 90vw, 28vw" loading="lazy" /> : <span class="plate">{a.shot}</span>}
+              <span class="news__cat">{a.category}</span>
+            </span>
+            <time class="news__date" datetime={a.date}>{formatDate(a.date)}</time>
+            <H class="news__title">{a.title}</H>
+          </a>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+<style>
+  .news {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 40px;
+  }
+  .news--grid { margin-top: 0; row-gap: 48px; }
+
+  .news__card {
+    display: block;
+    padding: 20px;
+    margin: -20px;
+    transition: background 0.3s, box-shadow 0.3s;
+  }
+  .news__card:hover { background: #fff; box-shadow: 0 10px 30px rgb(0 0 0 / 0.08); }
+  .news__media {
+    display: block;
+    aspect-ratio: 364 / 207;
+  }
+  .news__media :global(img) { transition: transform 1s ease; }
+  .news__card:hover .news__media :global(img) { transform: scale(1.06); }
+  .news__cat {
+    position: absolute;
+    z-index: 1;
+    left: 20px;
+    bottom: 16px;
+    font-size: 16px;
+    color: #fff;
+  }
+  .news__date {
+    display: block;
+    padding: 20px 0 14px;
+    font-size: 16px;
+    color: var(--ink-muted);
+  }
+  .news__title {
+    font-size: 20px;
+    line-height: 1.19;
+    font-weight: 400;
+    color: var(--ink);
+  }
+  .news__card:hover .news__title { text-decoration: underline; text-underline-offset: 3px; }
+
+  @media (max-width: 1026px) {
+    .news:not(.news--grid) {
+      grid-template-columns: none;
+      grid-auto-flow: column;
+      grid-auto-columns: min(80%, 380px);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 20px 20px 24px;
+      margin-inline: -20px;
+      gap: 24px;
+    }
+    .news:not(.news--grid) .news__item { scroll-snap-align: start; }
+    .news--grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  }
+  @media (max-width: 600px) {
+    .news--grid { grid-template-columns: 1fr; }
+  }
+</style>
