@@ -5,7 +5,7 @@ export const SITE = {
   legalName: 'Adhiloka Group',
   tagline: "Indonesia's finest raw material supplier.",
   description:
-    'Adhiloka is a family-held Indonesian house of natural aromatics — benzoin, patchouli, nutmeg, ginger, clove and vetiver — grown in Sumatra, Java and Maluku, refined at its own works in Medan, and composed into fragrance at its perfumery bench.',
+    'Eligendi ex in maxime-quis temporibus omnis ad commodo quibusdam — officia, doloribus, dolore, tempor, ipsum est eveniet — culpa ut ducimus, enim eum soluta, tenetur ex nam cum fugit id velit, eum voluptas quam assumenda at non voluptate iusto.',
   locale: 'en_ID',
   lang: 'en',
   email: 'sourcing@adhiloka.com',

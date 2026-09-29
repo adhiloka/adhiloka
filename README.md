@@ -58,13 +58,33 @@ Yang **tidak** disalin: foto, naskah, ikon, logo dan font Adani. Semua isi beras
 
 Yang sengaja berbeda:
 
-- **Font.** Font "Adani" milik mereka. Penggantinya Manrope 300–700, di-host sendiri lewat Fonts API.
+- **Font.** Font "Adani" sebenarnya Rubrik (Miles Newlyn) berlisensi khusus Adani Group. Penggantinya
+  Rubik variabel 300–700, di-host sendiri lewat Fonts API, dengan bobot digeser supaya setara tinta
+  Rubrik (400→360, 500→440, 600→530, 700→670). Rinciannya di `astro.config.mjs`.
 - **Tab tidak aktif** memakai `#6b6b6b`, bukan `#c1c1c1` Adani yang kontrasnya cuma 1,7:1.
 - **"Watch Video"** di hero menjadi "Know More"; situs ini tidak memakai video.
 - **Awards & Accolades** di halaman About dilewati: tidak ada penghargaan yang bisa dicantumkan.
 - **Banner cookie** tidak ditiru; situs ini tidak memasang cookie.
 - **Popup peringatan penipuan** saat halaman dibuka tidak ditiru; peringatannya cukup di kotak
   bawah beranda, dengan naskah Adhiloka sendiri.
+
+## Naskah lorem ipsum
+
+Sejak 29 September 2026 semua naskah situs berupa lorem ipsum atas permintaan pemilik, sampai naskah
+asli yang sudah diperiksa faktanya siap. Yang **tetap asli**:
+
+- menu bar: header, mega-menu, laci mobile, panel pencarian (`NAV`, `menu.ts`, `SEARCH_SUGGESTIONS`);
+- footer;
+- tombol dan label: `cta`, Know More, View All, tab, label formulir, label spesifikasi katalog;
+- judul section dan judul banner, termasuk `eyebrow` dan judul kartu yang sama dengan label menu;
+- data yang bukan naskah: tautan, slug, tanggal, kategori, email, telepon, `alt`, `caption`, `shot`.
+
+Nama bahan di katalog ikut lorem. Nama aslinya disimpan di `src/data/material-names.ts` untuk
+mega-menu, indeks pencarian dan formulir kontak. Angka statistik diganti angka contoh berpola
+`1,234` supaya animasi hitung tetap jalan. `foundingDate` dan alamat Medan di JSON-LD dilepas
+karena belum terverifikasi.
+
+**Jangan push versi lorem ke `main`**: `main` adalah adhiloka.com.
 
 ## Tautan kosong
 
@@ -81,12 +101,14 @@ Tanda logonya sama persis dengan versi sebelumnya, jadi favicon tidak berubah.
 
 ## Sebelum tayang
 
-1. **Formulir kontak.** Isi `PUBLIC_FORM_ACCESS_KEY` di `.env` (Web3Forms). Selama kosong, tombol
+1. **Naskah.** Ganti lorem ipsum dengan naskah asli (lihat "Naskah lorem ipsum"), termasuk hero
+   beranda, dan pasang lagi `foundingDate`/alamat di JSON-LD bila datanya benar.
+2. **Formulir kontak.** Isi `PUBLIC_FORM_ACCESS_KEY` di `.env` (Web3Forms). Selama kosong, tombol
    kirim membuka klien email pengguna.
-2. **Placeholder**, semuanya ditandai komentar di berkasnya: `LEADERSHIP` (nama pimpinan) di
+3. **Placeholder**, semuanya ditandai komentar di berkasnya: `LEADERSHIP` (nama pimpinan) di
    `pages/about.ts`; `NEWS` (enam kabar contoh), `RESOURCES` (tautan berkas) dan `CHANNELS`
    (handle sosial) di `pages/media.ts`; `SOCIAL` di `site.ts`.
-3. **Foto.** Berkas di `src/assets/images/` adalah stok botani yang namanya tidak sesuai isinya
+4. **Foto.** Berkas di `src/assets/images/` adalah stok botani yang namanya tidak sesuai isinya
    (daftarnya di komentar `src/data/images.ts`). Potret pimpinan dan foto pabrik/stasiun belum ada;
    tempatnya memakai pelat hijau berketerangan foto yang dibutuhkan.
 

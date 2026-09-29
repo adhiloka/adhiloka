@@ -4,37 +4,37 @@ import type { LinkCard, PageIntro, Passage, Stat } from './types';
 
 export const INGREDIENTS_INTRO: PageIntro = {
   eyebrow: 'Ingredients',
-  title: 'Eighteen naturals, and the paperwork to back every one.',
+  title: 'Possimus mollitia, rem nam assumenda id anim earum qui.',
   metaTitle: 'Ingredients',
-  lede: 'Resins, leaf oils, roots, spices and one wood. Each with an origin, an extraction route, a harvest window and a specification we hold across seasons.',
+  lede: 'Aliqua, quam quis, rerum, mollit rem cum unde. Ipsa quos in soluta, et temporibus omnis, ad ullamco itaque non et consequuntur ea aute cumque aliquip.',
   description:
-    'The Adhiloka ingredients range: eighteen Indonesian naturals with published specifications, extraction routes, harvest windows and full traceability.',
+    'Sit nesciunt praesentium atque: sapiente adipiscing corrupti quia accusamus reprehenderit, reiciendis maxime, tenetur nostrum rem quae voluptatibus.',
   image: 'hero-benzoin-tears',
   caption: 'cassia bark, Kerinci',
 };
 
 export const INGREDIENTS_STATS: Stat[] = [
-  { value: '18', label: 'Naturals in the catalog' },
-  { value: '7', label: 'Botanical families' },
-  { value: '10 g', label: 'Standard sample size' },
-  { value: '3 days', label: 'Typical dispatch' },
+  { value: '12', label: 'Quisquam id aut laboris' },
+  { value: '1', label: 'Explicabo deserunt' },
+  { value: '12 et', label: 'Incidunt tempor amet' },
+  { value: '1 odit', label: 'Nostrum incidunt' },
 ];
 
 export const INGREDIENTS_OPENING = [
-  'The catalog is short on purpose. Eighteen materials is what we can grow, buy, grade and guarantee without leaning on a trader somewhere in the middle. Adding a nineteenth would mean either finding another forest we can work in properly or buying blind, and we have not been willing to do the second.',
-  'What you get with each of them is the same document we work from: where it grew, who tapped or cut it, how it was extracted, when it is available, and what the analysis said. Including the seasons when the analysis said something we would rather it had not.',
+  'Aut officia ex sequi ex aperiam. Officiis voluptate ad amet in cum quod, non, magna hic consequat aliquip eveniet do ut aliqua cupidatat at sit cumque. Cillum do doloremque nobis nisi facere commodi laborum labore id hic ipsa et incidunt at aliqua rerum, vel et quae qui odit ullamco id ea quo veniam.',
+  'Quod aut eos sint duis ex amet ex est vero corporis do quos amet: iusto do odit, aut fugiat ad quo ut, nam ex quo explicabo, modi et ex veritatis, aut eius eos expedita ipsa. Molestias rem nostrum elit qui sapiente nisi accusamus ab eaque veniam ut vel eum.',
 ];
 
 export const INGREDIENTS_CARDS: LinkCard[] = [
   {
     title: 'Ingredients Catalog',
-    body: 'All eighteen naturals, filterable by botanical family, each with its full specification and sample request.',
+    body: 'Qui quisquam mollitia, blanditiis ex quibusdam minima, enim esse non quam voluptatibus eum aliqua eveniet.',
     href: '/ingredients/catalog/',
     image: 'material-nutmeg',
   },
   {
     title: 'Technology',
-    body: 'The extraction routes behind the catalog — steam, resinoid, absolute, fractionation — and the analysis that keeps them honest.',
+    body: 'Cum recusandae libero cillum sed impedit — neque, deleniti, eligendi, perspiciatis — rem quo incidunt esse natus vero tempor.',
     href: '/ingredients/technology/',
     image: 'fragrance-resin',
   },
@@ -45,24 +45,24 @@ export const INGREDIENTS_CARDS: LinkCard[] = [
 export const CATALOG_INTRO: PageIntro = {
   eyebrow: 'Ingredients',
   title: 'Ingredients Catalog',
-  lede: 'Filter by family, open a material for its full specification, and request ten grams from the same panel.',
+  lede: 'Labore ab aliqua, quod id corporis eum cum iste voluptatibus, eum ratione nam culpa quia quo quae magna.',
   description:
-    'Browse all eighteen Adhiloka naturals by botanical family, with origin, extraction route, harvest window and specification for each.',
+    'Tempor quo deserunt officiis delectus do cupidatat cillum, anim mollit, voluptates vitae, tenetur veniam cum perspiciatis sit modi.',
   caption: 'grading floor, Medan works',
   image: 'material-nutmeg',
 };
 
 export const CATALOG_NOTE =
-  'Availability moves with the season. Where a harvest window has closed, we say so rather than quoting against stock we do not hold.';
+  'Perspiciatis saepe quam hic fugiat. Ullam do tempora itaque eos veniam, ut non ea veniam vero tenetur tempore rerum in ut cum quia.';
 
 /* ── Technology ──────────────────────────────────────────────────────── */
 
 export const TECHNOLOGY_INTRO: PageIntro = {
   eyebrow: 'Ingredients',
   title: 'Technology',
-  lede: 'Four extraction routes, one grading floor and one laboratory. Nothing here is unusual in the industry — what is unusual is that we own all of it.',
+  lede: 'Nemo laudantium tempor, rem officia error vel cum doloremque. Tempora elit et ratione at qui sapiente — quia do debitis ut sunt et eum non ex in.',
   description:
-    'Extraction technology at the Adhiloka works: steam distillation, resinoid and absolute extraction, fractionation, and the analytical control behind the specifications.',
+    'Cupiditate incididunt et vel quisquam optio: velit perspiciatis, incidunt eum quisquam cupiditate, voluptatibus, hic rem reiciendis ducimus labore rem reprehenderit.',
   caption: 'still hall, Medan works',
   image: 'fragrance-resin',
 };
@@ -71,24 +71,24 @@ export type Route = { name: string; applies: string; body: string };
 
 export const ROUTES: Route[] = [
   {
-    name: 'Steam distillation',
-    applies: 'Leaf oils, roots, spices, woods',
-    body: 'Two halls, direct and indirect steam. Cut-to-still time is the number that matters here, and having the stations close to the gardens is what keeps it short enough to hold the top notes.',
+    name: 'Sequi exercitation',
+    applies: 'Nemo quam, culpa, soluta, nulla',
+    body: 'Cum illum, soluta cum delectus minus. Est-at-ipsum sint in non labore sunt dolores unde, nam magnam eum repellat omnis at sit tempore ex unde alias id earum libero in duis hic est culpa.',
   },
   {
-    name: 'Resinoid',
-    applies: 'Benzoin, other resins',
-    body: 'Solvent extraction of graded resin into a pourable resinoid. Grading before extraction rather than after is the reason our resinoid is consistent; sorting a finished batch cannot undo a mixed input.',
+    name: 'Pariatur',
+    applies: 'Dolorem, rerum facere',
+    body: 'Nostrum asperiores ea maxime ipsam odit ad deserunt possimus. Aliquip facere aspernatur fugiat anim totam in eum maxime sed nesciunt ex laboriosam; commodi at repellat quasi mollit unde in iusto nulla.',
   },
   {
-    name: 'Absolute',
-    applies: 'Benzoin, tuberose, cananga',
-    body: 'A second stage on selected materials, for perfumers who need the alcohol-soluble fraction and a cleaner colour. Yields are low and we do not run it speculatively.',
+    name: 'Mollitia',
+    applies: 'Tenetur, possimus, commodo',
+    body: 'Ad cillum fugit ea pariatur molestias, eum inventore non elit quo impedit-commodo repellat eum ea ratione itaque. Labore sed cum est ab at non eos at consequuntur.',
   },
   {
-    name: 'Fractionation',
-    applies: 'Resins, patchouli, nutmeg, citrus',
-    body: 'Vacuum fractionation, in since 2019. Separates one material into several usable characters — a vanillic benzoin top and a balsamic body, for instance — without asking more of the forest.',
+    name: 'Necessitatibus',
+    applies: 'Veniam, consequat, labore, fugiat',
+    body: 'Beatae exercitation, ex error 1234. Accusamus non possimus elit tempora facere incididunt — et corporis ducimus aut rem at mollitia iure, non delectus — aliquid itaque unde id sit minima.',
   },
 ];
 
@@ -96,12 +96,12 @@ export const TECHNOLOGY_PASSAGES: Passage[] = [
   {
     id: 'grading',
     eyebrow: 'Grading',
-    title: 'The step that decides everything after it',
-    body: 'Resin arrives mixed: tears, siftings, bark, the occasional stone. It is sorted by hand into three qualities by people who have done it for years, and no lot enters a still until it has been through that floor. Machines are faster and cannot tell a first-grade tear from a well-shaped second, which is exactly the distinction the price rests on.',
+    title: 'Nam odio amet laborum distinctio neque ad',
+    body: 'Dolor aperiam atque: optio, voluptas, quis, nam adipiscing natus. Ab id mollit ab amet illo earum occaecati id itaque non elit sunt et rem nobis, nam ut est facere in atque animi ab cum quae ducimus modi vitae. Mollitia non minima nam facere odio et ipsam-nulla elit quos at modi-libero fugiat, fugit do debitis aut accusantium qui irure dicta do.',
     points: [
-      'Three benzoin qualities, sorted by hand',
-      'Household and collection point recorded at grading',
-      'No blending across grades after the fact',
+      'Totam laboris veritatis, minima ut quod',
+      'Assumenda rem aspernatur ipsam nesciunt ad tempora',
+      'Ad repellat veniam tempor dolor sit nemo',
     ],
     caption: 'benzoin resin, hand-graded',
     image: 'material-benzoin',
@@ -109,12 +109,12 @@ export const TECHNOLOGY_PASSAGES: Passage[] = [
   {
     id: 'laboratory',
     eyebrow: 'Analytical control',
-    title: 'GC-MS on every released lot',
-    body: 'A specification is a promise, and a promise needs an instrument behind it. Every lot is run before release and the trace travels with the sample. When a season pushes a material outside its normal range we publish the range it actually reached, because a buyer who plans around the truth has a better year than one who plans around an average.',
+    title: 'Ad-ex ad ipsam eligendi rem',
+    body: 'Do exercitation ex at ratione, cum ut aperiam nihil ad cupiditate libero do. Fugit cum et qui dolore aperiam est nam atque aliquip quae qui dolore. Enim in soluta aliqua et proident quaerat non labore lorem id maiores eos optio ad corrupti debitis, tempora in omnis qui ipsum cillum rem ipsum non do veniam sunt ipsa rem qui saepe labore ab impedit.',
     points: [
-      'Trace and batch certificate with every dispatch',
-      'Specification held across seasons, not per lot',
-      'Difficult years published as they happened',
+      'Lorem rem minim repudiandae amet velit proident',
+      'Consequuntur vero cumque ratione, vel sit eum',
+      'Molestias ipsam similique ut quas pariatur',
     ],
     cta: 'Request a sample',
     href: '/contact/',

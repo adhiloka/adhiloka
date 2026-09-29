@@ -1,7 +1,7 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
 import { OFFICES, ENQUIRY_KINDS, CONTACT_INTRO } from '../data/pages/contact';
-import { MATERIALS } from '../data/materials';
+import { MATERIAL_NAMES } from '../data/material-names';
 import { SITE } from '../data/site';
 
 /* Contact ala adani.com/contact-us: banner, lalu formulir di kiri dan
@@ -9,7 +9,7 @@ import { SITE } from '../data/site';
  * lama: Web3Forms bila PUBLIC_FORM_ACCESS_KEY diisi, mailto bila belum. */
 
 // Peta slug ke nama, supaya ?material=nutmeg-mace terisi "Nutmeg & Mace".
-const materialNames = Object.fromEntries(MATERIALS.map((m) => [m.slug, m.name]));
+const materialNames = MATERIAL_NAMES;
 
 const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? 'https://api.web3forms.com/submit';
 const accessKey = import.meta.env.PUBLIC_FORM_ACCESS_KEY ?? '';
@@ -26,7 +26,7 @@ const configured = accessKey.length > 0;
         <div class="sent" data-sent hidden>
           <p class="sent__title">Thank you — we have it.</p>
           <p class="sent__body">
-            Someone from the sourcing team will reply within two working days. Sample sets ship from Medan on Tuesdays and Fridays.
+            Nostrum ipsa eos deserunt nemo quia autem maxime cum aliquid quam. Soluta quos ipsa odio totam ad sapiente sed officia.
           </p>
           <button type="button" class="btn" data-reset><span class="btn__label">Send another</span></button>
         </div>

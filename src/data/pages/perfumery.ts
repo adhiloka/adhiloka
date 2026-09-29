@@ -4,36 +4,36 @@ import type { LinkCard, PageIntro, Passage, Quote, Stat } from './types';
 
 export const PERFUMERY_INTRO: PageIntro = {
   eyebrow: 'Perfumery',
-  title: 'What we grow, we also compose.',
+  title: 'Aute do aute, ad sint officia.',
   metaTitle: 'Perfumery',
-  lede: 'A small bench in Medan, working mostly with naturals we tapped, dried and distilled ourselves. Close enough to the gardens that a perfumer can smell a lot the week it comes in.',
+  lede: 'Id ipsam error id ipsam, laboris soluta eius deserunt id minima, iusto non doloribus molestiae. Dolor facere at est debitis vero at proident aut ipsum id cum qui quos ad alias do.',
   description:
-    'The Adhiloka perfumery: fine fragrance accords and functional bases built from naturals sourced and distilled at our own works in Medan.',
+    'Non deserunt accusamus: unde inventore commodo est reiciendis autem velit aute expedita eiusmod vel quibusdam in quo aut culpa ea vitae.',
   image: 'fragrance-petal',
   caption: 'petal, close',
 };
 
 export const PERFUMERY_STATS: Stat[] = [
-  { value: '2019', label: 'Bench opened' },
-  { value: '18', label: 'House naturals on the palette' },
-  { value: '1 day', label: 'From garden to bench' },
+  { value: '1234', label: 'Magni dolore' },
+  { value: '12', label: 'Nulla voluptas id nam impedit' },
+  { value: '1 sed', label: 'Quas cillum ad nihil' },
 ];
 
 export const PERFUMERY_OPENING = [
-  'Most fragrance houses buy their naturals. We tap ours, and the difference shows up in the way the bench works: a perfumer here can ask why a benzoin lot smells drier this year and get the answer from the person who graded it, in the same building, the same afternoon.',
-  'That closeness is the whole argument for a perfumery this small. We are not trying to compete on catalog breadth. We are trying to be the house that can build an accord around a material and then guarantee that material season after season, because we own every step between the tree and the drum.',
+  'Illo doloribus tempor cum magni proident. Et cum quod, sed qui laboriosam nihil at in hic quo est culpa quasi: in quisquam unde qui nam sed et aperiam non dolore magna iure odio eum qui non tempor aute cum maxime qui fugiat id, et eum illo occaecat, sit quis assumenda.',
+  'Ipsa explicabo ad hic vitae corrupti non ut veritatis nemo dolor. Ad nam vel facere in debitis ut tempora dolorem. Ea cum tempor ad ea eos porro illo hic magna at magnam aliqua do adipisci hic quam similique quam suscipit aliqua minus beatae, ratione do qui alias esse quaerat hic aute non rem odio.',
 ];
 
 export const PERFUMERY_CARDS: LinkCard[] = [
   {
     title: 'Fine Fragrance',
-    body: 'Accords built for perfumers, led by naturals and kept deliberately legible. Bespoke work from brief to production formula.',
+    body: 'Ullamco natus cum veritatis, cum do expedita est quae exercitation debitis. Ducimus quae quas minus et voluptatem aliquip.',
     href: '/perfumery/fine-fragrance/',
     image: 'fragrance-resin',
   },
   {
     title: 'Fragrance Innovation',
-    body: 'What we are working on at the bench: extraction routes that change a material, and the analytical work that proves it.',
+    body: 'Quos ea est quaerat in ex hic minus: laboriosam tempor elit dolore do possimus, cum eos adipiscing quos quas cumque ab.',
     href: '/perfumery/fragrance-innovation/',
     image: 'material-ginger',
   },
@@ -44,9 +44,9 @@ export const PERFUMERY_CARDS: LinkCard[] = [
 export const FINE_INTRO: PageIntro = {
   eyebrow: 'Perfumery',
   title: 'Fine Fragrance',
-  lede: 'Accords led by naturals, built to be read rather than decoded. Most of what is in them, we grew.',
+  lede: 'Ducimus cum ad adipisci, magni ex ut vero itaque anim impedit. Quos ex anim id ea nisi, ut quas.',
   description:
-    'Adhiloka fine fragrance: naturals-led accords, bespoke creation from brief to production formula, and a palette drawn from our own eighteen materials.',
+    'Adipisci modi consequat: nesciunt-nam maiores, tempore voluptas sint optio at distinctio eveniet, vel in eiusmod ullam nemo vel nam delectus accusamus.',
   image: 'fragrance-resin',
   caption: 'dried rhizome',
 };
@@ -55,12 +55,12 @@ export const FINE_PASSAGES: Passage[] = [
   {
     id: 'palette',
     eyebrow: 'The palette',
-    title: 'Eighteen naturals, and the discipline to use few of them at once',
-    body: 'Our accords are built around materials we can vouch for down to the household that tapped them. That constraint is productive: instead of reaching for a captive to fill a gap, the bench works the gap out of the structure. The results are simpler formulas than the industry standard, and easier ones to hold steady across seasons.',
+    title: 'Voluptas expedita, hic qui incididunt at sit sed ex quae do enim',
+    body: 'Qui tempora eos saepe cumque molestiae ex rem ipsam sit quam et nam doloribus ipsa facere eius. Vero doloremque in cupiditate: aperiam ad adipisci sit id aliquid ea quod ad qui, eum neque illum qui eos nam ad cum voluptate. Hic tempora eos quaerat adipisci quis qui occaecat adipisci, quo minima iste ex quos cumque facere numquam.',
     points: [
-      'House naturals first, bought-in materials only where the structure needs them',
-      'Formulas written to survive a difficult crop year',
-      'Every natural traceable to a collection point',
+      'Velit voluptas totam, veniam-ad cupidatat duis dolor qui accusamus earum enim',
+      'Expedita officia ut impedit id veritatis anim unde',
+      'Minus officia occaecati ex ut doloremque autem',
     ],
     caption: 'cassia bark, Kerinci',
     image: 'hero-benzoin-tears',
@@ -68,12 +68,12 @@ export const FINE_PASSAGES: Passage[] = [
   {
     id: 'bespoke',
     eyebrow: 'Bespoke creation',
-    title: 'From a brief to a formula your factory can actually run',
-    body: 'Bespoke work starts with a conversation about volume and price, not about mood boards. We would rather tell you in week one that a brief needs more benzoin than a season can supply than discover it after a launch date is set. From there: trials, evaluation, stability, and a production formula with a supply commitment attached to it.',
+    title: 'Illo et dolor do ut numquam unde aliquip rem repellat aut',
+    body: 'Facilis quia libero modi et voluptatibus natus beatae est lorem, rem error ipsa veniam. Id irure cillum iste cum ex esse aut odio in neque omnis iste commodo quis ea maxime nam itaque sunt corporis ex magna at cumque vero ut sit. Odit nobis: minima, adipiscing, excepturi, qui ad reiciendis ducimus quam ea labore temporibus voluptas et ut.',
     points: [
-      'First trials within three weeks of an agreed brief',
-      'Stability and compliance handled before sign-off',
-      'Supply commitment written against the formula',
+      'Ipsam libero itaque velit autem in ea facere nulla',
+      'Occaecati qui adipiscing debitis veniam quos-rem',
+      'Veniam aspernatur laboris tempora eum dolores',
     ],
     cta: 'Start a brief',
     href: '/contact/',
@@ -83,12 +83,12 @@ export const FINE_PASSAGES: Passage[] = [
   {
     id: 'functional',
     eyebrow: 'Functional bases',
-    title: 'Personal care, home care and fabric, on the same palette',
-    body: 'The same naturals behave very differently in a surfactant base than in alcohol, and a great deal of the bench work is figuring out which of them survive. What we publish for functional application is the shortlist that does: materials with the substantivity and cost-in-use to hold up in a real product.',
+    title: 'Corrupti modi, iure quis rem cillum, ex sed vero commodo',
+    body: 'Rem aute occaecat soluta iure praesentium do ab doloremque eius anim id dolores, quo id porro anim ut qui animi odit ut adipisci nam minus ad vero quaerat. Duis do dolores non reiciendis accusantium ad vel molestias nemo vero: excepteur sunt aut voluptatibus cum illo-ea-aut at unde ut ab at quae maiores.',
     points: [
-      'Personal care, home care, fabric and oral',
-      'Cost-in-use worked out before the accord, not after',
-      'Malodour and substantivity data on request',
+      'Voluptas sint, enim unde, facere qui quam',
+      'Anim-ut-nam aliqua nam magnam cum cumque, quo minus',
+      'Pariatur cum necessitatibus anim do eiusmod',
     ],
     caption: 'bloom, close',
     image: 'fragrance-bloom',
@@ -96,8 +96,8 @@ export const FINE_PASSAGES: Passage[] = [
 ];
 
 export const FINE_QUOTE: Quote = {
-  text: 'The best thing about working here is that when a material changes, nobody has to guess why. Somebody in this building watched it happen.',
-  attribution: 'Head of Perfumery, Adhiloka',
+  text: 'Hic duis sequi magni impedit quis ea quia ipsa et corporis facilis, minima quo ex ipsam est. Nesciunt in aute proident ducimus at cumque.',
+  attribution: 'Nemo ut Similique, Sapiente',
 };
 
 /* ── Fragrance Innovation ──────────────────────────────────── */
@@ -105,9 +105,9 @@ export const FINE_QUOTE: Quote = {
 export const INNOVATION_INTRO: PageIntro = {
   eyebrow: 'Perfumery',
   title: 'Fragrance Innovation',
-  lede: 'Innovation here means getting more out of a tree without asking more of it. Extraction routes, analytical work, and the occasional failed experiment we keep talking about.',
+  lede: 'Incididunt quis sequi eveniet quas eum id ad iure nostrud maxime quis do ea. Doloremque veniam, aspernatur esse, est vel recusandae fugiat recusandae et sint commodo error.',
   description:
-    'Fragrance innovation at Adhiloka: new extraction routes, fractionation work, analytical control and naturals research carried out at the Medan works.',
+    'Molestias cupiditate in delectus: eos recusandae maxime, voluptatibus quas, aspernatur commodo eum quisquam incidunt ducimus eum ad eum sequi earum.',
   caption: 'fractionation line, Medan works',
   image: 'material-ginger',
 };
@@ -116,12 +116,12 @@ export const INNOVATION_PASSAGES: Passage[] = [
   {
     id: 'fractionation',
     eyebrow: 'Fractionation',
-    title: 'One material, several usable characters',
-    body: 'A benzoin resinoid is not one smell. Fractionating it separates the sweet vanillic top from the heavier balsamic body, and gives perfumers two materials where they had one — without a single additional tree being tapped. The line went in during 2019 and now runs across resins, patchouli and nutmeg.',
+    title: 'Non adipisci, tempora cumque voluptates',
+    body: 'Et aperiam corporis ut quo rem alias. Consequuntur ab voluptate quo velit quisquam rem sunt quo impedit corporis aute, eum fugit consequat eum molestiae saepe nemo est nam — eveniet ea beatae asperiores esse sequi maxime. Hic ipsa quia at labore 1234 quo qui quas mollit itaque, occaecati sed magnam.',
     points: [
-      'Vanillic and balsamic benzoin fractions',
-      'Low-iron patchouli fractions for pale bases',
-      'Terpene-reduced citrus and leaf oils',
+      'Pariatur quo delectus eveniet accusamus',
+      'Aut-quia quibusdam doloribus rem sunt iusto',
+      'Aperiam-ducimus fugiat est quia nisi',
     ],
     caption: 'fractionation line, Medan works',
     image: 'material-nutmeg',
@@ -129,12 +129,12 @@ export const INNOVATION_PASSAGES: Passage[] = [
   {
     id: 'analysis',
     eyebrow: 'Analytical control',
-    title: 'The specification is only worth what the instrument says',
-    body: 'Every lot is run before it is released, and the trace goes out with the sample rather than sitting in a file. Where a season pushes a material outside its usual range, we publish the range it actually landed in. It costs us the occasional sale and it has never once cost us a customer.',
+    title: 'Sed perspiciatis ex odit minus eius nam reiciendis quos',
+    body: 'Sequi quo id qui dolore do ut nesciunt, cum sed minus sunt quo nisi est fugiat soluta quos numquam in at quam. Vitae ad cumque minima id proident aperiam eos culpa fugit, do ratione rem omnis ab corrupti maxime do. At natus ad hic aspernatur vero eos et nam rerum iste odio in ea delectus.',
     points: [
-      'GC-MS on every released lot',
-      'Trace and batch certificate shipped with samples',
-      'Season ranges published, including the bad years',
+      'Id-ad id ipsam possimus non',
+      'Eaque rem omnis accusantium tempora quam commodi',
+      'Soluta cillum occaecati, similique eum quo fugit',
     ],
     caption: 'laboratory, Medan works',
     image: 'material-patchouli',
@@ -142,12 +142,12 @@ export const INNOVATION_PASSAGES: Passage[] = [
   {
     id: 'research',
     eyebrow: 'Naturals research',
-    title: 'Work in progress, described honestly',
-    body: 'Two things are open at the bench right now. The first is a cold-process route for cananga that keeps more of the green top than steam does. The second is a longer study on whether tapping intervals change the vanillin profile in benzoin — a question the households have opinions about and the literature does not. Neither is finished. Both will be published either way.',
+    title: 'Quae at eligendi, explicabo proident',
+    body: 'Non cumque cum illo ad nam nobis ipsam qui. Quo optio et do quas-laboris dicta aut placeat sunt ipsum eius do cum earum aut nemo ipsam nisi. Vel labore ab et veniam minus ab eveniet nostrud inventore minima quo eligendi ullamco at aliquid — ex eligendi est recusandae quos occaecat saepe hic nam laboriosam modi quo. Eiusmod ea deserunt. Quos esse id excepteur minima eos.',
     points: [
-      'Cold-process cananga: in trial',
-      'Tapping interval study: third season of data',
-      'Findings published whether or not they are useful to us',
+      'Ipsa-quaerat nostrum: et alias',
+      'Maiores deleniti nulla: fugit cillum ab aute',
+      'Pariatur explicabo dolores ut non ipsa est cumque ad in',
     ],
     cta: 'Talk to the bench',
     href: '/contact/',

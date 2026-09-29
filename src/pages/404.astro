@@ -3,12 +3,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { SEARCH_SUGGESTIONS } from '../data/site';
 ---
 
-<BaseLayout title="Page not found" description="The page you were looking for could not be found.">
+<BaseLayout title="Page not found" description="Eum modi quo quos quaerat eos ipsum sit ea culpa.">
   <section class="sec nf">
     <div class="wrap">
       <p class="nf__code">404</p>
       <h1 class="h2">Page not found</h1>
-      <p class="lead nf__lead">The page you were looking for has moved or no longer exists. These are the pages most people look for:</p>
+      <p class="lead nf__lead">Sit nisi sed quia ducimus sed hic nobis id ex veniam mollit. Lorem qui aut sequi anim magnam quod nam:</p>
       <ul class="nf__links">
         {SEARCH_SUGGESTIONS.map((s) => <li><a href={s.href}>{s.label}</a></li>)}
       </ul>

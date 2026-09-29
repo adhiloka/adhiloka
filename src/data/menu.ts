@@ -1,5 +1,6 @@
 import { NAV, type NavLink } from './site';
 import { MATERIALS, type Family } from './materials';
+import { MATERIAL_NAMES } from './material-names';
 
 /* Isi mega-menu, disusun seperti mega-menu adani.com: tiap kolom punya kepala
  * (tautan tebal bergaris bawah) dan boleh punya daftar tautan di bawahnya.
@@ -12,7 +13,7 @@ export type MenuColumn = { head: NavLink; links?: NavLink[] };
 
 const byFamily = (...families: Family[]): NavLink[] =>
   MATERIALS.filter((m) => families.includes(m.family)).map((m) => ({
-    label: m.name,
+    label: MATERIAL_NAMES[m.slug] ?? m.name,
     href: `/ingredients/catalog/#${m.slug}`,
   }));
 

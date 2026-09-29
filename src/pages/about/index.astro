@@ -17,6 +17,7 @@ import {
   HISTORY_INTRO,
   HISTORY_TIMELINE,
 } from '../../data/pages/about';
+import { HOME_QUOTE } from '../../data/pages/home';
 
 /* Susunan halaman /about-us adani.com: banner, kutipan terbelah, visi,
  * konten + foto, angka, pimpinan, nilai, perjalanan. Section "Awards &
@@ -25,9 +26,9 @@ import {
 
 <PageLayout intro={ABOUT_INTRO} bannerTitle="About Adhiloka">
   <QuoteSplit
-    text="We are not trying to *grow quickly*. We are trying to be the house *still buying from these slopes* when the people tapping them now have *grandchildren*."
-    name="Adhiloka Group"
-    role="Family-held since the 1840s"
+    text={HOME_QUOTE.text}
+    name={HOME_QUOTE.name}
+    role={HOME_QUOTE.role}
     cta="Our Purpose"
     href="/about/our-purpose/"
     image="agroforest-canopy"
@@ -45,7 +46,7 @@ import {
 
   <Feature
     heading="How We Work"
-    subheading="Know the household, grade by hand, publish the specification."
+    subheading="Quia eos quibusdam, saepe ab anim, tempora qui perspiciatis."
     body={ABOUT_OPENING[1]}
     cta="Our Business"
     href="/about/our-business/"
