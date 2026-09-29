@@ -89,16 +89,22 @@ const organization = {
     <SiteHeader active={active} />
     <SearchOverlay />
 
-    <main id="main" tabindex="-1">
-      <slot />
-    </main>
+    <!-- Pembungkus ScrollSmoother (scripts/scroll-fx.ts). Elemen fixed (header,
+         panel pencarian, tombol ke atas) harus tetap di luarnya. -->
+    <div id="smooth-wrapper">
+      <div id="smooth-content">
+        <main id="main" tabindex="-1">
+          <slot />
+        </main>
 
-    <SiteFooter />
+        <SiteFooter />
+      </div>
+    </div>
     <BackToTop />
 
     <script>
-      import { initMotion } from '../scripts/motion';
-      initMotion();
+      import { initScrollFx } from '../scripts/scroll-fx';
+      initScrollFx();
     </script>
   </body>
 </html>

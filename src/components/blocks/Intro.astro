@@ -12,8 +12,8 @@ const { title, paragraphs, grey = false, id } = Astro.props;
 
 <section class:list={['sec', 'intro', { 'sec--grey': grey }]} id={id}>
   <div class="wrap intro__grid">
-    <h2 class="h2 intro__title" data-fx>{title}</h2>
-    <div class="prose intro__body" data-fx style="--i:1">
+    <h2 class="h2 intro__title" data-anim="title">{title}</h2>
+    <div class="prose intro__body" data-anim="sub">
       {paragraphs.map((p) => <p>{p}</p>)}
       <slot />
     </div>

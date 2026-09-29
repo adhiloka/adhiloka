@@ -19,10 +19,10 @@ const { title, lead, items, grey = false, id, cols = 4 } = Astro.props;
   <div class="wrap">
     {title && <h2 class="h2">{title}</h2>}
     {lead && <p class="lead info__lead">{lead}</p>}
-    <ul class:list={['info__grid', `info__grid--${cols}`, { 'info__grid--flush': !title && !lead }]}>
+    <ul class:list={['info__grid', `info__grid--${cols}`, { 'info__grid--flush': !title && !lead }]} data-anim="columns">
       {
-        items.map((it, i) => (
-          <li class="info__item" data-fx style={`--i:${i % cols}`}>
+        items.map((it) => (
+          <li class="info__item" data-anim-item>
             {it.n && <span class="info__n">{it.n}</span>}
             <h3 class="info__title">{it.title}</h3>
             {it.sub && <p class="info__sub">{it.sub}</p>}

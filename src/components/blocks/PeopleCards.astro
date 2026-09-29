@@ -19,12 +19,12 @@ const { title, people, viewAll, showBio = false, grey = false } = Astro.props;
   <div class="wrap">
     <div class="head-row">
       <h2 class="h2">{title}</h2>
-      {viewAll && <a class="btn" href={viewAll}><span class="btn__label">View All</span></a>}
+      {viewAll && <a class="btn" href={viewAll} data-anim="title"><span class="btn__label">View All</span></a>}
     </div>
-    <ul class="ppl">
+    <ul class="ppl" data-anim="columns">
       {
-        people.map((p, i) => (
-          <li class="ppl__item" data-fx style={`--i:${i % 4}`}>
+        people.map((p) => (
+          <li class="ppl__item" data-anim-item>
             <span class="ppl__photo cover">
               <span class="plate">{p.shot}</span>
             </span>

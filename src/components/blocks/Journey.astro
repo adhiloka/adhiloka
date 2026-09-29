@@ -28,15 +28,15 @@ const last = eras[eras.length - 1]?.year;
 
     {
       !full ? (
-        <div class="jr__range" data-fx>
+        <div class="jr__range" data-anim="sub">
           <span>{first}</span>
           <span class="jr__line" aria-hidden="true" />
           <span>{last}</span>
         </div>
       ) : (
-        <ol class="jr__list">
-          {eras.map((e, i) => (
-            <li class="jr__era" data-fx style={`--i:${i % 4}`}>
+        <ol class="jr__list" data-anim="columns">
+          {eras.map((e) => (
+            <li class="jr__era" data-anim-item>
               <span class="jr__year">{e.year}</span>
               <span class="jr__dot" aria-hidden="true" />
               <h3 class="jr__title">{e.title}</h3>

@@ -27,10 +27,10 @@ const ICONS = [
 <section class:list={['sec', { 'sec--grey': grey }]}>
   <div class="wrap">
     <h2 class="h2">{title}</h2>
-    <ul class="ctr">
+    <ul class="ctr" data-anim="columns">
       {
         stats.map((s, i) => (
-          <li class="ctr__item" data-fx style={`--i:${i}`}>
+          <li class="ctr__item" data-anim-item>
             <svg class="ctr__icon" viewBox="0 0 40 40" width="52" height="52" aria-hidden="true" set:html={ICONS[i % ICONS.length]} />
             <span class="ctr__num" data-count={s.value}>{s.value}</span>
             <span class="ctr__label">{s.label}</span>

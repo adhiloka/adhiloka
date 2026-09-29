@@ -9,7 +9,7 @@ import { PILLARS, PILLAR_HEADLINE } from '../../data/pages/home';
  * sempit panelnya bertumpuk dan yang tertutup jadi pita 150 px. */
 ---
 
-<section class="sa" aria-label="Sustainability" data-accordion>
+<section class="sa" aria-label="Sustainability" data-accordion data-anim="pad">
   {
     PILLARS.map((p, i) => (
       <article class:list={['sa__card', { 'is-active': i === 0 }]} data-acc-item>
@@ -53,13 +53,16 @@ import { PILLARS, PILLAR_HEADLINE } from '../../data/pages/home';
 </script>
 
 <style>
+  /* Latar section = latar halaman: saat digulir, padding-nya bertambah sampai
+     40 px (scrollPadding Adani, scripts/scroll-fx.ts) dan akordeonnya jadi
+     panel berbingkai. Warna gelap pindah ke kartunya. */
   .sa {
     display: flex;
     width: 100%;
     height: 92vh;
     min-height: 560px;
     overflow: hidden;
-    background: #111;
+    background: var(--bg);
   }
 
   .sa__card {
@@ -67,6 +70,7 @@ import { PILLARS, PILLAR_HEADLINE } from '../../data/pages/home';
     flex: 0 0 124px;
     overflow: hidden;
     cursor: pointer;
+    background: #111;
     transition: flex-basis 0.5s ease;
   }
   .sa__card.is-active {

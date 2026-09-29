@@ -79,9 +79,13 @@ export function initContactForm() {
       ?.addEventListener('input', () => setError(field, ''));
   });
 
+  // Tinggi halaman berubah: posisi pemicu gerak gulir (scroll-fx.ts) dihitung ulang.
+  const refresh = () => window.dispatchEvent(new CustomEvent('fx:refresh'));
+
   const showSent = () => {
     form.hidden = true;
     if (sent) sent.hidden = false;
+    refresh();
     sent?.querySelector<HTMLElement>('[data-reset]')?.focus();
   };
 
@@ -89,6 +93,7 @@ export function initContactForm() {
     form.reset();
     form.hidden = false;
     if (sent) sent.hidden = true;
+    refresh();
     status.textContent = '';
     status.removeAttribute('data-tone');
     form.querySelector<HTMLInputElement>('[name="name"]')?.focus();

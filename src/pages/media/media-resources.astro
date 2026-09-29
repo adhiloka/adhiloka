@@ -13,10 +13,10 @@ import { RESOURCES_INTRO, RESOURCES, RESOURCES_NOTE } from '../../data/pages/med
   <Intro title="Media Kit" paragraphs={[RESOURCES_INTRO.lede, RESOURCES_NOTE]} />
   <section class="sec sec--grey">
     <div class="wrap">
-      <ul class="dl">
+      <ul class="dl" data-anim="columns">
         {
-          RESOURCES.map((r, i) => (
-            <li class="dl__row" data-fx style={`--i:${i % 3}`}>
+          RESOURCES.map((r) => (
+            <li class="dl__row" data-anim-item>
               <div>
                 <h2 class="dl__title">{r.title}</h2>
                 <p class="dl__body">{r.body}</p>

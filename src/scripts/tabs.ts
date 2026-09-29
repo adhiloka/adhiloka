@@ -3,7 +3,13 @@
  *  Markup: wadah `[data-tabs]` berisi tombol `[data-tab="x"]` dan panel
  *  `[data-panel="x"]`. Bila wadah punya `data-filter`, tab tidak mengganti
  *  panel melainkan menyaring anak `[data-cat]` di dalam `[data-filter-grid]`
- *  (dipakai katalog dan daftar berita; nilai "all" menampilkan semuanya). */
+ *  (dipakai katalog dan daftar berita; nilai "all" menampilkan semuanya).
+ *
+ *  Setiap pergantian mengubah tinggi halaman, jadi dikirim event `fx:refresh`
+ *  (detail: panel yang baru tampil) untuk scroll-fx.ts. Tile Business juga
+ *  mengirim `fx:pick` (detail: panel foto besar yang dipilih). */
+
+const emit = (name: string, detail?: HTMLElement) => window.dispatchEvent(new CustomEvent(name, { detail }));
 
 export function initTabs() {
   document.querySelectorAll<HTMLElement>('[data-tabs]:not([data-ready])').forEach((root) => {
@@ -28,10 +34,14 @@ export function initTabs() {
           if (on) shown++;
         });
         if (count) count.textContent = `${shown} ${shown === 1 ? 'item' : 'items'}`;
+        emit('fx:refresh');
       } else {
+        let shownPanel: HTMLElement | undefined;
         root.querySelectorAll<HTMLElement>('[data-panel]').forEach((p) => {
           p.hidden = p.dataset.panel !== key;
+          if (!p.hidden) shownPanel = p;
         });
+        emit('fx:refresh', shownPanel);
       }
     };
 
@@ -55,12 +65,16 @@ export function initPickers() {
     const picks = [...root.querySelectorAll<HTMLButtonElement>('[data-pick]')];
     const panes = [...root.querySelectorAll<HTMLElement>('[data-pane]')];
     const select = (key: string) => {
+      // Tile yang sudah aktif: foto besarnya jangan diputar ulang.
+      if (panes.find((p) => p.dataset.pane === key)?.hidden === false) return;
       picks.forEach((p) => {
         const on = p.dataset.pick === key;
         p.classList.toggle('is-active', on);
         p.setAttribute('aria-pressed', String(on));
       });
       panes.forEach((p) => (p.hidden = p.dataset.pane !== key));
+      emit('fx:refresh');
+      emit('fx:pick', panes.find((p) => !p.hidden));
     };
     picks.forEach((p) => p.addEventListener('click', () => select(p.dataset.pick!)));
   });

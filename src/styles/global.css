@@ -293,19 +293,24 @@ a[href='#'] { cursor: default; }
 .zoom img { transition: transform 1s ease; }
 .zoom:hover img { transform: scale(1.08); }
 
-/* ── Kemunculan ala `.columnAnimation` ───────────────────────────────── */
-.js [data-fx] {
-  opacity: 0;
-  transform: translateY(50px);
-  transition:
-    opacity 0.8s ease,
-    transform 0.8s ease;
-  transition-delay: calc(var(--i, 0) * 120ms);
-}
-.js [data-fx].is-in {
-  opacity: 1;
-  transform: none;
-}
-@media (prefers-reduced-motion: reduce) {
-  .js [data-fx] { opacity: 1; transform: none; transition: none; }
+/* ── Gerak gulir ala adani.com (scripts/scroll-fx.ts) ────────────────── */
+
+/* ScrollSmoother yang menghaluskan; gulir halus bawaan peramban dimatikan. */
+html.has-smoother { scroll-behavior: auto; }
+
+/* Hero bergerak lebih lambat dari gulir (data-speed 0,8). Section sesudahnya
+   harus menutupinya, jadi mereka ditumpuk di atas hero. */
+html.has-smoother main > * { position: relative; z-index: 1; }
+html.has-smoother main > .hero { z-index: 0; }
+
+/* Foto parallax 120 % tinggi bingkainya, supaya geseran −8 %…7 % tidak
+   memperlihatkan tepi foto. */
+html.fx [data-parallax] > img {
+  position: absolute;
+  left: 0;
+  top: -10%;
+  height: 120%;
+  /* Transform-nya dipegang GSAP (parallax + zoom hover); transisi CSS
+     hanya membuat geraknya tertinggal. */
+  transition: none;
 }

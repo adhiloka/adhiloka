@@ -22,7 +22,7 @@ interface Props {
 const { slides } = Astro.props;
 ---
 
-<section class="hero" data-hero aria-roledescription="carousel" aria-label="Highlights">
+<section class="hero" data-hero data-speed="0.8" aria-roledescription="carousel" aria-label="Highlights">
   {
     slides.map((s, i) => (
       <div
@@ -47,18 +47,18 @@ const { slides } = Astro.props;
         </div>
         <div class="hero__text">
           {i === 0 ? (
-            <h1 class="hero__title" data-anim>
+            <h1 class="hero__title" data-hero-anim>
               {s.title.map((t, k) => (<>{k > 0 && <br />}{t}</>))}
             </h1>
           ) : (
-            <p class="hero__title" data-anim>
+            <p class="hero__title" data-hero-anim>
               {s.title.map((t, k) => (<>{k > 0 && <br />}{t}</>))}
             </p>
           )}
-          <p class="hero__line" data-anim>
+          <p class="hero__line" data-hero-anim>
             {s.line.map((t, k) => (<>{k > 0 && <br />}{t}</>))}
           </p>
-          <div class="hero__btns" data-anim>
+          <div class="hero__btns" data-hero-anim>
             <a class="btn btn--light" href={s.href} tabindex={i === 0 ? undefined : -1}>
               <span class="btn__label">Know More</span>
             </a>

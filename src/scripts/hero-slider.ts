@@ -114,7 +114,7 @@ export function initHeroSlider() {
 
   const revealText = (slide: HTMLElement) => {
     if (reduce) return;
-    slide.querySelectorAll<HTMLElement>('[data-anim]').forEach((el, k) => {
+    slide.querySelectorAll<HTMLElement>('[data-hero-anim]').forEach((el, k) => {
       el.animate(
         [
           { opacity: 0, transform: 'translateY(50px)' },

@@ -9,10 +9,10 @@ import { NOTICE } from '../../data/pages/home';
 <section class="notice" aria-labelledby="notice-title">
   <div class="wrap">
     <p class="notice__title" id="notice-title"><strong>{NOTICE.title}</strong></p>
-    <div class="notice__body" id="notice-body" data-notice>
+    <div class="notice__body" id="notice-body" data-notice data-anim="sub">
       {NOTICE.paragraphs.map((p) => <p>{p}</p>)}
     </div>
-    <button class="notice__more" type="button" aria-expanded="false" aria-controls="notice-body" data-notice-btn>Read More</button>
+    <button class="notice__more" type="button" aria-expanded="false" aria-controls="notice-body" data-notice-btn data-anim="sub">Read More</button>
   </div>
 </section>
 
@@ -23,6 +23,8 @@ import { NOTICE } from '../../data/pages/home';
     const open = body!.classList.toggle('is-open');
     btn.setAttribute('aria-expanded', String(open));
     btn.textContent = open ? 'Read Less' : 'Read More';
+    // Tinggi halaman berubah: posisi pemicu gerak gulir dihitung ulang.
+    window.dispatchEvent(new CustomEvent('fx:refresh'));
   });
 </script>
 

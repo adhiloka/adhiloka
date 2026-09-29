@@ -14,15 +14,15 @@ import { JOIN_US } from '../../data/pages/home';
     <div class="head-row">
       <div class="head-row__text">
         <h2 class="h2">{JOIN_US.title}</h2>
-        <p>{JOIN_US.body}</p>
+        <p data-anim="sub">{JOIN_US.body}</p>
       </div>
       <a class="btn" href="#"><span class="btn__label">{JOIN_US.cta}</span></a>
     </div>
 
-    <ul class="join__cards" data-join>
+    <ul class="join__cards" data-join data-anim="columns">
       {
         JOIN_US.cards.map((c, i) => (
-          <li class:list={['join__card', { 'is-active': i === 0 }]} data-fx style={`--i:${i}`}>
+          <li class:list={['join__card', { 'is-active': i === 0 }]} data-anim-item>
             <a class="join__link cover shade" href="#">
               <Image quality={70} src={images[c.image]} alt={c.alt} widths={[480, 800, 1000]} sizes="(max-width: 1026px) 90vw, 36vw" loading="lazy" />
               <span class="join__label">

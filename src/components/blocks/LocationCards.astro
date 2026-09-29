@@ -13,10 +13,10 @@ const { sites } = Astro.props;
 
 <section class="sec sec--grey">
   <div class="wrap">
-    <ul class="loc">
+    <ul class="loc" data-anim="columns">
       {
-        sites.map((s, i) => (
-          <li class="loc__item" data-fx style={`--i:${i % 3}`}>
+        sites.map((s) => (
+          <li class="loc__item" data-anim-item>
             <span class="loc__media cover shade">
               {s.image ? <Image quality={70} src={images[s.image]} alt="" widths={[480, 800]} sizes="(max-width: 767px) 100vw, 30vw" loading="lazy" /> : <span class="plate">{s.shot}</span>}
               <span class="loc__kind">{s.kind}</span>

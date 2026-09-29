@@ -40,7 +40,7 @@ src/
     blocks/     PageBanner · Intro · Feature · Passages · CounterGrid · CardGrid · InfoGrid
                 PeopleCards · Journey · LocationCards · PressContact · SiblingCards
   layouts/      BaseLayout (meta, JSON-LD, font) · PageLayout (banner halaman dalam)
-  scripts/      nav · search · hero-slider · tabs · motion · contact-form
+  scripts/      nav · search · hero-slider · tabs · scroll-fx · contact-form
   styles/       global.css (token warna, kontainer, judul, tombol)
 ```
 
@@ -67,6 +67,27 @@ Yang sengaja berbeda:
 - **Banner cookie** tidak ditiru; situs ini tidak memasang cookie.
 - **Popup peringatan penipuan** saat halaman dibuka tidak ditiru; peringatannya cukup di kotak
   bawah beranda, dengan naskah Adhiloka sendiri.
+
+## Gerak gulir
+
+`src/scripts/scroll-fx.ts` meniru gerak gulir Adani dengan GSAP 3.15 (ScrollTrigger dan
+ScrollSmoother; lisensi *Standard no charge*, boleh untuk situs komersial). Takarannya disalin dari
+JavaScript Adani v94, bukan dikira-kira:
+
+- **Gulir halus** ScrollSmoother `smooth: 2` di layar ≥992 px. Isi halaman ada di
+  `#smooth-wrapper > #smooth-content` (BaseLayout); header, panel pencarian dan tombol ke atas
+  sengaja di luarnya karena `position: fixed`. Konstanta `SMOOTH` untuk melunakkan inersianya.
+- **Parallax `data-speed`**: hero 0,8, teks kutipan 1,1, kolom foto besar Business 0,9.
+- **`data-anim`** di markup: `title` (opacity mengikuti gulir), `sub` dan `thumb` (naik 100 px),
+  `columns` + `data-anim-item` (anak naik 250 px bergiliran 0,2 s), `pad` (padding akordeon
+  0→40 px), `zoom` (foto Who We Are dari skala 0,4). `data-parallax` menggeser foto berita di
+  dalam bingkainya; `data-count` menghitung angka naik.
+- **Kutipan** dipecah per huruf di server; huruf menggelap satu per satu mengikuti gulir.
+
+Beda dari Adani: `invalidateOnRefresh` dimatikan (nilai gerak di sini tetap), dan `columns` memakai
+`gsap.set` + `to` karena `fromTo` berstagger di GSAP 3.15 hanya merender posisi awal anak pertama.
+Tab, penyaring, "Read More" dan formulir mengirim event `fx:refresh` karena tinggi halaman
+berubah. Dengan `prefers-reduced-motion` atau tanpa JS, semuanya tampil diam.
 
 ## Naskah lorem ipsum
 
