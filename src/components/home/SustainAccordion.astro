@@ -8,9 +8,11 @@ import { PILLARS, PILLAR_HEADLINE } from '../../data/pages/home';
  * 124 px berjudul tegak; klik (atau fokus) membuka panel itu. Di layar
  * sempit panelnya bertumpuk dan yang tertutup jadi pita 150 px.
  *
- * Seperti Adani, judul tegak hanya ada di pita tertutup; panel yang terbuka
- * tidak berjudul. Fotonya selebar akordeon penuh dan tidak ikut diskalakan,
- * jadi saat panel melebar foto tampak bergeser masuk, bukan membesar. */
+ * Mekanismenya diukur dari adani.com: yang dianimasikan LEBAR panel (0,5 s
+ * ease; aktif 100 %, tertutup 150 px, disusutkan flex), fotonya
+ * `cover` di tengah sehingga ukurannya tetap dan hanya tersingkap. Judul
+ * tegak hanya ada di pita tertutup (muncul 0,4 s sesudah jeda 0,2 s); isi
+ * panel aktif muncul 0,6 s sesudah jeda 0,5 s. */
 ---
 
 <section class="sa" aria-label="Sustainability" data-accordion data-anim="pad">
@@ -61,7 +63,6 @@ import { PILLARS, PILLAR_HEADLINE } from '../../data/pages/home';
      40 px (scrollPadding Adani, scripts/scroll-fx.ts) dan akordeonnya jadi
      panel berbingkai. Warna gelap pindah ke kartunya. */
   .sa {
-    container-type: inline-size;
     display: flex;
     width: 100%;
     height: 92vh;
@@ -72,36 +73,34 @@ import { PILLARS, PILLAR_HEADLINE } from '../../data/pages/home';
 
   .sa__card {
     position: relative;
-    flex: 0 0 124px;
+    flex: 0 1 auto;
+    width: 150px;
+    min-width: 0;
     overflow: hidden;
     cursor: pointer;
     background: #111;
-    transition: flex-basis 0.5s ease;
+    transition: width 0.5s ease;
   }
-  /* Hover melebarkan pita, seperti `.subcard:hover` Adani (150 → 250 px). */
-  .sa__card:not(.is-active):hover { flex-basis: 190px; }
+  /* Lebar CSS Adani 150 px; flex menyusutkan semua panel sebanding lebarnya
+     sehingga pita tampil ±124 px dan jumlahnya selalu pas selebar akordeon,
+     juga di tengah animasi. Hover 250 px seperti `.subcard:hover`. */
+  .sa__card:not(.is-active):hover { width: 250px; }
   .sa__card.is-active {
-    flex: 1 1 auto;
+    width: 100%;
     cursor: default;
   }
   .sa__card + .sa__card { border-left: 1px solid rgb(255 255 255 / 0.15); }
 
-  /* Foto selebar akordeon (100cqw), menempel di kiri panel. Di pita
-     tertutup foto digeser 30 % ke kiri supaya bagian tengahnya yang tampak;
-     saat panel dibuka foto bergeser kembali ke 0 bersamaan dengan panelnya
-     melebar. Ukurannya tetap, jadi tidak ada kesan zoom. */
+  /* `cover` di tengah: selama panel lebih sempit dari foto, skalanya
+     ditentukan tinggi panel, jadi foto tidak membesar saat panel melebar. */
   .sa__img {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100cqw;
-    max-width: none;
+    inset: 0;
+    width: 100%;
     height: 100%;
     object-fit: cover;
-    transform: translateX(-30%);
-    transition: transform 0.5s ease;
+    object-position: center;
   }
-  .is-active .sa__img { transform: none; }
   .sa__card::after {
     content: '';
     position: absolute;
@@ -152,17 +151,12 @@ import { PILLARS, PILLAR_HEADLINE } from '../../data/pages/home';
     gap: clamp(40px, 8vw, 140px);
     color: #fff;
     opacity: 0;
-    transform: translateY(20px);
     pointer-events: none;
-    transition:
-      opacity 0.3s ease,
-      transform 0.3s ease;
   }
   .is-active .sa__content {
     opacity: 1;
-    transform: none;
     pointer-events: auto;
-    transition-delay: 0.3s;
+    transition: opacity 0.6s ease-in 0.5s;
   }
 
   .sa__headline {
@@ -194,13 +188,9 @@ import { PILLARS, PILLAR_HEADLINE } from '../../data/pages/home';
 
   @media (max-width: 1026px) {
     .sa { flex-direction: column; height: auto; min-height: 0; }
-    .sa__card { flex: none; height: 110px; transition: height 0.5s ease; }
+    .sa__card,
+    .sa__card:not(.is-active):hover { flex: none; width: 100%; height: 110px; transition: height 0.5s ease; }
     .sa__card.is-active { flex: none; height: 78vh; min-height: 480px; }
-    .sa__card:not(.is-active):hover { flex-basis: auto; }
-    /* Bertumpuk: foto setinggi panel terbuka, jadi pita yang dibuka
-       memperlihatkan fotonya bergeser turun, bukan membesar. */
-    .sa__img { width: 100%; height: max(78vh, 480px); transform: translateY(-30%); }
-    .is-active .sa__img { transform: none; }
     .sa__card + .sa__card { border-left: 0; border-top: 1px solid rgb(255 255 255 / 0.15); }
     .sa__label,
     .sa__card:not(.is-active) .sa__label {
