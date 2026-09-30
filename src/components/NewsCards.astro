@@ -74,13 +74,22 @@ const H = headingLevel;
   }
   .news--grid { margin-top: 0; row-gap: 48px; }
 
+  /* Kartu yang disorot naik ke bidang putih berbayang, jadi terbaca sebagai
+     pilihan baik di section putih maupun abu. */
   .news__card {
+    position: relative;
     display: block;
-    padding: 20px;
+    height: calc(100% + 40px);
+    padding: 20px 20px 28px;
     margin: -20px;
+    border-radius: 4px;
     transition: background 0.3s, box-shadow 0.3s;
   }
-  .news__card:hover { background: #fff; box-shadow: 0 10px 30px rgb(0 0 0 / 0.08); }
+  .news__card:hover,
+  .news__card:focus-visible {
+    background: #fff;
+    box-shadow: 0 14px 40px rgb(0 0 0 / 0.14), 0 2px 8px rgb(0 0 0 / 0.06);
+  }
   .news__media {
     display: block;
     aspect-ratio: 364 / 207;

@@ -18,6 +18,10 @@ Contact), tetapi tampil dan bekerja seperti menu Adani: kapital, chevron, mega-m
 desktop, laci dari kanan dengan akordeon di layar ≤1026 px. Isi kolom mega-menu diatur di
 `src/data/menu.ts`; daftar menunya tetap `NAV` di `src/data/site.ts`.
 
+Isi panel mega-menu desktop memakai konsep Adhiloka versi pertama (yang meniru robertet.com):
+foto utama berjudul dengan panah di kiri, menuju halaman induk, lalu kolom tautan di kanan. Foto
+dan judulnya dari `panel.image` / `panel.title` di `NAV`. Di laci mobile fotonya disembunyikan.
+
 | Jalur | Susunan |
 | --- | --- |
 | `/` | Hero slider · kutipan terbelah · Our Business (tab Ingredients/Perfumery) · akordeon keberlanjutan · Latest News · Join Us · peringatan penipuan |
@@ -65,6 +69,10 @@ Yang sengaja berbeda:
 - **"Watch Video"** di hero menjadi "Know More"; situs ini tidak memakai video.
 - **Awards & Accolades** di halaman About dilewati: tidak ada penghargaan yang bisa dicantumkan.
 - **Banner cookie** tidak ditiru; situs ini tidak memasang cookie.
+- **Footer** berlatar foto tajuk pohon yang dipucatkan dan memudar ke kiri, pengganti foto gedung
+  pucat di footer Adani.
+- **Akordeon keberlanjutan**: foto selebar akordeon dan tidak diskalakan, jadi saat panel dibuka
+  fotonya bergeser masuk, bukan membesar. Judul tegak hanya di panel tertutup, seperti Adani.
 - **Popup peringatan penipuan** saat halaman dibuka tidak ditiru; peringatannya cukup di kotak
   bawah beranda, dengan naskah Adhiloka sendiri.
 

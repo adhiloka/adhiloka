@@ -1,10 +1,17 @@
 ---
+import { Image } from 'astro:assets';
 import { MENU } from '../data/menu';
+import { getImageFor } from '../data/images';
 
 /* Header ala adani.com: tetap di atas, putih 70 % dengan blur, lockup di kiri
  * dan menu kapital di kanan. Mega-menu desktop terbuka saat hover (≥1027 px),
  * di bawahnya menjadi laci dari kanan dengan akordeon, persis perilaku Adani.
- * Menu utamanya tetap menu Adhiloka (NAV di site.ts). */
+ * Menu utamanya tetap menu Adhiloka (NAV di site.ts).
+ *
+ * Isi mega-menu memakai konsep Adhiloka versi pertama (yang meniru
+ * robertet.com): foto utama berjudul dengan panah di kiri, menuju halaman
+ * induk, lalu kolom tautan di kanan. Dengan kolom saja panelnya banyak ruang
+ * kosong, karena menu Adhiloka jauh lebih sedikit tautannya daripada Adani. */
 
 interface Props {
   active: string;
@@ -39,6 +46,28 @@ const isActive = (href: string) => active === href || active.startsWith(href);
               {item.columns.length > 0 && (
                 <div class="mega" data-mega>
                   <div class="mega__wrap">
+                    {item.panel && (
+                      <a class="mega__feature" href={item.href} tabindex="-1">
+                        {getImageFor(item.panel.image) && (
+                          <Image
+                            class="mega__img"
+                            src={getImageFor(item.panel.image)!}
+                            alt=""
+                            widths={[480, 800]}
+                            sizes="(max-width: 1399px) 380px, 34vw"
+                            quality={66}
+                            loading="eager"
+                            fetchpriority="low"
+                            decoding="async"
+                          />
+                        )}
+                        <span class="mega__label">
+                          <span>{item.panel.title}</span>
+                          <svg class="mega__arrow" viewBox="0 0 46 12" width="46" height="12" aria-hidden="true"><path d="M0 6h44M39 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4"></path></svg>
+                        </span>
+                      </a>
+                    )}
+                    <div class="mega__cols">
                     {item.columns.map((col) => (
                       <div class="mega__col">
                         <a class="mega__head" href={col.head.href}>{col.head.label}</a>
@@ -51,6 +80,7 @@ const isActive = (href: string) => active === href || active.startsWith(href);
                         )}
                       </div>
                     ))}
+                    </div>
                   </div>
                 </div>
               )}
@@ -214,6 +244,8 @@ const isActive = (href: string) => active === href || active.startsWith(href);
       top: calc(50% - 2px);
     }
 
+    /* Bayangan hanya saat terbuka: panel tertutup setinggi 0 tetap
+       melemparkan bayangannya ke foto hero. */
     .mega {
       position: absolute;
       left: 0;
@@ -222,21 +254,88 @@ const isActive = (href: string) => active === href || active.startsWith(href);
       background: var(--bg-menu);
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.35s ease;
-      box-shadow: 0 10px 20px rgb(0 0 0 / 0.06);
+      transition: max-height 0.35s ease, box-shadow 0.35s ease;
     }
     .hdr__item:hover > .mega,
-    .hdr__item:focus-within > .mega { max-height: 80vh; }
+    .hdr__item:focus-within > .mega {
+      max-height: 80vh;
+      box-shadow: 0 10px 20px rgb(0 0 0 / 0.08);
+    }
 
+    /* Foto utama selebar 34 % kontainer, sisanya kolom tautan. */
     .mega__wrap {
-      display: flex;
+      display: grid;
+      grid-template-columns: minmax(0, 34%) minmax(0, 1fr);
       gap: 60px;
+      align-items: start;
       width: var(--wrap);
       max-width: 1920px;
       margin: 0 auto;
       padding: 40px 0 50px;
     }
-    .mega__col { flex: 0 1 20%; min-width: 0; }
+    .mega__cols {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 36px 48px;
+    }
+    .mega__col { min-width: 0; }
+
+    /* Pelat berjudul versi pertama Adhiloka: foto 16:9, judul kapital dan
+       panah di kiri bawah; hover memperbesar foto pelan dan menggeser panah. */
+    .mega__feature {
+      position: relative;
+      display: block;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: #2b2f2e;
+      color: #fff;
+    }
+    .mega__img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.9s ease;
+    }
+    .mega__feature::after {
+      content: '';
+      position: absolute;
+      inset: auto 0 0;
+      height: 65%;
+      background: linear-gradient(to bottom, transparent, #000);
+      opacity: 0.7;
+    }
+    .mega__label {
+      position: absolute;
+      z-index: 1;
+      left: 24px;
+      right: 24px;
+      bottom: 22px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 22px;
+      font-weight: 530;
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+    .mega__label::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -10px;
+      width: 60%;
+      height: 3px;
+      background: var(--grad-bar);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .mega__arrow { flex: none; transition: transform 0.5s ease; }
+    .mega__feature:hover .mega__img { transform: scale(1.05); }
+    .mega__feature:hover .mega__arrow { transform: translateX(10px); }
+    .mega__feature:hover .mega__label::after { transform: none; }
 
     .hdr__item--lang { position: relative; }
     .lang {
@@ -285,6 +384,14 @@ const isActive = (href: string) => active === href || active.startsWith(href);
   @media (max-width: 1399px) and (min-width: 1027px) {
     .mega__head { font-size: 18px; white-space: normal; }
     .mega__links li { padding-top: 8px; }
+    .mega__wrap { grid-template-columns: minmax(0, 32%) minmax(0, 1fr); gap: 40px; }
+    .mega__cols { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 28px 32px; }
+    .mega__label { font-size: 18px; left: 18px; bottom: 18px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mega__img,
+    .mega__arrow { transition: none; }
+    .mega__feature:hover .mega__img { transform: none; }
   }
 
   /* ── Laci mobile (≤1026 px) ──────────────────────────────────────────── */
@@ -357,7 +464,9 @@ const isActive = (href: string) => active === href || active.startsWith(href);
       padding: 20px 0;
       font-size: 18px;
     }
-    .hdr__link.has-child { padding-right: 30px; }
+    /* `.hdr__link.has-child` desktop (padding 0 20px) lebih spesifik daripada
+       `.hdr__link` di atas, jadi padding laci ditulis ulang lengkap di sini. */
+    .hdr__link.has-child { padding: 20px 30px 20px 0; }
     .hdr__link.has-child::after {
       right: 4px;
       top: 26px;
@@ -368,7 +477,8 @@ const isActive = (href: string) => active === href || active.startsWith(href);
     .hdr__link::before { display: none; }
 
     .mega,
-    .lang { display: none; }
+    .lang,
+    .mega__feature { display: none; }
     .is-sub > .mega,
     .is-sub > .lang { display: block; }
     .mega__wrap { padding: 0 0 12px 16px; }

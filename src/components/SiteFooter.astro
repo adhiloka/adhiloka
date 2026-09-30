@@ -1,11 +1,13 @@
 ---
+import { Image } from 'astro:assets';
 import { SOCIAL } from '../data/site';
+import { images } from '../data/images';
 
 /* Footer ala adani.com: logo dan ikon sosial di kiri, dua kolom berjudul,
  * satu kolom tautan tebal, lalu bar abu #c1c1c1 berisi hak cipta dan tautan
- * legal. Adani memakai foto gedung pucat sebagai latar; di sini penggantinya
- * tanda layar Adhiloka yang sangat samar. Tautan tanpa halaman dibiarkan
- * kosong (`#`) sesuai permintaan. */
+ * legal. Latarnya foto pucat yang memudar ke kiri, seperti foto gedung pucat
+ * di footer Adani; di sini tajuk pohon kebun kemenyan. Tautan tanpa halaman
+ * dibiarkan kosong (`#`) sesuai permintaan. */
 
 const COLUMNS = [
   {
@@ -56,7 +58,7 @@ const ICONS: Record<string, string> = {
 
 <footer class="ftr">
   <div class="ftr__bg">
-    <img class="ftr__mark" src="/brand/adhiloka-logo.svg" alt="" aria-hidden="true" width="760" height="640" loading="lazy" />
+    <Image class="ftr__photo" src={images['agroforest-canopy']} alt="" widths={[960, 1600]} sizes="70vw" quality={60} loading="lazy" />
     <div class="wrap ftr__upper">
       <div class="ftr__brand">
         <a href="/" aria-label="Adhiloka, home">
@@ -113,14 +115,24 @@ const ICONS: Record<string, string> = {
     padding: 50px 0 70px;
     background: linear-gradient(180deg, #fafafa 0%, #f1f2f1 100%);
   }
-  .ftr__mark {
+  /* Foto menempati 70 % kanan, dipucatkan dan memudar ke kiri supaya
+     kolom tautan tetap di atas bidang yang nyaris putih. */
+  .ftr__photo {
     position: absolute;
-    right: -4%;
-    bottom: -18%;
-    width: min(760px, 60vw);
-    height: auto;
-    opacity: 0.06;
+    top: 0;
+    right: 0;
+    width: 70%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+    opacity: 0.22;
+    filter: grayscale(0.35) contrast(0.9);
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 55%);
+    mask-image: linear-gradient(to right, transparent 0, #000 55%);
     pointer-events: none;
+  }
+  @media (max-width: 1026px) {
+    .ftr__photo { width: 100%; opacity: 0.14; }
   }
 
   .ftr__upper {
