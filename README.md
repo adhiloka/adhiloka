@@ -71,10 +71,14 @@ Yang sengaja berbeda:
 - **Banner cookie** tidak ditiru; situs ini tidak memasang cookie.
 - **Footer** berlatar foto tajuk pohon yang dipucatkan dan memudar ke kiri, pengganti foto gedung
   pucat di footer Adani.
-- (Bukan beda, catatan) **Akordeon keberlanjutan** mengikuti ukuran langsung dari adani.com: yang
-  dianimasikan `width` panel (150 px disusutkan flex jadi ±124 px, aktif 100 %, 0,5 s ease), foto
-  `cover` di tengah sehingga tidak membesar. Jangan animasikan `flex-basis` ke `auto`: nilai itu
-  tidak bisa diinterpolasi dan panelnya meloncat. Judul tegak hanya di panel tertutup.
+- (Bukan beda, catatan) **Akordeon keberlanjutan** mengikuti ukuran langsung dari adani.com (CSS
+  dan pelacakan frame rekaman layar): yang dianimasikan `width` panel (150 px disusutkan flex jadi
+  ±124 px, aktif 100 %, 0,5 s ease). Foto tiap panel berskala tetap dan duduk di tengah panelnya.
+  Karena foto kita potret/persegi sedangkan foto Adani 2:1, kotak `<img>` dikunci selebar panel
+  terbuka (`calc(100cqw - 200px)`); dengan `width: 100%` foto membesar ±2× saat panel dibuka di
+  layar lebar. Jangan animasikan `flex-basis` ke `auto`: nilai itu tidak bisa diinterpolasi dan
+  panelnya meloncat. Judul tegak hanya di pita tertutup. Untuk foto asli nanti, pakai foto
+  mendatar ±2:1 seperti Adani (1660×830) supaya tidak terpotong banyak.
 - **Popup peringatan penipuan** saat halaman dibuka tidak ditiru; peringatannya cukup di kotak
   bawah beranda, dengan naskah Adhiloka sendiri.
 

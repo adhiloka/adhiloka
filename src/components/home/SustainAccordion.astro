@@ -8,11 +8,13 @@ import { PILLARS, PILLAR_HEADLINE } from '../../data/pages/home';
  * 124 px berjudul tegak; klik (atau fokus) membuka panel itu. Di layar
  * sempit panelnya bertumpuk dan yang tertutup jadi pita 150 px.
  *
- * Mekanismenya diukur dari adani.com: yang dianimasikan LEBAR panel (0,5 s
- * ease; aktif 100 %, tertutup 150 px, disusutkan flex), fotonya
- * `cover` di tengah sehingga ukurannya tetap dan hanya tersingkap. Judul
- * tegak hanya ada di pita tertutup (muncul 0,4 s sesudah jeda 0,2 s); isi
- * panel aktif muncul 0,6 s sesudah jeda 0,5 s. */
+ * Mekanismenya diukur dari adani.com (CSS + pelacakan frame rekaman layar):
+ * yang dianimasikan hanya LEBAR panel (0,5 s ease; aktif 100 %, tertutup
+ * 150 px, disusutkan flex). Foto tiap panel berskala TETAP dan duduk di
+ * tengah panelnya, jadi saat panel melebar fotonya tersingkap dan bergeser
+ * setengah kecepatan tepinya — tidak pernah membesar. Judul tegak hanya ada
+ * di pita tertutup (muncul 0,4 s sesudah jeda 0,2 s); isi panel aktif hilang
+ * seketika dan muncul 0,6 s sesudah jeda 0,5 s. */
 ---
 
 <section class="sa" aria-label="Sustainability" data-accordion data-anim="pad">
@@ -31,7 +33,10 @@ import { PILLARS, PILLAR_HEADLINE } from '../../data/pages/home';
           </p>
           <div class="sa__stat">
             <p>{p.stat}</p>
-            <a class="sa__cta" href={p.href}>{p.cta}</a>
+            <a class="sa__cta" href={p.href}>
+              {p.cta}
+              <svg viewBox="0 0 18 12" width="17" height="11" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4"></path></svg>
+            </a>
           </div>
         </div>
       </article>
@@ -63,6 +68,7 @@ import { PILLARS, PILLAR_HEADLINE } from '../../data/pages/home';
      40 px (scrollPadding Adani, scripts/scroll-fx.ts) dan akordeonnya jadi
      panel berbingkai. Warna gelap pindah ke kartunya. */
   .sa {
+    container-type: inline-size;
     display: flex;
     width: 100%;
     height: 92vh;
@@ -91,15 +97,23 @@ import { PILLARS, PILLAR_HEADLINE } from '../../data/pages/home';
   }
   .sa__card + .sa__card { border-left: 1px solid rgb(255 255 255 / 0.15); }
 
-  /* `cover` di tengah: selama panel lebih sempit dari foto, skalanya
-     ditentukan tinggi panel, jadi foto tidak membesar saat panel melebar. */
+  /* Kotak foto berukuran tetap: setinggi panel dan selebar panel terbuka
+     (lebar akordeon dikurangi dua pita ±124 px; dikurangi 200 px supaya
+     tidak pernah lebih sempit dari panel terbuka), diletakkan di tengah
+     panel. Karena kotaknya tidak ikut melebar, `cover` tidak pernah
+     menskalakan ulang foto — penting karena foto kita potret/persegi,
+     sedangkan foto Adani 2:1. Dengan `width: 100%` foto membesar ±2× saat
+     panel dibuka di layar lebar. */
   .sa__img {
     position: absolute;
-    inset: 0;
-    width: 100%;
+    top: 0;
+    left: 50%;
+    width: calc(100cqw - 200px);
+    max-width: none;
     height: 100%;
     object-fit: cover;
     object-position: center;
+    transform: translateX(-50%);
   }
   .sa__card::after {
     content: '';
@@ -110,7 +124,8 @@ import { PILLARS, PILLAR_HEADLINE } from '../../data/pages/home';
     opacity: 0.7;
     pointer-events: none;
   }
-  .sa__card:not(.is-active)::after { height: 100%; opacity: 0.55; }
+  /* Bayangan sama untuk panel aktif dan pita, seperti `.subcard:after`
+     Adani, supaya tidak ada lonjakan terang-gelap saat panel berganti. */
 
   /* Judul tegak dalam kotak hitam 40 %, dibaca dari bawah ke atas. */
   .sa__label {
@@ -130,25 +145,24 @@ import { PILLARS, PILLAR_HEADLINE } from '../../data/pages/home';
     white-space: nowrap;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.2s ease;
   }
   .sa__card:not(.is-active) .sa__label {
-    left: 37px;
     opacity: 1;
     pointer-events: auto;
     transition: opacity 0.4s ease-in 0.2s;
   }
   .sa__label:focus-visible { opacity: 1; }
 
+  /* `.sustainabilityBoxWrap`: kiri 5,1 %, 60 px dari bawah; judul bergaris
+     tegak di kanannya, lalu kotak hitam 40 % berisi angka dan tautan. */
   .sa__content {
     position: absolute;
     z-index: 2;
-    left: 90px;
+    left: 5.1%;
     right: 60px;
     bottom: 60px;
     display: flex;
-    align-items: flex-end;
-    gap: clamp(40px, 8vw, 140px);
+    align-items: center;
     color: #fff;
     opacity: 0;
     pointer-events: none;
@@ -162,13 +176,20 @@ import { PILLARS, PILLAR_HEADLINE } from '../../data/pages/home';
   .sa__headline {
     display: flex;
     flex-direction: column;
+    padding-right: 40px;
+    border-right: 1px solid rgb(255 255 255 / 0.8);
     font-size: clamp(30px, 3.06vw, 44px);
-    line-height: 1.1;
+    line-height: 1.2;
     font-weight: 530;
     text-transform: uppercase;
     white-space: nowrap;
   }
-  .sa__stat { max-width: 320px; padding-bottom: 6px; }
+  .sa__stat {
+    max-width: 420px;
+    margin-left: 56px;
+    padding: 20px;
+    background: rgb(0 0 0 / 0.4);
+  }
   .sa__stat p {
     font-size: clamp(18px, 1.67vw, 24px);
     line-height: 1.24;
@@ -176,21 +197,26 @@ import { PILLARS, PILLAR_HEADLINE } from '../../data/pages/home';
     text-transform: uppercase;
   }
   .sa__cta {
-    display: inline-block;
-    margin-top: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 25px;
     padding-bottom: 5px;
-    border-bottom: 1px solid #fff;
-    font-size: 18px;
+    border-bottom: 2px solid #fff;
+    font-size: clamp(18px, 1.39vw, 20px);
     font-weight: 300;
     color: #fff;
   }
-  .sa__cta:hover { border-color: var(--brand-gold); }
+  .sa__cta svg { flex: none; transition: transform 0.4s; }
+  .sa__cta:hover svg { transform: translateX(4px); }
 
   @media (max-width: 1026px) {
     .sa { flex-direction: column; height: auto; min-height: 0; }
     .sa__card,
     .sa__card:not(.is-active):hover { flex: none; width: 100%; height: 110px; transition: height 0.5s ease; }
     .sa__card.is-active { flex: none; height: 78vh; min-height: 480px; }
+    /* Bertumpuk: kotak foto setinggi panel terbuka, di tengah pita. */
+    .sa__img { top: 50%; left: 0; width: 100%; height: max(78vh, 480px); transform: translateY(-50%); }
     .sa__card + .sa__card { border-left: 0; border-top: 1px solid rgb(255 255 255 / 0.15); }
     .sa__label,
     .sa__card:not(.is-active) .sa__label {
@@ -204,6 +230,10 @@ import { PILLARS, PILLAR_HEADLINE } from '../../data/pages/home';
     }
     .sa__card:not(.is-active) .sa__label { top: 50%; transform: translateY(-50%); background: none; padding: 0; }
     .sa__content { left: 20px; right: 20px; bottom: 30px; flex-direction: column; align-items: flex-start; gap: 24px; }
-    .sa__headline { white-space: normal; }
+    .sa__headline { white-space: normal; padding-right: 0; border-right: 0; }
+    .sa__stat { max-width: none; margin-left: 0; }
+  }
+  @media (max-width: 767px) {
+    .sa__card::after { height: 100%; opacity: 1; }
   }
 </style>
