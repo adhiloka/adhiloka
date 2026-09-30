@@ -2,14 +2,21 @@ import { NAV, type NavLink } from './site';
 import { MATERIALS, type Family } from './materials';
 import { MATERIAL_NAMES } from './material-names';
 
-/* Isi mega-menu, disusun seperti mega-menu adani.com: tiap kolom punya kepala
- * (tautan tebal bergaris bawah) dan boleh punya daftar tautan di bawahnya.
- * Menu utamanya tetap NAV di site.ts; di sini hanya susunan kolomnya.
+/* Isi mega-menu. Tiap panel berbaris judul (nama menu, menuju halaman induk)
+ * lalu kolom seperti mega-menu adani.com: kepala kolom plus daftar tautan.
+ * About Us dan Media tidak punya kolom yang berdiri sendiri: semua halaman
+ * anaknya dikelompokkan di bawah label grup. Menu utamanya tetap NAV di
+ * site.ts; di sini hanya susunan kolomnya.
  *
  * Tautan ber-# menunjuk id section di halamannya (id Passage di data halaman,
  * atau slug material di katalog), jadi jangan ganti id itu tanpa mengubah ini. */
 
-export type MenuColumn = { head: NavLink; links?: NavLink[] };
+/** Kepala kolom: tautan (kolom Perfumery, Ingredients…) atau label grup
+ *  tanpa tautan (About Us, Media) yang hanya mengelompokkan halaman anak. */
+export type MenuHead = { label: string; href?: string };
+export type MenuColumn = { head: MenuHead; links?: NavLink[] };
+/** Satu panel mega-menu: baris judul panel (menuju halaman induk) lalu kolom. */
+export type MenuPanel = { heading: NavLink; columns: MenuColumn[] };
 
 const byFamily = (...families: Family[]): NavLink[] =>
   MATERIALS.filter((m) => families.includes(m.family)).map((m) => ({
@@ -17,18 +24,25 @@ const byFamily = (...families: Family[]): NavLink[] =>
     href: `/ingredients/catalog/#${m.slug}`,
   }));
 
-export const MEGA: Record<string, MenuColumn[]> = {
+const COLUMNS: Record<string, MenuColumn[]> = {
+  // About Us: semua halaman anak di bawah satu grup, dipecah dua kolom.
   '/about/': [
     {
-      head: { label: 'About Adhiloka', href: '/about/' },
+      head: { label: 'Who We Are' },
       links: [
+        { label: 'Overview', href: '/about/' },
         { label: 'Our Business', href: '/about/our-business/' },
         { label: 'Our Purpose', href: '/about/our-purpose/' },
       ],
     },
-    { head: { label: 'Our Leadership', href: '/about/our-leadership/' } },
-    { head: { label: 'Our History', href: '/about/our-history/' } },
-    { head: { label: 'Our Locations', href: '/about/our-locations/' } },
+    {
+      head: { label: 'People & Places' },
+      links: [
+        { label: 'Our Leadership', href: '/about/our-leadership/' },
+        { label: 'Our History', href: '/about/our-history/' },
+        { label: 'Our Locations', href: '/about/our-locations/' },
+      ],
+    },
   ],
   '/perfumery/': [
     {
@@ -89,10 +103,28 @@ export const MEGA: Record<string, MenuColumn[]> = {
     },
   ],
   '/media/': [
-    { head: { label: 'News', href: '/media/news/' } },
-    { head: { label: 'Media Resources', href: '/media/media-resources/' } },
-    { head: { label: 'Social Media', href: '/media/social-media/' } },
+    {
+      head: { label: 'Newsroom' },
+      links: [
+        { label: 'Overview', href: '/media/' },
+        { label: 'News', href: '/media/news/' },
+      ],
+    },
+    {
+      head: { label: 'Resources' },
+      links: [
+        { label: 'Media Resources', href: '/media/media-resources/' },
+        { label: 'Social Media', href: '/media/social-media/' },
+      ],
+    },
   ],
 };
 
-export const MENU = NAV.map((item) => ({ ...item, columns: MEGA[item.href] ?? [] }));
+export const MEGA: Record<string, MenuPanel> = Object.fromEntries(
+  NAV.filter((item) => COLUMNS[item.href]).map((item) => [
+    item.href,
+    { heading: { label: item.label, href: item.href }, columns: COLUMNS[item.href] },
+  ]),
+);
+
+export const MENU = NAV.map((item) => ({ ...item, mega: MEGA[item.href] }));

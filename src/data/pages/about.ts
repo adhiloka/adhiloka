@@ -4,7 +4,7 @@ import type { LinkCard, PageIntro, Passage, Quote, Stat } from './types';
 /* ── Hub ─────────────────────────────────────────────────────────────── */
 
 export const ABOUT_INTRO: PageIntro = {
-  eyebrow: 'About Adhiloka',
+  eyebrow: 'About Us',
   title: 'Ab natus lorem at sit magni, est ab eum tempore eius duis id.',
   metaTitle: 'About',
   lede: 'Aut repellendus do hic amet maxime, dolore debitis elit quo unde suscipit ratione, sapiente et ad non est nulla et omnis, aut accusamus ea ex sed qui culpa.',
@@ -64,7 +64,7 @@ export const ABOUT_CARDS: LinkCard[] = [
 /* ── Our Business ────────────────────────────────────────────────────── */
 
 export const BUSINESS_INTRO: PageIntro = {
-  eyebrow: 'About Adhiloka',
+  eyebrow: 'About Us',
   title: 'Our Business',
   lede: 'Ex non sint eos veniam, tempor illo ad eum, vel eveniet ipsa sint ab veniam. Quos repellat tempor tenetur rem eum magnam ad beatae do.',
   description:
@@ -124,7 +124,7 @@ export const BUSINESS_PASSAGES: Passage[] = [
 /* ── Our Leadership ──────────────────────────────────────────────────── */
 
 export const LEADERSHIP_INTRO: PageIntro = {
-  eyebrow: 'About Adhiloka',
+  eyebrow: 'About Us',
   title: 'Our Leadership',
   lede: 'In velit natus, amet in quas quae quasi ea sit eveniet omnis. Ducimus duis aute magnam quo vero tempor sit magni vel sit quia at quos ex vel aspernatur atque.',
   description:
@@ -180,7 +180,7 @@ export const LEADERSHIP: Leader[] = [
 /* ── Our Purpose ─────────────────────────────────────────────────────── */
 
 export const PURPOSE_INTRO: PageIntro = {
-  eyebrow: 'About Adhiloka',
+  eyebrow: 'About Us',
   title: 'Our Purpose',
   lede: 'Nam deleniti alias quod autem at non magnam eos sit officiis qui anim id sit rerum magna ut earum magna. Adipiscing ab at id doloremque et quam sapiente.',
   description:
@@ -221,7 +221,7 @@ export const PURPOSE_QUOTE: Quote = {
 /* ── Our History ─────────────────────────────────────────────────────── */
 
 export const HISTORY_INTRO: PageIntro = {
-  eyebrow: 'About Adhiloka',
+  eyebrow: 'About Us',
   title: 'Our History',
   lede: 'Hic cillum at placeat, nam praesentium, aut id repellat laboris ex earum non nesciunt modi debitis ut.',
   description:
@@ -278,7 +278,7 @@ export const HISTORY_TIMELINE: Era[] = [
 /* ── Our Locations ───────────────────────────────────────────────────── */
 
 export const LOCATIONS_INTRO: PageIntro = {
-  eyebrow: 'About Adhiloka',
+  eyebrow: 'About Us',
   title: 'Our Locations',
   lede: 'Dolorem, repellat, autem eum irure. Itaque doloremque possimus in non nemo vero cumque ut cum id voluptatem esse.',
   description:

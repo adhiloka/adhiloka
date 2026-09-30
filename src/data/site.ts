@@ -34,18 +34,18 @@ export type NavItem = {
    mega-menu ala Adani ada di menu.ts. Contact tanpa panel: ia tujuan. */
 export const NAV: NavItem[] = [
   {
-    label: 'About Adhiloka',
+    label: 'About Us',
     href: '/about/',
     blurb:
       'A family house of Indonesian naturals, in its sixth generation and still buying from the forests it started in.',
     panel: {
-      title: 'About Adhiloka',
+      title: 'About Us',
       shot: 'benzoin resin, hand-graded',
       image: 'material-benzoin',
       links: [
         { label: 'Our Business', href: '/about/our-business/' },
-        { label: 'Our Leadership', href: '/about/our-leadership/' },
         { label: 'Our Purpose', href: '/about/our-purpose/' },
+        { label: 'Our Leadership', href: '/about/our-leadership/' },
         { label: 'Our History', href: '/about/our-history/' },
         { label: 'Our Locations', href: '/about/our-locations/' },
       ],

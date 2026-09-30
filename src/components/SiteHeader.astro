@@ -11,7 +11,11 @@ import { getImageFor } from '../data/images';
  * Isi mega-menu memakai konsep Adhiloka versi pertama (yang meniru
  * robertet.com): foto utama berjudul dengan panah di kiri, menuju halaman
  * induk, lalu kolom tautan di kanan. Dengan kolom saja panelnya banyak ruang
- * kosong, karena menu Adhiloka jauh lebih sedikit tautannya daripada Adani. */
+ * kosong, karena menu Adhiloka jauh lebih sedikit tautannya daripada Adani.
+ *
+ * Kolom kanan diawali baris judul panel (ABOUT US ───). About Us dan Media
+ * memakai label grup, bukan kepala bertautan, sehingga Leadership, History,
+ * Locations dst. tampil sebagai anak About Us, bukan menu yang berdiri sendiri. */
 
 interface Props {
   active: string;
@@ -19,6 +23,7 @@ interface Props {
 const { active } = Astro.props;
 
 const isActive = (href: string) => active === href || active.startsWith(href);
+const path = Astro.url.pathname;
 ---
 
 <header class="hdr" data-header>
@@ -39,11 +44,11 @@ const isActive = (href: string) => active === href || active.startsWith(href);
       <ul class="hdr__list">
         {
           MENU.map((item) => (
-            <li class:list={['hdr__item', { 'is-active': isActive(item.href), 'has-mega': item.columns.length > 0 }]} data-item>
-              <a class:list={['hdr__link', { 'has-child': item.columns.length > 0 }]} href={item.href} data-top>
+            <li class:list={['hdr__item', { 'is-active': isActive(item.href), 'has-mega': !!item.mega }]} data-item>
+              <a class:list={['hdr__link', { 'has-child': !!item.mega }]} href={item.href} data-top>
                 {item.label}
               </a>
-              {item.columns.length > 0 && (
+              {item.mega && (
                 <div class="mega" data-mega>
                   <div class="mega__wrap">
                     {item.panel && (
@@ -67,19 +72,33 @@ const isActive = (href: string) => active === href || active.startsWith(href);
                         </span>
                       </a>
                     )}
-                    <div class="mega__cols">
-                    {item.columns.map((col) => (
-                      <div class="mega__col">
-                        <a class="mega__head" href={col.head.href}>{col.head.label}</a>
-                        {col.links && (
-                          <ul class="mega__links">
-                            {col.links.map((l) => (
-                              <li><a href={l.href}>{l.label}</a></li>
-                            ))}
-                          </ul>
-                        )}
+                    <div class="mega__body">
+                      <a class="mega__heading" href={item.mega.heading.href} tabindex="-1">
+                        <span>{item.mega.heading.label}</span>
+                      </a>
+                      <div class:list={['mega__cols', { 'mega__cols--groups': item.mega.columns.some((c) => !c.head.href) }]}>
+                        {item.mega.columns.map((col) => (
+                          <div class="mega__col">
+                            {col.head.href ? (
+                              <a class="mega__head" href={col.head.href}>{col.head.label}</a>
+                            ) : (
+                              <span class="mega__group">{col.head.label}</span>
+                            )}
+                            {col.links && (
+                              <ul class="mega__links">
+                                {col.links.map((l) => (
+                                  <li>
+                                    <a href={l.href} aria-current={l.href === path ? 'page' : undefined}>
+                                      <span>{l.label}</span>
+                                      <svg class="mega__chev" viewBox="0 0 16 12" width="14" height="10" aria-hidden="true"><path d="M0 6h14M9 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4"></path></svg>
+                                    </a>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                          </div>
+                        ))}
                       </div>
-                    ))}
                     </div>
                   </div>
                 </div>
@@ -375,22 +394,106 @@ const isActive = (href: string) => active === href || active.startsWith(href);
   .mega__head:hover { text-decoration: underline; }
   .mega__links li { padding: 13.5px 0 0; }
   .mega__links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     font-size: 16px;
     color: #000;
     opacity: 0.6;
+    transition: opacity 0.3s;
   }
-  .mega__links a:hover { opacity: 1; text-decoration: underline; }
+  .mega__links a:hover { opacity: 1; }
+  .mega__links a:hover span { text-decoration: underline; }
+  .mega__links a[aria-current] { opacity: 1; }
+  .mega__chev {
+    flex: none;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 0.3s, transform 0.3s ease-out;
+  }
+  .mega__links a:hover .mega__chev,
+  .mega__links a:focus-visible .mega__chev { opacity: 1; transform: none; }
+
+  /* Label grup (About Us, Media): bukan tautan, hanya pengelompok. */
+  .mega__group {
+    display: block;
+    font-size: 12px;
+    font-weight: 530;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  @media (min-width: 1027px) {
+    /* Baris judul panel: nama menu kapital lalu garis tipis sampai tepi. */
+    .mega__body { min-width: 0; }
+    .mega__heading {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 30px;
+      font-size: 13px;
+      font-weight: 530;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #000;
+    }
+    .mega__heading::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+    .mega__heading:hover span { text-decoration: underline; }
+
+    /* Grup: dua kolom lapang, tautan lebih besar dengan garis gradien kecil
+       di bawah labelnya, supaya panel yang tautannya sedikit tetap terisi. */
+    .mega__cols--groups {
+      grid-template-columns: repeat(2, minmax(0, 300px));
+      gap: 0 72px;
+    }
+    .mega__cols--groups .mega__group {
+      position: relative;
+      padding-bottom: 16px;
+      margin-bottom: 6px;
+    }
+    .mega__cols--groups .mega__group::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 28px;
+      height: 3px;
+      background: var(--grad-bar);
+    }
+    .mega__cols--groups .mega__links li { padding: 0; border-bottom: 1px solid var(--line-soft); }
+    .mega__cols--groups .mega__links a {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 0;
+      font-size: 20px;
+      font-weight: 360;
+      opacity: 0.75;
+    }
+    .mega__cols--groups .mega__links a:hover span { text-decoration: none; }
+    .mega__cols--groups .mega__links a:hover,
+    .mega__cols--groups .mega__links a[aria-current] { opacity: 1; }
+  }
 
   @media (max-width: 1399px) and (min-width: 1027px) {
     .mega__head { font-size: 18px; white-space: normal; }
     .mega__links li { padding-top: 8px; }
     .mega__wrap { grid-template-columns: minmax(0, 32%) minmax(0, 1fr); gap: 40px; }
     .mega__cols { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 28px 32px; }
+    .mega__cols--groups { grid-template-columns: repeat(2, minmax(0, 260px)); gap: 0 48px; }
+    .mega__cols--groups .mega__links a { padding: 12px 0; font-size: 18px; }
+    .mega__heading { margin-bottom: 22px; }
     .mega__label { font-size: 18px; left: 18px; bottom: 18px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .mega__img,
-    .mega__arrow { transition: none; }
+    .mega__arrow,
+    .mega__chev { transition: none; }
     .mega__feature:hover .mega__img { transform: none; }
   }
 
@@ -478,7 +581,10 @@ const isActive = (href: string) => active === href || active.startsWith(href);
 
     .mega,
     .lang,
-    .mega__feature { display: none; }
+    .mega__feature,
+    .mega__heading,
+    .mega__chev { display: none; }
+    .mega__group { padding: 4px 0 2px; }
     .is-sub > .mega,
     .is-sub > .lang { display: block; }
     .mega__wrap { padding: 0 0 12px 16px; }

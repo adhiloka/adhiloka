@@ -13,7 +13,7 @@ npm run preview  # menyajikan dist/
 
 ## Halaman
 
-Menunya tetap menu Adhiloka (About Adhiloka · Perfumery · Ingredients · Sustainability · Media ·
+Menunya tetap menu Adhiloka (About Us · Perfumery · Ingredients · Sustainability · Media ·
 Contact), tetapi tampil dan bekerja seperti menu Adani: kapital, chevron, mega-menu saat hover di
 desktop, laci dari kanan dengan akordeon di layar ≤1026 px. Isi kolom mega-menu diatur di
 `src/data/menu.ts`; daftar menunya tetap `NAV` di `src/data/site.ts`.
