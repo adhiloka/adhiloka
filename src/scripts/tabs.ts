@@ -11,6 +11,14 @@
 
 const emit = (name: string, detail?: HTMLElement) => window.dispatchEvent(new CustomEvent(name, { detail }));
 
+const still = window.matchMedia('(prefers-reduced-motion: reduce)');
+/** `compTab` Adani: isi tab yang baru tampil masuk dengan `fadeIn("slow")`, 600 ms.
+ *  Hanya untuk grid tersaring (halaman dalam); tab Business beranda tidak diubah. */
+export const fadeIn = (el?: HTMLElement | null) => {
+  if (!el || still.matches) return;
+  el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 600, easing: 'ease' });
+};
+
 export function initTabs() {
   document.querySelectorAll<HTMLElement>('[data-tabs]:not([data-ready])').forEach((root) => {
     root.dataset.ready = '';
@@ -34,6 +42,7 @@ export function initTabs() {
           if (on) shown++;
         });
         if (count) count.textContent = `${shown} ${shown === 1 ? 'item' : 'items'}`;
+        fadeIn(root.querySelector<HTMLElement>('[data-filter-grid]'));
         emit('fx:refresh');
       } else {
         let shownPanel: HTMLElement | undefined;

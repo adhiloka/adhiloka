@@ -14,7 +14,7 @@ const cats = FAMILY_FILTERS.map((f) => ({ key: f.value === 'All' ? 'all' : f.val
 ---
 
 <PageLayout intro={CATALOG_INTRO}>
-  <Intro title="Eighteen naturals" paragraphs={[CATALOG_INTRO.lede, CATALOG_NOTE]} />
+  <Intro title="Eighteen naturals" paragraphs={[CATALOG_INTRO.lede, CATALOG_NOTE]} more />
 
   <section class="sec sec--grey cat" data-tabs data-filter>
     <div class="wrap">
@@ -34,7 +34,7 @@ const cats = FAMILY_FILTERS.map((f) => ({ key: f.value === 'All' ? 'all' : f.val
       <ul class="cat__grid" data-filter-grid>
         {
           MATERIALS.map((m) => (
-            <li class="mat" id={m.slug} data-cat={m.family}>
+            <li class="mat" id={m.slug} data-cat={m.family} data-anim="sub">
               <span class="mat__media cover shade">
                 {m.image ? <Image quality={70} src={images[m.image]} alt="" widths={[400, 720]} sizes="(max-width: 767px) 100vw, 30vw" loading="lazy" /> : <span class="plate">{m.shot}</span>}
                 <span class="mat__family">{m.family}</span>

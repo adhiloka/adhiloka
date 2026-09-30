@@ -1,0 +1,73 @@
+---
+import { Image } from 'astro:assets';
+import { images, type ImageKey } from '../../data/images';
+
+/* Penutup halaman induk ala `thumbWithTwoButtons` / `Com_better-tomorrow`
+ * adani.com/sustainability: foto lebar yang digelapkan, kalimat besar di
+ * tengah dan dua tombol terang. Section ini menutup halaman, jadi ia yang
+ * tidak di-pin (section terakhir). Fotonya bergeser di dalam bingkai. */
+
+interface Props {
+  text: string;
+  image: ImageKey;
+  buttons: { label: string; href: string }[];
+}
+const { text, image, buttons } = Astro.props;
+---
+
+<section class="cta">
+  <div class="cta__media cover" data-parallax>
+    <Image quality={70} src={images[image]} alt="" widths={[768, 1280, 1920]} sizes="100vw" loading="lazy" />
+  </div>
+  <div class="wrap cta__body">
+    <p class="cta__text" data-anim="sub">{text}</p>
+    <div class="cta__btns" data-anim="columns">
+      {buttons.map((b) => <a class="btn btn--light" href={b.href} data-anim-item><span class="btn__label">{b.label}</span></a>)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 80vh;
+    overflow: hidden;
+    background: #111;
+    color: #fff;
+  }
+  .cta__media { position: absolute; inset: 0; }
+  .cta__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgb(0 0 0 / 0.55);
+  }
+  .cta__body {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-block: 120px;
+    text-align: center;
+  }
+  .cta__text {
+    max-width: 980px;
+    font-size: clamp(28px, 3.06vw, 44px);
+    line-height: 1.2;
+    font-weight: 440;
+  }
+  .cta__btns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 48px;
+  }
+  @media (max-width: 767px) {
+    .cta { min-height: 60vh; }
+    .cta__body { padding-block: 72px; }
+  }
+</style>

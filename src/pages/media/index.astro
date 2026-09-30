@@ -1,16 +1,39 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import Intro from '../../components/blocks/Intro.astro';
-import NewsCards from '../../components/NewsCards.astro';
+import CardSlider from '../../components/blocks/CardSlider.astro';
+import PromoBanner from '../../components/blocks/PromoBanner.astro';
 import CardGrid from '../../components/blocks/CardGrid.astro';
 import PressContact from '../../components/blocks/PressContact.astro';
-import { MEDIA_INTRO, MEDIA_CARDS, NEWS, byDate } from '../../data/pages/media';
+import { MEDIA_INTRO, MEDIA_CARDS, NEWS, byDate, formatDate } from '../../data/pages/media';
 
-const latest = [...NEWS].sort(byDate).slice(0, 3);
+/* Newsroom ala adani.com/newsroom: Media Releases berupa slider tiga kartu
+ * bertanggal, promosi Media Kit (`media-kit-section`), lalu kartu pusat
+ * media dan kontak pers. */
+const releases = [...NEWS].sort(byDate);
 ---
 
 <PageLayout intro={MEDIA_INTRO} bannerTitle="Newsroom" lineInBanner>
-  <NewsCards title="Latest News" viewAll="/media/news/" articles={latest} />
+  <CardSlider
+    title="Media Releases"
+    viewAll="/media/news/"
+    items={releases.map((a) => ({
+      href: `/media/news/${a.slug}/`,
+      title: a.title,
+      image: a.image,
+      shot: a.shot,
+      tag: a.category,
+      meta: formatDate(a.date),
+      datetime: a.date,
+    }))}
+  />
+  <PromoBanner
+    title="Media Kit"
+    text="Voluptas at ipsum quia, dolore magnam sint eos aliquid commodo nisi."
+    cta="Explore Media Kit"
+    href="/media/media-resources/"
+    image="agroforest-canopy"
+  />
   <CardGrid title="Media Centre" cards={MEDIA_CARDS} grey />
   <PressContact grey={false} />
 </PageLayout>

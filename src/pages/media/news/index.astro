@@ -4,67 +4,236 @@ import NewsCards from '../../../components/NewsCards.astro';
 import PressContact from '../../../components/blocks/PressContact.astro';
 import { NEWS_INTRO, NEWS, byDate } from '../../../data/pages/media';
 
-/* Daftar berita ala "Media Releases" adani.com: tab kategori menyaring grid. */
+/* Daftar berita ala "Media Releases" adani.com (`press-searchBox`): cari,
+ * kategori, tahun dan urutan menyaring grid; filter aktif tampil sebagai tag
+ * dengan Clear All, hasil dibuka enam demi enam lewat Load More. Logikanya di
+ * scripts/news-filter.ts. */
 const articles = [...NEWS].sort(byDate);
-const cats = ['all', ...new Set(articles.map((a) => a.category))];
+const cats = [...new Set(articles.map((a) => a.category))].sort();
+const years = [...new Set(articles.map((a) => a.date.slice(0, 4)))].sort().reverse();
 ---
 
 <PageLayout intro={NEWS_INTRO} lineInBanner>
-  <section class="sec" data-tabs data-filter>
+  <section class="sec nf" data-news-filter>
     <div class="wrap">
-      <div class="nl__bar">
-        <h2 class="h2">Media Releases</h2>
-        <div class="nl__tabs" role="tablist" aria-label="Filter by category">
-          {
-            cats.map((c, i) => (
-              <button class:list={['ntab', { 'is-active': i === 0 }]} type="button" role="tab" data-tab={c} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>
-                {c === 'all' ? 'All' : c}
-              </button>
-            ))
-          }
-        </div>
+      <div class="nf__head">
+        <h2 class="h2" data-anim="title">Media Releases</h2>
+        <button class="nf__open" type="button" data-nf-open aria-expanded="false" aria-controls="nf-panel">
+          <svg viewBox="0 0 20 16" width="18" height="14" aria-hidden="true"><path d="M0 3h20M0 8h20M0 13h20" stroke="currentColor" stroke-width="1.4"></path><circle cx="6" cy="3" r="2.2" fill="#fff" stroke="currentColor" stroke-width="1.4"></circle><circle cx="14" cy="8" r="2.2" fill="#fff" stroke="currentColor" stroke-width="1.4"></circle><circle cx="8" cy="13" r="2.2" fill="#fff" stroke="currentColor" stroke-width="1.4"></circle></svg>
+          Filters
+        </button>
       </div>
-      <p class="nl__count" role="status" aria-live="polite" data-filter-count>{articles.length} items</p>
+
+      <div class="nf__panel" id="nf-panel">
+        <div class="nf__panel-head">
+          <span>Filters</span>
+          <button type="button" class="nf__x" data-nf-close aria-label="Close filters">
+            <svg viewBox="0 0 14 14" width="14" height="14" aria-hidden="true"><path d="m1 1 12 12M13 1 1 13" stroke="currentColor" stroke-width="1.5"></path></svg>
+          </button>
+        </div>
+        <form class="nf__form" data-nf-form role="search" aria-label="Filter media releases">
+          <label class="nf__field nf__field--q">
+            <span class="sr-only">Search</span>
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"></circle><path d="m15.5 15.5 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>
+            <input type="search" name="q" placeholder="Search" autocomplete="off" />
+          </label>
+          <label class="nf__field">
+            <span class="sr-only">Category</span>
+            <select name="cat">
+              <option value="">All Categories</option>
+              {cats.map((c) => <option value={c}>{c}</option>)}
+            </select>
+          </label>
+          <label class="nf__field">
+            <span class="sr-only">Year</span>
+            <select name="year">
+              <option value="">All Years</option>
+              {years.map((y) => <option value={y}>{y}</option>)}
+            </select>
+          </label>
+          <label class="nf__field">
+            <span class="sr-only">Sort</span>
+            <select name="sort">
+              <option value="desc">Newest first</option>
+              <option value="asc">Oldest first</option>
+            </select>
+          </label>
+          <button class="btn nf__apply" type="submit"><span class="btn__label">Apply Now</span></button>
+        </form>
+      </div>
+      <div class="nf__backdrop" data-nf-close aria-hidden="true"></div>
+
+      <div class="nf__meta">
+        <ul class="nf__tags" data-nf-tags aria-label="Active filters" hidden></ul>
+        <p class="nf__count" role="status" aria-live="polite" data-filter-count>{articles.length} items</p>
+      </div>
+
       <NewsCards articles={articles} filterable headingLevel="h3" />
+      <p class="nf__empty" data-nf-empty hidden>No releases match these filters.</p>
+
+      <div class="nf__more">
+        <button class="btn" type="button" data-nf-more hidden><span class="btn__label">Load More</span></button>
+      </div>
     </div>
   </section>
   <PressContact />
 </PageLayout>
 
 <script>
-  import { initTabs } from '../../../scripts/tabs';
-  initTabs();
+  import { initNewsFilter } from '../../../scripts/news-filter';
+  initNewsFilter();
 </script>
 
 <style>
-  .nl__bar {
+  .nf__head {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-between;
     gap: 20px;
-    flex-wrap: wrap;
   }
-  .nl__tabs { display: flex; flex-wrap: wrap; border-bottom: 1px solid var(--line); }
-  .ntab {
+  .nf__open,
+  .nf__panel-head,
+  .nf__apply,
+  .nf__backdrop { display: none; }
+
+  .nf__form {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 40px;
+  }
+  .nf__field {
     position: relative;
-    padding: 10px 18px;
-    font-size: 17px;
-    font-weight: 440;
-    color: var(--ink-muted);
+    display: flex;
+    align-items: center;
+    height: 56px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--ink);
+    transition: border-color 0.3s;
   }
-  .ntab::after {
+  .nf__field:focus-within { border-color: var(--ink); }
+  .nf__field svg { position: absolute; left: 18px; pointer-events: none; }
+  .nf__field input,
+  .nf__field select {
+    width: 100%;
+    height: 100%;
+    padding: 0 18px;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    font-size: 16px;
+    color: inherit;
+    outline: none;
+  }
+  .nf__field--q input { padding-left: 48px; }
+  .nf__field select {
+    appearance: none;
+    padding-right: 44px;
+    cursor: pointer;
+  }
+  .nf__field:not(.nf__field--q)::after {
     content: '';
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -1px;
-    height: 4px;
-    background: var(--grad-bar);
-    transform: scaleX(0);
-    transition: transform 0.3s;
+    right: 20px;
+    top: calc(50% - 6px);
+    width: 7px;
+    height: 7px;
+    border-right: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    transform: rotate(45deg);
+    pointer-events: none;
   }
-  .ntab:hover { color: var(--ink); }
-  .ntab.is-active { color: var(--ink); }
-  .ntab.is-active::after { transform: none; }
-  .nl__count { margin: 28px 0 32px; font-size: 15px; color: var(--ink-muted); }
+
+  .nf__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin: 28px 0 32px;
+  }
+  .nf__tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+  .nf__tags :global(.nf__tag) {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    border: 1px solid var(--line);
+    border-radius: 40px;
+    font-size: 14px;
+    color: var(--ink);
+    transition: border-color 0.3s;
+  }
+  .nf__tags :global(.nf__tag:hover) { border-color: var(--ink); }
+  .nf__tags :global(.nf__clear) {
+    margin-left: 6px;
+    font-size: 14px;
+    color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .nf__count { margin-left: auto; font-size: 15px; color: var(--ink-muted); }
+  .nf__empty { padding: 40px 0; font-size: 18px; color: var(--ink-muted); }
+  .nf__more { display: flex; justify-content: center; margin-top: 48px; }
+  .nf__more:has([hidden]) { margin-top: 0; }
+
+  @media (max-width: 1026px) {
+    .nf__form { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ≤767 px: formulir menjadi laci dari bawah (`filter-head` / Apply Now). */
+  @media (max-width: 767px) {
+    .nf__open {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border: 1px solid var(--ink);
+      border-radius: 8px;
+      font-size: 15px;
+      color: var(--ink);
+    }
+    .nf__panel {
+      position: fixed;
+      inset: auto 0 0;
+      z-index: 9995;
+      max-height: 90dvh;
+      overflow-y: auto;
+      padding: 20px 20px 28px;
+      border-radius: 16px 16px 0 0;
+      background: #fff;
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
+    }
+    .nf.is-filtering .nf__panel { transform: none; }
+    .nf__backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 9994;
+      display: block;
+      background: rgb(0 0 0 / 0.5);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s;
+    }
+    .nf.is-filtering .nf__backdrop { opacity: 1; pointer-events: auto; }
+    .nf__panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 18px;
+      font-weight: 530;
+      color: var(--ink);
+    }
+    .nf__x { display: grid; place-items: center; width: 36px; height: 36px; color: var(--ink); }
+    .nf__form { grid-template-columns: 1fr; margin-top: 16px; }
+    .nf__apply { display: inline-flex; justify-content: center; margin-top: 8px; }
+  }
 </style>

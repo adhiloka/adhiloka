@@ -1,0 +1,201 @@
+---
+import { Image } from 'astro:assets';
+import { images, type ImageKey } from '../../data/images';
+import 'swiper/css';
+
+/* Slider kartu ala `Com-threeImageSlider` (Awards, Media Releases) dan
+ * `twoImageSlider` (Other Releases, In the Spotlight) adani.com: kartu
+ * berpadding 20 px yang latarnya memutih/mengabu saat hover, foto yang
+ * membesar pelan, dan dua tombol bulat bertuliskan "prev"/"next" di kanan
+ * bawah. Di layar ≤1023 px tombolnya hilang dan slider digeser dengan usap.
+ * Kartu masuk bergiliran naik 250 px (columnAnimation-single). */
+
+export type SlideCard = {
+  href: string;
+  title: string;
+  body?: string;
+  image?: ImageKey;
+  /** Pelat pengganti bila foto belum ada. */
+  shot?: string;
+  /** Label di kiri bawah foto (kategori berita). */
+  tag?: string;
+  /** Baris abu kecil di atas judul, mis. tanggal. */
+  meta?: string;
+  datetime?: string;
+};
+
+interface Props {
+  title: string;
+  items: SlideCard[];
+  perView?: 2 | 3;
+  viewAll?: string;
+  grey?: boolean;
+}
+const { title, items, perView = 3, viewAll, grey = false } = Astro.props;
+---
+
+<section class:list={['sec', 'cs', `cs--${perView}`, { 'sec--grey': grey }]} data-slider={String(perView)}>
+  <div class="wrap">
+    <div class="head-row">
+      <h2 class="h2" data-anim="title">{title}</h2>
+      {viewAll && <a class="btn" href={viewAll} data-anim="title"><span class="btn__label">View All</span></a>}
+    </div>
+
+    <div class="cs__frame">
+      <div class="swiper">
+        <ul class="swiper-wrapper" data-anim="columns">
+          {
+            items.map((c) => (
+              <li class="swiper-slide">
+                <a class="cs__card" href={c.href} data-anim-item>
+                  <span class="cs__media cover">
+                    {c.image ? (
+                      <Image quality={70} src={images[c.image]} alt="" widths={[480, 800]} sizes={perView === 3 ? '(max-width: 990px) 62vw, 29vw' : '(max-width: 990px) 70vw, 43vw'} loading="lazy" />
+                    ) : (
+                      <span class="plate">{c.shot}</span>
+                    )}
+                    {c.tag && <span class="cs__tag">{c.tag}</span>}
+                  </span>
+                  {c.meta && <time class="cs__meta" datetime={c.datetime}>{c.meta}</time>}
+                  <h3 class="cs__title">{c.title}</h3>
+                  {c.body && <span class="cs__body">{c.body}</span>}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="cs__nav">
+        <button class="cs__btn" type="button" data-prev aria-label="Previous"><span>prev</span></button>
+        <button class="cs__btn" type="button" data-next aria-label="Next"><span>next</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initSliders } from '../../scripts/slider';
+  initSliders();
+</script>
+
+<style>
+  .cs__frame {
+    position: relative;
+    margin-top: 48px;
+    padding-bottom: 70px;
+  }
+  .cs.is-static .cs__frame { padding-bottom: 0; }
+  .swiper { overflow: hidden; }
+  .swiper-wrapper { list-style: none; }
+  .swiper-slide { height: auto; }
+
+  /* `.three-imgcardBox`: padding 20 px, latar #f0f0f0 saat hover (putih di
+     section abu), transisi 0,7 s. */
+  .cs__card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 20px;
+    transition: background-color 0.7s;
+  }
+  .cs__card:hover { background: var(--bg-grey); }
+  .sec--grey .cs__card:hover { background: #fff; }
+
+  .cs__media {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+  }
+  .cs__media :global(img) { transition: transform 1s linear; }
+  .cs__card:hover .cs__media :global(img) { transform: scale(1.05); }
+  .cs__tag {
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    background: rgb(0 0 0 / 0.55);
+    font-size: 13px;
+    color: #fff;
+  }
+
+  .cs__meta {
+    display: block;
+    margin-top: 20px;
+    font-size: 16px;
+    color: var(--ink-muted);
+  }
+  .cs__title {
+    margin-top: 14px;
+    font-size: 20px;
+    line-height: 1.3;
+    font-weight: 440;
+    color: var(--ink);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .cs__meta + .cs__title { margin-top: 10px; }
+  .cs__body {
+    margin-top: 10px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+
+  /* Tombol bulat 50 px bertuliskan prev/next di kanan bawah; saat hover
+     teks dan cincinnya bergradien (lapisan ber-mask, seperti .btn). */
+  .cs__nav {
+    position: absolute;
+    right: 0.5%;
+    bottom: 0;
+    display: flex;
+    gap: 13px;
+  }
+  .cs.is-static .cs__nav { display: none; }
+  .cs__btn {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 50px;
+    height: 50px;
+    border: 1px solid var(--ink);
+    border-radius: 50%;
+    font-size: 15px;
+    color: var(--ink);
+    transition: border-color 0.3s, opacity 0.3s;
+  }
+  .cs__btn::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    padding: 1px;
+    border-radius: 50%;
+    background: var(--grad-bar);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .cs__btn:hover:not(.is-disabled) { border-color: transparent; }
+  .cs__btn:hover:not(.is-disabled)::before { opacity: 1; }
+  .cs__btn:hover:not(.is-disabled) span {
+    background: var(--grad-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .cs__btn.is-disabled { opacity: 0.35; cursor: default; }
+
+  @media (max-width: 1023px) {
+    .cs__frame { padding-bottom: 0; margin-top: 32px; }
+    .cs__nav { display: none; }
+    .cs__card { padding: 0; }
+    .cs__card:hover { background: none; }
+  }
+</style>

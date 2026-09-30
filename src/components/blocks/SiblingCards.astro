@@ -1,5 +1,6 @@
 ---
 import CardGrid from './CardGrid.astro';
+import CardSlider from './CardSlider.astro';
 import { ABOUT_CARDS } from '../../data/pages/about';
 import { PERFUMERY_CARDS } from '../../data/pages/perfumery';
 import { INGREDIENTS_CARDS } from '../../data/pages/ingredients';
@@ -7,11 +8,22 @@ import { SUSTAINABILITY_CARDS } from '../../data/pages/sustainability';
 import { MEDIA_CARDS } from '../../data/pages/media';
 
 /* "Explore More" di kaki halaman anak: kartu saudara-saudaranya, tanpa
- * halaman yang sedang dibuka. */
+ * halaman yang sedang dibuka. Lebih dari tiga kartu menjadi slider tiga
+ * kartu bertombol prev/next ala `threecard-slider` Adani. */
 const all = [...ABOUT_CARDS, ...PERFUMERY_CARDS, ...INGREDIENTS_CARDS, ...SUSTAINABILITY_CARDS, ...MEDIA_CARDS];
 const path = Astro.url.pathname;
 const section = `/${path.split('/').filter(Boolean)[0]}/`;
 const cards = all.filter((c) => c.href.startsWith(section) && c.href !== path);
 ---
 
-{cards.length > 0 && <CardGrid title="Explore More" cards={cards} grey />}
+{
+  cards.length > 3 ? (
+    <CardSlider
+      title="Explore More"
+      items={cards.map((c) => ({ href: c.href, title: c.title, body: c.body, image: c.image, shot: c.caption }))}
+      grey
+    />
+  ) : (
+    cards.length > 0 && <CardGrid title="Explore More" cards={cards} grey />
+  )
+}

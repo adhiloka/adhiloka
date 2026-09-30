@@ -1,36 +1,53 @@
 ---
-import type { Leader } from '../../data/pages/about';
+import { Image } from 'astro:assets';
+import { images } from '../../data/images';
+import { leaderHref, type Leader } from '../../data/pages/about';
 
-/* "Always leading by example" adani.com: kartu potret tegak, nama dan
- * jabatan. Potret belum ada, jadi setiap kartu memakai pelat berketerangan
- * foto yang dibutuhkan. Nama di LEADERSHIP masih placeholder. */
+/* Grid pimpinan ala `leadership-grid` adani.com: sel bergaris tipis #dedede,
+ * potret yang terpotong 12,5 % di tiap sisi lalu terbuka penuh saat hover
+ * (clip-path 0,5 s), nama berpanah dan jabatan abu di bawahnya. Tiap sel
+ * menuju halaman profilnya. `cols` 3 = grid utama, 4 = `subleadership-grid`.
+ * Potret belum ada, jadi setiap kartu memakai pelat berketerangan foto yang
+ * dibutuhkan. Nama di LEADERSHIP masih placeholder. */
 
 interface Props {
-  title: string;
+  title?: string;
   people: Leader[];
   viewAll?: string;
-  showBio?: boolean;
+  cols?: 3 | 4;
   grey?: boolean;
+  /** Tanpa jarak atas: grid lanjutan tepat di bawah grid lain. */
+  flush?: boolean;
 }
-const { title, people, viewAll, showBio = false, grey = false } = Astro.props;
+const { title, people, viewAll, cols = 4, grey = false, flush = false } = Astro.props;
 ---
 
-<section class:list={['sec', { 'sec--grey': grey }]}>
+<section class:list={['sec', { 'sec--grey': grey, 'sec--flush-top': flush }]}>
   <div class="wrap">
-    <div class="head-row">
-      <h2 class="h2">{title}</h2>
-      {viewAll && <a class="btn" href={viewAll} data-anim="title"><span class="btn__label">View All</span></a>}
-    </div>
-    <ul class="ppl" data-anim="columns">
+    {
+      title && (
+        <div class="head-row">
+          <h2 class="h2" data-anim="title">{title}</h2>
+          {viewAll && <a class="btn" href={viewAll} data-anim="title"><span class="btn__label">View All</span></a>}
+        </div>
+      )
+    }
+    <ul class:list={['ppl', `ppl--${cols}`, { 'ppl--flush': !title }]} data-anim="columns">
       {
         people.map((p) => (
           <li class="ppl__item" data-anim-item>
-            <span class="ppl__photo cover">
-              <span class="plate">{p.shot}</span>
-            </span>
-            <h3 class="ppl__name">{p.name}</h3>
-            <p class="ppl__role">{p.role}</p>
-            {showBio && <p class="ppl__bio">{p.bio}</p>}
+            <a class="ppl__card" href={leaderHref(p)}>
+              <span class="ppl__photo cover">
+                {p.image ? <Image quality={70} src={images[p.image]} alt="" widths={[400, 700]} sizes="(max-width: 767px) 100vw, 30vw" loading="lazy" /> : <span class="plate">{p.shot}</span>}
+              </span>
+              <span class="ppl__info">
+                <h3 class="ppl__name">
+                  {p.name}
+                  <svg viewBox="0 0 16 12" width="16" height="12" aria-hidden="true"><path d="M0 6h14M9 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4"></path></svg>
+                </h3>
+                <span class="ppl__role">{p.role}</span>
+              </span>
+            </a>
           </li>
         ))
       }
@@ -40,24 +57,68 @@ const { title, people, viewAll, showBio = false, grey = false } = Astro.props;
 
 <style>
   .ppl {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 48px 2.4%;
+    display: flex;
+    flex-wrap: wrap;
     margin-top: 48px;
   }
-  .ppl__photo { display: block; aspect-ratio: 3 / 4; }
+  .ppl--flush { margin-top: 0; }
+  /* `.leadership-profile-div`: sel 33,33 % (25 % pada sub-grid) bergaris
+     0,2 px #dedede. */
+  .ppl__item {
+    flex: 0 0 33.333%;
+    border: 0.2px solid #dedede;
+  }
+  .ppl--4 .ppl__item { flex-basis: 25%; }
+  .ppl__card { display: block; height: 100%; }
+
+  /* Potret terpotong 12,5 % kiri-kanan-atas dan 6,5 % bawah; terbuka penuh
+     saat hover dengan kurva cubic-bezier(.1,.1,.1,.1) 0,5 s. */
+  .ppl__photo {
+    display: block;
+    aspect-ratio: 1 / 1;
+    clip-path: polygon(12.5% 12.5%, 87.5% 12.5%, 87.5% 93.5%, 12.5% 93.5%);
+    transition: clip-path 0.5s cubic-bezier(0.1, 0.1, 0.1, 0.1);
+  }
+  /* Keterangan pelat tetap di dalam bidang yang tidak terpotong. */
+  .ppl__photo :global(.plate) { padding: 0 calc(12.5% + 16px) calc(6.5% + 16px); }
+  .ppl__card:hover .ppl__photo,
+  .ppl__card:focus-visible .ppl__photo {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .ppl__info {
+    display: block;
+    padding: 30px 12.5% 36px;
+  }
   .ppl__name {
-    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
     font-size: 20px;
-    font-weight: 530;
+    line-height: 1.25;
+    font-weight: 440;
     color: var(--ink);
   }
-  .ppl__role { margin-top: 6px; font-size: 16px; color: var(--ink-muted); }
-  .ppl__bio { margin-top: 14px; font-size: 16px; line-height: 1.6; color: var(--ink); }
-  @media (max-width: 1026px) {
-    .ppl { grid-template-columns: repeat(2, 1fr); }
+  .ppl__name svg { flex: none; transition: transform 0.3s; }
+  .ppl__card:hover .ppl__name svg { transform: translateX(6px); }
+  .ppl__role {
+    display: block;
+    margin-top: 8px;
+    font-size: 17px;
+    color: var(--ink-muted);
   }
-  @media (max-width: 480px) {
-    .ppl { grid-template-columns: 1fr; }
+
+  @media (max-width: 1023px) {
+    .ppl__item,
+    .ppl--4 .ppl__item { flex-basis: 50%; }
+  }
+  @media (max-width: 767px) {
+    .ppl__item,
+    .ppl--4 .ppl__item { flex-basis: 100%; }
+    .ppl__photo,
+    .ppl__card:hover .ppl__photo { clip-path: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ppl__photo { transition: none; }
   }
 </style>

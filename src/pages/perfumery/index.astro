@@ -4,12 +4,21 @@ import Intro from '../../components/blocks/Intro.astro';
 import CounterGrid from '../../components/blocks/CounterGrid.astro';
 import CardGrid from '../../components/blocks/CardGrid.astro';
 import QuoteSplit from '../../components/QuoteSplit.astro';
+import ClosingCta from '../../components/blocks/ClosingCta.astro';
 import { PERFUMERY_INTRO, PERFUMERY_OPENING, PERFUMERY_STATS, PERFUMERY_CARDS, FINE_QUOTE } from '../../data/pages/perfumery';
 ---
 
 <PageLayout intro={PERFUMERY_INTRO} bannerTitle="Perfumery" lineInBanner>
-  <Intro title={PERFUMERY_INTRO.title} paragraphs={PERFUMERY_OPENING} />
+  <Intro title={PERFUMERY_INTRO.title} paragraphs={PERFUMERY_OPENING} more />
   <CounterGrid title="The Bench in Numbers" stats={PERFUMERY_STATS} />
   <CardGrid title="Our Perfumery" cards={PERFUMERY_CARDS} />
   <QuoteSplit text={FINE_QUOTE.text} name={FINE_QUOTE.attribution} image="fragrance-bloom" alt="Hibiscus bloom, close" grey />
+  <ClosingCta
+    text="Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur."
+    image="fragrance-petal"
+    buttons={[
+      { label: 'Fine Fragrance', href: '/perfumery/fine-fragrance/' },
+      { label: 'Contact Us', href: '/contact/' },
+    ]}
+  />
 </PageLayout>

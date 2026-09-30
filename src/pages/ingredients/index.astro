@@ -4,12 +4,21 @@ import Intro from '../../components/blocks/Intro.astro';
 import CounterGrid from '../../components/blocks/CounterGrid.astro';
 import CardGrid from '../../components/blocks/CardGrid.astro';
 import BusinessShowcase from '../../components/home/BusinessShowcase.astro';
+import ClosingCta from '../../components/blocks/ClosingCta.astro';
 import { INGREDIENTS_INTRO, INGREDIENTS_OPENING, INGREDIENTS_STATS, INGREDIENTS_CARDS } from '../../data/pages/ingredients';
 ---
 
 <PageLayout intro={INGREDIENTS_INTRO} bannerTitle="Ingredients" lineInBanner>
-  <Intro title={INGREDIENTS_INTRO.title} paragraphs={INGREDIENTS_OPENING} />
+  <Intro title={INGREDIENTS_INTRO.title} paragraphs={INGREDIENTS_OPENING} more />
   <CounterGrid title="The Catalog in Numbers" stats={INGREDIENTS_STATS} />
   <BusinessShowcase />
   <CardGrid title="Explore Ingredients" cards={INGREDIENTS_CARDS} />
+  <ClosingCta
+    text="Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam nisi."
+    image="material-benzoin"
+    buttons={[
+      { label: 'Ingredients Catalog', href: '/ingredients/catalog/' },
+      { label: 'Request a Sample', href: '/contact/' },
+    ]}
+  />
 </PageLayout>

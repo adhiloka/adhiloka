@@ -2,6 +2,7 @@
 import PageLayout from '../../layouts/PageLayout.astro';
 import QuoteSplit from '../../components/QuoteSplit.astro';
 import Feature from '../../components/blocks/Feature.astro';
+import VisionSlider from '../../components/blocks/VisionSlider.astro';
 import CounterGrid from '../../components/blocks/CounterGrid.astro';
 import PeopleCards from '../../components/blocks/PeopleCards.astro';
 import InfoGrid from '../../components/blocks/InfoGrid.astro';
@@ -19,8 +20,8 @@ import {
 } from '../../data/pages/about';
 import { HOME_QUOTE } from '../../data/pages/home';
 
-/* Susunan halaman /about-us adani.com: banner, kutipan terbelah, visi,
- * konten + foto, angka, pimpinan, nilai, perjalanan. Section "Awards &
+/* Susunan halaman /about-us adani.com: banner, kutipan terbelah, visi
+ * (slider foto fade), konten + foto, angka, pimpinan, nilai, perjalanan. Section "Awards &
  * Accolades" dilewati: kita tidak punya penghargaan untuk dicantumkan. */
 ---
 
@@ -35,14 +36,15 @@ import { HOME_QUOTE } from '../../data/pages/home';
     alt="Tree canopy seen from below"
   />
 
-  <Feature
+  <VisionSlider
     heading="Who We Are"
     subheading={ABOUT_INTRO.title}
     body={[ABOUT_INTRO.lede, ABOUT_OPENING[0]]}
-    image="material-benzoin"
-    alt="Sorted benzoin resin tears"
-    grey
-    zoom
+    slides={[
+      { image: 'material-benzoin', alt: 'Sorted benzoin resin tears' },
+      { image: 'fragrance-resin', alt: 'Resin pieces, close' },
+      { image: 'material-nutmeg', alt: 'Nutmeg, close' },
+    ]}
   />
 
   <Feature
@@ -62,7 +64,7 @@ import { HOME_QUOTE } from '../../data/pages/home';
 
   <InfoGrid title="Our Values" items={PURPOSE_VALUES} grey />
 
-  <Journey eras={HISTORY_TIMELINE} lead={HISTORY_INTRO.lede} grey={false} />
+  <Journey eras={HISTORY_TIMELINE} lead={HISTORY_INTRO.lede} image="purpose-generations" />
 
   <CardGrid title="Explore About Us" cards={ABOUT_CARDS} grey />
 </PageLayout>

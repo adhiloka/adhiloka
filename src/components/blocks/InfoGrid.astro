@@ -17,7 +17,7 @@ const { title, lead, items, grey = false, id, cols = 4 } = Astro.props;
 
 <section class:list={['sec', 'info', { 'sec--grey': grey }]} id={id}>
   <div class="wrap">
-    {title && <h2 class="h2">{title}</h2>}
+    {title && <h2 class="h2" data-anim="title">{title}</h2>}
     {lead && <p class="lead info__lead">{lead}</p>}
     <ul class:list={['info__grid', `info__grid--${cols}`, { 'info__grid--flush': !title && !lead }]} data-anim="columns">
       {

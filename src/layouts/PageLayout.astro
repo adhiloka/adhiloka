@@ -15,7 +15,7 @@ interface Props {
 const { intro, bannerTitle, lineInBanner = false } = Astro.props;
 ---
 
-<BaseLayout title={intro.metaTitle ?? intro.title} description={intro.description}>
+<BaseLayout title={intro.metaTitle ?? intro.title} description={intro.description} inner>
   <PageBanner
     title={bannerTitle ?? intro.metaTitle ?? intro.title}
     image={intro.image}

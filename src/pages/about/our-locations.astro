@@ -1,6 +1,7 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import Intro from '../../components/blocks/Intro.astro';
+import Presence from '../../components/blocks/Presence.astro';
 import LocationCards from '../../components/blocks/LocationCards.astro';
 import SiblingCards from '../../components/blocks/SiblingCards.astro';
 import { LOCATIONS_INTRO, SITES } from '../../data/pages/about';
@@ -8,6 +9,7 @@ import { LOCATIONS_INTRO, SITES } from '../../data/pages/about';
 
 <PageLayout intro={{ ...LOCATIONS_INTRO, image: 'agroforest-canopy', caption: 'Tree canopy seen from below' }}>
   <Intro title="Within a day of each other" paragraphs={[LOCATIONS_INTRO.lede]} />
+  <Presence sites={SITES} />
   <LocationCards sites={SITES} />
   <SiblingCards />
 </PageLayout>

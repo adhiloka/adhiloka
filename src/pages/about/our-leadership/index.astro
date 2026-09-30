@@ -1,0 +1,26 @@
+---
+import PageLayout from '../../../layouts/PageLayout.astro';
+import Intro from '../../../components/blocks/Intro.astro';
+import PeopleCards from '../../../components/blocks/PeopleCards.astro';
+import LeaderSpotlight from '../../../components/blocks/LeaderSpotlight.astro';
+import SiblingCards from '../../../components/blocks/SiblingCards.astro';
+import { LEADERSHIP_INTRO, LEADERSHIP } from '../../../data/pages/about';
+
+/* Susunan adani.com/about-us/leadership: sorotan pimpinan tertinggi
+ * (`bod-banner-profile`), grid pimpinan utama tiga kolom lalu sub-grid empat
+ * kolom berlatar lain. Setiap kartu menuju profilnya sendiri. Sub-grid baru
+ * dipisah bila jajarannya lebih dari dua baris; dengan enam nama sekarang
+ * semuanya di grid utama supaya tidak ada baris yang setengah kosong. */
+const [head, ...rest] = LEADERSHIP;
+const split = rest.length > 6;
+const main = split ? rest.slice(0, 6) : rest;
+const sub = split ? rest.slice(6) : [];
+---
+
+<PageLayout intro={LEADERSHIP_INTRO}>
+  <Intro title="Always on the floor" paragraphs={[LEADERSHIP_INTRO.lede]} />
+  <LeaderSpotlight leader={head} image={LEADERSHIP_INTRO.image} />
+  <PeopleCards title="Executive Leadership" people={main} cols={3} />
+  {sub.length > 0 && <PeopleCards title="Business Leadership" people={sub} cols={4} grey />}
+  <SiblingCards />
+</PageLayout>

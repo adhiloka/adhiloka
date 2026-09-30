@@ -1,0 +1,247 @@
+---
+import { Image } from 'astro:assets';
+import { images } from '../../data/images';
+import { presenceMap, MAP_W, MAP_H } from '../../data/map';
+import type { Site } from '../../data/pages/about';
+
+/* "Our Presence" ala halaman bisnis adani.com (`Com_map`): peta di kiri
+ * dengan titik lokasi yang berdenyut (zoomInOutWorldMapPoint), di kanan
+ * pemilih wilayah (`choosState`), daftar radio lokasi (`city-radio`) dan
+ * data lokasi terpilih (`citi-datalist`). Titik, radio dan panel saling
+ * tersambung lewat scripts/presence.ts. Lokasi di luar bingkai peta
+ * (kantor Grasse) tetap ada di daftar, ditandai "Overseas". */
+
+interface Props {
+  sites: Site[];
+  title?: string;
+}
+const { sites, title = 'Our Presence' } = Astro.props;
+const map = presenceMap();
+const items = sites.map((s, i) => ({ ...s, id: `site-${i + 1}`, xy: map.project(s.coords) }));
+const areas = [...new Set(sites.map((s) => s.area))];
+---
+
+<section class="sec pres" data-presence>
+  <div class="wrap">
+    <h2 class="h2" data-anim="title">{title}</h2>
+
+    <div class="pres__grid">
+      <div class="pres__map" data-anim="zoom">
+        <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} role="img" aria-label="Map of Indonesia with Adhiloka locations">
+          <path class="pres__land" d={map.land}></path>
+          <path class="pres__home" d={map.home}></path>
+          {
+            items.map(
+              (s) =>
+                s.xy && (
+                  <g class:list={['pres__pin', { 'is-active': s.id === items[0].id }]} transform={`translate(${s.xy[0]} ${s.xy[1]})`} data-pin-for={s.id}>
+                    <circle class="pres__pulse" r="14"></circle>
+                    <circle class="pres__dot" r="5"></circle>
+                  </g>
+                ),
+            )
+          }
+        </svg>
+      </div>
+
+      <div class="pres__side">
+        <label class="pres__select">
+          <span class="sr-only">Choose area</span>
+          <select data-area>
+            <option value="">All Areas</option>
+            {areas.map((a) => <option value={a}>{a}</option>)}
+          </select>
+        </label>
+
+        <fieldset class="pres__list">
+          <legend class="sr-only">Locations</legend>
+          {
+            items.map((s, i) => (
+              <label class="pres__radio" data-area-of={s.area}>
+                <input type="radio" name="presence-site" value={s.id} checked={i === 0} />
+                <span class="pres__radio-mark" aria-hidden="true" />
+                <span class="pres__radio-text">
+                  <span class="pres__radio-city">{s.city}</span>
+                  <span class="pres__radio-kind">{s.xy ? s.area : `${s.area} · Overseas`}</span>
+                </span>
+              </label>
+            ))
+          }
+        </fieldset>
+
+        {
+          items.map((s, i) => (
+            <div class="pres__data" data-site={s.id} hidden={i !== 0}>
+              <span class="pres__photo cover">
+                {s.image ? <Image quality={70} src={images[s.image]} alt="" widths={[480, 800]} sizes="(max-width: 1026px) 100vw, 34vw" loading="lazy" /> : <span class="plate">{s.shot}</span>}
+              </span>
+              <p class="pres__kind">{s.kind}</p>
+              <h3 class="pres__city">{s.city}</h3>
+              <p class="pres__region">{s.region}</p>
+              <p class="pres__body">{s.body}</p>
+              <ul class="pres__chips">
+                {s.detail.map((d) => <li>{d}</li>)}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initPresence } from '../../scripts/presence';
+  initPresence();
+</script>
+
+<style>
+  .pres__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    gap: 5%;
+    align-items: start;
+    margin-top: 48px;
+  }
+
+  /* ── Peta ─────────────────────────────────────────────────────────── */
+  .pres__map {
+    position: relative;
+    overflow: hidden;
+    padding: 24px;
+    background: var(--bg-grey);
+  }
+  .pres__map svg { display: block; width: 100%; height: auto; overflow: hidden; }
+  .pres__land { fill: #e2e2e2; stroke: #fff; stroke-width: 0.6; }
+  .pres__home { fill: #c9d6d2; stroke: #fff; stroke-width: 0.6; }
+  .pres__pin { cursor: pointer; }
+  .pres__dot {
+    fill: var(--brand-green);
+    stroke: #fff;
+    stroke-width: 2;
+    transition: fill 0.3s;
+  }
+  .pres__pulse {
+    fill: var(--brand-green);
+    opacity: 0.25;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: pinPulse 2s ease-in-out infinite;
+  }
+  .pres__pin.is-active .pres__dot { fill: var(--brand-amber); }
+  .pres__pin.is-active .pres__pulse { fill: var(--brand-amber); opacity: 0.35; }
+  /* zoomInOutWorldMapPoint Adani: titik membesar-mengecil 2 s. */
+  @keyframes pinPulse {
+    0%, 100% { transform: scale(0.5); }
+    50% { transform: scale(1.2); }
+  }
+
+  /* ── Pemilih, radio dan data ─────────────────────────────────────── */
+  .pres__select {
+    position: relative;
+    display: block;
+  }
+  .pres__select select {
+    width: 100%;
+    height: 56px;
+    padding: 0 44px 0 18px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+    appearance: none;
+    font: inherit;
+    font-size: 16px;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .pres__select::after {
+    content: '';
+    position: absolute;
+    right: 20px;
+    top: calc(50% - 6px);
+    width: 7px;
+    height: 7px;
+    border-right: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    transform: rotate(45deg);
+    pointer-events: none;
+  }
+
+  .pres__list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 16px;
+    margin-top: 24px;
+    padding: 0;
+    border: 0;
+  }
+  .pres__radio {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    cursor: pointer;
+  }
+  .pres__radio input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .pres__radio-mark {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    border: 1px solid var(--ink);
+    border-radius: 50%;
+    transition: box-shadow 0.3s, background-color 0.3s;
+  }
+  .pres__radio input:checked + .pres__radio-mark {
+    background: var(--brand-green);
+    box-shadow: inset 0 0 0 3px #fff;
+  }
+  .pres__radio input:focus-visible + .pres__radio-mark { outline: 2px solid var(--brand-green); outline-offset: 2px; }
+  .pres__radio-city { display: block; font-size: 17px; font-weight: 440; color: var(--ink); }
+  .pres__radio-kind { display: block; margin-top: 2px; font-size: 13px; color: var(--ink-muted); }
+
+  .pres__data {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+  .pres__photo { display: block; aspect-ratio: 16 / 9; }
+  .pres__kind {
+    margin-top: 20px;
+    font-size: 13px;
+    font-weight: 530;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .pres__city { margin-top: 8px; font-size: 26px; font-weight: 530; color: var(--ink); }
+  .pres__region { margin-top: 4px; font-size: 14px; color: var(--ink-muted); }
+  .pres__body { margin-top: 14px; font-size: 16px; line-height: 1.6; color: var(--ink); }
+  .pres__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+    list-style: none;
+  }
+  .pres__chips li {
+    padding: 6px 12px;
+    border: 1px solid var(--line);
+    border-radius: 40px;
+    font-size: 13px;
+    color: var(--ink);
+  }
+
+  @media (max-width: 1026px) {
+    .pres__grid { grid-template-columns: 1fr; gap: 32px; }
+    .pres__map { padding: 12px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pres__pulse { animation: none; }
+  }
+</style>

@@ -1,102 +1,125 @@
 ---
+import { Image } from 'astro:assets';
+import { images, type ImageKey } from '../../data/images';
 import type { Era } from '../../data/pages/about';
 
-/* Dua bentuk "Our Journey" adani.com.
- * - teaser: judul + satu kalimat, rentang tahun besar dan View Timeline;
- * - penuh: garis waktu mendatar yang bisa digeser, tiap era satu kartu. */
+/* Teaser "Our Journey" adani.com/about-us (`Com_timeline`): kotak abu yang
+ * menyusut menjadi panel berjarak 40 px saat digulir (scrollPadding), foto
+ * di kiri, lalu judul, satu kalimat, bilah linimasa tahun pertama → tahun
+ * terakhir (garis 2 px, titik 10 px di kedua ujung) dan View Timeline yang
+ * naik saat masuk layar (subTitleAnimation). Linimasa penuhnya Timeline.astro. */
 
 interface Props {
   eras: Era[];
   lead: string;
-  full?: boolean;
-  grey?: boolean;
+  image: ImageKey;
+  alt?: string;
 }
-const { eras, lead, full = false, grey = true } = Astro.props;
+const { eras, lead, image, alt = '' } = Astro.props;
 const first = eras[0]?.year;
 const last = eras[eras.length - 1]?.year;
 ---
 
-<section class:list={['sec', 'jr', { 'sec--grey': grey }]}>
-  <div class="wrap">
-    <div class="head-row">
-      <div class="head-row__text">
-        <h2 class="h2">Our Journey</h2>
-        <p>{lead}</p>
-      </div>
-      {!full && <a class="btn" href="/about/our-history/"><span class="btn__label">View Timeline</span></a>}
+<section class="jr" data-anim="pad">
+  <div class="jr__box">
+    <div class="jr__img cover">
+      <Image quality={70} src={images[image]} alt={alt} widths={[640, 960, 1400]} sizes="(max-width: 1026px) 100vw, 45vw" loading="lazy" />
     </div>
-
-    {
-      !full ? (
-        <div class="jr__range" data-anim="sub">
-          <span>{first}</span>
-          <span class="jr__line" aria-hidden="true" />
-          <span>{last}</span>
-        </div>
-      ) : (
-        <ol class="jr__list" data-anim="columns">
-          {eras.map((e) => (
-            <li class="jr__era" data-anim-item>
-              <span class="jr__year">{e.year}</span>
-              <span class="jr__dot" aria-hidden="true" />
-              <h3 class="jr__title">{e.title}</h3>
-              <p class="jr__body">{e.body}</p>
-            </li>
-          ))}
+    <div class="jr__text">
+      <h2 class="h2" data-anim="title">Our Journey</h2>
+      <p class="jr__lead">{lead}</p>
+      <div class="jr__box-tl" data-anim="sub">
+        <ol class="jr__bar" aria-label={`From ${first} to ${last}`}>
+          <li>{first}</li>
+          <li aria-hidden="true"></li>
+          <li aria-hidden="true"></li>
+          <li>{last}</li>
         </ol>
-      )
-    }
+        <a class="btn" href="/about/our-history/"><span class="btn__label">View Timeline</span></a>
+      </div>
+    </div>
   </div>
 </section>
 
 <style>
-  .jr__range {
+  .jr {
+    overflow: hidden;
+    background: var(--bg);
+  }
+  .jr__box {
+    display: grid;
+    grid-template-columns: 45% 1fr;
+    min-height: 560px;
+    background: var(--bg-grey);
+  }
+  .jr__img { position: relative; min-height: 100%; }
+  .jr__img :global(img) { position: absolute; inset: 0; }
+  .jr__text {
     display: flex;
-    align-items: center;
-    gap: 32px;
-    margin-top: 56px;
-    font-size: clamp(48px, 6.1vw, 88px);
-    line-height: 1;
-    font-weight: 530;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 8% 80px 7%;
+  }
+  .jr__lead {
+    margin-top: 24px;
+    max-width: 560px;
+    font-size: var(--lead);
+    line-height: 1.4;
     color: var(--ink);
   }
-  .jr__line {
-    flex: 1;
-    height: 4px;
-    background: var(--grad-bar);
-  }
 
-  .jr__list {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(280px, 23%);
-    gap: 32px;
-    margin-top: 56px;
-    padding-bottom: 20px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    background: linear-gradient(var(--line), var(--line)) 0 67px / 100% 1px no-repeat;
+  /* `.swiper-pagination-custom`: garis 2 px #393939 opacity 0,4; tiap butir
+     95 px; titik 10 px di butir pertama dan terakhir. */
+  .jr__bar {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    max-width: 520px;
+    margin-top: 48px;
+    padding-bottom: 40px;
+    font-size: 20px;
+    font-weight: 440;
+    color: var(--ink);
+    list-style: none;
   }
-  .jr__era { scroll-snap-align: start; }
-  .jr__year {
-    display: block;
-    font-size: 40px;
-    line-height: 1;
-    font-weight: 530;
-    background: var(--grad-text);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  .jr__bar::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 4px;
+    height: 2px;
+    background: var(--ink);
+    opacity: 0.4;
   }
-  .jr__dot {
-    display: block;
-    width: 13px;
-    height: 13px;
-    margin: 20px 0 24px;
+  .jr__bar li {
+    position: relative;
+    width: 95px;
+  }
+  .jr__bar li:last-child { text-align: right; }
+  .jr__bar li::after {
+    content: '';
+    position: absolute;
+    bottom: -36px;
+    left: 0;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
-    background: var(--brand-green);
-    box-shadow: 0 0 0 5px var(--bg-grey);
+    background: var(--ink);
   }
-  .jr__title { font-size: 20px; font-weight: 530; color: var(--ink); }
-  .jr__body { margin-top: 12px; font-size: 16px; line-height: 1.6; color: var(--ink); }
+  .jr__bar li:last-child::after { left: auto; right: 0; }
+  .jr__bar li:not(:first-child):not(:last-child)::after {
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    bottom: -34px;
+    opacity: 0.4;
+  }
+  .jr__box-tl .btn { margin-top: 36px; }
+
+  @media (max-width: 1026px) {
+    .jr__box { grid-template-columns: 1fr; }
+    .jr__img { aspect-ratio: 16 / 10; }
+    .jr__text { padding: 48px 20px; }
+  }
 </style>

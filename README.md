@@ -22,14 +22,25 @@ Isi panel mega-menu desktop memakai konsep Adhiloka versi pertama (yang meniru r
 foto utama berjudul dengan panah di kiri, menuju halaman induk, lalu kolom tautan di kanan. Foto
 dan judulnya dari `panel.image` / `panel.title` di `NAV`. Di laci mobile fotonya disembunyikan.
 
+Kolom kanan diawali baris judul panel (ABOUT US ───). **About Us** dan **Media** tidak punya
+kolom yang berdiri sendiri: halaman anaknya dikelompokkan di bawah label grup tanpa tautan
+(About Us: *Who We Are* = Overview, Our Business, Our Purpose; *People & Places* = Our
+Leadership, Our History, Our Locations. Media: *Newsroom* dan *Resources*). Label grup ditulis
+`{ label }` tanpa `href` di `menu.ts`.
+
 | Jalur | Susunan |
 | --- | --- |
 | `/` | Hero slider · kutipan terbelah · Our Business (tab Ingredients/Perfumery) · akordeon keberlanjutan · Latest News · Join Us · peringatan penipuan |
-| `/about/` | Pola /about-us Adani: banner · kutipan · Who We Are · How We Work · angka · pimpinan · nilai · Our Journey · kartu |
-| `/about/*` | Banner · pembuka · isi halaman · Explore More (kartu saudara) |
-| `/perfumery/`, `/ingredients/`, `/sustainability/`, `/media/` | Banner · pembuka · angka · kartu anak |
+| `/about/` | Pola /about-us Adani: banner · kutipan · Who We Are (slider foto fade dalam panel inset) · How We Work · angka · pimpinan · nilai · teaser Our Journey · kartu |
+| `/about/our-leadership/` | Banner · pembuka · sorotan pimpinan tertinggi · grid pimpinan (clip-path saat hover); tiap kartu ke `/about/our-leadership/<slug>/` (profil: kolom foto menempel, bio, Meet Our Leaders) |
+| `/about/our-history/` | Linimasa ala Our Journey Adani: bilah era menempel, panel pembuka per era, daftar tahun aktif, entri per tahun, tautan era berikutnya |
+| `/about/our-locations/` | Pembuka · peta Our Presence (pemilih wilayah, radio lokasi, data lokasi) · semua lokasi |
+| `/about/*` lainnya | Banner · pembuka · isi halaman · Explore More (slider bila kartunya lebih dari tiga) |
+| `/perfumery/`, `/ingredients/`, `/sustainability/` | Banner · pembuka dengan Read More · angka · kartu anak · penutup berfoto dua tombol |
+| `/media/` | Banner · slider Media Releases · promosi Media Kit · Media Centre · kontak pers |
 | `/ingredients/catalog/` | 18 material, tab keluarga menyaring grid; `#slug` menunjuk kartunya |
-| `/media/news/` | Media Releases dengan tab kategori; artikel di `/media/news/<slug>/` |
+| `/media/news/` | Media Releases: cari, kategori, tahun, urutan, tag filter + Clear All, Load More (6 per langkah), laci filter di ≤767 px |
+| `/media/news/<slug>/` | Banner setengah layar (remah saja) · judul dan isi · slider Other Releases |
 | `/contact/` | Formulir + empat kantor |
 
 Rute lama `/our-story/`, `/fragrances/` dan `/raw-materials/` dialihkan lewat `redirects` di
@@ -42,9 +53,12 @@ src/
   components/   SiteHeader · SearchOverlay · SiteFooter · BackToTop · QuoteSplit · NewsCards
     home/       HeroSlider · BusinessShowcase · SustainAccordion · JoinUs · NoticeBox
     blocks/     PageBanner · Intro · Feature · Passages · CounterGrid · CardGrid · InfoGrid
-                PeopleCards · Journey · LocationCards · PressContact · SiblingCards
+                PeopleCards · LeaderSpotlight · Journey · Timeline · LocationCards · Presence
+                PressContact · SiblingCards · CardSlider · VisionSlider · ClosingCta · PromoBanner
   layouts/      BaseLayout (meta, JSON-LD, font) · PageLayout (banner halaman dalam)
   scripts/      nav · search · hero-slider · tabs · scroll-fx · contact-form
+                slider (Swiper) · timeline · presence · news-filter
+  data/map.ts   peta Our Presence, dirender saat build dari world-atlas + d3-geo
   styles/       global.css (token warna, kontainer, judul, tombol)
 ```
 
@@ -96,7 +110,36 @@ JavaScript Adani v94, bukan dikira-kira:
   `columns` + `data-anim-item` (anak naik 250 px bergiliran 0,2 s), `pad` (padding akordeon
   0→40 px), `zoom` (foto Who We Are dari skala 0,4). `data-parallax` menggeser foto berita di
   dalam bingkainya; `data-count` menghitung angka naik.
-- **Kutipan** dipecah per huruf di server; huruf menggelap satu per satu mengikuti gulir.
+- **Kutipan** dipecah per huruf di server; huruf menggelap satu per satu mengikuti gulir. Di
+  halaman dalam pemicunya memakai takaran `inner-page.js` Adani (`25% 80%`, `+=60%`).
+
+### Halaman dalam
+
+- **Section bertumpuk** (`fnParllexBar`): di layar >1025 px tiap section di `main[data-inner]`
+  di-pin tanpa ruang tambahan sehingga section berikutnya meluncur menutupinya. Yang pendek
+  di-pin saat atasnya menyentuh atas layar, yang tinggi saat dasarnya menyentuh dasar layar.
+  Dikecualikan: banner, section terakhir, dan section berpin sendiri (`data-no-panel`: linimasa,
+  profil pimpinan). Beranda tidak memakai efek ini. `PageLayout` memasang `inner` otomatis;
+  halaman yang memakai `BaseLayout` langsung (artikel berita) mengoper `inner` sendiri.
+- **Banner** bergerak 0,8× kecepatan gulir, bayangan 0,85, remah di dasar banner (ikon rumah,
+  pemisah garis 3 px). Tidak ada animasi masuk: `inner-page.js` Adani juga tidak punya.
+- **`data-more`** (fnReadMore): naskah pembuka dilipat dua baris + Read More/Read Less, tinggi
+  dianimasikan 1 s. `Intro more` memakainya.
+- **`data-pin`** + `data-pin-scope`: kolom yang menempel di bawah header selama induknya di layar
+  (profil pimpinan). `position: sticky` tidak berlaku di dalam ScrollSmoother, jadi dipakai pin.
+- **Slider** (`scripts/slider.ts`, Swiper 14): kartu 3 atau 2 per layar, kecepatan 1,5 s, tombol
+  bulat "prev"/"next" (disembunyikan ≤1023 px); foto fade otomatis 3 s untuk Who We Are. Loop
+  Swiper dimatikan karena kartunya terlalu sedikit.
+- **Peta Our Presence**: garis negara Natural Earth 1:50m (paket `world-atlas`, domain publik),
+  diproyeksikan `d3-geo` saat build dan dipotong ke bingkai; peramban tidak memuat pustaka peta.
+  Titik dari `SITES[].coords` (kota di keterangan foto); lokasi di luar bingkai ditandai
+  "Overseas".
+- **Tombol ke atas** muncul setelah 20 % halaman digulir, bertooltip, disembunyikan ≤1023 px
+  (seperti `#bottomToTop` Adani; berlaku juga di beranda karena komponennya bersama).
+
+Catatan: animasi `sub` mengukur posisi elemen dalam keadaan sudah tergeser 100 px (sama dengan
+kode Adani), jadi elemen yang sudah terlihat di layar pertama bisa baru muncul setelah digulir
+sedikit. Jangan pasang `data-anim="sub"` pada konten di layar pertama (kepala artikel berita).
 
 Beda dari Adani: `invalidateOnRefresh` dimatikan (nilai gerak di sini tetap), dan `columns` memakai
 `gsap.set` + `to` karena `fromTo` berstagger di GSAP 3.15 hanya merender posisi awal anak pertama.

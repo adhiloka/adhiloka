@@ -7,7 +7,8 @@ import { images, type ImageKey } from '../data/images';
  * berubah dari abu #c1c1c1 ke gelap satu per satu mengikuti gulir (SplitText
  * Adani; di sini dipecah di server, digerakkan scripts/scroll-fx.ts), kata
  * kunci (*bintang* di naskah) dicetak tebal, lalu garis balon, nama, jabatan
- * dan tombol. Teks kutipan bergerak 1,1× kecepatan gulir (data-speed Adani). */
+ * dan tombol. Teks kutipan bergerak 1,1× kecepatan gulir (data-speed Adani).
+ * Di halaman dalam pemicunya memakai takaran inner-page.js (data-quote="inner"). */
 
 interface Props {
   text: string;
@@ -38,7 +39,7 @@ const tokens = text
 const plain = text.replace(/\*/g, '');
 ---
 
-<section class:list={['qs', { 'sec--grey': grey }]} data-quote>
+<section class:list={['qs', { 'sec--grey': grey }]} data-quote={Astro.url.pathname === '/' ? '' : 'inner'}>
   <div class="qs__media cover zoom">
     {image ? <Image quality={70} src={images[image]} alt={alt} widths={[640, 960, 1280]} sizes="(max-width: 1026px) 100vw, 42vw" /> : <span class="plate">{shot}</span>}
   </div>

@@ -14,7 +14,13 @@
  *    data-anim="zoom"       skala 0,4→1 mengikuti gulir (zoominAnim)
  *    data-parallax          foto bergeser di dalam bingkainya (parallax-img)
  *    data-count             angka menghitung naik (counterAnim)
- *    data-quote             huruf kutipan menggelap satu per satu (homeRunAnimation)
+ *    data-quote             huruf kutipan menggelap satu per satu (homeRunAnimation);
+ *                           data-quote="inner" memakai takaran inner-page.js
+ *    data-more              naskah dilipat dua baris + tombol Read More (fnReadMore)
+ *    main[data-inner]       section halaman dalam bertumpuk: di-pin lalu ditutupi
+ *                           section berikutnya (fnParllexBar), kecuali [data-no-panel]
+ *    data-pin               kolom yang menempel di bawah header selama induknya
+ *                           ([data-pin-scope]) masih di layar (profil pimpinan)
  *
  *  Tanpa JS atau dengan prefers-reduced-motion, semuanya tampil diam. */
 
@@ -194,13 +200,16 @@ function quotes() {
   // animation.js: huruf abu #c1c1c1 digelapkan satu per satu, .set berstagger
   // 0,1 mulai detik 0,3, di-scrub dari top 80% sejauh 75 % tinggi layar. Tanda
   // kutip tutup ikut gelap setelah huruf terakhir.
+  // Halaman dalam (inner-page.js Adani) mulai lebih lambat dan lebih pendek:
+  // 25 % tinggi section di 80 % layar, sejauh 60 % tinggi layar.
   each('[data-quote]').forEach((sec) => {
     const chars = each('.qs__c', sec);
     const quote = sec.querySelector('.qs__quote');
     const n = chars.length;
     const total = 0.3 + 0.1 * Math.max(n - 1, 0);
+    const inner = sec.dataset.quote === 'inner';
     ScrollTrigger.create({
-      trigger: sec, start: 'top 80%', end: '+=75%', scrub: true,
+      trigger: sec, start: inner ? '25% 80%' : 'top 80%', end: inner ? '+=60%' : '+=75%', scrub: true,
       onUpdate: ({ progress }) => {
         const t = progress * total;
         const lit = t < 0.3 ? 0 : Math.min(n, Math.floor((t - 0.3) / 0.1 + 1e-6) + 1);
@@ -247,6 +256,83 @@ function counters() {
   return () => restore.forEach((r) => r());
 }
 
+function panels() {
+  // fnParllexBar Adani: tiap section di-pin tanpa ruang tambahan, jadi
+  // section berikutnya meluncur menutupinya. Section yang lebih pendek dari
+  // layar di-pin saat atasnya menyentuh atas layar, yang lebih tinggi saat
+  // dasarnya menyentuh dasar layar. Section terakhir tidak di-pin (skrip
+  // inline Adani `lastSectionForAll`), begitu juga banner (bergerak dengan
+  // data-speed) dan section yang punya pin sendiri ([data-no-panel]).
+  const main = document.querySelector('main[data-inner]');
+  if (!main) return;
+  const secs = [...main.children].filter(
+    (el): el is HTMLElement => el instanceof HTMLElement && el.matches('section, article') && !el.matches('.banner'),
+  );
+  secs.slice(0, -1).forEach((sec) => {
+    if (sec.hasAttribute('data-no-panel')) return;
+    ScrollTrigger.create({
+      trigger: sec,
+      start: () => (sec.offsetHeight < innerHeight ? 'top top' : 'bottom bottom'),
+      pin: true,
+      pinSpacing: false,
+    });
+  });
+}
+
+function stickies() {
+  // inner-page.js Adani: kolom kiri profil pimpinan di-pin dari `top 80px`
+  // sampai dasar kolomnya. position: sticky tidak bekerja di dalam
+  // ScrollSmoother, jadi dipakai pin ScrollTrigger.
+  each('[data-pin]').forEach((el) => {
+    const scope = el.closest<HTMLElement>('[data-pin-scope]') ?? el.parentElement!;
+    ScrollTrigger.create({
+      trigger: el,
+      start: `top ${HEADER_H + 15}px`,
+      endTrigger: scope,
+      end: () => `bottom ${HEADER_H + 15 + el.offsetHeight}px`,
+      pin: true,
+      pinSpacing: false,
+    });
+  });
+}
+
+function readMore() {
+  // fnReadMore Adani: naskah lebih dari dua baris dilipat; tombolnya
+  // berganti Read More / Read Less, tingginya dianimasikan 1 s.
+  const offs: (() => void)[] = [];
+  each('[data-more]').forEach((box) => {
+    const body = box.querySelector<HTMLElement>('[data-more-body]');
+    const btn = box.querySelector<HTMLButtonElement>('[data-more-btn]');
+    if (!body || !btn) return;
+    const line = window.innerWidth <= 768 ? 30 : 32;
+    const closed = line * 2;
+    if (body.scrollHeight <= closed + 4) return;
+    let open = false;
+    box.classList.add('is-folded');
+    gsap.set(body, { height: closed, overflow: 'hidden' });
+    btn.hidden = false;
+    const label = btn.querySelector('.btn__label') ?? btn;
+    const toggle = () => {
+      open = !open;
+      box.classList.toggle('is-folded', !open);
+      btn.setAttribute('aria-expanded', String(open));
+      label.textContent = open ? btn.dataset.less ?? 'Read Less' : btn.dataset.moreLabel ?? 'Read More';
+      gsap.to(body, {
+        height: open ? 'auto' : closed, duration: 1, ease: 'power2.out',
+        onComplete: () => window.dispatchEvent(new CustomEvent('fx:refresh')),
+      });
+    };
+    btn.addEventListener('click', toggle);
+    offs.push(() => {
+      btn.removeEventListener('click', toggle);
+      btn.hidden = true;
+      box.classList.remove('is-folded');
+      gsap.set(body, { clearProps: 'height,overflow' });
+    });
+  });
+  return () => offs.forEach((off) => off());
+}
+
 /* ── Pasang ─────────────────────────────────────────────────────────────── */
 
 export function initScrollFx() {
@@ -279,6 +365,13 @@ export function initScrollFx() {
     };
   });
   mm.add('(prefers-reduced-motion: reduce)', quotesStill);
+  // Read More juga berlaku tanpa gerak: lipatannya fitur, bukan hiasan.
+  mm.add('all', readMore);
+  // Section bertumpuk hanya di layar >1025px (Adani), dipasang paling akhir.
+  mm.add('(min-width: 1026px) and (prefers-reduced-motion: no-preference)', () => {
+    stickies();
+    panels();
+  });
 
   // Tab, penyaring, "Read More" dan formulir mengubah tinggi halaman. Bila
   // yang baru tampil adalah panel tab, gerak tile di dalamnya diputar ulang

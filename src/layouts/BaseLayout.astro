@@ -14,9 +14,11 @@ interface Props {
   /** Jalur aktif untuk penanda menu; default dari URL saat ini. */
   active?: string;
   ogImage?: string;
+  /** Halaman dalam: section-nya bertumpuk (pin) di desktop, lihat scroll-fx.ts. */
+  inner?: boolean;
 }
 
-const { title, description, active = Astro.url.pathname, ogImage } = Astro.props;
+const { title, description, active = Astro.url.pathname, ogImage, inner = false } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).toString();
 const pageTitle = title === SITE.name ? `${SITE.name} — ${SITE.tagline}` : `${title} — ${SITE.name}`;
@@ -93,7 +95,7 @@ const organization = {
          panel pencarian, tombol ke atas) harus tetap di luarnya. -->
     <div id="smooth-wrapper">
       <div id="smooth-content">
-        <main id="main" tabindex="-1">
+        <main id="main" tabindex="-1" data-inner={inner || undefined}>
           <slot />
         </main>
 

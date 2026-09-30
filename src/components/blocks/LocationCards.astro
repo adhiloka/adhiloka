@@ -13,6 +13,7 @@ const { sites } = Astro.props;
 
 <section class="sec sec--grey">
   <div class="wrap">
+    <h2 class="h2" data-anim="title">All Locations</h2>
     <ul class="loc" data-anim="columns">
       {
         sites.map((s) => (
@@ -38,11 +39,14 @@ const { sites } = Astro.props;
 
 <style>
   .loc {
+    margin-top: 48px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 32px 2.4%;
   }
   .loc__item { background: #fff; }
+  .loc__media :global(img) { transition: transform 1s linear; }
+  .loc__item:hover .loc__media :global(img) { transform: scale(1.05); }
   .loc__media { display: block; aspect-ratio: 16 / 10; }
   .loc__kind {
     position: absolute;

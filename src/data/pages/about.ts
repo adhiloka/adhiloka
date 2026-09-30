@@ -133,7 +133,7 @@ export const LEADERSHIP_INTRO: PageIntro = {
   image: 'about-table',
 };
 
-export type Leader = { name: string; role: string; bio: string; shot: string };
+export type Leader = { name: string; role: string; bio: string; shot: string; image?: ImageKey };
 
 /* PLACEHOLDER — nama, jabatan dan bio berupa lorem ipsum (29 Sep 2026).
    Isi dengan jajaran sebenarnya sebelum situs terbit; jangan biarkan nama
@@ -176,6 +176,23 @@ export const LEADERSHIP: Leader[] = [
     shot: 'portrait, Jakarta office',
   },
 ];
+
+/* Naskah lanjutan halaman profil, sama untuk semua pimpinan sampai bio
+   sebenarnya tersedia. */
+export const LEADER_BODY: string[] = [
+  'Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus.',
+  'Ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus.',
+  'Omnis voluptas assumenda est, omnis dolor repellendus. Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.',
+];
+
+/** Profil pimpinan ada di /about/our-leadership/<slug>/, slug dari nama. */
+export const leaderSlug = (l: Leader) =>
+  l.name
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+export const leaderHref = (l: Leader) => `/about/our-leadership/${leaderSlug(l)}/`;
 
 /* ── Our Purpose ─────────────────────────────────────────────────────── */
 
@@ -275,6 +292,16 @@ export const HISTORY_TIMELINE: Era[] = [
   },
 ];
 
+/** Pengelompokan tahun menjadi era untuk linimasa penuh ala Our Journey
+ *  Adani (Inception, Evolution, …). `years` merujuk `HISTORY_TIMELINE[].year`. */
+export type EraGroup = { range: string; name: string; years: string[]; image?: ImageKey };
+
+export const HISTORY_ERAS: EraGroup[] = [
+  { range: '2000–2006', name: 'Inception', years: ['2000', '2003', '2006'], image: 'material-benzoin' },
+  { range: '2009–2015', name: 'Evolution', years: ['2009', '2012', '2015'], image: 'purpose-generations' },
+  { range: '2018–Today', name: 'Ascension', years: ['2018', 'Today'], image: 'agroforest-canopy' },
+];
+
 /* ── Our Locations ───────────────────────────────────────────────────── */
 
 export const LOCATIONS_INTRO: PageIntro = {
@@ -295,6 +322,10 @@ export type Site = {
   detail: string[];
   shot: string;
   image?: ImageKey;
+  /** Pulau/negara untuk pemilih wilayah peta Our Presence. */
+  area: string;
+  /** [bujur, lintang] kota di keterangan foto (`shot`), untuk titik peta. */
+  coords: [number, number];
 };
 
 export const SITES: Site[] = [
@@ -305,6 +336,8 @@ export const SITES: Site[] = [
     body: 'Sit consequuntur nulla, nam iusto placeat natus, hic necessitatibus elit eos cum doloribus minim, nisi nam autem eius maxime est non et at.',
     detail: ['Ullam exercitation', 'Officiis & occaecat', 'Reprehenderit', 'Consequat autem'],
     shot: 'still hall, Medan works',
+    area: 'Sumatra',
+    coords: [98.67, 3.59],
     image: 'fragrance-resin',
   },
   {
@@ -314,6 +347,8 @@ export const SITES: Site[] = [
     body: 'Eum beatae ipsa ab cum nostrud hic rem officia ab nam facilis ratione. Tempora cumque eius cillum possimus minus ea iusto.',
     detail: ['Commodo facere', 'Ullam impedit', 'Cupidatat suscipit'],
     shot: 'benzoin intake, Sibolga',
+    area: 'Sumatra',
+    coords: [98.78, 1.74],
     image: 'material-benzoin',
   },
   {
@@ -323,6 +358,8 @@ export const SITES: Site[] = [
     body: 'Minima rem corrupti facere nostrum expedita. Ipsam libero est aut mollit non libero odit maxime dolorem cumque.',
     detail: ['Commodo facere', 'Cillum debitis', 'Magnam possimus'],
     shot: 'collection post, Tarutung',
+    area: 'Sumatra',
+    coords: [98.97, 2.02],
     image: 'agroforest-canopy',
   },
   {
@@ -332,6 +369,8 @@ export const SITES: Site[] = [
     body: 'Voluptate qui doloremque impedit. Quo sint ad mollit sed natus commodo libero illo tenetur atque veniam eos officiis.',
     detail: ['Quibusdam magnam', 'Animi fugiat', 'Irure voluptatibus'],
     shot: 'drying floor, Takengon',
+    area: 'Sumatra',
+    coords: [96.85, 4.63],
     image: 'material-patchouli',
   },
   {
@@ -341,6 +380,8 @@ export const SITES: Site[] = [
     body: 'Inventore, voluptatibus hic minima. Eum sint nisi mollit unde aute eos do vel.',
     detail: ['Cillum voluptatibus', 'Doloribus', 'Veritatis'],
     shot: 'commercial office, Jakarta',
+    area: 'Java',
+    coords: [106.85, -6.21],
     image: 'hero-benzoin-tears',
   },
   {
@@ -350,6 +391,8 @@ export const SITES: Site[] = [
     body: 'Ad dolore facere ullamco nesciunt excepturi soluta id odit ab ut cillum non atque eos unde, rem do repellat anim quos vel.',
     detail: ['Occaecat eiusmod', 'Itaque delectus', 'Laudantium'],
     shot: 'representation office, Grasse',
+    area: 'France',
+    coords: [6.92, 43.66],
     image: 'hero-still-hall',
   },
 ];

@@ -13,7 +13,7 @@ interface Props {
   title?: string;
   viewAll?: string;
   grey?: boolean;
-  /** Tempelkan data-cat pada tiap kartu, untuk tab penyaring. */
+  /** Tempelkan data-cat/-year/-date/-text pada tiap kartu, untuk penyaring berita. */
   filterable?: boolean;
   headingLevel?: 'h2' | 'h3';
 }
@@ -26,7 +26,7 @@ const H = headingLevel;
     <section class:list={['sec', { 'sec--grey': grey }]}>
       <div class="wrap">
         <div class="head-row">
-          <h2 class="h2">{title}</h2>
+          <h2 class="h2" data-anim={Astro.url.pathname === '/' ? undefined : 'title'}>{title}</h2>
           {viewAll && (
             <a class="btn" href={viewAll} data-anim="title"><span class="btn__label">View All</span></a>
           )}
@@ -48,9 +48,16 @@ const H = headingLevel;
       </div>
     </section>
   ) : (
-    <ul class="news news--grid" data-filter-grid>
+    <ul class="news news--grid" data-filter-grid data-anim="columns">
       {articles.map((a) => (
-        <li class="news__item" data-cat={filterable ? a.category : undefined}>
+        <li
+          class="news__item"
+          data-anim-item
+          data-cat={filterable ? a.category : undefined}
+          data-year={filterable ? a.date.slice(0, 4) : undefined}
+          data-date={filterable ? a.date : undefined}
+          data-text={filterable ? `${a.title} ${a.category}`.toLowerCase() : undefined}
+        >
           <a class="news__card" href={`/media/news/${a.slug}/`}>
             <span class="news__media cover shade">
               {a.image ? <Image quality={70} src={images[a.image]} alt="" widths={[400, 720]} sizes="(max-width: 767px) 90vw, 28vw" loading="lazy" /> : <span class="plate">{a.shot}</span>}

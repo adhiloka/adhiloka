@@ -4,7 +4,8 @@ import { images, type ImageKey } from '../../data/images';
 
 /* Blok naskah bergambar ala `.Com_company_vision` dan `.contentWithRightImage`
  * adani.com: judul kapital, naskah, butir dan tombol di satu sisi, foto
- * besar di sisi lain. Sisi foto berselang lewat prop `flip`. */
+ * besar di sisi lain. Sisi foto berselang lewat prop `flip`. Fotonya naik
+ * 250 px saat masuk layar (`.governWrap.columnAnimation` Adani). */
 
 interface Props {
   id?: string;
@@ -27,7 +28,7 @@ const paras = Array.isArray(body) ? body : [body];
 ---
 
 <section class:list={['sec', 'feat', { 'sec--grey': grey, 'feat--flip': flip }]} id={id}>
-  <div class="wrap feat__grid">
+  <div class="wrap feat__grid" data-anim={zoom ? undefined : 'columns'}>
     <div class="feat__text">
       <h2 class="h2 feat__h" data-anim="title">{heading}</h2>
       {subheading && <p class="feat__sub">{subheading}</p>}
@@ -43,7 +44,7 @@ const paras = Array.isArray(body) ? body : [body];
       }
       {cta && href && <a class="btn feat__btn" href={href}><span class="btn__label">{cta}</span></a>}
     </div>
-    <div class="feat__media cover zoom" data-anim={zoom ? 'zoom' : undefined}>
+    <div class="feat__media cover zoom" data-anim={zoom ? 'zoom' : undefined} data-anim-item={zoom ? undefined : true}>
       {image ? <Image quality={70} src={images[image]} alt={alt} widths={[640, 960, 1400]} sizes="(max-width: 1026px) 100vw, 55vw" loading="lazy" /> : <span class="plate">{shot}</span>}
     </div>
   </div>
@@ -91,6 +92,8 @@ const paras = Array.isArray(body) ? body : [body];
   .feat__btn { margin-top: 32px; }
 
   .feat__media { aspect-ratio: 4 / 3; }
+  /* `.governImage img`: skala 1,05 selama 1 s saat hover. */
+  .feat__media:hover :global(img) { transform: scale(1.05); }
 
   @media (max-width: 1026px) {
     .feat__grid,

@@ -20,7 +20,7 @@ const configured = accessKey.length > 0;
   <section class="sec">
     <div class="wrap contact">
       <div class="contact__form">
-        <h2 class="h2">Get in Touch</h2>
+        <h2 class="h2" data-anim="title">Get in Touch</h2>
         <p class="lead contact__lead">{CONTACT_INTRO.title}</p>
 
         <div class="sent" data-sent hidden>
@@ -94,10 +94,10 @@ const configured = accessKey.length > 0;
         </form>
       </div>
 
-      <aside class="offices" aria-label="Our offices">
+      <aside class="offices" aria-label="Our offices" data-anim="columns">
         {
           OFFICES.map((o) => (
-            <div class="office">
+            <div class="office" data-anim-item>
               <p class="office__role">{o.role}</p>
               <h3 class="office__city">{o.city}</h3>
               <p class="office__line">{o.address}</p>

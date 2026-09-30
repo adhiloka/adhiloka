@@ -11,10 +11,10 @@ const { grey = true } = Astro.props;
 <section class:list={['sec', { 'sec--grey': grey }]}>
   <div class="wrap press">
     <div>
-      <h2 class="h2">{MEDIA_CONTACT.title}</h2>
+      <h2 class="h2" data-anim="title">{MEDIA_CONTACT.title}</h2>
       <p class="lead press__body">{MEDIA_CONTACT.body}</p>
     </div>
-    <a class="btn" href={`mailto:${MEDIA_CONTACT.email}`}><span class="btn__label">{MEDIA_CONTACT.email}</span></a>
+    <a class="btn" href={`mailto:${MEDIA_CONTACT.email}`} data-anim="title"><span class="btn__label">{MEDIA_CONTACT.email}</span></a>
   </div>
 </section>
 

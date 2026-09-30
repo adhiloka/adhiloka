@@ -1,0 +1,84 @@
+---
+import { Image } from 'astro:assets';
+import { images, type ImageKey } from '../../data/images';
+
+/* Pita promosi berfoto ala `media-kit-section` adani.com/newsroom: foto
+ * selebar kontainer yang digelapkan, judul kapital dan satu kalimat di kiri,
+ * tombol terang. Fotonya bergeser di dalam bingkai (parallax-img) dan
+ * membesar pelan saat pita di-hover. */
+
+interface Props {
+  title: string;
+  text?: string;
+  cta: string;
+  href: string;
+  image?: ImageKey;
+  shot?: string;
+  grey?: boolean;
+}
+const { title, text, cta, href, image, shot, grey = false } = Astro.props;
+---
+
+<section class:list={['sec', { 'sec--grey': grey }]}>
+  <div class="wrap">
+    <a class="promo" href={href} data-anim="sub">
+      <span class="promo__media cover" data-parallax>
+        {image ? <Image quality={70} src={images[image]} alt="" widths={[768, 1280, 1920]} sizes="(max-width: 1219px) 100vw, 89vw" loading="lazy" /> : <span class="plate">{shot}</span>}
+      </span>
+      <span class="promo__text">
+        <span class="h2 promo__title">{title}</span>
+        {text && <span class="promo__line">{text}</span>}
+        <span class="btn btn--light promo__btn"><span class="btn__label">{cta}</span></span>
+      </span>
+    </a>
+  </div>
+</section>
+
+<style>
+  .promo {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    min-height: 420px;
+    overflow: hidden;
+    color: #fff;
+  }
+  .promo__media {
+    position: absolute;
+    inset: 0;
+  }
+  .promo__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgb(0 0 0 / 0.75) 0%, rgb(0 0 0 / 0.2) 70%);
+  }
+  .promo__text {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 620px;
+    padding: 56px 5.6%;
+  }
+  .promo__title { color: #fff; }
+  .promo__line {
+    margin-top: 20px;
+    font-size: var(--lead);
+    line-height: 1.4;
+  }
+  .promo__btn { margin-top: 32px; }
+  .promo:hover .promo__btn { border-color: transparent; }
+  .promo:hover .promo__btn::before { opacity: 1; }
+  .promo:hover .promo__btn .btn__label {
+    background: linear-gradient(to right, #fff, var(--brand-cream), var(--brand-gold));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  @media (max-width: 767px) {
+    .promo { min-height: 360px; }
+    .promo__text { padding: 32px 20px; }
+  }
+</style>

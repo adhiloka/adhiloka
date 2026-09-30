@@ -1,0 +1,65 @@
+---
+import { Image } from 'astro:assets';
+import { images, type ImageKey } from '../../data/images';
+import { leaderHref, type Leader } from '../../data/pages/about';
+
+/* Sorotan pimpinan tertinggi ala `bod-banner-profile` adani.com: foto lebar
+ * dengan lencana putih di kiri bawah berisi nama, jabatan dan tombol View
+ * Profile. Foto potret pimpinan belum ada, jadi dipakai foto suasana. */
+
+interface Props {
+  leader: Leader;
+  image?: ImageKey;
+}
+const { leader, image } = Astro.props;
+const img = leader.image ?? image;
+---
+
+<section class="sec sec--flush-top spot">
+  <div class="wrap">
+    <div class="spot__frame" data-anim="sub">
+      <span class="spot__media cover" data-parallax>
+        {img ? <Image quality={70} src={images[img]} alt="" widths={[768, 1280, 1920]} sizes="(max-width: 1219px) 100vw, 89vw" loading="lazy" /> : <span class="plate">{leader.shot}</span>}
+      </span>
+      <div class="spot__badge">
+        <p class="spot__name">{leader.name}</p>
+        <p class="spot__role">{leader.role}</p>
+        <a class="btn spot__btn" href={leaderHref(leader)}><span class="btn__label">View Profile</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .spot__frame {
+    position: relative;
+    aspect-ratio: 21 / 9;
+    min-height: 420px;
+    overflow: hidden;
+  }
+  .spot__media { position: absolute; inset: 0; }
+  .spot__badge {
+    position: absolute;
+    left: 40px;
+    bottom: 40px;
+    z-index: 1;
+    max-width: 420px;
+    padding: 32px 36px;
+    background: rgb(255 255 255 / 0.92);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+  .spot__name {
+    font-size: clamp(22px, 1.8vw, 28px);
+    line-height: 1.2;
+    font-weight: 530;
+    color: var(--ink);
+  }
+  .spot__role { margin-top: 8px; font-size: 17px; color: var(--ink-muted); }
+  .spot__btn { margin-top: 24px; }
+  @media (max-width: 767px) {
+    .spot__frame { aspect-ratio: auto; min-height: 0; display: flex; flex-direction: column; }
+    .spot__media { position: relative; aspect-ratio: 4 / 3; }
+    .spot__badge { position: static; max-width: none; padding: 24px 0 0; background: none; backdrop-filter: none; }
+  }
+</style>

@@ -4,6 +4,7 @@ import Intro from '../../components/blocks/Intro.astro';
 import CounterGrid from '../../components/blocks/CounterGrid.astro';
 import SustainAccordion from '../../components/home/SustainAccordion.astro';
 import CardGrid from '../../components/blocks/CardGrid.astro';
+import ClosingCta from '../../components/blocks/ClosingCta.astro';
 import {
   SUSTAINABILITY_INTRO,
   SUSTAINABILITY_OPENING,
@@ -13,8 +14,16 @@ import {
 ---
 
 <PageLayout intro={SUSTAINABILITY_INTRO} bannerTitle="Sustainability" lineInBanner>
-  <Intro title={SUSTAINABILITY_INTRO.title} paragraphs={SUSTAINABILITY_OPENING} />
+  <Intro title={SUSTAINABILITY_INTRO.title} paragraphs={SUSTAINABILITY_OPENING} more />
   <CounterGrid title="What We Can Show" stats={SUSTAINABILITY_STATS} />
   <SustainAccordion />
   <CardGrid title="Our Approach" cards={SUSTAINABILITY_CARDS} />
+  <ClosingCta
+    text="Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur."
+    image="agroforest-canopy"
+    buttons={[
+      { label: 'Responsible Sourcing', href: '/sustainability/responsible-sourcing/' },
+      { label: 'Driving progress for people', href: '/sustainability/people/' },
+    ]}
+  />
 </PageLayout>

@@ -1,0 +1,117 @@
+---
+import { Image } from 'astro:assets';
+import { images, type ImageKey } from '../../data/images';
+import 'swiper/css';
+import 'swiper/css/effect-fade';
+
+/* "Company Vision" adani.com/about-us (`Com_company_vision`): kotak abu yang
+ * menyusut menjadi panel berjarak 40 px saat digulir (scrollPadding), teks di
+ * kiri dan slider foto fade otomatis di kanan (fnCompanyVisionSlider: 3 s,
+ * crossfade 0,5 s) yang membesar dari skala 0,4 (zoominAnim). */
+
+interface Props {
+  heading: string;
+  subheading?: string;
+  body: string[];
+  slides: { image: ImageKey; alt: string }[];
+}
+const { heading, subheading, body, slides } = Astro.props;
+---
+
+<section class="vis" data-anim="pad">
+  <div class="vis__box">
+    <div class="wrap vis__grid">
+      <div class="vis__text">
+        <h2 class="h2" data-anim="title">{heading}</h2>
+        {subheading && <p class="vis__sub" data-anim="sub">{subheading}</p>}
+        <div class="prose vis__body" data-anim="sub">
+          {body.map((p) => <p>{p}</p>)}
+        </div>
+      </div>
+      <div class="vis__media" data-anim="zoom" data-slider="fade">
+        <div class="swiper">
+          <div class="swiper-wrapper">
+            {
+              slides.map((s) => (
+                <div class="swiper-slide">
+                  <Image quality={70} src={images[s.image]} alt={s.alt} widths={[640, 960, 1400]} sizes="(max-width: 1026px) 100vw, 50vw" loading="lazy" />
+                </div>
+              ))
+            }
+          </div>
+        </div>
+        <div class="vis__dots" data-dots></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initSliders } from '../../scripts/slider';
+  initSliders();
+</script>
+
+<style>
+  .vis {
+    overflow: hidden;
+    background: var(--bg);
+  }
+  .vis__box {
+    height: 100%;
+    padding-block: var(--sec-pad);
+    background: var(--bg-grey);
+  }
+  .vis__grid {
+    display: grid;
+    grid-template-columns: 40% 1fr;
+    gap: 6%;
+    align-items: center;
+  }
+  .vis__sub {
+    margin-top: 20px;
+    font-size: clamp(20px, 1.67vw, 24px);
+    line-height: 1.25;
+    font-weight: 440;
+    color: var(--ink);
+  }
+  .vis__body { margin-top: 20px; }
+  .vis__body :global(p) { font-size: 17px; line-height: 1.6; }
+
+  .vis__media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+  .vis__media .swiper { height: 100%; }
+  .vis__media .swiper-slide { overflow: hidden; }
+  .vis__media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Titik putih, titik aktif hijau (Adani: #fff dan #0180a3). */
+  .vis__dots {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 20px;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  .vis__dots :global(.swiper-pagination-bullet) {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .vis__dots :global(.swiper-pagination-bullet-active) { background: var(--brand-green); }
+
+  @media (max-width: 1026px) {
+    .vis__grid { grid-template-columns: 1fr; gap: 32px; }
+  }
+</style>

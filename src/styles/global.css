@@ -301,7 +301,8 @@ html.has-smoother { scroll-behavior: auto; }
 /* Hero bergerak lebih lambat dari gulir (data-speed 0,8). Section sesudahnya
    harus menutupinya, jadi mereka ditumpuk di atas hero. */
 html.has-smoother main > * { position: relative; z-index: 1; }
-html.has-smoother main > .hero { z-index: 0; }
+html.has-smoother main > .hero,
+html.has-smoother main > .banner { z-index: 0; }
 
 /* Foto parallax 120 % tinggi bingkainya, supaya geseran −8 %…7 % tidak
    memperlihatkan tepi foto. */

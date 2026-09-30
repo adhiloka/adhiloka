@@ -1,11 +1,11 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
-import Journey from '../../components/blocks/Journey.astro';
+import Timeline from '../../components/blocks/Timeline.astro';
 import SiblingCards from '../../components/blocks/SiblingCards.astro';
-import { HISTORY_INTRO, HISTORY_TIMELINE } from '../../data/pages/about';
+import { HISTORY_INTRO, HISTORY_TIMELINE, HISTORY_ERAS } from '../../data/pages/about';
 ---
 
 <PageLayout intro={HISTORY_INTRO}>
-  <Journey eras={HISTORY_TIMELINE} lead={HISTORY_INTRO.lede} full />
+  <Timeline eras={HISTORY_ERAS} entries={HISTORY_TIMELINE} />
   <SiblingCards />
 </PageLayout>

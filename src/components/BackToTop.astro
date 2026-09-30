@@ -1,40 +1,92 @@
 ---
-/* Tombol bulat kembali-ke-atas di kanan bawah, muncul setelah satu layar
-   digulir — tombol yang sama di adani.com (chevron ganda dalam lingkaran). */
+/* Tombol bulat kembali-ke-atas `#bottomToTop` adani.com: lingkaran 44 px di
+   kanan bawah (78/28 px) yang memudar masuk setelah 20 % halaman digulir,
+   chevron ganda, tooltip "Scroll to top" dan cincin bergradien saat hover.
+   Seperti Adani, disembunyikan di layar ≤1023 px. */
 ---
 
-<button class="top" type="button" data-top-btn aria-label="Back to top" hidden>
+<button class="top" type="button" data-top-btn aria-label="Scroll to top">
   <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
     <path d="m6 12 6-6 6 6M6 18l6-6 6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
   </svg>
+  <span class="top__tip" aria-hidden="true">Scroll to top</span>
 </button>
 
 <script>
   const btn = document.querySelector<HTMLButtonElement>('[data-top-btn]');
   if (btn) {
-    const update = () => (btn.hidden = window.scrollY < window.innerHeight * 0.8);
+    const root = document.documentElement;
+    const update = () => {
+      const max = root.scrollHeight - root.clientHeight;
+      const on = max > 0 && window.scrollY / max > 0.2;
+      btn.classList.toggle('is-on', on);
+      btn.tabIndex = on ? 0 : -1;
+    };
     update();
     window.addEventListener('scroll', update, { passive: true });
     window.addEventListener('resize', update);
-    btn.addEventListener('click', () => window.scrollTo({ top: 0 }));
+    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   }
 </script>
 
 <style>
   .top {
     position: fixed;
-    right: 20px;
-    bottom: 24px;
+    right: 28px;
+    bottom: 78px;
     z-index: 900;
     display: grid;
     place-items: center;
     width: 44px;
     height: 44px;
-    border: 1px solid var(--ink-muted);
+    border: 1px solid #393933;
     border-radius: 50%;
     background: rgb(255 255 255 / 0.8);
     color: var(--ink);
-    transition: border-color 0.2s;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s, border-color 0.3s;
   }
-  .top:hover { border-color: var(--brand-green-light); color: var(--brand-green); }
+  .top.is-on { opacity: 1; visibility: visible; }
+
+  /* Cincin empat warna saat hover (Adani: biru, ungu; di sini warna logo). */
+  .top::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    padding: 1px;
+    border-radius: 50%;
+    background: conic-gradient(var(--brand-green-deep), var(--brand-green-light), var(--brand-gold), var(--brand-amber), var(--brand-green-deep));
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .top:hover { border-color: transparent; color: var(--brand-green); }
+  .top:hover::before { opacity: 1; }
+
+  .top__tip {
+    position: absolute;
+    right: calc(100% + 12px);
+    top: 50%;
+    padding: 6px 10px;
+    border-radius: 4px;
+    background: var(--ink);
+    color: #fff;
+    font-size: 13px;
+    white-space: nowrap;
+    transform: translateY(-50%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .top:hover .top__tip,
+  .top:focus-visible .top__tip { opacity: 1; }
+
+  @media (max-width: 1023px) {
+    .top { display: none; }
+  }
 </style>

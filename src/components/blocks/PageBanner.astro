@@ -3,9 +3,15 @@ import { Image } from 'astro:assets';
 import { images, type ImageKey } from '../../data/images';
 import { NAV, NAV_LINKS } from '../../data/site';
 
-/* Banner halaman dalam ala adani.com (mis. /about-us): foto selayar dengan
- * bayangan hitam dari bawah, remah roti dan judul 44 px di kiri bawah.
- * Remah dirakit dari NAV, jadi label halaman tidak ditulis dua kali. */
+/* Banner halaman dalam ala `#spotlightBanner` adani.com (mis. /about-us):
+ * foto selayar dengan bayangan hitam 0,85 dari bawah, judul 44 px di kiri
+ * bawah dan remah roti menempel di dasar banner. Seluruh banner bergerak
+ * 0,8× kecepatan gulir (data-speed Adani) sehingga section berikutnya
+ * meluncur menutupinya. Remah dirakit dari NAV, jadi label halaman tidak
+ * ditulis dua kali.
+ *
+ * `half`: banner setengah layar tanpa judul (`halfbanner press-release-banner`
+ * artikel berita Adani); judulnya menjadi h1 di badan artikel. */
 
 interface Props {
   title: string;
@@ -13,8 +19,9 @@ interface Props {
   alt?: string;
   /** Kalimat di bawah judul (lede halaman). */
   line?: string;
+  half?: boolean;
 }
-const { title, image, alt = '', line } = Astro.props;
+const { title, image, alt = '', line, half = false } = Astro.props;
 
 const path = Astro.url.pathname;
 const label = (href: string) => NAV_LINKS.find((l) => l.href === href)?.label;
@@ -29,7 +36,7 @@ if (section && path !== section.href) {
 }
 ---
 
-<section class="banner">
+<section class:list={['banner', { 'banner--half': half }]} data-speed="0.8">
   <div class="banner__media">
     {
       image ? (
@@ -39,16 +46,25 @@ if (section && path !== section.href) {
       )
     }
   </div>
-  <div class="wrap banner__text">
-    <nav class="crumbs" aria-label="Breadcrumb">
-      <ol>
-        {crumbs.map((c) => <li><a href={c.href}>{c.label}</a></li>)}
-        <li aria-current="page">{title}</li>
-      </ol>
-    </nav>
-    <h1 class="banner__title">{title}</h1>
-    {line && <p class="banner__line">{line}</p>}
-  </div>
+  {
+    !half && (
+      <div class="wrap banner__text">
+        <h1 class="banner__title">{title}</h1>
+        {line && <p class="banner__line">{line}</p>}
+      </div>
+    )
+  }
+  <nav class="wrap crumbs" aria-label="Breadcrumb">
+    <ol>
+      <li>
+        <a href="/" aria-label="Home">
+          <svg viewBox="0 0 16 15" width="15" height="14" aria-hidden="true"><path d="M1 7.2 8 1.5l7 5.7M3 5.6V14h3.8V9.6h2.4V14H13V5.6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"></path></svg>
+        </a>
+      </li>
+      {crumbs.slice(1).map((c) => <li><a href={c.href}>{c.label}</a></li>)}
+      <li aria-current="page">{title}</li>
+    </ol>
+  </nav>
 </section>
 
 <style>
@@ -75,36 +91,67 @@ if (section && path !== section.href) {
     position: absolute;
     inset: 0;
     background: linear-gradient(transparent 0, #000 100%);
-    opacity: 0.7;
+    opacity: 0.85;
   }
 
+  /* `.text-wraper.bottomPos`: judul 110 px dari dasar, di atas remah. */
   .banner__text {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 90px;
+    bottom: 110px;
     z-index: 1;
+  }
+
+  /* `.breadcrumb-wrapper`: menempel di dasar banner, padding 32 px; pemisah
+     garis 3×1 px #c1c1c1, tautan 12 px bergaris bawah, ikon rumah 15 px. */
+  .crumbs {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    padding-block: 32px;
   }
   .crumbs ol {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     gap: 6px 0;
-    font-size: 14px;
-    color: rgb(255 255 255 / 0.8);
+    font-size: 12px;
+    line-height: 1.2;
+    color: var(--line);
   }
+  .crumbs li {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+  .crumbs li:not(:last-child) { padding-right: 19px; }
   .crumbs li:not(:last-child)::after {
-    content: '/';
-    margin: 0 10px;
-    opacity: 0.6;
+    content: '';
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    width: 3px;
+    height: 1px;
+    background: var(--line);
   }
-  .crumbs a:hover { text-decoration: underline; color: #fff; }
+  .crumbs a {
+    display: inline-flex;
+    color: var(--line);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.3s;
+  }
+  .crumbs a:hover { color: #fff; }
+  .crumbs li:first-child a { text-decoration: none; }
   .crumbs [aria-current] { color: #fff; }
 
   .banner__title {
-    margin-top: 24px;
     max-width: 900px;
     font-size: clamp(32px, 3.06vw, 44px);
-    line-height: 1.05;
+    line-height: 1;
     font-weight: 530;
     color: #fff;
   }
@@ -116,8 +163,15 @@ if (section && path !== section.href) {
     color: rgb(255 255 255 / 0.92);
   }
 
+  .banner--half {
+    height: 60vh;
+    min-height: 380px;
+  }
+
   @media (max-width: 1026px) {
     .banner { height: 72vh; }
-    .banner__text { bottom: 48px; }
+    .banner--half { height: 45vh; min-height: 300px; }
+    .banner__text { bottom: 84px; }
+    .crumbs { padding-block: 24px; }
   }
 </style>
