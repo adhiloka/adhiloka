@@ -5,11 +5,11 @@ export const SITE = {
   legalName: 'Adhiloka Group',
   tagline: "Indonesia's finest raw material supplier.",
   description:
-    'Adhiloka is a family-held Indonesian house of natural aromatics — benzoin, patchouli, nutmeg, ginger, clove and vetiver — grown in Sumatra, Java and Maluku, refined at its own works in Medan, and composed into fragrance at its perfumery bench.',
+    'Adhiloka Group supplies natural aromatic raw materials from Indonesia, including benzoin and patchouli. We work directly with growers, process in our own facility and compose fragrance at our own perfumery bench.',
   locale: 'en_ID',
   lang: 'en',
-  email: 'sourcing@adhiloka.com',
-  phone: '+62 61 4520 118',
+  email: 'info@adhiloka.com',
+  // phone dilepas 2 Okt 2026: nomor lama karangan, belum ada nomor asli.
   region: 'Indonesia (English)',
 } as const;
 
@@ -37,7 +37,7 @@ export const NAV: NavItem[] = [
     label: 'About Adhiloka',
     href: '/about/',
     blurb:
-      'A family house of Indonesian naturals, in its sixth generation and still buying from the forests it started in.',
+      'Ab mollit fugit at laudantium proident, at hic nihil recusandae vel magna minima amet aut quaerat ea laborum id.',
     panel: {
       title: 'About Adhiloka',
       shot: 'benzoin resin, hand-graded',
@@ -55,7 +55,7 @@ export const NAV: NavItem[] = [
     label: 'Perfumery',
     href: '/perfumery/',
     blurb:
-      'Accords built at a bench that sits a day from the gardens its materials come from.',
+      'Commodi culpa id ut magna quos quod ea eos illo eos tempora nam cupidatat elit illo.',
     panel: {
       title: 'Perfumery',
       shot: 'petal, close',
@@ -70,10 +70,10 @@ export const NAV: NavItem[] = [
     label: 'Ingredients',
     href: '/ingredients/',
     blurb:
-      'Eighteen naturals with published specifications, seasonal windows and extraction routes.',
+      'Deserunt mollitia anim consequat reprehenderit, nesciunt ratione sit voluptates facere.',
     panel: {
       title: 'Ingredients',
-      shot: 'cassia bark, Kerinci',
+      shot: 'cassia bark',
       image: 'hero-benzoin-tears',
       links: [
         { label: 'Ingredients Catalog', href: '/ingredients/catalog/' },
@@ -85,7 +85,7 @@ export const NAV: NavItem[] = [
     label: 'Sustainability',
     href: '/sustainability/',
     blurb:
-      'The forest and the households who tend it have to still be here in fifty years. Everything else follows from that.',
+      'Vel veniam qui eos adipiscing rem illo ut iste ex totam id illo ea nulla vitae. Cupiditate nemo commodo quis odit.',
     panel: {
       title: 'Sustainability',
       shot: 'kemenyan agroforest canopy',
@@ -99,7 +99,7 @@ export const NAV: NavItem[] = [
   {
     label: 'Media',
     href: '/media/',
-    blurb: 'Announcements from the works and the gardens, and the material to write about them.',
+    blurb: 'Consequuntur sunt non fugit quo nam dolores, eos cum corrupti et autem error nisi.',
     panel: {
       title: 'Media',
       shot: 'dried rhizome',
@@ -140,7 +140,7 @@ export const SOCIAL = [
 
 export const SEARCH_SUGGESTIONS = [
   { label: 'Benzoin Sumatra', href: '/ingredients/catalog/#benzoin-sumatra' },
-  { label: 'Patchouli Aceh', href: '/ingredients/catalog/#patchouli' },
+  { label: 'Patchouli', href: '/ingredients/catalog/#patchouli' },
   { label: 'Fine fragrance', href: '/perfumery/fine-fragrance/' },
   { label: 'Responsible sourcing', href: '/sustainability/responsible-sourcing/' },
   { label: 'Our locations', href: '/about/our-locations/' },

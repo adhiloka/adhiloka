@@ -31,8 +31,7 @@ const configured = accessKey.length > 0;
         <div class="sent" data-sent hidden>
           <span class="sent__title">Thank you — we have it.</span>
           <span class="sent__body">
-            Someone from the sourcing team will reply within two working days. Sample sets ship from
-            Medan on Tuesdays and Fridays.
+            We will reply from info@adhiloka.com.
           </span>
           <button type="button" class="sent__again" data-reset>Send another</button>
         </div>
@@ -123,10 +122,7 @@ const configured = accessKey.length > 0;
           {
             !configured && (
               <p class="form__notice">
-                Delivery is not connected yet, so this button opens your email client instead. To
-                post enquiries straight to the sourcing desk, set{' '}
-                <code>PUBLIC_FORM_ACCESS_KEY</code> in <code>.env</code> — see{' '}
-                <code>.env.example</code>. You can also write to{' '}
+                This button opens your email client. You can also write to{' '}
                 <a href={`mailto:${SITE.email}`}>{SITE.email}</a> directly.
               </p>
             )

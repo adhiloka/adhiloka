@@ -4,15 +4,15 @@ import LocationList from '../../components/LocationList.astro';
 import Interlude from '../../components/Interlude.astro';
 import { LOCATIONS_INTRO, SITES } from '../../data/pages/about';
 
-const stations = SITES.filter((s) => s.kind === 'Collection station');
-const rest = SITES.filter((s) => s.kind !== 'Collection station');
+const stations = SITES.filter((s) => s.kind === 'Commodo sit amet');
+const rest = SITES.filter((s) => s.kind !== 'Commodo sit amet');
 ---
 
 <PageLayout intro={LOCATIONS_INTRO} section="/about/">
   <section class="section">
     <div class="frame">
       <div class="section__head">
-        <span class="eyebrow" data-reveal="0">Works and offices</span>
+        <span class="eyebrow" data-reveal="0">Ipsum non placeat</span>
         <span class="section__count" data-reveal="60">{rest.length}</span>
       </div>
       <div class="section__grid">
@@ -24,12 +24,12 @@ const rest = SITES.filter((s) => s.kind !== 'Collection station');
   <section class="section section--sunk">
     <div class="frame">
       <div class="section__head">
-        <span class="eyebrow" data-reveal="0">Collection stations</span>
+        <span class="eyebrow" data-reveal="0">Voluptatem expedita</span>
         <span class="section__count" data-reveal="60">{stations.length}</span>
       </div>
       <p class="prose stations__note" data-reveal="90">
-        Every station buys directly from the households around it and pays on the day.
-        Nothing in the benzoin range reaches us through a consolidator.
+        Ipsam dolores vero deleniti enim sit laboriosam cumque ut sit unde id eos vel. Maiores do
+        est ducimus autem laboris et ullamco ea consequuntur.
       </p>
       <div class="section__grid">
         <LocationList sites={stations} />
@@ -40,7 +40,7 @@ const rest = SITES.filter((s) => s.kind !== 'Collection station');
   <section class="bridge">
     <Interlude
       class="frame"
-      line="What is recorded at each of them, and why."
+      line="Odio ea mollitia ut odio ea quis, non cum."
       href="/sustainability/responsible-sourcing/"
       cta="Responsible sourcing"
       italic

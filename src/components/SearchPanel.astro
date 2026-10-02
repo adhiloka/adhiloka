@@ -11,26 +11,26 @@ import { getImageFor } from '../data/images';
 /* Kata kunci tambahan per rute. Judul saja sering tidak cukup: "perfumer"
    dan "traceability" tidak muncul di judul mana pun. */
 const KEYWORDS: Record<string, string> = {
-  '/about/': 'company group family independent house heritage',
+  '/about/': 'company group',
   '/about/our-business/': 'activities sourcing extraction supply perfumery divisions',
   '/about/our-leadership/': 'management board executive team directors people',
   '/about/our-purpose/': 'values mission why forest fifty years',
-  '/about/our-history/': 'heritage timeline generations 1840 ledger sibolga founding',
-  '/about/our-locations/': 'sites offices medan jakarta sibolga tarutung takengon grasse map',
+  '/about/our-history/': 'timeline milestones',
+  '/about/our-locations/': 'sites offices',
   '/perfumery/': 'fragrance perfumer bench accord creation composition',
   '/perfumery/fine-fragrance/': 'accord palette bespoke brief functional base personal home care',
-  '/perfumery/fragrance-innovation/': 'research fractionation analysis gc-ms cananga trial',
+  '/perfumery/fragrance-innovation/': 'research analysis',
   '/ingredients/': 'raw materials naturals catalogue specification',
-  '/ingredients/catalog/': 'catalogue raw materials eighteen naturals specification origin family',
+  '/ingredients/catalog/': 'catalogue raw materials naturals specification origin family',
   '/ingredients/technology/': 'extraction steam distillation resinoid absolute fractionation laboratory grading',
   '/sustainability/': 'responsible forest agroforest commitments esg report',
-  '/sustainability/people/': 'households tappers income floor price training advances communities',
+  '/sustainability/people/': 'growers income training communities',
   '/sustainability/responsible-sourcing/': 'traceability register supply chain direct purchase land no deforestation',
   '/media/': 'press newsroom releases resources',
   '/media/news/': 'press releases announcements harvest reports',
   '/media/media-resources/': 'logo images downloads fact sheet report press kit',
   '/media/social-media/': 'linkedin instagram youtube facebook channels accounts',
-  '/contact/': 'sample request quotation offices grasse jakarta medan enquiry',
+  '/contact/': 'sample request quotation enquiry',
 };
 
 const pageEntries = NAV.flatMap((item) => [

@@ -6,25 +6,25 @@ import type { HeroSlide } from './home';
 
 export const ABOUT_INTRO: PageIntro = {
   eyebrow: 'About Adhiloka',
-  title: 'A house built on one resin, and on the forests that give it.',
+  title: 'In nihil animi do est dicta, hic ad hic debitis vero iste ea.',
   metaTitle: 'About',
-  lede: 'Six generations of the same family, buying benzoin from the same Sumatran uplands, refining it at our own works in Medan, and composing it at our own bench.',
+  lede: 'Quo consequatur et vel quos facere, libero aperiam odit sed sint incidunt commodi, incidunt ab id quo sit velit in nihil, vel doloribus ea do sit sed earum.',
   description:
-    'Adhiloka is a family-held Indonesian house of natural aromatics: eighteen naturals grown across Sumatra, Java and Maluku, refined in Medan and composed at our perfumery bench.',
+    'Delectus ea in tempor-quis laboriosam omnis at tempora occaecati: proident pariatur nihil itaque tempore, quos rem itaque, aliquip ex dolor sed possimus ea non voluptate autem.',
   image: 'about-table',
   caption: 'three people talking over a laid table',
 };
 
 export const ABOUT_STATS: Stat[] = [
-  { value: '1840s', label: 'First benzoin ledger' },
-  { value: '6', label: 'Generations in the trade' },
-  { value: '18', label: 'Naturals in the catalog' },
-  { value: '1,400+', label: 'Tapping households' },
+  { value: '1234s', label: 'Optio commodi libero' },
+  { value: '1', label: 'Repudiandae et quo minus' },
+  { value: '12', label: 'Nesciunt ea sed dolores' },
+  { value: '1,234+', label: 'Aperiam distinctio' },
 ];
 
 export const ABOUT_OPENING = [
-  'We are a natural aromatics house, not a distributor. Almost everything we sell passes through gardens we buy from directly, a grading floor we run ourselves, and stills we own. That is a slower way to work and a more expensive one, and it is the only way we know how to answer for what is in the drum.',
-  'The trade began with benzoin. It still ends there, in the sense that benzoin is the material we are judged on and the one that taught us to treat a forest as a supplier rather than a resource. Seventeen other naturals joined it over a century and a half, but the method has not changed much: know the household, grade by hand, publish the specification.',
+  'Et cum ad aliquid molestias dolor, qui id consectetur. Minima architecto id quod magnam officia tenetur ab sed unde incidunt, ut nostrud illum ab aut occaecati, hic minima ut qui. Anim do ut labore eum ab modi non at sint molestiae eos, est id in vel quae hic at duis quo at mollit non quos ut in qui quia.',
+  'Vel porro earum illo aliquid. Ab optio iure atque, ad sit irure odit debitis at sed quisquam id nam magnam at eos sit non quam tempor ex ab lorem in itaque ex at deserunt libero quod id repellat. Molestias natus proident magnam et quam ab ratione est id nisi, quo qui fugiat quo nam dolorem illo: quis vel inventore, velit ea iure, aperiam quo voluptatibus.',
 ];
 
 /* Hero halaman hub: satu slide, bentuk dan gerak yang sama dengan hero beranda
@@ -37,7 +37,7 @@ export const ABOUT_HERO: HeroSlide[] = [
   {
     kind: 'photo',
     eyebrow: 'About Adhiloka',
-    headline: 'Family-Held.',
+    headline: 'Rooted in Indonesia.',
     shot: 'a chick among buttercups in long grass',
     href: '/about/our-history/',
     image: 'about-chick',
@@ -51,7 +51,7 @@ export const ABOUT_HERO: HeroSlide[] = [
 export const ABOUT_SLIDES: CarouselSlide[] = [
   {
     title: 'Our Business',
-    body: 'Three activities under one roof — sourcing and extraction, ingredient supply, and perfumery — each feeding the next.',
+    body: 'Ipsam doloremque earum sit vero — nesciunt non distinctio, reiciendis libero, rem veritatis — aute eveniet eos odio.',
     cta: 'See our business',
     shot: 'benzoin resin, hand-graded',
     href: '/about/our-business/',
@@ -59,16 +59,16 @@ export const ABOUT_SLIDES: CarouselSlide[] = [
   },
   {
     title: 'Our Leadership',
-    body: 'The people accountable for what leaves the works, and for the price paid at the collection point.',
+    body: 'Sit facere accusantium vel illo itaque nam culpa, cum hic eos porro odit do vel blanditiis nulla.',
     cta: 'Meet the leadership',
-    shot: 'the grading floor, Medan works',
+    shot: 'grading floor',
     image: 'about-table',
     href: '/about/our-leadership/',
     bg: 'oklch(0.872 0.016 80)',
   },
   {
     title: 'Our Purpose',
-    body: 'Why we buy the way we do, and what we are trying to leave standing in fifty years.',
+    body: 'Non do est nam eum ea in, sit odit et aut magnam id irure quisquam do iusto alias.',
     cta: 'Our purpose',
     shot: 'two children running through a summer meadow at dusk',
     href: '/about/our-purpose/',
@@ -77,18 +77,18 @@ export const ABOUT_SLIDES: CarouselSlide[] = [
   },
   {
     title: 'Our History',
-    body: 'From a single ledger in Sibolga to a fractionation line in Medan, in six generations.',
+    body: 'Quod et maxime veniam ad ratione ex id consequuntur quam ab earum, ad cum perferendis.',
     cta: 'Read the history',
-    shot: 'the first benzoin ledger, 1840s',
+    shot: 'purchase ledger',
     image: 'material-benzoin',
     href: '/about/our-history/',
     bg: 'oklch(0.882 0.022 52)',
   },
   {
     title: 'Our Locations',
-    body: 'Where the gardens, the stations, the works and the desks are, and what each of them does.',
+    body: 'Minim eos tenetur, qui deserunt, eos dicta non sit vitae qui, vel iste quod ex esse iure.',
     cta: 'See our locations',
-    shot: 'collection station, Tapanuli uplands',
+    shot: 'collection station',
     image: 'hero-agroforest',
     href: '/about/our-locations/',
     bg: 'oklch(0.864 0.02 118)',
@@ -102,27 +102,27 @@ export const ABOUT_SLIDES: CarouselSlide[] = [
 export const ABOUT_CARDS: LinkCard[] = [
   {
     title: 'Our Business',
-    body: 'Three activities under one roof — sourcing and extraction, ingredient supply, and perfumery — each feeding the next.',
+    body: 'Animi asperiores animi nam quas — pariatur vel temporibus, asperiores aliqua, sit quibusdam — odio placeat est iure.',
     href: '/about/our-business/',
   },
   {
     title: 'Our Leadership',
-    body: 'The people accountable for what leaves the works, and for the price paid at the collection point.',
+    body: 'Nam labore accusantium aut sunt aliqua aut velit, hic quo non illum iure ut quo laboriosam magna.',
     href: '/about/our-leadership/',
   },
   {
     title: 'Our Purpose',
-    body: 'Why we buy the way we do, and what we are trying to leave standing in fifty years.',
+    body: 'Eos ab est cum sed ut at, rem nemo ea sed mollit at culpa expedita do velit optio.',
     href: '/about/our-purpose/',
   },
   {
     title: 'Our History',
-    body: 'From a single ledger in Sibolga to a fractionation line in Medan, in six generations.',
+    body: 'Quod id beatae minima ad debitis ut ex necessitatibus aute in culpa, ut cum repudiandae.',
     href: '/about/our-history/',
   },
   {
     title: 'Our Locations',
-    body: 'Where the gardens, the stations, the works and the desks are, and what each of them does.',
+    body: 'Minim qui commodo, aut proident, cum dolor sed non quasi vel, sit nemo anim ad esse quis.',
     href: '/about/our-locations/',
   },
 ];
@@ -132,23 +132,23 @@ export const ABOUT_CARDS: LinkCard[] = [
 export const BUSINESS_INTRO: PageIntro = {
   eyebrow: 'About Adhiloka',
   title: 'Our Business',
-  lede: 'We buy from the forest, refine what we buy, and compose with what we refine. Each activity exists because the one before it needed it.',
+  lede: 'At hic amet vel magnam, itaque elit ut est, non eiusmod quae quis in fugiat. Quia eligendi soluta facilis quo rem labore ab tempor ex.',
   description:
-    'Adhiloka runs three connected activities: natural raw material sourcing and extraction, ingredient supply to the fragrance industry, and its own perfumery bench.',
+    'Sapiente aute atque assumenda cupiditate: impedit est quisquam pariatur cum cupiditate, laboriosam aliqua ut sed similique quisquam, rem eum aut occaecati earum.',
   image: 'hero-benzoin-tears',
-  caption: 'cassia bark, Kerinci',
+  caption: 'cassia bark',
 };
 
 export const BUSINESS_PASSAGES: Passage[] = [
   {
     id: 'sourcing',
     eyebrow: 'Sourcing & extraction',
-    title: 'The part of the business that starts in a forest garden',
-    body: 'Benzoin is tapped from standing trees in mixed forest gardens, months apart, by households who have worked the same slopes for generations. We buy at four collection stations rather than through consolidators, which means we know the garden a lot came from and can price it before it is blended into anonymity. What arrives is graded by hand into three qualities on our own floor, then extracted at our works in Medan.',
+    title: 'Qui unde ea nam sapiente illo itaque do ad beatae labore',
+    body: 'Placeat ut libero illo delectus magna ab quasi facere tempora, soluta omnis, ut blanditiis eos iste itaque nam ipsa mollit est repellendus. Ea sed at unde laudantium mollitia itaque enim facilis consequuntur, illum sequi ex quis hic minima id eos anim quam cum quo eaque do soluta in id aliquid odio voluptate. Enim nostrud ut magnam ea sunt iure saepe inventore et nam aut atque, aute excepteur ad quo illum ab natus.',
     points: [
-      'Four collection stations across North Sumatra and Aceh',
-      'Hand grading before extraction, never after',
-      'Steam distillation, resinoid and absolute routes in-house',
+      'Quam cupiditate occaecat labore culpa dolores non odio',
+      'Unde dolores beatae incididunt, quasi lorem',
+      'Minus perspiciatis, corporis rem repellat tempor ex-nihil',
     ],
     cta: 'How we source',
     href: '/sustainability/responsible-sourcing/',
@@ -158,12 +158,12 @@ export const BUSINESS_PASSAGES: Passage[] = [
   {
     id: 'ingredients',
     eyebrow: 'Ingredient supply',
-    title: 'Eighteen naturals, each with a published specification',
-    body: 'Resins, leaf oils, roots, spices and one wood. Every material in the catalog carries its origin, extraction route, harvest window and a specification we hold across seasons rather than per lot. Buyers get the same document we work from, including the years a crop was difficult. Ten-gram samples leave Medan with a batch certificate and a GC trace.',
+    title: 'Occaecat nesciunt, anim modi do molestiae exercitation',
+    body: 'Aliqua, odit quos, dolor, magnam eum cum iste. Magna mollitia ab cum aliquid nostrum quo maxime, cupiditate natus, dolores libero hic ea exercitationem ut quos labore dolorem facere aute hic quo. Itaque aut cum nisi quisquam ab amet quod, quibusdam eum lorem ut amet est consequat. Cum-modi ullamco irure optio vero ex nihil dignissimos cum ex ab fugit.',
     points: [
-      'Specification held across seasons, not per lot',
-      'Batch certificate and GC trace with every sample',
-      'Most sample requests dispatched within three working days',
+      'Exercitationem illo mollit numquam, non quo qui',
+      'Dolor accusantium non ad porro unde animi aliqua',
+      'Elit libero expedita temporibus mollit dicta nostrud sunt',
     ],
     cta: 'Browse the catalog',
     href: '/ingredients/catalog/',
@@ -173,12 +173,12 @@ export const BUSINESS_PASSAGES: Passage[] = [
   {
     id: 'perfumery',
     eyebrow: 'Perfumery',
-    title: 'A bench a day from the gardens it draws on',
-    body: 'The perfumery exists because customers kept asking what our naturals could do together. It is a small operation by industry standards and deliberately so: accords and functional bases built mostly from materials we grew and distilled ourselves, developed close enough to the source that a perfumer can smell a lot the week it is tapped.',
+    title: 'At alias ex sed enim eos ullamco ab culpa et',
+    body: 'Hic veritatis cumque commodi cupidatat nisi dolore duis vel sapiente ipsam ut officiis. Ad ab ut atque explicabo ab repellat molestias aut exercitation id: nostrum quo voluptatem dicta saepe beatae modi excepteur ex sunt eos veritatis inventore, occaecati optio cumque ut sit magnam vero in officiis eos minus do rem eum anim et ad cumque.',
     points: [
-      'Fine fragrance accords and functional bases',
-      'Bespoke work from brief to production formula',
-      'Naturals-led palette, captives kept to a minimum',
+      'Nemo explicabo tenetur est voluptatem neque',
+      'Numquam modi amet minim do reiciendis eveniet',
+      'Deserunt-non laboris, possimus quam ut ad ducimus',
     ],
     cta: 'See the perfumery',
     href: '/perfumery/',
@@ -192,10 +192,10 @@ export const BUSINESS_PASSAGES: Passage[] = [
 export const LEADERSHIP_INTRO: PageIntro = {
   eyebrow: 'About Adhiloka',
   title: 'Our Leadership',
-  lede: 'A small group, most of whom have stood on the grading floor. Between them they answer for what leaves the works and for what is paid at the collection point.',
+  lede: 'Et ipsum dolor, quas ad unde sint nihil ut est aliquip ipsum. Aliquid illo odio itaque rem duis labore quo nulla qui cum ipsa do illo in aut cupiditate magna.',
   description:
-    'The people who lead Adhiloka Group: executive leadership across sourcing, operations, perfumery, sustainability and commerce.',
-  caption: 'boardroom, Jl. Imam Bonjol',
+    'Rem tempor eos sint nesciunt error: doloribus recusandae facere voluptas, cupiditate, doloribus, exercitationem quo voluptas.',
+  caption: 'boardroom',
   image: 'about-table',
 };
 
@@ -206,40 +206,40 @@ export type Leader = { name: string; role: string; bio: string; shot: string };
    halaman leadership. */
 export const LEADERSHIP: Leader[] = [
   {
-    name: 'Nama belum ditentukan',
-    role: 'Chief Executive',
-    bio: 'Sixth generation of the founding family. Joined the grading floor before the office, and still signs off the benzoin grades personally each season.',
-    shot: 'portrait, Medan',
+    name: 'Quod nobis reiciendis',
+    role: 'Sequi Occaecati',
+    bio: 'Dolor asperiores ea sed corrupti veniam. Aliqua eos quaerat optio aliqua quo tempor, sit totam magna qui est eiusmod cumque doloremque nisi minima.',
+    shot: 'portrait',
   },
   {
-    name: 'Nama belum ditentukan',
-    role: 'Director of Sourcing',
-    bio: 'Runs the four collection stations and the relationships behind them. Sets the floor price before each tapping season opens.',
-    shot: 'portrait, Sibolga station',
+    name: 'Modi atque recusandae',
+    role: 'Officiis in Repellat',
+    bio: 'Unde vel elit laudantium adipisci rem sed perspiciatis dolore unde. Nemo est fugit magni cumque duis commodi maxime alias.',
+    shot: 'portrait',
   },
   {
-    name: 'Nama belum ditentukan',
-    role: 'Director of Operations',
-    bio: 'Responsible for both distillation halls, the grading floor and the fractionation line, and for the specification held across them.',
+    name: 'Quos totam distinctio',
+    role: 'Mollitia ad Aspernatur',
+    bio: 'Dignissimos non vero consequuntur ipsum, quo laboris velit qui eos reprehenderit aute, eum non aut reprehenderit odio itaque quos.',
     shot: 'portrait, still hall',
   },
   {
-    name: 'Nama belum ditentukan',
-    role: 'Head of Perfumery',
-    bio: 'Leads the bench and the bespoke work. Trained in Grasse, returned to build a naturals-led palette from the source end.',
+    name: 'Iste fugit blanditiis',
+    role: 'Quia ut Voluptate',
+    bio: 'Earum rem ipsam sit cum tempora sunt. Ratione at beatae, officiis ut dicta ea adipisci-quo tenetur odit vel maxime vel.',
     shot: 'portrait, weighing room',
   },
   {
-    name: 'Nama belum ditentukan',
-    role: 'Head of Sustainability',
-    bio: 'Holds the traceability record and the household register, and audits both against what the stations actually paid.',
+    name: 'Sint nulla distinctio',
+    role: 'Vero at Exercitationem',
+    bio: 'Minus eos perspiciatis aliqua aut nam inventore pariatur, sed dolore eius ducimus iste hic suscipit nesciunt eius.',
     shot: 'portrait, agroforest',
   },
   {
-    name: 'Nama belum ditentukan',
-    role: 'Commercial Director',
-    bio: 'Export, quotation and the Grasse representation. The first call for most buyers outside Indonesia.',
-    shot: 'portrait, Jakarta office',
+    name: 'Iste natus cupiditate',
+    role: 'Incididunt Incidunt',
+    bio: 'Labore, veritatis est rem dolore exercitationem. Cum error unde hic nisi libero aliquip excepturi.',
+    shot: 'portrait',
   },
 ];
 
@@ -248,39 +248,39 @@ export const LEADERSHIP: Leader[] = [
 export const PURPOSE_INTRO: PageIntro = {
   eyebrow: 'About Adhiloka',
   title: 'Our Purpose',
-  lede: 'The naturals trade only works if the forest and the families who tend it are still there in fifty years. Everything we do is downstream of that sentence.',
+  lede: 'Nam possimus nobis sint magni do aut minima quo est deserunt sed iure ex quo error saepe ut autem alias. Temporibus do ea ut aspernatur ut anim occaecat.',
   description:
-    'The purpose of Adhiloka Group: keeping the forest and the households who tend it viable, so the naturals trade still exists in fifty years.',
+    'Eos ratione in delectus dolor: laboris est cillum sit sed aspernatur aut illo at cumque, ab aut officiis nihil animi cumque ex saepe autem.',
   caption: 'kemenyan agroforest canopy',
   image: 'agroforest-canopy',
 };
 
 export const PURPOSE_BODY = [
-  'A benzoin tree is tapped, not felled. That single fact is why the Tapanuli uplands still have forest on them, and it is also why the material is expensive, slow and occasionally unavailable. A house that wants cheap benzoin every year will eventually get it by pushing someone to clear and replant. We would rather have a difficult season.',
-  'So the purpose is not a statement about nature. It is a purchasing discipline: pay a floor price agreed before the season rather than after, buy at the station rather than through a consolidator, and keep the household attached to the lot all the way to the drum. Those three habits cost us margin, and they are the reason the gardens are still worth tending.',
+  'Ab dolores quos id dolore, eos magnam. Quas labore iure ab vel est deleniti aliquid iusto ipsa maxime id sunt, aut at ad nisi non eos voluptas ad occaecati, quas quo exercitation repellendus. Ut magna vero culpa neque commodo nobis elit nisi doloremque est ad do quaerat tenetur ea velit qui ullamco. Id alias minima eius do molestias minima.',
+  'Ea aut placeat do eum id quibusdam alias libero. Ea at id voluptatem doloremque: aut ad ipsam atque mollit tempor vel veniam mollit unde earum, qui ad cum aliquip magnam illo eiusmod et consequuntur, est quas aut cupidatat incidunt ab eum non sit sed vel do sit odit. Nulla nihil labore nemo ab tempor, nam quam non vel mollit vel debitis vel nobis minus aliquid.',
 ];
 
 export const PURPOSE_VALUES: { title: string; body: string }[] = [
   {
-    title: 'Answer for the lot',
-    body: 'Every drum can be walked back to a collection point and a household. If it cannot, we do not ship it.',
+    title: 'Magnam sit non qui',
+    body: 'Sequi elit qui ad beatae modi at do reiciendis animi vel et molestias. Ex ab facere, ex ab non illo ut.',
   },
   {
-    title: 'Price before the season',
-    body: 'A floor price agreed while there is still time to plan is worth more to a tapper than a good price offered at harvest.',
+    title: 'Sequi minima aut minima',
+    body: 'Ex natus nobis cumque sequi nulla ex nulla aute at vero in velit iure do ut minima quam et sunt nulla facilis ex ullamco.',
   },
   {
-    title: 'Grade by hand',
-    body: 'Machines sort faster and worse. Three qualities, sorted by people who have done it for years, before anything reaches a still.',
+    title: 'Saepe ea illo',
+    body: 'Suscipit modi magnam sed nobis. Nihil assumenda, magnam at itaque est sunt quas at rem lorem, magnam officiis ullamco ex atque.',
   },
   {
-    title: 'Publish the difficult years',
-    body: 'The specification says what a bad season did to the vanillin range. Buyers plan better with the truth than with an average.',
+    title: 'Aperiam nam excepturi iusto',
+    body: 'Sit consequuntur iste odit ex hic cillum aut in cum proident dicta. Soluta duis minima quia est error illo quae ex tempora.',
   },
 ];
 
 export const PURPOSE_QUOTE: Quote = {
-  text: 'We are not trying to grow quickly. We are trying to be the house still buying from these slopes when the people tapping them now have grandchildren.',
+  text: 'Ea nam sed dolore ad unde aliquid. Ex nam aliqua id ea rem culpa dolor cillum nemo sequi cumque odio cum magnam officia quam non enim consequuntur.',
   attribution: 'Adhiloka Group',
 };
 
@@ -289,10 +289,10 @@ export const PURPOSE_QUOTE: Quote = {
 export const HISTORY_INTRO: PageIntro = {
   eyebrow: 'About Adhiloka',
   title: 'Our History',
-  lede: 'One ledger in Sibolga, six generations, and a stubborn refusal to leave the material that started it.',
+  lede: 'Eos minima ut officia, quo repellendus, eum id possimus tempore et fugit quo officiis duis commodo ea.',
   description:
-    'The history of Adhiloka Group, from a benzoin ledger in 1840s Sibolga to a fractionation line and perfumery bench in Medan.',
-  caption: 'still hall, Medan works',
+    'Aut ullamco ea possimus dicta, amet ut debitis magnam et 1234s commodo ab id exercitation amet non quibusdam eaque ex optio.',
+  caption: 'still hall',
   image: 'material-benzoin',
 };
 
@@ -300,44 +300,44 @@ export type Era = { year: string; title: string; body: string };
 
 export const HISTORY_TIMELINE: Era[] = [
   {
-    year: '1840s',
-    title: 'A ledger in Sibolga',
-    body: 'The family begins buying benzoin at the port, on credit advanced to tappers before the season. The ledger survives, and the terms written in it are close to the ones we still use.',
+    year: '2000',
+    title: 'Do itaque et ullamco',
+    body: 'Nam mollit magnam tempor eiusmod ex nam duis, ad veniam sapiente ea ullamco libero cum minima. Quo magnam deleniti, non qui iusto aperiam ea at qui quasi ea rem quam id dicta qui.',
   },
   {
-    year: '1898',
-    title: 'First collection station',
-    body: 'A permanent buying post opens upland, cutting the consolidators out of the chain and putting the family in front of the households for the first time.',
+    year: '2003',
+    title: 'Ipsum incididunt tempore',
+    body: 'At quibusdam cillum iste autem labore, ducimus cum exercitationem cum ab eum optio quo tempore eos fugiat ad magna ad est blanditiis quo nam magna illo.',
   },
   {
-    year: '1931',
-    title: 'The first still',
-    body: 'A single copper still in Medan. Until then everything left Sumatra as raw resin; from here the house sells what it has refined itself.',
+    year: '2006',
+    title: 'Vel saepe error',
+    body: 'Ad fugiat magnam rerum ab ipsam. Error anim recusandae iure laboris ea non saepe; ipsa sunt sit nobis ipsum nisi ab non impedit beatae.',
   },
   {
-    year: '1968',
-    title: 'Beyond benzoin',
-    body: 'Patchouli, citronella and clove leaf enter the book as the third generation takes over. The catalog reaches nine materials before the decade ends.',
+    year: '2009',
+    title: 'Libero ullamco',
+    body: 'Consequat, incididunt sit error quam dicta est odit in qui neque distinctio magni odio. Est nostrud eiusmod iure explicabo cillum sed aliqua quis.',
   },
   {
-    year: '1994',
-    title: 'The Medan works',
-    body: 'Two distillation halls and a dedicated resin grading floor replace the old site. Capacity triples; the hand grading does not change.',
+    year: '2012',
+    title: 'Est ipsum totam',
+    body: 'Est voluptatibus atque nam at assumenda ipsum officia neque eveniet quo qui modi. Corrupti ducimus; nam aute tempora ipsa eos aliqua.',
   },
   {
-    year: '2011',
-    title: 'Traceability to the household',
-    body: 'The household register begins. Every benzoin lot from this point carries its collection point and the family it came from, recorded at grading rather than reconstructed later.',
+    year: '2015',
+    title: 'Perspiciatis ab eum consequat',
+    body: 'Sit inventore corporis magnam. Dolor eveniet non iure quam illum nostrum sed aspernatur nihil quo nam beatae ea odit sint, officiis ad laboris magnam modi exercitation irure.',
   },
   {
-    year: '2019',
-    title: 'Fractionation and the bench',
-    body: 'A fractionation line and a small perfumery open in the same year, so the house can answer both what a material is and what it can do.',
+    year: '2018',
+    title: 'Reprehenderit non hic porro',
+    body: 'Ex perspiciatis esse sit do nihil inventore aute id vel quis duis, ea sit fugit nam labore quod esse in corrupti ab sed aute et cum et.',
   },
   {
     year: 'Today',
-    title: 'Eighteen naturals, six generations',
-    body: 'Resins, leaf oils, roots, spices and one wood, supplied to fine fragrance and functional houses across four continents, still from the same uplands.',
+    title: 'Occaecat eligendi, nam repudiandae',
+    body: 'Magnam, quas enim, earum, minima cum non quis, deleniti ea vero cupidatat nam adipiscing itaque cumque unde asperiores, nobis iure nam eius ullamco.',
   },
 ];
 
@@ -346,10 +346,10 @@ export const HISTORY_TIMELINE: Era[] = [
 export const LOCATIONS_INTRO: PageIntro = {
   eyebrow: 'About Adhiloka',
   title: 'Our Locations',
-  lede: 'Gardens, stations, works and desks. Almost everything upstream of the drum sits within a day of everything else.',
+  lede: 'Laborum, quisquam, eaque nam ipsam. Cumque aspernatur eligendi do hic quam quis itaque ab eum ut architecto duis.',
   description:
-    'Adhiloka locations: collection stations across North Sumatra and Aceh, the Medan works, and commercial offices in Jakarta and Grasse.',
-  caption: 'Tapanuli benzoin gardens',
+    'Suscipit inventore: voluptates pariatur minima alias laboris rem illo, qui animi lorem, nam incididunt officia ab nostrum cum tempor.',
+  caption: 'benzoin gardens',
   image: 'hero-agroforest',
 };
 
@@ -365,57 +365,57 @@ export type Site = {
 
 export const SITES: Site[] = [
   {
-    city: 'Medan',
-    region: 'North Sumatra',
-    kind: 'Works & head office',
-    body: 'Two distillation halls, the resin grading floor, the fractionation line and the perfumery bench, plus the desks that answer for all of it.',
-    detail: ['Steam distillation', 'Resinoid & absolute', 'Fractionation', 'Perfumery bench'],
-    shot: 'still hall, Medan works',
+    city: 'Culpa',
+    region: 'Lorem Ratione',
+    kind: 'Dolore & irure magna',
+    body: 'Sit consequuntur nulla, nam iusto placeat natus, hic necessitatibus elit eos cum doloribus minim, nisi nam autem eius maxime est non et at.',
+    detail: ['Ullam exercitation', 'Officiis & corrupti', 'Voluptatibus', 'Cupidatat ipsum'],
+    shot: 'still hall',
     image: 'fragrance-resin',
   },
   {
-    city: 'Sibolga',
-    region: 'North Sumatra',
-    kind: 'Collection station',
-    body: 'The oldest post in the network and the closest to the benzoin uplands. Grading starts here before anything moves to Medan.',
-    detail: ['Benzoin intake', 'First grading', 'Household register'],
-    shot: 'benzoin intake, Sibolga',
+    city: 'Eveniet',
+    region: 'Saepe Dolorem',
+    kind: 'Commodo sit amet',
+    body: 'Eum beatae ipsa ab cum nostrud hic rem officia ab nam facilis ratione. Tempora cumque eius cillum possimus minus ea iusto.',
+    detail: ['Ducimus minima', 'Ullam impedit', 'Voluptate adipisci'],
+    shot: 'benzoin intake',
     image: 'material-benzoin',
   },
   {
-    city: 'Tarutung',
-    region: 'North Sumatra',
-    kind: 'Collection station',
-    body: 'Serves the Tapanuli forest gardens directly. Floor prices for the season are posted here before tapping begins.',
-    detail: ['Benzoin intake', 'Season pricing', 'Tapper training'],
-    shot: 'collection post, Tarutung',
+    city: 'Mollitia',
+    region: 'Dicta Laboris',
+    kind: 'Commodo sit amet',
+    body: 'Minima rem corrupti facere nostrum expedita. Ipsam libero est aut mollit non libero odit maxime dolorem cumque.',
+    detail: ['Commodi aliqua', 'Cillum quaerat', 'Magnam possimus'],
+    shot: 'collection post',
     image: 'agroforest-canopy',
   },
   {
-    city: 'Takengon',
-    region: 'Aceh',
-    kind: 'Collection station',
-    body: 'Patchouli and citronella country. Wet leaf is bought and dried locally rather than trucked green across the province.',
-    detail: ['Patchouli intake', 'Local drying', 'Field distillation'],
-    shot: 'drying floor, Takengon',
+    city: 'Suscipit',
+    region: 'Quos',
+    kind: 'Commodo sit amet',
+    body: 'Voluptate qui doloremque impedit. Quo sint ad mollit sed natus commodo libero illo tenetur atque veniam eos officiis.',
+    detail: ['Inventore labore', 'Irure soluta', 'Natus exercitation'],
+    shot: 'drying floor',
     image: 'material-patchouli',
   },
   {
-    city: 'Jakarta',
-    region: 'Java',
-    kind: 'Commercial & export',
-    body: 'Quotation, documentation and export. The desk most buyers deal with day to day.',
-    detail: ['Export documentation', 'Quotation', 'Logistics'],
-    shot: 'commercial office, Jakarta',
+    city: 'Eveniet',
+    region: 'Ipsa',
+    kind: 'Laboris & tempor',
+    body: 'Inventore, voluptatibus hic minima. Eum sint nisi mollit unde aute eos do vel.',
+    detail: ['Beatae reprehenderit', 'Doloribus', 'Excepteur'],
+    shot: 'office',
     image: 'hero-benzoin-tears',
   },
   {
-    city: 'Grasse',
-    region: 'France',
-    kind: 'Europe representation',
-    body: 'A single office keeping European customers within an hour of a person who knows the crop, not a timezone away from one.',
-    detail: ['Customer liaison', 'Sample handling', 'Evaluation'],
-    shot: 'representation office, Grasse',
+    city: 'Facere',
+    region: 'Maxime',
+    kind: 'Fugiat veniam aliqua',
+    body: 'Ad dolore facere ullamco nesciunt excepturi soluta id odit ab ut cillum non atque eos unde, rem do repellat anim quos vel.',
+    detail: ['Pariatur laborum', 'Cillum possimus', 'Voluptates'],
+    shot: 'office',
     image: 'hero-still-hall',
   },
 ];

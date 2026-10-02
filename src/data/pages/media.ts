@@ -8,9 +8,9 @@ export const MEDIA_INTRO: PageIntro = {
   eyebrow: 'Media',
   title: 'What we have announced, and the material to write about it.',
   metaTitle: 'Media',
-  lede: 'Announcements from the works and the gardens, images cleared for publication, and the accounts where we post between them.',
+  lede: 'Exercitation aute rem alias nam sed dolorem, maxime facilis cum consectetur, rem aut sapiente natus ex nemo officia quis.',
   description:
-    'The Adhiloka media room: news from the works and the gardens, downloadable media resources, and our social channels.',
+    'Sed proident optio elit: ipsa quia cum nihil eum rem tempore, consequuntur fugit consequat, vel hic dolore quisquam.',
   image: 'material-benzoin',
   caption: 'benzoin resin, hand-graded',
 };
@@ -18,25 +18,25 @@ export const MEDIA_INTRO: PageIntro = {
 export const MEDIA_CARDS: LinkCard[] = [
   {
     title: 'News',
-    body: 'Announcements about the crop, the works, and the people who supply us.',
+    body: 'Exercitationem saepe nam odit, eos nihil, nam est cillum nam dolore at.',
     href: '/media/news/',
   },
   {
     title: 'Media Resources',
-    body: 'Logos, cleared photography, the company fact sheet and the current sustainability report.',
+    body: 'Fugit, aliquip repudiandae, nam ratione ipsa velit eos nam aperiam exercitationem mollit.',
     href: '/media/media-resources/',
   },
   {
     title: 'Social Media',
-    body: 'Where we post between announcements, and which account is actually ours.',
+    body: 'Saepe ad esse facilis exercitation, eum magni placeat do deserunt sunt.',
     href: '/media/social-media/',
   },
 ];
 
 export const MEDIA_CONTACT = {
   title: 'Press enquiries',
-  body: 'Interview requests, images not listed here, and fact checks. We answer press mail ourselves and usually within two working days.',
-  email: 'press@adhiloka.com',
+  body: 'Excepteur eligendi, soluta non aliqua aute, non duis labore. Do minima quasi esse quibusdam est laboris libero eos numquam modi.',
+  email: 'info@adhiloka.com',
 };
 
 /* ── News ────────────────────────────────────────────────────────────── */
@@ -44,10 +44,10 @@ export const MEDIA_CONTACT = {
 export const NEWS_INTRO: PageIntro = {
   eyebrow: 'Media',
   title: 'News',
-  lede: 'The crop, the works and the register. We publish the difficult seasons as well as the good ones.',
+  lede: 'Eos esse, nam saepe sit sed repellat. Do aliquid cum molestias ratione et iure id hic odio nemo.',
   description:
-    'News from Adhiloka Group: harvest reports, works updates, sourcing announcements and research from the perfumery bench.',
-  caption: 'grading floor, Medan works',
+    'Quod sunt sapiente rerum: laborum aperiam, optio eiusmod, nesciunt voluptatibus hic corrupti sint aut consequat error.',
+  caption: 'grading floor',
   image: 'material-nutmeg',
 };
 
@@ -66,93 +66,93 @@ export type Article = {
    artikel. Ganti dengan pengumuman sungguhan sebelum terbit. */
 export const NEWS: Article[] = [
   {
-    slug: 'benzoin-season-2026-opens',
+    slug: 'release-2026-08-18',
     date: '2026-08-18',
     category: 'Harvest',
-    title: 'Benzoin season opens with floor prices posted at all four stations',
+    title: 'Laboris mollit neque quas dolor magnam itaque ad nam iure officiis',
     standfirst:
-      'Tapping began across the Tapanuli uplands this month, with the season floor price posted before the first lot arrived.',
+      'Numquam ullam tempor eum officiis eveniet iste magni, quas est cumque vitae culpa libero veniam hic nobis vel officia.',
     body: [
-      'Tapping opened across the Tapanuli uplands in the second week of August, and for the seventeenth consecutive season the floor price was posted at every station before the first lot was weighed. Households working with us know what a kilo of first-grade resin will fetch before they decide how many trees to score.',
-      'Early lots suggest a steady year. First-grade share at Tarutung is running slightly ahead of last season, which station staff attribute to the pre-season grading sessions rather than to the weather. The vanillin range will not be confirmed until the first full extraction runs in October.',
-      'Buyers with standing allocations will receive confirmed availability in the first week of October. Sample requests for the new season open at the same time.',
+      'Officia veniam tempor quo mollitia quaerat do qui magnam quae ex facere, quo eum quo consectetur repellendus beatae non neque nihil quo labore at animi officia minima sed sequi vel nam laboris. Voluptatem aliquip quas id modi anim in quas do ipsum-optio error quod minim fugiat duis aliqua qui aute natus ex neque.',
+      'Culpa unde laborum ut cumque odio. Vitae-lorem velit do deserunt id eveniet pariatur totam ab ipsa cumque, saepe eveniet omnis consequat ut sit cum-cumque numquam suscipit libero amet at vel dolorem. Quo deserunt nobis quam vel ut voluptate optio eos sequi eius blanditiis nisi ut impedit.',
+      'Beatae esse adipisci repellendus iure ratione accusamus exercitation ab quo nobis quia ea facilis. Labore repellat nam cum eos soluta quos ea qui iure quis.',
     ],
     shot: 'benzoin resin, hand-graded',
     image: 'material-benzoin',
   },
   {
-    slug: 'fractionation-line-second-column',
+    slug: 'release-2026-06-02',
     date: '2026-06-02',
     category: 'Works',
-    title: 'A second fractionation column goes in at the Medan works',
+    title: 'Ut fugiat perspiciatis soluta quos do ut quo ipsum error',
     standfirst:
-      'The addition doubles capacity on resin fractions and brings patchouli fractionation in-house year-round.',
+      'Sit nesciunt eiusmod corporis ea fugit voluptate est libero excepteur exercitationem ea-neque vero-quasi.',
     body: [
-      'The fractionation line installed in 2019 has been running at capacity for two seasons. A second column, commissioned in May, doubles throughput on resin fractions and lets us run patchouli fractionation continuously rather than in campaigns between benzoin batches.',
-      'The practical result for customers is availability. Low-iron patchouli fractions, which we have been rationing since 2024, return to the standard catalog from July. Vanillic and balsamic benzoin fractions move to continuous supply at the same time.',
-      'No additional raw material is required for any of it. Fractionation separates what a lot already contains, which is the reason the line was built in the first place.',
+      'Vel reprehenderit nisi cupidatat ea 1234 quo quis eveniet do sapiente eum cum dolorem. Ea labore minima, perspiciatis ex rem, aliquid laboriosam ea saepe similique quo eius et eos consequat exercitationem perspiciatis minima vero ut doloribus facilis placeat nostrum.',
+      'Sed occaecati aliqua sed assumenda at perspiciatis. Est-illo excepteur voluptate, nihil ab quos iure similique magna 1234, dolore ut sit possimus debitis amet quia. Eligendi vel eligendi nostrum explicabo enim in architecto magnam ad cum iure illo.',
+      'Et laudantium est suscipit ut possimus qui aut in ea. Consequuntur quibusdam sunt ut est debitis suscipit, magni ab est veniam eum quod sit minus do vel quasi vitae.',
     ],
-    shot: 'fractionation line, Medan works',
+    shot: 'processing line',
     image: 'fragrance-resin',
   },
   {
-    slug: 'household-register-passes-1400',
+    slug: 'release-2026-04-21',
     date: '2026-04-21',
     category: 'Sourcing',
-    title: 'Household register passes 1,400 families',
+    title: 'Inventore deleniti magnam 1,234 corrupti',
     standfirst:
-      'Fifteen years after it opened, the register now covers every benzoin lot we buy and most of our patchouli.',
+      'Nostrud minus culpa ut soluta, cum adipisci eum soluta error dolores hic ex est quo nisi do est cupidatat.',
     body: [
-      'The household register began in 2011 with a few hundred families around Sibolga. It now holds more than 1,400, and every benzoin lot bought this season is attached to one of them at the moment of purchase rather than reconstructed afterwards.',
-      'Patchouli coverage stands at roughly four fifths, the gap being wet leaf bought at Takengon from growers who are not yet registered. Closing it is the sourcing team’s stated objective for the coming year.',
-      'The register is not a certification scheme and we do not present it as one. It is a purchase record, kept because we cannot answer for a drum we cannot trace.',
+      'Non accusamus repellat magni do 1234 amet ex rem quaerat possimus facere ullamco. Do aut neque aute eius 1,234, eos atque dolorem hic cillum duis minima ea nesciunt ad eos in vero ex aut libero ab corrupti veniam aute exercitationem distinctio.',
+      'Excepteur corporis veniam ex aliquid quas libero, eum cum nobis eum quia tempor in possimus iure laboris qui cum rem vel doloremque. Aliquip in id non repellat totam cillum occaecati sit quo aliqua iure.',
+      'Quo expedita ea hic ea exercitation beatae quo at in sit impedit ut in rem. At ut do deleniti cumque, eius numquam id aliqua dolore sed ea quod ad dolore nobis.',
     ],
-    shot: 'benzoin intake, Sibolga',
+    shot: 'benzoin intake',
     image: 'material-benzoin',
   },
   {
-    slug: 'cold-process-cananga-trial',
+    slug: 'release-2026-02-10',
     date: '2026-02-10',
     category: 'Perfumery',
-    title: 'Cold-process cananga enters its second trial season',
+    title: 'Nemo-nostrud tenetur cumque sed libero dicta itaque',
     standfirst:
-      'An extraction route that keeps more of the green top than steam does — promising, unfinished, and being reported either way.',
+      'Ea cupiditate ullam odio atque illo at non ipsam rem illo illum quos — veritatis, laboriosam, eum nihil deleniti mollit eos.',
     body: [
-      'Steam distillation costs cananga most of its green opening. A cold-process route trialled at the bench through 2025 retains noticeably more of it, at a yield that is currently too low to sell against.',
-      'The second trial season is about that yield rather than the smell. If it cannot be brought into a range that makes commercial sense, we will say so and publish what we learned.',
-      'Perfumers who would like to evaluate the trial material can request it. It is not in the catalog and will not be until the arithmetic works.',
+      'Porro consequuntur dolor commodo sunt et vel iusto tempora. Id nisi-debitis rerum deserunt id sit animi aliquip 1234 impedit incididunt odit at in, do ex ipsam odit ad excepteur eos rem ea quis ullamco.',
+      'Sed itaque culpa minima do error odit illum maxime quod sit ipsum. Et ea mollit et eiusmod duis in alias elit lorem blanditiis rerum, ut enim eum ex eos aperiam elit in aliquid.',
+      'Quibusdam nam neque enim id deserunt rem eaque corporis est ullamco id. At do nam do quo ducimus eos duis eum id nulla nam temporibus minim.',
     ],
     shot: 'petal, close',
     image: 'fragrance-petal',
   },
   {
-    slug: 'difficult-patchouli-season-reported',
+    slug: 'release-2025-11-14',
     date: '2025-11-14',
     category: 'Harvest',
-    title: 'A difficult patchouli season, reported as it happened',
+    title: 'Ut similique molestias fugiat, adipisci id ex incidunt',
     standfirst:
-      'Aceh rainfall pushed patchouli alcohol below our usual floor. We published the range rather than blending to hide it.',
+      'Iure proident cillum voluptate debitis lorem non magna totam. Do molestiae non totam fugiat quas suscipit at enim ex.',
     body: [
-      'Unusually heavy rain through the Aceh drying window left patchouli alcohol at the low end of our published range and, in two lots, below it. Both lots were released with the actual figure on the certificate and offered at a corresponding price.',
-      'The alternative — blending across seasons to hold an average — would have produced a tidier specification and a less useful one. Customers formulating to a number need to know when the number moved.',
-      'Drying capacity at Takengon is being extended before the next season to reduce exposure to the same weather pattern.',
+      'Excepturi error esse laborum cum ipsa veniam magnam quae excepturi placeat ex vel eos vel ea quo quibusdam earum eum, do est nisi, atque do. Anim aute quod sapiente quis aut facere beatae ab eos accusantium vel numquam ab at consequuntur error.',
+      'Non consectetur — deleniti minima placeat ex enim ab aliquid — fugit quae officiis ut magnam voluptatibus rem in nisi mollit sit. Assumenda perferendis ea ab libero sint do enim quas vel itaque magni.',
+      'Itaque nesciunt ex eligendi ut ipsum pariatur maxime sed quae veniam ea beatae mollitia at quo vero ducimus officia.',
     ],
     shot: 'patchouli leaf, close',
     image: 'material-patchouli',
   },
   {
-    slug: 'grasse-representation-opens',
+    slug: 'release-2025-09-01',
     date: '2025-09-01',
     category: 'Company',
-    title: 'Europe representation opens in Grasse',
+    title: 'Itaque reprehenderit omnis in facere',
     standfirst:
-      'A single office, so European customers are an hour from somebody who knows the crop rather than a timezone.',
+      'In cumque libero, id nesciunt quibusdam nam ut iure esse repellat vel minim qui quia cumque ipsa ut repellat.',
     body: [
-      'A small representation office opened in Grasse this month, handling customer liaison, sample dispatch within Europe and evaluation support.',
-      'It is deliberately not a sales office. The people there have spent time at the stations and on the grading floor, and the point of the arrangement is that a European perfumer can ask a question about a lot and get an answer from someone who has seen it.',
-      'Quotation and export documentation continue to run from Jakarta.',
+      'In neque exercitationem soluta facere id cillum anim earum, incidunt repellat debitis, cumque corrupti libero dolore aut voluptates tempore.',
+      'Id et consequuntur quo in culpa beatae. Aut aliqua vitae quia dolor sint at eos possimus sed at quo facilis culpa, sed non omnis in hic repellendus ex ipsa id corrupti deserunt quo sed ea quisquam dolor at sit aut quo et magnam unde nostrum quo sed modi in.',
+      'Excepteur hic labore voluptatibus proident ea non esse ullamco.',
     ],
-    shot: 'representation office, Grasse',
+    shot: 'office',
     image: 'hero-still-hall',
   },
 ];
@@ -172,10 +172,10 @@ export const formatDate = (iso: string) =>
 export const RESOURCES_INTRO: PageIntro = {
   eyebrow: 'Media',
   title: 'Media Resources',
-  lede: 'Cleared images, the wordmark in usable formats, and the documents we would rather be quoted from than paraphrased.',
+  lede: 'Aliquid veniam, cum eligendi ut libero ullamco, hic cum molestiae ut nulla minima et minima ipsa nisi repudiandae.',
   description:
-    'Downloadable Adhiloka media resources: logo files, cleared photography, company fact sheet and sustainability report.',
-  caption: 'still hall, Medan works',
+    'Perspiciatis possimus dicta doloribus: unde nulla, eveniet accusantium, commodo anim dicta vel exercitationem facere.',
+  caption: 'still hall',
   image: 'hero-benzoin-tears',
 };
 
@@ -191,36 +191,36 @@ export type Resource = {
    di /media/ sebelum terbit, atau hapus barisnya. */
 export const RESOURCES: Resource[] = [
   {
-    title: 'Wordmark and ring',
-    body: 'Primary wordmark, ring mark and the one-colour variants, with the clearance rules.',
+    title: 'Quisquam hic aute',
+    body: 'Nostrum expedita, unde odit sit rem eos-tempor delectus, nemo hic doloribus rerum.',
     kind: 'ZIP · SVG, PNG, EPS',
     size: '2.4 MB',
     href: '/contact/',
   },
   {
-    title: 'Company fact sheet',
-    body: 'Founding, ownership, sites, catalog scope and the figures we are happy to see quoted.',
+    title: 'Tempore iure fugit',
+    body: 'Occaecat, similique, irure, ullamco minus nam cum nostrum id aut error in nam beatae.',
     kind: 'PDF',
     size: '480 KB',
     href: '/contact/',
   },
   {
-    title: 'Sustainability report',
-    body: 'Household register, floor prices, land position and the measures behind each claim.',
+    title: 'Reprehenderit cillum',
+    body: 'Excepteur voluptas, lorem soluta, sunt corporis non nam deserunt itaque iste dicta.',
     kind: 'PDF',
     size: '3.1 MB',
     href: '/contact/',
   },
   {
-    title: 'Photography — the works',
-    body: 'Still halls, grading floor, fractionation line and the perfumery bench. Cleared for editorial use with credit.',
+    title: 'Accusantium — hic ipsam',
+    body: 'Autem ullam, commodo atque, perspiciatis illo qui cum consequat totam. Laboris eum molestias non enim magnam.',
     kind: 'ZIP · JPG',
     size: '68 MB',
     href: '/contact/',
   },
   {
-    title: 'Photography — the gardens',
-    body: 'Tapanuli benzoin gardens, tapping and collection stations. People pictured have given consent for editorial use.',
+    title: 'Dignissimos — hic dolorem',
+    body: 'Deserunt quaerat commodo, ducimus cum incididunt mollitia. Fugiat repellat odit nobis quaerat aut quibusdam non.',
     kind: 'ZIP · JPG',
     size: '54 MB',
     href: '/contact/',
@@ -228,16 +228,16 @@ export const RESOURCES: Resource[] = [
 ];
 
 export const RESOURCES_NOTE =
-  'Images may be used editorially with the credit line "Adhiloka Group". They may not be used in advertising, altered beyond cropping, or used to imply a commercial relationship. Anything not listed here, ask us.';
+  'Magnam rem et sint perferendis eius qui minima quod "adipisci autem". Quis sed eos at quia ad perferendis, nostrum itaque mollitia, et vero do earum ut temporibus perspiciatis. Nesciunt quo dolore unde, eum ad.';
 
 /* ── Social Media ────────────────────────────────────────────────────── */
 
 export const SOCIAL_INTRO: PageIntro = {
   eyebrow: 'Media',
   title: 'Social Media',
-  lede: 'Where we post between announcements — and, just as usefully, which accounts are actually ours.',
+  lede: 'Sequi ab modi facilis exercitationem — est, iure at eligendi, magna suscipit quo deleniti aute.',
   description:
-    'Official Adhiloka social media channels, what each one is used for, and how to verify an account is ours.',
+    'Incidunt eligendi soluta vitae adipisci, aute modi eos ut amet cum, vel quo ea labore et aperiam id sint.',
   caption: 'kemenyan agroforest canopy',
   image: 'agroforest-canopy',
 };
@@ -249,32 +249,32 @@ export type Channel = { name: string; handle: string; body: string; href: string
 export const CHANNELS: Channel[] = [
   {
     name: 'LinkedIn',
-    handle: '@adhiloka-group',
-    body: 'Company announcements, harvest reports and the occasional long post about extraction. The account we keep most current.',
+    handle: '@possimus-irure',
+    body: 'Officia necessitatibus, laborum dolores nam aut doloremque quam duis ipsum asperiores. Sed commodo et modi quis debitis.',
     href: 'https://www.linkedin.com/',
   },
   {
     name: 'Instagram',
-    handle: '@adhiloka',
-    body: 'The gardens, the grading floor and the stills. Mostly photographs, mostly taken by the people in them.',
+    handle: '@deleniti',
+    body: 'Vel nostrud, qui commodo magna sed aut magnam. Cillum consequatur, soluta nulla id hic tempor id quos.',
     href: 'https://www.instagram.com/',
   },
   {
     name: 'YouTube',
-    handle: '@adhiloka',
-    body: 'Short films on tapping, grading and distillation, for buyers who would rather see the process than read about it.',
+    handle: '@voluptas',
+    body: 'Minus vitae in ullamco, laborum rem perspiciatis, nam itaque hic nulla aliqua est sit laborum elit odit vitae id.',
     href: 'https://www.youtube.com/',
   },
   {
     name: 'Facebook',
-    handle: '@adhilokagroup',
-    body: 'Kept for the station communities in North Sumatra and Aceh, and posted in Bahasa Indonesia.',
+    handle: '@necessitatibus',
+    body: 'Sint est sed commodo perferendis do eaque facilis eos vero, cum beatae id cumque excepturi.',
     href: 'https://www.facebook.com/',
   },
 ];
 
 export const SOCIAL_NOTE =
-  'These four accounts are the only ones we operate. We never ask for payment, deposits or documents through social media, and we will not message you first about an order.';
+  'Ipsum ipsa quisquam eos hic quae odit ab numquam. Do magna cum hic ducimus, proident at molestiae commodo facere minim, eum et vero aut maiores nam magni minus ea fugit.';
 
 /* ── Halaman hub: hero + karusel ────────────────────────────────────────── */
 export const MEDIA_HERO: HeroSlide[] = [
@@ -291,25 +291,25 @@ export const MEDIA_HERO: HeroSlide[] = [
 export const MEDIA_SLIDES: CarouselSlide[] = [
   {
     title: 'News',
-    body: 'Announcements about the crop, the works, and the people who supply us.',
+    body: 'Perspiciatis autem cum quam, qui atque, qui vel itaque cum fugiat at.',
     cta: 'Read the news',
-    shot: 'grading floor, Medan works',
+    shot: 'grading floor',
     image: 'material-nutmeg',
     href: '/media/news/',
     bg: 'oklch(0.882 0.022 52)',
   },
   {
     title: 'Media Resources',
-    body: 'Logos, cleared photography, the company fact sheet and the current sustainability report.',
+    body: 'Eaque, dolorem dignissimos, non aliquid odio dicta eum cum tempora exercitationem itaque.',
     cta: 'Get the resources',
-    shot: 'still hall, Medan works',
+    shot: 'still hall',
     image: 'hero-benzoin-tears',
     href: '/media/media-resources/',
     bg: 'oklch(0.872 0.016 80)',
   },
   {
     title: 'Social Media',
-    body: 'Where we post between announcements, and which account is actually ours.',
+    body: 'Nobis id quam ullamco voluptatibus, eos sequi aliquip et delectus sint.',
     cta: 'See the channels',
     shot: 'kemenyan agroforest canopy',
     image: 'agroforest-canopy',

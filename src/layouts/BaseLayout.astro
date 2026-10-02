@@ -51,19 +51,11 @@ const organization = {
   url: (Astro.site ?? Astro.url.origin).toString(),
   description: SITE.description,
   email: SITE.email,
-  telephone: SITE.phone,
-  foundingDate: '1840',
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: 'Jl. Imam Bonjol 21',
-    addressLocality: 'Medan',
-    postalCode: '20112',
-    addressRegion: 'North Sumatra',
-    addressCountry: 'ID',
-  },
+  // Telepon, tahun berdiri dan alamat dilepas 2 Okt 2026: data lama karangan.
+  // Isi lagi dari data asli.
   areaServed: 'Worldwide',
   knowsAbout: [
-    'Benzoin resinoid',
+    'Benzoin',
     'Patchouli oil',
     'Nutmeg and mace oil',
     'Vetiver oil',

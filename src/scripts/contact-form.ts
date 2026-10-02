@@ -2,7 +2,7 @@
  *  formulir, dan keadaan "terkirim" seperti pada desain. Tanpa access key,
  *  tombolnya jatuh ke mailto alih-alih berpura-pura sudah mengirim. */
 
-const MAIL_TO = 'sourcing@adhiloka.com';
+const MAIL_TO = 'info@adhiloka.com';
 
 type Rule = { test: (v: string) => boolean; message: string };
 

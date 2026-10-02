@@ -5,36 +5,36 @@ import type { HeroSlide } from './home';
 
 export const SUSTAINABILITY_INTRO: PageIntro = {
   eyebrow: 'Sustainability',
-  title: 'The forest is a supplier, not a resource.',
+  title: 'Non beatae ea id eligendi, sit at quisquam.',
   metaTitle: 'Sustainability',
-  lede: 'A benzoin tree is tapped, not felled. Everything we claim on this page follows from taking that literally, including the parts that cost us money.',
+  lede: 'In dolores quod ex veniam, rem mollit. Doloremque ad optio in vero quis tempore quas libero quam excepturi, assumenda cum neque quos esse ad ipsum.',
   description:
-    'Sustainability at Adhiloka: forest-first sourcing, floor prices agreed before the season, traceability to the household, and progress reported honestly.',
+    'Exercitationem at sapiente: cumque-lorem sapiente, error tempor cumque libero qui labore, consequuntur in rem cupidatat, qui deleniti suscipit nesciunt.',
   caption: 'kemenyan agroforest canopy',
   image: 'agroforest-canopy',
 };
 
 export const SUSTAINABILITY_STATS: Stat[] = [
-  { value: '1,400+', label: 'Tapping households in the register' },
-  { value: '100%', label: 'Benzoin traceable to collection point' },
-  { value: '4', label: 'Collection stations buying direct' },
-  { value: '0', label: 'Hectares cleared for our supply' },
+  { value: '1,234+', label: 'Nostrum recusandae at est voluptas' },
+  { value: '12%', label: 'Officia excepturi ut laboriosam culpa' },
+  { value: '1', label: 'Laboriosam sapiente itaque facere' },
+  { value: '1', label: 'Corporis ratione rem eos magnam' },
 ];
 
 export const SUSTAINABILITY_OPENING = [
-  'Most sustainability pages in this industry are written to be quoted. This one is written to be checked. Where a number is measured, we say what measured it. Where it is an estimate, we say that too, and where we have not got there yet we would rather write it down than leave it out.',
-  'The short version: we buy directly at four stations, we agree a floor price before the tapping season instead of after, and every benzoin lot stays attached to the household that produced it all the way to the drum. Those three things are the programme. The rest is reporting.',
+  'Quam necessitatibus nihil in sint incidunt vel tempore id et tempor. Enim sit ut commodo ea in ducimus. Irure ut magnam ab suscipit, id vel quod proident in. Ipsum ea in id deserunt, ea eum quod non, cum omnis ut odit hic rem optio rem id vitae magnam dicta id quam odit magna at qui.',
+  'Cum vitae nostrum: ea eum incidunt ex iste repellat, et sequi ea fugit minim minima cum nostrum aliqua laborum in eaque, rem rerum laborum sed error expedita et rem veritatis eius proident ut qui est rem ex qui aute. Sequi nulla beatae rem aut doloribus. Hic unde et voluptate.',
 ];
 
 export const SUSTAINABILITY_CARDS: LinkCard[] = [
   {
     title: 'Driving progress for people',
-    body: 'Income security for tapping households, training, and what we do in the seasons when the crop fails.',
+    body: 'Maxime corrupti cum dolores aspernatur, expedita, qui quis at ea et est commodo ipsa qui odit lorem.',
     href: '/sustainability/people/',
   },
   {
     title: 'Responsible Sourcing',
-    body: 'How a lot moves from a forest garden to a drum, and what is recorded at each step.',
+    body: 'Hic ex hic atque quod at tempor maxime in at quia, sed elit ex occaecat ab quae illo.',
     href: '/sustainability/responsible-sourcing/',
   },
 ];
@@ -44,9 +44,9 @@ export const SUSTAINABILITY_CARDS: LinkCard[] = [
 export const PEOPLE_INTRO: PageIntro = {
   eyebrow: 'Sustainability',
   title: 'Driving progress for people',
-  lede: 'A forest stays standing because the households around it can afford to leave it standing. That is the entire theory, and most of the work is making the arithmetic hold.',
+  lede: 'Id dolore velit quisquam laboris cum architecto itaque id hic mollit ut autem id suscipit. Anim et hic veniam cillum, rem quos ex qui quis ex dolore non voluptatem eius.',
   description:
-    'How Adhiloka supports the tapping households behind its naturals: floor prices agreed before the season, direct payment, training and support in failed harvests.',
+    'Quo quisquam deleniti non officia voluptates cillum eum repellat: sequi aliqua tempor labore rem mollit, minima tempora, suscipit qui quaerat do labore mollitia.',
   caption: 'kemenyan agroforest canopy',
   image: 'hero-agroforest',
 };
@@ -55,25 +55,25 @@ export const PEOPLE_PASSAGES: Passage[] = [
   {
     id: 'income',
     eyebrow: 'Income',
-    title: 'A price agreed before the season, not after it',
-    body: 'A tapper who knows in March what benzoin will fetch in August can decide whether to tap, how many trees to work and whether to send a child to school. A tapper who finds out at harvest can only accept what is offered. We post a floor price at each station before the season opens and buy at or above it, including in the years the market falls below.',
+    title: 'Ad dicta aliqua tempor vel facere, aut lorem ad',
+    body: 'Ex veniam cum sequi at earum enim aliquid sint alias in cumque sed facere placeat in eum, sed quae ipsam at iure non ratione ad quos id porro et aliqua. Ea maxime est eaque cum et commodi vel vero mollit unde at eveniet. Ex ipsa ex ipsam atque et unde nostrum maxime eum beatae minim est aut et ad illum ut, veritatis at rem illum quo facere autem animi.',
     points: [
-      'Floor price posted before each tapping season',
-      'Paid at the station, in full, on the day',
-      'No deduction for grading carried out after purchase',
+      'Optio irure minima labore anim quaerat maxime',
+      'Duis ea eos aperiam, ea sunt, do sit est',
+      'At explicabo non tempore impedit vel totam deserunt',
     ],
-    caption: 'collection post, Tarutung',
+    caption: 'collection post',
     image: 'agroforest-canopy',
   },
   {
     id: 'failure',
     eyebrow: 'Bad seasons',
-    title: 'What happens when the crop does not come',
-    body: 'Benzoin fails sometimes — weather, disease, a tapping cycle that needs a rest. The households do not stop needing income when it does. Advances against the following season, carried without interest, are the oldest instrument in this business and the one written into the 1840s ledger. We still use it, and it is the main reason families stay in the trade across generations rather than selling the land.',
+    title: 'Eius laboris quod sed ipsa anim rem quas',
+    body: 'Dolorem natus occaecati — laboris, ratione, at impedit nulla quia sequi ex vero. Est voluptatem ea eum illo dolorem maxime sunt ex quis. Suscipit impedit nam excepteur minima, nostrud ducimus sapiente, hic est cillum voluptates ut elit officiis vel sit eos eiusmod esse cum 1234s libero. Ex minus quo id, aut do id rem amet tempor eligendi quae in nam ullam cumque repellendus aliqua nisi debitis est vero.',
     points: [
-      'Interest-free advances against the following season',
-      'Registered households prioritised when volume is short',
-      'Rest cycles supported rather than penalised',
+      'Eligendi-unde deserunt ratione est quibusdam beatae',
+      'Voluptates temporibus repellendus elit magnam et neque',
+      'Quod maxime doloribus itaque enim veritatis',
     ],
     caption: 'benzoin resin, hand-graded',
     image: 'material-benzoin',
@@ -81,23 +81,23 @@ export const PEOPLE_PASSAGES: Passage[] = [
   {
     id: 'skills',
     eyebrow: 'Skills',
-    title: 'Tapping well is a taught skill, and it is worth teaching',
-    body: 'A badly scored tree yields less and dies sooner. Station staff run tapping and grading sessions each year before the season, and the households who attend consistently produce a higher first-grade share — which they are then paid for. It is the rare programme where doing the right thing and being paid more are the same action.',
+    title: 'Tenetur quia ut in labore animi, eum at ab quasi officiis',
+    body: 'Ea alias fugiat sunt libero quae eos sint itaque. Eiusmod error eum facilis eum aliquip proident eius illo cumque rem magnam, aut est asperiores sed maxime exercitation commodo id soluta nobis-magna irure — error eius sed duis elit qui. Ea ex sit vero similique alias eaque est eaque autem sed porro elit modi est sed quae beatae.',
     points: [
-      'Pre-season tapping and grading sessions at every station',
-      'First-grade share paid at a premium',
-      'Younger tappers trained alongside the household head',
+      'Sed-magnam nostrud qui tempore incidunt ad omnis tempora',
+      'Nulla-natus nihil quae ut ab numquam',
+      'Numquam commodo ratione quibusdam non molestias iure',
     ],
     cta: 'How we source',
     href: '/sustainability/responsible-sourcing/',
-    caption: 'grading floor, Medan works',
+    caption: 'grading floor',
     image: 'material-nutmeg',
   },
 ];
 
 export const PEOPLE_QUOTE: Quote = {
-  text: 'The forest was never the difficult part. Keeping it worth somebody’s while to look after it is the difficult part.',
-  attribution: 'Head of Sustainability, Adhiloka',
+  text: 'Quo dolore est omnis qui quibusdam amet. Commodi id autem doloribus sequi ad sunt ipsum ut in qui similique illo.',
+  attribution: 'Enim ex Exercitationem, Deserunt',
 };
 
 /* ── Responsible Sourcing ────────────────────────────────────────────── */
@@ -105,11 +105,11 @@ export const PEOPLE_QUOTE: Quote = {
 export const SOURCING_INTRO: PageIntro = {
   eyebrow: 'Sustainability',
   title: 'Responsible Sourcing',
-  lede: 'Where a lot came from, who produced it and what was paid — recorded at grading, not reconstructed afterwards.',
+  lede: 'Optio at sed anim amet, qui corporis do eos quis sit eius — sapiente ea tempore, aut reprehenderit blanditiis.',
   description:
-    'Responsible sourcing at Adhiloka: direct purchase at four collection stations, household-level traceability recorded at grading, and no clearing for supply.',
+    'Perferendis expedita ad repellat: magnam incidunt id anim blanditiis proident, explicabo-magni consequuntur corporis ea numquam, qui ut occaecat non fugiat.',
   image: 'hero-benzoin-tears',
-  caption: 'cassia bark, Kerinci',
+  caption: 'cassia bark',
 };
 
 export type Step = { n: string; title: string; body: string };
@@ -117,33 +117,33 @@ export type Step = { n: string; title: string; body: string };
 export const SOURCING_CHAIN: Step[] = [
   {
     n: '01',
-    title: 'Forest garden',
-    body: 'Benzoin is tapped from standing trees in mixed gardens, on a cycle the household sets. Nothing is cleared and nothing is planted in monoculture for us.',
+    title: 'Dolore veniam',
+    body: 'Tempora ex soluta aute officiis ipsum ex fugit aliquid, ut ad magni non voluptate quam. Ducimus ab dolores eum nostrum ab placeat ex consequatur vel ea.',
   },
   {
     n: '02',
-    title: 'Collection station',
-    body: 'The household brings the lot to one of four stations and is paid there, in full, at or above the posted floor price. Household and collection point are written down at this moment.',
+    title: 'Cupiditate dolores',
+    body: 'Vel assumenda fugiat qui eum ea aut do sint deserunt sit id quis lorem, ea quia, do id natus quo cumque vitae rerum. Consequat qui voluptates ullam vel laborum unde ut nemo cumque.',
   },
   {
     n: '03',
-    title: 'First grading',
-    body: 'A first sort happens at the station. Identity travels with the lot; it is not merged into a regional pool.',
+    title: 'Omnis nostrum',
+    body: 'At culpa quia dolorem et cum numquam. Possimus tempore unde non nam; et ad cum aliqua nisi ex nesciunt illo.',
   },
   {
     n: '04',
-    title: 'Medan grading floor',
-    body: 'Hand sorting into three qualities. The household record is carried forward onto the graded lot rather than dropped at the door.',
+    title: 'Natus laboris velit',
+    body: 'Iste ducimus quod saepe veritatis. Hic consequat tempor et commodo ullamco nisi nam libero hic itaque eius debitis at aut quae.',
   },
   {
     n: '05',
-    title: 'Extraction',
-    body: 'Distillation, resinoid or absolute, by grade. Lots are not blended across grades to hit a specification.',
+    title: 'Aspernatur',
+    body: 'Perspiciatis, sapiente ex mollitia, at neque. Quis nam eum tenetur itaque dolore et cum ab voluptatibus.',
   },
   {
     n: '06',
-    title: 'Drum and document',
-    body: 'The finished material ships with its batch certificate, GC trace and the collection point it came from. If we cannot produce that chain, the drum does not leave.',
+    title: 'Quod sit officiis',
+    body: 'Sit nesciunt quisquam nobis quas eum dolor consequatur, do omnis nam est aspernatur nobis ut aute modi. At ut magnam tempora odio natus, sed aute unde quo omnis.',
   },
 ];
 
@@ -151,25 +151,25 @@ export const SOURCING_PASSAGES: Passage[] = [
   {
     id: 'direct',
     eyebrow: 'Direct purchase',
-    title: 'No consolidators in the middle',
-    body: 'The moment a lot passes through a consolidator, two things are lost: the identity of the household and any control over what they were paid. Buying at our own stations costs more to run than buying at the port, and it is the only version of this business where the words on this page can be checked.',
+    title: 'Ab voluptatibus ea eum magnam',
+    body: 'Hic soluta ad est fugiat commodi ex consequuntur, sit beatae cum quis: qui incidunt ad quo molestias eum quo laborum sint odit eius odio iure. Fugiat at non quo quisquam animi duis ut rem eius beatae ab rem sunt, est ad do eum unde maiores id anim expedita natus sed culpa in vero nemo rem ut placeat.',
     points: [
-      'Four stations: Sibolga, Tarutung, Takengon, Medan intake',
-      'Payment direct to the household, at the station',
-      'Consolidator purchase used for nothing in the benzoin range',
+      'Quam incidunt: Eveniet, Suscipit, Corporis, Animi cillum',
+      'Aliquip cumque ea sed occaecati, ea sed officia',
+      'Perspiciatis occaecat enim rem eveniet et aut tempore optio',
     ],
-    caption: 'benzoin intake, Sibolga',
+    caption: 'benzoin intake',
     image: 'material-benzoin',
   },
   {
     id: 'land',
     eyebrow: 'Land',
-    title: 'Nothing has been cleared to supply us',
-    body: 'Our materials come from mixed forest gardens and smallholder plots that predate our purchase agreements. We have never financed clearing and we do not buy from land converted after the register opened in 2011. Where a household wants to expand, we support additional tapping on existing trees before new planting.',
+    title: 'Tempore eos quas tempora et fugiat do',
+    body: 'Est molestias odit aute culpa cumque commodi non repellendus fugit unde laboris est deleniti incididunt. Ut odio natus officiis delectus vel in ea non hic quia ipsa doloribus totam eum repellat veniam at 1234. Iusto ex occaecati fugit at itaque, do quaerat recusandae commodo ad delectus nobis labore non expedita.',
     points: [
-      'No purchase from land converted after 2011',
-      'Mixed gardens rather than monoculture plantation',
-      'Yield increases sought from better tapping, not more hectares',
+      'In suscipit eius unde quibusdam magna 1234',
+      'Vitae dolorem veniam iste consequatur laudantium',
+      'Velit cupidatat beatae eius soluta placeat, quo eius mollitia',
     ],
     cta: 'See our purpose',
     href: '/about/our-purpose/',
@@ -198,7 +198,7 @@ export const SUSTAINABILITY_HERO: HeroSlide[] = [
 export const SUSTAINABILITY_SLIDES: CarouselSlide[] = [
   {
     title: 'Driving progress for people',
-    body: 'Income security for tapping households, training, and what we do in the seasons when the crop fails.',
+    body: 'Minima repellat eum nostrum blanditiis, nesciunt, vel sint ea in do qui eiusmod iste eos nisi lorem.',
     cta: 'See the work',
     shot: 'kemenyan agroforest canopy',
     image: 'hero-agroforest',
@@ -207,9 +207,9 @@ export const SUSTAINABILITY_SLIDES: CarouselSlide[] = [
   },
   {
     title: 'Responsible Sourcing',
-    body: 'How a lot moves from a forest garden to a drum, and what is recorded at each step.',
+    body: 'Rem ad sit nihil sint in labore mollit ad at quae, sed quia ea proident ea quam odio.',
     cta: 'Responsible sourcing',
-    shot: 'cassia bark, Kerinci',
+    shot: 'cassia bark',
     href: '/sustainability/responsible-sourcing/',
     image: 'hero-benzoin-tears',
   },
