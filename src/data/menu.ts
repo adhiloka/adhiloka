@@ -1,6 +1,5 @@
 import { NAV, type NavLink } from './site';
-import { MATERIALS, type Family } from './materials';
-import { MATERIAL_NAMES } from './material-names';
+import { MATERIALS, materialHref, type Family } from './materials';
 
 /* Isi mega-menu. Tiap panel berbaris judul (nama menu, menuju halaman induk)
  * lalu kolom seperti mega-menu adani.com: kepala kolom plus daftar tautan.
@@ -8,8 +7,9 @@ import { MATERIAL_NAMES } from './material-names';
  * anaknya dikelompokkan di bawah label grup. Menu utamanya tetap NAV di
  * site.ts; di sini hanya susunan kolomnya.
  *
- * Tautan ber-# menunjuk id section di halamannya (id Passage di data halaman,
- * atau slug material di katalog), jadi jangan ganti id itu tanpa mengubah ini. */
+ * Tautan ber-# menunjuk id section di halamannya (id Passage di data halaman),
+ * jadi jangan ganti id itu tanpa mengubah ini. Bahan menuju halamannya
+ * sendiri, /ingredients/catalog/<slug>/. */
 
 /** Kepala kolom: tautan (kolom Perfumery, Ingredients…) atau label grup
  *  tanpa tautan (About Us, Media) yang hanya mengelompokkan halaman anak. */
@@ -20,8 +20,8 @@ export type MenuPanel = { heading: NavLink; columns: MenuColumn[] };
 
 const byFamily = (...families: Family[]): NavLink[] =>
   MATERIALS.filter((m) => families.includes(m.family)).map((m) => ({
-    label: MATERIAL_NAMES[m.slug] ?? m.name,
-    href: `/ingredients/catalog/#${m.slug}`,
+    label: m.name,
+    href: materialHref(m.slug),
   }));
 
 const COLUMNS: Record<string, MenuColumn[]> = {
@@ -64,24 +64,19 @@ const COLUMNS: Record<string, MenuColumn[]> = {
   ],
   '/ingredients/': [
     {
-      head: { label: 'Resins & Woods', href: '/ingredients/catalog/' },
-      links: byFamily('Resin', 'Wood'),
+      head: { label: 'Resins & Leaf Oils', href: '/ingredients/catalog/' },
+      links: byFamily('Resin', 'Leaf'),
     },
     {
-      head: { label: 'Leaf Oils', href: '/ingredients/catalog/' },
-      links: byFamily('Leaf'),
-    },
-    {
-      head: { label: 'Spices', href: '/ingredients/catalog/' },
-      links: byFamily('Spice'),
-    },
-    {
-      head: { label: 'Flowers, Roots & Citrus', href: '/ingredients/catalog/' },
-      links: byFamily('Flower', 'Root', 'Citrus'),
+      head: { label: 'Roots & Spices', href: '/ingredients/catalog/' },
+      links: byFamily('Root', 'Spice'),
     },
     {
       head: { label: 'Ingredients Catalog', href: '/ingredients/catalog/' },
-      links: [{ label: 'Technology', href: '/ingredients/technology/' }],
+      links: [
+        { label: 'Technology', href: '/ingredients/technology/' },
+        { label: 'Ordering & Documents', href: '/ingredients/ordering/' },
+      ],
     },
   ],
   '/sustainability/': [

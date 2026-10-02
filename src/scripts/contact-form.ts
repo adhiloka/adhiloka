@@ -2,7 +2,7 @@
  *  formulir, dan keadaan "terkirim" seperti pada desain. Tanpa access key,
  *  tombolnya jatuh ke mailto alih-alih berpura-pura sudah mengirim. */
 
-const MAIL_TO = 'sourcing@adhiloka.com';
+const MAIL_TO = 'info@adhiloka.com';
 
 type Rule = { test: (v: string) => boolean; message: string };
 
@@ -32,11 +32,20 @@ export function initContactForm() {
   const configured = form.dataset.configured === 'true';
   const endpoint = form.dataset.endpoint!;
 
-  /* Tautan "Request a sample" di laci bahan membawa ?material=slug — kolom
-     Brief diisi awal supaya pengguna tidak mengetik ulang. */
-  const material = new URL(window.location.href).searchParams.get('material');
+  /* Tombol di katalog dan halaman bahan membawa ?material=slug dan
+     ?kind=sample|specification|quotation: jenis permintaan dipilih dan kolom
+     pesan diisi awal supaya pengguna tidak mengetik ulang. */
+  const params = new URL(window.location.href).searchParams;
+  const material = params.get('material');
+  const KINDS: Record<string, string> = {
+    sample: 'Sample request',
+    specification: 'Specification & documents',
+    quotation: 'Quotation',
+  };
+  const kind = KINDS[params.get('kind') ?? ''] ?? (material ? KINDS.sample : null);
   const messageEl = form.querySelector<HTMLTextAreaElement>('[name="message"]')!;
   const kindEl = form.querySelector<HTMLSelectElement>('[data-kind]');
+  if (kind && kindEl) kindEl.value = kind;
   if (material && !messageEl.value) {
     let names: Record<string, string> = {};
     try {
@@ -46,8 +55,7 @@ export function initContactForm() {
     }
     const readable =
       names[material] ?? material.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
-    messageEl.value = `Sample request: ${readable}. `;
-    if (kindEl) kindEl.value = 'Sample request';
+    messageEl.value = `${kind}: ${readable}. `;
   }
 
   const setError = (field: string, message: string) => {

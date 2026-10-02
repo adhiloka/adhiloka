@@ -3,18 +3,19 @@ import { Image } from 'astro:assets';
 import PageLayout from '../../layouts/PageLayout.astro';
 import Intro from '../../components/blocks/Intro.astro';
 import { images } from '../../data/images';
-import { MATERIALS, FAMILY_FILTERS } from '../../data/materials';
+import { MATERIALS, FAMILY_FILTERS, materialHref } from '../../data/materials';
 import { CATALOG_INTRO, CATALOG_NOTE } from '../../data/pages/ingredients';
 
 /* Katalog: tab keluarga bergaya tab "Verticals / Listed Companies" Adani
- * menyaring grid kartu material. Tiap kartu memegang spesifikasi ringkasnya
- * dan tautan permintaan sampel (?material=slug mengisi formulir kontak).
- * Id kartu = slug, ditautkan dari mega-menu dan pencarian. */
+ * menyaring grid kartu material. Tiap kartu memegang spesifikasi ringkasnya,
+ * tautan ke halaman spesifikasinya (/ingredients/catalog/<slug>/) dan tautan
+ * permintaan sampel (?material=slug&kind=sample mengisi formulir kontak).
+ * Id kartu = slug, supaya tautan #slug lama tetap mendarat di kartunya. */
 const cats = FAMILY_FILTERS.map((f) => ({ key: f.value === 'All' ? 'all' : f.value, label: f.label }));
 ---
 
 <PageLayout intro={CATALOG_INTRO}>
-  <Intro title="Eighteen naturals" paragraphs={[CATALOG_INTRO.lede, CATALOG_NOTE]} more />
+  <Intro title="Our Materials" paragraphs={[CATALOG_INTRO.lede, CATALOG_NOTE]} more />
 
   <section class="sec sec--grey cat" data-tabs data-filter>
     <div class="wrap">
@@ -40,7 +41,7 @@ const cats = FAMILY_FILTERS.map((f) => ({ key: f.value === 'All' ? 'all' : f.val
                 <span class="mat__family">{m.family}</span>
               </span>
               <div class="mat__body">
-                <h2 class="mat__name">{m.name}</h2>
+                <h2 class="mat__name"><a href={materialHref(m.slug)}>{m.name}</a></h2>
                 <p class="mat__latin">{m.latin}</p>
                 <dl class="mat__spec">
                   <div><dt>Origin</dt><dd>{m.origin}</dd></div>
@@ -52,7 +53,10 @@ const cats = FAMILY_FILTERS.map((f) => ({ key: f.value === 'All' ? 'all' : f.val
                   <summary>About this material</summary>
                   <p>{m.note}</p>
                 </details>
-                <a class="mat__cta" href={`/contact/?material=${m.slug}`}>Request a sample</a>
+                <p class="mat__links">
+                  <a class="mat__cta" href={materialHref(m.slug)}>View specification</a>
+                  <a class="mat__cta" href={`/contact/?material=${m.slug}&kind=sample`}>Request a sample</a>
+                </p>
               </div>
             </li>
           ))
@@ -156,10 +160,15 @@ const cats = FAMILY_FILTERS.map((f) => ({ key: f.value === 'All' ? 'all' : f.val
     color: var(--ink);
   }
   .mat__note p { margin-top: 10px; }
-  .mat__cta {
-    align-self: flex-start;
+  .mat__name a:hover { color: var(--brand-green); }
+  .mat__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
     margin-top: auto;
     padding-top: 20px;
+  }
+  .mat__cta {
     font-size: calc(16px * var(--fs));
     font-weight: 440;
     text-decoration: underline;

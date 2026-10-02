@@ -8,8 +8,7 @@ export const SITE = {
     'Eligendi ex in maxime-quis temporibus omnis ad commodo quibusdam — officia, doloribus, dolore, tempor, ipsum est eveniet — culpa ut ducimus, enim eum soluta, tenetur ex nam cum fugit id velit, eum voluptas quam assumenda at non voluptate iusto.',
   locale: 'en_ID',
   lang: 'en',
-  email: 'sourcing@adhiloka.com',
-  phone: '+62 61 4520 118',
+  email: 'info@adhiloka.com',
   region: 'Indonesia (English)',
 } as const;
 
@@ -18,7 +17,7 @@ export type NavLink = { label: string; href: string };
 export type NavItem = {
   label: string;
   href: string;
-  /** Kalimat pengantar di kolom kiri mega panel. */
+  /** Kalimat pengantar mega panel desain lama; tidak dirender di desain Adani. */
   blurb?: string;
   /** Tanpa panel, tautannya langsung — dipakai Contact. */
   panel?: {
@@ -37,7 +36,7 @@ export const NAV: NavItem[] = [
     label: 'About Us',
     href: '/about/',
     blurb:
-      'A family house of Indonesian naturals, in its sixth generation and still buying from the forests it started in.',
+      'Do maxime dicta ea doloremque officiis, ex aut animi recusandae nam saepe soluta odit aut numquam et impedit ad.',
     panel: {
       title: 'About Us',
       shot: 'benzoin resin, hand-graded',
@@ -55,7 +54,7 @@ export const NAV: NavItem[] = [
     label: 'Perfumery',
     href: '/perfumery/',
     blurb:
-      'Accords built at a bench that sits a day from the gardens its materials come from.',
+      'Laboris irure at in velit iste quae at quo ipsa rem ducimus vel molestiae quam iste.',
     panel: {
       title: 'Perfumery',
       shot: 'petal, close',
@@ -70,14 +69,15 @@ export const NAV: NavItem[] = [
     label: 'Ingredients',
     href: '/ingredients/',
     blurb:
-      'Eighteen naturals with published specifications, seasonal windows and extraction routes.',
+      'Delectus occaecat eius occaecati exercitationem, delectus numquam aut doloremque tempor.',
     panel: {
       title: 'Ingredients',
-      shot: 'cassia bark, Kerinci',
+      shot: 'cinnamon bark',
       image: 'hero-benzoin-tears',
       links: [
         { label: 'Ingredients Catalog', href: '/ingredients/catalog/' },
         { label: 'Technology', href: '/ingredients/technology/' },
+        { label: 'Ordering & Documents', href: '/ingredients/ordering/' },
       ],
     },
   },
@@ -85,7 +85,7 @@ export const NAV: NavItem[] = [
     label: 'Sustainability',
     href: '/sustainability/',
     blurb:
-      'The forest and the households who tend it have to still be here in fifty years. Everything else follows from that.',
+      'Cum itaque quo vel blanditiis vel sunt in ipsa ab saepe do illo ea earum autem. Architecto iure nostrum iste nemo.',
     panel: {
       title: 'Sustainability',
       shot: 'kemenyan agroforest canopy',
@@ -99,7 +99,7 @@ export const NAV: NavItem[] = [
   {
     label: 'Media',
     href: '/media/',
-    blurb: 'Announcements from the works and the gardens, and the material to write about them.',
+    blurb: 'Exercitation enim vel lorem qui cum debitis, hic sit sapiente do lorem animi nemo.',
     panel: {
       title: 'Media',
       shot: 'dried rhizome',
@@ -132,10 +132,10 @@ export const SOCIAL = [
 ];
 
 export const SEARCH_SUGGESTIONS = [
-  { label: 'Benzoin Sumatra', href: '/ingredients/catalog/#benzoin-sumatra' },
-  { label: 'Patchouli Aceh', href: '/ingredients/catalog/#patchouli' },
+  { label: 'Benzoin Sumatra', href: '/ingredients/catalog/benzoin-sumatra/' },
+  { label: 'Patchouli', href: '/ingredients/catalog/patchouli/' },
   { label: 'Fine fragrance', href: '/perfumery/fine-fragrance/' },
   { label: 'Responsible sourcing', href: '/sustainability/responsible-sourcing/' },
-  { label: 'Our locations', href: '/about/our-locations/' },
+  { label: 'Ordering & documents', href: '/ingredients/ordering/' },
   { label: 'Sample request', href: '/contact/' },
 ];

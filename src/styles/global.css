@@ -370,3 +370,40 @@ html.dark-mode .ftr .ftr__major a { color: #fff; }
 html.dark-mode .ftr .ftr__social { border-color: var(--brand-green-light); }
 html.dark-mode .ftr .ftr__brand img { content: url('/brand/adhiloka-lockup-dark.svg'); }
 html.dark-mode .ftr .ftr__policy { background: #262a29; }
+
+/* ── Tabel data: grade, spesifikasi, matriks dokumen ─────────────────────
+   Dipakai halaman bahan (/ingredients/catalog/<slug>/) dan Ordering &
+   Documents. Garis tipis seperti tabel laporan adani.com; di layar sempit
+   tabelnya digeser mendatar di dalam bingkainya sendiri, bukan halamannya. */
+.dtable-wrap {
+  margin-top: 40px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.dtable {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+  font-size: calc(16px * var(--fs));
+  line-height: 1.45;
+  color: var(--ink);
+}
+.dtable th,
+.dtable td {
+  padding: 16px 20px 16px 0;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+.dtable thead th {
+  padding-top: 0;
+  border-bottom: 2px solid var(--ink);
+  font-size: calc(14px * var(--fs));
+  font-weight: 530;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.dtable tbody th { font-weight: 530; }
+.dtable td.is-center,
+.dtable th.is-center { text-align: center; padding-right: 0; }
+

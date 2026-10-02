@@ -13,7 +13,7 @@ export type PageIntro = {
   caption: string;
 };
 
-/** Angka yang berdiri sendiri: 1840, 18 naturals, 4 sites. */
+/** Angka yang berdiri sendiri, mis. jumlah bahan di katalog. */
 export type Stat = { value: string; label: string };
 
 /** Kartu yang mengantar ke halaman lain. */

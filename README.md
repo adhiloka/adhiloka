@@ -38,10 +38,12 @@ Leadership, Our History, Our Locations. Media: *Newsroom* dan *Resources*). Labe
 | `/about/*` lainnya | Banner · pembuka · isi halaman · Explore More (slider bila kartunya lebih dari tiga) |
 | `/perfumery/`, `/ingredients/`, `/sustainability/` | Banner · pembuka dengan Read More · angka · kartu anak · penutup berfoto dua tombol |
 | `/media/` | Banner · slider Media Releases · promosi Media Kit · Media Centre · kontak pers |
-| `/ingredients/catalog/` | 18 material, tab keluarga menyaring grid; `#slug` menunjuk kartunya |
+| `/ingredients/catalog/` | 6 bahan inti, tab keluarga menyaring grid; kartu menuju halaman spesifikasinya, `#slug` lama tetap mendarat di kartunya |
+| `/ingredients/catalog/<slug>/` | Banner · Overview (nota aroma, fakta) · Grades & Forms · Specification · Documents & Ordering (tombol sampel/penawaran) · slider Other Materials |
+| `/ingredients/ordering/` | Pembuka · 6 langkah pesan · matriks dokumen per bahan · Logistics · FAQ dengan dua tombol · Explore More |
 | `/media/news/` | Media Releases: cari, kategori, tahun, urutan, tag filter + Clear All, Load More (6 per langkah), laci filter di ≤767 px |
 | `/media/news/<slug>/` | Banner setengah layar (remah saja) · judul dan isi · slider Other Releases |
-| `/contact/` | Formulir + empat kantor |
+| `/contact/` | Formulir + satu kontak (info@adhiloka.com); `?material=slug&kind=sample\|specification\|quotation` mengisi jenis permintaan dan pesan |
 
 Rute lama `/our-story/`, `/fragrances/` dan `/raw-materials/` dialihkan lewat `redirects` di
 `astro.config.mjs`.
@@ -149,7 +151,12 @@ berubah. Dengan `prefers-reduced-motion` atau tanpa JS, semuanya tampil diam.
 ## Naskah lorem ipsum
 
 Sejak 29 September 2026 semua naskah situs berupa lorem ipsum atas permintaan pemilik, sampai naskah
-asli yang sudah diperiksa faktanya siap. Yang **tetap asli**:
+asli yang sudah diperiksa faktanya siap. Pada 2 Oktober 2026 pemilik memastikan **semua klaim naskah
+lama karangan** (tahun berdiri, generasi, kota, alamat, telepon, kantor, jumlah rumah tangga), jadi
+naskah lama tidak boleh dipakai lagi. Aturannya kini: **yang belum pasti tetap lorem**. Konsep konten
+(arah mitra teknis B2B, Inggris UK) ada di `../naskah/konsep-konten.md`, pertanyaan data di
+`../naskah/formulir-data.md`; komentar `// DATA: <kode>` di `src/data/` menunjuk pertanyaan yang
+mengisi slot itu. Yang **tetap asli**:
 
 - menu bar: header, mega-menu, laci mobile, panel pencarian (`NAV`, `menu.ts`, `SEARCH_SUGGESTIONS`);
 - footer;
@@ -157,10 +164,10 @@ asli yang sudah diperiksa faktanya siap. Yang **tetap asli**:
 - judul section dan judul banner, termasuk `eyebrow` dan judul kartu yang sama dengan label menu;
 - data yang bukan naskah: tautan, slug, tanggal, kategori, email, telepon, `alt`, `caption`, `shot`.
 
-Nama bahan di katalog ikut lorem. Nama aslinya disimpan di `src/data/material-names.ts` untuk
-mega-menu, indeks pencarian dan formulir kontak. Angka statistik diganti angka contoh berpola
-`1,234` supaya animasi hitung tetap jalan. `foundingDate` dan alamat Medan di JSON-LD dilepas
-karena belum terverifikasi.
+Yang sudah pasti dan ditulis asli: enam bahan inti (nama, nama botani, keluarga) dan kontak
+info@adhiloka.com. `material-names.ts` kini diturunkan dari `MATERIALS`. Angka statistik diganti
+angka contoh berpola `1,234` supaya animasi hitung tetap jalan. Telepon, `foundingDate` dan alamat
+di JSON-LD dilepas sampai datanya ada.
 
 **Jangan push versi lorem ke `main`**: `main` adalah adhiloka.com.
 
@@ -179,8 +186,8 @@ Tanda logonya sama persis dengan versi sebelumnya, jadi favicon tidak berubah.
 
 ## Sebelum tayang
 
-1. **Naskah.** Ganti lorem ipsum dengan naskah asli (lihat "Naskah lorem ipsum"), termasuk hero
-   beranda, dan pasang lagi `foundingDate`/alamat di JSON-LD bila datanya benar.
+1. **Naskah.** Ganti lorem ipsum dengan naskah asli per halaman (lihat "Naskah lorem ipsum"),
+   termasuk hero beranda, dan pasang telepon, `foundingDate` dan alamat di JSON-LD dari formulir A.
 2. **Formulir kontak.** Isi `PUBLIC_FORM_ACCESS_KEY` di `.env` (Web3Forms). Selama kosong, tombol
    kirim membuka klien email pengguna.
 3. **Placeholder**, semuanya ditandai komentar di berkasnya: `LEADERSHIP` (nama pimpinan) di

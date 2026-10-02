@@ -1,7 +1,6 @@
 ---
 import { NAV_LINKS, SEARCH_SUGGESTIONS } from '../data/site';
-import { MATERIALS } from '../data/materials';
-import { MATERIAL_NAMES } from '../data/material-names';
+import { MATERIALS, materialHref } from '../data/materials';
 import { NEWS } from '../data/pages/media';
 
 /* Panel cari ala `.search-bar-wrapper` adani.com: lembar putih selayar yang
@@ -12,8 +11,8 @@ import { NEWS } from '../data/pages/media';
 const index = [
   ...NAV_LINKS.map((l) => ({ label: l.label, href: l.href, kind: 'Page' })),
   ...MATERIALS.map((m) => ({
-    label: MATERIAL_NAMES[m.slug] ?? m.name,
-    href: `/ingredients/catalog/#${m.slug}`,
+    label: m.name,
+    href: materialHref(m.slug),
     kind: 'Ingredient',
     extra: `${m.latin} ${m.family} ${m.origin}`,
   })),

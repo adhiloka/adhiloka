@@ -62,7 +62,7 @@ export const FINE_PASSAGES: Passage[] = [
       'Expedita officia ut impedit id veritatis anim unde',
       'Minus officia occaecati ex ut doloremque autem',
     ],
-    caption: 'cassia bark, Kerinci',
+    caption: 'cinnamon bark',
     image: 'hero-benzoin-tears',
   },
   {
@@ -108,7 +108,7 @@ export const INNOVATION_INTRO: PageIntro = {
   lede: 'Incididunt quis sequi eveniet quas eum id ad iure nostrud maxime quis do ea. Doloremque veniam, aspernatur esse, est vel recusandae fugiat recusandae et sint commodo error.',
   description:
     'Molestias cupiditate in delectus: eos recusandae maxime, voluptatibus quas, aspernatur commodo eum quisquam incidunt ducimus eum ad eum sequi earum.',
-  caption: 'fractionation line, Medan works',
+  caption: 'processing line',
   image: 'material-ginger',
 };
 
@@ -123,7 +123,7 @@ export const INNOVATION_PASSAGES: Passage[] = [
       'Aut-quia quibusdam doloribus rem sunt iusto',
       'Aperiam-ducimus fugiat est quia nisi',
     ],
-    caption: 'fractionation line, Medan works',
+    caption: 'processing line',
     image: 'material-nutmeg',
   },
   {
@@ -136,7 +136,7 @@ export const INNOVATION_PASSAGES: Passage[] = [
       'Eaque rem omnis accusantium tempora quam commodi',
       'Soluta cillum occaecati, similique eum quo fugit',
     ],
-    caption: 'laboratory, Medan works',
+    caption: 'laboratory',
     image: 'material-patchouli',
   },
   {

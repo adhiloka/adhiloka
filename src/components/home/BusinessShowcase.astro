@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { images, type ImageKey } from '../../data/images';
-import { MATERIALS, type Family } from '../../data/materials';
+import { MATERIALS, materialHref, type Family } from '../../data/materials';
 import { ROUTES } from '../../data/pages/ingredients';
 import { FINE_PASSAGES, INNOVATION_PASSAGES } from '../../data/pages/perfumery';
 
@@ -28,14 +28,15 @@ const FAMILIES: { family: Family; label: string }[] = [
   { family: 'Citrus', label: 'Citrus' },
 ];
 
+// Keluarga tanpa bahan di katalog tidak dapat tile.
 const panes: Pane[] = [
-  ...FAMILIES.map(({ family, label }) => {
+  ...FAMILIES.filter(({ family }) => MATERIALS.some((m) => m.family === family)).map(({ family, label }) => {
     const items = MATERIALS.filter((m) => m.family === family);
     return {
       key: family.toLowerCase(),
       label,
       image: (items[0]?.image ?? 'material-benzoin') as ImageKey,
-      chips: items.map((m) => ({ label: m.name, href: `/ingredients/catalog/#${m.slug}` })),
+      chips: items.map((m) => ({ label: m.name, href: materialHref(m.slug) })),
       more: '/ingredients/catalog/',
     };
   }),

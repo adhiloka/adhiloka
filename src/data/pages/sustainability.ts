@@ -63,7 +63,7 @@ export const PEOPLE_PASSAGES: Passage[] = [
       'Ipsa ut non commodo, ex quis, id cum vel',
       'Do explicabo qui debitis ratione aut animi voluptas',
     ],
-    caption: 'collection post, Tarutung',
+    caption: 'collection post',
     image: 'agroforest-canopy',
   },
   {
@@ -91,7 +91,7 @@ export const PEOPLE_PASSAGES: Passage[] = [
     ],
     cta: 'How we source',
     href: '/sustainability/responsible-sourcing/',
-    caption: 'grading floor, Medan works',
+    caption: 'grading floor',
     image: 'material-nutmeg',
   },
 ];
@@ -110,7 +110,7 @@ export const SOURCING_INTRO: PageIntro = {
   description:
     'Dignissimos suscipit ea deserunt: aliqua deleniti ex odit adipiscing deleniti, excepteur-fugit exercitation expedita ex nostrud, sed ut occaecat hic maxime.',
   image: 'hero-benzoin-tears',
-  caption: 'cassia bark, Kerinci',
+  caption: 'cinnamon bark',
 };
 
 export type Step = { n: string; title: string; body: string };
@@ -159,7 +159,7 @@ export const SOURCING_PASSAGES: Passage[] = [
       'Laboris beatae ab sed consequat, at nam nostrum',
       'Consequuntur deleniti illo sit tenetur in nam dolores autem',
     ],
-    caption: 'benzoin intake, Sibolga',
+    caption: 'benzoin intake',
     image: 'material-benzoin',
   },
   {

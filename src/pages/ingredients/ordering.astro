@@ -1,0 +1,153 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Intro from '../../components/blocks/Intro.astro';
+import InfoGrid from '../../components/blocks/InfoGrid.astro';
+import SiblingCards from '../../components/blocks/SiblingCards.astro';
+import { MATERIALS, materialHref } from '../../data/materials';
+import {
+  ORDERING_INTRO,
+  ORDERING_STEPS,
+  ORDERING_DOCUMENTS,
+  ORDERING_LOGISTICS,
+  ORDERING_FAQ,
+  ORDERING_CLOSING,
+} from '../../data/pages/ingredients';
+
+/* Ordering & Documents (arah konten B2B, 2 Okt 2026): alur dari permintaan
+ * sampai pengiriman, matriks dokumen per bahan, logistik dan tanya-jawab.
+ * Langkah dan logistik memakai InfoGrid seperti rantai Responsible Sourcing;
+ * matriks dan FAQ ditulis di sini. Isi masih lorem sampai formulir D terisi. */
+---
+
+<PageLayout intro={ORDERING_INTRO}>
+  <Intro title="How to Order" paragraphs={[ORDERING_INTRO.lede]} />
+
+  <InfoGrid id="steps" title="From Enquiry to Shipment" items={ORDERING_STEPS} cols={3} grey />
+
+  <section class="sec" id="documents">
+    <div class="wrap">
+      <h2 class="h2" data-anim="title">Documents by Material</h2>
+      <div class="dtable-wrap">
+        <table class="dtable">
+          <thead>
+            <tr>
+              <th scope="col">Document</th>
+              {
+                MATERIALS.map((m) => (
+                  <th scope="col" class="is-center">
+                    <a href={materialHref(m.slug)}>{m.name}</a>
+                  </th>
+                ))
+              }
+            </tr>
+          </thead>
+          <tbody>
+            {
+              ORDERING_DOCUMENTS.map((d) => (
+                <tr>
+                  <th scope="row">{d.name}</th>
+                  {MATERIALS.map((m) => (
+                    <td class="is-center">
+                      {d.materials.includes(m.slug) ? (
+                        <>
+                          <svg class="ord__yes" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="1.6"></path></svg>
+                          <span class="sr-only">Available</span>
+                        </>
+                      ) : (
+                        <>
+                          <span aria-hidden="true">–</span>
+                          <span class="sr-only">Not available</span>
+                        </>
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <InfoGrid id="logistics" title="Logistics" items={ORDERING_LOGISTICS} grey />
+
+  <section class="sec" id="faq">
+    <div class="wrap">
+      <h2 class="h2" data-anim="title">Frequently Asked Questions</h2>
+      <div class="ord__faq">
+        {
+          ORDERING_FAQ.map((f) => (
+            <details class="ord__q">
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+      <div class="ord__close">
+        <p class="lead">{ORDERING_CLOSING}</p>
+        <p class="ord__btns">
+          <a class="btn" href="/contact/?kind=sample"><span class="btn__label">Request a Sample</span></a>
+          <a class="btn" href="/ingredients/catalog/"><span class="btn__label">Ingredients Catalog</span></a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <SiblingCards />
+</PageLayout>
+
+<style>
+  .ord__yes { display: inline-block; color: var(--brand-green); }
+  .dtable thead a:hover { color: var(--brand-green); }
+
+  .ord__faq {
+    margin-top: 40px;
+    border-top: 1px solid var(--line);
+  }
+  .ord__q { border-bottom: 1px solid var(--line); }
+  .ord__q summary {
+    position: relative;
+    padding: 22px 48px 22px 0;
+    list-style: none;
+    cursor: pointer;
+    font-size: calc(clamp(18px, 1.39vw, 20px) * var(--fs));
+    font-weight: 530;
+    color: var(--ink);
+  }
+  .ord__q summary::-webkit-details-marker { display: none; }
+  .ord__q summary::after {
+    content: '+';
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: calc(28px * var(--fs));
+    font-weight: 300;
+    line-height: 1;
+  }
+  .ord__q[open] summary::after { content: '\2212'; }
+  .ord__q p {
+    max-width: 900px;
+    padding-bottom: 24px;
+    font-size: calc(16px * var(--fs));
+    line-height: 1.6;
+    color: var(--ink);
+  }
+
+  .ord__close {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px 40px;
+    margin-top: 56px;
+  }
+  .ord__close .lead { max-width: 640px; }
+  .ord__btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+</style>

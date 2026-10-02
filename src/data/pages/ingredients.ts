@@ -1,4 +1,5 @@
 import type { LinkCard, PageIntro, Passage, Stat } from './types';
+import { MATERIALS } from '../materials';
 
 /* ── Hub ─────────────────────────────────────────────────────────────── */
 
@@ -10,7 +11,7 @@ export const INGREDIENTS_INTRO: PageIntro = {
   description:
     'Sit nesciunt praesentium atque: sapiente adipiscing corrupti quia accusamus reprehenderit, reiciendis maxime, tenetur nostrum rem quae voluptatibus.',
   image: 'hero-benzoin-tears',
-  caption: 'cassia bark, Kerinci',
+  caption: 'cinnamon bark',
 };
 
 export const INGREDIENTS_STATS: Stat[] = [
@@ -38,6 +39,12 @@ export const INGREDIENTS_CARDS: LinkCard[] = [
     href: '/ingredients/technology/',
     image: 'fragrance-resin',
   },
+  {
+    title: 'Ordering & Documents',
+    body: 'Cum ut saepe fugit nisi totam aliquip ad deserunt, sed est occaecati duis facere quod irure eos.',
+    href: '/ingredients/ordering/',
+    image: 'material-patchouli',
+  },
 ];
 
 /* ── Katalog ─────────────────────────────────────────────────────────── */
@@ -48,7 +55,7 @@ export const CATALOG_INTRO: PageIntro = {
   lede: 'Labore ab aliqua, quod id corporis eum cum iste voluptatibus, eum ratione nam culpa quia quo quae magna.',
   description:
     'Tempor quo deserunt officiis delectus do cupidatat cillum, anim mollit, voluptates vitae, tenetur veniam cum perspiciatis sit modi.',
-  caption: 'grading floor, Medan works',
+  caption: 'grading floor',
   image: 'material-nutmeg',
 };
 
@@ -63,7 +70,7 @@ export const TECHNOLOGY_INTRO: PageIntro = {
   lede: 'Nemo laudantium tempor, rem officia error vel cum doloremque. Tempora elit et ratione at qui sapiente — quia do debitis ut sunt et eum non ex in.',
   description:
     'Cupiditate incididunt et vel quisquam optio: velit perspiciatis, incidunt eum quisquam cupiditate, voluptatibus, hic rem reiciendis ducimus labore rem reprehenderit.',
-  caption: 'still hall, Medan works',
+  caption: 'still hall',
   image: 'fragrance-resin',
 };
 
@@ -118,7 +125,67 @@ export const TECHNOLOGY_PASSAGES: Passage[] = [
     ],
     cta: 'Request a sample',
     href: '/contact/',
-    caption: 'laboratory, Medan works',
+    caption: 'laboratory',
     image: 'material-patchouli',
   },
 ];
+
+/* ── Ordering & Documents ────────────────────────────────────────────── */
+
+/* Halaman alur pesan (keputusan pemilik, 2 Okt 2026). Judul section dan label
+ * sudah asli; isinya lorem sampai formulir data D1–D8 terisi. */
+
+export const ORDERING_INTRO: PageIntro = {
+  eyebrow: 'Ingredients',
+  title: 'Ordering & Documents',
+  lede: 'Asperiores do iusto error id eiusmod non porro ut sapiente: ipsa in eum sit, culpa excepteur illo odit ad, hic eum ad ratione.',
+  description:
+    'Quo ab ipsam numquam aut assumenda iste corporis: ratione, reprehenderit, temporibus, excepturi eum eligendi.',
+  image: 'material-benzoin',
+  caption: 'sorted benzoin resin tears',
+};
+
+export type OrderStep = { n: string; title: string; body: string };
+
+// DATA: D1, D5, D7 — langkah dari permintaan sampai pengiriman.
+export const ORDERING_STEPS: OrderStep[] = [
+  { n: '01', title: 'Dolorem', body: 'Esse ad est expedita, qui porro, aut fugiat vel eaque ab minim do id, non magni quibusdam quia anim adipisci.' },
+  { n: '02', title: 'Itaque sed molestiae', body: 'At magnam tempor nemo quo necessitatibus qui consequatur, ut elit laboriosam est esse do debitis aut quae commodo in id.' },
+  { n: '03', title: 'Laudantium', body: 'Nisi voluptate aut ducimus nisi magnam vel fugiat, cum in facere accusamus illum dolor, itaque nam veniam.' },
+  { n: '04', title: 'Excepteur', body: 'Id dolores nulla quas iusto, dolores magna, aute duis, incidunt qui cum proident at quo lorem.' },
+  { n: '05', title: 'Nesciunt nihil', body: 'Quae eos nihil in assumenda ut quisquam eum cum eos culpa hic doloribus illo unde libero odit ex.' },
+  { n: '06', title: 'Numquam aut voluptas', body: 'Eum est ex proident aperiam sed exercitationem, soluta, voluptatem eum cumque ad est aliquip.' },
+];
+
+export type OrderDocument = { name: string; materials: string[] };
+
+const ALL = MATERIALS.map((m) => m.slug);
+
+// DATA: D2 — dokumen yang tersedia dan bahan yang memilikinya. Sementara
+// semua bahan dicentang karena nama dokumennya pun masih lorem.
+export const ORDERING_DOCUMENTS: OrderDocument[] = [
+  { name: 'Accusantium ut adipisci', materials: ALL },
+  { name: 'Veniam quae nobis', materials: ALL },
+  { name: 'Iste consectetur', materials: ALL },
+  { name: 'Possimus veritatis', materials: ALL },
+  { name: 'Animi accusantium', materials: ALL },
+  { name: 'Perferendis do maxime', materials: ALL },
+];
+
+// DATA: D3–D6 — label asli, isi menunggu formulir.
+export const ORDERING_LOGISTICS: { title: string; body: string }[] = [
+  { title: 'Packaging', body: 'Minus, illo at eiusmod optio id sit error, culpa irure est occaecat nulla ea, deserunt qui quibusdam.' },
+  { title: 'Minimum Order', body: 'Vel mollitia deserunt in nam illo cum velit, totam ullamco at aut proident sit cum tempora.' },
+  { title: 'Lead Time', body: 'Aut atque sint numquam et molestiae illum rem in quo elit do nulla ut earum est possimus.' },
+  { title: 'Incoterms & Ports', body: 'Quo mollitia porro ea dicta eos est optio do odit aute, cumque eum anim animi.' },
+];
+
+// DATA: D1, D6, D7, B5 — pertanyaan yang paling sering datang dari pembeli.
+export const ORDERING_FAQ: { q: string; a: string }[] = [
+  { q: 'Ea rem soluta odio id magnam?', a: 'Hic fugiat unde delectus eos magnam fugiat: vero, quia rem ducimus, ipsa sit debitis qui inventore ad sed duis.' },
+  { q: 'Rem non nisi ex ea aliquip?', a: 'Rem minima duis amet quo voluptatibus ullamco magnam quo est quibusdam odit quo ducimus officiis at soluta.' },
+  { q: 'Atque ullamco animi do eum cillum?', a: 'Cum aliqua odit corrupti aut facilis error laboris ut eos vel consequat libero hic sit quod sit fugiat.' },
+  { q: 'Non qui neque in nesciunt exercitation?', a: 'Vel facere anim facilis nam ex maxime rem consequuntur ex quisquam quod iste facere do saepe ex deserunt.' },
+];
+
+export const ORDERING_CLOSING = 'Sit aut ab cillum qui non excepteur modi odit minim dolore qui cumque do ut nobis.';

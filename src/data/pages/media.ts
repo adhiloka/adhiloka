@@ -38,7 +38,7 @@ export const MEDIA_CARDS: LinkCard[] = [
 export const MEDIA_CONTACT = {
   title: 'Press enquiries',
   body: 'Assumenda eligendi, beatae eum tempor nisi, eum quod aliqua. Et facere alias aute voluptate nam impedit veniam rem ducimus elit.',
-  email: 'press@adhiloka.com',
+  email: 'info@adhiloka.com', // DATA: I4
 };
 
 /* ── News ────────────────────────────────────────────────────────────── */
@@ -49,7 +49,7 @@ export const NEWS_INTRO: PageIntro = {
   lede: 'Non iste, eum ullam hic sit pariatur. Do placeat aut excepturi tenetur ex enim in cum sunt quod.',
   description:
     'Iure quos quisquam minus: commodo impedit, autem nostrum, nesciunt consequuntur eos repellat amet hic explicabo error.',
-  caption: 'grading floor, Medan works',
+  caption: 'grading floor',
   image: 'material-nutmeg',
 };
 
@@ -69,7 +69,7 @@ export type Article = {
    penyaring tetap bekerja. Ganti dengan pengumuman sungguhan sebelum terbit. */
 export const NEWS: Article[] = [
   {
-    slug: 'benzoin-season-2026-opens',
+    slug: 'release-2026-08-18',
     date: '2026-08-18',
     category: 'Harvest',
     title: 'Laboris mollit neque quas dolor magnam itaque ad nam iure officiis',
@@ -84,7 +84,7 @@ export const NEWS: Article[] = [
     image: 'material-benzoin',
   },
   {
-    slug: 'fractionation-line-second-column',
+    slug: 'release-2026-06-02',
     date: '2026-06-02',
     category: 'Works',
     title: 'Ut fugiat perspiciatis soluta quos do ut quo ipsum error',
@@ -95,11 +95,11 @@ export const NEWS: Article[] = [
       'Sed occaecati aliqua sed assumenda at perspiciatis. Est-illo excepteur voluptate, nihil ab quos iure similique magna 1234, dolore ut sit possimus debitis amet quia. Eligendi vel eligendi nostrum explicabo enim in architecto magnam ad cum iure illo.',
       'Ex blanditiis eum occaecat ad corrupti cum hic id at. Necessitatibus occaecati illo in quo officia possimus, porro ex eum magnam nam nisi sit culpa do qui alias minim.',
     ],
-    shot: 'fractionation line, Medan works',
+    shot: 'processing line',
     image: 'fragrance-resin',
   },
   {
-    slug: 'household-register-passes-1400',
+    slug: 'release-2026-04-21',
     date: '2026-04-21',
     category: 'Sourcing',
     title: 'Inventore deleniti magnam 1,234 corrupti',
@@ -110,11 +110,11 @@ export const NEWS: Article[] = [
       'Molestiae pariatur dolore do aliquip iste maxime, eos sit iusto qui nemo maxime ad delectus aute ullamco qui rem aut sed voluptates. Commodo ab ex eum occaecat neque veniam occaecati eum quo veniam sunt.',
       'Quo expedita ea hic ea exercitation beatae quo at in sit impedit ut in rem. At ut do deleniti cumque, eius numquam id aliqua dolore sed ea quod ad dolore nobis.',
     ],
-    shot: 'benzoin intake, Sibolga',
+    shot: 'benzoin intake',
     image: 'material-benzoin',
   },
   {
-    slug: 'cold-process-cananga-trial',
+    slug: 'release-2026-02-10',
     date: '2026-02-10',
     category: 'Perfumery',
     title: 'Nemo-nostrud tenetur cumque sed libero dicta itaque',
@@ -129,7 +129,7 @@ export const NEWS: Article[] = [
     image: 'fragrance-petal',
   },
   {
-    slug: 'difficult-patchouli-season-reported',
+    slug: 'release-2025-11-14',
     date: '2025-11-14',
     category: 'Harvest',
     title: 'Ut similique molestias fugiat, adipisci id ex incidunt',
@@ -144,7 +144,7 @@ export const NEWS: Article[] = [
     image: 'material-patchouli',
   },
   {
-    slug: 'grasse-representation-opens',
+    slug: 'release-2025-09-01',
     date: '2025-09-01',
     category: 'Company',
     title: 'Itaque reprehenderit omnis in facere',
@@ -155,7 +155,7 @@ export const NEWS: Article[] = [
       'Do et exercitation qui at saepe soluta. Eos dolore vitae eius rerum iste id rem expedita cum ea eos impedit vitae, vel eum velit ab cum perferendis at modi ut deserunt eligendi cum qui et proident magni ea cum nam cum do mollit aute dolores est non quod ut.',
       'Assumenda cum facere exercitation expedita ab sed quia aliquid.',
     ],
-    shot: 'representation office, Grasse',
+    shot: 'office',
     image: 'hero-still-hall',
   },
 ];
@@ -178,7 +178,7 @@ export const RESOURCES_INTRO: PageIntro = {
   lede: 'Aliquid itaque, nam incidunt at facere eveniet, rem nam doloribus at porro fugiat in maxime odio quas praesentium.',
   description:
     'Consequuntur voluptas quasi quibusdam: ipsa atque, officia consectetur, ullamco quia lorem sed reprehenderit fugiat.',
-  caption: 'still hall, Medan works',
+  caption: 'still hall',
   image: 'hero-benzoin-tears',
 };
 

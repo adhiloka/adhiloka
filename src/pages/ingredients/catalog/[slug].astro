@@ -1,0 +1,270 @@
+---
+import PageLayout from '../../../layouts/PageLayout.astro';
+import CardSlider from '../../../components/blocks/CardSlider.astro';
+import { MATERIALS, materialHref, type Material } from '../../../data/materials';
+
+/* Halaman spesifikasi satu bahan (arah konten B2B, 2 Okt 2026): ringkasan dan
+ * nota aroma, grade, tabel spesifikasi, dokumen dan pemesanan, lalu bahan
+ * lain. Label sudah asli; isi yang belum pasti masih lorem dari materials.ts
+ * sampai formulir data (B2, K, D) terisi. Tombolnya membuka formulir kontak
+ * dengan bahan dan jenis permintaan terpilih (?material=…&kind=…). */
+export function getStaticPaths() {
+  return MATERIALS.map((material) => ({ params: { slug: material.slug }, props: { material } }));
+}
+
+const { material: m } = Astro.props as { material: Material };
+const others = MATERIALS.filter((o) => o.slug !== m.slug);
+const notes = m.notes?.split(' · ') ?? [];
+const contact = (kind: string) => `/contact/?material=${m.slug}&kind=${kind}`;
+
+const facts = [
+  { label: 'Botanical name', value: m.latin, latin: true },
+  { label: 'Family', value: m.family },
+  { label: 'Origin', value: m.origin },
+  { label: 'Production', value: m.method },
+  { label: 'Harvest', value: m.harvest },
+  { label: 'Uses', value: m.uses },
+];
+const ordering = [
+  { label: 'Packaging', value: m.ordering.packaging },
+  { label: 'Minimum order', value: m.ordering.moq },
+  { label: 'Lead time', value: m.ordering.leadTime },
+  { label: 'Incoterms', value: m.ordering.incoterms },
+];
+---
+
+<PageLayout
+  intro={{
+    eyebrow: 'Ingredients',
+    title: m.name,
+    lede: m.note,
+    description: m.note,
+    image: m.image,
+    caption: m.shot,
+  }}
+>
+  <section class="sec mo" id="overview">
+    <div class="wrap mo__grid">
+      <div class="mo__text">
+        <h2 class="h2" data-anim="title">Overview</h2>
+        <p class="lead mo__note">{m.note}</p>
+        {
+          notes.length > 0 && (
+            <div class="mo__notes">
+              <p class="mo__label">Odour profile</p>
+              <ul class="mo__chips">
+                {notes.map((n) => <li>{n}</li>)}
+              </ul>
+            </div>
+          )
+        }
+      </div>
+      <dl class="mo__facts">
+        {
+          facts.map((f) => (
+            <div>
+              <dt>{f.label}</dt>
+              <dd class:list={{ 'is-latin': f.latin }}>{f.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="sec sec--grey" id="grades">
+    <div class="wrap">
+      <h2 class="h2" data-anim="title">Grades &amp; Forms</h2>
+      <div class="dtable-wrap">
+        <table class="dtable">
+          <thead>
+            <tr>
+              <th scope="col">Grade</th>
+              <th scope="col">Form</th>
+              <th scope="col">Key marker</th>
+              <th scope="col">Typical use</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              m.grades.map((g) => (
+                <tr>
+                  <th scope="row">{g.name}</th>
+                  <td>{g.form}</td>
+                  <td>{g.marker}</td>
+                  <td>{g.use}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="specification">
+    <div class="wrap">
+      <div class="head-row">
+        <h2 class="h2" data-anim="title">Specification</h2>
+        <a class="btn" href={contact('specification')}><span class="btn__label">Request the Specification</span></a>
+      </div>
+      <div class="dtable-wrap">
+        <table class="dtable">
+          <thead>
+            <tr>
+              <th scope="col">Parameter</th>
+              <th scope="col">Method</th>
+              <th scope="col">Typical value</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              m.spec.map((r) => (
+                <tr>
+                  <th scope="row">{r.parameter}</th>
+                  <td>{r.method}</td>
+                  <td>{r.range}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--grey mord" id="ordering">
+    <div class="wrap">
+      <h2 class="h2" data-anim="title">Documents &amp; Ordering</h2>
+      <div class="mord__grid">
+        <div>
+          <h3 class="h3">Documents</h3>
+          <ul class="mord__docs">
+            {
+              m.documents.map((d) => (
+                <li>
+                  <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="1.6"></path></svg>
+                  {d}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div>
+          <h3 class="h3">Ordering</h3>
+          <dl class="mo__facts mord__facts">
+            {
+              ordering.map((f) => (
+                <div>
+                  <dt>{f.label}</dt>
+                  <dd>{f.value}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+      </div>
+      <p class="mord__cta">
+        <a class="btn" href={contact('sample')}><span class="btn__label">Request a Sample</span></a>
+        <a class="btn" href={contact('quotation')}><span class="btn__label">Request a Quotation</span></a>
+        <a class="mord__more" href="/ingredients/ordering/">How ordering works</a>
+      </p>
+    </div>
+  </section>
+
+  <CardSlider
+    title="Other Materials"
+    viewAll="/ingredients/catalog/"
+    items={others.map((o) => ({
+      href: materialHref(o.slug),
+      title: o.name,
+      image: o.image,
+      shot: o.shot,
+      tag: o.family,
+    }))}
+  />
+</PageLayout>
+
+<style>
+  .mo__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px 6%;
+  }
+  .mo__note { margin-top: 32px; }
+  .mo__notes { margin-top: 32px; }
+  .mo__label {
+    font-size: calc(14px * var(--fs));
+    font-weight: 530;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink-muted);
+  }
+  .mo__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .mo__chips li {
+    padding: 8px 16px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: calc(15px * var(--fs));
+    color: var(--ink);
+  }
+  .mo__facts { border-top: 1px solid var(--line); }
+  .mo__facts div {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: calc(16px * var(--fs));
+    line-height: 1.45;
+  }
+  .mo__facts dt { color: var(--ink-muted); }
+  .mo__facts dd { color: var(--ink); }
+  .mo__facts .is-latin { font-style: italic; }
+
+  .mord__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px 6%;
+    margin-top: 40px;
+  }
+  .mord__docs { margin-top: 16px; border-top: 1px solid var(--line); }
+  .mord__docs li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: calc(16px * var(--fs));
+    color: var(--ink);
+  }
+  .mord__docs svg { flex: none; color: var(--brand-green); }
+  .mord__facts { margin-top: 16px; }
+  .mord__cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px 24px;
+    margin-top: 48px;
+  }
+  .mord__more {
+    font-size: calc(16px * var(--fs));
+    font-weight: 440;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+  }
+  .mord__more:hover { color: var(--brand-green); }
+
+  @media (max-width: 1026px) {
+    .mo__grid,
+    .mord__grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .mo__facts div { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>

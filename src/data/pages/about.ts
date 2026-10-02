@@ -70,13 +70,13 @@ export const BUSINESS_INTRO: PageIntro = {
   description:
     'Incidunt esse ipsum molestias voluptates: tempore aut officiis corrupti hic recusandae, laudantium labore ex rem cupidatat quisquam, aut eos qui occaecati earum.',
   image: 'hero-benzoin-tears',
-  caption: 'cassia bark, Kerinci',
+  caption: 'cinnamon bark',
 };
 
 export const BUSINESS_PASSAGES: Passage[] = [
   {
-    id: 'sourcing',
-    eyebrow: 'Sourcing & extraction',
+    id: 'growers',
+    eyebrow: 'Grower partnerships',
     title: 'Qui unde ea nam sapiente illo itaque do ad beatae labore',
     body: 'Placeat ut libero illo delectus magna ab quasi facere tempora, soluta omnis, ut blanditiis eos iste itaque nam ipsa mollit est repellendus. Ea sed at unde laudantium mollitia itaque enim facilis consequuntur, illum sequi ex quis hic minima id eos anim quam cum quo eaque do soluta in id aliquid odio voluptate. Enim nostrud ut magnam ea sunt iure saepe inventore et nam aut atque, aute excepteur ad quo illum ab natus.',
     points: [
@@ -90,8 +90,23 @@ export const BUSINESS_PASSAGES: Passage[] = [
     image: 'agroforest-canopy',
   },
   {
+    id: 'processing',
+    eyebrow: 'Processing',
+    title: 'Ut consectetur earum rem qui fugiat corporis do sed mollitia',
+    body: 'At repudiandae odit rem eum veniam adipisci, commodi in sed quam libero at cum minus possimus ad rem magnam culpa sit veniam. Do explicabo quaerat sed non fugit non sed amet quis est odit maxime ab vel qui repellat quod minim est esse.',
+    points: [
+      'Omnis dignissimos fugit cum enim suscipit',
+      'Cillum praesentium magna quae',
+      'Rerum consequatur sequi, ex veniam beatae',
+    ],
+    cta: 'See the technology',
+    href: '/ingredients/technology/',
+    caption: 'still hall',
+    image: 'fragrance-resin',
+  },
+  {
     id: 'ingredients',
-    eyebrow: 'Ingredient supply',
+    eyebrow: 'Supply & export',
     title: 'Occaecat nesciunt, anim modi do molestiae exercitation',
     body: 'Aliqua, odit quos, dolor, magnam eum cum iste. Magna mollitia ab cum aliquid nostrum quo maxime, cupiditate natus, dolores libero hic ea exercitationem ut quos labore dolorem facere aute hic quo. Itaque aut cum nisi quisquam ab amet quod, quibusdam eum lorem ut amet est consequat. Cum-modi ullamco irure optio vero ex nihil dignissimos cum ex ab fugit.',
     points: [
@@ -129,7 +144,7 @@ export const LEADERSHIP_INTRO: PageIntro = {
   lede: 'In velit natus, amet in quas quae quasi ea sit eveniet omnis. Ducimus duis aute magnam quo vero tempor sit magni vel sit quia at quos ex vel aspernatur atque.',
   description:
     'Hic veniam rem sint deleniti error: similique incididunt magnam deserunt, aspernatur, assumenda, necessitatibus est suscipit.',
-  caption: 'boardroom, Jl. Imam Bonjol',
+  caption: 'boardroom',
   image: 'about-table',
 };
 
@@ -143,13 +158,13 @@ export const LEADERSHIP: Leader[] = [
     name: 'Quod nobis reiciendis',
     role: 'Sequi Occaecati',
     bio: 'Dolor asperiores ea sed corrupti veniam. Aliqua eos quaerat optio aliqua quo tempor, sit totam magna qui est eiusmod cumque doloremque nisi minima.',
-    shot: 'portrait, Medan',
+    shot: 'portrait',
   },
   {
     name: 'Modi atque recusandae',
     role: 'Officiis in Repellat',
     bio: 'Unde vel elit laudantium adipisci rem sed perspiciatis dolore unde. Nemo est fugit magni cumque duis commodi maxime alias.',
-    shot: 'portrait, Sibolga station',
+    shot: 'portrait',
   },
   {
     name: 'Quos totam distinctio',
@@ -173,7 +188,7 @@ export const LEADERSHIP: Leader[] = [
     name: 'Iste natus cupiditate',
     role: 'Incididunt Incidunt',
     bio: 'Labore, veritatis est rem dolore exercitationem. Cum error unde hic nisi libero aliquip excepturi.',
-    shot: 'portrait, Jakarta office',
+    shot: 'portrait',
   },
 ];
 
@@ -243,7 +258,7 @@ export const HISTORY_INTRO: PageIntro = {
   lede: 'Hic cillum at placeat, nam praesentium, aut id repellat laboris ex earum non nesciunt modi debitis ut.',
   description:
     'Est laboris in voluptas earum, illo at eiusmod itaque do 1234s commodi ex in necessitatibus aute qui cupidatat magni do minim.',
-  caption: 'still hall, Medan works',
+  caption: 'still hall',
   image: 'material-benzoin',
 };
 
@@ -310,7 +325,7 @@ export const LOCATIONS_INTRO: PageIntro = {
   lede: 'Dolorem, repellat, autem eum irure. Itaque doloremque possimus in non nemo vero cumque ut cum id voluptatem esse.',
   description:
     'Occaecat cupidatat: distinctio proident mollit omnis ullamco nam modi, nam eaque dicta, aut cupiditate ducimus do facilis sit minima.',
-  caption: 'Tapanuli benzoin gardens',
+  caption: 'benzoin gardens',
   image: 'hero-agroforest',
 };
 
@@ -335,7 +350,7 @@ export const SITES: Site[] = [
     kind: 'Rerum & unde tempor',
     body: 'Sit consequuntur nulla, nam iusto placeat natus, hic necessitatibus elit eos cum doloribus minim, nisi nam autem eius maxime est non et at.',
     detail: ['Ullam exercitation', 'Officiis & occaecat', 'Reprehenderit', 'Consequat autem'],
-    shot: 'still hall, Medan works',
+    shot: 'still hall',
     area: 'Sumatra',
     coords: [98.67, 3.59],
     image: 'fragrance-resin',
@@ -346,7 +361,7 @@ export const SITES: Site[] = [
     kind: 'Aspernatur commodo',
     body: 'Eum beatae ipsa ab cum nostrud hic rem officia ab nam facilis ratione. Tempora cumque eius cillum possimus minus ea iusto.',
     detail: ['Commodo facere', 'Ullam impedit', 'Cupidatat suscipit'],
-    shot: 'benzoin intake, Sibolga',
+    shot: 'benzoin intake',
     area: 'Sumatra',
     coords: [98.78, 1.74],
     image: 'material-benzoin',
@@ -357,7 +372,7 @@ export const SITES: Site[] = [
     kind: 'Architecto ratione',
     body: 'Minima rem corrupti facere nostrum expedita. Ipsam libero est aut mollit non libero odit maxime dolorem cumque.',
     detail: ['Commodo facere', 'Cillum debitis', 'Magnam possimus'],
-    shot: 'collection post, Tarutung',
+    shot: 'collection post',
     area: 'Sumatra',
     coords: [98.97, 2.02],
     image: 'agroforest-canopy',
@@ -368,7 +383,7 @@ export const SITES: Site[] = [
     kind: 'Reiciendis dolorem',
     body: 'Voluptate qui doloremque impedit. Quo sint ad mollit sed natus commodo libero illo tenetur atque veniam eos officiis.',
     detail: ['Quibusdam magnam', 'Animi fugiat', 'Irure voluptatibus'],
-    shot: 'drying floor, Takengon',
+    shot: 'drying floor',
     area: 'Sumatra',
     coords: [96.85, 4.63],
     image: 'material-patchouli',
@@ -379,7 +394,7 @@ export const SITES: Site[] = [
     kind: 'Distinctio & labore',
     body: 'Inventore, voluptatibus hic minima. Eum sint nisi mollit unde aute eos do vel.',
     detail: ['Cillum voluptatibus', 'Doloribus', 'Veritatis'],
-    shot: 'commercial office, Jakarta',
+    shot: 'office',
     area: 'Java',
     coords: [106.85, -6.21],
     image: 'hero-benzoin-tears',
@@ -390,7 +405,7 @@ export const SITES: Site[] = [
     kind: 'Fugiat exercitationem',
     body: 'Ad dolore facere ullamco nesciunt excepturi soluta id odit ab ut cillum non atque eos unde, rem do repellat anim quos vel.',
     detail: ['Occaecat eiusmod', 'Itaque delectus', 'Laudantium'],
-    shot: 'representation office, Grasse',
+    shot: 'office',
     area: 'France',
     coords: [6.92, 43.66],
     image: 'hero-still-hall',
