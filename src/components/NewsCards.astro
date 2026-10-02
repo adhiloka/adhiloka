@@ -95,7 +95,7 @@ const H = headingLevel;
   .news__card:hover,
   .news__card:focus-visible { background: var(--bg-grey); }
   :global(.sec--grey) .news__card:hover,
-  :global(.sec--grey) .news__card:focus-visible { background: #fff; }
+  :global(.sec--grey) .news__card:focus-visible { background: var(--bg); }
   .news__media {
     display: block;
     aspect-ratio: 364 / 207;
@@ -107,17 +107,17 @@ const H = headingLevel;
     z-index: 1;
     left: 20px;
     bottom: 16px;
-    font-size: 16px;
+    font-size: calc(16px * var(--fs));
     color: #fff;
   }
   .news__date {
     display: block;
     padding: 20px 0 14px;
-    font-size: 16px;
+    font-size: calc(16px * var(--fs));
     color: var(--ink-muted);
   }
   .news__title {
-    font-size: 20px;
+    font-size: calc(20px * var(--fs));
     line-height: 1.19;
     font-weight: 360;
     color: var(--ink);

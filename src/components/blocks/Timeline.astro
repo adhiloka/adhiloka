@@ -160,9 +160,9 @@ const groups = eras.map((g, i) => ({
   .tl__era-link:hover,
   .tl__era-link.is-active { color: var(--ink); }
   .tl__era-link.is-active::after { transform: none; }
-  .tl__era-range { font-size: 14px; letter-spacing: 0.04em; }
+  .tl__era-range { font-size: calc(14px * var(--fs)); letter-spacing: 0.04em; }
   .tl__era-name {
-    font-size: 20px;
+    font-size: calc(20px * var(--fs));
     font-weight: 530;
     text-transform: uppercase;
   }
@@ -197,13 +197,13 @@ const groups = eras.map((g, i) => ({
     background: var(--grad-bar);
   }
   .tl__intro-range {
-    font-size: clamp(20px, 1.67vw, 24px);
+    font-size: calc(clamp(20px, 1.67vw, 24px) * var(--fs));
     font-weight: 440;
     color: rgb(255 255 255 / 0.85);
   }
   .tl__intro-name {
     margin-top: 12px;
-    font-size: clamp(44px, 6.1vw, 88px);
+    font-size: calc(clamp(44px, 6.1vw, 88px) * var(--fs));
     line-height: 1;
     font-weight: 530;
     text-transform: uppercase;
@@ -243,8 +243,8 @@ const groups = eras.map((g, i) => ({
   .tl__years li.is-active a { color: var(--ink); }
   .tl__years li.is-active a::before { transform: none; }
   .tl__years a:hover { color: var(--ink); }
-  .tl__y { display: block; font-size: 22px; font-weight: 530; }
-  .tl__yt { display: block; margin-top: 4px; font-size: 15px; }
+  .tl__y { display: block; font-size: calc(22px * var(--fs)); font-weight: 530; }
+  .tl__yt { display: block; margin-top: 4px; font-size: calc(15px * var(--fs)); }
 
   .tl__entry {
     min-height: 55vh;
@@ -252,7 +252,7 @@ const groups = eras.map((g, i) => ({
     scroll-margin-top: calc(var(--header-h) + 100px);
   }
   .tl__num {
-    font-size: clamp(56px, 6.1vw, 88px);
+    font-size: calc(clamp(56px, 6.1vw, 88px) * var(--fs));
     line-height: 1;
     font-weight: 530;
     background: var(--grad-text);
@@ -262,7 +262,7 @@ const groups = eras.map((g, i) => ({
   }
   .tl__title {
     margin-top: 24px;
-    font-size: clamp(22px, 1.8vw, 28px);
+    font-size: calc(clamp(22px, 1.8vw, 28px) * var(--fs));
     line-height: 1.2;
     font-weight: 530;
     color: var(--ink);
@@ -270,7 +270,7 @@ const groups = eras.map((g, i) => ({
   .tl__text {
     margin-top: 16px;
     max-width: 680px;
-    font-size: 18px;
+    font-size: calc(18px * var(--fs));
     line-height: 1.6;
     color: var(--ink);
   }
@@ -281,7 +281,7 @@ const groups = eras.map((g, i) => ({
     display: inline-flex;
     align-items: center;
     gap: 16px;
-    font-size: 22px;
+    font-size: calc(22px * var(--fs));
     font-weight: 530;
     text-transform: uppercase;
     color: var(--ink);
@@ -309,7 +309,7 @@ const groups = eras.map((g, i) => ({
       justify-content: space-between;
       width: 100%;
       padding: 18px 0;
-      font-size: 17px;
+      font-size: calc(17px * var(--fs));
       font-weight: 530;
       text-transform: uppercase;
       color: var(--ink);
@@ -324,7 +324,7 @@ const groups = eras.map((g, i) => ({
     .tl.is-open .tl__eras { display: flex; }
     .tl__era-link { flex-direction: row; gap: 12px; padding: 10px 0; }
     .tl__era-link::after { display: none; }
-    .tl__era-name { font-size: 16px; }
+    .tl__era-name { font-size: calc(16px * var(--fs)); }
     .tl__body { grid-template-columns: 1fr; padding-block: 48px 0; }
     .tl__years-wrap { display: none; }
     .tl__entry { min-height: 0; padding-bottom: 56px; }
@@ -332,4 +332,5 @@ const groups = eras.map((g, i) => ({
   @media (prefers-reduced-motion: reduce) {
     .tl__next-arrow svg { animation: none; }
   }
+  :global(html.dark-mode) .tl__nav { background: rgb(0 0 0 / 0.9); }
 </style>

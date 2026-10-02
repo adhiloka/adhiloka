@@ -124,11 +124,11 @@ export const NAV_LINKS: NavLink[] = NAV.flatMap((item) => [
 ]);
 
 export const SOCIAL = [
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/' },
-  { label: 'Instagram', href: 'https://www.instagram.com/' },
   { label: 'Facebook', href: 'https://www.facebook.com/' },
+  { label: 'Instagram', href: 'https://www.instagram.com/' },
   { label: 'YouTube', href: 'https://www.youtube.com/' },
-  { label: 'Podcasts', href: 'https://open.spotify.com/' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/' },
+  { label: 'X', href: 'https://x.com/' },
 ];
 
 export const SEARCH_SUGGESTIONS = [

@@ -20,7 +20,7 @@ import { SEARCH_SUGGESTIONS } from '../data/site';
 <style>
   .nf { padding-top: calc(var(--header-h) + 100px); min-height: 80vh; }
   .nf__code {
-    font-size: clamp(80px, 12vw, 160px);
+    font-size: calc(clamp(80px, 12vw, 160px) * var(--fs));
     line-height: 1;
     font-weight: 670;
     background: var(--grad-text);

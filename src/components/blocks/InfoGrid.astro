@@ -70,7 +70,7 @@ const { title, lead, items, grey = false, id, cols = 4 } = Astro.props;
   .info__n {
     display: block;
     margin-bottom: 12px;
-    font-size: 40px;
+    font-size: calc(40px * var(--fs));
     line-height: 1;
     font-weight: 530;
     background: var(--grad-text);
@@ -79,26 +79,26 @@ const { title, lead, items, grey = false, id, cols = 4 } = Astro.props;
     color: transparent;
   }
   .info__title {
-    font-size: clamp(20px, 1.53vw, 22px);
+    font-size: calc(clamp(20px, 1.53vw, 22px) * var(--fs));
     line-height: 1.25;
     font-weight: 530;
     color: var(--ink);
   }
   .info__sub {
     margin-top: 6px;
-    font-size: 14px;
+    font-size: calc(14px * var(--fs));
     color: var(--ink-muted);
   }
   .info__body {
     margin-top: 14px;
-    font-size: 16px;
+    font-size: calc(16px * var(--fs));
     line-height: 1.6;
     color: var(--ink);
   }
   .info__link {
     display: inline-block;
     margin-top: 16px;
-    font-size: 16px;
+    font-size: calc(16px * var(--fs));
     font-weight: 440;
     text-decoration: underline;
     text-underline-offset: 5px;

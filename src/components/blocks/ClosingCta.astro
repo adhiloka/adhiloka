@@ -55,7 +55,7 @@ const { text, image, buttons } = Astro.props;
   }
   .cta__text {
     max-width: 980px;
-    font-size: clamp(28px, 3.06vw, 44px);
+    font-size: calc(clamp(28px, 3.06vw, 44px) * var(--fs));
     line-height: 1.2;
     font-weight: 440;
   }

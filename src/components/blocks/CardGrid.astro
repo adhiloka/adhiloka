@@ -74,7 +74,7 @@ const cols = cards.length % 3 === 0 || cards.length > 4 ? 3 : 2;
     display: inline-flex;
     align-items: center;
     gap: 12px;
-    font-size: clamp(20px, 1.67vw, 24px);
+    font-size: calc(clamp(20px, 1.67vw, 24px) * var(--fs));
     font-weight: 440;
     color: #fff;
   }
@@ -96,14 +96,14 @@ const cols = cards.length % 3 === 0 || cards.length > 4 ? 3 : 2;
 
   .card__body {
     margin-top: 20px;
-    font-size: 17px;
+    font-size: calc(17px * var(--fs));
     line-height: 1.5;
     color: var(--ink);
   }
   .card__more {
     margin-top: auto;
     padding-top: 16px;
-    font-size: 16px;
+    font-size: calc(16px * var(--fs));
     font-weight: 440;
     color: var(--ink);
     text-decoration: underline;

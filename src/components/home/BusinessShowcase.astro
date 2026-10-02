@@ -145,7 +145,7 @@ const perfumery = [
     position: relative;
     padding: 10px 24px;
     border-bottom: 1px solid var(--line);
-    font-size: 20px;
+    font-size: calc(20px * var(--fs));
     font-weight: 440;
     /* Adani memakai #c1c1c1 (1,7:1); digelapkan supaya tab tetap terbaca. */
     color: var(--ink-muted);
@@ -230,7 +230,7 @@ const perfumery = [
     display: inline-flex;
     align-items: center;
     gap: 12px;
-    font-size: 16px;
+    font-size: calc(16px * var(--fs));
     color: #fff;
     letter-spacing: 0.16px;
   }
@@ -305,14 +305,14 @@ const perfumery = [
     z-index: 1;
     display: block;
     padding: 12px 13px 12px 12px;
-    font-size: 16px;
+    font-size: calc(16px * var(--fs));
     color: #dcdcdc;
     letter-spacing: 0.16px;
   }
   .big__links li:hover a { color: #fff; }
   .big__more { padding-top: 20px; }
   .big__more a {
-    font-size: 16px;
+    font-size: calc(16px * var(--fs));
     color: #fff;
     text-decoration: underline;
     text-underline-offset: 5px;
@@ -323,12 +323,12 @@ const perfumery = [
     .biz__tiles { width: 100%; }
     .biz__tiles--full { grid-template-columns: 1fr 1fr; }
     .biz__big { width: 100%; min-height: 0; aspect-ratio: 4 / 3; }
-    .tab { padding: 10px 16px; font-size: 17px; }
+    .tab { padding: 10px 16px; font-size: calc(17px * var(--fs)); }
   }
   @media (max-width: 480px) {
     .biz__big { aspect-ratio: 3 / 4; }
     .big__links { padding: 0 16px; bottom: 16px; }
-    .big__links li a { font-size: 14px; padding: 9px 10px; }
-    .tile__text { left: 12px; bottom: 14px; font-size: 14px; }
+    .big__links li a { font-size: calc(14px * var(--fs)); padding: 9px 10px; }
+    .tile__text { left: 12px; bottom: 14px; font-size: calc(14px * var(--fs)); }
   }
 </style>

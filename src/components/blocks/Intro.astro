@@ -40,7 +40,7 @@ const { title, paragraphs, grey = false, id, more = false } = Astro.props;
     gap: 6%;
     align-items: start;
   }
-  .intro__title { font-size: clamp(26px, 2.5vw, 36px); line-height: 1.1; }
+  .intro__title { font-size: calc(clamp(26px, 2.5vw, 36px) * var(--fs)); line-height: 1.1; }
   .intro__body { color: var(--ink); }
   .intro__body [data-more-body] { position: relative; }
   .intro__body.is-folded [data-more-body]::after {
@@ -57,7 +57,7 @@ const { title, paragraphs, grey = false, id, more = false } = Astro.props;
     align-items: center;
     gap: 10px;
     margin-top: 18px;
-    font-size: 17px;
+    font-size: calc(17px * var(--fs));
     font-weight: 440;
     color: var(--ink);
   }

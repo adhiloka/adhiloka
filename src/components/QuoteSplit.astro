@@ -80,7 +80,7 @@ const plain = text.replace(/\*/g, '');
 
   .qs__quote {
     position: relative;
-    font-size: clamp(20px, 1.8vw, 26px);
+    font-size: calc(clamp(20px, 1.8vw, 26px) * var(--fs));
     line-height: 1.24;
     color: var(--line);
   }
@@ -129,12 +129,12 @@ const plain = text.replace(/\*/g, '');
   .sec--grey .qs__rule::after { background: var(--bg-grey); }
 
   .qs__name {
-    font-size: clamp(20px, 1.67vw, 24px);
+    font-size: calc(clamp(20px, 1.67vw, 24px) * var(--fs));
     color: var(--ink);
   }
   .qs__role {
     margin-top: 6px;
-    font-size: 14px;
+    font-size: calc(14px * var(--fs));
     color: var(--ink-muted);
   }
   .qs__btn { margin-top: 28px; }

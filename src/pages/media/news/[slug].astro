@@ -58,7 +58,7 @@ const others = [...NEWS].sort(byDate).filter((a) => a.slug !== article.slug);
   .art__meta {
     display: flex;
     gap: 20px;
-    font-size: 16px;
+    font-size: calc(16px * var(--fs));
     color: var(--ink-muted);
   }
   .art__meta span {
@@ -68,14 +68,14 @@ const others = [...NEWS].sort(byDate).filter((a) => a.slug !== article.slug);
   }
   .art__title {
     margin-top: 20px;
-    font-size: clamp(30px, 3.06vw, 44px);
+    font-size: calc(clamp(30px, 3.06vw, 44px) * var(--fs));
     line-height: 1.1;
     font-weight: 530;
     color: var(--ink);
   }
   .art__standfirst {
     margin-top: 24px;
-    font-size: clamp(18px, 1.53vw, 22px);
+    font-size: calc(clamp(18px, 1.53vw, 22px) * var(--fs));
     line-height: 1.4;
     color: var(--ink);
   }

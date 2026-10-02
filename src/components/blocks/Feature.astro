@@ -61,23 +61,23 @@ const paras = Array.isArray(body) ? body : [body];
   .feat--flip .feat__grid { grid-template-columns: 1fr 40%; }
   .feat--flip .feat__text { order: 2; }
 
-  .feat__h { font-size: clamp(26px, 2.5vw, 36px); line-height: 1.05; }
+  .feat__h { font-size: calc(clamp(26px, 2.5vw, 36px) * var(--fs)); line-height: 1.05; }
   .feat__sub {
     margin-top: 20px;
-    font-size: clamp(20px, 1.67vw, 24px);
+    font-size: calc(clamp(20px, 1.67vw, 24px) * var(--fs));
     line-height: 1.25;
     font-weight: 440;
     color: var(--ink);
   }
   .feat__body { margin-top: 20px; }
-  .feat__body :global(p) { font-size: 17px; line-height: 1.6; }
+  .feat__body :global(p) { font-size: calc(17px * var(--fs)); line-height: 1.6; }
 
   .feat__points { margin-top: 24px; border-top: 1px solid var(--line); }
   .feat__points li {
     position: relative;
     padding: 12px 0 12px 24px;
     border-bottom: 1px solid var(--line);
-    font-size: 16px;
+    font-size: calc(16px * var(--fs));
     line-height: 1.4;
   }
   .feat__points li::before {

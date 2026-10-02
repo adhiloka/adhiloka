@@ -83,6 +83,19 @@ const organization = {
 
     <script type="application/ld+json" is:inline set:html={JSON.stringify(organization)} />
     <script is:inline>document.documentElement.classList.add('js');</script>
+    <!-- Pilihan Accessibility (scripts/a11y.ts) dipasang sebelum halaman
+         digambar, supaya mode gelap tidak berkedip putih saat pindah halaman. -->
+    <script is:inline>
+      try {
+        var d = document.documentElement;
+        if (localStorage.getItem('adh-theme') === 'dark') {
+          d.classList.add('dark-mode');
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000000');
+        }
+        var f = localStorage.getItem('adh-font');
+        if (f && /^(font-(in|de)crease)( double-(in|de)crease)?$/.test(f)) d.className += ' ' + f;
+      } catch (e) {}
+    </script>
   </head>
 
   <body>

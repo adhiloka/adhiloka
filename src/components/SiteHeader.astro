@@ -29,7 +29,9 @@ const path = Astro.url.pathname;
 <header class="hdr" data-header>
   <div class="wrap hdr__bar">
     <a class="hdr__logo" href="/" aria-label="Adhiloka, home">
-      <img src="/brand/adhiloka-lockup.svg" alt="Adhiloka" width="166" height="34" />
+      <img class="hdr__logo-light" src="/brand/adhiloka-lockup.svg" alt="Adhiloka" width="166" height="34" />
+      <!-- Mode gelap: tulisan putih. lazy + display:none = baru diunduh saat dipakai. -->
+      <img class="hdr__logo-dark" src="/brand/adhiloka-lockup-dark.svg" alt="Adhiloka" width="166" height="34" loading="lazy" />
     </a>
 
     <button class="hdr__search-m" type="button" data-search-open aria-label="Search">
@@ -106,6 +108,31 @@ const path = Astro.url.pathname;
             </li>
           ))
         }
+        <li class="hdr__item hdr__item--a11y" data-a11y>
+          <button class="hdr__a11y" type="button" aria-expanded="false" aria-controls="a11y-panel" data-a11y-toggle>
+            <!-- Ikon accessibility_new dari Material Symbols (Apache 2.0), sama dengan yang dipakai Adani. -->
+            <svg class="hdr__a11y-icon" viewBox="0 0 15 17" width="15" height="17" aria-hidden="true"><path d="M7.8 3.54C7.36 3.54 6.98 3.38 6.67 3.07C6.36 2.76 6.2 2.38 6.2 1.94C6.2 1.5 6.36 1.12 6.67 0.81C6.98 0.5 7.36 0.34 7.8 0.34C8.24 0.34 8.62 0.5 8.93 0.81C9.24 1.12 9.4 1.5 9.4 1.94C9.4 2.38 9.24 2.76 8.93 3.07C8.62 3.38 8.24 3.54 7.8 3.54ZM5.4 16.34V5.94C4.6 5.87 3.79 5.77 2.96 5.64C2.13 5.51 1.35 5.34 0.6 5.14L1 3.54C2.04 3.82 3.15 4.02 4.32 4.15C5.49 4.28 6.65 4.34 7.8 4.34C8.95 4.34 10.11 4.28 11.28 4.15C12.45 4.02 13.56 3.82 14.6 3.54L15 5.14C14.25 5.34 13.47 5.51 12.64 5.64C11.81 5.77 11 5.87 10.2 5.94V16.34H8.6V11.54H7V16.34H5.4Z" fill="currentColor"></path></svg>
+            <span class="hdr__a11y-text">Accessibility</span>
+          </button>
+          <div class="a11y" id="a11y-panel" data-a11y-panel>
+            <div class="a11y__head">
+              <p class="a11y__title">Accessibility Adjustments</p>
+              <p class="a11y__sub">Choose the right accessibility profile for you</p>
+            </div>
+            <div class="a11y__row a11y__row--theme" role="group" aria-label="Colour theme">
+              <button class="a11y__opt" type="button" data-theme="light" aria-pressed="true">Light Mode</button>
+              <button class="a11y__opt" type="button" data-theme="dark" aria-pressed="false">Dark Mode</button>
+            </div>
+            <div class="a11y__row a11y__row--font" role="group" aria-label="Text size">
+              <button class="a11y__opt" type="button" data-font="decrease" aria-pressed="false" aria-label="Smaller text">-A</button>
+              <button class="a11y__opt" type="button" data-font="default" aria-pressed="true" aria-label="Default text size">A</button>
+              <button class="a11y__opt" type="button" data-font="increase" aria-pressed="false" aria-label="Larger text">+A</button>
+            </div>
+            <div class="a11y__reset">
+              <button class="a11y__opt" type="button" data-a11y-reset>Reset Settings</button>
+            </div>
+          </div>
+        </li>
         <li class="hdr__item hdr__item--lang" data-item>
           <a class="hdr__link has-child" href="#" data-top>ENG</a>
           <div class="lang" data-mega>
@@ -125,7 +152,9 @@ const path = Astro.url.pathname;
 
 <script>
   import { initNav } from '../scripts/nav';
+  import { initA11y } from '../scripts/a11y';
   initNav();
+  initA11y();
 </script>
 
 <style>
@@ -135,7 +164,7 @@ const path = Astro.url.pathname;
     position: fixed;
     inset: 0 0 auto;
     z-index: 9991;
-    background: rgb(255 255 255 / 0.7);
+    background: var(--bg-header);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     transition: background 0.3s;
@@ -194,10 +223,10 @@ const path = Astro.url.pathname;
     align-items: center;
     height: 100%;
     padding: 0 10px;
-    font-size: calc(1.4 * var(--rem));
+    font-size: calc(1.4 * var(--rem) * var(--fs));
     font-weight: 530;
     letter-spacing: 0.006em;
-    color: #000;
+    color: var(--ink-strong);
     text-transform: uppercase;
     white-space: nowrap;
   }
@@ -209,8 +238,8 @@ const path = Astro.url.pathname;
     top: calc(50% - 6px);
     width: 7px;
     height: 7px;
-    border-top: 1px solid #000;
-    border-left: 1px solid #000;
+    border-top: 1px solid var(--ink-strong);
+    border-left: 1px solid var(--ink-strong);
     transform: rotate(-135deg);
     transition: transform 0.2s, top 0.2s;
   }
@@ -236,7 +265,7 @@ const path = Astro.url.pathname;
       width: 0;
       height: 0;
       border: 4px solid transparent;
-      border-top-color: #000;
+      border-top-color: var(--ink-strong);
       border-bottom: 0;
       transform: none;
     }
@@ -247,11 +276,153 @@ const path = Astro.url.pathname;
     place-items: center;
     width: 40px;
     height: 40px;
-    color: #000;
+    color: var(--ink-strong);
   }
 
   .hdr__search-m,
   .hdr__burger { display: none; }
+
+  .hdr__logo-dark { display: none; }
+  :global(html.dark-mode) .hdr__logo-light { display: none; }
+  :global(html.dark-mode) .hdr__logo-dark { display: block; }
+
+  /* ── Accessibility Adjustments (`li.accessibility-tab` Adani) ──────────
+     Desktop: ikon 15×17 + segitiga 4 px seperti pemilih bahasa; panel
+     dibuka dengan klik (bukan hover), 396 px di tengah bawah ikon, padding
+     40/30. Di 1027–1219 px panel rata kanan agar tidak keluar layar. */
+  .hdr__item--a11y { position: relative; }
+  .hdr__a11y {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    height: 100%;
+    padding: 0 16px 0 10px;
+    color: var(--ink-strong);
+  }
+  .hdr__a11y::after {
+    content: '';
+    position: absolute;
+    right: 2px;
+    top: calc(50% - 2px);
+    border: 4px solid transparent;
+    border-top-color: var(--ink-strong);
+    border-bottom: 0;
+    transition: transform 0.2s;
+  }
+  .hdr__a11y-icon { flex: none; }
+  .hdr__a11y-text { display: none; }
+
+  .a11y {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    z-index: 1;
+    width: 396px;
+    max-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    padding: 0 30px;
+    background: var(--bg);
+    box-shadow: 0 10px 20px rgb(0 0 0 / 0.08);
+    transform: translateX(-50%);
+    /* slideToggle jQuery: 400 ms "swing". */
+    transition: max-height 0.4s cubic-bezier(0.45, 0, 0.55, 1), padding 0.4s cubic-bezier(0.45, 0, 0.55, 1), visibility 0s 0.4s;
+  }
+  .is-open > .a11y {
+    max-height: 600px;
+    visibility: visible;
+    padding: 40px 30px;
+    transition-delay: 0s;
+  }
+  @media (min-width: 1027px) and (max-width: 1219px) {
+    .a11y { left: auto; right: 0; transform: none; }
+  }
+
+  .a11y__head {
+    padding-bottom: 22px;
+    border-bottom: 1px solid #7b7b7b;
+  }
+  .a11y__title {
+    font-size: calc(20px * var(--fs));
+    font-weight: 530;
+    line-height: 1.2;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .a11y__sub {
+    padding: 6px 0 10px;
+    line-height: 1.2;
+    font-size: calc(16px * var(--fs));
+    color: var(--ink);
+  }
+  .a11y__row {
+    display: flex;
+    padding: 28px 0;
+    border-bottom: 1px solid #7b7b7b;
+  }
+  .a11y__row--theme { gap: 5.1%; }
+  .a11y__row--theme .a11y__opt { flex: 0 0 47%; }
+  .a11y__row--font { gap: 4.1%; }
+  .a11y__row--font .a11y__opt { flex: 0 0 30%; }
+  .a11y__reset { display: flex; padding: 30px 0 10px; }
+
+  /* Tombol garis 1 px bersudut 8 px. Aktif dan hover: teks dan garis
+     bergradien (gradien Adani diganti gradien logo, seperti `.btn`). */
+  .a11y__opt {
+    position: relative;
+    z-index: 0;
+    padding: 12px 16px;
+    border: 1px solid var(--ink);
+    border-radius: 8px;
+    font-size: calc(16px * var(--fs));
+    font-weight: 440;
+    line-height: 1.2;
+    text-align: center;
+    color: var(--ink);
+  }
+  .a11y__reset .a11y__opt { font-size: calc(14px * var(--fs)); font-weight: 360; }
+  .a11y__opt::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    z-index: -1;
+    padding: 1px;
+    border-radius: 8px;
+    background: var(--grad-bar);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .a11y__opt:hover,
+  .a11y__opt[aria-pressed='true'] {
+    border-color: transparent;
+    background: var(--grad-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .a11y__opt:hover::before,
+  .a11y__opt[aria-pressed='true']::before { opacity: 1; }
+
+  /* Mode gelap Adani: panel bergradien gelap, tombol aktif terisi warna
+     merek dengan teks putih. */
+  :global(html.dark-mode) .a11y {
+    background: linear-gradient(to right, #06110e, #0a1512, #0f1711, #13160e);
+  }
+  :global(html.dark-mode) .a11y__head,
+  :global(html.dark-mode) .a11y__row { border-color: #808080; }
+  :global(html.dark-mode) .a11y__opt { border-color: var(--brand-green-light); }
+  :global(html.dark-mode) .a11y__opt[aria-pressed='true'] {
+    border-color: var(--brand-green);
+    background: var(--brand-green);
+    color: #fff;
+  }
+  :global(html.dark-mode) .a11y__opt[aria-pressed='true']::before { opacity: 0; }
 
   /* ── Mega-menu desktop ─────────────────────────────────────────────── */
   @media (min-width: 1027px) {
@@ -334,7 +505,7 @@ const path = Astro.url.pathname;
       display: flex;
       align-items: center;
       gap: 18px;
-      font-size: 22px;
+      font-size: calc(22px * var(--fs));
       font-weight: 530;
       line-height: 1.1;
       text-transform: uppercase;
@@ -373,9 +544,9 @@ const path = Astro.url.pathname;
     .hdr__item--lang:focus-within .lang { max-height: 200px; }
     .lang a {
       padding: 12px 20px;
-      font-size: 14px;
+      font-size: calc(14px * var(--fs));
       font-weight: 530;
-      color: #000;
+      color: var(--ink-strong);
     }
     .lang a[aria-current] { opacity: 0.5; }
   }
@@ -386,9 +557,9 @@ const path = Astro.url.pathname;
     padding-bottom: 20px;
     margin-bottom: 8px;
     border-bottom: 1px solid var(--line);
-    font-size: 20px;
+    font-size: calc(20px * var(--fs));
     font-weight: 360;
-    color: #000;
+    color: var(--ink-strong);
     white-space: nowrap;
   }
   .mega__head:hover { text-decoration: underline; }
@@ -397,8 +568,8 @@ const path = Astro.url.pathname;
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    font-size: 16px;
-    color: #000;
+    font-size: calc(16px * var(--fs));
+    color: var(--ink-strong);
     opacity: 0.6;
     transition: opacity 0.3s;
   }
@@ -417,7 +588,7 @@ const path = Astro.url.pathname;
   /* Label grup (About Us, Media): bukan tautan, hanya pengelompok. */
   .mega__group {
     display: block;
-    font-size: 12px;
+    font-size: calc(12px * var(--fs));
     font-weight: 530;
     letter-spacing: 0.16em;
     text-transform: uppercase;
@@ -432,11 +603,11 @@ const path = Astro.url.pathname;
       align-items: center;
       gap: 24px;
       margin-bottom: 30px;
-      font-size: 13px;
+      font-size: calc(13px * var(--fs));
       font-weight: 530;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: #000;
+      color: var(--ink-strong);
     }
     .mega__heading::after {
       content: '';
@@ -471,7 +642,7 @@ const path = Astro.url.pathname;
       display: flex;
       justify-content: space-between;
       padding: 15px 0;
-      font-size: 20px;
+      font-size: calc(20px * var(--fs));
       font-weight: 360;
       opacity: 0.75;
     }
@@ -481,14 +652,14 @@ const path = Astro.url.pathname;
   }
 
   @media (max-width: 1399px) and (min-width: 1027px) {
-    .mega__head { font-size: 18px; white-space: normal; }
+    .mega__head { font-size: calc(18px * var(--fs)); white-space: normal; }
     .mega__links li { padding-top: 8px; }
     .mega__wrap { grid-template-columns: minmax(0, 32%) minmax(0, 1fr); gap: 40px; }
     .mega__cols { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 28px 32px; }
     .mega__cols--groups { grid-template-columns: repeat(2, minmax(0, 260px)); gap: 0 48px; }
-    .mega__cols--groups .mega__links a { padding: 12px 0; font-size: 18px; }
+    .mega__cols--groups .mega__links a { padding: 12px 0; font-size: calc(18px * var(--fs)); }
     .mega__heading { margin-bottom: 22px; }
-    .mega__label { font-size: 18px; left: 18px; bottom: 18px; }
+    .mega__label { font-size: calc(18px * var(--fs)); left: 18px; bottom: 18px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .mega__img,
@@ -499,7 +670,7 @@ const path = Astro.url.pathname;
 
   /* ── Laci mobile (≤1026 px) ──────────────────────────────────────────── */
   @media (max-width: 1026px) {
-    .hdr.is-open { background: #fff; }
+    .hdr.is-open { background: var(--bg); }
     .hdr__logo img { height: 34px; }
 
     .hdr__search-m {
@@ -508,7 +679,7 @@ const path = Astro.url.pathname;
       width: 40px;
       height: 40px;
       margin-left: auto;
-      color: #000;
+      color: var(--ink-strong);
     }
 
     .hdr__burger {
@@ -524,7 +695,7 @@ const path = Astro.url.pathname;
       width: 80%;
       height: 2px;
       border-radius: 25px;
-      background: #000;
+      background: var(--ink-strong);
       transition: 0.25s ease-in-out;
     }
     .hdr__burger span:nth-child(1) { top: 0; }
@@ -543,7 +714,7 @@ const path = Astro.url.pathname;
       width: 100%;
       height: calc(100dvh - var(--header-h));
       overflow-y: auto;
-      background: #fff;
+      background: var(--bg);
       transition: right 0.4s ease-in-out;
     }
     .is-open .hdr__nav { right: 0; }
@@ -565,7 +736,7 @@ const path = Astro.url.pathname;
       display: block;
       height: auto;
       padding: 20px 0;
-      font-size: 18px;
+      font-size: calc(18px * var(--fs));
     }
     /* `.hdr__link.has-child` desktop (padding 0 20px) lebih spesifik daripada
        `.hdr__link` di atas, jadi padding laci ditulis ulang lengkap di sini. */
@@ -589,8 +760,45 @@ const path = Astro.url.pathname;
     .is-sub > .lang { display: block; }
     .mega__wrap { padding: 0 0 12px 16px; }
     .mega__col { padding-bottom: 16px; }
-    .mega__head { border: 0; padding-bottom: 6px; font-size: 17px; white-space: normal; }
+    .mega__head { border: 0; padding-bottom: 6px; font-size: calc(17px * var(--fs)); white-space: normal; }
     .mega__links li { padding: 6px 0; }
-    .lang a { display: block; padding: 0 0 16px 16px; font-size: 16px; }
+    .lang a { display: block; padding: 0 0 16px 16px; font-size: calc(16px * var(--fs)); }
+
+    /* Laci: ikon + tulisan "Accessibility", panah akordeon seperti menu
+       lain, panel mengalir di bawahnya (position relative Adani). */
+    .hdr__a11y {
+      display: flex;
+      width: 100%;
+      height: auto;
+      padding: 20px 30px 20px 0;
+      font-size: calc(18px * var(--fs));
+      font-weight: 530;
+      text-transform: uppercase;
+      text-align: left;
+    }
+    .hdr__a11y-text { display: inline; }
+    .hdr__a11y::after {
+      right: 4px;
+      top: 26px;
+      width: 10px;
+      height: 10px;
+      border: 0;
+      border-top: 1px solid var(--ink-strong);
+      border-left: 1px solid var(--ink-strong);
+      transform: rotate(-135deg);
+    }
+    .hdr__a11y[aria-expanded='true']::after { transform: rotate(45deg); top: 30px; }
+    .a11y {
+      position: static;
+      width: auto;
+      box-shadow: none;
+      transform: none;
+      padding: 0;
+    }
+    .is-open > .a11y { padding: 0 0 24px; }
+    .a11y__title { font-size: calc(16px * var(--fs)); }
+    .a11y__sub,
+    .a11y__opt { font-size: calc(14px * var(--fs)); }
+    :global(html.dark-mode) .a11y { background: none; }
   }
 </style>

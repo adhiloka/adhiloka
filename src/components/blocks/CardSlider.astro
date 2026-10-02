@@ -99,7 +99,7 @@ const { title, items, perView = 3, viewAll, grey = false } = Astro.props;
     transition: background-color 0.7s;
   }
   .cs__card:hover { background: var(--bg-grey); }
-  .sec--grey .cs__card:hover { background: #fff; }
+  .sec--grey .cs__card:hover { background: var(--bg); }
 
   .cs__media {
     position: relative;
@@ -116,19 +116,19 @@ const { title, items, perView = 3, viewAll, grey = false } = Astro.props;
     padding: 6px 12px;
     border-radius: 4px;
     background: rgb(0 0 0 / 0.55);
-    font-size: 13px;
+    font-size: calc(13px * var(--fs));
     color: #fff;
   }
 
   .cs__meta {
     display: block;
     margin-top: 20px;
-    font-size: 16px;
+    font-size: calc(16px * var(--fs));
     color: var(--ink-muted);
   }
   .cs__title {
     margin-top: 14px;
-    font-size: 20px;
+    font-size: calc(20px * var(--fs));
     line-height: 1.3;
     font-weight: 440;
     color: var(--ink);
@@ -140,7 +140,7 @@ const { title, items, perView = 3, viewAll, grey = false } = Astro.props;
   .cs__meta + .cs__title { margin-top: 10px; }
   .cs__body {
     margin-top: 10px;
-    font-size: 16px;
+    font-size: calc(16px * var(--fs));
     line-height: 1.5;
     color: var(--ink);
   }
@@ -163,7 +163,7 @@ const { title, items, perView = 3, viewAll, grey = false } = Astro.props;
     height: 50px;
     border: 1px solid var(--ink);
     border-radius: 50%;
-    font-size: 15px;
+    font-size: calc(15px * var(--fs));
     color: var(--ink);
     transition: border-color 0.3s, opacity 0.3s;
   }

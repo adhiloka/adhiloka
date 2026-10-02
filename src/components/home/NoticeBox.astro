@@ -31,13 +31,13 @@ import { NOTICE } from '../../data/pages/home';
 <style>
   .notice { padding: 70px 0 60px; background: var(--bg); }
   .notice__title {
-    font-size: clamp(17px, 1.39vw, 20px);
+    font-size: calc(clamp(17px, 1.39vw, 20px) * var(--fs));
     line-height: 1.23;
     color: var(--ink);
   }
   .notice__body {
     margin-top: 16px;
-    font-size: clamp(16px, 1.39vw, 20px);
+    font-size: calc(clamp(16px, 1.39vw, 20px) * var(--fs));
     line-height: 1.23;
     color: var(--ink);
   }
@@ -51,7 +51,7 @@ import { NOTICE } from '../../data/pages/home';
   .notice__body:not(.is-open) p + p { display: none; }
   .notice__more {
     margin-top: 16px;
-    font-size: 16px;
+    font-size: calc(16px * var(--fs));
     color: var(--ink);
     text-decoration: underline;
     text-underline-offset: 4px;

@@ -44,7 +44,7 @@ const { sites } = Astro.props;
     grid-template-columns: repeat(3, 1fr);
     gap: 32px 2.4%;
   }
-  .loc__item { background: #fff; }
+  .loc__item { background: var(--bg); }
   .loc__media :global(img) { transition: transform 1s linear; }
   .loc__item:hover .loc__media :global(img) { transform: scale(1.05); }
   .loc__media { display: block; aspect-ratio: 16 / 10; }
@@ -53,13 +53,13 @@ const { sites } = Astro.props;
     z-index: 1;
     left: 20px;
     bottom: 16px;
-    font-size: 16px;
+    font-size: calc(16px * var(--fs));
     color: #fff;
   }
   .loc__body { padding: 24px; }
-  .loc__city { font-size: 24px; font-weight: 530; color: var(--ink); }
-  .loc__region { margin-top: 4px; font-size: 14px; color: var(--ink-muted); }
-  .loc__text { margin-top: 14px; font-size: 16px; line-height: 1.6; }
+  .loc__city { font-size: calc(24px * var(--fs)); font-weight: 530; color: var(--ink); }
+  .loc__region { margin-top: 4px; font-size: calc(14px * var(--fs)); color: var(--ink-muted); }
+  .loc__text { margin-top: 14px; font-size: calc(16px * var(--fs)); line-height: 1.6; }
   .loc__chips {
     display: flex;
     flex-wrap: wrap;
@@ -69,7 +69,7 @@ const { sites } = Astro.props;
   .loc__chips li {
     padding: 7px 12px;
     background: var(--bg-grey);
-    font-size: 14px;
+    font-size: calc(14px * var(--fs));
     color: var(--ink);
   }
   @media (max-width: 1026px) {

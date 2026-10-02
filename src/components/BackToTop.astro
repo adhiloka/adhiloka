@@ -75,8 +75,8 @@
     padding: 6px 10px;
     border-radius: 4px;
     background: var(--ink);
-    color: #fff;
-    font-size: 13px;
+    color: var(--bg);
+    font-size: calc(13px * var(--fs));
     white-space: nowrap;
     transform: translateY(-50%);
     opacity: 0;
@@ -89,4 +89,6 @@
   @media (max-width: 1023px) {
     .top { display: none; }
   }
+  /* Mode gelap: lingkaran gelap bergaris putih. */
+  :global(html.dark-mode) .top { border-color: #fff; background: rgb(0 0 0 / 0.6); }
 </style>

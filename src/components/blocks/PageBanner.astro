@@ -118,7 +118,7 @@ if (section && path !== section.href) {
     flex-wrap: wrap;
     align-items: center;
     gap: 6px 0;
-    font-size: 12px;
+    font-size: calc(12px * var(--fs));
     line-height: 1.2;
     color: var(--line);
   }
@@ -150,7 +150,7 @@ if (section && path !== section.href) {
 
   .banner__title {
     max-width: 900px;
-    font-size: clamp(32px, 3.06vw, 44px);
+    font-size: calc(clamp(32px, 3.06vw, 44px) * var(--fs));
     line-height: 1;
     font-weight: 530;
     color: #fff;
@@ -158,7 +158,7 @@ if (section && path !== section.href) {
   .banner__line {
     margin-top: 20px;
     max-width: 760px;
-    font-size: clamp(17px, 1.39vw, 20px);
+    font-size: calc(clamp(17px, 1.39vw, 20px) * var(--fs));
     line-height: 1.4;
     color: rgb(255 255 255 / 0.92);
   }

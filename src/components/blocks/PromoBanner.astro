@@ -65,7 +65,7 @@ const { title, text, cta, href, image, shot, grey = false } = Astro.props;
   .promo__title { color: #fff; }
   .promo__line {
     margin-top: 20px;
-    font-size: var(--lead);
+    font-size: calc(var(--lead) * var(--fs));
     line-height: 1.4;
   }
   .promo__btn { margin-top: 32px; }

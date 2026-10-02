@@ -50,16 +50,17 @@ const img = leader.image ?? image;
     backdrop-filter: blur(10px);
   }
   .spot__name {
-    font-size: clamp(22px, 1.8vw, 28px);
+    font-size: calc(clamp(22px, 1.8vw, 28px) * var(--fs));
     line-height: 1.2;
     font-weight: 530;
     color: var(--ink);
   }
-  .spot__role { margin-top: 8px; font-size: 17px; color: var(--ink-muted); }
+  .spot__role { margin-top: 8px; font-size: calc(17px * var(--fs)); color: var(--ink-muted); }
   .spot__btn { margin-top: 24px; }
   @media (max-width: 767px) {
     .spot__frame { aspect-ratio: auto; min-height: 0; display: flex; flex-direction: column; }
     .spot__media { position: relative; aspect-ratio: 4 / 3; }
     .spot__badge { position: static; max-width: none; padding: 24px 0 0; background: none; backdrop-filter: none; }
   }
+  :global(html.dark-mode) .spot__badge { background: rgb(0 0 0 / 0.82); }
 </style>

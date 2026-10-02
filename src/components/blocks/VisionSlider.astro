@@ -69,13 +69,13 @@ const { heading, subheading, body, slides } = Astro.props;
   }
   .vis__sub {
     margin-top: 20px;
-    font-size: clamp(20px, 1.67vw, 24px);
+    font-size: calc(clamp(20px, 1.67vw, 24px) * var(--fs));
     line-height: 1.25;
     font-weight: 440;
     color: var(--ink);
   }
   .vis__body { margin-top: 20px; }
-  .vis__body :global(p) { font-size: 17px; line-height: 1.6; }
+  .vis__body :global(p) { font-size: calc(17px * var(--fs)); line-height: 1.6; }
 
   .vis__media {
     position: relative;

@@ -94,7 +94,7 @@ const { title, people, viewAll, cols = 4, grey = false, flush = false } = Astro.
     display: flex;
     align-items: center;
     gap: 14px;
-    font-size: 20px;
+    font-size: calc(20px * var(--fs));
     line-height: 1.25;
     font-weight: 440;
     color: var(--ink);
@@ -104,7 +104,7 @@ const { title, people, viewAll, cols = 4, grey = false, flush = false } = Astro.
   .ppl__role {
     display: block;
     margin-top: 8px;
-    font-size: 17px;
+    font-size: calc(17px * var(--fs));
     color: var(--ink-muted);
   }
 
@@ -121,4 +121,5 @@ const { title, people, viewAll, cols = 4, grey = false, flush = false } = Astro.
   @media (prefers-reduced-motion: reduce) {
     .ppl__photo { transition: none; }
   }
+  :global(html.dark-mode) .ppl__item { border-color: var(--line-soft); }
 </style>

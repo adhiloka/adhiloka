@@ -147,10 +147,10 @@ const areas = [...new Set(sites.map((s) => s.area))];
     padding: 0 44px 0 18px;
     border: 1px solid var(--line);
     border-radius: 8px;
-    background: #fff;
+    background: var(--bg);
     appearance: none;
     font: inherit;
-    font-size: 16px;
+    font-size: calc(16px * var(--fs));
     color: var(--ink);
     cursor: pointer;
   }
@@ -202,8 +202,8 @@ const areas = [...new Set(sites.map((s) => s.area))];
     box-shadow: inset 0 0 0 3px #fff;
   }
   .pres__radio input:focus-visible + .pres__radio-mark { outline: 2px solid var(--brand-green); outline-offset: 2px; }
-  .pres__radio-city { display: block; font-size: 17px; font-weight: 440; color: var(--ink); }
-  .pres__radio-kind { display: block; margin-top: 2px; font-size: 13px; color: var(--ink-muted); }
+  .pres__radio-city { display: block; font-size: calc(17px * var(--fs)); font-weight: 440; color: var(--ink); }
+  .pres__radio-kind { display: block; margin-top: 2px; font-size: calc(13px * var(--fs)); color: var(--ink-muted); }
 
   .pres__data {
     margin-top: 24px;
@@ -213,15 +213,15 @@ const areas = [...new Set(sites.map((s) => s.area))];
   .pres__photo { display: block; aspect-ratio: 16 / 9; }
   .pres__kind {
     margin-top: 20px;
-    font-size: 13px;
+    font-size: calc(13px * var(--fs));
     font-weight: 530;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--ink-muted);
   }
-  .pres__city { margin-top: 8px; font-size: 26px; font-weight: 530; color: var(--ink); }
-  .pres__region { margin-top: 4px; font-size: 14px; color: var(--ink-muted); }
-  .pres__body { margin-top: 14px; font-size: 16px; line-height: 1.6; color: var(--ink); }
+  .pres__city { margin-top: 8px; font-size: calc(26px * var(--fs)); font-weight: 530; color: var(--ink); }
+  .pres__region { margin-top: 4px; font-size: calc(14px * var(--fs)); color: var(--ink-muted); }
+  .pres__body { margin-top: 14px; font-size: calc(16px * var(--fs)); line-height: 1.6; color: var(--ink); }
   .pres__chips {
     display: flex;
     flex-wrap: wrap;
@@ -233,7 +233,7 @@ const areas = [...new Set(sites.map((s) => s.area))];
     padding: 6px 12px;
     border: 1px solid var(--line);
     border-radius: 40px;
-    font-size: 13px;
+    font-size: calc(13px * var(--fs));
     color: var(--ink);
   }
 
@@ -244,4 +244,9 @@ const areas = [...new Set(sites.map((s) => s.area))];
   @media (prefers-reduced-motion: reduce) {
     .pres__pulse { animation: none; }
   }
+  /* Mode gelap: daratan abu gelap, garis batas mengikuti latar peta. */
+  :global(html.dark-mode) .pres__land { fill: #2b3431; stroke: var(--bg-grey); }
+  :global(html.dark-mode) .pres__home { fill: #2c5a4f; stroke: var(--bg-grey); }
+  :global(html.dark-mode) .pres__dot { stroke: var(--bg-grey); }
+  :global(html.dark-mode) .pres__radio input:checked + .pres__radio-mark { box-shadow: inset 0 0 0 3px var(--bg); }
 </style>

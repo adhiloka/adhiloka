@@ -103,7 +103,7 @@ const intro = {
   .prof__photo { display: block; aspect-ratio: 3 / 4; }
   .prof__dl { margin-top: 24px; }
   .prof__role {
-    font-size: 14px;
+    font-size: calc(14px * var(--fs));
     font-weight: 530;
     letter-spacing: 0.16em;
     text-transform: uppercase;
@@ -122,7 +122,7 @@ const intro = {
     display: block;
     height: 100%;
     padding: 28px;
-    background: #fff;
+    background: var(--bg);
     transition: background-color 0.7s;
   }
   .meet__card:hover { background: #fafafa; }
@@ -130,7 +130,7 @@ const intro = {
     display: inline-flex;
     align-items: center;
     gap: 12px;
-    font-size: 14px;
+    font-size: calc(14px * var(--fs));
     font-weight: 530;
     letter-spacing: 0.16em;
     text-transform: uppercase;
@@ -148,8 +148,8 @@ const intro = {
     width: 96px;
     aspect-ratio: 1;
   }
-  .meet__name { display: block; font-size: 20px; font-weight: 440; color: var(--ink); }
-  .meet__role { display: block; margin-top: 6px; font-size: 16px; color: var(--ink-muted); }
+  .meet__name { display: block; font-size: calc(20px * var(--fs)); font-weight: 440; color: var(--ink); }
+  .meet__role { display: block; margin-top: 6px; font-size: calc(16px * var(--fs)); color: var(--ink-muted); }
   .meet__card:hover .meet__name { text-decoration: underline; text-underline-offset: 5px; }
 
   @media (max-width: 1026px) {
@@ -159,4 +159,5 @@ const intro = {
   @media (max-width: 767px) {
     .meet__grid { grid-template-columns: 1fr; gap: 16px; }
   }
+  :global(html.dark-mode) .meet__card:hover { background: #0d0d0d; }
 </style>
