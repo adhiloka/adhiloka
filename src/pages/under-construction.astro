@@ -1,0 +1,149 @@
+---
+// Halaman sementara selama situs disiapkan. Sengaja mandiri: tanpa BaseLayout,
+// tanpa skrip, CSS inline, supaya tidak bergantung pada berkas lain yang ikut
+// dialihkan (lihat public/_redirects). Warna dari adhiloka-brand/SPESIFIKASI.txt.
+const year = new Date().getFullYear();
+
+// Gelombang Q/T berantai selebar 2 layar (3200 satuan); geseran 50% = tepat
+// 1600 satuan = bilangan bulat periode, jadi putarannya tanpa sambungan terlihat.
+function wave(periods: number, base: number, amp: number) {
+  const seg = 1600 / periods / 2;
+  let d = `M0 ${base} Q${seg / 2} ${base - amp} ${seg} ${base}`;
+  for (let i = 1; i < periods * 4; i++) d += ` T${seg * (i + 1)} ${base}`;
+  return `${d} V190 H0Z`;
+}
+const waves = [
+  { cls: 'w1', d: wave(2, 78, 34), fill: '#e3cca5', opacity: 0.55 },
+  { cls: 'w2', d: wave(3, 108, 26), fill: '#d58207', opacity: 0.8 },
+  { cls: 'w3', d: wave(4, 142, 20), fill: '#034c44', opacity: 1 },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Adhiloka — Coming soon</title>
+    <meta name="description" content="The Adhiloka website is under construction. Please check back soon." />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" href="/favicon.ico?v=2" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
+
+    <style is:inline>
+      :root {
+        --cream: #e3cca5;
+        --gold: #d9aa5a;
+        --amber: #d58207;
+        --green-deep: #034c44;
+        --green: #026a5b;
+        --green-soft: #248f76;
+        --sage: #5c6d68;
+        --bg: #fbf9f4;
+      }
+      * { box-sizing: border-box; margin: 0; }
+      html { height: 100%; }
+      body {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        color: var(--green-deep);
+        background:
+          radial-gradient(ellipse 80% 60% at 50% 0%, #fff 0%, transparent 70%),
+          var(--bg);
+        -webkit-font-smoothing: antialiased;
+        position: relative;
+        overflow-x: hidden;
+      }
+      main {
+        flex: 1;
+        display: grid;
+        place-content: center;
+        justify-items: center;
+        gap: 0;
+        padding: 64px 24px 140px;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+      .logo { width: min(440px, 78vw); height: auto; animation: rise 0.9s ease-out both; }
+      .rule {
+        width: 56px; height: 2px; margin: 44px 0 36px;
+        background: linear-gradient(90deg, var(--gold), var(--amber));
+        animation: rise 0.9s 0.12s ease-out both;
+      }
+      .eyebrow {
+        font-size: 0.78rem; letter-spacing: 0.28em; text-transform: uppercase;
+        color: var(--amber); font-weight: 600;
+        animation: rise 0.9s 0.2s ease-out both;
+      }
+      h1 {
+        margin-top: 14px;
+        font-size: clamp(1.7rem, 4.6vw, 2.7rem);
+        font-weight: 500; line-height: 1.18; letter-spacing: -0.01em;
+        max-width: 18ch;
+        animation: rise 0.9s 0.28s ease-out both;
+      }
+      .lead {
+        margin-top: 18px; max-width: 44ch;
+        font-size: 1.02rem; line-height: 1.65; color: var(--sage);
+        animation: rise 0.9s 0.36s ease-out both;
+      }
+      .lead + .lead { margin-top: 6px; font-size: 0.94rem; }
+      .mail {
+        margin-top: 34px; display: inline-block;
+        padding: 13px 28px; border-radius: 999px;
+        background: var(--green-deep); color: #fff;
+        font-size: 0.95rem; font-weight: 500; letter-spacing: 0.02em; text-decoration: none;
+        transition: background 0.2s ease, transform 0.2s ease;
+        animation: rise 0.9s 0.44s ease-out both;
+      }
+      .mail:hover { background: var(--green); transform: translateY(-1px); }
+      .mail:focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; }
+      footer {
+        position: relative; z-index: 2;
+        padding: 0 24px 22px; text-align: center;
+        font-size: 0.8rem; color: #fff; letter-spacing: 0.04em;
+      }
+
+      /* Tiga gelombang dari warna logo, bergeser pelan di dasar halaman. */
+      .waves { position: absolute; left: 0; right: 0; bottom: 0; height: 190px; z-index: 0; pointer-events: none; overflow: hidden; }
+      .waves svg { position: absolute; left: 0; bottom: 0; width: 200%; height: 100%; }
+      .w1 { animation: drift 38s linear infinite; }
+      .w2 { animation: drift 28s linear infinite reverse; }
+      .w3 { animation: drift 22s linear infinite; }
+
+      @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+      @keyframes drift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { animation: none !important; transition: none !important; }
+      }
+      @media (max-width: 520px) {
+        main { padding-bottom: 120px; }
+        .rule { margin: 34px 0 28px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <img class="logo" src="/brand/adhiloka-lockup.svg" alt="Adhiloka" width="1595" height="328" />
+      <div class="rule" aria-hidden="true"></div>
+      <p class="eyebrow">Coming soon</p>
+      <h1>Our website is under construction</h1>
+      <p class="lead">We are putting the finishing touches on something new. Please check back soon.</p>
+      <p class="lead" lang="id">Situs kami sedang dalam pengerjaan. Silakan kembali lagi nanti.</p>
+      <a class="mail" href="mailto:info@adhiloka.com">info@adhiloka.com</a>
+    </main>
+
+    <div class="waves" aria-hidden="true">
+      {waves.map((w) => (
+        <svg class={w.cls} viewBox="0 0 3200 190" preserveAspectRatio="none"><path d={w.d} fill={w.fill} opacity={w.opacity} /></svg>
+      ))}
+    </div>
+
+    <footer>© {year} Adhiloka Group</footer>
+  </body>
+</html>

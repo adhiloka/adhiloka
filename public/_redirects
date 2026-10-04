@@ -1,0 +1,26 @@
+# ============================================================================
+# MODE "UNDER CONSTRUCTION"
+#
+# Selama blok di bawah aktif, pengunjung adhiloka.com dialihkan (302, sementara)
+# ke /under-construction/. Aturan dibatasi ke host adhiloka.com, jadi
+# https://adhiloka.netlify.app tetap menampilkan situs lengkap untuk dipantau.
+#
+# MEMBUKA SITUS KEMBALI: hapus (atau beri # di depan) SEMUA baris di bawah
+# sampai tanda "AKHIR MODE", lalu push ke main.
+# ============================================================================
+
+# Berkas yang dipakai halaman sementara tidak boleh ikut dialihkan.
+/under-construction/*   /under-construction/:splat   200!
+/brand/*                /brand/:splat                200!
+/favicon.ico            /favicon.ico                 200!
+/favicon.svg            /favicon.svg                 200!
+/apple-touch-icon.png   /apple-touch-icon.png        200!
+/robots.txt             /robots.txt                  200!
+
+# Semua yang lain di adhiloka.com diarahkan ke halaman sementara.
+https://adhiloka.com/*       /under-construction/   302!
+http://adhiloka.com/*        /under-construction/   302!
+https://www.adhiloka.com/*   /under-construction/   302!
+http://www.adhiloka.com/*    /under-construction/   302!
+
+# ============================ AKHIR MODE =====================================

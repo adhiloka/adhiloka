@@ -11,7 +11,7 @@ export default defineConfig({
 
   // Toolbar dev Astro menutupi kontrol slider hero di kanan bawah.
   devToolbar: { enabled: false },
-  integrations: [sitemap()],
+  integrations: [sitemap({ filter: (page) => !page.includes('/under-construction/') })],
 
   // Tiga rute lama dari susunan menu sebelumnya. Tautan luar dan hasil telusur
   // masih menunjuk ke sini, jadi mereka diarahkan, bukan dibiarkan jadi 404.
