@@ -54,7 +54,7 @@ export const FINE_INTRO: PageIntro = {
 export const FINE_PASSAGES: Passage[] = [
   {
     id: 'palette',
-    eyebrow: 'The palette',
+    eyebrow: 'The Palette',
     title: 'Voluptas expedita, hic qui incididunt at sit sed ex quae do enim',
     body: 'Qui tempora eos saepe cumque molestiae ex rem ipsam sit quam et nam doloribus ipsa facere eius. Vero doloremque in cupiditate: aperiam ad adipisci sit id aliquid ea quod ad qui, eum neque illum qui eos nam ad cum voluptate. Hic tempora eos quaerat adipisci quis qui occaecat adipisci, quo minima iste ex quos cumque facere numquam.',
     points: [
@@ -67,7 +67,7 @@ export const FINE_PASSAGES: Passage[] = [
   },
   {
     id: 'bespoke',
-    eyebrow: 'Bespoke creation',
+    eyebrow: 'Bespoke Creation',
     title: 'Illo et dolor do ut numquam unde aliquip rem repellat aut',
     body: 'Facilis quia libero modi et voluptatibus natus beatae est lorem, rem error ipsa veniam. Id irure cillum iste cum ex esse aut odio in neque omnis iste commodo quis ea maxime nam itaque sunt corporis ex magna at cumque vero ut sit. Odit nobis: minima, adipiscing, excepturi, qui ad reiciendis ducimus quam ea labore temporibus voluptas et ut.',
     points: [
@@ -82,7 +82,7 @@ export const FINE_PASSAGES: Passage[] = [
   },
   {
     id: 'functional',
-    eyebrow: 'Functional bases',
+    eyebrow: 'Functional Bases',
     title: 'Corrupti modi, iure quis rem cillum, ex sed vero commodo',
     body: 'Rem aute occaecat soluta iure praesentium do ab doloremque eius anim id dolores, quo id porro anim ut qui animi odit ut adipisci nam minus ad vero quaerat. Duis do dolores non reiciendis accusantium ad vel molestias nemo vero: excepteur sunt aut voluptatibus cum illo-ea-aut at unde ut ab at quae maiores.',
     points: [
@@ -128,7 +128,7 @@ export const INNOVATION_PASSAGES: Passage[] = [
   },
   {
     id: 'analysis',
-    eyebrow: 'Analytical control',
+    eyebrow: 'Analytical Control',
     title: 'Sed perspiciatis ex odit minus eius nam reiciendis quos',
     body: 'Sequi quo id qui dolore do ut nesciunt, cum sed minus sunt quo nisi est fugiat soluta quos numquam in at quam. Vitae ad cumque minima id proident aperiam eos culpa fugit, do ratione rem omnis ab corrupti maxime do. At natus ad hic aspernatur vero eos et nam rerum iste odio in ea delectus.',
     points: [
@@ -141,7 +141,7 @@ export const INNOVATION_PASSAGES: Passage[] = [
   },
   {
     id: 'research',
-    eyebrow: 'Naturals research',
+    eyebrow: 'Naturals Research',
     title: 'Quae at eligendi, explicabo proident',
     body: 'Non cumque cum illo ad nam nobis ipsam qui. Quo optio et do quas-laboris dicta aut placeat sunt ipsum eius do cum earum aut nemo ipsam nisi. Vel labore ab et veniam minus ab eveniet nostrud inventore minima quo eligendi ullamco at aliquid — ex eligendi est recusandae quos occaecat saepe hic nam laboriosam modi quo. Eiusmod ea deserunt. Quos esse id excepteur minima eos.',
     points: [

@@ -64,103 +64,60 @@ export type Article = {
   image?: ImageKey;
 };
 
-/* PLACEHOLDER — enam kabar lorem ipsum untuk mengisi tata letak daftar dan
-   halaman artikel. Tanggal dan kategori dibiarkan supaya urutan dan tab
-   penyaring tetap bekerja. Ganti dengan pengumuman sungguhan sebelum terbit. */
+/* Tiga cerita umum bergaya "stories" situs fragrance (Symrise, Givaudan),
+   disetujui pemilik 18 Okt 2026. Sengaja tanpa kejadian, angka, atau detail
+   teknis; kabar perusahaan sungguhan ditambahkan di sini saat ada. Tanggal =
+   tanggal tayang, bukan tanggal mundur. */
 export const NEWS: Article[] = [
   {
-    slug: 'release-2026-08-18',
-    date: '2026-08-18',
-    category: 'Harvest',
-    title: 'Laboris mollit neque quas dolor magnam itaque ad nam iure officiis',
-    standfirst:
-      'Numquam ullam tempor eum officiis eveniet iste magni, quas est cumque vitae culpa libero veniam hic nobis vel officia.',
-    body: [
-      'Officia veniam tempor quo mollitia quaerat do qui magnam quae ex facere, quo eum quo consectetur repellendus beatae non neque nihil quo labore at animi officia minima sed sequi vel nam laboris. Voluptatem aliquip quas id modi anim in quas do ipsum-optio error quod minim fugiat duis aliqua qui aute natus ex neque.',
-      'Rerum unde facilis ut fugiat quos. Ipsum-dolor optio et pariatur id aliquip incidunt minim et quam cumque, vitae aliquid quasi quibusdam ab non eos-beatae numquam corporis fugiat eius et non aliquid. Sit corporis irure ipsa eos in consequat minim sed autem amet incididunt nemo ex facilis.',
-      'Fugiat quos expedita perferendis enim ducimus excepteur exercitation ex quo minim iure at nostrud. Minima delectus aut eos est itaque ipsa at eos nemo odio.',
-    ],
-    shot: 'benzoin resin, hand-graded',
-    image: 'material-benzoin',
-  },
-  {
-    slug: 'release-2026-06-02',
-    date: '2026-06-02',
-    category: 'Works',
-    title: 'Ut fugiat perspiciatis soluta quos do ut quo ipsum error',
-    standfirst:
-      'Sit nesciunt eiusmod corporis ea fugit voluptate est libero excepteur exercitationem ea-neque vero-quasi.',
-    body: [
-      'Qui consequuntur sint explicabo in 1234 quo amet nostrud ab deleniti cum hic commodo. At aliqua fugiat, exercitation ad cum, officia voluptatem in porro molestiae eum esse id est assumenda perspiciatis exercitation magnam quos in cupidatat commodi aperiam placeat.',
-      'Sed occaecati aliqua sed assumenda at perspiciatis. Est-illo excepteur voluptate, nihil ab quos iure similique magna 1234, dolore ut sit possimus debitis amet quia. Eligendi vel eligendi nostrum explicabo enim in architecto magnam ad cum iure illo.',
-      'Ex blanditiis eum occaecat ad corrupti cum hic id at. Necessitatibus occaecati illo in quo officia possimus, porro ex eum magnam nam nisi sit culpa do qui alias minim.',
-    ],
-    shot: 'processing line',
-    image: 'fragrance-resin',
-  },
-  {
-    slug: 'release-2026-04-21',
-    date: '2026-04-21',
+    slug: 'where-our-ingredients-begin',
+    date: '2026-10-18',
     category: 'Sourcing',
-    title: 'Inventore deleniti magnam 1,234 corrupti',
+    title: 'Where Our Ingredients Begin',
     standfirst:
-      'Nostrud minus culpa ut soluta, cum adipisci eum soluta error dolores hic ex est quo nisi do est cupidatat.',
+      'A look at the forests, fields and growers behind the natural materials we bring to perfumery.',
     body: [
-      'Aut molestiae repellat error at 1234 illo do quo tenetur deleniti maxime ducimus. At qui neque sunt duis 1,234, qui lorem ullamco eos facere nisi minima ab deleniti in hic et anim ex hic cillum at incidunt fugiat elit consequuntur laboriosam.',
-      'Molestiae pariatur dolore do aliquip iste maxime, eos sit iusto qui nemo maxime ad delectus aute ullamco qui rem aut sed voluptates. Commodo ab ex eum occaecat neque veniam occaecati eum quo veniam sunt.',
-      'Quo expedita ea hic ea exercitation beatae quo at in sit impedit ut in rem. At ut do deleniti cumque, eius numquam id aliqua dolore sed ea quod ad dolore nobis.',
+      'Every ingredient we offer starts long before it reaches a laboratory. It begins with a tree, a field or a leaf, and with the people who know how to look after them.',
+      "Indonesia's islands are home to some of the most familiar materials in perfumery: resins, woods, roots, leaves and spices. Each comes from its own landscape, with its own season.",
+      'We work close to that source, so that what reaches the perfumer still carries the character of where it grew.',
     ],
-    shot: 'benzoin intake',
+    shot: 'benzoin resin',
     image: 'material-benzoin',
   },
   {
-    slug: 'release-2026-02-10',
-    date: '2026-02-10',
-    category: 'Perfumery',
-    title: 'Nemo-nostrud tenetur cumque sed libero dicta itaque',
-    standfirst:
-      'Ea cupiditate ullam odio atque illo at non ipsam rem illo illum quos — veritatis, laboriosam, eum nihil deleniti mollit eos.',
-    body: [
-      'Rerum perspiciatis natus laboris ipsa et est magni eveniet. Do enim-tempora ipsum eligendi in est minus dolores 1234 laborum laboriosam eius ad ut, ea do ullam enim ab cupidatat eos vel ad illo maiores.',
-      'Hic facere autem itaque ad magna vero fugit veniam iure est minim. Ex ea soluta id eiusmod quia in ullam elit atque distinctio iusto, ut vero qui ab est laboris quod at aliquip.',
-      'Voluptate hic omnis quam do voluptas sit optio deleniti sit laborum at. Ad ex non in nam quaerat cum quae sit ad atque quo aspernatur error.',
-    ],
-    shot: 'petal, close',
-    image: 'fragrance-petal',
-  },
-  {
-    slug: 'release-2025-11-14',
-    date: '2025-11-14',
+    slug: 'the-rhythm-of-the-harvest',
+    date: '2026-10-18',
     category: 'Harvest',
-    title: 'Ut similique molestias fugiat, adipisci id ex incidunt',
+    title: 'The Rhythm of the Harvest',
     standfirst:
-      'Iure proident cillum voluptate debitis lorem non magna totam. Do molestiae non totam fugiat quas suscipit at enim ex.',
+      'Every natural ingredient follows the seasons. Here is why timing matters as much as care.',
     body: [
-      'Inventore eaque unde commodo vel anim beatae soluta enim molestias eiusmod ex non hic sed id non cupidatat magni rem, do sed sunt, error ut. Amet elit eius adipisci modi cum dolore tempor et qui consectetur vel ducimus do ea exercitationem eaque.',
-      'Non consectetur — proident libero laborum id enim at commodi — minus iste deserunt et maxime voluptatibus qui ut quas magnam eum. Veritatis dignissimos ea in libero vero et elit quod sit mollit atque.',
-      'Magnam deleniti at eligendi ex irure proident beatae non quis cumque id maxime incidunt ab sed elit eiusmod officia.',
+      'Natural ingredients do not arrive on a schedule of our choosing. Each one follows its own season, set by rain, sun and the life of the plant.',
+      'Knowing when to gather a leaf, a seed or a resin is knowledge passed between growers, and it shapes the character of what we receive.',
+      'We plan around those seasons, so that the ingredients we supply are gathered at the right moment and handled with care.',
     ],
-    shot: 'patchouli leaf, close',
-    image: 'material-patchouli',
+    shot: 'nutmeg',
+    image: 'material-nutmeg',
   },
   {
-    slug: 'release-2025-09-01',
-    date: '2025-09-01',
-    category: 'Company',
-    title: 'Itaque reprehenderit omnis in facere',
+    slug: 'from-raw-material-to-fragrance',
+    date: '2026-10-18',
+    category: 'Perfumery',
+    title: 'From Raw Material to Fragrance',
     standfirst:
-      'In cumque libero, id nesciunt quibusdam nam ut iure esse repellat vel minim qui quia cumque ipsa ut repellat.',
+      'How a natural ingredient finds its place in a perfume, from the first sample to the final formula.',
     body: [
-      'In neque necessitatibus minima libero ex soluta quam atque, adipisci repellat ducimus, magnam pariatur magnam cillum rem doloremque quaerat.',
-      'Do et exercitation qui at saepe soluta. Eos dolore vitae eius rerum iste id rem expedita cum ea eos impedit vitae, vel eum velit ab cum perferendis at modi ut deserunt eligendi cum qui et proident magni ea cum nam cum do mollit aute dolores est non quod ut.',
-      'Assumenda cum facere exercitation expedita ab sed quia aliquid.',
+      "A natural ingredient begins its life in perfumery as a small sample on a perfumer's bench.",
+      'There it is smelled, studied and tried alongside other materials, to find the role it plays best: a bright opening, a warm heart or a lasting base.',
+      'Our own perfumery follows the same path, working with the materials we supply to understand them from the inside of a formula.',
     ],
-    shot: 'office',
-    image: 'hero-still-hall',
+    shot: 'patchouli leaf',
+    image: 'material-patchouli',
   },
 ];
 
-export const byDate = (a: Article, b: Article) => (a.date < b.date ? 1 : -1);
+/* Tanggal sama: urutan larik dipertahankan (sort stabil). */
+export const byDate = (a: Article, b: Article) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0);
 
 export const formatDate = (iso: string) =>
   new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-GB', {

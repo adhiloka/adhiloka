@@ -48,17 +48,17 @@ const COLUMNS: Record<string, MenuColumn[]> = {
     {
       head: { label: 'Fine Fragrance', href: '/perfumery/fine-fragrance/' },
       links: [
-        { label: 'The palette', href: '/perfumery/fine-fragrance/#palette' },
-        { label: 'Bespoke creation', href: '/perfumery/fine-fragrance/#bespoke' },
-        { label: 'Functional bases', href: '/perfumery/fine-fragrance/#functional' },
+        { label: 'The Palette', href: '/perfumery/fine-fragrance/#palette' },
+        { label: 'Bespoke Creation', href: '/perfumery/fine-fragrance/#bespoke' },
+        { label: 'Functional Bases', href: '/perfumery/fine-fragrance/#functional' },
       ],
     },
     {
       head: { label: 'Fragrance Innovation', href: '/perfumery/fragrance-innovation/' },
       links: [
         { label: 'Fractionation', href: '/perfumery/fragrance-innovation/#fractionation' },
-        { label: 'Analytical control', href: '/perfumery/fragrance-innovation/#analysis' },
-        { label: 'Naturals research', href: '/perfumery/fragrance-innovation/#research' },
+        { label: 'Analytical Control', href: '/perfumery/fragrance-innovation/#analysis' },
+        { label: 'Naturals Research', href: '/perfumery/fragrance-innovation/#research' },
       ],
     },
   ],

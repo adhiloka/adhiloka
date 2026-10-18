@@ -78,22 +78,22 @@ export type Route = { name: string; applies: string; body: string };
 
 export const ROUTES: Route[] = [
   {
-    name: 'Sequi exercitation',
+    name: 'Steam Distillation',
     applies: 'Nemo quam, culpa, soluta, nulla',
     body: 'Cum illum, soluta cum delectus minus. Est-at-ipsum sint in non labore sunt dolores unde, nam magnam eum repellat omnis at sit tempore ex unde alias id earum libero in duis hic est culpa.',
   },
   {
-    name: 'Pariatur',
+    name: 'Resinoid Extraction',
     applies: 'Dolorem, rerum facere',
     body: 'Nostrum asperiores ea maxime ipsam odit ad deserunt possimus. Aliquip facere aspernatur fugiat anim totam in eum maxime sed nesciunt ex laboriosam; commodi at repellat quasi mollit unde in iusto nulla.',
   },
   {
-    name: 'Mollitia',
+    name: 'Rectification',
     applies: 'Tenetur, possimus, commodo',
     body: 'Ad cillum fugit ea pariatur molestias, eum inventore non elit quo impedit-commodo repellat eum ea ratione itaque. Labore sed cum est ab at non eos at consequuntur.',
   },
   {
-    name: 'Necessitatibus',
+    name: 'Molecular Distillation',
     applies: 'Veniam, consequat, labore, fugiat',
     body: 'Beatae exercitation, ex error 1234. Accusamus non possimus elit tempora facere incididunt — et corporis ducimus aut rem at mollitia iure, non delectus — aliquid itaque unde id sit minima.',
   },

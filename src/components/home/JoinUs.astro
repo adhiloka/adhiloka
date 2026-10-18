@@ -5,8 +5,8 @@ import { JOIN_US } from '../../data/pages/home';
 
 /* "JOIN US" adani.com: judul + satu kalimat + Know More, lalu empat kartu foto
  * setinggi ±600 px. Kartu aktif lebar (490 px pada 1440), tiga lainnya sempit;
- * hover atau fokus memindahkan lebarnya. Halaman karier belum ada, jadi semua
- * tautannya kosong. */
+ * hover atau fokus memindahkan lebarnya. Tautan tombol dan tiap kartu dari
+ * JOIN_US (home.ts). */
 ---
 
 <section class="sec sec--grey join">
@@ -16,14 +16,14 @@ import { JOIN_US } from '../../data/pages/home';
         <h2 class="h2">{JOIN_US.title}</h2>
         <p data-anim="sub">{JOIN_US.body}</p>
       </div>
-      <a class="btn" href="#"><span class="btn__label">{JOIN_US.cta}</span></a>
+      <a class="btn" href={JOIN_US.href}><span class="btn__label">{JOIN_US.cta}</span></a>
     </div>
 
     <ul class="join__cards" data-join data-anim="columns">
       {
         JOIN_US.cards.map((c, i) => (
           <li class:list={['join__card', { 'is-active': i === 0 }]} data-anim-item>
-            <a class="join__link cover shade" href="#">
+            <a class="join__link cover shade" href={c.href}>
               <Image quality={70} src={images[c.image]} alt={c.alt} widths={[480, 800, 1000]} sizes="(max-width: 1026px) 90vw, 36vw" loading="lazy" />
               <span class="join__label">
                 {c.label}

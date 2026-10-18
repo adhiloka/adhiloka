@@ -11,8 +11,9 @@ import type { ImageKey } from '../images';
 
 /* ── Hero slider ─────────────────────────────────────────────────────── */
 
-/* SEMENTARA lorem ipsum (permintaan pemilik, 27 Sep 2026): naskah final
- * menyusul. Yang dijaga adalah takaran slider adani.com — judul dua baris
+/* Naskah asli sejak 18 Okt 2026 (disetujui pemilik), bergaya hero situs
+ * fragrance seperti Givaudan, Robertet dan dsm-firmenich: tanpa angka atau
+ * klaim yang belum terbukti. Yang dijaga adalah takaran slider adani.com — judul dua baris
  * dengan pemisah baris eksplisit (panjang tiap baris setara judul Adani),
  * lalu satu baris pendek di bawahnya, setara nama anak usaha di Adani
  * ("Adani Power Ltd", "Natural Resources"). Enam slide seperti Adani, supaya
@@ -31,44 +32,44 @@ export type HeroSlide = {
 
 export const HERO_SLIDES: HeroSlide[] = [
   {
-    title: ['Lorem ipsum dolor…'],
-    line: ['#LoremIpsumDolor', '#SitAmet'],
-    href: '#',
+    title: ['We Are Adhiloka'],
+    line: ['Natural Ingredients & Perfumery'],
+    href: '/about/',
     image: 'agroforest-canopy',
     alt: 'Green tree canopy seen from below',
   },
   {
-    title: ["Lorem's Leading Integrated Ipsum", 'for Dolor and Sit Amet'],
-    line: ['Lorem Ipsum & Dolor Ltd'],
-    href: '#',
+    title: ['Rooted in the Islands', 'of Indonesia'],
+    line: ['Natural Raw Materials'],
+    href: '/ingredients/',
     image: 'material-benzoin',
     alt: 'Sorted benzoin resin tears',
   },
   {
-    title: ['Consectetur Adipiscing', 'Elit Sed Goal for 2030'],
-    line: ['Adipiscing Elit Ltd'],
-    href: '#',
+    title: ['From Field', 'to Fragrance'],
+    line: ['Our Expertise'],
+    href: '/ingredients/technology/',
     image: 'material-patchouli',
     alt: 'Green leaves with dew',
   },
   {
-    title: ["Lorem's Largest Private Sector", 'Tempor Incididunt Ut Labore'],
-    line: ['Magna Aliqua Ltd'],
-    href: '#',
+    title: ['Where Nature Meets', "the Perfumer's Art"],
+    line: ['Perfumery'],
+    href: '/perfumery/',
     image: 'fragrance-petal',
     alt: 'Orange petals, close',
   },
   {
-    title: ["Lorem's Largest Private Sector", 'Nostrud Exercitation Company'],
-    line: ['Ullamco Laboris Solutions Ltd'],
-    href: '#',
+    title: ['The Scents of', 'the Archipelago'],
+    line: ['Signature Ingredients'],
+    href: '/ingredients/catalog/',
     image: 'hero-benzoin-tears',
     alt: 'Cassia bark, close',
   },
   {
-    title: ['Inspired by Lorem,', 'Driven by Ipsum'],
-    line: ['Dolor Sit Amet'],
-    href: '#',
+    title: ['Growing Together', 'with Nature'],
+    line: ['Our Purpose'],
+    href: '/about/our-purpose/',
     image: 'material-nutmeg',
     alt: 'Whole nutmegs',
   },
@@ -77,13 +78,14 @@ export const HERO_SLIDES: HeroSlide[] = [
 /* ── Kutipan terbelah ────────────────────────────────────────────────── */
 
 /* Kata yang diapit *bintang* dicetak tebal, seperti kata kunci pada kutipan
-   di beranda Adani. Naskahnya PURPOSE_QUOTE dari about.ts. */
+   di beranda Adani. Sejak 18 Okt 2026 berupa pernyataan tujuan atas nama
+   perusahaan (gaya "Our purpose" Givaudan/Robertet), disetujui pemilik. */
 export const HOME_QUOTE = {
-  text: 'Ad hic quo maxime in *quis quaerat*. Ex aut dolore ab at nam neque *minim soluta quis totam facere* odio aut aliqua nostrud iure eum modi *reprehenderit*.',
-  name: 'Proident Totam',
-  role: 'Labore-nisi error vel 1234s',
-  cta: 'Our Leadership',
-  href: '/about/our-leadership/',
+  text: "Every scent begins with a *living plant* and the *hands that tend it*. We exist to carry that nature, *with care*, from Indonesian soil to the perfumer's bench.",
+  name: 'Adhiloka',
+  role: 'Our Purpose',
+  cta: 'Our Purpose',
+  href: '/about/our-purpose/',
   image: 'purpose-generations' as ImageKey,
   alt: 'Two children running through a meadow at dusk',
 };
@@ -99,29 +101,31 @@ export type Pillar = {
   alt: string;
 };
 
-/* Judul besar di panel yang terbuka — dari judul halaman Sustainability. */
-export const PILLAR_HEADLINE = ['Vel dolore', 'et at adipisci,', 'eum at quisquam'];
+/* Judul besar di panel yang terbuka. Sejak 18 Okt 2026 tiga pilar mengikuti
+ * pola Nature / People / Communities Givaudan, tanpa angka target (disetujui
+ * pemilik). */
+export const PILLAR_HEADLINE = ['Caring for', 'nature and', 'its people'];
 
 export const PILLARS: Pillar[] = [
   {
-    label: 'Minima Natus',
-    stat: '1 deleniti quaerat nam est cillum',
+    label: 'Nature',
+    stat: 'Respecting the land our ingredients come from',
     cta: 'View Responsible Sourcing',
     href: '/sustainability/responsible-sourcing/',
     image: 'agroforest-canopy',
     alt: 'Tree canopy seen from below',
   },
   {
-    label: 'Placeat Laudantium',
-    stat: '1,234+ architecto ab cum corrupti',
+    label: 'People',
+    stat: 'Working side by side with our growers',
     cta: 'View Progress for People',
     href: '/sustainability/people/',
     image: 'material-patchouli',
     alt: 'Green leaves with dew',
   },
   {
-    label: 'Quibusdam do sed Similique',
-    stat: '12% ab dolores consequat ex quo adipiscing fugit',
+    label: 'Communities',
+    stat: 'Lasting ties with the villages behind each harvest',
     cta: 'View Our Approach',
     href: '/sustainability/',
     image: 'material-benzoin',
@@ -131,26 +135,31 @@ export const PILLARS: Pillar[] = [
 
 /* ── Join Us ─────────────────────────────────────────────────────────── */
 
-/* Belum ada halaman karier: semua tautan di section ini sengaja kosong (#). */
+/* Naskah disetujui pemilik 18 Okt 2026 (gaya Symrise/Ventós). Halaman karier
+ * belum ada, jadi tombol dan semua kartu sementara menuju /contact/. */
 export const JOIN_US = {
   title: 'Join Us',
-  body: 'Ex odit eum itaque qui atque facere dicta et voluptas officiis esse aute ad tempora — id sed pariatur, ea hic dolores ipsam sed in quo ipsum.',
+  body: 'Join a team that works with nature every day, alongside the growers who tend it and the perfumers who bring it to life.',
   cta: 'Know More',
+  href: '/contact/',
   cards: [
-    { label: 'Cum Consequuntur', image: 'about-table' as ImageKey, alt: 'Three people talking over a laid table' },
-    { label: 'Nam Facere', image: 'material-benzoin' as ImageKey, alt: 'Sorted benzoin resin tears' },
-    { label: 'Elit id Suscipit', image: 'fragrance-resin' as ImageKey, alt: 'Dried rhizome, close' },
-    { label: 'Occaecati & Excepteur', image: 'fragrance-bloom' as ImageKey, alt: 'Hibiscus bloom, close' },
+    { label: 'Careers', href: '/contact/', image: 'about-table' as ImageKey, alt: 'Three people talking over a laid table' },
+    { label: 'Become a Supplier', href: '/contact/', image: 'material-benzoin' as ImageKey, alt: 'Sorted benzoin resin tears' },
+    { label: 'Partner with Us', href: '/contact/', image: 'fragrance-resin' as ImageKey, alt: 'Dried rhizome, close' },
+    { label: 'Life at Adhiloka', href: '/contact/', image: 'fragrance-bloom' as ImageKey, alt: 'Hibiscus bloom, close' },
   ],
 };
 
 /* ── Kotak peringatan ────────────────────────────────────────────────── */
 
+/* Disetujui pemilik 18 Okt 2026, pola peringatan Symrise/IFF. Sampel sengaja
+   tidak disebut: kebijakan biaya sampel belum diputuskan. */
+
 export const NOTICE = {
   title: 'NOTICE — Beware of fraudulent communications',
   paragraphs: [
-    'Do qui quasi et repudiandae ullamco deserunt et vel nam voluptas ipsam eum magnam ratione ut non soluta, tempore vel similique hic alias ut doloremque quae soluta assumenda, dolore veniam, consequatur ut voluptatibus.',
-    'Corporis sequi eius aut beatae rem eos vel sapiente do cupidatat exercitation, sed vel exercitation do incididunt, in eum magnam repellat. Ut illum cum qui impedit, officiis ea excepteur dolorem facere omnis in occaecat porro veritatis, eos id vero hic tempore nam fugit irure ad culpa.',
-    'Mollit beatae hic commodi eiusmod hic suscipit accusamus ea quam facilis. Repellat saepe dolores do assumenda quo suscipit elit dolores qui non vel incididunt at vel qui at.',
+    'Fraudsters may use the Adhiloka name, logo and images to contact job seekers, suppliers and buyers with offers that are not ours. These messages may promise jobs, supply contracts or orders, and often ask for money or personal details.',
+    'Adhiloka never charges a fee to apply for a job, to register as a supplier or to receive a quotation. We do not ask for bank or card details by chat or social media, and we do not make job offers without an interview. Official correspondence comes only from an @adhiloka.com email address.',
+    'If a message seems suspicious, do not send money or personal information. Write to us first at info@adhiloka.com and we will confirm whether it is genuine.',
   ],
 };
