@@ -21,7 +21,8 @@ interface Props {
 const { title, description, active = Astro.url.pathname, ogImage, inner = false } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).toString();
-const pageTitle = title === SITE.name ? `${SITE.name} — ${SITE.tagline}` : `${title} — ${SITE.name}`;
+// Pemisah "|" seperti judul tab Givaudan (keputusan pemilik 18 Okt 2026).
+const pageTitle = title === SITE.name ? `${SITE.name} | ${SITE.tagline}` : `${title} | ${SITE.name}`;
 
 // Kartu bagikan: JPEG 1200×630 dihasilkan saat build.
 const og = await getImage({

@@ -156,7 +156,7 @@ export const JOIN_US = {
    tidak disebut: kebijakan biaya sampel belum diputuskan. */
 
 export const NOTICE = {
-  title: 'NOTICE — Beware of fraudulent communications',
+  title: 'NOTICE: Beware of fraudulent communications',
   paragraphs: [
     'Fraudsters may use the Adhiloka name, logo and images to contact job seekers, suppliers and buyers with offers that are not ours. These messages may promise jobs, supply contracts or orders, and often ask for money or personal details.',
     'Adhiloka never charges a fee to apply for a job, to register as a supplier or to receive a quotation. We do not ask for bank or card details by chat or social media, and we do not make job offers without an interview. Official correspondence comes only from an @adhiloka.com email address.',

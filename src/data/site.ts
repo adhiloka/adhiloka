@@ -3,9 +3,9 @@ import type { ImageKey } from './images';
 export const SITE = {
   name: 'Adhiloka',
   legalName: 'Adhiloka Group',
-  tagline: "Indonesia's finest raw material supplier.",
+  tagline: 'Natural Ingredients & Perfumery',
   description:
-    'Eligendi ex in maxime-quis temporibus omnis ad commodo quibusdam — officia, doloribus, dolore, tempor, ipsum est eveniet — culpa ut ducimus, enim eum soluta, tenetur ex nam cum fugit id velit, eum voluptas quam assumenda at non voluptate iusto.',
+    'Adhiloka supplies natural aromatic ingredients from Indonesia, from benzoin and patchouli to roots and spices, and creates fragrances in its own perfumery.',
   locale: 'en_ID',
   lang: 'en',
   email: 'info@adhiloka.com',
