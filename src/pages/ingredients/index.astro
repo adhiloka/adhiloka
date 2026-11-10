@@ -16,11 +16,12 @@ import {
   INGREDIENTS_TECH_LEAD,
   INGREDIENTS_COLLECTIONS_BODY,
   INGREDIENTS_DOWNLOAD_TEXT,
+  INGREDIENTS_CLOSING,
   ROUTES,
 } from '../../data/pages/ingredients';
 
 /* Hub Ingredients, urutannya meniru halaman Ingredients dsm-firmenich:
- * Discover more (tiga kartu), tonggak sejarah mendatar, Technologies (tiga
+ * Discover more (tiga kartu), lima langkah mendatar (tempat tonggak sejarah), Technologies (tiga
  * proses), Collections (satu kartu per keluarga, menaut ke katalog yang sudah
  * tersaring lewat ?family=), pita unduhan katalog, lalu penutup. */
 const collections = FAMILY_FILTERS.filter((f) => f.value !== 'All').map((f) => {
@@ -32,7 +33,7 @@ const collections = FAMILY_FILTERS.filter((f) => f.value !== 'All').map((f) => {
     body: INGREDIENTS_COLLECTIONS_BODY[f.value],
     image: lead?.image,
     shot: lead?.shot,
-    tag: `${items.length} ${items.length === 1 ? 'material' : 'materials'}`,
+    tag: `${items.length} ${items.length === 1 ? 'ingredient' : 'ingredients'}`,
   };
 });
 ---
@@ -43,7 +44,7 @@ const collections = FAMILY_FILTERS.filter((f) => f.value !== 'All').map((f) => {
 
   <section class="sec ms" aria-labelledby="ms-title">
     <div class="wrap">
-      <h2 class="h2" id="ms-title" data-anim="title">Our Ingredients Tell Our Story</h2>
+      <h2 class="h2" id="ms-title" data-anim="title">From Plant to Perfumer</h2>
       <ol class="ms__track" data-anim="columns">
         {
           INGREDIENTS_MILESTONES.map((s) => (
@@ -84,11 +85,11 @@ const collections = FAMILY_FILTERS.filter((f) => f.value !== 'All').map((f) => {
   />
 
   <ClosingCta
-    text="Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam nisi."
-    image="material-benzoin"
+    text={INGREDIENTS_CLOSING}
+    image="agroforest-canopy"
     buttons={[
       { label: 'Ingredients Catalog', href: '/ingredients/catalog/' },
-      { label: 'Request a Sample', href: '/contact/' },
+      { label: 'Request a Sample', href: '/contact/?kind=sample' },
     ]}
   />
 </PageLayout>

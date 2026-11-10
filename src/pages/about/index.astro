@@ -3,26 +3,23 @@ import PageLayout from '../../layouts/PageLayout.astro';
 import QuoteSplit from '../../components/QuoteSplit.astro';
 import Feature from '../../components/blocks/Feature.astro';
 import VisionSlider from '../../components/blocks/VisionSlider.astro';
-import CounterGrid from '../../components/blocks/CounterGrid.astro';
-import PeopleCards from '../../components/blocks/PeopleCards.astro';
 import InfoGrid from '../../components/blocks/InfoGrid.astro';
-import Journey from '../../components/blocks/Journey.astro';
 import CardGrid from '../../components/blocks/CardGrid.astro';
 import {
   ABOUT_INTRO,
   ABOUT_OPENING,
-  ABOUT_STATS,
+  ABOUT_HOW,
   ABOUT_CARDS,
-  LEADERSHIP,
+  ABOUT_MORE,
   PURPOSE_VALUES,
-  HISTORY_INTRO,
-  HISTORY_TIMELINE,
 } from '../../data/pages/about';
 import { HOME_QUOTE } from '../../data/pages/home';
 
 /* Susunan halaman /about-us adani.com: banner, kutipan terbelah, visi
- * (slider foto fade), konten + foto, angka, pimpinan, nilai, perjalanan. Section "Awards &
- * Accolades" dilewati: kita tidak punya penghargaan untuk dicantumkan. */
+ * (slider foto fade), konten + foto, nilai, kartu. Angka sekilas, pimpinan
+ * dan teaser Our Journey dilepas 10 Nov 2026 sampai datanya ada (lihat
+ * catatan "Diparkir" di data/pages/about.ts). "Awards & Accolades" dilewati:
+ * tidak ada penghargaan untuk dicantumkan. */
 ---
 
 <PageLayout intro={ABOUT_INTRO} bannerTitle="About Us">
@@ -49,7 +46,7 @@ import { HOME_QUOTE } from '../../data/pages/home';
 
   <Feature
     heading="How We Work"
-    subheading="Quia eos quibusdam, saepe ab anim, tempora qui perspiciatis."
+    subheading={ABOUT_HOW}
     body={ABOUT_OPENING[1]}
     cta="Our Business"
     href="/about/our-business/"
@@ -58,13 +55,8 @@ import { HOME_QUOTE } from '../../data/pages/home';
     flip
   />
 
-  <CounterGrid title="Adhiloka at a Glance" stats={ABOUT_STATS} />
-
-  <PeopleCards title="Our Leadership" people={LEADERSHIP.slice(0, 4)} viewAll="/about/our-leadership/" />
 
   <InfoGrid title="Our Values" items={PURPOSE_VALUES} grey />
 
-  <Journey eras={HISTORY_TIMELINE} lead={HISTORY_INTRO.lede} image="purpose-generations" />
-
-  <CardGrid title="Explore About Us" cards={ABOUT_CARDS} grey />
+  <CardGrid title="Explore More" cards={[...ABOUT_CARDS, ABOUT_MORE]} />
 </PageLayout>

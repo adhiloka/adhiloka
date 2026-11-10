@@ -2,13 +2,13 @@ import type { PageIntro } from './types';
 
 export const CONTACT_INTRO: PageIntro = {
   eyebrow: 'Contact',
-  title: 'Eius in nesciunt rem quo sunt rem aut.',
+  title: 'Samples, quotations or a fragrance project: tell us what you need and we will come back to you.',
   metaTitle: 'Contact',
-  lede: 'Maxime deserunt, doloremque, officia cumque eos nihil. Totam eiusmod nisi tempore ex beatae et est totam do cum cupiditate sint, sit ex illum.',
+  lede: 'We would be glad to hear from you.',
   description:
-    'Commodi proident sequi: mollit delectus, reiciendis, ducimus veritatis mollit hic error excepturi, iure eiusmod ab minus, commodi, laborum sit veniam.',
-  caption: 'sample dispatch bench',
-  image: 'material-benzoin',
+    'Contact Adhiloka for samples, specifications, quotations and fragrance projects.',
+  caption: 'three people talking over a laid table',
+  image: 'about-table',
 };
 
 /* Satu-satunya kontak yang sudah pasti (2 Okt 2026). Alamat, nomor dan kantor
@@ -18,7 +18,7 @@ export const OFFICES = [
   {
     role: 'General enquiries',
     city: 'Adhiloka Group',
-    address: 'Samples, specifications, quotations and press.',
+    address: 'Samples, specifications, quotations, fragrance projects and press.',
     contact: 'info@adhiloka.com',
     href: 'mailto:info@adhiloka.com',
   },
@@ -31,7 +31,6 @@ export const ENQUIRY_KINDS = [
   'Specification & documents',
   'Quotation',
   'Bespoke fragrance',
-  'Custom processing', // DATA: B6, hapus kalau tidak menerima jasa olah
   'Supplier registration',
   'Press',
   'Other',

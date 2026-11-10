@@ -3,9 +3,9 @@ import { MATERIALS, materialHref, type Family } from './materials';
 
 /* Isi mega-menu. Tiap panel berbaris judul (nama menu, menuju halaman induk)
  * lalu kolom seperti mega-menu adani.com: kepala kolom plus daftar tautan.
- * About Us dan Media tidak punya kolom yang berdiri sendiri: semua halaman
- * anaknya dikelompokkan di bawah label grup. Menu utamanya tetap NAV di
- * site.ts; di sini hanya susunan kolomnya.
+ * Media tidak punya kolom yang berdiri sendiri: halaman anaknya
+ * dikelompokkan di bawah label grup. Menu utamanya tetap NAV di site.ts; di
+ * sini hanya susunan kolomnya.
  *
  * Tautan ber-# menunjuk id section di halamannya (id Passage di data halaman),
  * jadi jangan ganti id itu tanpa mengubah ini. Bahan menuju halamannya
@@ -25,23 +25,21 @@ const byFamily = (...families: Family[]): NavLink[] =>
   }));
 
 const COLUMNS: Record<string, MenuColumn[]> = {
-  // About Us: semua halaman anak di bawah satu grup, dipecah dua kolom.
+  // About Us: dua halaman anak, masing-masing satu kolom dengan bagiannya.
+  // Leadership, History dan Locations diparkir (lihat data/pages/about.ts).
   '/about/': [
     {
-      head: { label: 'Who We Are' },
+      head: { label: 'Our Business', href: '/about/our-business/' },
       links: [
-        { label: 'Overview', href: '/about/' },
-        { label: 'Our Business', href: '/about/our-business/' },
-        { label: 'Our Purpose', href: '/about/our-purpose/' },
+        { label: 'Sourcing', href: '/about/our-business/#source' },
+        { label: 'Processing', href: '/about/our-business/#processing' },
+        { label: 'Ingredients', href: '/about/our-business/#ingredients' },
+        { label: 'Perfumery', href: '/about/our-business/#perfumery' },
       ],
     },
     {
-      head: { label: 'People & Places' },
-      links: [
-        { label: 'Our Leadership', href: '/about/our-leadership/' },
-        { label: 'Our History', href: '/about/our-history/' },
-        { label: 'Our Locations', href: '/about/our-locations/' },
-      ],
+      head: { label: 'Our Purpose', href: '/about/our-purpose/' },
+      links: [{ label: 'Our Values', href: '/about/our-purpose/#values' }],
     },
   ],
   '/perfumery/': [
@@ -90,16 +88,16 @@ const COLUMNS: Record<string, MenuColumn[]> = {
     {
       head: { label: 'Driving progress for people', href: '/sustainability/people/' },
       links: [
-        { label: 'Income', href: '/sustainability/people/#income' },
-        { label: 'Bad seasons', href: '/sustainability/people/#failure' },
-        { label: 'Skills', href: '/sustainability/people/#skills' },
+        { label: 'Partnerships', href: '/sustainability/people/#partnerships' },
+        { label: 'Continuity', href: '/sustainability/people/#continuity' },
+        { label: 'Knowledge', href: '/sustainability/people/#knowledge' },
       ],
     },
     {
       head: { label: 'Responsible Sourcing', href: '/sustainability/responsible-sourcing/' },
       links: [
-        { label: 'From garden to drum', href: '/sustainability/responsible-sourcing/#chain' },
-        { label: 'Direct purchase', href: '/sustainability/responsible-sourcing/#direct' },
+        { label: 'From Plant to Ingredient', href: '/sustainability/responsible-sourcing/#chain' },
+        { label: 'Close to the Source', href: '/sustainability/responsible-sourcing/#source' },
         { label: 'Land', href: '/sustainability/responsible-sourcing/#land' },
       ],
     },
@@ -116,7 +114,7 @@ const COLUMNS: Record<string, MenuColumn[]> = {
       head: { label: 'Resources' },
       links: [
         { label: 'Media Resources', href: '/media/media-resources/' },
-        { label: 'Social Media', href: '/media/social-media/' },
+        { label: 'Ingredients Catalog', href: '/ingredients/catalog/#download' },
       ],
     },
   ],

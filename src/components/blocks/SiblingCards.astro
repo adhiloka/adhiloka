@@ -1,11 +1,12 @@
 ---
 import CardGrid from './CardGrid.astro';
 import CardSlider from './CardSlider.astro';
-import { ABOUT_CARDS } from '../../data/pages/about';
+import { ABOUT_CARDS, ABOUT_MORE } from '../../data/pages/about';
 import { PERFUMERY_CARDS } from '../../data/pages/perfumery';
 import { INGREDIENTS_CARDS } from '../../data/pages/ingredients';
 import { SUSTAINABILITY_CARDS } from '../../data/pages/sustainability';
 import { MEDIA_CARDS } from '../../data/pages/media';
+import type { LinkCard } from '../../data/pages/types';
 
 /* "Explore More" di kaki halaman anak: kartu saudara-saudaranya, tanpa
  * halaman yang sedang dibuka. Lebih dari tiga kartu menjadi slider tiga
@@ -14,6 +15,21 @@ const all = [...ABOUT_CARDS, ...PERFUMERY_CARDS, ...INGREDIENTS_CARDS, ...SUSTAI
 const path = Astro.url.pathname;
 const section = `/${path.split('/').filter(Boolean)[0]}/`;
 const cards = all.filter((c) => c.href.startsWith(section) && c.href !== path);
+
+/* Bagian dengan dua halaman anak hanya punya satu saudara, dan satu kartu
+ * meninggalkan separuh baris kosong. Baris itu digenapi kartu menuju bagian
+ * lain yang berkaitan. */
+const RELATED: Record<string, LinkCard> = {
+  '/about/': ABOUT_MORE,
+  '/sustainability/': ABOUT_CARDS[1],
+  '/media/': {
+    title: 'About Us',
+    body: 'A house of natural ingredients and perfumery, rooted in Indonesia.',
+    href: '/about/',
+    image: 'about-table',
+  },
+};
+if (cards.length === 1 && RELATED[section]) cards.push(RELATED[section]);
 ---
 
 {

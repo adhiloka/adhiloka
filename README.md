@@ -22,28 +22,26 @@ Isi panel mega-menu desktop memakai konsep Adhiloka versi pertama (yang meniru r
 foto utama berjudul dengan panah di kiri, menuju halaman induk, lalu kolom tautan di kanan. Foto
 dan judulnya dari `panel.image` / `panel.title` di `NAV`. Di laci mobile fotonya disembunyikan.
 
-Kolom kanan diawali baris judul panel (ABOUT US ───). **About Us** dan **Media** tidak punya
+Kolom kanan diawali baris judul panel (ABOUT US ───). **About Us** punya dua kolom bertautan
+(Our Business dan Our Purpose, masing-masing dengan bagian halamannya). **Media** tidak punya
 kolom yang berdiri sendiri: halaman anaknya dikelompokkan di bawah label grup tanpa tautan
-(About Us: *Who We Are* = Overview, Our Business, Our Purpose; *People & Places* = Our
-Leadership, Our History, Our Locations. Media: *Newsroom* dan *Resources*). Label grup ditulis
-`{ label }` tanpa `href` di `menu.ts`.
+(*Newsroom* dan *Resources*). Label grup ditulis `{ label }` tanpa `href` di `menu.ts`.
 
 | Jalur | Susunan |
 | --- | --- |
 | `/` | Hero slider · kutipan terbelah · Our Business (tab Ingredients/Perfumery) · akordeon keberlanjutan · Latest News · Join Us · peringatan penipuan |
-| `/about/` | Pola /about-us Adani: banner · kutipan · Who We Are (slider foto fade dalam panel inset) · How We Work · angka · pimpinan · nilai · teaser Our Journey · kartu |
-| `/about/our-leadership/` | Banner · pembuka · sorotan pimpinan tertinggi · grid pimpinan (clip-path saat hover); tiap kartu ke `/about/our-leadership/<slug>/` (profil: kolom foto menempel, bio, Meet Our Leaders) |
-| `/about/our-history/` | Linimasa ala Our Journey Adani: bilah era menempel, panel pembuka per era, daftar tahun aktif, entri per tahun, tautan era berikutnya |
-| `/about/our-locations/` | Pembuka · peta Our Presence (pemilih wilayah, radio lokasi, data lokasi) · semua lokasi |
-| `/about/*` lainnya | Banner · pembuka · isi halaman · Explore More (slider bila kartunya lebih dari tiga) |
-| `/perfumery/`, `/ingredients/`, `/sustainability/` | Banner · pembuka dengan Read More · angka · kartu anak · penutup berfoto dua tombol |
+| `/about/` | Pola /about-us Adani: banner · kutipan · Who We Are (slider foto fade dalam panel inset) · How We Work · nilai · kartu |
+| `/about/our-business/`, `/about/our-purpose/` | Banner · pembuka · isi halaman · Explore More |
+| `/about/our-leadership/`, `our-history/`, `our-locations/` | **Diparkir** (lihat "Halaman yang diparkir"); rutenya dialihkan ke `/about/` |
+| `/perfumery/`, `/ingredients/`, `/sustainability/` | Banner · pembuka dengan Read More · kartu anak · penutup berfoto dua tombol |
 | `/media/` | Banner · slider Media Releases · promosi Media Kit · Media Centre · kontak pers |
-| `/ingredients/catalog/` | 6 bahan inti, tab keluarga menyaring grid; kartu menuju halaman spesifikasinya, `#slug` lama tetap mendarat di kartunya |
-| `/ingredients/catalog/<slug>/` | Banner · Overview (nota aroma, fakta) · Grades & Forms · Specification · Documents & Ordering (tombol sampel/penawaran) · slider Other Materials |
-| `/ingredients/ordering/` | Pembuka · 6 langkah pesan · matriks dokumen per bahan · Logistics · FAQ dengan dua tombol · Explore More |
+| `/ingredients/catalog/` | 6 bahan inti; laci filter (keluarga, nota aroma), urutan, pencarian, grid/list; pita unduhan katalog PDF |
+| `/ingredients/catalog/<slug>/` | Kepala berwarna keluarga · strip fakta (nama botani, keluarga, bagian tanaman, asal) · nota aroma, deskripsi dan pemakaian · Did you know? · Samples & Documents (tiga tombol ke formulir kontak + katalog PDF) · slider Other Ingredients |
+| `/ingredients/ordering/` | Pembuka · 6 langkah pesan · Documents (jenis dokumen + Request Documents) · Logistics · FAQ dengan dua tombol · Explore More |
 | `/media/news/` | Media Releases: cari, kategori, tahun, urutan, tag filter + Clear All, Load More (6 per langkah), laci filter di ≤767 px |
 | `/media/news/<slug>/` | Banner setengah layar (remah saja) · judul dan isi · slider Other Releases |
 | `/contact/` | Formulir + satu kontak (info@adhiloka.com); `?material=slug&kind=sample\|specification\|quotation` mengisi jenis permintaan dan pesan |
+| `/legal/` | Legal Notice · Privacy Notice · Cookies (tujuan tiga tautan di bar bawah footer) |
 
 Rute lama `/our-story/`, `/fragrances/` dan `/raw-materials/` dialihkan lewat `redirects` di
 `astro.config.mjs`.
@@ -148,35 +146,58 @@ Beda dari Adani: `invalidateOnRefresh` dimatikan (nilai gerak di sini tetap), da
 Tab, penyaring, "Read More" dan formulir mengirim event `fx:refresh` karena tinggi halaman
 berubah. Dengan `prefers-reduced-motion` atau tanpa JS, semuanya tampil diam.
 
-## Naskah lorem ipsum
+## Naskah
 
-Sejak 29 September 2026 semua naskah situs berupa lorem ipsum atas permintaan pemilik, sampai naskah
-asli yang sudah diperiksa faktanya siap. Pada 2 Oktober 2026 pemilik memastikan **semua klaim naskah
-lama karangan** (tahun berdiri, generasi, kota, alamat, telepon, kantor, jumlah rumah tangga), jadi
-naskah lama tidak boleh dipakai lagi. Aturannya kini: **yang belum pasti tetap lorem**. Konsep konten
-(arah mitra teknis B2B, Inggris UK) ada di `../naskah/konsep-konten.md`, pertanyaan data di
-`../naskah/formulir-data.md`; komentar `// DATA: <kode>` di `src/data/` menunjuk pertanyaan yang
-mengisi slot itu. Yang **tetap asli**:
+Sejak 10 November 2026 **tidak ada lagi lorem ipsum di situs**. Beranda ditulis 18 Oktober, Perfumery
+10 November (parafrase alur robertet.com/en/fragrances/), dan semua halaman lain 10 November atas
+permintaan pemilik: ringkas, hangat, bergaya situs rumah fragrance (Robertet, Givaudan,
+dsm-firmenich, IFF), tidak menjelaskan berlebihan.
 
-- menu bar: header, mega-menu, laci mobile, panel pencarian (`NAV`, `menu.ts`, `SEARCH_SUGGESTIONS`);
-- footer;
-- tombol dan label: `cta`, Know More, View All, tab, label formulir, label spesifikasi katalog;
-- judul section dan judul banner, termasuk `eyebrow` dan judul kartu yang sama dengan label menu;
-- data yang bukan naskah: tautan, slug, tanggal, kategori, email, telepon, `alt`, `caption`, `shot`.
+Aturan yang tetap berlaku (keputusan 2 Okt 2026): **tidak ada klaim yang belum terbukti**. Naskah
+tidak memuat angka, tahun berdiri, nama orang, alamat, kapasitas, nama alat, sertifikat, MOQ, lama
+kirim, atau dokumen yang "tersedia". Data bahan di `materials.ts` hanya pengetahuan umum perfumery
+(nama botani, bagian tanaman, nota aroma, pemakaian), bukan data lot Adhiloka. Sebelum menambah
+fakta, pastikan ada konfirmasi pemilik atau dokumennya; pertanyaan datanya di
+`../../copy/data-form.md` (komentar `// DATA: <kode>` di `src/data/` menunjuk pertanyaannya).
 
-Yang sudah pasti dan ditulis asli: enam bahan inti (nama, nama botani, keluarga) dan kontak
-info@adhiloka.com. `material-names.ts` kini diturunkan dari `MATERIALS`. Angka statistik diganti
-angka contoh berpola `1,234` supaya animasi hitung tetap jalan. Telepon, `foundingDate` dan alamat
-di JSON-LD dilepas sampai datanya ada.
+Kalimat yang menyatakan cara kerja ("we stay close to the source", "every ingredient is evaluated
+before it is released", "samples on request") sengaja umum; pemilik perlu memastikan semuanya
+memang dijalankan.
 
-**Jangan push versi lorem ke `main`**: `main` adalah adhiloka.com.
+## Halaman yang diparkir
+
+Empat halaman tidak terbit karena isinya butuh fakta yang belum ada. Berkasnya masih di repo dengan
+awalan garis bawah (Astro melewati berkas/folder `_…` di `src/pages/`), rute lamanya dialihkan di
+`astro.config.mjs`:
+
+| Halaman | Berkas | Menunggu |
+| --- | --- | --- |
+| Our Leadership + profil | `pages/about/_our-leadership/` | nama, jabatan, bio, potret (formulir G) |
+| Our History | `pages/about/_our-history.astro` | tahun dan peristiwa (formulir H) |
+| Our Locations | `pages/about/_our-locations.astro` | alamat/lokasi yang boleh tampil (formulir A3–A4) |
+| Social Media | `pages/media/_social-media.astro` | akun resmi (formulir I1) |
+
+Menerbitkan lagi: isi lariknya di `data/pages/about.ts` / `media.ts`, hapus garis bawah di nama
+berkas, cabut baris pengalihannya, lalu kembalikan tautannya di `site.ts` (`NAV`), `menu.ts`,
+`SiteFooter.astro` dan (untuk Social Media) `MEDIA_CARDS`.
+
+Yang juga dilepas sampai datanya ada: angka sekilas (CounterGrid) di About dan Sustainability,
+teaser Our Journey, ikon sosial footer (`SOCIAL` di `site.ts` kosong), pemilih bahasa ENG/IND,
+tautan Careers di footer, tabel grade/spesifikasi/regulasi dan kalender panen di halaman bahan,
+facet "Ingredient type" dan "Origin" di katalog.
+
+## Unduhan PDF
+
+`npm run pdf` (tools/pdf/, Chrome headless) membangun `public/downloads/adhiloka-ingredients-catalog.pdf`
+dari `materials.ts` dan `pages/ingredients.ts`, sampulnya ke `src/assets/downloads/catalog.jpg`, dan
+manifes `src/data/downloads.json`. Jalankan ulang setiap kali data bahan berubah, lalu commit
+hasilnya (Netlify tidak punya Chrome). Lembar spesifikasi per bahan (ADH-PS-xx) dilepas 10 Nov 2026
+karena nilai spesifikasinya belum ada; templatnya ada di riwayat git (commit `847d673`).
 
 ## Tautan kosong
 
-Tempat yang ada di pola Adani tetapi belum punya halaman di situs ini diberi `href="#"`:
-semua kartu dan tombol Join Us, Careers di footer, empat tautan legal (Legal Disclaimer, Privacy
-Notice, Terms & Conditions, Cookie Policy), dan pilihan bahasa IND. Cari `href="#"` untuk
-menemukannya saat halamannya sudah ada.
+Tidak ada lagi `href="#"`. Semua kartu dan tombol Join Us di beranda sementara menuju `/contact/`
+karena halaman karier belum ada.
 
 ## Logo
 
@@ -184,21 +205,19 @@ Lockup dari `../adhiloka-brand/web/lockup/adhiloka-lockup.svg` (tulisan Crimson 
 `#5C6D68`), disalin ke `public/brand/` bersama PNG 1000w/2000w. Dipakai di header dan footer.
 Tanda logonya sama persis dengan versi sebelumnya, jadi favicon tidak berubah.
 
-## Sebelum tayang
+## Yang masih perlu dari pemilik
 
-1. **Naskah.** Ganti lorem ipsum dengan naskah asli per halaman (lihat "Naskah lorem ipsum"),
-   termasuk hero beranda, dan pasang telepon, `foundingDate` dan alamat di JSON-LD dari formulir A.
-2. **Formulir kontak.** Isi `PUBLIC_FORM_ACCESS_KEY` di `.env` (Web3Forms). Selama kosong, tombol
-   kirim membuka klien email pengguna.
-3. **Placeholder**, semuanya ditandai komentar di berkasnya: `LEADERSHIP` (nama pimpinan) di
-   `pages/about.ts`; `NEWS` (enam kabar contoh), `RESOURCES` (tautan berkas) dan `CHANNELS`
-   (handle sosial) di `pages/media.ts`; `SOCIAL` di `site.ts`.
-4. **Foto.** Berkas di `src/assets/images/` adalah stok botani yang namanya tidak sesuai isinya
-   (daftarnya di komentar `src/data/images.ts`). Potret pimpinan dan foto pabrik/stasiun belum ada;
-   tempatnya memakai pelat hijau berketerangan foto yang dibutuhkan.
+1. **Formulir kontak.** Isi `PUBLIC_FORM_ACCESS_KEY` di variabel lingkungan Netlify (Web3Forms).
+   Selama kosong, tombol kirim membuka klien email pengunjung.
+2. **Foto.** Berkas di `src/assets/images/` adalah stok botani (daftarnya di komentar
+   `src/data/images.ts`). Halaman **Clove memakai foto pala** dan **Vetiver memakai foto jahe**
+   karena foto aslinya belum ada; ganti begitu ada. Banner About dan Contact memakai foto stok
+   orang di meja makan.
+3. **Data** untuk halaman yang diparkir dan untuk spesifikasi bahan (lihat di atas).
+4. **JSON-LD.** Telepon, `foundingDate` dan alamat masih dilepas (formulir A2–A5).
 
 ## Yang belum dikerjakan
 
-- **Dwibahasa.** Pemilih ENG/IND hanya tampilan; belum ada rute `/id/`.
-- **Halaman karier dan halaman legal** (lihat "Tautan kosong").
-- **Sertifikasi** (ISO 9001, IFRA, Halal, CITES, EUDR) belum ditulis ulang sejak rombakan pertama.
+- **Dwibahasa.** Belum ada rute `/id/`.
+- **Halaman karier.**
+- **Sertifikasi** (ISO 9001, IFRA, Halal, CITES, EUDR): belum ada yang bisa dicantumkan.

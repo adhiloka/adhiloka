@@ -7,9 +7,9 @@ import SiblingCards from '../../components/blocks/SiblingCards.astro';
 import { PEOPLE_INTRO, PEOPLE_PASSAGES, PEOPLE_QUOTE } from '../../data/pages/sustainability';
 ---
 
-<PageLayout intro={{ ...PEOPLE_INTRO, image: 'material-patchouli', caption: 'Green leaves with dew' }}>
-  <Intro title="Making the arithmetic hold" paragraphs={[PEOPLE_INTRO.lede]} />
+<PageLayout intro={PEOPLE_INTRO}>
+  <Intro title="People at the heart of every ingredient" paragraphs={[PEOPLE_INTRO.lede]} />
   <Passages passages={PEOPLE_PASSAGES} startGrey />
-  <QuoteSplit text={PEOPLE_QUOTE.text} name={PEOPLE_QUOTE.attribution} image="agroforest-canopy" alt="Tree canopy seen from below" />
+  <QuoteSplit text={PEOPLE_QUOTE.text} name={PEOPLE_QUOTE.attribution} role="Our Commitment" image="agroforest-canopy" alt="Tree canopy seen from below" />
   <SiblingCards />
 </PageLayout>

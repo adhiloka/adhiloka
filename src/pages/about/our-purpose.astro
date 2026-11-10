@@ -8,15 +8,15 @@ import { PURPOSE_INTRO, PURPOSE_BODY, PURPOSE_QUOTE, PURPOSE_VALUES } from '../.
 ---
 
 <PageLayout intro={PURPOSE_INTRO}>
-  <Intro title="Fifty years from now" paragraphs={[PURPOSE_INTRO.lede, ...PURPOSE_BODY]} more />
+  <Intro title="Growing together with nature" paragraphs={[PURPOSE_INTRO.lede, ...PURPOSE_BODY]} more />
   <QuoteSplit
     text={PURPOSE_QUOTE.text}
     name={PURPOSE_QUOTE.attribution}
-    role="Beatae-quis eaque vel 1234s"
+    role="Our Purpose"
     image="purpose-generations"
     alt="Two children running through a meadow at dusk"
     grey
   />
-  <InfoGrid title="What It Means in Practice" items={PURPOSE_VALUES} />
+  <InfoGrid id="values" title="Our Values" items={PURPOSE_VALUES} />
   <SiblingCards />
 </PageLayout>

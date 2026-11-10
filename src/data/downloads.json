@@ -1,55 +1,12 @@
 {
   "edition": "2026",
-  "issued": "October 2026",
+  "issued": "November 2026",
   "revision": "00",
   "catalog": {
     "href": "/downloads/adhiloka-ingredients-catalog.pdf",
     "thumb": "catalog",
     "pages": 10,
-    "bytes": 1746885
+    "bytes": 1791317
   },
-  "specs": {
-    "benzoin-sumatra": {
-      "href": "/downloads/specifications/adh-ps-bz-benzoin-sumatra.pdf",
-      "docNo": "ADH-PS-BZ",
-      "thumb": "spec-benzoin-sumatra",
-      "pages": 2,
-      "bytes": 430631
-    },
-    "patchouli": {
-      "href": "/downloads/specifications/adh-ps-pc-patchouli.pdf",
-      "docNo": "ADH-PS-PC",
-      "thumb": "spec-patchouli",
-      "pages": 2,
-      "bytes": 418409
-    },
-    "cinnamon-kerinci": {
-      "href": "/downloads/specifications/adh-ps-cn-cinnamon-kerinci.pdf",
-      "docNo": "ADH-PS-CN",
-      "thumb": "spec-cinnamon-kerinci",
-      "pages": 2,
-      "bytes": 381551
-    },
-    "vetiver-java": {
-      "href": "/downloads/specifications/adh-ps-vt-vetiver-java.pdf",
-      "docNo": "ADH-PS-VT",
-      "thumb": "spec-vetiver-java",
-      "pages": 2,
-      "bytes": 460493
-    },
-    "clove": {
-      "href": "/downloads/specifications/adh-ps-cl-clove.pdf",
-      "docNo": "ADH-PS-CL",
-      "thumb": "spec-clove",
-      "pages": 2,
-      "bytes": 393155
-    },
-    "nutmeg-mace": {
-      "href": "/downloads/specifications/adh-ps-nm-nutmeg-mace.pdf",
-      "docNo": "ADH-PS-NM",
-      "thumb": "spec-nutmeg-mace",
-      "pages": 2,
-      "bytes": 405368
-    }
-  }
+  "specs": {}
 }

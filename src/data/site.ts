@@ -35,8 +35,7 @@ export const NAV: NavItem[] = [
   {
     label: 'About Us',
     href: '/about/',
-    blurb:
-      'Do maxime dicta ea doloremque officiis, ex aut animi recusandae nam saepe soluta odit aut numquam et impedit ad.',
+    blurb: 'A house of natural ingredients and perfumery, rooted in Indonesia.',
     panel: {
       title: 'About Us',
       shot: 'benzoin resin, hand-graded',
@@ -44,9 +43,6 @@ export const NAV: NavItem[] = [
       links: [
         { label: 'Our Business', href: '/about/our-business/' },
         { label: 'Our Purpose', href: '/about/our-purpose/' },
-        { label: 'Our Leadership', href: '/about/our-leadership/' },
-        { label: 'Our History', href: '/about/our-history/' },
-        { label: 'Our Locations', href: '/about/our-locations/' },
       ],
     },
   },
@@ -69,8 +65,7 @@ export const NAV: NavItem[] = [
   {
     label: 'Ingredients',
     href: '/ingredients/',
-    blurb:
-      'Delectus occaecat eius occaecati exercitationem, delectus numquam aut doloremque tempor.',
+    blurb: 'Resins, leaves, roots and spices from Indonesia, selected and prepared for perfumery.',
     panel: {
       title: 'Ingredients',
       shot: 'cinnamon bark',
@@ -85,8 +80,7 @@ export const NAV: NavItem[] = [
   {
     label: 'Sustainability',
     href: '/sustainability/',
-    blurb:
-      'Cum itaque quo vel blanditiis vel sunt in ipsa ab saepe do illo ea earum autem. Architecto iure nostrum iste nemo.',
+    blurb: 'Caring for nature and for the people who tend it.',
     panel: {
       title: 'Sustainability',
       shot: 'kemenyan agroforest canopy',
@@ -100,7 +94,7 @@ export const NAV: NavItem[] = [
   {
     label: 'Media',
     href: '/media/',
-    blurb: 'Exercitation enim vel lorem qui cum debitis, hic sit sapiente do lorem animi nemo.',
+    blurb: 'News, stories and resources from Adhiloka.',
     panel: {
       title: 'Media',
       shot: 'dried rhizome',
@@ -108,7 +102,6 @@ export const NAV: NavItem[] = [
       links: [
         { label: 'News', href: '/media/news/' },
         { label: 'Media Resources', href: '/media/media-resources/' },
-        { label: 'Social Media', href: '/media/social-media/' },
       ],
     },
   },
@@ -124,13 +117,11 @@ export const NAV_LINKS: NavLink[] = NAV.flatMap((item) => [
   ...(item.panel?.links ?? []),
 ]);
 
-export const SOCIAL = [
-  { label: 'Facebook', href: 'https://www.facebook.com/' },
-  { label: 'Instagram', href: 'https://www.instagram.com/' },
-  { label: 'YouTube', href: 'https://www.youtube.com/' },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/' },
-  { label: 'X', href: 'https://x.com/' },
-];
+/* Akun media sosial resmi. Kosong sampai akunnya ada (formulir data I1):
+   tautan lama hanya menuju beranda tiap platform, jadi ikonnya dilepas dari
+   footer. Isi dengan { label, href }; label yang dikenal footer: Facebook,
+   Instagram, YouTube, LinkedIn, X. */
+export const SOCIAL: { label: string; href: string }[] = [];
 
 export const SEARCH_SUGGESTIONS = [
   { label: 'Benzoin Sumatra', href: '/ingredients/catalog/benzoin-sumatra/' },
@@ -138,5 +129,5 @@ export const SEARCH_SUGGESTIONS = [
   { label: 'Signature creations', href: '/perfumery/signature-creations/' },
   { label: 'Responsible sourcing', href: '/sustainability/responsible-sourcing/' },
   { label: 'Ordering & documents', href: '/ingredients/ordering/' },
-  { label: 'Sample request', href: '/contact/' },
+  { label: 'Sample request', href: '/contact/?kind=sample' },
 ];

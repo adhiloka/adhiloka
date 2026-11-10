@@ -1,25 +1,23 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import Intro from '../../components/blocks/Intro.astro';
-import CounterGrid from '../../components/blocks/CounterGrid.astro';
 import SustainAccordion from '../../components/home/SustainAccordion.astro';
 import CardGrid from '../../components/blocks/CardGrid.astro';
 import ClosingCta from '../../components/blocks/ClosingCta.astro';
 import {
   SUSTAINABILITY_INTRO,
   SUSTAINABILITY_OPENING,
-  SUSTAINABILITY_STATS,
+  SUSTAINABILITY_CLOSING,
   SUSTAINABILITY_CARDS,
 } from '../../data/pages/sustainability';
 ---
 
 <PageLayout intro={SUSTAINABILITY_INTRO} bannerTitle="Sustainability" lineInBanner>
   <Intro title={SUSTAINABILITY_INTRO.title} paragraphs={SUSTAINABILITY_OPENING} more />
-  <CounterGrid title="What We Can Show" stats={SUSTAINABILITY_STATS} />
   <SustainAccordion />
   <CardGrid title="Our Approach" cards={SUSTAINABILITY_CARDS} />
   <ClosingCta
-    text="Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur."
+    text={SUSTAINABILITY_CLOSING}
     image="agroforest-canopy"
     buttons={[
       { label: 'Responsible Sourcing', href: '/sustainability/responsible-sourcing/' },

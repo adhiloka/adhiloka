@@ -5,7 +5,7 @@ import CardSlider from '../../components/blocks/CardSlider.astro';
 import PromoBanner from '../../components/blocks/PromoBanner.astro';
 import CardGrid from '../../components/blocks/CardGrid.astro';
 import PressContact from '../../components/blocks/PressContact.astro';
-import { MEDIA_INTRO, MEDIA_CARDS, NEWS, byDate, formatDate } from '../../data/pages/media';
+import { MEDIA_INTRO, MEDIA_CARDS, MEDIA_KIT_TEXT, NEWS, byDate, formatDate } from '../../data/pages/media';
 
 /* Newsroom ala adani.com/newsroom: Media Releases berupa slider tiga kartu
  * bertanggal, promosi Media Kit (`media-kit-section`), lalu kartu pusat
@@ -29,7 +29,7 @@ const releases = [...NEWS].sort(byDate);
   />
   <PromoBanner
     title="Media Kit"
-    text="Voluptas at ipsum quia, dolore magnam sint eos aliquid commodo nisi."
+    text={MEDIA_KIT_TEXT}
     cta="Explore Media Kit"
     href="/media/media-resources/"
     image="agroforest-canopy"

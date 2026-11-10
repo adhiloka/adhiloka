@@ -1,0 +1,91 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { SITE } from '../data/site';
+import type { PageIntro } from '../data/pages/types';
+
+/* Satu halaman untuk tiga tautan legal di footer. Isinya hanya menyatakan apa
+ * yang benar-benar dilakukan situs ini: formulir kontak mengirim isian lewat
+ * email (Web3Forms bila access key diisi), tidak ada cookie atau pelacak, dan
+ * pilihan Accessibility disimpan di localStorage (scripts/a11y.ts). Ubah
+ * naskahnya bila salah satu dari itu berubah, mis. saat memasang analitik. */
+const intro: PageIntro = {
+  eyebrow: 'Legal',
+  title: 'Legal',
+  lede: 'Legal notice, privacy and cookies.',
+  description: 'Legal notice, privacy notice and cookie information for the Adhiloka website.',
+  image: 'agroforest-canopy',
+  caption: 'tree canopy seen from below',
+};
+
+const sections = [
+  {
+    id: 'legal-notice',
+    title: 'Legal Notice',
+    body: [
+      `This website is published by ${SITE.legalName}. Its content is provided for general information about our company, our ingredients and our perfumery.`,
+      'Descriptions of ingredients are given for guidance and do not constitute a specification. Specifications, samples and quotations are provided on request.',
+      'The texts, images and logos on this website belong to Adhiloka or are used with permission. Please ask us before reusing them.',
+    ],
+  },
+  {
+    id: 'privacy',
+    title: 'Privacy Notice',
+    body: [
+      'When you write to us through the contact form or by email, we receive the details you choose to give: your name, company, email address and message.',
+      'We use these details only to answer your enquiry and to follow up on it. We do not sell them, and we do not use them for advertising.',
+      `You can ask us at any time to correct or delete the details you have sent us by writing to ${SITE.email}.`,
+    ],
+  },
+  {
+    id: 'cookies',
+    title: 'Cookies',
+    body: [
+      'This website does not use advertising or tracking cookies.',
+      'If you change the display settings under Accessibility (colour theme or text size), your choice is saved in your own browser so that it is remembered on your next visit. It is not sent to us.',
+    ],
+  },
+];
+---
+
+<PageLayout intro={intro} lineInBanner>
+  {
+    sections.map((s, i) => (
+      <section class:list={['sec', 'lg', { 'sec--grey': i % 2 === 1 }]} id={s.id}>
+        <div class="wrap lg__grid">
+          <h2 class="h2">{s.title}</h2>
+          <div class="prose">
+            {s.body.map((p) => <p>{p}</p>)}
+          </div>
+        </div>
+      </section>
+    ))
+  }
+  <section class="sec sec--grey lg">
+    <div class="wrap lg__grid">
+      <h2 class="h2">Contact</h2>
+      <div class="prose">
+        <p>
+          Questions about this page? Write to <a class="lg__mail" href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .lg { scroll-margin-top: var(--header-h); }
+  .lg__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+    gap: 24px 8%;
+    align-items: start;
+  }
+  .lg__mail {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .lg__mail:hover { color: var(--brand-green); }
+  @media (max-width: 1026px) {
+    .lg__grid { grid-template-columns: 1fr; }
+  }
+</style>

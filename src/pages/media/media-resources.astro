@@ -7,9 +7,10 @@ import { RESOURCES_INTRO, RESOURCES, RESOURCES_NOTE } from '../../data/pages/med
 import { CATALOG_DOWNLOAD as cat, formatSize } from '../../data/downloads';
 
 /* "Media Kit" adani.com: daftar berkas dengan jenis, ukuran dan tombol unduh.
- * Baris pertama = katalog PDF sungguhan (data/downloads.ts); href baris lain
- * di RESOURCES masih placeholder. */
+ * Berkas logo dari RESOURCES (public/brand/), lalu katalog PDF dari
+ * data/downloads.ts. */
 const rows = [
+  ...RESOURCES,
   {
     title: cat.title,
     body: cat.sub + '.',
@@ -18,7 +19,6 @@ const rows = [
     href: cat.href,
     filename: cat.filename,
   },
-  ...RESOURCES.map((r) => ({ ...r, filename: undefined })),
 ];
 ---
 

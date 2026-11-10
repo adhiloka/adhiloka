@@ -3,10 +3,10 @@ import PageLayout from '../../layouts/PageLayout.astro';
 import Intro from '../../components/blocks/Intro.astro';
 import InfoGrid from '../../components/blocks/InfoGrid.astro';
 import SiblingCards from '../../components/blocks/SiblingCards.astro';
-import { MATERIALS, materialHref } from '../../data/materials';
 import {
   ORDERING_INTRO,
   ORDERING_STEPS,
+  ORDERING_DOCUMENTS_LEAD,
   ORDERING_DOCUMENTS,
   ORDERING_LOGISTICS,
   ORDERING_FAQ,
@@ -14,9 +14,11 @@ import {
 } from '../../data/pages/ingredients';
 
 /* Ordering & Documents (arah konten B2B, 2 Okt 2026): alur dari permintaan
- * sampai pengiriman, matriks dokumen per bahan, logistik dan tanya-jawab.
- * Langkah dan logistik memakai InfoGrid seperti rantai Responsible Sourcing;
- * matriks dan FAQ ditulis di sini. Isi masih lorem sampai formulir D terisi. */
+ * sampai pengiriman, dokumen, logistik dan tanya-jawab. Langkah dan logistik
+ * memakai InfoGrid seperti rantai Responsible Sourcing; daftar dokumen dan
+ * FAQ ditulis di sini. Matriks dokumen per bahan (centang "tersedia") dilepas
+ * 10 Nov 2026: status dokumen belum pasti, jadi halaman ini hanya menyebut
+ * jenis dokumennya dan mengarahkan ke formulir kontak. */
 ---
 
 <PageLayout intro={ORDERING_INTRO}>
@@ -25,48 +27,22 @@ import {
   <InfoGrid id="steps" title="From Enquiry to Shipment" items={ORDERING_STEPS} cols={3} grey />
 
   <section class="sec" id="documents">
-    <div class="wrap">
-      <h2 class="h2" data-anim="title">Documents by Material</h2>
-      <div class="dtable-wrap">
-        <table class="dtable">
-          <thead>
-            <tr>
-              <th scope="col">Document</th>
-              {
-                MATERIALS.map((m) => (
-                  <th scope="col" class="is-center">
-                    <a href={materialHref(m.slug)}>{m.name}</a>
-                  </th>
-                ))
-              }
-            </tr>
-          </thead>
-          <tbody>
-            {
-              ORDERING_DOCUMENTS.map((d) => (
-                <tr>
-                  <th scope="row">{d.name}</th>
-                  {MATERIALS.map((m) => (
-                    <td class="is-center">
-                      {d.materials.includes(m.slug) ? (
-                        <>
-                          <svg class="ord__yes" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="1.6"></path></svg>
-                          <span class="sr-only">Available</span>
-                        </>
-                      ) : (
-                        <>
-                          <span aria-hidden="true">–</span>
-                          <span class="sr-only">Not available</span>
-                        </>
-                      )}
-                    </td>
-                  ))}
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
+    <div class="wrap ord__docs">
+      <div>
+        <h2 class="h2" data-anim="title">Documents</h2>
+        <p class="lead ord__docs-lead">{ORDERING_DOCUMENTS_LEAD}</p>
+        <a class="btn" href="/contact/?kind=specification"><span class="btn__label">Request Documents</span></a>
       </div>
+      <ul class="ord__doclist" data-anim="columns">
+        {
+          ORDERING_DOCUMENTS.map((d) => (
+            <li data-anim-item>
+              <svg viewBox="0 0 20 24" width="18" height="22" aria-hidden="true"><path d="M3 1.5h9.5L17 6v16.5H3zM12.5 1.5V6H17M6.5 12h7M6.5 16h7" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"></path></svg>
+              {d}
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </section>
 
@@ -99,8 +75,36 @@ import {
 </PageLayout>
 
 <style>
-  .ord__yes { display: inline-block; color: var(--brand-green); }
-  .dtable thead a:hover { color: var(--brand-green); }
+  .ord__docs {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: 40px 8%;
+    align-items: start;
+  }
+  .ord__docs-lead { margin: 24px 0 36px; }
+  .ord__doclist {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 32px;
+    border-top: 1px solid var(--line);
+  }
+  .ord__doclist li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: calc(17px * var(--fs));
+    font-weight: 440;
+    color: var(--ink);
+  }
+  .ord__doclist svg { flex: none; color: var(--brand-green); }
+  @media (max-width: 1026px) {
+    .ord__docs { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .ord__doclist { grid-template-columns: 1fr; }
+  }
 
   .ord__faq {
     margin-top: 40px;

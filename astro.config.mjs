@@ -16,7 +16,13 @@ export default defineConfig({
   // Tiga rute lama dari susunan menu sebelumnya. Tautan luar dan hasil telusur
   // masih menunjuk ke sini, jadi mereka diarahkan, bukan dibiarkan jadi 404.
   redirects: {
-    '/our-story/': '/about/our-history/',
+    '/our-story/': '/about/',
+    // Halaman yang diparkir 10 Nov 2026 sampai datanya ada (lihat
+    // src/data/pages/about.ts dan media.ts). Cabut barisnya saat terbit lagi.
+    '/about/our-leadership/': '/about/',
+    '/about/our-history/': '/about/',
+    '/about/our-locations/': '/about/',
+    '/media/social-media/': '/media/',
     '/fragrances/': '/perfumery/',
     '/perfumery/fine-fragrance/': '/perfumery/signature-creations/',
     '/perfumery/fragrance-innovation/': '/perfumery/beyond-fragrance/',

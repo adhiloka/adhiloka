@@ -1,89 +1,87 @@
-import type { LinkCard, PageIntro, Passage, Stat } from './types';
-import { MATERIALS } from '../materials';
+import type { LinkCard, PageIntro, Passage } from './types';
+
+/* Naskah Ingredients, ditulis 10 Nov 2026 (permintaan pemilik: ringkas,
+ * bergaya situs rumah fragrance). Tanpa angka, kapasitas, nama alat, MOQ,
+ * lama kirim atau daftar dokumen "tersedia"; semua itu menunggu formulir
+ * data C dan D. Yang ditulis di sini berlaku umum dan tidak mengikat angka. */
 
 /* ── Hub ─────────────────────────────────────────────────────────────── */
 
 export const INGREDIENTS_INTRO: PageIntro = {
   eyebrow: 'Ingredients',
-  title: 'Possimus mollitia, rem nam assumenda id anim earum qui.',
+  title: 'Natural ingredients from Indonesia',
   metaTitle: 'Ingredients',
-  lede: 'Aliqua, quam quis, rerum, mollit rem cum unde. Ipsa quos in soluta, et temporibus omnis, ad ullamco itaque non et consequuntur ea aute cumque aliquip.',
+  lede: 'Resins, leaves, roots and spices from Indonesia, selected and prepared for perfumery.',
   description:
-    'Sit nesciunt praesentium atque: sapiente adipiscing corrupti quia accusamus reprehenderit, reiciendis maxime, tenetur nostrum rem quae voluptatibus.',
+    'Natural aromatic ingredients from Indonesia by Adhiloka: resins, leaves, roots and spices, selected and prepared for perfumery.',
   image: 'hero-benzoin-tears',
   caption: 'cinnamon bark',
 };
 
-export const INGREDIENTS_STATS: Stat[] = [
-  { value: '12', label: 'Quisquam id aut laboris' },
-  { value: '1', label: 'Explicabo deserunt' },
-  { value: '12 et', label: 'Incidunt tempor amet' },
-  { value: '1 odit', label: 'Nostrum incidunt' },
-];
-
 export const INGREDIENTS_OPENING = [
-  'Aut officia ex sequi ex aperiam. Officiis voluptate ad amet in cum quod, non, magna hic consequat aliquip eveniet do ut aliqua cupidatat at sit cumque. Cillum do doloremque nobis nisi facere commodi laborum labore id hic ipsa et incidunt at aliqua rerum, vel et quae qui odit ullamco id ea quo veniam.',
-  'Quod aut eos sint duis ex amet ex est vero corporis do quos amet: iusto do odit, aut fugiat ad quo ut, nam ex quo explicabo, modi et ex veritatis, aut eius eos expedita ipsa. Molestias rem nostrum elit qui sapiente nisi accusamus ab eaque veniam ut vel eum.',
+  'Indonesia is home to some of the best-loved materials in perfumery. Our range brings together resins, leaves, roots and spices, each with a character shaped by the place where it grows.',
+  'We follow every ingredient from the plant to the finished material, so that what reaches the perfumer is true to its origin and ready to create with.',
 ];
 
 export const INGREDIENTS_CARDS: LinkCard[] = [
   {
     title: 'Ingredients Catalog',
-    body: 'Qui quisquam mollitia, blanditiis ex quibusdam minima, enim esse non quam voluptatibus eum aliqua eveniet.',
+    body: 'Explore our range of natural ingredients, family by family.',
     href: '/ingredients/catalog/',
     image: 'material-nutmeg',
   },
   {
     title: 'Technology',
-    body: 'Cum recusandae libero cillum sed impedit — neque, deleniti, eligendi, perspiciatis — rem quo incidunt esse natus vero tempor.',
+    body: 'The methods that turn a plant into a perfumery ingredient.',
     href: '/ingredients/technology/',
     image: 'fragrance-resin',
   },
   {
     title: 'Ordering & Documents',
-    body: 'Cum ut saepe fugit nisi totam aliquip ad deserunt, sed est occaecati duis facere quod irure eos.',
+    body: 'Samples, documents and how to order.',
     href: '/ingredients/ordering/',
     image: 'material-patchouli',
   },
 ];
 
 /* Urutan hub mengikuti halaman Ingredients dsm-firmenich (23 Okt 2026):
- * Discover more → tonggak → Technologies → Collections → unduhan katalog. */
+ * Discover more → tonggak → Technologies → Collections → unduhan katalog.
+ * Tonggaknya bukan tahun (sejarah belum ada datanya) melainkan lima langkah
+ * perjalanan bahan, dari tanaman sampai ke perfumer. */
 
 export type Milestone = { year: string; title: string; body: string };
 
-// DATA: sejarah bahan dan pabrik dari pemilik. Tahunnya sengaja bukan angka
-// supaya tidak terbaca sebagai fakta sebelum dikonfirmasi.
 export const INGREDIENTS_MILESTONES: Milestone[] = [
-  { year: 'Lorem', title: 'Quis nostrud exercitation', body: 'Ullamco laboris nisi ut aliquip ex ea commodo consequat, duis aute irure dolor in reprehenderit in voluptate.' },
-  { year: 'Ipsum', title: 'Velit esse cillum', body: 'Dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.' },
-  { year: 'Dolor', title: 'Deserunt mollit anim', body: 'Id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque.' },
-  { year: 'Sit', title: 'Laudantium totam rem', body: 'Aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.' },
-  { year: 'Amet', title: 'Nemo enim ipsam', body: 'Voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos.' },
+  { year: '01', title: 'Grown', body: 'Each ingredient begins as a plant, in the soil and climate that suit it best.' },
+  { year: '02', title: 'Gathered', body: 'It is harvested in its season, by people who know when the moment is right.' },
+  { year: '03', title: 'Processed', body: 'It is distilled or extracted by the method that respects its character.' },
+  { year: '04', title: 'Evaluated', body: 'It is smelled and checked before it leaves us.' },
+  { year: '05', title: 'Delivered', body: 'It is packed with care and sent to those who create with scent.' },
 ];
 
 export const INGREDIENTS_TECH_LEAD =
-  'Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt.';
+  'Each plant asks for its own method. We choose the one that keeps its character intact.';
 
 export const INGREDIENTS_COLLECTIONS_BODY: Record<string, string> = {
-  Resin: 'Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae.',
-  Root: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium.',
-  Leaf: 'Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.',
-  Spice: 'Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet.',
+  Resin: 'Warm, balsamic notes that bring depth and comfort to a fragrance.',
+  Root: 'Earthy, woody notes that give a fragrance its foundation.',
+  Leaf: 'Deep, green and woody notes with a lasting presence.',
+  Spice: 'Warm, vivid notes that bring a fragrance to life.',
 };
 
-export const INGREDIENTS_DOWNLOAD_TEXT =
-  'Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur.';
+export const INGREDIENTS_DOWNLOAD_TEXT = 'Our range of natural ingredients, in one document.';
+
+export const INGREDIENTS_CLOSING = 'Looking for a natural ingredient? Tell us what you have in mind.';
 
 /* ── Katalog ─────────────────────────────────────────────────────────── */
 
 export const CATALOG_INTRO: PageIntro = {
   eyebrow: 'Ingredients',
   title: 'Ingredients Catalog',
-  lede: 'Labore ab aliqua, quod id corporis eum cum iste voluptatibus, eum ratione nam culpa quia quo quae magna.',
+  lede: 'Our range of natural aromatic ingredients from Indonesia.',
   description:
-    'Tempor quo deserunt officiis delectus do cupidatat cillum, anim mollit, voluptates vitae, tenetur veniam cum perspiciatis sit modi.',
-  caption: 'grading floor',
+    'The Adhiloka ingredients catalog: benzoin, patchouli, cinnamon, vetiver, clove, nutmeg and mace from Indonesia.',
+  caption: 'whole nutmegs',
   image: 'material-nutmeg',
 };
 
@@ -92,125 +90,132 @@ export const CATALOG_INTRO: PageIntro = {
 export const TECHNOLOGY_INTRO: PageIntro = {
   eyebrow: 'Ingredients',
   title: 'Technology',
-  lede: 'Nemo laudantium tempor, rem officia error vel cum doloremque. Tempora elit et ratione at qui sapiente — quia do debitis ut sunt et eum non ex in.',
+  lede: 'Turning a plant into a perfumery ingredient takes method and patience. Each technique reveals a different side of the material.',
   description:
-    'Cupiditate incididunt et vel quisquam optio: velit perspiciatis, incidunt eum quisquam cupiditate, voluptatibus, hic rem reiciendis ducimus labore rem reprehenderit.',
-  caption: 'still hall',
+    'How natural perfumery ingredients are made: steam distillation, resinoid extraction, rectification and molecular distillation.',
+  caption: 'dried rhizome slices',
   image: 'fragrance-resin',
 };
 
 export type Route = { name: string; applies: string; body: string };
 
+/* Empat nama teknik disetujui pemilik untuk beranda (18 Okt 2026). Isinya
+   menjelaskan tekniknya secara umum; tidak menyebut alat atau kapasitas. */
 export const ROUTES: Route[] = [
   {
     name: 'Steam Distillation',
-    applies: 'Nemo quam, culpa, soluta, nulla',
-    body: 'Cum illum, soluta cum delectus minus. Est-at-ipsum sint in non labore sunt dolores unde, nam magnam eum repellat omnis at sit tempore ex unde alias id earum libero in duis hic est culpa.',
+    applies: 'Leaves, roots and spices',
+    body: 'Steam passes through the plant and carries its aromatic molecules with it. Once cooled, the essential oil separates from the water.',
   },
   {
     name: 'Resinoid Extraction',
-    applies: 'Dolorem, rerum facere',
-    body: 'Nostrum asperiores ea maxime ipsam odit ad deserunt possimus. Aliquip facere aspernatur fugiat anim totam in eum maxime sed nesciunt ex laboriosam; commodi at repellat quasi mollit unde in iusto nulla.',
+    applies: 'Resins and balsams',
+    body: 'The raw resin is dissolved, filtered and concentrated into a resinoid: a rich, pourable material that keeps the warmth of the resin.',
   },
   {
     name: 'Rectification',
-    applies: 'Tenetur, possimus, commodo',
-    body: 'Ad cillum fugit ea pariatur molestias, eum inventore non elit quo impedit-commodo repellat eum ea ratione itaque. Labore sed cum est ab at non eos at consequuntur.',
+    applies: 'Essential oils',
+    body: 'A second, gentler distillation that refines an oil, clearing its colour and bringing its scent into focus.',
   },
   {
     name: 'Molecular Distillation',
-    applies: 'Veniam, consequat, labore, fugiat',
-    body: 'Beatae exercitation, ex error 1234. Accusamus non possimus elit tempora facere incididunt — et corporis ducimus aut rem at mollitia iure, non delectus — aliquid itaque unde id sit minima.',
+    applies: 'Delicate oils and extracts',
+    body: 'Distillation under deep vacuum and at low temperature, used to purify sensitive materials without harming their scent.',
   },
 ];
 
 export const TECHNOLOGY_PASSAGES: Passage[] = [
   {
-    id: 'grading',
-    eyebrow: 'Grading',
-    title: 'Nam odio amet laborum distinctio neque ad',
-    body: 'Dolor aperiam atque: optio, voluptas, quis, nam adipiscing natus. Ab id mollit ab amet illo earum occaecati id itaque non elit sunt et rem nobis, nam ut est facere in atque animi ab cum quae ducimus modi vitae. Mollitia non minima nam facere odio et ipsam-nulla elit quos at modi-libero fugiat, fugit do debitis aut accusantium qui irure dicta do.',
+    id: 'selection',
+    eyebrow: 'Selection',
+    title: 'It begins with choosing well',
+    body: 'A good ingredient starts with good raw material. Before anything is processed, it is sorted and assessed by eye, by hand and by nose, because no method can give back what the plant did not have.',
     points: [
-      'Totam laboris veritatis, minima ut quod',
-      'Assumenda rem aspernatur ipsam nesciunt ad tempora',
-      'Ad repellat veniam tempor dolor sit nemo',
+      'Raw materials sorted before processing',
+      'Assessed by eye, by hand and by nose',
+      'Care from the very first step',
     ],
-    caption: 'benzoin resin, hand-graded',
+    caption: 'sorted benzoin resin tears',
     image: 'material-benzoin',
   },
   {
-    id: 'laboratory',
-    eyebrow: 'Analytical control',
-    title: 'Ad-ex ad ipsam eligendi rem',
-    body: 'Do exercitation ex at ratione, cum ut aperiam nihil ad cupiditate libero do. Fugit cum et qui dolore aperiam est nam atque aliquip quae qui dolore. Enim in soluta aliqua et proident quaerat non labore lorem id maiores eos optio ad corrupti debitis, tempora in omnis qui ipsum cillum rem ipsum non do veniam sunt ipsa rem qui saepe labore ab impedit.',
+    id: 'quality',
+    eyebrow: 'Quality',
+    title: 'Checked before it leaves us',
+    body: 'Every ingredient is evaluated before it is released, so that perfumers can rely on what they receive. The best proof is the material itself: ask us for a sample and judge for yourself.',
     points: [
-      'Lorem rem minim repudiandae amet velit proident',
-      'Consequuntur vero cumque ratione, vel sit eum',
-      'Molestias ipsam similique ut quas pariatur',
+      'Evaluated before release',
+      'True to the character of the plant',
+      'Samples on request',
     ],
     cta: 'Request a sample',
-    href: '/contact/',
-    caption: 'laboratory',
+    href: '/contact/?kind=sample',
+    caption: 'green leaves with dew',
     image: 'material-patchouli',
   },
 ];
 
 /* ── Ordering & Documents ────────────────────────────────────────────── */
 
-/* Halaman alur pesan (keputusan pemilik, 2 Okt 2026). Judul section dan label
- * sudah asli; isinya lorem sampai formulir data D1–D8 terisi. */
-
 export const ORDERING_INTRO: PageIntro = {
   eyebrow: 'Ingredients',
   title: 'Ordering & Documents',
-  lede: 'Asperiores do iusto error id eiusmod non porro ut sapiente: ipsa in eum sit, culpa excepteur illo odit ad, hic eum ad ratione.',
+  lede: 'From the first sample to delivery, here is how to work with us.',
   description:
-    'Quo ab ipsam numquam aut assumenda iste corporis: ratione, reprehenderit, temporibus, excepturi eum eligendi.',
+    'How to order natural ingredients from Adhiloka: samples, quotations, documents and delivery.',
   image: 'material-benzoin',
   caption: 'sorted benzoin resin tears',
 };
 
 export type OrderStep = { n: string; title: string; body: string };
 
-// DATA: D1, D5, D7 — langkah dari permintaan sampai pengiriman.
 export const ORDERING_STEPS: OrderStep[] = [
-  { n: '01', title: 'Dolorem', body: 'Esse ad est expedita, qui porro, aut fugiat vel eaque ab minim do id, non magni quibusdam quia anim adipisci.' },
-  { n: '02', title: 'Itaque sed molestiae', body: 'At magnam tempor nemo quo necessitatibus qui consequatur, ut elit laboriosam est esse do debitis aut quae commodo in id.' },
-  { n: '03', title: 'Laudantium', body: 'Nisi voluptate aut ducimus nisi magnam vel fugiat, cum in facere accusamus illum dolor, itaque nam veniam.' },
-  { n: '04', title: 'Excepteur', body: 'Id dolores nulla quas iusto, dolores magna, aute duis, incidunt qui cum proident at quo lorem.' },
-  { n: '05', title: 'Nesciunt nihil', body: 'Quae eos nihil in assumenda ut quisquam eum cum eos culpa hic doloribus illo unde libero odit ex.' },
-  { n: '06', title: 'Numquam aut voluptas', body: 'Eum est ex proident aperiam sed exercitationem, soluta, voluptatem eum cumque ad est aliquip.' },
+  { n: '01', title: 'Enquiry', body: 'Tell us which ingredient you are interested in and how you plan to use it.' },
+  { n: '02', title: 'Sample', body: 'We send a sample, so that you can evaluate the material in your own work.' },
+  { n: '03', title: 'Quotation', body: 'Once the material suits you, we prepare a quotation for the quantity you need.' },
+  { n: '04', title: 'Order', body: 'You confirm the order and we agree the details together.' },
+  { n: '05', title: 'Preparation', body: 'Your order is prepared and packed with care.' },
+  { n: '06', title: 'Delivery', body: 'We ship your order and stay in touch until it arrives.' },
 ];
 
-export type OrderDocument = { name: string; materials: string[] };
+/* Dokumen yang biasa diminta pembeli. Sengaja TIDAK ditulis "tersedia":
+   status tiap dokumen dikonfirmasi per pesanan (formulir data D2). */
+export const ORDERING_DOCUMENTS_LEAD =
+  'Every buyer works to different requirements. Tell us which documents yours calls for and we will confirm what can accompany your order.';
 
-const ALL = MATERIALS.map((m) => m.slug);
-
-// DATA: D2 — dokumen yang tersedia dan bahan yang memilikinya. Sementara
-// semua bahan dicentang karena nama dokumennya pun masih lorem.
-export const ORDERING_DOCUMENTS: OrderDocument[] = [
-  { name: 'Accusantium ut adipisci', materials: ALL },
-  { name: 'Veniam quae nobis', materials: ALL },
-  { name: 'Iste consectetur', materials: ALL },
-  { name: 'Possimus veritatis', materials: ALL },
-  { name: 'Animi accusantium', materials: ALL },
-  { name: 'Perferendis do maxime', materials: ALL },
+export const ORDERING_DOCUMENTS: string[] = [
+  'Product specification',
+  'Certificate of Analysis',
+  'Safety Data Sheet',
+  'IFRA statement',
+  'Allergen statement',
+  'Certificate of Origin',
 ];
 
-// DATA: D3–D6 — label asli, isi menunggu formulir.
 export const ORDERING_LOGISTICS: { title: string; body: string }[] = [
-  { title: 'Packaging', body: 'Minus, illo at eiusmod optio id sit error, culpa irure est occaecat nulla ea, deserunt qui quibusdam.' },
-  { title: 'Minimum Order', body: 'Vel mollitia deserunt in nam illo cum velit, totam ullamco at aut proident sit cum tempora.' },
-  { title: 'Lead Time', body: 'Aut atque sint numquam et molestiae illum rem in quo elit do nulla ut earum est possimus.' },
-  { title: 'Incoterms & Ports', body: 'Quo mollitia porro ea dicta eos est optio do odit aute, cumque eum anim animi.' },
+  { title: 'Packaging', body: 'Chosen to suit the material and the quantity ordered.' },
+  { title: 'Quantities', body: 'These depend on the ingredient. Tell us what you need.' },
+  { title: 'Lead Time', body: 'Confirmed with every quotation.' },
+  { title: 'Shipping', body: 'Terms and routes are agreed with each order.' },
 ];
 
-// DATA: D1, D6, D7, B5 — pertanyaan yang paling sering datang dari pembeli.
 export const ORDERING_FAQ: { q: string; a: string }[] = [
-  { q: 'Ea rem soluta odio id magnam?', a: 'Hic fugiat unde delectus eos magnam fugiat: vero, quia rem ducimus, ipsa sit debitis qui inventore ad sed duis.' },
-  { q: 'Rem non nisi ex ea aliquip?', a: 'Rem minima duis amet quo voluptatibus ullamco magnam quo est quibusdam odit quo ducimus officiis at soluta.' },
-  { q: 'Atque ullamco animi do eum cillum?', a: 'Cum aliqua odit corrupti aut facilis error laboris ut eos vel consequat libero hic sit quod sit fugiat.' },
-  { q: 'Non qui neque in nesciunt exercitation?', a: 'Vel facere anim facilis nam ex maxime rem consequuntur ex quisquam quod iste facere do saepe ex deserunt.' },
+  {
+    q: 'How do I request a sample?',
+    a: 'Use the contact form or write to info@adhiloka.com, and tell us the ingredient and how you plan to use it.',
+  },
+  {
+    q: 'Which documents can I receive?',
+    a: 'Let us know what your work requires and we will confirm what can accompany your order.',
+  },
+  {
+    q: 'How do I get a quotation?',
+    a: 'Send us the ingredient and the quantity you need, and we will reply with a quotation.',
+  },
+  {
+    q: 'Can you help me choose an ingredient?',
+    a: 'Gladly. Tell us about your project and we will suggest where to begin.',
+  },
 ];
 
-export const ORDERING_CLOSING = 'Sit aut ab cillum qui non excepteur modi odit minim dolore qui cumque do ut nobis.';
+export const ORDERING_CLOSING = 'Have a question about an order? We are glad to help.';

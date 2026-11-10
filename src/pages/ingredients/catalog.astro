@@ -4,24 +4,21 @@ import PageLayout from '../../layouts/PageLayout.astro';
 import { images } from '../../data/images';
 import { MATERIALS, FAMILY_FILTERS, materialHref, type Material } from '../../data/materials';
 import { CATALOG_INTRO } from '../../data/pages/ingredients';
-import { CATALOG_DOWNLOAD as cat, formatSize, specDownload, type Download } from '../../data/downloads';
+import { CATALOG_DOWNLOAD as cat, formatSize } from '../../data/downloads';
 
 /* Katalog bergaya Ingredient Catalog dsm-firmenich (23 Okt 2026): jumlah hasil
  * di banner, bilah alat (All filters, urutan, pencarian, grid/list), laci
- * filter dengan facet bercentang, tag filter aktif, lalu grid kartu: foto
- * dengan badge koleksi, kode, nama kapital, nama botani, bentuk · keluarga,
- * dua baris deskripsi, Read more dan Request sample. Logikanya di
- * scripts/catalog-filter.ts; keadaannya ikut query URL (?family=Resin).
- * Id kartu = slug, supaya tautan #slug lama tetap mendarat di kartunya.
- * Pita hijau di bawah grid = unduhan katalog PDF dan enam lembar spesifikasi;
- * sampulnya ditumpuk seperti kertas di meja dan mengipas saat disorot. */
-const specs = MATERIALS.map((m) => specDownload(m.slug)).filter((d): d is Download => Boolean(d));
-const specOf = Object.fromEntries(MATERIALS.map((m) => [m.slug, specDownload(m.slug)]));
-const fan = [specs[1], specs[0]].filter(Boolean);
+ * filter dengan facet bercentang, tag filter aktif, lalu grid kartu: foto,
+ * nama kapital, nama botani, keluarga · bagian tanaman, deskripsi, Read more
+ * dan Request sample. Logikanya di scripts/catalog-filter.ts; keadaannya ikut
+ * query URL (?family=Resin). Id kartu = slug, supaya tautan #slug lama tetap
+ * mendarat di kartunya. Pita hijau di bawah grid = unduhan katalog PDF.
+ * Facet "Ingredient type" dan "Origin", kode produk dan lembar spesifikasi
+ * PDF dilepas 10 Nov 2026 (datanya belum ada; lihat materials.ts). */
 
 const noteList = (m: Material) => m.notes?.split(' · ') ?? [];
 /** Nilai facet tiap kartu; facet bernilai ganda (nota) dipisah "|". */
-const facetOf = (m: Material) => ({ form: [m.form], family: [m.family], note: noteList(m), origin: [m.origin] });
+const facetOf = (m: Material) => ({ family: [m.family], note: noteList(m) });
 const tally = (key: keyof ReturnType<typeof facetOf>) => {
   const counts = new Map<string, number>();
   MATERIALS.forEach((m) => facetOf(m)[key].forEach((v) => counts.set(v, (counts.get(v) ?? 0) + 1)));
@@ -29,7 +26,6 @@ const tally = (key: keyof ReturnType<typeof facetOf>) => {
 };
 const familyLabel = (v: string) => FAMILY_FILTERS.find((f) => f.value === v)?.label ?? v;
 const facets = [
-  { name: 'form', label: 'Ingredient type', options: tally('form') },
   {
     name: 'family',
     label: 'Olfactive family',
@@ -38,7 +34,6 @@ const facets = [
       .filter((o) => o.n > 0),
   },
   { name: 'note', label: 'Olfactive descriptor', options: tally('note') },
-  { name: 'origin', label: 'Origin', options: tally('origin') },
 ];
 const results = `${MATERIALS.length} results`;
 ---
@@ -124,34 +119,24 @@ const results = `${MATERIALS.length} results`;
                 id={m.slug}
                 data-order={i}
                 data-name={m.name}
-                data-text={[m.name, m.latin, m.code, m.family, m.form, m.notes, m.origin].join(' ').toLowerCase()}
-                data-form={f.form.join('|')}
+                data-text={[m.name, m.latin, m.family, m.part, m.notes, m.origin].join(' ').toLowerCase()}
                 data-family={f.family.join('|')}
                 data-note={f.note.join('|')}
-                data-origin={f.origin.join('|')}
               >
                 <a class="mat__media cover" href={materialHref(m.slug)} tabindex="-1" aria-hidden="true">
                   {m.image ? <Image quality={70} src={images[m.image]} alt="" widths={[400, 720]} sizes="(max-width: 767px) 100vw, 30vw" loading="lazy" /> : <span class="plate">{m.shot}</span>}
-                  {m.collection && <span class="mat__badge">{m.collection}</span>}
                 </a>
                 <div class="mat__body">
-                  <p class="mat__code">{m.code}</p>
                   <h2 class="mat__name"><a href={materialHref(m.slug)}>{m.name}</a></h2>
                   <p class="mat__latin">{m.latin}</p>
                   <p class="mat__tags">
-                    <span>{m.form}</span>
                     <span>{familyLabel(m.family)}</span>
+                    <span>{m.part}</span>
                   </p>
                   <p class="mat__desc">{m.note}</p>
                   <p class="mat__links">
                     <a class="mat__more" href={materialHref(m.slug)}>Read more<span class="sr-only"> about {m.name}</span></a>
                     <a class="mat__sample" href={`/contact/?material=${m.slug}&kind=sample`}>Request sample<span class="sr-only"> of {m.name}</span></a>
-                    {specOf[m.slug] && (
-                      <a class="mat__pdf" href={specOf[m.slug]!.href} download={specOf[m.slug]!.filename}>
-                        <span class="mat__pdf-badge">PDF</span>
-                        <span class="sr-only">Specification for {m.name} ({formatSize(specOf[m.slug]!.bytes)})</span>
-                      </a>
-                    )}
                   </p>
                 </div>
               </li>
@@ -159,20 +144,19 @@ const results = `${MATERIALS.length} results`;
           })
         }
       </ul>
-      <p class="cat__empty" data-cat-empty hidden>No materials match these filters.</p>
+      <p class="cat__empty" data-cat-empty hidden>No ingredients match these filters.</p>
     </div>
   </section>
 
   <section class="cdl" id="download" aria-labelledby="cdl-title">
     <div class="wrap cdl__grid">
       <a class="cdl__stack" href={cat.href} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
-        {fan.map((d, i) => <Image class={`cdl__sheet cdl__sheet--${i}`} quality={75} src={d.thumb} alt="" widths={[240, 480]} sizes="200px" loading="lazy" />)}
         <Image class="cdl__cover" quality={80} src={cat.thumb} alt="" widths={[320, 640]} sizes="(max-width: 767px) 50vw, 300px" loading="lazy" />
       </a>
       <div class="cdl__text">
         <p class="cdl__eyebrow">{cat.title}</p>
-        <h2 class="cdl__title" id="cdl-title">All {MATERIALS.length} materials in one document</h2>
-        <p class="cdl__lede">Grades, key specifications and supply terms for every material in the range, with a two-page product specification for each.</p>
+        <h2 class="cdl__title" id="cdl-title">Our ingredients in one document</h2>
+        <p class="cdl__lede">The full range of Adhiloka natural ingredients, with the olfactive profile of each, to read offline or share with your team.</p>
         <p class="cdl__meta"><span class="cdl__badge">PDF</span>{cat.pages} pages · {formatSize(cat.bytes)}</p>
         <div class="cdl__actions">
           <a class="btn btn--light" href={cat.href} download={cat.filename}>
@@ -180,22 +164,6 @@ const results = `${MATERIALS.length} results`;
             <span class="btn__label">Download Catalog</span>
           </a>
           <a class="cdl__view" href={cat.href} target="_blank" rel="noopener">View online<span class="sr-only"> (PDF, opens in a new tab)</span></a>
-        </div>
-        <div class="cdl__specs">
-          <p class="cdl__specs-h">Product specifications</p>
-          <ul>
-            {
-              specs.map((d) => (
-                <li>
-                  <a href={d.href} download={d.filename}>
-                    <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M10 3v10m-4.5-4.5L10 13l4.5-4.5M4 16.5h12" fill="none" stroke="currentColor" stroke-width="1.6"></path></svg>
-                    <span>{d.title}</span>
-                    <small>{formatSize(d.bytes)}</small>
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
         </div>
       </div>
     </div>

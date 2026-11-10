@@ -1,104 +1,105 @@
-import type { LinkCard, PageIntro, Passage, Quote, Stat } from './types';
+import type { LinkCard, PageIntro, Passage, Quote } from './types';
+
+/* Naskah Sustainability, ditulis 10 Nov 2026 (permintaan pemilik: ringkas,
+ * bergaya situs rumah fragrance). Tiga pilar beranda (Nature / People /
+ * Communities) jadi benang merahnya. Tanpa angka, target, sertifikat, nama
+ * daerah atau jumlah petani; semua itu menunggu formulir data F. Angka
+ * sekilas ("What We Can Show") dilepas sampai ada yang bisa ditunjukkan. */
 
 /* ── Hub ─────────────────────────────────────────────────────────────── */
 
 export const SUSTAINABILITY_INTRO: PageIntro = {
   eyebrow: 'Sustainability',
-  title: 'Cum magnam do ab nesciunt, aut ad sapiente.',
+  title: 'Caring for nature and its people',
   metaTitle: 'Sustainability',
-  lede: 'Do eveniet esse ea maxime, hic fugiat. Blanditiis ex omnis et sunt unde ducimus quam fugiat aute excepteur, consequat cum saepe nisi iure do sequi.',
+  lede: 'Our ingredients come from the living world. Looking after it, and after the people who tend it, is part of our work.',
   description:
-    'Exercitationem ut adipisci: cumque-rerum delectus, natus mollit itaque tempor rem aliqua, consequuntur id hic occaecati, vel deleniti officiis nesciunt.',
-  caption: 'kemenyan agroforest canopy',
+    'Sustainability at Adhiloka: respect for the land our natural ingredients come from, and lasting relationships with the people who grow them.',
+  caption: 'tree canopy seen from below',
   image: 'agroforest-canopy',
 };
 
-export const SUSTAINABILITY_STATS: Stat[] = [
-  { value: '1,234+', label: 'Nostrum recusandae at est voluptas' },
-  { value: '12%', label: 'Officia excepturi ut laboriosam culpa' },
-  { value: '1', label: 'Laboriosam sapiente itaque facere' },
-  { value: '1', label: 'Corporis ratione rem eos magnam' },
-];
-
 export const SUSTAINABILITY_OPENING = [
-  'Quam necessitatibus nihil in sint incidunt vel tempore id et tempor. Enim sit ut commodo ea in ducimus. Irure ut magnam ab suscipit, id vel quod proident in. Ipsum ea in id deserunt, ea eum quod non, cum omnis ut odit hic rem optio rem id vitae magnam dicta id quam odit magna at qui.',
-  'Cum vitae nostrum: ea eum incidunt ex iste repellat, et sequi ea fugit minim minima cum nostrum aliqua laborum in eaque, rem rerum laborum sed error expedita et rem veritatis eius proident ut qui est rem ex qui aute. Sequi nulla beatae rem aut doloribus. Hic unde et voluptate.',
+  'Natural ingredients depend on healthy land and on the knowledge of the people who work it. Without them there is nothing to distil, and nothing to create with.',
+  'That is why we see care for nature and care for people as one and the same commitment. It shapes where our ingredients come from and how we work with those who grow them.',
 ];
 
 export const SUSTAINABILITY_CARDS: LinkCard[] = [
   {
     title: 'Driving progress for people',
-    body: 'Maxime corrupti cum dolores aspernatur, expedita, qui quis at ea et est commodo ipsa qui odit lorem.',
+    body: 'Working side by side with the growers and communities behind each harvest.',
     href: '/sustainability/people/',
     image: 'material-patchouli',
   },
   {
     title: 'Responsible Sourcing',
-    body: 'Hic ex hic atque quod at tempor maxime in at quia, sed elit ex occaecat ab quae illo.',
+    body: 'Respect for the plants and the land our ingredients come from.',
     href: '/sustainability/responsible-sourcing/',
     image: 'hero-benzoin-tears',
   },
 ];
+
+export const SUSTAINABILITY_CLOSING = 'Good ingredients begin with respect, for nature and for people.';
 
 /* ── Driving progress for people ─────────────────────────────────────── */
 
 export const PEOPLE_INTRO: PageIntro = {
   eyebrow: 'Sustainability',
   title: 'Driving progress for people',
-  lede: 'Ea libero magna corrupti tempore est voluptatem beatae in sed facere ab rerum et occaecat. Modi et qui tempor soluta, qui quos ab sit quos ex beatae vel cupiditate sunt.',
+  lede: 'Behind every ingredient are people whose knowledge and work make it possible. We want our relationships with them to be fair, and to last.',
   description:
-    'Sit suscipit corporis aut ullamco voluptates mollit qui deserunt: sequi beatae soluta dolore sit soluta, cillum nostrud, incidunt aut dolorem do beatae delectus.',
-  caption: 'kemenyan agroforest canopy',
-  image: 'hero-agroforest',
+    'How Adhiloka works with growers and their communities: direct relationships, a long-term view and respect for local knowledge.',
+  caption: 'green leaves with dew',
+  image: 'material-patchouli',
 };
 
 export const PEOPLE_PASSAGES: Passage[] = [
   {
-    id: 'income',
-    eyebrow: 'Income',
-    title: 'Ad dicta aliqua tempor vel facere, aut lorem ad',
-    body: 'Ex veniam cum sequi at earum enim aliquid sint alias in cumque sed facere placeat in eum, sed quae ipsam at iure non ratione ad quos id porro et aliqua. Ea maxime est eaque cum et commodi vel vero mollit unde at eveniet. Ex ipsa ex ipsam atque et unde nostrum maxime eum beatae minim est aut et ad illum ut, veritatis at rem illum quo facere autem animi.',
+    id: 'partnerships',
+    eyebrow: 'Partnerships',
+    title: 'Working side by side with growers',
+    body: 'The people who grow and gather our ingredients know their plants better than anyone. We work with them directly wherever we can, listen to what they tell us, and value what they bring.',
     points: [
-      'Optio irure minima labore anim quaerat maxime',
-      'Ipsa ut non commodo, ex quis, id cum vel',
-      'Do explicabo qui debitis ratione aut animi voluptas',
+      'Direct relationships wherever possible',
+      'Respect for local knowledge',
+      'Fair dealings on both sides',
     ],
-    caption: 'collection post',
+    caption: 'tree canopy seen from below',
     image: 'agroforest-canopy',
   },
   {
-    id: 'failure',
-    eyebrow: 'Bad seasons',
-    title: 'Eius laboris quod sed ipsa anim rem quas',
-    body: 'Dolorem natus occaecati — laboris, ratione, at impedit nulla quia sequi ex vero. Est voluptatem ea eum illo dolorem maxime sunt ex quis. Suscipit impedit nam excepteur minima, nostrud ducimus sapiente, hic est cillum voluptates ut elit officiis vel sit eos eiusmod esse cum 1234s libero. Ex minus quo id, aut do id rem amet tempor eligendi quae in nam ullam cumque repellendus aliqua nisi debitis est vero.',
+    id: 'continuity',
+    eyebrow: 'Continuity',
+    title: 'Relationships that last beyond one harvest',
+    body: 'Nature has generous seasons and difficult ones. We believe a partnership should hold through both, and that trust is built by coming back, year after year.',
     points: [
-      'Nesciunt-quae nesciunt commodo sed doloribus aliqua',
-      'Voluptates temporibus repellendus elit magnam et neque',
-      'Illo soluta veritatis soluta sunt inventore',
+      'A long-term view',
+      'Trust built over time',
+      'Together through every season',
     ],
-    caption: 'benzoin resin, hand-graded',
+    caption: 'sorted benzoin resin tears',
     image: 'material-benzoin',
   },
   {
-    id: 'skills',
-    eyebrow: 'Skills',
-    title: 'Tenetur quia ut in labore animi, eum at ab quasi officiis',
-    body: 'Ea alias fugiat sunt libero quae eos sint itaque. Eiusmod error eum facilis eum aliquip proident eius illo cumque rem magnam, aut est asperiores sed maxime exercitation commodo id soluta nobis-magna irure — error eius sed duis elit qui. Ea ex sit vero similique alias eaque est eaque autem sed porro elit modi est sed quae beatae.',
+    id: 'knowledge',
+    eyebrow: 'Knowledge',
+    title: 'Know-how worth passing on',
+    body: 'Much of what makes an ingredient good is learned in the field and handed down from one generation to the next. Keeping that knowledge alive matters as much as the harvest itself.',
     points: [
-      'Sit-beatae commodi eum dolorem corrupti ex totam laborum',
-      'Atque-sequi animi modi do ab ducimus',
-      'Numquam commodo ratione quibusdam non molestias iure',
+      'Skills handed down between generations',
+      'Learning from one another',
+      'Pride in work well done',
     ],
-    cta: 'How we source',
+    cta: 'Responsible Sourcing',
     href: '/sustainability/responsible-sourcing/',
-    caption: 'grading floor',
+    caption: 'whole nutmegs',
     image: 'material-nutmeg',
   },
 ];
 
 export const PEOPLE_QUOTE: Quote = {
-  text: 'Hic mollit quo ullam eos excepteur duis. Tempora ab illum veritatis nihil in enim ullam at in hic cupidatat elit.',
-  attribution: 'Vero ad Necessitatibus, Expedita',
+  text: 'Every ingredient carries the work of *many hands*. Each of them deserves *our respect*.',
+  attribution: 'Adhiloka',
 };
 
 /* ── Responsible Sourcing ────────────────────────────────────────────── */
@@ -106,9 +107,9 @@ export const PEOPLE_QUOTE: Quote = {
 export const SOURCING_INTRO: PageIntro = {
   eyebrow: 'Sustainability',
   title: 'Responsible Sourcing',
-  lede: 'Nobis at aut odio anim, cum delectus ad rem quis sed elit — sapiente ad laborum, est necessitatibus architecto.',
+  lede: 'Good ingredients begin with respect: for the plant, for the land, and for the people who care for both.',
   description:
-    'Dignissimos suscipit ea deserunt: aliqua deleniti ex odit adipiscing deleniti, excepteur-fugit exercitation expedita ex nostrud, sed ut occaecat hic maxime.',
+    'Responsible sourcing at Adhiloka: staying close to the source, knowing where ingredients come from and caring for the land.',
   image: 'hero-benzoin-tears',
   caption: 'cinnamon bark',
 };
@@ -116,65 +117,41 @@ export const SOURCING_INTRO: PageIntro = {
 export type Step = { n: string; title: string; body: string };
 
 export const SOURCING_CHAIN: Step[] = [
-  {
-    n: '01',
-    title: 'Dolore veniam',
-    body: 'Tempora ex soluta aute officiis ipsum ex fugit aliquid, ut ad magni non voluptate quam. Ducimus ab dolores eum nostrum ab placeat ex consequatur vel ea.',
-  },
-  {
-    n: '02',
-    title: 'Cupiditate dolores',
-    body: 'Vel assumenda fugiat qui eum ea aut do sint deserunt sit id quis lorem, ea quia, do id natus quo cumque vitae rerum. Consequat qui voluptates ullam vel laborum unde ut nemo cumque.',
-  },
-  {
-    n: '03',
-    title: 'Omnis nostrum',
-    body: 'At culpa quia dolorem et cum numquam. Possimus tempore unde non nam; et ad cum aliqua nisi ex nesciunt illo.',
-  },
-  {
-    n: '04',
-    title: 'Natus laboris velit',
-    body: 'Iste ducimus quod saepe veritatis. Hic consequat tempor et commodo ullamco nisi nam libero hic itaque eius debitis at aut quae.',
-  },
-  {
-    n: '05',
-    title: 'Aspernatur',
-    body: 'Perspiciatis, sapiente ex mollitia, at neque. Quis nam eum tenetur itaque dolore et cum ab voluptatibus.',
-  },
-  {
-    n: '06',
-    title: 'Quod sit officiis',
-    body: 'Sit nesciunt quisquam nobis quas eum dolor consequatur, do omnis nam est aspernatur nobis ut aute modi. At ut magnam tempora odio natus, sed aute unde quo omnis.',
-  },
+  { n: '01', title: 'The plant', body: 'Each ingredient starts with a plant, grown where it thrives.' },
+  { n: '02', title: 'The harvest', body: 'It is gathered in season, when it has the most to give.' },
+  { n: '03', title: 'The selection', body: 'It is sorted with care, so that only suitable material goes forward.' },
+  { n: '04', title: 'The process', body: 'It is distilled or extracted by the method that suits it.' },
+  { n: '05', title: 'The evaluation', body: 'It is smelled and checked before it is released.' },
+  { n: '06', title: 'The journey', body: 'It is sent on its way, with its origin kept in view.' },
 ];
 
 export const SOURCING_PASSAGES: Passage[] = [
   {
-    id: 'direct',
-    eyebrow: 'Direct purchase',
-    title: 'Ab voluptatibus ea eum magnam',
-    body: 'Hic soluta ad est fugiat commodi ex consequuntur, sit beatae cum quis: qui incidunt ad quo molestias eum quo laborum sint odit eius odio iure. Fugiat at non quo quisquam animi duis ut rem eius beatae ab rem sunt, est ad do eum unde maiores id anim expedita natus sed culpa in vero nemo rem ut placeat.',
+    id: 'source',
+    eyebrow: 'Close to the Source',
+    title: 'Knowing where our ingredients come from',
+    body: 'We stay as close as we can to the places where our ingredients grow. The shorter the path between the plant and us, the better we understand what we offer, and the more we can stand behind it.',
     points: [
-      'Quam incidunt: Eveniet, Suscipit, Corporis, Animi cillum',
-      'Laboris beatae ab sed consequat, at nam nostrum',
-      'Consequuntur deleniti illo sit tenetur in nam dolores autem',
+      'Short paths from plant to ingredient',
+      'Origin kept in view',
+      'Respect for those who produce',
     ],
-    caption: 'benzoin intake',
+    caption: 'sorted benzoin resin tears',
     image: 'material-benzoin',
   },
   {
     id: 'land',
     eyebrow: 'Land',
-    title: 'Tempore eos quas tempora et fugiat do',
-    body: 'Est molestias odit aute culpa cumque commodi non repellendus fugit unde laboris est deleniti incididunt. Ut odio natus officiis delectus vel in ea non hic quia ipsa doloribus totam eum repellat veniam at 1234. Iusto ex occaecati fugit at itaque, do quaerat recusandae commodo ad delectus nobis labore non expedita.',
+    title: 'Taking only what nature can give',
+    body: 'Trees, roots and leaves need time to grow back. Harvesting with patience keeps the plants healthy and the land alive, for this season and for those to come.',
     points: [
-      'Ea deleniti eius nisi similique earum 1234',
-      'Vitae dolorem veniam iste consequatur laudantium',
-      'Eaque veritatis aliqua sunt mollit tenetur, quo vero proident',
+      'Harvests that let plants recover',
+      'Landscapes kept alive and diverse',
+      'Thinking in seasons, not in quarters',
     ],
-    cta: 'See our purpose',
+    cta: 'Our Purpose',
     href: '/about/our-purpose/',
-    caption: 'kemenyan agroforest canopy',
+    caption: 'tree canopy seen from below',
     image: 'agroforest-canopy',
   },
 ];

@@ -1,8 +1,7 @@
 /* Membangun PDF unduhan dari data situs: `npm run pdf`.
  *
  *   public/downloads/adhiloka-ingredients-catalog.pdf        katalog semua bahan
- *   public/downloads/specifications/<kode>-<slug>.pdf         satu per bahan
- *   src/assets/downloads/<nama>.jpg                           sampul untuk kartu unduhan
+ *   src/assets/downloads/catalog.jpg                          sampul untuk kartu unduhan
  *   src/data/downloads.json                                   manifes: tautan, halaman, ukuran
  *
  * HTML dari templates.mjs dicetak Chrome headless (--print-to-pdf), jadi tidak
@@ -16,7 +15,7 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { build } from 'esbuild';
 import sharp from 'sharp';
-import { catalogHtml, specHtml, docNo, CODES, EDITION, ISSUED, REVISION } from './templates.mjs';
+import { catalogHtml, EDITION, ISSUED, REVISION } from './templates.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, '../..');
@@ -37,7 +36,7 @@ if (!CHROME) throw new Error('Chrome tidak ditemukan; set CHROME_PATH.');
 const bundle = await build({
   stdin: {
     contents: `export { MATERIALS } from './src/data/materials.ts';
-               export { ORDERING_STEPS } from './src/data/pages/ingredients.ts';`,
+               export { ORDERING_STEPS, ORDERING_DOCUMENTS, ORDERING_DOCUMENTS_LEAD, INGREDIENTS_OPENING } from './src/data/pages/ingredients.ts';`,
     resolveDir: ROOT,
     loader: 'ts',
   },
@@ -46,12 +45,12 @@ const bundle = await build({
   platform: 'node',
   write: false,
 });
-const { MATERIALS, ORDERING_STEPS } = await import(
+const { MATERIALS, ORDERING_STEPS, ORDERING_DOCUMENTS, ORDERING_DOCUMENTS_LEAD, INGREDIENTS_OPENING } = await import(
   'data:text/javascript;base64,' + Buffer.from(bundle.outputFiles[0].text).toString('base64')
 );
 
 rmSync(OUT, { recursive: true, force: true });
-for (const d of [OUT, join(OUT, 'img'), PUB, join(PUB, 'specifications'), THUMBS]) mkdirSync(d, { recursive: true });
+for (const d of [OUT, join(OUT, 'img'), PUB, THUMBS]) mkdirSync(d, { recursive: true });
 
 /* Foto diperkecil dulu: Chrome menanam gambar pada resolusi aslinya. */
 const imgFile = async (key, width) => {
@@ -114,22 +113,24 @@ const manifest = { edition: EDITION, issued: ISSUED, revision: REVISION, catalog
   for (const m of MATERIALS) img[m.slug] = await imgFile(m.image, 1400);
   const cover = await imgFile('material-benzoin', 1800);
   const file = 'adhiloka-ingredients-catalog.pdf';
-  const html = catalogHtml({ materials: MATERIALS, steps: ORDERING_STEPS, img: (m) => img[m.slug], cover, assets });
+  const html = catalogHtml({
+    materials: MATERIALS,
+    steps: ORDERING_STEPS,
+    intro: INGREDIENTS_OPENING,
+    docsLead: ORDERING_DOCUMENTS_LEAD,
+    docs: ORDERING_DOCUMENTS,
+    img: (m) => img[m.slug],
+    cover,
+    assets,
+  });
   const r = await render('catalog', html, join(PUB, file));
   manifest.catalog = { href: `/downloads/${file}`, thumb: 'catalog', ...r };
   console.log(`katalog  ${r.pages} hlm  ${(r.bytes / 1024).toFixed(0)} KB`);
 }
 
-// Lembar spesifikasi
-for (const [i, m] of MATERIALS.entries()) {
-  if (!CODES[m.slug]) throw new Error(`Bahan ${m.slug} belum punya kode di templates.mjs (CODES)`);
-  const img = await imgFile(m.image, 1000);
-  const file = `${docNo(m.slug).toLowerCase()}-${m.slug}.pdf`;
-  const html = specHtml(m, { index: i, count: MATERIALS.length, img, assets });
-  const r = await render(`spec-${m.slug}`, html, join(PUB, 'specifications', file));
-  manifest.specs[m.slug] = { href: `/downloads/specifications/${file}`, docNo: docNo(m.slug), thumb: `spec-${m.slug}`, ...r };
-  console.log(`${docNo(m.slug)}  ${r.pages} hlm  ${(r.bytes / 1024).toFixed(0)} KB`);
-}
+// Lembar spesifikasi per bahan dilepas 10 Nov 2026 (lihat templates.mjs);
+// `specs` di manifes dibiarkan kosong supaya situs menawarkan permintaan
+// spesifikasi lewat formulir kontak.
 
 writeFileSync(join(ROOT, 'src/data/downloads.json'), JSON.stringify(manifest, null, 2) + '\n');
 rmSync(join(OUT, 'profile'), { recursive: true, force: true });

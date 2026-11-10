@@ -5,9 +5,8 @@ import type { ImageKey } from '../images';
  * Latest News → Join Us → kotak peringatan. Section Business dan News
  * mengambil isinya langsung dari materials.ts dan media.ts.
  *
- * Sejak 29 Sep 2026 seluruh naskah situs berupa lorem ipsum (permintaan
- * pemilik); yang tetap asli hanya menu, footer, tombol, label dan judul
- * section. Batasnya dijelaskan di README. */
+ * Naskah beranda asli sejak 18 Okt 2026; halaman lain menyusul 10 Nov 2026.
+ * Batasnya (tanpa klaim yang belum terbukti) dijelaskan di README. */
 
 /* ── Hero slider ─────────────────────────────────────────────────────── */
 

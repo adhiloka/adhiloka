@@ -6,8 +6,8 @@ import { images } from '../data/images';
 /* Footer ala adani.com: logo dan ikon sosial di kiri, dua kolom berjudul,
  * satu kolom tautan tebal, lalu bar abu #c1c1c1 berisi hak cipta dan tautan
  * legal. Latarnya foto pucat yang memudar ke kiri, seperti foto gedung pucat
- * di footer Adani; di sini tajuk pohon kebun kemenyan. Tautan tanpa halaman
- * dibiarkan kosong (`#`) sesuai permintaan. */
+ * di footer Adani; di sini tajuk pohon. Tautan legal menuju /legal/; Careers
+ * dan ikon sosial dilepas sampai halaman dan akunnya ada. */
 
 const COLUMNS = [
   {
@@ -15,9 +15,8 @@ const COLUMNS = [
     links: [
       { label: 'Our Business', href: '/about/our-business/' },
       { label: 'Our Purpose', href: '/about/our-purpose/' },
-      { label: 'Our Leadership', href: '/about/our-leadership/' },
-      { label: 'Our History', href: '/about/our-history/' },
-      { label: 'Our Locations', href: '/about/our-locations/' },
+      { label: 'Responsible Sourcing', href: '/sustainability/responsible-sourcing/' },
+      { label: 'Progress for People', href: '/sustainability/people/' },
     ],
   },
   {
@@ -25,6 +24,7 @@ const COLUMNS = [
     links: [
       { label: 'Ingredients Catalog', href: '/ingredients/catalog/' },
       { label: 'Technology', href: '/ingredients/technology/' },
+      { label: 'Ordering & Documents', href: '/ingredients/ordering/' },
       { label: 'Signature Creations', href: '/perfumery/signature-creations/' },
       { label: 'Mindful Naturals', href: '/perfumery/mindful-naturals/' },
     ],
@@ -35,12 +35,15 @@ const MAJOR = [
   { label: 'Perfumery', href: '/perfumery/' },
   { label: 'Sustainability', href: '/sustainability/' },
   { label: 'Media', href: '/media/' },
-  { label: 'Careers', href: '#' },
   { label: 'Downloads', href: '/media/media-resources/' },
   { label: 'Contact Us', href: '/contact/' },
 ];
 
-const LEGAL = ['Legal Disclaimer', 'Privacy Notice', 'Terms & Conditions', 'Cookie Policy'];
+const LEGAL = [
+  { label: 'Legal Notice', href: '/legal/#legal-notice' },
+  { label: 'Privacy Notice', href: '/legal/#privacy' },
+  { label: 'Cookies', href: '/legal/#cookies' },
+];
 
 /* Ikon digambar ulang dengan viewBox pas ke glifnya (tanpa ruang kosong),
  * lalu ditaruh di kotak seukuran ikon Adani: tinggi 15 px, lebar 8,6 / 15 /
@@ -77,6 +80,7 @@ const ICONS: Record<string, { box: string; w: number; h: number; body: string }>
         <a href="/" aria-label="Adhiloka, home">
           <img src="/brand/adhiloka-lockup.svg" alt="Adhiloka" width="176" height="36" loading="lazy" />
         </a>
+        {SOCIAL.length > 0 && (
         <ul class="ftr__social">
           {
             SOCIAL.filter((s) => ICONS[s.label]).map((s) => {
@@ -91,6 +95,9 @@ const ICONS: Record<string, { box: string; w: number; h: number; body: string }>
             })
           }
         </ul>
+        )}
+        <p class="ftr__tag">Natural Ingredients &amp; Perfumery</p>
+        <a class="ftr__mail" href="mailto:info@adhiloka.com">info@adhiloka.com</a>
       </div>
 
       {
@@ -116,7 +123,7 @@ const ICONS: Record<string, { box: string; w: number; h: number; body: string }>
     <div class="wrap ftr__policy-row">
       <p>© {new Date().getFullYear()} Adhiloka Group</p>
       <ul>
-        {LEGAL.map((l) => <li><a href="#">{l}</a></li>)}
+        {LEGAL.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
       </ul>
     </div>
   </div>
@@ -159,7 +166,22 @@ const ICONS: Record<string, { box: string; w: number; h: number; body: string }>
   }
 
   .ftr__brand img { width: 176px; height: auto; }
-  .ftr__brand > a { display: block; padding-bottom: 18px; }
+  .ftr__brand > a:first-child { display: block; padding-bottom: 18px; }
+  .ftr__tag {
+    margin-top: 6px;
+    font-size: calc(14px * var(--fs));
+    color: var(--ink);
+  }
+  .ftr__social + .ftr__tag { margin-top: 22px; }
+  .ftr__mail {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: calc(14px * var(--fs));
+    font-weight: 440;
+    color: #000;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
 
   /* Deret ikon sosial dibingkai garis 1 px di atas dan bawah (tanpa garis
      samping), selebar isinya, seperti footer Adani: bantalan li 10/15/9/5,

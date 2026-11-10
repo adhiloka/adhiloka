@@ -2,12 +2,15 @@ import type { ImageMetadata } from 'astro';
 import manifest from './downloads.json';
 import { MATERIALS } from './materials';
 
-/* Berkas PDF yang bisa diunduh: satu katalog untuk semua bahan dan satu
- * lembar spesifikasi produk per bahan. Berkasnya dibangun `npm run pdf`
- * (tools/pdf/) dari materials.ts dan ditaruh di public/downloads/; manifes
- * downloads.json mencatat tautan, jumlah halaman dan ukurannya, sampul
- * kartunya di src/assets/downloads/. Isinya mengikuti materials.ts, jadi
- * selama data di sana lorem, PDF-nya juga lorem. */
+/* Berkas PDF yang bisa diunduh: satu katalog untuk semua bahan. Berkasnya
+ * dibangun `npm run pdf` (tools/pdf/) dari materials.ts dan ditaruh di
+ * public/downloads/; manifes downloads.json mencatat tautan, jumlah halaman
+ * dan ukurannya, sampul kartunya di src/assets/downloads/.
+ *
+ * Lembar spesifikasi per bahan dilepas 10 Nov 2026: nilai spesifikasinya
+ * belum ada, jadi halaman bahan menawarkan "Request the Specification" lewat
+ * formulir kontak. `specDownload` tetap ada dan hidup lagi begitu
+ * tools/pdf/build.mjs kembali mengisi `specs` di manifes. */
 
 export type Download = {
   kind: string;
@@ -36,7 +39,7 @@ export const downloadMeta = (d: Download) => `PDF · ${d.pages} pages · ${forma
 export const CATALOG_DOWNLOAD: Download = {
   kind: 'Ingredients Catalog',
   title: `Ingredients Catalog ${manifest.edition}`,
-  sub: `All ${MATERIALS.length} materials, grades and ordering`,
+  sub: 'Our range of natural ingredients from Indonesia',
   href: manifest.catalog.href,
   filename: `Adhiloka-Ingredients-Catalog-${manifest.edition}.pdf`,
   pages: manifest.catalog.pages,
@@ -44,7 +47,8 @@ export const CATALOG_DOWNLOAD: Download = {
   thumb: thumb(manifest.catalog.thumb),
 };
 
-const specs = manifest.specs as Record<string, (typeof manifest.specs)[keyof typeof manifest.specs]>;
+type SpecEntry = { href: string; docNo: string; thumb: string; pages: number; bytes: number };
+const specs = manifest.specs as Record<string, SpecEntry>;
 
 export function specDownload(slug: string): Download | undefined {
   const s = specs[slug];

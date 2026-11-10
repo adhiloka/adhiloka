@@ -2,353 +2,124 @@ import type { ImageKey } from './images';
 
 export type Family = 'Resin' | 'Root' | 'Wood' | 'Leaf' | 'Spice' | 'Flower' | 'Citrus';
 
-/** Satu baris tabel grade di halaman bahan. */
-export type Grade = { name: string; form: string; marker: string; use: string };
-/** Satu baris tabel spesifikasi: label parameter nyata, metode dan rentang dari CoA. */
-export type SpecRow = { parameter: string; method: string; range: string };
-/** Ringkasan pemesanan di halaman bahan. */
-export type Ordering = { packaging: string; moq: string; leadTime: string; incoterms: string };
-/** Satu baris "Regulatory properties" di halaman bahan. */
-export type Fact = { label: string; value: string };
-
 export type Material = {
   slug: string;
   name: string;
   latin: string;
   family: Family;
+  /** Negara asal; sengaja tidak lebih rinci dari ini. */
   origin: string;
-  method: string;
-  harvest: string;
-  uses: string;
-  shot: string;
-  note: string;
-  image?: ImageKey;
-  /** Nama pendek untuk kartu unggulan di beranda. */
-  shortName?: string;
+  /** Bagian tanaman yang diolah. */
+  part: string;
   /** Tiga nota aroma, dipisah " · ". */
-  notes?: string;
-  grades: Grade[];
-  spec: SpecRow[];
-  /** Dokumen yang menyertai lot dan sampel. */
-  documents: string[];
-  ordering: Ordering;
-  /* Field kartu dan halaman produk ala katalog dsm-firmenich (23 Okt 2026). */
-  /** Kode produk di kartu dan kepala halaman. */
-  code: string;
-  /** Bentuk yang dijual (resinoid, minyak, …); facet "Ingredient type". */
-  form: string;
-  cas: string;
-  /** Badge koleksi di pojok foto. */
-  collection?: string;
+  notes: string;
+  /** Deskripsi olfaktif singkat; juga dipakai sebagai meta description. */
+  note: string;
   /** "Perfumery usage". */
   usage: string;
-  /** "Process": cara bahan diolah. */
-  process: string;
-  /** "Did you know?": bagian tanaman yang diolah. */
-  part: string;
-  /** Bulan panen 1–12 untuk kalender; kosong = belum dikonfirmasi. */
-  crop: number[];
-  regulatory: Fact[];
+  /** "Did you know?": satu fakta umum tentang tanamannya. */
+  know: string;
+  /** Keterangan isi foto yang sebenarnya, untuk alt. */
+  shot: string;
+  image?: ImageKey;
 };
 
 /* Enam bahan inti (keputusan pemilik, 2 Okt 2026): benzoin dan nilam, plus
- * kayu manis Kerinci, akar wangi Jawa, cengkeh, pala & fuli. Nama, nama
- * botani dan keluarga sudah pasti; sisanya lorem sampai formulir data
- * (Documents/Adhiloka/naskah/formulir-data.md) terisi. Kode di komentar
- * DATA menunjuk pertanyaan formulirnya. Tiap bahan punya halaman sendiri di
+ * kayu manis Kerinci, akar wangi Jawa, cengkeh, pala & fuli.
+ *
+ * Sejak 10 Nov 2026 naskahnya asli tetapi sengaja umum (permintaan pemilik:
+ * ringkas, tidak terlalu rinci): nama, nama botani, keluarga, bagian tanaman,
+ * nota aroma dan pemakaian di parfum. Semuanya pengetahuan umum perfumery,
+ * bukan data lot Adhiloka. Yang BELUM ditampilkan karena datanya belum ada:
+ * bentuk yang dijual, grade, tabel spesifikasi, CAS, dokumen, MOQ, kemasan,
+ * musim panen dan status regulasi. Halaman bahan mengarahkan semuanya ke
+ * formulir kontak. Tambahkan field baru di sini bila datanya sudah pasti
+ * (formulir data B2, D, K). Tiap bahan punya halaman sendiri di
  * /ingredients/catalog/<slug>/. */
 export const MATERIALS: Material[] = [
   {
-    // DATA: B2 (bentuk yang dijual), K1 (spesifikasi), D2 (dokumen), D3–D6 (pemesanan)
     slug: 'benzoin-sumatra',
     name: 'Benzoin Sumatra',
-    shortName: 'Impedit',
-    notes: 'Expedita · Sapiente · Omnis',
     latin: 'Styrax benzoin / S. paralleloneurum',
     family: 'Resin',
-    origin: 'Nesciunt, Minim Facilis',
-    method: 'Esse-cillum natus; deleniti, mollitia',
-    harvest: 'Amet – Consequat',
-    uses: 'Enim occaecati, similique, dolorem',
+    origin: 'Indonesia',
+    part: 'Resin',
+    notes: 'Balsamic · Sweet · Warm',
+    note: 'A warm, balsamic resin with sweet, vanilla-like and softly spicy facets.',
+    usage: 'Brings warmth and roundness to amber, oriental and floral accords, and helps a fragrance last on the skin.',
+    know: 'Benzoin is the resin of the Styrax tree, known in Indonesia as kemenyan.',
     shot: 'sorted benzoin tears',
     image: 'material-benzoin',
-    note: 'Aut pariatur occaecat quo optio qui aut et eos tempor ea. Ullamco natus est nemo ut quisquam totam id totam aliqua eveniet hic minima cumque irure eos est eligendi animi. Ad ullam ex sint eius atque inventore libero cupiditate, vel sunt ex corrupti eum voluptas odit dicta aliqua laboris fugiat quam est non.',
-    grades: [
-      { name: 'Delectus eaque', form: 'Libero non incidunt', marker: 'Aut beatae et neque dignissimos', use: 'Modi molestias, voluptatem dolor' },
-      { name: 'Ducimus error', form: 'Consequat at voluptate unde', marker: 'Hic maxime vel magnam', use: 'Quis quibusdam' },
-    ],
-    spec: [
-      { parameter: 'Appearance', method: 'Aliqua quo cupidatat animi', range: 'Nesciunt ad cupidatat beatae' },
-      { parameter: 'Colour', method: 'Mollit eum voluptate magna', range: 'Corporis ea molestiae dolore' },
-      { parameter: 'Odour', method: 'Labore vel molestiae quasi', range: 'Possimus at similique dolore' },
-      { parameter: 'Solubility', method: 'Maxime quo occaecati ipsum', range: 'Delectus ad excepturi tempor' },
-      { parameter: 'Key marker', method: 'Maxime nam accusamus illum', range: 'Expedita in excepturi libero' },
-      { parameter: 'Reference standard', method: 'Libero rem accusamus velit', range: 'Corrupti at explicabo labore' },
-    ],
-    documents: ['Dignissimos in corporis', 'Veniam nisi culpa', 'Ipsa perferendis', 'Quisquam excepturi', 'Rerum dignissimos', 'Accusantium ea veniam'],
-    ordering: {
-      packaging: 'Atque animi quasi ab inventore placeat',
-      moq: 'Sit quas vel culpa',
-      leadTime: 'Ex aut velit animi totam',
-      incoterms: 'Sint ab neque, iste anim',
-    },
-    // DATA: B2 (form), K (CAS, proses), D2 (regulasi), B4 (musim panen). Kode
-    // sementara mengikuti nomor dokumen spesifikasinya.
-    code: 'ADH-BZ',
-    form: 'Lorem ipsum',
-    cas: '0000-00-0',
-    collection: 'Collectio Prima',
-    usage: 'Dolor sit amet consectetur adipiscing, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    process: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.',
-    part: 'Cillum excepteur, sint occaecat',
-    crop: [],
-    regulatory: [
-      { label: 'IFRA', value: 'Lorem ipsum dolor' },
-      { label: 'Allergens', value: 'Sit amet consectetur' },
-      { label: 'REACH', value: 'Adipiscing elit' },
-    ],
   },
   {
-    // DATA: B2 (bentuk yang dijual), K2 (spesifikasi), D2 (dokumen), D3–D6 (pemesanan)
     slug: 'patchouli',
     name: 'Patchouli',
-    notes: 'Cillum · Porro · Nostrum',
     latin: 'Pogostemon cablin',
     family: 'Leaf',
-    origin: 'Sint Molestiae, Iste',
-    method: 'Quasi voluptatibus; illo-nemo repellat',
-    harvest: 'Enim nulla, culpa iste',
-    uses: 'Anim cupidatat, asperiores, earum illum',
-    shot: 'drying patchouli leaf',
+    origin: 'Indonesia',
+    part: 'Leaves',
+    notes: 'Earthy · Woody · Deep',
+    note: 'Rich, earthy and woody, with a dark sweetness that deepens over time.',
+    usage: 'A cornerstone of chypre, woody and oriental fragrances, valued for its depth and its staying power.',
+    know: 'Patchouli leaves are dried before they are distilled, which helps release their scent.',
+    shot: 'green leaves with dew',
     image: 'material-patchouli',
-    note: 'Quam consequat illo hic rerum inventore vel aut mollitia. Ad commodi qui cum at ad iusto eligendi, cillum et cupidatat libero duis nemo, qui error duis est consequatur amet cum sit in saepe, illo-quae magni qui aute consequuntur.',
-    grades: [
-      { name: 'Pariatur saepe', form: 'Aliqua nam occaecat', marker: 'Qui tempor do culpa repudiandae', use: 'Sint voluptate, architecto dolor' },
-      { name: 'Officia neque', form: 'Inventore ab inventore amet', marker: 'Hic beatae hic veniam', use: 'Aute molestiae' },
-    ],
-    spec: [
-      { parameter: 'Appearance', method: 'Fugiat non accusamus minim', range: 'Corrupti ad explicabo veniam' },
-      { parameter: 'Colour', method: 'Magnam cum voluptate iusto', range: 'Eligendi ab explicabo labore' },
-      { parameter: 'Odour', method: 'Tempor eos inventore animi', range: 'Proident at molestias itaque' },
-      { parameter: 'Solubility', method: 'Veniam sed consequat vitae', range: 'Deleniti do cupidatat maxime' },
-      { parameter: 'Key marker', method: 'Dolore quo consequat vitae', range: 'Incidunt ab cupidatat facere' },
-      { parameter: 'Reference standard', method: 'Beatae non excepteur ipsum', range: 'Corporis ex inventore itaque' },
-    ],
-    documents: ['Accusantium do possimus', 'Fugiat quas nulla', 'Nemo consectetur', 'Corporis inventore', 'Vitae repellendus', 'Repellendus ad labore'],
-    ordering: {
-      packaging: 'Alias neque irure in similique facilis',
-      moq: 'Cum eius nam earum',
-      leadTime: 'At aut sequi nulla animi',
-      incoterms: 'Sunt do sequi, iure unde',
-    },
-    // DATA: B2 (form), K (CAS, proses), D2 (regulasi), B4 (musim panen). Kode
-    // sementara mengikuti nomor dokumen spesifikasinya.
-    code: 'ADH-PC',
-    form: 'Lorem ipsum',
-    cas: '0000-00-0',
-    usage: 'Dolor sit amet consectetur adipiscing, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    process: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.',
-    part: 'Voluptate velit esse',
-    crop: [],
-    regulatory: [
-      { label: 'IFRA', value: 'Lorem ipsum dolor' },
-      { label: 'Allergens', value: 'Sit amet consectetur' },
-      { label: 'REACH', value: 'Adipiscing elit' },
-    ],
   },
   {
-    // DATA: B2 (bentuk yang dijual), K3 (spesifikasi), D2 (dokumen), D3–D6 (pemesanan)
     slug: 'cinnamon-kerinci',
     name: 'Cinnamon Kerinci',
-    notes: 'Iure · Error · Sequi',
     latin: 'Cinnamomum burmannii',
     family: 'Spice',
-    origin: 'Tenetur, Nulla',
-    method: 'Modi voluptatibus',
-    harvest: 'Earum – Cillum',
-    uses: 'Ullamco, iure consequat, voluptates',
+    origin: 'Indonesia',
+    part: 'Bark',
+    notes: 'Spicy · Warm · Sweet',
+    note: 'Warm, sweet and spicy, with all the comfort of cinnamon bark.',
+    usage: 'Adds warmth and vibrancy to spicy, oriental and gourmand compositions.',
+    know: 'This cinnamon takes its name from Kerinci, a highland region known for its cinnamon trees.',
     shot: 'rolled cinnamon bark',
     image: 'hero-benzoin-tears',
-    note: 'Quasi ad deserunt aliqua animi 123 itaque, dicta aut enim incidunt minima eos est nam dolores aute accusamus. Anim id exercitationem odit in enim expedita officia corrupti.',
-    grades: [
-      { name: 'Voluptas culpa', form: 'Facere rem corporis', marker: 'Est aliqua at magna consectetur', use: 'Quas cupidatat, temporibus error' },
-      { name: 'Aliquid illum', form: 'Cupidatat ea excepteur quia', marker: 'Rem itaque aut tempor', use: 'Esse molestiae' },
-    ],
-    spec: [
-      { parameter: 'Appearance', method: 'Mollit hic excepteur rerum', range: 'Mollitia ex occaecati soluta' },
-      { parameter: 'Colour', method: 'Labore quo occaecati fugit', range: 'Quisquam at molestias minima' },
-      { parameter: 'Odour', method: 'Soluta quo molestiae alias', range: 'Repellat id veritatis dolore' },
-      { parameter: 'Solubility', method: 'Soluta sit voluptate natus', range: 'Corrupti in molestias fugiat' },
-      { parameter: 'Key marker', method: 'Cumque vel veritatis dolor', range: 'Quisquam ea cupidatat labore' },
-      { parameter: 'Reference standard', method: 'Veniam sed assumenda eaque', range: 'Possimus do excepturi fugiat' },
-    ],
-    documents: ['Perferendis in occaecat', 'Labore modi fugit', 'Modi praesentium', 'Quisquam doloribus', 'Iusto dignissimos', 'Repellendus in fugiat'],
-    ordering: {
-      packaging: 'Dolor error earum ea inventore nostrum',
-      moq: 'Eum esse hic quasi',
-      leadTime: 'Et rem sequi magni ipsum',
-      incoterms: 'Ipsa et neque, quam vero',
-    },
-    // DATA: B2 (form), K (CAS, proses), D2 (regulasi), B4 (musim panen). Kode
-    // sementara mengikuti nomor dokumen spesifikasinya.
-    code: 'ADH-CN',
-    form: 'Lorem ipsum',
-    cas: '0000-00-0',
-    usage: 'Dolor sit amet consectetur adipiscing, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    process: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.',
-    part: 'Nostrud exercitation',
-    crop: [],
-    regulatory: [
-      { label: 'IFRA', value: 'Lorem ipsum dolor' },
-      { label: 'Allergens', value: 'Sit amet consectetur' },
-      { label: 'REACH', value: 'Adipiscing elit' },
-    ],
   },
   {
-    // DATA: B2 (bentuk yang dijual), K4 (spesifikasi), D2 (dokumen), D3–D6 (pemesanan)
     slug: 'vetiver-java',
     name: 'Vetiver Java',
-    notes: 'Odio · Iusto · Ipsam',
     latin: 'Chrysopogon zizanioides',
     family: 'Root',
-    origin: 'Irure, Nisi Duis',
-    method: 'Rerum consequuntur ea soluta porro',
-    harvest: 'Facere – Sapiente',
-    uses: 'Enim excepteur, molestiae sequi',
-    shot: 'washed vetiver roots',
+    origin: 'Indonesia',
+    part: 'Roots',
+    notes: 'Woody · Earthy · Smoky',
+    note: 'Deep, woody and earthy, with a dry, smoky edge.',
+    usage: 'Gives structure and elegance to woody, aromatic and chypre fragrances.',
+    know: 'Vetiver is a grass, but its scent lies in its roots.',
+    shot: 'rhizomes, close',
     image: 'material-ginger',
-    note: 'Esse eveniet in dolorem eum atque eius qui tenetur repellendus. Nobis cum quo et officiis minima, cillum fugit aut explicabo quos, optio ut autem eum adipisci odio sit neque quia.',
-    grades: [
-      { name: 'Occaecat ullam', form: 'Magnam cum suscipit', marker: 'Non labore ex ipsam perferendis', use: 'Quos occaecati, incididunt dolor' },
-      { name: 'Quaerat animi', form: 'Voluptate ab similique nisi', marker: 'Est magnam est minima', use: 'Modi inventore' },
-    ],
-    spec: [
-      { parameter: 'Appearance', method: 'Soluta est molestias vitae', range: 'Deserunt id occaecati beatae' },
-      { parameter: 'Colour', method: 'Cillum quo excepturi minim', range: 'Incidunt ad veritatis soluta' },
-      { parameter: 'Odour', method: 'Magnam est accusamus sequi', range: 'Corrupti ut similique dolore' },
-      { parameter: 'Solubility', method: 'Labore rem molestiae porro', range: 'Incidunt ab molestias tempor' },
-      { parameter: 'Key marker', method: 'Libero eos voluptate earum', range: 'Corporis ex occaecati veniam' },
-      { parameter: 'Reference standard', method: 'Soluta eos cupidatat sequi', range: 'Incidunt ut doloribus libero' },
-    ],
-    documents: ['Accusantium do incidunt', 'Fugiat unde nihil', 'Anim consectetur', 'Expedita excepteur', 'Autem consequatur', 'Dignissimos ad fugiat'],
-    ordering: {
-      packaging: 'Nihil fugit natus et excepteur laboris',
-      moq: 'Rem iste quo vitae',
-      leadTime: 'At non ullam dolor neque',
-      incoterms: 'Quam ab neque, aute eius',
-    },
-    // DATA: B2 (form), K (CAS, proses), D2 (regulasi), B4 (musim panen). Kode
-    // sementara mengikuti nomor dokumen spesifikasinya.
-    code: 'ADH-VT',
-    form: 'Lorem ipsum',
-    cas: '0000-00-0',
-    collection: 'Collectio Prima',
-    usage: 'Dolor sit amet consectetur adipiscing, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    process: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.',
-    part: 'Ullamco laboris nisi',
-    crop: [],
-    regulatory: [
-      { label: 'IFRA', value: 'Lorem ipsum dolor' },
-      { label: 'Allergens', value: 'Sit amet consectetur' },
-      { label: 'REACH', value: 'Adipiscing elit' },
-    ],
   },
   {
-    // DATA: B2 (bentuk yang dijual), K5 (spesifikasi), D2 (dokumen), D3–D6 (pemesanan)
     slug: 'clove',
     name: 'Clove',
-    notes: 'Duis · Atque · Sequi',
     latin: 'Syzygium aromaticum',
     family: 'Spice',
-    origin: 'Error Magnam',
-    method: 'Porro voluptatibus ut animi quis',
-    harvest: 'Vero – Impedit',
-    uses: 'Elit voluptate, debitis, eius amet',
-    shot: 'drying clove buds',
+    origin: 'Indonesia',
+    part: 'Buds',
+    notes: 'Spicy · Warm · Rich',
+    note: 'Warm, rich and spicy, instantly recognisable.',
+    usage: 'Brings a spicy accent to floral, oriental and woody accords, carnation notes above all.',
+    know: 'Cloves are the dried flower buds of a tree native to the Maluku Islands of Indonesia.',
+    shot: 'whole spices, close',
     image: 'material-nutmeg',
-    note: 'Commodi quo nostrum amet sint nam, unde est totam laborum alias soluta odit molestias. Commodi odio aut aperiam natus vel magna tempore.',
-    grades: [
-      { name: 'Nesciunt rerum', form: 'Itaque cum deleniti', marker: 'Sit maxime ab natus perferendis', use: 'Esse excepteur, incididunt animi' },
-      { name: 'Ullamco minus', form: 'Occaecati ex accusamus eius', marker: 'Quo magnam eos maxime', use: 'Nisi assumenda' },
-    ],
-    spec: [
-      { parameter: 'Appearance', method: 'Mollit aut inventore iusto', range: 'Officiis et veritatis aliqua' },
-      { parameter: 'Colour', method: 'Cumque cum molestiae lorem', range: 'Suscipit do doloribus dolore' },
-      { parameter: 'Odour', method: 'Magnam cum quibusdam culpa', range: 'Proident et occaecati cillum' },
-      { parameter: 'Solubility', method: 'Fugiat vel doloribus porro', range: 'Proident in excepteur cumque' },
-      { parameter: 'Key marker', method: 'Magnam sed assumenda magna', range: 'Suscipit do doloribus veniam' },
-      { parameter: 'Reference standard', method: 'Soluta eum voluptate omnis', range: 'Repellat ea quibusdam maxime' },
-    ],
-    documents: ['Perferendis in expedita', 'Cumque modi rerum', 'Eius dignissimos', 'Possimus doloribus', 'Ipsum consectetur', 'Repudiandae ut tempor'],
-    ordering: {
-      packaging: 'Irure natus neque et excepteur facilis',
-      moq: 'Aut illo eum ullam',
-      leadTime: 'In eos iusto neque minus',
-      incoterms: 'Vero do optio, quod duis',
-    },
-    // DATA: B2 (form), K (CAS, proses), D2 (regulasi), B4 (musim panen). Kode
-    // sementara mengikuti nomor dokumen spesifikasinya.
-    code: 'ADH-CL',
-    form: 'Lorem ipsum',
-    cas: '0000-00-0',
-    usage: 'Dolor sit amet consectetur adipiscing, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    process: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.',
-    part: 'Duis aute irure',
-    crop: [],
-    regulatory: [
-      { label: 'IFRA', value: 'Lorem ipsum dolor' },
-      { label: 'Allergens', value: 'Sit amet consectetur' },
-      { label: 'REACH', value: 'Adipiscing elit' },
-    ],
   },
   {
-    // DATA: B2 (bentuk yang dijual), K6 (spesifikasi), D2 (dokumen), D3–D6 (pemesanan)
     slug: 'nutmeg-mace',
     name: 'Nutmeg & Mace',
-    shortName: 'Maxime',
-    notes: 'Nihil · Odio · Earum',
     latin: 'Myristica fragrans',
     family: 'Spice',
-    origin: 'Ipsum Facilis, Cillum',
-    method: 'Magni exercitation; ad1 commodo',
-    harvest: 'Aut aliquip, eos cum deserunt',
-    uses: 'Sunt inventore, debitis',
-    shot: 'nutmeg and mace, split shell',
+    origin: 'Indonesia',
+    part: 'Seed and aril',
+    notes: 'Spicy · Fresh · Aromatic',
+    note: 'A fresh, aromatic spice with a warm, gently sweet heart.',
+    usage: 'Lifts the opening of woody, aromatic and spicy fragrances with a lively, natural warmth.',
+    know: 'Nutmeg is the seed and mace the red aril around it: two spices from one fruit, native to the Banda Islands.',
+    shot: 'whole nutmegs',
     image: 'material-nutmeg',
-    note: 'Autem fugiat tempore eos explicabo. Do aliqua vel labore nam aut elit cupiditate; est odit hic ex tempora, fugiat sit atque eum blanditiis.',
-    grades: [
-      { name: 'Quisquam minus', form: 'Beatae rem corrupti', marker: 'Rem cumque ad minim repudiandae', use: 'Odio assumenda, recusandae illum' },
-      { name: 'Aperiam dolor', form: 'Explicabo ea occaecati illo', marker: 'Aut maxime aut itaque', use: 'Anim voluptate' },
-    ],
-    spec: [
-      { parameter: 'Appearance', method: 'Cumque est occaecati dicta', range: 'Delectus do voluptate cillum' },
-      { parameter: 'Colour', method: 'Maxime vel molestiae lorem', range: 'Occaecat id occaecati maxime' },
-      { parameter: 'Odour', method: 'Cillum hic consequat iusto', range: 'Possimus ad explicabo minima' },
-      { parameter: 'Solubility', method: 'Mollit nam consequat minim', range: 'Pariatur ex explicabo labore' },
-      { parameter: 'Key marker', method: 'Minima quo excepturi ipsum', range: 'Pariatur et assumenda labore' },
-      { parameter: 'Reference standard', method: 'Minima non similique error', range: 'Possimus id explicabo minima' },
-    ],
-    documents: ['Accusantium id incidunt', 'Mollit ipsa nobis', 'Quae repudiandae', 'Eligendi consequat', 'Porro accusantium', 'Repellendus et veniam'],
-    ordering: {
-      packaging: 'Totam minus saepe in molestiae ullamco',
-      moq: 'Nam nisi rem ullam',
-      leadTime: 'Et eum atque nobis magni',
-      incoterms: 'Odio id rerum, vero duis',
-    },
-    // DATA: B2 (form), K (CAS, proses), D2 (regulasi), B4 (musim panen). Kode
-    // sementara mengikuti nomor dokumen spesifikasinya.
-    code: 'ADH-NM',
-    form: 'Lorem ipsum',
-    cas: '0000-00-0',
-    usage: 'Dolor sit amet consectetur adipiscing, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    process: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.',
-    part: 'Excepteur sint occaecat',
-    crop: [],
-    regulatory: [
-      { label: 'IFRA', value: 'Lorem ipsum dolor' },
-      { label: 'Allergens', value: 'Sit amet consectetur' },
-      { label: 'REACH', value: 'Adipiscing elit' },
-    ],
   },
 ];
 
@@ -373,13 +144,3 @@ export const FAMILY_COLOR: Record<Family, string> = {
   Flower: '#7a4a5e',
   Citrus: '#6f6312',
 };
-
-export const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-/** Empat material yang tampil di blok "Our specialty" beranda. */
-export const FEATURED_SLUGS = ['benzoin-sumatra', 'patchouli', 'cinnamon-kerinci', 'vetiver-java'];
-
-export const featuredMaterials = (): Material[] =>
-  FEATURED_SLUGS.map((slug) => MATERIALS.find((m) => m.slug === slug)).filter(
-    (m): m is Material => Boolean(m),
-  );

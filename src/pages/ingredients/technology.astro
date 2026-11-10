@@ -8,10 +8,10 @@ import { TECHNOLOGY_INTRO, ROUTES, TECHNOLOGY_PASSAGES } from '../../data/pages/
 ---
 
 <PageLayout intro={TECHNOLOGY_INTRO}>
-  <Intro title="Owning every step" paragraphs={[TECHNOLOGY_INTRO.lede]} />
+  <Intro title="From plant to ingredient" paragraphs={[TECHNOLOGY_INTRO.lede]} />
   <InfoGrid
     id="routes"
-    title="Extraction Routes"
+    title="Our Techniques"
     items={ROUTES.map((r) => ({ title: r.name, sub: r.applies, body: r.body }))}
     grey
   />

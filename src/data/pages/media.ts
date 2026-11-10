@@ -1,43 +1,43 @@
 import type { LinkCard, PageIntro } from './types';
 import type { ImageKey } from '../images';
 
+/* Naskah Media ditulis 10 Nov 2026 (permintaan pemilik: ringkas). Halaman
+ * Social Media diparkir (pages/media/_social-media.astro) sampai akun resmi
+ * ada: handle lama hanya contoh dan tautannya menuju beranda platform. */
+
 /* ── Hub ─────────────────────────────────────────────────────────────── */
 
 export const MEDIA_INTRO: PageIntro = {
   eyebrow: 'Media',
-  title: 'Eius ex quam molestias, hic sit mollitia id totam animi ex.',
+  title: 'News and stories from Adhiloka',
   metaTitle: 'Media',
-  lede: 'Reprehenderit amet est autem eos cum laborum, dolore ratione sed praesentium, hic cum deleniti ipsum ab eius tempore amet.',
+  lede: 'News, stories and resources from the world of Adhiloka.',
   description:
-    'Rem nesciunt illum sint: unde modi rem minus vel eum dolores, voluptatibus optio voluptate, eum aut magnam corporis.',
+    'The Adhiloka newsroom: news, stories and media resources about natural ingredients and perfumery from Indonesia.',
   image: 'material-benzoin',
-  caption: 'benzoin resin, hand-graded',
+  caption: 'sorted benzoin resin tears',
 };
 
 export const MEDIA_CARDS: LinkCard[] = [
   {
     title: 'News',
-    body: 'Exercitationem saepe nam odit, eos nihil, nam est cillum nam dolore at.',
+    body: 'The latest news and stories from Adhiloka.',
     href: '/media/news/',
     image: 'material-nutmeg',
   },
   {
     title: 'Media Resources',
-    body: 'Fugit, aliquip repudiandae, nam ratione ipsa velit eos nam aperiam exercitationem mollit.',
+    body: 'Logos and documents for press and partners.',
     href: '/media/media-resources/',
     image: 'hero-benzoin-tears',
   },
-  {
-    title: 'Social Media',
-    body: 'Saepe ad esse facilis exercitation, eum magni placeat do deserunt sunt.',
-    href: '/media/social-media/',
-    image: 'agroforest-canopy',
-  },
 ];
+
+export const MEDIA_KIT_TEXT = 'Our logo and catalog, ready to download.';
 
 export const MEDIA_CONTACT = {
   title: 'Press enquiries',
-  body: 'Assumenda eligendi, beatae eum tempor nisi, eum quod aliqua. Et facere alias aute voluptate nam impedit veniam rem ducimus elit.',
+  body: 'For press and media enquiries, please write to us. We will be glad to help.',
   email: 'info@adhiloka.com', // DATA: I4
 };
 
@@ -46,10 +46,10 @@ export const MEDIA_CONTACT = {
 export const NEWS_INTRO: PageIntro = {
   eyebrow: 'Media',
   title: 'News',
-  lede: 'Non iste, eum ullam hic sit pariatur. Do placeat aut excepturi tenetur ex enim in cum sunt quod.',
+  lede: 'News and stories from Adhiloka.',
   description:
-    'Iure quos quisquam minus: commodo impedit, autem nostrum, nesciunt consequuntur eos repellat amet hic explicabo error.',
-  caption: 'grading floor',
+    'News and stories from Adhiloka, on natural ingredients, the people who grow them and the craft of perfumery.',
+  caption: 'whole nutmegs',
   image: 'material-nutmeg',
 };
 
@@ -132,10 +132,10 @@ export const formatDate = (iso: string) =>
 export const RESOURCES_INTRO: PageIntro = {
   eyebrow: 'Media',
   title: 'Media Resources',
-  lede: 'Aliquid itaque, nam incidunt at facere eveniet, rem nam doloribus at porro fugiat in maxime odio quas praesentium.',
+  lede: 'Our logo and documents, for press and partners.',
   description:
-    'Consequuntur voluptas quasi quibusdam: ipsa atque, officia consectetur, ullamco quia lorem sed reprehenderit fugiat.',
-  caption: 'still hall',
+    'Adhiloka media resources: logo files and the ingredients catalog, for press and partners.',
+  caption: 'cinnamon bark',
   image: 'hero-benzoin-tears',
 };
 
@@ -145,93 +145,58 @@ export type Resource = {
   kind: string;
   size: string;
   href: string;
+  /** Nama berkas saat disimpan pengunjung. */
+  filename?: string;
 };
 
-/* PLACEHOLDER — tautan berkas belum ada. Ganti href dengan berkas sungguhan
-   di /media/ sebelum terbit, atau hapus barisnya. */
+/* Berkas sungguhan di public/brand/. Katalog PDF ditambahkan halaman
+   media-resources dari data/downloads.ts. */
 export const RESOURCES: Resource[] = [
   {
-    title: 'Quae cum corrupti',
-    body: 'Quo duis odit do iure veniam, est laudantium labore nisi non nesciunt elit, eum hic aliqua itaque ea rem hic maxime.',
-    kind: 'ZIP · SVG, PNG, EPS',
-    size: '2.4 MB',
-    href: '/contact/',
+    title: 'Adhiloka Logo',
+    body: 'Symbol and wordmark, for light backgrounds.',
+    kind: 'SVG',
+    size: '20 KB',
+    href: '/brand/adhiloka-lockup.svg',
+    filename: 'Adhiloka-Logo.svg',
   },
   {
-    title: 'Tempore iure fugit',
-    body: 'Occaecat, similique, irure, ullamco minus nam cum nostrum id aut error in nam beatae.',
-    kind: 'PDF',
-    size: '480 KB',
-    href: '/contact/',
+    title: 'Adhiloka Logo, Reversed',
+    body: 'Symbol and wordmark, for dark backgrounds.',
+    kind: 'SVG',
+    size: '20 KB',
+    href: '/brand/adhiloka-lockup-dark.svg',
+    filename: 'Adhiloka-Logo-Reversed.svg',
   },
   {
-    title: 'Reprehenderit cillum',
-    body: 'Excepteur voluptas, lorem soluta, sunt corporis non nam deserunt itaque iste dicta.',
-    kind: 'PDF',
-    size: '3.1 MB',
-    href: '/contact/',
-  },
-  {
-    title: 'Accusantium — hic ipsam',
-    body: 'Autem ullam, commodo atque, perspiciatis illo qui cum consequat totam. Laboris eum molestias non enim magnam.',
-    kind: 'ZIP · JPG',
-    size: '68 MB',
-    href: '/contact/',
-  },
-  {
-    title: 'Dignissimos — hic dolorem',
-    body: 'Deserunt quaerat commodo, ducimus cum incididunt mollitia. Fugiat repellat odit nobis quaerat aut quibusdam non.',
-    kind: 'ZIP · JPG',
-    size: '54 MB',
-    href: '/contact/',
+    title: 'Adhiloka Symbol',
+    body: 'The symbol on its own.',
+    kind: 'SVG',
+    size: '4 KB',
+    href: '/brand/adhiloka-logo.svg',
+    filename: 'Adhiloka-Symbol.svg',
   },
 ];
 
 export const RESOURCES_NOTE =
-  'Mollit aut at quam perferendis odit qui cillum amet "incidunt minim". Quos sed nam ab eius at accusantium, ratione dolore sapiente, at iste id minus et temporibus consequuntur. Suscipit cum dolore ipsa, sed id.';
+  'Please use the logo as provided, without changing its colours or proportions. For anything else you need, write to info@adhiloka.com.';
 
-/* ── Social Media ────────────────────────────────────────────────────── */
+/* ── Social Media (diparkir) ─────────────────────────────────────────── */
 
 export const SOCIAL_INTRO: PageIntro = {
   eyebrow: 'Media',
   title: 'Social Media',
-  lede: 'Culpa id quis facilis necessitatibus — sed, nemo do corrupti, porro eligendi non nesciunt duis.',
-  description:
-    'Incidunt expedita tempor nihil incidunt, esse amet vel id sint rem, qui non id maxime ex quaerat ut quia.',
-  caption: 'kemenyan agroforest canopy',
+  lede: '',
+  description: '',
+  caption: 'tree canopy seen from below',
   image: 'agroforest-canopy',
 };
 
 export type Channel = { name: string; handle: string; body: string; href: string };
 
-/* PLACEHOLDER — handle belum dibuat; href masih menunjuk beranda platform.
-   Ganti dengan akun sungguhan sebelum terbit. */
-export const CHANNELS: Channel[] = [
-  {
-    name: 'LinkedIn',
-    handle: '@adhiloka-group',
-    body: 'Officia necessitatibus, laborum dolores nam aut doloremque quam duis ipsum asperiores. Sed commodo et modi quis debitis.',
-    href: 'https://www.linkedin.com/',
-  },
-  {
-    name: 'Instagram',
-    handle: '@adhiloka',
-    body: 'Vel nostrud, qui commodo magna sed aut magnam. Cillum consequatur, soluta nulla id hic tempor id quos.',
-    href: 'https://www.instagram.com/',
-  },
-  {
-    name: 'YouTube',
-    handle: '@adhiloka',
-    body: 'Minus vitae in ullamco, laborum rem perspiciatis, nam itaque hic nulla aliqua est sit laborum elit odit vitae id.',
-    href: 'https://www.youtube.com/',
-  },
-  {
-    name: 'Facebook',
-    handle: '@adhilokagroup',
-    body: 'Sint est sed commodo perferendis do eaque facilis eos vero, cum beatae id cumque excepturi.',
-    href: 'https://www.facebook.com/',
-  },
-];
+/* Isi dengan akun resmi (formulir data I1), lalu terbitkan lagi halamannya:
+   hapus garis bawah di pages/media/_social-media.astro dan kembalikan
+   tautannya di site.ts, menu.ts dan MEDIA_CARDS. */
+export const CHANNELS: Channel[] = [];
 
-export const SOCIAL_NOTE =
-  'Lorem odit expedita est sed sunt quis ab aliquip. Ad natus vel rem aliquid, voluptas do excepturi laborum minima culpa, quo ad unde est facilis qui lorem error et alias.';
+export const SOCIAL_NOTE = '';
