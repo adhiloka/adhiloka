@@ -19,9 +19,11 @@ interface Props {
   alt?: string;
   /** Kalimat di bawah judul (lede halaman). */
   line?: string;
+  /** Keterangan kecil di kanan bawah, mis. "6 results" di katalog. */
+  meta?: string;
   half?: boolean;
 }
-const { title, image, alt = '', line, half = false } = Astro.props;
+const { title, image, alt = '', line, meta, half = false } = Astro.props;
 
 const path = Astro.url.pathname;
 const label = (href: string) => NAV_LINKS.find((l) => l.href === href)?.label;
@@ -51,6 +53,7 @@ if (section && path !== section.href) {
       <div class="wrap banner__text">
         <h1 class="banner__title">{title}</h1>
         {line && <p class="banner__line">{line}</p>}
+        {meta && <p class="banner__meta">{meta}</p>}
       </div>
     )
   }
@@ -163,6 +166,14 @@ if (section && path !== section.href) {
     color: rgb(255 255 255 / 0.92);
   }
 
+  .banner__meta {
+    position: absolute;
+    right: 0;
+    bottom: 4px;
+    font-size: calc(18px * var(--fs));
+    color: rgb(255 255 255 / 0.92);
+  }
+
   .banner--half {
     height: 60vh;
     min-height: 380px;
@@ -172,6 +183,7 @@ if (section && path !== section.href) {
     .banner { height: 72vh; }
     .banner--half { height: 45vh; min-height: 300px; }
     .banner__text { bottom: 84px; }
+    .banner__meta { position: static; margin-top: 16px; }
     .crumbs { padding-block: 24px; }
   }
 </style>

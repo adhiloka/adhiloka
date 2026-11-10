@@ -8,6 +8,8 @@ export type Grade = { name: string; form: string; marker: string; use: string };
 export type SpecRow = { parameter: string; method: string; range: string };
 /** Ringkasan pemesanan di halaman bahan. */
 export type Ordering = { packaging: string; moq: string; leadTime: string; incoterms: string };
+/** Satu baris "Regulatory properties" di halaman bahan. */
+export type Fact = { label: string; value: string };
 
 export type Material = {
   slug: string;
@@ -30,6 +32,23 @@ export type Material = {
   /** Dokumen yang menyertai lot dan sampel. */
   documents: string[];
   ordering: Ordering;
+  /* Field kartu dan halaman produk ala katalog dsm-firmenich (23 Okt 2026). */
+  /** Kode produk di kartu dan kepala halaman. */
+  code: string;
+  /** Bentuk yang dijual (resinoid, minyak, …); facet "Ingredient type". */
+  form: string;
+  cas: string;
+  /** Badge koleksi di pojok foto. */
+  collection?: string;
+  /** "Perfumery usage". */
+  usage: string;
+  /** "Process": cara bahan diolah. */
+  process: string;
+  /** "Did you know?": bagian tanaman yang diolah. */
+  part: string;
+  /** Bulan panen 1–12 untuk kalender; kosong = belum dikonfirmasi. */
+  crop: number[];
+  regulatory: Fact[];
 };
 
 /* Enam bahan inti (keputusan pemilik, 2 Okt 2026): benzoin dan nilam, plus
@@ -73,6 +92,21 @@ export const MATERIALS: Material[] = [
       leadTime: 'Ex aut velit animi totam',
       incoterms: 'Sint ab neque, iste anim',
     },
+    // DATA: B2 (form), K (CAS, proses), D2 (regulasi), B4 (musim panen). Kode
+    // sementara mengikuti nomor dokumen spesifikasinya.
+    code: 'ADH-BZ',
+    form: 'Lorem ipsum',
+    cas: '0000-00-0',
+    collection: 'Collectio Prima',
+    usage: 'Dolor sit amet consectetur adipiscing, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    process: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.',
+    part: 'Cillum excepteur, sint occaecat',
+    crop: [],
+    regulatory: [
+      { label: 'IFRA', value: 'Lorem ipsum dolor' },
+      { label: 'Allergens', value: 'Sit amet consectetur' },
+      { label: 'REACH', value: 'Adipiscing elit' },
+    ],
   },
   {
     // DATA: B2 (bentuk yang dijual), K2 (spesifikasi), D2 (dokumen), D3–D6 (pemesanan)
@@ -107,6 +141,20 @@ export const MATERIALS: Material[] = [
       leadTime: 'At aut sequi nulla animi',
       incoterms: 'Sunt do sequi, iure unde',
     },
+    // DATA: B2 (form), K (CAS, proses), D2 (regulasi), B4 (musim panen). Kode
+    // sementara mengikuti nomor dokumen spesifikasinya.
+    code: 'ADH-PC',
+    form: 'Lorem ipsum',
+    cas: '0000-00-0',
+    usage: 'Dolor sit amet consectetur adipiscing, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    process: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.',
+    part: 'Voluptate velit esse',
+    crop: [],
+    regulatory: [
+      { label: 'IFRA', value: 'Lorem ipsum dolor' },
+      { label: 'Allergens', value: 'Sit amet consectetur' },
+      { label: 'REACH', value: 'Adipiscing elit' },
+    ],
   },
   {
     // DATA: B2 (bentuk yang dijual), K3 (spesifikasi), D2 (dokumen), D3–D6 (pemesanan)
@@ -141,6 +189,20 @@ export const MATERIALS: Material[] = [
       leadTime: 'Et rem sequi magni ipsum',
       incoterms: 'Ipsa et neque, quam vero',
     },
+    // DATA: B2 (form), K (CAS, proses), D2 (regulasi), B4 (musim panen). Kode
+    // sementara mengikuti nomor dokumen spesifikasinya.
+    code: 'ADH-CN',
+    form: 'Lorem ipsum',
+    cas: '0000-00-0',
+    usage: 'Dolor sit amet consectetur adipiscing, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    process: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.',
+    part: 'Nostrud exercitation',
+    crop: [],
+    regulatory: [
+      { label: 'IFRA', value: 'Lorem ipsum dolor' },
+      { label: 'Allergens', value: 'Sit amet consectetur' },
+      { label: 'REACH', value: 'Adipiscing elit' },
+    ],
   },
   {
     // DATA: B2 (bentuk yang dijual), K4 (spesifikasi), D2 (dokumen), D3–D6 (pemesanan)
@@ -175,6 +237,21 @@ export const MATERIALS: Material[] = [
       leadTime: 'At non ullam dolor neque',
       incoterms: 'Quam ab neque, aute eius',
     },
+    // DATA: B2 (form), K (CAS, proses), D2 (regulasi), B4 (musim panen). Kode
+    // sementara mengikuti nomor dokumen spesifikasinya.
+    code: 'ADH-VT',
+    form: 'Lorem ipsum',
+    cas: '0000-00-0',
+    collection: 'Collectio Prima',
+    usage: 'Dolor sit amet consectetur adipiscing, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    process: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.',
+    part: 'Ullamco laboris nisi',
+    crop: [],
+    regulatory: [
+      { label: 'IFRA', value: 'Lorem ipsum dolor' },
+      { label: 'Allergens', value: 'Sit amet consectetur' },
+      { label: 'REACH', value: 'Adipiscing elit' },
+    ],
   },
   {
     // DATA: B2 (bentuk yang dijual), K5 (spesifikasi), D2 (dokumen), D3–D6 (pemesanan)
@@ -209,6 +286,20 @@ export const MATERIALS: Material[] = [
       leadTime: 'In eos iusto neque minus',
       incoterms: 'Vero do optio, quod duis',
     },
+    // DATA: B2 (form), K (CAS, proses), D2 (regulasi), B4 (musim panen). Kode
+    // sementara mengikuti nomor dokumen spesifikasinya.
+    code: 'ADH-CL',
+    form: 'Lorem ipsum',
+    cas: '0000-00-0',
+    usage: 'Dolor sit amet consectetur adipiscing, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    process: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.',
+    part: 'Duis aute irure',
+    crop: [],
+    regulatory: [
+      { label: 'IFRA', value: 'Lorem ipsum dolor' },
+      { label: 'Allergens', value: 'Sit amet consectetur' },
+      { label: 'REACH', value: 'Adipiscing elit' },
+    ],
   },
   {
     // DATA: B2 (bentuk yang dijual), K6 (spesifikasi), D2 (dokumen), D3–D6 (pemesanan)
@@ -244,6 +335,20 @@ export const MATERIALS: Material[] = [
       leadTime: 'Et eum atque nobis magni',
       incoterms: 'Odio id rerum, vero duis',
     },
+    // DATA: B2 (form), K (CAS, proses), D2 (regulasi), B4 (musim panen). Kode
+    // sementara mengikuti nomor dokumen spesifikasinya.
+    code: 'ADH-NM',
+    form: 'Lorem ipsum',
+    cas: '0000-00-0',
+    usage: 'Dolor sit amet consectetur adipiscing, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    process: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.',
+    part: 'Excepteur sint occaecat',
+    crop: [],
+    regulatory: [
+      { label: 'IFRA', value: 'Lorem ipsum dolor' },
+      { label: 'Allergens', value: 'Sit amet consectetur' },
+      { label: 'REACH', value: 'Adipiscing elit' },
+    ],
   },
 ];
 
@@ -256,6 +361,20 @@ export const FAMILY_FILTERS: { value: 'All' | Family; label: string }[] = [
   { value: 'Leaf', label: 'Leaf' },
   { value: 'Spice', label: 'Spices' },
 ];
+
+/** Warna kepala halaman bahan per keluarga (hero berwarna ala halaman produk
+ *  dsm-firmenich). Semuanya cukup gelap untuk teks putih (kontras ≥ 4,5). */
+export const FAMILY_COLOR: Record<Family, string> = {
+  Resin: '#8a4f06',
+  Root: '#5c6d68',
+  Wood: '#6b4a2b',
+  Leaf: '#026a5b',
+  Spice: '#8f3b1b',
+  Flower: '#7a4a5e',
+  Citrus: '#6f6312',
+};
+
+export const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 /** Empat material yang tampil di blok "Our specialty" beranda. */
 export const FEATURED_SLUGS = ['benzoin-sumatra', 'patchouli', 'cinnamon-kerinci', 'vetiver-java'];

@@ -47,6 +47,34 @@ export const INGREDIENTS_CARDS: LinkCard[] = [
   },
 ];
 
+/* Urutan hub mengikuti halaman Ingredients dsm-firmenich (23 Okt 2026):
+ * Discover more → tonggak → Technologies → Collections → unduhan katalog. */
+
+export type Milestone = { year: string; title: string; body: string };
+
+// DATA: sejarah bahan dan pabrik dari pemilik. Tahunnya sengaja bukan angka
+// supaya tidak terbaca sebagai fakta sebelum dikonfirmasi.
+export const INGREDIENTS_MILESTONES: Milestone[] = [
+  { year: 'Lorem', title: 'Quis nostrud exercitation', body: 'Ullamco laboris nisi ut aliquip ex ea commodo consequat, duis aute irure dolor in reprehenderit in voluptate.' },
+  { year: 'Ipsum', title: 'Velit esse cillum', body: 'Dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.' },
+  { year: 'Dolor', title: 'Deserunt mollit anim', body: 'Id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque.' },
+  { year: 'Sit', title: 'Laudantium totam rem', body: 'Aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.' },
+  { year: 'Amet', title: 'Nemo enim ipsam', body: 'Voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos.' },
+];
+
+export const INGREDIENTS_TECH_LEAD =
+  'Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt.';
+
+export const INGREDIENTS_COLLECTIONS_BODY: Record<string, string> = {
+  Resin: 'Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae.',
+  Root: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium.',
+  Leaf: 'Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.',
+  Spice: 'Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet.',
+};
+
+export const INGREDIENTS_DOWNLOAD_TEXT =
+  'Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur.';
+
 /* ── Katalog ─────────────────────────────────────────────────────────── */
 
 export const CATALOG_INTRO: PageIntro = {
@@ -58,9 +86,6 @@ export const CATALOG_INTRO: PageIntro = {
   caption: 'grading floor',
   image: 'material-nutmeg',
 };
-
-export const CATALOG_NOTE =
-  'Perspiciatis saepe quam hic fugiat. Ullam do tempora itaque eos veniam, ut non ea veniam vero tenetur tempore rerum in ut cum quia.';
 
 /* ── Technology ──────────────────────────────────────────────────────── */
 

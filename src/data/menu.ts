@@ -46,19 +46,26 @@ const COLUMNS: Record<string, MenuColumn[]> = {
   ],
   '/perfumery/': [
     {
-      head: { label: 'Fine Fragrance', href: '/perfumery/fine-fragrance/' },
+      head: { label: 'Signature Creations', href: '/perfumery/signature-creations/' },
       links: [
-        { label: 'The Palette', href: '/perfumery/fine-fragrance/#palette' },
-        { label: 'Bespoke Creation', href: '/perfumery/fine-fragrance/#bespoke' },
-        { label: 'Functional Bases', href: '/perfumery/fine-fragrance/#functional' },
+        { label: 'Our Craft', href: '/perfumery/signature-creations/#craft' },
+        { label: 'Our Approach', href: '/perfumery/signature-creations/#approach' },
       ],
     },
     {
-      head: { label: 'Fragrance Innovation', href: '/perfumery/fragrance-innovation/' },
+      head: { label: 'Beyond Fragrance', href: '/perfumery/beyond-fragrance/' },
       links: [
-        { label: 'Fractionation', href: '/perfumery/fragrance-innovation/#fractionation' },
-        { label: 'Analytical Control', href: '/perfumery/fragrance-innovation/#analysis' },
-        { label: 'Naturals Research', href: '/perfumery/fragrance-innovation/#research' },
+        { label: 'Knowing the Material', href: '/perfumery/beyond-fragrance/#material-study' },
+        { label: 'In the Finished Product', href: '/perfumery/beyond-fragrance/#application' },
+        { label: 'Naturals Research', href: '/perfumery/beyond-fragrance/#naturals-research' },
+      ],
+    },
+    {
+      head: { label: 'Mindful Naturals', href: '/perfumery/mindful-naturals/' },
+      links: [
+        { label: 'The Essence of Adhiloka', href: '/perfumery/mindful-naturals/#essence' },
+        { label: 'Nature as Inspiration', href: '/perfumery/mindful-naturals/#inspired-by-nature' },
+        { label: 'Responsible Sourcing', href: '/perfumery/mindful-naturals/#sourcing' },
       ],
     },
   ],

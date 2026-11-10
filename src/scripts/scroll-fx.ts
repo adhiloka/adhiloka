@@ -17,8 +17,6 @@
  *    data-quote             huruf kutipan menggelap satu per satu (homeRunAnimation);
  *                           data-quote="inner" memakai takaran inner-page.js
  *    data-more              naskah dilipat dua baris + tombol Read More (fnReadMore)
- *    main[data-inner]       section halaman dalam bertumpuk: di-pin lalu ditutupi
- *                           section berikutnya (fnParllexBar), kecuali [data-no-panel]
  *    data-pin               kolom yang menempel di bawah header selama induknya
  *                           ([data-pin-scope]) masih di layar (profil pimpinan)
  *
@@ -256,29 +254,6 @@ function counters() {
   return () => restore.forEach((r) => r());
 }
 
-function panels() {
-  // fnParllexBar Adani: tiap section di-pin tanpa ruang tambahan, jadi
-  // section berikutnya meluncur menutupinya. Section yang lebih pendek dari
-  // layar di-pin saat atasnya menyentuh atas layar, yang lebih tinggi saat
-  // dasarnya menyentuh dasar layar. Section terakhir tidak di-pin (skrip
-  // inline Adani `lastSectionForAll`), begitu juga banner (bergerak dengan
-  // data-speed) dan section yang punya pin sendiri ([data-no-panel]).
-  const main = document.querySelector('main[data-inner]');
-  if (!main) return;
-  const secs = [...main.children].filter(
-    (el): el is HTMLElement => el instanceof HTMLElement && el.matches('section, article') && !el.matches('.banner'),
-  );
-  secs.slice(0, -1).forEach((sec) => {
-    if (sec.hasAttribute('data-no-panel')) return;
-    ScrollTrigger.create({
-      trigger: sec,
-      start: () => (sec.offsetHeight < innerHeight ? 'top top' : 'bottom bottom'),
-      pin: true,
-      pinSpacing: false,
-    });
-  });
-}
-
 function stickies() {
   // inner-page.js Adani: kolom kiri profil pimpinan di-pin dari `top 80px`
   // sampai dasar kolomnya. position: sticky tidak bekerja di dalam
@@ -367,11 +342,9 @@ export function initScrollFx() {
   mm.add('(prefers-reduced-motion: reduce)', quotesStill);
   // Read More juga berlaku tanpa gerak: lipatannya fitur, bukan hiasan.
   mm.add('all', readMore);
-  // Section bertumpuk hanya di layar >1025px (Adani), dipasang paling akhir.
-  mm.add('(min-width: 1026px) and (prefers-reduced-motion: no-preference)', () => {
-    stickies();
-    panels();
-  });
+  // Kolom menempel (profil pimpinan) hanya di layar >1025px, dipasang paling akhir.
+  // Section halaman dalam tidak lagi bertumpuk: digulir biasa.
+  mm.add('(min-width: 1026px) and (prefers-reduced-motion: no-preference)', stickies);
 
   // Tab, penyaring, "Read More" dan formulir mengubah tinggi halaman. Bila
   // yang baru tampil adalah panel tab, gerak tile di dalamnya diputar ulang

@@ -18,6 +18,8 @@ export default defineConfig({
   redirects: {
     '/our-story/': '/about/our-history/',
     '/fragrances/': '/perfumery/',
+    '/perfumery/fine-fragrance/': '/perfumery/signature-creations/',
+    '/perfumery/fragrance-innovation/': '/perfumery/beyond-fragrance/',
     '/raw-materials/': '/ingredients/catalog/',
   },
   build: { inlineStylesheets: 'auto' },

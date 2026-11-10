@@ -4,9 +4,22 @@ import Intro from '../../components/blocks/Intro.astro';
 import PressContact from '../../components/blocks/PressContact.astro';
 import SiblingCards from '../../components/blocks/SiblingCards.astro';
 import { RESOURCES_INTRO, RESOURCES, RESOURCES_NOTE } from '../../data/pages/media';
+import { CATALOG_DOWNLOAD as cat, formatSize } from '../../data/downloads';
 
 /* "Media Kit" adani.com: daftar berkas dengan jenis, ukuran dan tombol unduh.
- * Berkasnya belum ada; href di RESOURCES masih placeholder. */
+ * Baris pertama = katalog PDF sungguhan (data/downloads.ts); href baris lain
+ * di RESOURCES masih placeholder. */
+const rows = [
+  {
+    title: cat.title,
+    body: cat.sub + '.',
+    kind: 'PDF',
+    size: formatSize(cat.bytes),
+    href: cat.href,
+    filename: cat.filename,
+  },
+  ...RESOURCES.map((r) => ({ ...r, filename: undefined })),
+];
 ---
 
 <PageLayout intro={RESOURCES_INTRO}>
@@ -15,14 +28,14 @@ import { RESOURCES_INTRO, RESOURCES, RESOURCES_NOTE } from '../../data/pages/med
     <div class="wrap">
       <ul class="dl" data-anim="columns">
         {
-          RESOURCES.map((r) => (
+          rows.map((r) => (
             <li class="dl__row" data-anim-item>
               <div>
                 <h2 class="dl__title">{r.title}</h2>
                 <p class="dl__body">{r.body}</p>
               </div>
               <p class="dl__meta">{r.kind} · {r.size}</p>
-              <a class="btn" href={r.href}><span class="btn__label">Download</span></a>
+              <a class="btn" href={r.href} download={r.filename}><span class="btn__label">Download</span></a>
             </li>
           ))
         }

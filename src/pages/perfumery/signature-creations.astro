@@ -1,0 +1,18 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Intro from '../../components/blocks/Intro.astro';
+import Passages from '../../components/blocks/Passages.astro';
+import QuoteSplit from '../../components/QuoteSplit.astro';
+import SiblingCards from '../../components/blocks/SiblingCards.astro';
+import { SIGNATURE_INTRO, SIGNATURE_OPENING, SIGNATURE_PASSAGES, SIGNATURE_QUOTE } from '../../data/pages/perfumery';
+
+/* ≈ robertet.com/en/fragrances/creative-signature-2/: Creative essence,
+ * kutipan, Our perfumers (di sini Our Craft), Our approach. */
+---
+
+<PageLayout intro={SIGNATURE_INTRO}>
+  <Intro title="Creative Spirit" paragraphs={SIGNATURE_OPENING} />
+  <QuoteSplit text={SIGNATURE_QUOTE.text} name={SIGNATURE_QUOTE.attribution} image="material-patchouli" alt="Green leaves with dew" grey />
+  <Passages passages={SIGNATURE_PASSAGES} />
+  <SiblingCards />
+</PageLayout>

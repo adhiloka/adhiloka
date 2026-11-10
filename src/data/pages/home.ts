@@ -17,7 +17,12 @@ import type { ImageKey } from '../images';
  * dengan pemisah baris eksplisit (panjang tiap baris setara judul Adani),
  * lalu satu baris pendek di bawahnya, setara nama anak usaha di Adani
  * ("Adani Power Ltd", "Natural Resources"). Enam slide seperti Adani, supaya
- * deret kartunya berisi tiga kartu dan satu kartu terpotong di tepi layar. */
+ * deret kartunya berisi tiga kartu dan satu kartu terpotong di tepi layar.
+ *
+ * Judul slide 2–5 diganti 18 Okt 2026 (permintaan pemilik) ke sudut "peran di
+ * hulu": tidak lagi menyebut Indonesia/kepulauan karena Adhiloka akan memasok
+ * bahan dari banyak daerah, dan menghindari "field to …" (dipakai Biolandes)
+ * serta akhiran "by nature" (dipakai Givaudan, Robertet, Eurofragance). */
 
 export type HeroSlide = {
   /** Judul, satu atau dua baris; tiap elemen dicetak di barisnya sendiri. */
@@ -39,28 +44,28 @@ export const HERO_SLIDES: HeroSlide[] = [
     alt: 'Green tree canopy seen from below',
   },
   {
-    title: ['Rooted in the Islands', 'of Indonesia'],
+    title: ['Scent Begins Here'],
     line: ['Natural Raw Materials'],
     href: '/ingredients/',
     image: 'material-benzoin',
     alt: 'Sorted benzoin resin tears',
   },
   {
-    title: ['From Field', 'to Fragrance'],
+    title: ['What Comes Before', 'the First Spray'],
     line: ['Our Expertise'],
     href: '/ingredients/technology/',
     image: 'material-patchouli',
     alt: 'Green leaves with dew',
   },
   {
-    title: ['Where Nature Meets', "the Perfumer's Art"],
+    title: ['Material for', 'Makers of Scent'],
     line: ['Perfumery'],
     href: '/perfumery/',
     image: 'fragrance-petal',
     alt: 'Orange petals, close',
   },
   {
-    title: ['The Scents of', 'the Archipelago'],
+    title: ['The Source', 'Collection'],
     line: ['Signature Ingredients'],
     href: '/ingredients/catalog/',
     image: 'hero-benzoin-tears',

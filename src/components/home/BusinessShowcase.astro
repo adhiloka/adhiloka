@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import { images, type ImageKey } from '../../data/images';
 import { MATERIALS, materialHref, type Family } from '../../data/materials';
 import { ROUTES } from '../../data/pages/ingredients';
-import { FINE_PASSAGES, INNOVATION_PASSAGES } from '../../data/pages/perfumery';
+import { PERFUMERY_CARDS, SIGNATURE_PASSAGES, NATURALS_PASSAGES } from '../../data/pages/perfumery';
 
 /* Section "BUSINESSES" adani.com, diisi usaha Adhiloka.
  * Tab kanan atas: Ingredients (seperti "Verticals": grid tile 2 kolom di kiri,
@@ -49,11 +49,11 @@ const panes: Pane[] = [
   },
 ];
 
+/* Delapan ubin: tiga subhalaman, dua bagian Signature Creations, tiga bagian Mindful Naturals. */
 const perfumery = [
-  { label: 'Fine Fragrance', href: '/perfumery/fine-fragrance/', image: 'fragrance-petal' as ImageKey },
-  { label: 'Fragrance Innovation', href: '/perfumery/fragrance-innovation/', image: 'material-ginger' as ImageKey },
-  ...FINE_PASSAGES.map((p) => ({ label: p.eyebrow ?? p.title, href: `/perfumery/fine-fragrance/#${p.id}`, image: (p.image ?? 'fragrance-petal') as ImageKey })),
-  ...INNOVATION_PASSAGES.map((p) => ({ label: p.eyebrow ?? p.title, href: `/perfumery/fragrance-innovation/#${p.id}`, image: (p.image ?? 'fragrance-resin') as ImageKey })),
+  ...PERFUMERY_CARDS.map((c) => ({ label: c.title, href: c.href, image: (c.image ?? 'fragrance-petal') as ImageKey })),
+  ...SIGNATURE_PASSAGES.map((p) => ({ label: p.eyebrow ?? p.title, href: `/perfumery/signature-creations/#${p.id}`, image: (p.image ?? 'fragrance-petal') as ImageKey })),
+  ...NATURALS_PASSAGES.map((p) => ({ label: p.eyebrow ?? p.title, href: `/perfumery/mindful-naturals/#${p.id}`, image: (p.image ?? 'fragrance-resin') as ImageKey })),
 ];
 ---
 

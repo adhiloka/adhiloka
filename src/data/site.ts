@@ -54,14 +54,15 @@ export const NAV: NavItem[] = [
     label: 'Perfumery',
     href: '/perfumery/',
     blurb:
-      'Laboris irure at in velit iste quae at quo ipsa rem ducimus vel molestiae quam iste.',
+      'Fragrances composed from the natural materials of Indonesia, for fine perfumery, personal care and the home.',
     panel: {
       title: 'Perfumery',
       shot: 'petal, close',
       image: 'fragrance-petal',
       links: [
-        { label: 'Fine Fragrance', href: '/perfumery/fine-fragrance/' },
-        { label: 'Fragrance Innovation', href: '/perfumery/fragrance-innovation/' },
+        { label: 'Signature Creations', href: '/perfumery/signature-creations/' },
+        { label: 'Beyond Fragrance', href: '/perfumery/beyond-fragrance/' },
+        { label: 'Mindful Naturals', href: '/perfumery/mindful-naturals/' },
       ],
     },
   },
@@ -134,7 +135,7 @@ export const SOCIAL = [
 export const SEARCH_SUGGESTIONS = [
   { label: 'Benzoin Sumatra', href: '/ingredients/catalog/benzoin-sumatra/' },
   { label: 'Patchouli', href: '/ingredients/catalog/patchouli/' },
-  { label: 'Fine fragrance', href: '/perfumery/fine-fragrance/' },
+  { label: 'Signature creations', href: '/perfumery/signature-creations/' },
   { label: 'Responsible sourcing', href: '/sustainability/responsible-sourcing/' },
   { label: 'Ordering & documents', href: '/ingredients/ordering/' },
   { label: 'Sample request', href: '/contact/' },

@@ -11,8 +11,10 @@ interface Props {
   bannerTitle?: string;
   /** Lede ditampilkan di banner, bukan di blok pembuka. */
   lineInBanner?: boolean;
+  /** Keterangan kecil di kanan bawah banner (jumlah hasil katalog). */
+  bannerMeta?: string;
 }
-const { intro, bannerTitle, lineInBanner = false } = Astro.props;
+const { intro, bannerTitle, lineInBanner = false, bannerMeta } = Astro.props;
 ---
 
 <BaseLayout title={intro.metaTitle ?? intro.title} description={intro.description} inner>
@@ -21,6 +23,7 @@ const { intro, bannerTitle, lineInBanner = false } = Astro.props;
     image={intro.image}
     alt={intro.caption}
     line={lineInBanner ? intro.lede : undefined}
+    meta={bannerMeta}
   />
   <slot />
 </BaseLayout>

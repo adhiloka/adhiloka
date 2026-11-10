@@ -1,0 +1,158 @@
+/* Gaya cetak bersama untuk katalog dan lembar spesifikasi.
+ * Satu .page = satu lembar A4 berukuran pasti; tidak ada aliran teks
+ * antarhalaman, jadi tata letak tiap halaman dikunci di sini dan di
+ * templates.mjs. Warna dari adhiloka-brand/SPESIFIKASI.txt. */
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('fonts/Rubik-var.woff2') format('woff2');
+  font-weight: 300 700;
+}
+@font-face {
+  font-family: 'Crimson';
+  src: url('fonts/CrimsonText-Regular.ttf');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Crimson';
+  src: url('fonts/CrimsonText-SemiBold.ttf');
+  font-weight: 600;
+}
+@font-face {
+  font-family: 'Crimson';
+  src: url('fonts/CrimsonText-Italic.ttf');
+  font-style: italic;
+  font-weight: 400;
+}
+
+:root {
+  --cream: #e3cca5;
+  --gold: #d9aa5a;
+  --amber: #d58207;
+  --green-deep: #034c44;
+  --green: #026a5b;
+  --green-light: #248f76;
+  --sage: #5c6d68;
+  --ink: #2f3432;
+  --muted: #6b716f;
+  --line: #d9dcdb;
+  --line-soft: #eceeed;
+  --paper: #fff;
+  --tint: #f5f3ee;
+  --bar: linear-gradient(to right, #034c44, #026a5b, #248f76, #d9aa5a, #d58207);
+}
+
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 360;
+  font-size: 9pt;
+  line-height: 1.5;
+  color: var(--ink);
+  background: #888;
+}
+@media print { body { background: none; } }
+img { display: block; }
+table { border-collapse: collapse; width: 100%; }
+
+.page {
+  position: relative;
+  width: 210mm;
+  height: 297mm;
+  overflow: hidden;
+  background: var(--paper);
+  page-break-after: always;
+  break-after: page;
+}
+.page:last-child { page-break-after: auto; break-after: auto; }
+@media screen { .page { margin: 0 auto 8mm; } }
+
+.serif { font-family: 'Crimson', serif; }
+.latin { font-family: 'Crimson', serif; font-style: italic; }
+.eyebrow {
+  font-size: 7.5pt;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+.bar { height: 2.2mm; background: var(--bar); }
+.cover-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* Kaki halaman isi */
+.foot {
+  position: absolute;
+  left: 16mm;
+  right: 16mm;
+  bottom: 9mm;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: 3mm;
+  border-top: 0.3mm solid var(--line);
+  font-size: 7pt;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+.foot b { font-weight: 500; color: var(--ink); }
+
+/* Tabel data */
+.tbl th,
+.tbl td {
+  padding: 2.1mm 2.4mm 2.1mm 0;
+  border-bottom: 0.25mm solid var(--line-soft);
+  text-align: left;
+  vertical-align: top;
+  font-size: 8.4pt;
+}
+.tbl thead th {
+  padding-top: 0;
+  border-bottom: 0.35mm solid var(--green-deep);
+  font-size: 6.8pt;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+.tbl tbody th { font-weight: 500; color: var(--ink); }
+
+.facts { display: grid; grid-template-columns: 27mm 1fr; }
+.facts dt,
+.facts dd {
+  padding: 1.9mm 0;
+  border-bottom: 0.25mm solid var(--line-soft);
+  font-size: 8.4pt;
+}
+.facts dt { color: var(--muted); }
+.facts dd { color: var(--ink); }
+
+.chips { display: flex; flex-wrap: wrap; gap: 1.6mm; }
+.chips span {
+  padding: 0.9mm 3mm;
+  border: 0.3mm solid var(--gold);
+  border-radius: 10mm;
+  font-size: 7.6pt;
+  color: var(--ink);
+}
+
+.h-sec {
+  display: flex;
+  align-items: baseline;
+  gap: 3mm;
+  margin-bottom: 3.2mm;
+  font-family: 'Crimson', serif;
+  font-size: 15pt;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--green-deep);
+}
+.h-sec i {
+  font-family: 'Rubik', sans-serif;
+  font-style: normal;
+  font-size: 7pt;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--amber);
+}

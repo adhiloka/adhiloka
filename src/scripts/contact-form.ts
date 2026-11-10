@@ -34,13 +34,15 @@ export function initContactForm() {
 
   /* Tombol di katalog dan halaman bahan membawa ?material=slug dan
      ?kind=sample|specification|quotation: jenis permintaan dipilih dan kolom
-     pesan diisi awal supaya pengguna tidak mengetik ulang. */
+     pesan diisi awal supaya pengguna tidak mengetik ulang. Tombol "Start a
+     brief" di Perfumery membawa ?kind=bespoke. */
   const params = new URL(window.location.href).searchParams;
   const material = params.get('material');
   const KINDS: Record<string, string> = {
     sample: 'Sample request',
     specification: 'Specification & documents',
     quotation: 'Quotation',
+    bespoke: 'Bespoke fragrance',
   };
   const kind = KINDS[params.get('kind') ?? ''] ?? (material ? KINDS.sample : null);
   const messageEl = form.querySelector<HTMLTextAreaElement>('[name="message"]')!;

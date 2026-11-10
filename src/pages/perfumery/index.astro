@@ -1,24 +1,34 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import Intro from '../../components/blocks/Intro.astro';
-import CounterGrid from '../../components/blocks/CounterGrid.astro';
 import CardGrid from '../../components/blocks/CardGrid.astro';
-import QuoteSplit from '../../components/QuoteSplit.astro';
+import InfoGrid from '../../components/blocks/InfoGrid.astro';
 import ClosingCta from '../../components/blocks/ClosingCta.astro';
-import { PERFUMERY_INTRO, PERFUMERY_OPENING, PERFUMERY_STATS, PERFUMERY_CARDS, FINE_QUOTE } from '../../data/pages/perfumery';
+import { PERFUMERY_INTRO, PERFUMERY_OPENING, PERFUMERY_CARDS, PERFUMERY_FIELDS } from '../../data/pages/perfumery';
+
+/* Hub Perfumery berpola sama dengan hub Sustainability dan Ingredients:
+ * banner + kalimat, intro Read More, kartu tiga subhalaman, grid bidang,
+ * lalu penutup. Isinya mengikuti robertet.com/en/fragrances/. */
 ---
 
 <PageLayout intro={PERFUMERY_INTRO} bannerTitle="Perfumery" lineInBanner>
   <Intro title={PERFUMERY_INTRO.title} paragraphs={PERFUMERY_OPENING} more />
-  <CounterGrid title="The Bench in Numbers" stats={PERFUMERY_STATS} />
-  <CardGrid title="Our Perfumery" cards={PERFUMERY_CARDS} />
-  <QuoteSplit text={FINE_QUOTE.text} name={FINE_QUOTE.attribution} image="fragrance-bloom" alt="Hibiscus bloom, close" grey />
+  <CardGrid title="Our Perfumery" cards={PERFUMERY_CARDS} grey />
+  <InfoGrid
+    title="What We Create"
+    cols={3}
+    items={PERFUMERY_FIELDS.map((f) => ({
+      ...f,
+      href: '/perfumery/signature-creations/#craft',
+      linkLabel: 'Learn more',
+    }))}
+  />
   <ClosingCta
-    text="Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur."
+    text="Every fragrance begins with a conversation."
     image="fragrance-petal"
     buttons={[
-      { label: 'Fine Fragrance', href: '/perfumery/fine-fragrance/' },
-      { label: 'Contact Us', href: '/contact/' },
+      { label: 'Signature Creations', href: '/perfumery/signature-creations/' },
+      { label: 'Contact Us', href: '/contact/?kind=bespoke' },
     ]}
   />
 </PageLayout>

@@ -1,18 +1,88 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import Intro from '../../components/blocks/Intro.astro';
-import CounterGrid from '../../components/blocks/CounterGrid.astro';
 import CardGrid from '../../components/blocks/CardGrid.astro';
-import BusinessShowcase from '../../components/home/BusinessShowcase.astro';
+import InfoGrid from '../../components/blocks/InfoGrid.astro';
+import CardSlider from '../../components/blocks/CardSlider.astro';
+import PromoBanner from '../../components/blocks/PromoBanner.astro';
 import ClosingCta from '../../components/blocks/ClosingCta.astro';
-import { INGREDIENTS_INTRO, INGREDIENTS_OPENING, INGREDIENTS_STATS, INGREDIENTS_CARDS } from '../../data/pages/ingredients';
+import { MATERIALS, FAMILY_FILTERS } from '../../data/materials';
+import { CATALOG_DOWNLOAD } from '../../data/downloads';
+import {
+  INGREDIENTS_INTRO,
+  INGREDIENTS_OPENING,
+  INGREDIENTS_CARDS,
+  INGREDIENTS_MILESTONES,
+  INGREDIENTS_TECH_LEAD,
+  INGREDIENTS_COLLECTIONS_BODY,
+  INGREDIENTS_DOWNLOAD_TEXT,
+  ROUTES,
+} from '../../data/pages/ingredients';
+
+/* Hub Ingredients, urutannya meniru halaman Ingredients dsm-firmenich:
+ * Discover more (tiga kartu), tonggak sejarah mendatar, Technologies (tiga
+ * proses), Collections (satu kartu per keluarga, menaut ke katalog yang sudah
+ * tersaring lewat ?family=), pita unduhan katalog, lalu penutup. */
+const collections = FAMILY_FILTERS.filter((f) => f.value !== 'All').map((f) => {
+  const items = MATERIALS.filter((m) => m.family === f.value);
+  const lead = items.find((m) => m.image) ?? items[0];
+  return {
+    href: `/ingredients/catalog/?family=${f.value}`,
+    title: f.label,
+    body: INGREDIENTS_COLLECTIONS_BODY[f.value],
+    image: lead?.image,
+    shot: lead?.shot,
+    tag: `${items.length} ${items.length === 1 ? 'material' : 'materials'}`,
+  };
+});
 ---
 
 <PageLayout intro={INGREDIENTS_INTRO} bannerTitle="Ingredients" lineInBanner>
   <Intro title={INGREDIENTS_INTRO.title} paragraphs={INGREDIENTS_OPENING} more />
-  <CounterGrid title="The Catalog in Numbers" stats={INGREDIENTS_STATS} />
-  <BusinessShowcase />
-  <CardGrid title="Explore Ingredients" cards={INGREDIENTS_CARDS} />
+  <CardGrid title="Discover More" cards={INGREDIENTS_CARDS} grey />
+
+  <section class="sec ms" aria-labelledby="ms-title">
+    <div class="wrap">
+      <h2 class="h2" id="ms-title" data-anim="title">Our Ingredients Tell Our Story</h2>
+      <ol class="ms__track" data-anim="columns">
+        {
+          INGREDIENTS_MILESTONES.map((s) => (
+            <li class="ms__item" data-anim-item>
+              <p class="ms__year">{s.year}</p>
+              <h3 class="ms__title">{s.title}</h3>
+              <p class="ms__body">{s.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <InfoGrid
+    title="Technologies"
+    lead={INGREDIENTS_TECH_LEAD}
+    cols={3}
+    grey
+    items={ROUTES.slice(0, 3).map((r) => ({
+      sub: 'Process',
+      title: r.name,
+      body: r.body,
+      href: '/ingredients/technology/#routes',
+      linkLabel: 'Learn more',
+    }))}
+  />
+
+  <CardSlider title="Collections" viewAll="/ingredients/catalog/" items={collections} />
+
+  <PromoBanner
+    title={CATALOG_DOWNLOAD.title}
+    text={INGREDIENTS_DOWNLOAD_TEXT}
+    cta="Download the Catalog"
+    href="/ingredients/catalog/#download"
+    image="material-benzoin"
+    grey
+  />
+
   <ClosingCta
     text="Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam nisi."
     image="material-benzoin"
@@ -22,3 +92,58 @@ import { INGREDIENTS_INTRO, INGREDIENTS_OPENING, INGREDIENTS_STATS, INGREDIENTS_
     ]}
   />
 </PageLayout>
+
+<style>
+  /* Tonggak mendatar ala linimasa hub dsm-firmenich: garis bergradien di
+     atas, titik per tahun, kolom digeser mendatar di layar sempit. */
+  .ms__track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(220px, 1fr);
+    gap: 32px;
+    margin-top: 48px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    background: var(--grad-bar) 0 5px / 100% 2px no-repeat local;
+  }
+  .ms__item {
+    position: relative;
+    padding-top: 36px;
+    scroll-snap-align: start;
+  }
+  .ms__item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--brand-green);
+  }
+  .ms__year {
+    font-size: calc(clamp(28px, 2.5vw, 36px) * var(--fs));
+    line-height: 1;
+    font-weight: 530;
+    background: var(--grad-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .ms__title {
+    margin-top: 16px;
+    font-size: calc(18px * var(--fs));
+    font-weight: 530;
+    color: var(--ink);
+  }
+  .ms__body {
+    margin-top: 10px;
+    font-size: calc(15px * var(--fs));
+    line-height: 1.55;
+    color: var(--ink-muted);
+  }
+  @media (max-width: 1026px) {
+    .ms__track { grid-auto-columns: 70%; }
+  }
+</style>
