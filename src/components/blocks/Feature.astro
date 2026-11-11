@@ -54,11 +54,11 @@ const paras = Array.isArray(body) ? body : [body];
   .feat { scroll-margin-top: var(--header-h); }
   .feat__grid {
     display: grid;
-    grid-template-columns: 40% 1fr;
-    gap: 6%;
+    grid-template-columns: 44% 1fr;
+    gap: 7%;
     align-items: center;
   }
-  .feat--flip .feat__grid { grid-template-columns: 1fr 40%; }
+  .feat--flip .feat__grid { grid-template-columns: 1fr 44%; }
   .feat--flip .feat__text { order: 2; }
 
   .feat__h { font-size: calc(clamp(26px, 2.5vw, 36px) * var(--fs)); line-height: 1.05; }
@@ -73,25 +73,16 @@ const paras = Array.isArray(body) ? body : [body];
   .feat__body :global(p) { font-size: calc(17px * var(--fs)); line-height: 1.6; }
 
   .feat__points { margin-top: 24px; border-top: 1px solid var(--line); }
+  /* Daftar poin: baris dengan garis tipis, tanpa penanda. */
   .feat__points li {
-    position: relative;
-    padding: 12px 0 12px 24px;
-    border-bottom: 1px solid var(--line);
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line-soft);
     font-size: calc(16px * var(--fs));
     line-height: 1.4;
   }
-  .feat__points li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 19px;
-    width: 10px;
-    height: 4px;
-    background: var(--grad-bar);
-  }
   .feat__btn { margin-top: 32px; }
 
-  .feat__media { aspect-ratio: 4 / 3; }
+  .feat__media { aspect-ratio: 3 / 2; }
   /* `.governImage img`: skala 1,05 selama 1 s saat hover. */
   .feat__media:hover :global(img) { transform: scale(1.05); }
 

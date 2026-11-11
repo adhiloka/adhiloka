@@ -22,6 +22,9 @@
   --grad-bar: linear-gradient(to right, #034c44, #026a5b, #248f76, #d9aa5a, #d58207);
   --grad-text: linear-gradient(to right, #034c44, #026a5b, #1f7d67, #9a6206);
 
+  /* Nomor bagian (adhiloka-brand: angka 01, 02) */
+  --brand-number: #9a5800;
+
   --ink: #393939;
   --ink-strong: #000;
   --ink-muted: #6b6b6b;
@@ -46,7 +49,7 @@
      laptop persis seperti Adani, tanpa mengubah rem seluruh situs. */
   --rem: 10px;
   --wrap: 88.88%;
-  --sec-pad: 80px;
+  --sec-pad: 68px;
 
   --h2: clamp(28px, 3.06vw, 44px);
   --lead: clamp(17px, 1.39vw, 20px);
@@ -89,6 +92,7 @@ html.dark-mode {
   --bg-menu: #18211f;
   --bg-header: rgb(57 57 57 / 0.7);
   --error: #ff8a80;
+  --brand-number: #d9aa5a;
   --grad-bar: linear-gradient(to right, #248f76, #3fae92, #d9aa5a, #d58207);
   --grad-text: linear-gradient(to right, #5cc4a6, #9fd8c4, #e3cca5, #d9aa5a);
 }

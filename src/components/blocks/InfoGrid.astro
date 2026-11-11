@@ -53,30 +53,19 @@ const { title, lead, items, grey = false, id, cols = 4 } = Astro.props;
   .info__grid--3 { grid-template-columns: repeat(3, 1fr); }
   .info__grid--2 { grid-template-columns: repeat(2, 1fr); }
 
+  /* Garis tipis saja di atas tiap butir; nomor kecil satu warna, tanpa gradien. */
   .info__item {
-    position: relative;
-    padding-top: 24px;
+    padding-top: 20px;
     border-top: 1px solid var(--line);
-  }
-  .info__item::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: -2px;
-    width: 56px;
-    height: 4px;
-    background: var(--grad-bar);
   }
   .info__n {
     display: block;
-    margin-bottom: 12px;
-    font-size: calc(40px * var(--fs));
+    margin-bottom: 10px;
+    font-size: calc(14px * var(--fs));
     line-height: 1;
     font-weight: 530;
-    background: var(--grad-text);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    letter-spacing: 0.12em;
+    color: var(--brand-number);
   }
   .info__title {
     font-size: calc(clamp(20px, 1.53vw, 22px) * var(--fs));

@@ -83,8 +83,14 @@ Yang sengaja berbeda:
 - **"Watch Video"** di hero menjadi "Know More"; situs ini tidak memakai video.
 - **Awards & Accolades** di halaman About dilewati: tidak ada penghargaan yang bisa dicantumkan.
 - **Banner cookie** tidak ditiru; situs ini tidak memasang cookie.
-- **Footer** berlatar foto tajuk pohon yang dipucatkan dan memudar ke kiri, pengganti foto gedung
-  pucat di footer Adani.
+- **Footer** berlatar foto tajuk pohon (`canopy-from-below`, foto stok tajam) yang dipucatkan dan
+  memudar ke kiri, pengganti foto gedung pucat di footer Adani.
+- **Gradien hanya aksen yang bergerak** (sejak 12 Nov 2026, koreksi pemilik): garis bawah menu dan
+  tab aktif, bilah progres hero, garis tepi tombol saat hover. Tidak dipakai di penanda poin, nomor
+  langkah, tahun, label, atau garis hias statis. Poin = baris bergaris tipis tanpa penanda; nomor =
+  teks kecil `--brand-number`.
+- **Banner halaman dalam** 64vh (bukan 100vh Adani), setengah banner 52vh, penutup berfoto 56vh,
+  `--sec-pad` 68 px, foto Feature 3:2: foto dan spasi dipadatkan atas permintaan pemilik.
 - (Bukan beda, catatan) **Akordeon keberlanjutan** mengikuti ukuran langsung dari adani.com (CSS
   dan pelacakan frame rekaman layar): yang dianimasikan `width` panel (150 px disusutkan flex jadi
   ±124 px, aktif 100 %, 0,5 s ease). Foto tiap panel berskala tetap dan duduk di tengah panelnya.

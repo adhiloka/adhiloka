@@ -65,12 +65,7 @@ const { title, paragraphs, grey = false, id, more = false } = Astro.props;
     text-decoration: underline;
     text-underline-offset: 5px;
   }
-  .intro__more:hover .btn__label {
-    background: var(--grad-text);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
+  .intro__more:hover .btn__label { color: var(--brand-green); }
   .intro__more svg { transition: transform 0.3s; }
   .intro__more[aria-expanded='true'] svg { transform: rotate(180deg); }
   @media (max-width: 1026px) {
