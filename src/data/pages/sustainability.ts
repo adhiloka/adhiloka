@@ -15,8 +15,8 @@ export const SUSTAINABILITY_INTRO: PageIntro = {
   lede: 'Our ingredients come from the living world. Looking after it, and after the people who tend it, is part of our work.',
   description:
     'Sustainability at Adhiloka: respect for the land our natural ingredients come from, and lasting relationships with the people who grow them.',
-  caption: 'tree canopy seen from below',
-  image: 'agroforest-canopy',
+  caption: 'rainforest seen from above',
+  image: 'rainforest-aerial',
 };
 
 export const SUSTAINABILITY_OPENING = [
@@ -29,13 +29,13 @@ export const SUSTAINABILITY_CARDS: LinkCard[] = [
     title: 'Driving progress for people',
     body: 'Working side by side with the growers and communities behind each harvest.',
     href: '/sustainability/people/',
-    image: 'material-patchouli',
+    image: 'rice-planting',
   },
   {
     title: 'Responsible Sourcing',
     body: 'Respect for the plants and the land our ingredients come from.',
     href: '/sustainability/responsible-sourcing/',
-    image: 'hero-benzoin-tears',
+    image: 'nutmeg-on-tree',
   },
 ];
 
@@ -49,8 +49,8 @@ export const PEOPLE_INTRO: PageIntro = {
   lede: 'Behind every ingredient are people whose knowledge and work make it possible. We want our relationships with them to be fair, and to last.',
   description:
     'How Adhiloka works with growers and their communities: direct relationships, a long-term view and respect for local knowledge.',
-  caption: 'green leaves with dew',
-  image: 'material-patchouli',
+  caption: 'planting rice by hand',
+  image: 'rice-planting',
 };
 
 export const PEOPLE_PASSAGES: Passage[] = [
@@ -64,8 +64,8 @@ export const PEOPLE_PASSAGES: Passage[] = [
       'Respect for local knowledge',
       'Fair dealings on both sides',
     ],
-    caption: 'tree canopy seen from below',
-    image: 'agroforest-canopy',
+    caption: 'green hills beneath a volcano at dusk',
+    image: 'tea-hills-dusk',
   },
   {
     id: 'continuity',
@@ -77,8 +77,8 @@ export const PEOPLE_PASSAGES: Passage[] = [
       'Trust built over time',
       'Together through every season',
     ],
-    caption: 'sorted benzoin resin tears',
-    image: 'material-benzoin',
+    caption: 'dried cloves in an open hand',
+    image: 'cloves-in-hand',
   },
   {
     id: 'knowledge',
@@ -92,8 +92,8 @@ export const PEOPLE_PASSAGES: Passage[] = [
     ],
     cta: 'Responsible Sourcing',
     href: '/sustainability/responsible-sourcing/',
-    caption: 'whole nutmegs',
-    image: 'material-nutmeg',
+    caption: 'cloves sorted by hand',
+    image: 'cloves-sorting',
   },
 ];
 
@@ -110,8 +110,8 @@ export const SOURCING_INTRO: PageIntro = {
   lede: 'Good ingredients begin with respect: for the plant, for the land, and for the people who care for both.',
   description:
     'Responsible sourcing at Adhiloka: staying close to the source, knowing where ingredients come from and caring for the land.',
-  image: 'hero-benzoin-tears',
-  caption: 'cinnamon bark',
+  image: 'canopy-from-below',
+  caption: 'tree canopy seen from below',
 };
 
 export type Step = { n: string; title: string; body: string };
@@ -136,8 +136,8 @@ export const SOURCING_PASSAGES: Passage[] = [
       'Origin kept in view',
       'Respect for those who produce',
     ],
-    caption: 'sorted benzoin resin tears',
-    image: 'material-benzoin',
+    caption: 'nutmeg fruit on the tree',
+    image: 'nutmeg-on-tree',
   },
   {
     id: 'land',
@@ -151,7 +151,7 @@ export const SOURCING_PASSAGES: Passage[] = [
     ],
     cta: 'Our Purpose',
     href: '/about/our-purpose/',
-    caption: 'tree canopy seen from below',
-    image: 'agroforest-canopy',
+    caption: 'stream through a sunlit jungle',
+    image: 'jungle-stream',
   },
 ];

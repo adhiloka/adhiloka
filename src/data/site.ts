@@ -53,8 +53,8 @@ export const NAV: NavItem[] = [
       'Fragrances composed from the natural materials of Indonesia, for fine perfumery, personal care and the home.',
     panel: {
       title: 'Perfumery',
-      shot: 'petal, close',
-      image: 'fragrance-petal',
+      shot: 'perfumer at work with a dropper',
+      image: 'perfumer-dropper',
       links: [
         { label: 'Signature Creations', href: '/perfumery/signature-creations/' },
         { label: 'Beyond Fragrance', href: '/perfumery/beyond-fragrance/' },
@@ -68,8 +68,8 @@ export const NAV: NavItem[] = [
     blurb: 'Resins, leaves, roots and spices from Indonesia, selected and prepared for perfumery.',
     panel: {
       title: 'Ingredients',
-      shot: 'cinnamon bark',
-      image: 'hero-benzoin-tears',
+      shot: 'whole spices on wooden spoons',
+      image: 'spices-spoons',
       links: [
         { label: 'Ingredients Catalog', href: '/ingredients/catalog/' },
         { label: 'Technology', href: '/ingredients/technology/' },
@@ -83,8 +83,8 @@ export const NAV: NavItem[] = [
     blurb: 'Caring for nature and for the people who tend it.',
     panel: {
       title: 'Sustainability',
-      shot: 'kemenyan agroforest canopy',
-      image: 'agroforest-canopy',
+      shot: 'tree canopy seen from below',
+      image: 'canopy-from-below',
       links: [
         { label: 'Driving progress for people', href: '/sustainability/people/' },
         { label: 'Responsible Sourcing', href: '/sustainability/responsible-sourcing/' },
@@ -97,8 +97,8 @@ export const NAV: NavItem[] = [
     blurb: 'News, stories and resources from Adhiloka.',
     panel: {
       title: 'Media',
-      shot: 'dried rhizome',
-      image: 'fragrance-resin',
+      shot: 'amber glass bottles',
+      image: 'amber-bottles',
       links: [
         { label: 'News', href: '/media/news/' },
         { label: 'Media Resources', href: '/media/media-resources/' },

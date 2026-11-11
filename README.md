@@ -209,10 +209,12 @@ Tanda logonya sama persis dengan versi sebelumnya, jadi favicon tidak berubah.
 
 1. **Formulir kontak.** Isi `PUBLIC_FORM_ACCESS_KEY` di variabel lingkungan Netlify (Web3Forms).
    Selama kosong, tombol kirim membuka klien email pengunjung.
-2. **Foto.** Berkas di `src/assets/images/` adalah stok botani (daftarnya di komentar
-   `src/data/images.ts`). Halaman **Clove memakai foto pala** dan **Vetiver memakai foto jahe**
-   karena foto aslinya belum ada; ganti begitu ada. Banner About dan Contact memakai foto stok
-   orang di meja makan.
+2. **Foto.** Sejak 12 November 2026 sebagian besar slot memakai foto stok dari `../../../stock-photos/`
+   (Pexels/Unsplash, tanpa atribusi), diperkecil ke 2400 px dan didaftarkan di `src/data/images.ts`
+   beserta sumbernya. Keterangannya netral: orang di foto bukan staf/petani/pemasok Adhiloka, damar
+   `resin-*` bukan benzoin Sumatra, kayu manis jenisnya tidak diketahui, dan Vetiver memakai foto
+   daun rumput (`grass-blades`) karena foto akar wangi asli belum ada. Benzoin dan Patchouli masih
+   memakai foto lama. Begitu ada foto barang sendiri, ganti lewat `images.ts`.
 3. **Data** untuk halaman yang diparkir dan untuk spesifikasi bahan (lihat di atas).
 4. **JSON-LD.** Telepon, `foundingDate` dan alamat masih dilepas (formulir A2–A5).
 

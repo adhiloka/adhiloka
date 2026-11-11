@@ -21,8 +21,8 @@ export const PERFUMERY_INTRO: PageIntro = {
   lede: 'Between craft and science, our perfumery composes fragrances from the natural materials of Indonesia, for fine perfumery, personal care and the home, in close dialogue with every client.',
   description:
     'Adhiloka perfumery: fragrances composed from Indonesian natural materials for fine perfumery, personal care and home care, developed in close dialogue with each client.',
-  image: 'hero-still-hall',
-  caption: 'pink rose, close',
+  image: 'white-blossom',
+  caption: 'white blossom, close',
 };
 
 export const PERFUMERY_OPENING = [
@@ -36,19 +36,19 @@ export const PERFUMERY_CARDS: LinkCard[] = [
     title: 'Signature Creations',
     body: 'Inspired by the richness of Indonesian nature, fragrances composed to suit the world of each brand and the markets it speaks to.',
     href: '/perfumery/signature-creations/',
-    image: 'fragrance-petal',
+    image: 'perfumer-dropper',
   },
   {
     title: 'Beyond Fragrance',
     body: 'Between tradition and discovery, new ways to bring natural materials into modern perfumery.',
     href: '/perfumery/beyond-fragrance/',
-    image: 'fragrance-resin',
+    image: 'amber-bottles',
   },
   {
     title: 'Mindful Naturals',
     body: 'Raw materials chosen with care, favouring responsible sources and the growers who look after them.',
     href: '/perfumery/mindful-naturals/',
-    image: 'material-benzoin',
+    image: 'resin-bowl',
   },
 ];
 
@@ -76,8 +76,8 @@ export const SIGNATURE_INTRO: PageIntro = {
   lede: 'Our perfumery lives where knowledge of materials meets imagination, and every fragrance grows from natural ingredients into a composition with a character of its own.',
   description:
     'Signature fragrance creations by Adhiloka: fine fragrance, personal and home care scents, and accords built on Indonesian natural materials, developed in close dialogue with each client.',
-  image: 'fragrance-petal',
-  caption: 'orange petals, close',
+  image: 'perfume-workshop',
+  caption: 'hands at work on a perfumery bench',
 };
 
 export const SIGNATURE_OPENING = [
@@ -101,8 +101,8 @@ export const SIGNATURE_PASSAGES: Passage[] = [
       'Scents for personal and home care',
       'Accords and bases for fellow perfumers',
     ],
-    caption: 'hibiscus bloom, close',
-    image: 'fragrance-bloom',
+    caption: 'dried flowers in glass vials',
+    image: 'vials-dried-flowers',
   },
   {
     id: 'approach',
@@ -116,8 +116,8 @@ export const SIGNATURE_PASSAGES: Passage[] = [
     ],
     cta: 'Contact Us',
     href: '/contact/?kind=bespoke',
-    caption: 'pink rose, close',
-    image: 'hero-still-hall',
+    caption: 'smelling a handful of dried flowers',
+    image: 'smelling-flowers',
   },
 ];
 
@@ -129,8 +129,8 @@ export const BEYOND_INTRO: PageIntro = {
   lede: 'For us, innovation means finding new ways to let natural materials speak, from the place a plant is grown to the moment a fragrance comes to life in its product.',
   description:
     'Fragrance innovation at Adhiloka: understanding natural materials from the source, considering fragrance in the finished product, and exploring lesser-known Indonesian botanicals.',
-  image: 'fragrance-resin',
-  caption: 'dried rhizome slices',
+  image: 'amber-bottle-shelf',
+  caption: 'amber bottles on a shelf',
 };
 
 export const BEYOND_OPENING = [
@@ -149,8 +149,8 @@ export const BEYOND_PASSAGES: Passage[] = [
       'Each natural used with its nuances in mind',
       'Fragrances that stay true from harvest to harvest',
     ],
-    caption: 'whole nutmeg',
-    image: 'material-nutmeg',
+    caption: 'nutmeg fruit on the tree',
+    image: 'nutmeg-on-tree',
   },
   {
     id: 'application',
@@ -162,8 +162,8 @@ export const BEYOND_PASSAGES: Passage[] = [
       'Base and format in view from the start',
       'Built for the way the product is used',
     ],
-    caption: 'fresh ginger rhizomes',
-    image: 'material-ginger',
+    caption: 'oil dropped into an amber bottle',
+    image: 'amber-dropper',
   },
   {
     id: 'naturals-research',
@@ -175,8 +175,8 @@ export const BEYOND_PASSAGES: Passage[] = [
       'New combinations with familiar materials',
       'A palette that keeps growing',
     ],
-    caption: 'kemenyan agroforest canopy',
-    image: 'agroforest-canopy',
+    caption: 'rice terraces seen from above',
+    image: 'rice-terraces',
   },
 ];
 
@@ -188,8 +188,8 @@ export const NATURALS_INTRO: PageIntro = {
   lede: 'Our perfumery is led by natural materials, chosen with care and with respect for the people who grow them, so that each fragrance carries something of the landscape it comes from.',
   description:
     'The natural approach behind Adhiloka fragrances: Indonesian natural materials chosen with care for their character, their origin and the people who grow them.',
-  image: 'material-benzoin',
-  caption: 'benzoin resin tears',
+  image: 'resin-pieces',
+  caption: 'amber resin, close',
 };
 
 export const NATURALS_OPENING = [
@@ -208,8 +208,8 @@ export const NATURALS_PASSAGES: Passage[] = [
       'Raw ingredients turned into living fragrances',
       'Knowledge of nature shaping what comes next',
     ],
-    caption: 'green leaves with dew',
-    image: 'material-patchouli',
+    caption: 'whole spices on wooden spoons',
+    image: 'spices-spoons',
   },
   {
     id: 'inspired-by-nature',
@@ -222,7 +222,7 @@ export const NATURALS_PASSAGES: Passage[] = [
       'Fragrances with a story and a sense of place',
     ],
     caption: 'cinnamon bark',
-    image: 'hero-benzoin-tears',
+    image: 'cinnamon-sticks',
   },
   {
     id: 'sourcing',
@@ -236,7 +236,7 @@ export const NATURALS_PASSAGES: Passage[] = [
     ],
     cta: 'Responsible Sourcing',
     href: '/sustainability/responsible-sourcing/',
-    caption: 'kemenyan agroforest canopy',
-    image: 'agroforest-canopy',
+    caption: 'rainforest seen from above',
+    image: 'rainforest-aerial',
   },
 ];

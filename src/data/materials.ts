@@ -77,7 +77,7 @@ export const MATERIALS: Material[] = [
     usage: 'Adds warmth and vibrancy to spicy, oriental and gourmand compositions.',
     know: 'This cinnamon takes its name from Kerinci, a highland region known for its cinnamon trees.',
     shot: 'rolled cinnamon bark',
-    image: 'hero-benzoin-tears',
+    image: 'cinnamon-sticks',
   },
   {
     slug: 'vetiver-java',
@@ -90,8 +90,8 @@ export const MATERIALS: Material[] = [
     note: 'Deep, woody and earthy, with a dry, smoky edge.',
     usage: 'Gives structure and elegance to woody, aromatic and chypre fragrances.',
     know: 'Vetiver is a grass, but its scent lies in its roots.',
-    shot: 'rhizomes, close',
-    image: 'material-ginger',
+    shot: 'grass blades, close',
+    image: 'grass-blades',
   },
   {
     slug: 'clove',
@@ -104,8 +104,8 @@ export const MATERIALS: Material[] = [
     note: 'Warm, rich and spicy, instantly recognisable.',
     usage: 'Brings a spicy accent to floral, oriental and woody accords, carnation notes above all.',
     know: 'Cloves are the dried flower buds of a tree native to the Maluku Islands of Indonesia.',
-    shot: 'whole spices, close',
-    image: 'material-nutmeg',
+    shot: 'dried cloves, close',
+    image: 'cloves-dried',
   },
   {
     slug: 'nutmeg-mace',
@@ -118,8 +118,8 @@ export const MATERIALS: Material[] = [
     note: 'A fresh, aromatic spice with a warm, gently sweet heart.',
     usage: 'Lifts the opening of woody, aromatic and spicy fragrances with a lively, natural warmth.',
     know: 'Nutmeg is the seed and mace the red aril around it: two spices from one fruit, native to the Banda Islands.',
-    shot: 'whole nutmegs',
-    image: 'material-nutmeg',
+    shot: 'nutmeg with red mace',
+    image: 'nutmeg-mace',
   },
 ];
 

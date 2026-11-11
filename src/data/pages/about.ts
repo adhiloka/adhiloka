@@ -15,8 +15,8 @@ export const ABOUT_INTRO: PageIntro = {
   lede: 'Adhiloka brings the natural aromatic materials of Indonesia to those who create with scent, and composes fragrances of its own.',
   description:
     'Adhiloka is a house of natural ingredients and perfumery from Indonesia, working with resins, leaves, roots and spices and the people who grow them.',
-  image: 'about-table',
-  caption: 'three people talking over a laid table',
+  image: 'misty-hills',
+  caption: 'misty green hills',
 };
 
 export const ABOUT_OPENING = [
@@ -33,7 +33,7 @@ export const ABOUT_CARDS: LinkCard[] = [
     title: 'Our Business',
     body: 'From the source to the finished fragrance: what we do, and how the parts fit together.',
     href: '/about/our-business/',
-    image: 'material-benzoin',
+    image: 'copper-still',
   },
   {
     title: 'Our Purpose',
@@ -49,7 +49,7 @@ export const ABOUT_MORE: LinkCard = {
   title: 'Sustainability',
   body: 'Caring for nature and for the people who tend it.',
   href: '/sustainability/',
-  image: 'agroforest-canopy',
+  image: 'rainforest-aerial',
 };
 
 /* ── Our Business ────────────────────────────────────────────────────── */
@@ -60,8 +60,8 @@ export const BUSINESS_INTRO: PageIntro = {
   lede: 'Our work follows natural ingredients along their whole journey, from the places where they grow to the fragrances they become.',
   description:
     'What Adhiloka does: sourcing and processing natural aromatic ingredients from Indonesia, supplying them to perfumery, and creating fragrances.',
-  image: 'hero-benzoin-tears',
-  caption: 'cinnamon bark',
+  image: 'perfume-workshop',
+  caption: 'hands at work on a perfumery bench',
 };
 
 export const BUSINESS_PASSAGES: Passage[] = [
@@ -77,8 +77,8 @@ export const BUSINESS_PASSAGES: Passage[] = [
     ],
     cta: 'Responsible Sourcing',
     href: '/sustainability/responsible-sourcing/',
-    caption: 'tree canopy seen from below',
-    image: 'agroforest-canopy',
+    caption: 'nutmeg fruit on the tree',
+    image: 'nutmeg-on-tree',
   },
   {
     id: 'processing',
@@ -92,8 +92,8 @@ export const BUSINESS_PASSAGES: Passage[] = [
     ],
     cta: 'Technology',
     href: '/ingredients/technology/',
-    caption: 'dried rhizome slices',
-    image: 'fragrance-resin',
+    caption: 'fire beneath traditional distillation stills',
+    image: 'still-fire',
   },
   {
     id: 'ingredients',
@@ -107,8 +107,8 @@ export const BUSINESS_PASSAGES: Passage[] = [
     ],
     cta: 'Ingredients Catalog',
     href: '/ingredients/catalog/',
-    caption: 'sorted benzoin resin tears',
-    image: 'material-benzoin',
+    caption: 'amber glass bottles',
+    image: 'amber-bottles',
   },
   {
     id: 'perfumery',
@@ -122,8 +122,8 @@ export const BUSINESS_PASSAGES: Passage[] = [
     ],
     cta: 'Perfumery',
     href: '/perfumery/',
-    caption: 'orange petals, close',
-    image: 'fragrance-petal',
+    caption: 'smelling a handful of dried flowers',
+    image: 'smelling-flowers',
   },
 ];
 
@@ -136,7 +136,7 @@ export const PURPOSE_INTRO: PageIntro = {
   description:
     'The purpose and values of Adhiloka: growing together with nature, and bringing its ingredients to perfumery with care.',
   caption: 'tree canopy seen from below',
-  image: 'agroforest-canopy',
+  image: 'canopy-from-below',
 };
 
 export const PURPOSE_BODY = [

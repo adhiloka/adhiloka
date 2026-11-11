@@ -14,8 +14,8 @@ export const INGREDIENTS_INTRO: PageIntro = {
   lede: 'Resins, leaves, roots and spices from Indonesia, selected and prepared for perfumery.',
   description:
     'Natural aromatic ingredients from Indonesia by Adhiloka: resins, leaves, roots and spices, selected and prepared for perfumery.',
-  image: 'hero-benzoin-tears',
-  caption: 'cinnamon bark',
+  image: 'cloves-in-hand',
+  caption: 'dried cloves in an open hand',
 };
 
 export const INGREDIENTS_OPENING = [
@@ -28,19 +28,19 @@ export const INGREDIENTS_CARDS: LinkCard[] = [
     title: 'Ingredients Catalog',
     body: 'Explore our range of natural ingredients, family by family.',
     href: '/ingredients/catalog/',
-    image: 'material-nutmeg',
+    image: 'nutmeg-mace',
   },
   {
     title: 'Technology',
     body: 'The methods that turn a plant into a perfumery ingredient.',
     href: '/ingredients/technology/',
-    image: 'fragrance-resin',
+    image: 'copper-still',
   },
   {
     title: 'Ordering & Documents',
     body: 'Samples, documents and how to order.',
     href: '/ingredients/ordering/',
-    image: 'material-patchouli',
+    image: 'burlap-sacks',
   },
 ];
 
@@ -81,8 +81,8 @@ export const CATALOG_INTRO: PageIntro = {
   lede: 'Our range of natural aromatic ingredients from Indonesia.',
   description:
     'The Adhiloka ingredients catalog: benzoin, patchouli, cinnamon, vetiver, clove, nutmeg and mace from Indonesia.',
-  caption: 'whole nutmegs',
-  image: 'material-nutmeg',
+  caption: 'whole spices on wooden spoons',
+  image: 'spices-spoons',
 };
 
 /* ── Technology ──────────────────────────────────────────────────────── */
@@ -93,8 +93,8 @@ export const TECHNOLOGY_INTRO: PageIntro = {
   lede: 'Turning a plant into a perfumery ingredient takes method and patience. Each technique reveals a different side of the material.',
   description:
     'How natural perfumery ingredients are made: steam distillation, resinoid extraction, rectification and molecular distillation.',
-  caption: 'dried rhizome slices',
-  image: 'fragrance-resin',
+  caption: 'copper distillation still',
+  image: 'copper-still',
 };
 
 export type Route = { name: string; applies: string; body: string };
@@ -135,8 +135,8 @@ export const TECHNOLOGY_PASSAGES: Passage[] = [
       'Assessed by eye, by hand and by nose',
       'Care from the very first step',
     ],
-    caption: 'sorted benzoin resin tears',
-    image: 'material-benzoin',
+    caption: 'cloves sorted by hand',
+    image: 'cloves-sorting',
   },
   {
     id: 'quality',
@@ -150,8 +150,8 @@ export const TECHNOLOGY_PASSAGES: Passage[] = [
     ],
     cta: 'Request a sample',
     href: '/contact/?kind=sample',
-    caption: 'green leaves with dew',
-    image: 'material-patchouli',
+    caption: 'flash point tester in a laboratory',
+    image: 'lab-flash-point',
   },
 ];
 
@@ -163,8 +163,8 @@ export const ORDERING_INTRO: PageIntro = {
   lede: 'From the first sample to delivery, here is how to work with us.',
   description:
     'How to order natural ingredients from Adhiloka: samples, quotations, documents and delivery.',
-  image: 'material-benzoin',
-  caption: 'sorted benzoin resin tears',
+  image: 'cargo-ship',
+  caption: 'container ship at sea',
 };
 
 export type OrderStep = { n: string; title: string; body: string };

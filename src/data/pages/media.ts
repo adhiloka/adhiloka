@@ -14,8 +14,8 @@ export const MEDIA_INTRO: PageIntro = {
   lede: 'News, stories and resources from the world of Adhiloka.',
   description:
     'The Adhiloka newsroom: news, stories and media resources about natural ingredients and perfumery from Indonesia.',
-  image: 'material-benzoin',
-  caption: 'sorted benzoin resin tears',
+  image: 'vials-dried-flowers',
+  caption: 'dried flowers in glass vials',
 };
 
 export const MEDIA_CARDS: LinkCard[] = [
@@ -23,13 +23,13 @@ export const MEDIA_CARDS: LinkCard[] = [
     title: 'News',
     body: 'The latest news and stories from Adhiloka.',
     href: '/media/news/',
-    image: 'material-nutmeg',
+    image: 'nutmeg-mace',
   },
   {
     title: 'Media Resources',
     body: 'Logos and documents for press and partners.',
     href: '/media/media-resources/',
-    image: 'hero-benzoin-tears',
+    image: 'amber-bottle-shelf',
   },
 ];
 
@@ -49,8 +49,8 @@ export const NEWS_INTRO: PageIntro = {
   lede: 'News and stories from Adhiloka.',
   description:
     'News and stories from Adhiloka, on natural ingredients, the people who grow them and the craft of perfumery.',
-  caption: 'whole nutmegs',
-  image: 'material-nutmeg',
+  caption: 'cinnamon bark',
+  image: 'cinnamon-sticks',
 };
 
 export type Article = {
@@ -81,8 +81,8 @@ export const NEWS: Article[] = [
       "Indonesia's islands are home to some of the most familiar materials in perfumery: resins, woods, roots, leaves and spices. Each comes from its own landscape, with its own season.",
       'We work close to that source, so that what reaches the perfumer still carries the character of where it grew.',
     ],
-    shot: 'benzoin resin',
-    image: 'material-benzoin',
+    shot: 'resin on bark',
+    image: 'resin-on-bark',
   },
   {
     slug: 'the-rhythm-of-the-harvest',
@@ -96,8 +96,8 @@ export const NEWS: Article[] = [
       'Knowing when to gather a leaf, a seed or a resin is knowledge passed between growers, and it shapes the character of what we receive.',
       'We plan around those seasons, so that the ingredients we supply are gathered at the right moment and handled with care.',
     ],
-    shot: 'nutmeg',
-    image: 'material-nutmeg',
+    shot: 'nutmeg on the tree',
+    image: 'nutmeg-on-tree',
   },
   {
     slug: 'from-raw-material-to-fragrance',
@@ -111,8 +111,8 @@ export const NEWS: Article[] = [
       'There it is smelled, studied and tried alongside other materials, to find the role it plays best: a bright opening, a warm heart or a lasting base.',
       'Our own perfumery follows the same path, working with the materials we supply to understand them from the inside of a formula.',
     ],
-    shot: 'patchouli leaf',
-    image: 'material-patchouli',
+    shot: 'perfumer at work',
+    image: 'perfumer-dropper',
   },
 ];
 
@@ -135,8 +135,8 @@ export const RESOURCES_INTRO: PageIntro = {
   lede: 'Our logo and documents, for press and partners.',
   description:
     'Adhiloka media resources: logo files and the ingredients catalog, for press and partners.',
-  caption: 'cinnamon bark',
-  image: 'hero-benzoin-tears',
+  caption: 'perfumery bench',
+  image: 'perfume-workshop',
 };
 
 export type Resource = {
