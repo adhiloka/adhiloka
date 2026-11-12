@@ -28,9 +28,11 @@ export type NavItem = {
   };
 };
 
-/* Enam menu utama, urutan kiri ke kanan di header. `panel.links` adalah
-   halaman anak: sumber remah roti, indeks pencarian dan 404. Susunan kolom
-   mega-menu ala Adani ada di menu.ts. Contact tanpa panel: ia tujuan. */
+/* Enam menu utama, urutan kiri ke kanan di header. `panel.links` adalah isi
+   dropdown, daftar datar tanpa sub-menu atau label grup (pemilik, 13 Nov
+   2026): panel mengisinya 3 ke bawah lalu pindah ke kolom kanan. Juga sumber
+   remah roti, indeks pencarian dan 404. Tidak ada nama produk di sini:
+   produk hanya di katalog. Contact tanpa panel: ia tujuan. */
 export const NAV: NavItem[] = [
   {
     label: 'About Us',
@@ -59,6 +61,8 @@ export const NAV: NavItem[] = [
         { label: 'Fine Fragrance', href: '/perfumery/#fine-fragrance' },
         { label: 'Consumer Fragrance', href: '/perfumery/#consumer-fragrance' },
         { label: 'Fragrance Innovation', href: '/perfumery/#innovation' },
+        { label: 'How We Work', href: '/perfumery/#approach' },
+        { label: 'Our Palette', href: '/perfumery/#palette' },
       ],
     },
   },
@@ -71,9 +75,11 @@ export const NAV: NavItem[] = [
       shot: 'whole spices on wooden spoons',
       image: 'spices-spoons',
       links: [
-        { label: 'Ingredients Catalog', href: '/ingredients/catalog/' },
+        { label: 'Natural Ingredients', href: '/ingredients/natural-ingredients/' },
+        { label: 'Ingredient Catalog', href: '/ingredients/catalog/' },
+        { label: 'Ingredients Map', href: '/ingredients/map/' },
         { label: 'Technology', href: '/ingredients/technology/' },
-        { label: 'Ordering & Documents', href: '/ingredients/ordering/' },
+        { label: 'Working With Us', href: '/ingredients/working-with-us/' },
       ],
     },
   },
@@ -128,6 +134,6 @@ export const SEARCH_SUGGESTIONS = [
   { label: 'Patchouli', href: '/ingredients/catalog/patchouli/' },
   { label: 'Fine fragrance', href: '/perfumery/#fine-fragrance' },
   { label: 'Responsible sourcing', href: '/sustainability/responsible-sourcing/' },
-  { label: 'Ordering & documents', href: '/ingredients/ordering/' },
+  { label: 'Working with us', href: '/ingredients/working-with-us/' },
   { label: 'Sample request', href: '/contact/?kind=sample' },
 ];

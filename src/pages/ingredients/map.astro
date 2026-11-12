@@ -1,0 +1,15 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import IngredientsMap from '../../components/blocks/IngredientsMap.astro';
+import SiblingCards from '../../components/blocks/SiblingCards.astro';
+import { MAP_INTRO } from '../../data/pages/ingredients';
+
+/* Ingredients Map (13 Nov 2026): meniru Raw Materials Map robertet.com
+ * (rujukan: market-research/references/Web raw-materials-map - Robertet -
+ * 2026.html). Banner, peta wilayah, lalu Explore More. */
+---
+
+<PageLayout intro={MAP_INTRO}>
+  <IngredientsMap />
+  <SiblingCards />
+</PageLayout>

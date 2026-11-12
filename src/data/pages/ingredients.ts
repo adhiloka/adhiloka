@@ -25,10 +25,14 @@ export const INGREDIENTS_OPENING = [
   'Resins, leaves, roots and spices, followed from the plant to the finished material.',
 ];
 
+/* Lima halaman anak, urutan sama dengan menu (NAV di site.ts). Dipakai
+   Discover More di hub dan Explore More di kaki tiap halaman anak. */
 export const INGREDIENTS_CARDS: LinkCard[] = [
-  { title: 'Ingredients Catalog', href: '/ingredients/catalog/', image: 'nutmeg-mace' },
+  { title: 'Natural Ingredients', href: '/ingredients/natural-ingredients/', image: 'resin-pieces' },
+  { title: 'Ingredient Catalog', href: '/ingredients/catalog/', image: 'nutmeg-mace' },
+  { title: 'Ingredients Map', href: '/ingredients/map/', image: 'misty-hills' },
   { title: 'Technology', href: '/ingredients/technology/', image: 'copper-still' },
-  { title: 'Ordering & Documents', href: '/ingredients/ordering/', image: 'burlap-sacks' },
+  { title: 'Working With Us', href: '/ingredients/working-with-us/', image: 'burlap-sacks' },
 ];
 
 /* Lima langkah perjalanan bahan; hanya judul, tanpa keterangan. */
@@ -49,13 +53,45 @@ export const INGREDIENTS_COLLECTIONS_BODY: Record<string, string> = {
   Spice: 'Warm and vivid.',
 };
 
+/* ── Natural Ingredients (13 Nov 2026) ───────────────────────────────── */
+/* Pola halaman "Natural ingredients" Givaudan: pengantar singkat, keluarga
+   bahan, lalu pintu ke katalog. Daftar produknya sendiri hanya di katalog. */
+
+export const NATURAL_INTRO: PageIntro = {
+  eyebrow: 'Ingredients',
+  title: 'Natural Ingredients',
+  lede: '',
+  description:
+    'Natural ingredients by Adhiloka: essential oils, resinoids and extracts from resins, leaves, roots and spices.',
+  image: 'cloves-sorting',
+  caption: 'cloves sorted on a drying rack',
+};
+
+export const NATURAL_CATALOG = {
+  title: 'Ingredient Catalog',
+  text: 'Every ingredient, by family and by note.',
+  cta: 'Explore the Catalog',
+};
+
+/* ── Ingredients Map (13 Nov 2026) ─────────────────────────────────── */
+
+export const MAP_INTRO: PageIntro = {
+  eyebrow: 'Ingredients',
+  title: 'Ingredients Map',
+  lede: '',
+  description:
+    'Where Adhiloka ingredients grow: resins, leaves, roots and spices from Sumatra, Java, Sulawesi and Maluku.',
+  image: 'jungle-stream',
+  caption: 'small stream in a sunlit forest',
+};
+
 export const INGREDIENTS_CLOSING = 'Natural ingredients for those who create with scent.';
 
 /* ── Katalog ─────────────────────────────────────────────────────────── */
 
 export const CATALOG_INTRO: PageIntro = {
   eyebrow: 'Ingredients',
-  title: 'Ingredients Catalog',
+  title: 'Ingredient Catalog',
   lede: '',
   description:
     'The Adhiloka ingredients catalog: benzoin, patchouli, cinnamon, vetiver, clove, nutmeg and mace.',
@@ -129,18 +165,19 @@ export const TECHNOLOGY_PASSAGES: Passage[] = [
       'Olfactive evaluation of every batch',
       'Documentation for each market',
     ],
-    cta: 'Ordering & Documents',
-    href: '/ingredients/ordering/',
+    cta: 'Working With Us',
+    href: '/ingredients/working-with-us/',
     caption: 'flash point tester in a laboratory',
     image: 'lab-flash-point',
   },
 ];
 
-/* ── Ordering & Documents ────────────────────────────────────────────── */
+/* ── Working With Us (dulu Ordering & Documents; nama diganti 13 Nov 2026) ── */
 
 export const ORDERING_INTRO: PageIntro = {
   eyebrow: 'Ingredients',
-  title: 'Ordering & Documents',
+  title: 'Working With Us',
+  metaTitle: 'Working With Us',
   lede: '',
   description:
     'How to order natural ingredients from Adhiloka: samples, quotations, documents and delivery.',

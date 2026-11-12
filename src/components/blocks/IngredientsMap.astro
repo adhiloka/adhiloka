@@ -1,0 +1,253 @@
+---
+import { Image } from 'astro:assets';
+import { images } from '../../data/images';
+import { presenceMap, MAP_W, MAP_H } from '../../data/map';
+import { MATERIALS, materialHref } from '../../data/materials';
+import { REGIONS } from '../../data/regions';
+
+/* Ingredients Map (13 Nov 2026), meniru Raw Materials Map robertet.com:
+ * tab wilayah di atas (All locations, Europe, Asia… → All Regions, Sumatra,
+ * Java…), angka ringkas, peta dengan penanda berdenyut, dan kartu wilayah
+ * (foto, nama, keterangan, bahan) saat tab atau penanda dipilih. Peta Indonesia
+ * dirender saat build lewat data/map.ts, sama dengan peta Our Presence.
+ * Wilayah tanpa bahan tidak tampil. Logikanya di scripts/ingredients-map.ts. */
+
+const map = presenceMap();
+const regions = REGIONS.map((r) => ({
+  ...r,
+  id: r.name.toLowerCase(),
+  xy: map.project(r.coords),
+  items: MATERIALS.filter((m) => m.regions.includes(r.name)),
+})).filter((r) => r.items.length > 0);
+const stats = [
+  { value: MATERIALS.length, label: MATERIALS.length === 1 ? 'Ingredient' : 'Ingredients' },
+  { value: regions.length, label: regions.length === 1 ? 'Region' : 'Regions' },
+];
+---
+
+<section class="sec imap" data-imap>
+  <div class="wrap">
+    <div class="imap__tabs" role="tablist" aria-label="Regions" data-anim="title">
+      <button class="imap__tab is-active" type="button" role="tab" aria-selected="true" data-region="">All Regions</button>
+      {
+        regions.map((r) => (
+          <button class="imap__tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-region={r.id}>
+            {r.name}
+          </button>
+        ))
+      }
+    </div>
+
+    <div class="imap__grid">
+      <div class="imap__map" data-anim="zoom">
+        <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} role="img" aria-label="Map of Indonesia with the regions our ingredients come from">
+          <path class="imap__land" d={map.land}></path>
+          <path class="imap__home" d={map.home}></path>
+          {
+            regions.map(
+              (r) =>
+                r.xy && (
+                  <g class="imap__pin" transform={`translate(${r.xy[0]} ${r.xy[1]})`} data-imap-pin={r.id}>
+                    <circle class="imap__pulse" r="22"></circle>
+                    <circle class="imap__dot" r="8"></circle>
+                    <text class="imap__name" x="0" y="-24" text-anchor="middle">{r.name}</text>
+                  </g>
+                ),
+            )
+          }
+        </svg>
+      </div>
+
+      <div class="imap__side">
+        <div class="imap__panel" data-panel="">
+          <dl class="imap__stats">
+            {
+              stats.map((s) => (
+                <div>
+                  <dt>{s.label}</dt>
+                  <dd>{s.value}</dd>
+                </div>
+              ))
+            }
+          </dl>
+          <ul class="imap__index">
+            {
+              regions.map((r) => (
+                <li>
+                  <button type="button" data-region={r.id}>
+                    <span>{r.name}</span>
+                    <small>{r.items.length}</small>
+                  </button>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        {
+          regions.map((r) => (
+            <div class="imap__panel" data-panel={r.id} hidden>
+              <span class="imap__photo cover">
+                <Image quality={70} src={images[r.image]} alt={r.shot} widths={[480, 800]} sizes="(max-width: 1026px) 100vw, 34vw" loading="lazy" />
+              </span>
+              <h2 class="imap__region">{r.name}</h2>
+              <p class="imap__note">{r.note}</p>
+              <ul class="imap__items">
+                {r.items.map((m) => (
+                  <li>
+                    <a href={materialHref(m.slug)}>
+                      <span>{m.name}</span>
+                      <svg viewBox="0 0 16 12" width="14" height="10" aria-hidden="true"><path d="M0 6h14M9 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4"></path></svg>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initIngredientsMap } from '../../scripts/ingredients-map';
+  initIngredientsMap();
+</script>
+
+<style>
+  /* Tab wilayah: sama dengan tab Our Business di beranda. */
+  .imap__tabs { display: flex; flex-wrap: wrap; }
+  .imap__tab {
+    position: relative;
+    padding: 10px 24px;
+    border-bottom: 1px solid var(--line);
+    font-size: calc(20px * var(--fs));
+    font-weight: 440;
+    color: var(--ink-muted);
+    transition: color var(--t) var(--ease-std);
+  }
+  .imap__tab::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 4px;
+    background: var(--grad-bar);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s var(--ease-out);
+  }
+  .imap__tab:hover { color: var(--ink); }
+  .imap__tab.is-active {
+    background: var(--grad-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .imap__tab.is-active::after { transform: none; }
+
+  .imap__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    gap: 5%;
+    align-items: start;
+    margin-top: 40px;
+  }
+
+  /* ── Peta ─────────────────────────────────────────────────────────── */
+  .imap__map {
+    padding: 24px;
+    background: var(--bg-grey);
+  }
+  .imap__map svg { display: block; width: 100%; height: auto; }
+  .imap__land { fill: #e2e6e4; stroke: #fff; stroke-width: 0.6; }
+  .imap__home { fill: #c9d6d2; stroke: #fff; stroke-width: 0.6; }
+  .imap__pin { cursor: pointer; }
+  .imap__dot { fill: var(--brand-green); stroke: #fff; stroke-width: 2; transition: fill var(--t) var(--ease-std); }
+  .imap__pulse {
+    fill: var(--brand-green);
+    opacity: 0.22;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: imapPulse 2s ease-in-out infinite;
+  }
+  .imap__name {
+    font-size: 24px;
+    font-weight: 530;
+    fill: var(--ink);
+    paint-order: stroke;
+    stroke: var(--bg-grey);
+    stroke-width: 5px;
+    transition: opacity var(--t) var(--ease-std);
+  }
+  .imap__pin.is-active .imap__dot { fill: var(--brand-amber); }
+  .imap__pin.is-active .imap__pulse { fill: var(--brand-amber); opacity: 0.35; }
+  .imap__pin.is-dim { opacity: 0.35; }
+  @keyframes imapPulse {
+    0%, 100% { transform: scale(0.5); }
+    50% { transform: scale(1.2); }
+  }
+
+  /* ── Kartu ────────────────────────────────────────────────────────── */
+  .imap__stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+  }
+  .imap__stats div { display: flex; flex-direction: column-reverse; gap: 6px; }
+  .imap__stats dd {
+    font-size: calc(56px * var(--fs));
+    font-weight: 360;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .imap__stats dt {
+    font-size: calc(13px * var(--fs));
+    font-weight: 530;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .imap__index li,
+  .imap__items li { border-bottom: 1px solid var(--line-soft); }
+  .imap__index button,
+  .imap__items a {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 15px 0;
+    font-size: calc(19px * var(--fs));
+    font-weight: 360;
+    color: var(--ink);
+    text-align: left;
+  }
+  .imap__index small { font-size: calc(14px * var(--fs)); color: var(--ink-muted); }
+  .imap__index button:hover span,
+  .imap__items a:hover span { text-decoration: underline; }
+  .imap__items svg { flex: none; color: var(--ink-muted); transition: transform var(--t) var(--ease-out); }
+  .imap__items a:hover svg { transform: translateX(4px); }
+
+  .imap__photo { display: block; aspect-ratio: 16 / 9; }
+  .imap__region { margin-top: 22px; font-size: calc(28px * var(--fs)); font-weight: 530; color: var(--ink); }
+  .imap__note { margin-top: 8px; font-size: calc(16px * var(--fs)); color: var(--ink-muted); }
+  .imap__items { margin-top: 18px; border-top: 1px solid var(--line-soft); }
+
+  @media (max-width: 1026px) {
+    .imap__grid { grid-template-columns: 1fr; gap: 32px; }
+    .imap__map { padding: 12px; }
+    .imap__tab { padding: 10px 16px; font-size: calc(17px * var(--fs)); }
+    .imap__stats dd { font-size: calc(44px * var(--fs)); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .imap__pulse { animation: none; }
+  }
+  :global(html.dark-mode) .imap__land { fill: #2b3431; stroke: var(--bg-grey); }
+  :global(html.dark-mode) .imap__home { fill: #2c5a4f; stroke: var(--bg-grey); }
+  :global(html.dark-mode) .imap__dot { stroke: var(--bg-grey); }
+</style>

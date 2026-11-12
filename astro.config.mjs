@@ -31,6 +31,8 @@ export default defineConfig({
     '/perfumery/beyond-fragrance/': '/perfumery/',
     '/perfumery/mindful-naturals/': '/perfumery/',
     '/raw-materials/': '/ingredients/catalog/',
+    // Ordering & Documents diganti nama Working With Us 13 Nov 2026.
+    '/ingredients/ordering/': '/ingredients/working-with-us/',
   },
   build: { inlineStylesheets: 'auto' },
 

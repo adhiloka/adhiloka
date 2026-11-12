@@ -75,7 +75,7 @@ export const BUSINESS_PASSAGES: Passage[] = [
     id: 'ingredients',
     title: 'Ingredients',
     body: 'Naturals for those who create with scent.',
-    cta: 'Ingredients Catalog',
+    cta: 'Ingredient Catalog',
     href: '/ingredients/catalog/',
     caption: 'amber glass bottles',
     image: 'amber-bottles',

@@ -15,17 +15,20 @@ npm run preview  # menyajikan dist/
 
 Menunya tetap menu Adhiloka (About Us · Perfumery · Ingredients · Sustainability · Media ·
 Contact), tetapi tampil dan bekerja seperti menu Adani: kapital, chevron, mega-menu saat hover di
-desktop, laci dari kanan dengan akordeon di layar ≤1026 px. Isi kolom mega-menu diatur di
-`src/data/menu.ts`; daftar menunya tetap `NAV` di `src/data/site.ts`.
+desktop, laci dari kanan dengan akordeon di layar ≤1026 px. Isi menu hanya di `NAV`
+(`src/data/site.ts`); `src/data/menu.ts` cuma membentuk panelnya.
 
 Isi panel mega-menu desktop memakai konsep Adhiloka versi pertama (yang meniru robertet.com):
 foto utama berjudul dengan panah di kiri, menuju halaman induk, lalu kolom tautan di kanan. Foto
 dan judulnya dari `panel.image` / `panel.title` di `NAV`. Di laci mobile fotonya disembunyikan.
 
-Kolom kanan diawali baris judul panel (ABOUT US ───). **About Us** punya dua kolom bertautan
-(Our Business dan Our Purpose, masing-masing dengan bagian halamannya). **Media** tidak punya
-kolom yang berdiri sendiri: halaman anaknya dikelompokkan di bawah label grup tanpa tautan
-(*Newsroom* dan *Resources*). Label grup ditulis `{ label }` tanpa `href` di `menu.ts`.
+Kolom kanan diawali baris judul panel (ABOUT US ───), lalu **tautan datar tanpa sub-menu, label
+grup, atau kepala kolom** (pemilik, 13 Nov 2026): paling banyak 3 ke bawah, sisanya pindah ke
+kolom kanan (`grid-auto-flow: column`). Nama produk tidak pernah masuk menu; produk hanya di
+katalog. Isi panel: About Us (Our Business, Our Purpose) · Perfumery (Fine Fragrance, Consumer
+Fragrance, Fragrance Innovation, How We Work, Our Palette) · Ingredients (Natural Ingredients,
+Ingredient Catalog, Ingredients Map, Technology, Working With Us) · Sustainability (Driving progress
+for people, Responsible Sourcing) · Media (News, Media Resources).
 
 | Jalur | Susunan |
 | --- | --- |
@@ -35,11 +38,14 @@ kolom yang berdiri sendiri: halaman anaknya dikelompokkan di bawah label grup ta
 | `/about/our-leadership/`, `our-history/`, `our-locations/` | **Diparkir** (lihat "Halaman yang diparkir"); rutenya dialihkan ke `/about/` |
 | `/perfumery/` | **Satu halaman, tanpa subhalaman** (12 Nov 2026): banner · pembuka · Fine Fragrance · Consumer Fragrance · Fragrance Innovation · How We Work · Our Palette · penutup. Subhalaman lama dialihkan ke sini |
 | `/ingredients/technology/` | Extraction & Distillation (9 teknik) · Science & Renewables (4) · What We Produce · Quality & Compliance · Explore More |
-| `/ingredients/`, `/sustainability/` | Banner · pembuka dengan Read More · kartu anak · penutup berfoto dua tombol |
+| `/ingredients/` | Banner · pembuka · Discover More (slider lima halaman anak) · From Plant to Perfumer · Technologies · pita unduhan katalog · penutup berfoto |
+| `/ingredients/natural-ingredients/` | Pola *Natural ingredients* Givaudan: banner · Collections per keluarga (ke katalog `?family=`) · pita menuju katalog · Explore More |
+| `/ingredients/map/` | Meniru Raw Materials Map Robertet: tab wilayah · peta Indonesia (build-time, `data/map.ts`) dengan penanda per pulau · angka ringkas · kartu wilayah berisi bahannya. Wilayah di `data/regions.ts`, bahan per wilayah di `materials.ts` (`regions`). Satu-satunya tempat asal ditulis lebih rinci dari "Indonesia" |
+| `/sustainability/` | Banner · pembuka dengan Read More · kartu anak · penutup berfoto dua tombol |
 | `/media/` | Banner · slider Media Releases · promosi Media Kit · Media Centre · kontak pers |
 | `/ingredients/catalog/` | 6 bahan inti; laci filter (keluarga, nota aroma), urutan, pencarian, grid/list; pita unduhan katalog PDF |
 | `/ingredients/catalog/<slug>/` | Kepala berwarna keluarga · strip fakta (nama botani, keluarga, bagian tanaman, asal) · nota aroma, deskripsi dan pemakaian · Did you know? · Samples & Documents (tiga tombol ke formulir kontak + katalog PDF) · slider Other Ingredients |
-| `/ingredients/ordering/` | 6 langkah pesan · Documents (jenis dokumen + Request Documents) · Logistics dengan dua tombol · Explore More |
+| `/ingredients/working-with-us/` | Dulu Ordering & Documents (`/ingredients/ordering/` dialihkan): 6 langkah pesan · Documents (jenis dokumen + Request Documents) · Logistics dengan dua tombol · Explore More |
 | `/media/news/` | Media Releases: cari, kategori, tahun, urutan, tag filter + Clear All, Load More (6 per langkah), laci filter di ≤767 px |
 | `/media/news/<slug>/` | Banner setengah layar (remah saja) · judul dan isi · slider Other Releases |
 | `/contact/` | Formulir + satu kontak (info@adhiloka.com); `?material=slug&kind=sample\|specification\|quotation` mengisi jenis permintaan dan pesan |

@@ -1,123 +1,18 @@
 import { NAV, type NavLink } from './site';
-import { MATERIALS, materialHref, type Family } from './materials';
 
-/* Isi mega-menu. Tiap panel berbaris judul (nama menu, menuju halaman induk)
- * lalu kolom seperti mega-menu adani.com: kepala kolom plus daftar tautan.
- * Media tidak punya kolom yang berdiri sendiri: halaman anaknya
- * dikelompokkan di bawah label grup. Menu utamanya tetap NAV di site.ts; di
- * sini hanya susunan kolomnya.
- *
- * Tautan ber-# menunjuk id section di halamannya (id Passage di data halaman),
- * jadi jangan ganti id itu tanpa mengubah ini. Bahan menuju halamannya
- * sendiri, /ingredients/catalog/<slug>/. */
+/* Isi mega-menu. Sejak 13 Nov 2026 (pemilik) tidak ada sub-menu, kepala
+ * kolom atau label grup: panel hanya baris judul (menuju halaman induk) lalu
+ * daftar tautan datar dari `NAV[].panel.links` di site.ts, satu-satunya
+ * sumber isi menu. SiteHeader menyusunnya 3 ke bawah, sisanya ke kolom kanan.
+ * Produk tidak pernah masuk menu; daftar lengkapnya hanya di katalog. */
 
-/** Kepala kolom: tautan (kolom Perfumery, Ingredients…) atau label grup
- *  tanpa tautan (About Us, Media) yang hanya mengelompokkan halaman anak. */
-export type MenuHead = { label: string; href?: string };
-export type MenuColumn = { head: MenuHead; links?: NavLink[] };
-/** Satu panel mega-menu: baris judul panel (menuju halaman induk) lalu kolom. */
-export type MenuPanel = { heading: NavLink; columns: MenuColumn[] };
-
-const byFamily = (...families: Family[]): NavLink[] =>
-  MATERIALS.filter((m) => families.includes(m.family)).map((m) => ({
-    label: m.name,
-    href: materialHref(m.slug),
-  }));
-
-const COLUMNS: Record<string, MenuColumn[]> = {
-  // About Us: dua halaman anak, masing-masing satu kolom dengan bagiannya.
-  // Leadership, History dan Locations diparkir (lihat data/pages/about.ts).
-  '/about/': [
-    {
-      head: { label: 'Our Business', href: '/about/our-business/' },
-      links: [
-        { label: 'Sourcing', href: '/about/our-business/#source' },
-        { label: 'Processing', href: '/about/our-business/#processing' },
-        { label: 'Ingredients', href: '/about/our-business/#ingredients' },
-        { label: 'Perfumery', href: '/about/our-business/#perfumery' },
-      ],
-    },
-    {
-      head: { label: 'Our Purpose', href: '/about/our-purpose/' },
-      links: [{ label: 'Our Values', href: '/about/our-purpose/#values' }],
-    },
-  ],
-  // Perfumery satu halaman (12 Nov 2026): tautannya menuju bagian halaman
-  // itu, dikelompokkan di bawah label grup seperti About Us dan Media.
-  '/perfumery/': [
-    {
-      head: { label: 'Creation' },
-      links: [
-        { label: 'Fine Fragrance', href: '/perfumery/#fine-fragrance' },
-        { label: 'Consumer Fragrance', href: '/perfumery/#consumer-fragrance' },
-      ],
-    },
-    {
-      head: { label: 'Expertise' },
-      links: [
-        { label: 'Fragrance Innovation', href: '/perfumery/#innovation' },
-        { label: 'How We Work', href: '/perfumery/#approach' },
-        { label: 'Our Palette', href: '/perfumery/#palette' },
-      ],
-    },
-  ],
-  '/ingredients/': [
-    {
-      head: { label: 'Resins & Leaf Oils', href: '/ingredients/catalog/' },
-      links: byFamily('Resin', 'Leaf'),
-    },
-    {
-      head: { label: 'Roots & Spices', href: '/ingredients/catalog/' },
-      links: byFamily('Root', 'Spice'),
-    },
-    {
-      head: { label: 'Ingredients Catalog', href: '/ingredients/catalog/' },
-      links: [
-        { label: 'Technology', href: '/ingredients/technology/' },
-        { label: 'Ordering & Documents', href: '/ingredients/ordering/' },
-      ],
-    },
-  ],
-  '/sustainability/': [
-    {
-      head: { label: 'Driving progress for people', href: '/sustainability/people/' },
-      links: [
-        { label: 'Partnerships', href: '/sustainability/people/#partnerships' },
-        { label: 'Continuity', href: '/sustainability/people/#continuity' },
-        { label: 'Knowledge', href: '/sustainability/people/#knowledge' },
-      ],
-    },
-    {
-      head: { label: 'Responsible Sourcing', href: '/sustainability/responsible-sourcing/' },
-      links: [
-        { label: 'From Plant to Ingredient', href: '/sustainability/responsible-sourcing/#chain' },
-        { label: 'Close to the Source', href: '/sustainability/responsible-sourcing/#source' },
-        { label: 'Land', href: '/sustainability/responsible-sourcing/#land' },
-      ],
-    },
-  ],
-  '/media/': [
-    {
-      head: { label: 'Newsroom' },
-      links: [
-        { label: 'Overview', href: '/media/' },
-        { label: 'News', href: '/media/news/' },
-      ],
-    },
-    {
-      head: { label: 'Resources' },
-      links: [
-        { label: 'Media Resources', href: '/media/media-resources/' },
-        { label: 'Ingredients Catalog', href: '/ingredients/catalog/#download' },
-      ],
-    },
-  ],
-};
+/** Satu panel mega-menu: baris judul panel lalu tautan datar. */
+export type MenuPanel = { heading: NavLink; links: NavLink[] };
 
 export const MEGA: Record<string, MenuPanel> = Object.fromEntries(
-  NAV.filter((item) => COLUMNS[item.href]).map((item) => [
+  NAV.filter((item) => item.panel?.links.length).map((item) => [
     item.href,
-    { heading: { label: item.label, href: item.href }, columns: COLUMNS[item.href] },
+    { heading: { label: item.label, href: item.href }, links: item.panel!.links },
   ]),
 );
 

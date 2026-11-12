@@ -1,4 +1,5 @@
 import type { ImageKey } from './images';
+import type { Region } from './regions';
 
 export type Family = 'Resin' | 'Root' | 'Wood' | 'Leaf' | 'Spice' | 'Flower' | 'Citrus';
 
@@ -9,6 +10,10 @@ export type Material = {
   family: Family;
   /** Negara asal; sengaja tidak lebih rinci dari ini. */
   origin: string;
+  /** Wilayah penghasil, hanya untuk Ingredients Map (pengecualian aturan
+   *  "asal ditulis Indonesia saja", keputusan pemilik 13 Nov 2026). Isinya
+   *  sebaran tanaman yang umum diketahui, bukan lokasi pemasok. */
+  regions: Region[];
   /** Bagian tanaman yang diolah. */
   part: string;
   /** Tiga nota aroma, dipisah " · ". */
@@ -42,6 +47,7 @@ export const MATERIALS: Material[] = [
     name: 'Benzoin Sumatra',
     latin: 'Styrax benzoin / S. paralleloneurum',
     family: 'Resin',
+    regions: ['Sumatra'],
     origin: 'Indonesia',
     part: 'Resin',
     notes: 'Balsamic · Sweet · Warm',
@@ -56,6 +62,7 @@ export const MATERIALS: Material[] = [
     name: 'Patchouli',
     latin: 'Pogostemon cablin',
     family: 'Leaf',
+    regions: ['Sumatra', 'Sulawesi'],
     origin: 'Indonesia',
     part: 'Leaves',
     notes: 'Earthy · Woody · Deep',
@@ -70,6 +77,7 @@ export const MATERIALS: Material[] = [
     name: 'Cinnamon Kerinci',
     latin: 'Cinnamomum burmannii',
     family: 'Spice',
+    regions: ['Sumatra'],
     origin: 'Indonesia',
     part: 'Bark',
     notes: 'Spicy · Warm · Sweet',
@@ -84,6 +92,7 @@ export const MATERIALS: Material[] = [
     name: 'Vetiver Java',
     latin: 'Chrysopogon zizanioides',
     family: 'Root',
+    regions: ['Java'],
     origin: 'Indonesia',
     part: 'Roots',
     notes: 'Woody · Earthy · Smoky',
@@ -98,6 +107,7 @@ export const MATERIALS: Material[] = [
     name: 'Clove',
     latin: 'Syzygium aromaticum',
     family: 'Spice',
+    regions: ['Maluku', 'Sulawesi', 'Java'],
     origin: 'Indonesia',
     part: 'Buds',
     notes: 'Spicy · Warm · Rich',
@@ -112,6 +122,7 @@ export const MATERIALS: Material[] = [
     name: 'Nutmeg & Mace',
     latin: 'Myristica fragrans',
     family: 'Spice',
+    regions: ['Maluku'],
     origin: 'Indonesia',
     part: 'Seed and aril',
     notes: 'Spicy · Fresh · Aromatic',
