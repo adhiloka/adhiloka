@@ -16,18 +16,14 @@ const accessKey = import.meta.env.PUBLIC_FORM_ACCESS_KEY ?? '';
 const configured = accessKey.length > 0;
 ---
 
-<PageLayout intro={CONTACT_INTRO} bannerTitle="Contact Us" lineInBanner>
+<PageLayout intro={CONTACT_INTRO} bannerTitle="Contact Us">
   <section class="sec">
     <div class="wrap contact">
       <div class="contact__form">
         <h2 class="h2" data-anim="title">Get in Touch</h2>
-        <p class="lead contact__lead">{CONTACT_INTRO.title}</p>
 
         <div class="sent" data-sent hidden>
-          <p class="sent__title">Thank you. Your message is on its way.</p>
-          <p class="sent__body">
-            We read every enquiry and will reply by email as soon as we can.
-          </p>
+          <p class="sent__title">Thank you. We will reply by email.</p>
           <button type="button" class="btn" data-reset><span class="btn__label">Send another</span></button>
         </div>
 
@@ -181,7 +177,7 @@ const configured = accessKey.length > 0;
   .form__notice a { text-decoration: underline; }
 
   .sent { margin-top: 40px; padding: 32px; background: var(--bg-grey); }
-  .sent__title { font-size: calc(24px * var(--fs)); font-weight: 530; }
+  .sent__title { margin-bottom: 24px; font-size: calc(24px * var(--fs)); font-weight: 530; }
   .sent__body { margin: 12px 0 24px; font-size: calc(17px * var(--fs)); line-height: 1.6; }
 
   .offices { display: flex; flex-direction: column; }

@@ -1,31 +1,20 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
-import Intro from '../../components/blocks/Intro.astro';
 import InfoGrid from '../../components/blocks/InfoGrid.astro';
 import Passages from '../../components/blocks/Passages.astro';
 import SiblingCards from '../../components/blocks/SiblingCards.astro';
-import {
-  TECHNOLOGY_INTRO,
-  TECHNOLOGY_OPENING,
-  ROUTES,
-  TECHNOLOGY_SCIENCE,
-  TECHNOLOGY_SCIENCE_LEAD,
-  TECHNOLOGY_RANGE,
-  TECHNOLOGY_RANGE_LEAD,
-  TECHNOLOGY_PASSAGES,
-} from '../../data/pages/ingredients';
+import { TECHNOLOGY_INTRO, ROUTES, TECHNOLOGY_SCIENCE, TECHNOLOGY_RANGE, TECHNOLOGY_PASSAGES } from '../../data/pages/ingredients';
 
-/* Susunan mengikuti halaman teknologi dsm-firmenich: pembuka, lalu tiap
- * teknik dengan satu keterangan pendek; ditutup jajaran produk dan mutu.
- * Rincian dan batasnya di data/pages/ingredients.ts. */
-const asItems = (list: typeof ROUTES) => list.map((r) => ({ title: r.name, sub: r.applies, body: r.body }));
+/* Susunan mengikuti halaman teknologi dsm-firmenich: daftar teknik, lalu
+ * jajaran produk dan mutu. Tiap teknik cukup nama + satu keterangan pendek;
+ * tidak ada pembuka dan tidak ada kalimat pengantar di bawah judul. */
+const asItems = (list: typeof ROUTES) => list.map((r) => ({ title: r.name, body: r.note }));
 ---
 
 <PageLayout intro={TECHNOLOGY_INTRO}>
-  <Intro title="From nature to palette" paragraphs={TECHNOLOGY_OPENING} />
-  <InfoGrid id="routes" title="Extraction & Distillation" cols={3} items={asItems(ROUTES)} grey />
-  <InfoGrid id="science" title="Science & Renewables" lead={TECHNOLOGY_SCIENCE_LEAD} cols={4} items={asItems(TECHNOLOGY_SCIENCE)} />
-  <InfoGrid id="range" title="What We Produce" lead={TECHNOLOGY_RANGE_LEAD} cols={3} items={TECHNOLOGY_RANGE} grey />
-  <Passages passages={TECHNOLOGY_PASSAGES} />
+  <InfoGrid id="routes" title="Extraction & Distillation" cols={3} items={asItems(ROUTES)} />
+  <InfoGrid id="science" title="Science & Renewables" cols={4} items={asItems(TECHNOLOGY_SCIENCE)} grey />
+  <InfoGrid id="range" title="What We Produce" cols={3} items={TECHNOLOGY_RANGE.map((title) => ({ title }))} />
+  <Passages passages={TECHNOLOGY_PASSAGES} startGrey />
   <SiblingCards />
 </PageLayout>

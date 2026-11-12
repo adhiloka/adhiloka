@@ -9,7 +9,6 @@ import {
   PERFUMERY_OPENING,
   PERFUMERY_AREAS,
   PERFUMERY_INNOVATION,
-  PERFUMERY_INNOVATION_LEAD,
   PERFUMERY_STEPS,
   PERFUMERY_PALETTE,
   PERFUMERY_CLOSING,
@@ -17,14 +16,14 @@ import {
 
 /* Perfumery: satu halaman tanpa subhalaman. Urutannya mengikuti cara
  * dsm-firmenich, Givaudan, IFF dan Robertet menerangkan perfumery:
- * bidang kreasi (Fine Fragrance, Consumer Fragrance), inovasi, cara kerja,
- * palet, lalu ajakan. Rincian di data/pages/perfumery.ts. */
+ * bidang kreasi, inovasi, cara kerja, palet, lalu ajakan. Tiap bagian cukup
+ * judul + satu keterangan pendek (data/pages/perfumery.ts). */
 ---
 
-<PageLayout intro={PERFUMERY_INTRO} bannerTitle="Perfumery" lineInBanner>
+<PageLayout intro={PERFUMERY_INTRO} bannerTitle="Perfumery">
   <Intro title={PERFUMERY_INTRO.title} paragraphs={PERFUMERY_OPENING} />
   <Passages passages={PERFUMERY_AREAS} startGrey />
-  <InfoGrid id="innovation" title="Fragrance Innovation" lead={PERFUMERY_INNOVATION_LEAD} cols={3} items={PERFUMERY_INNOVATION} grey />
+  <InfoGrid id="innovation" title="Fragrance Innovation" cols={3} items={PERFUMERY_INNOVATION} grey />
   <InfoGrid id="approach" title="How We Work" cols={4} items={PERFUMERY_STEPS} />
   <Passages passages={[PERFUMERY_PALETTE]} startGrey />
   <ClosingCta

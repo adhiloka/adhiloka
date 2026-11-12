@@ -143,7 +143,6 @@ export const PILLARS: Pillar[] = [
  * belum ada, jadi tombol dan semua kartu sementara menuju /contact/. */
 export const JOIN_US = {
   title: 'Join Us',
-  body: 'Join a team that works with nature every day, alongside the growers who tend it and the perfumers who bring it to life.',
   cta: 'Know More',
   href: '/contact/',
   cards: [

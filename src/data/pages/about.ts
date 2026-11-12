@@ -1,10 +1,11 @@
 import type { ImageKey } from '../images';
 import type { LinkCard, PageIntro, Passage, Quote } from './types';
 
-/* Naskah About, ditulis 10 Nov 2026 (permintaan pemilik: ringkas, bergaya
- * situs rumah fragrance, tidak menjelaskan berlebihan). Tanpa angka, tahun,
- * nama orang, alamat atau klaim kapasitas; semua itu menunggu formulir data
- * A, C, G dan H. */
+/* Naskah About. Dipangkas 12 Nov 2026 (koreksi pemilik: terlalu banyak
+ * menjelaskan dan terlalu banyak tingkat judul; aturannya di skill
+ * adhiloka-voice, "Hierarki naskah situs"). Tiap bagian: judul + paling
+ * banyak dua kalimat; kartu cukup judul. Tanpa angka, tahun, nama orang,
+ * alamat atau klaim kapasitas; semua itu menunggu formulir data A, C, G, H. */
 
 /* ── Hub ─────────────────────────────────────────────────────────────── */
 
@@ -12,42 +13,29 @@ export const ABOUT_INTRO: PageIntro = {
   eyebrow: 'About Us',
   title: 'Natural ingredients and perfumery, rooted in Indonesia',
   metaTitle: 'About',
-  lede: 'Adhiloka brings the natural aromatic materials of Indonesia to those who create with scent, and composes fragrances of its own.',
+  lede: '',
   description:
     'Adhiloka is a house of natural ingredients and perfumery from Indonesia, working with resins, leaves, roots and spices and the people who grow them.',
   image: 'misty-hills',
   caption: 'misty green hills',
 };
 
-export const ABOUT_OPENING = [
-  'We work with resins, leaves, roots and spices that have shaped perfumery for generations, and we stay close to the plants, the seasons and the growers behind them.',
-  'From the plant to the finished ingredient, we follow each material with the same attention: how it is grown and gathered, how it is processed, and how it behaves in a fragrance. Our perfumery works with the same materials, so we know them from the inside of a formula.',
-];
+export const ABOUT_WHO =
+  'A house of natural ingredients and perfumery. We work with resins, leaves, roots and spices, and stay close to the plants, the seasons and the growers behind them.';
 
-export const ABOUT_HOW = 'One thread, from the plant to the perfumer';
+export const ABOUT_HOW = 'One thread, from the plant to the perfumer.';
 
 /* Kartu halaman anak, dipakai grid penutup hub About dan bilah "Explore
    More" di halaman anaknya. */
 export const ABOUT_CARDS: LinkCard[] = [
-  {
-    title: 'Our Business',
-    body: 'From the source to the finished fragrance: what we do, and how the parts fit together.',
-    href: '/about/our-business/',
-    image: 'copper-still',
-  },
-  {
-    title: 'Our Purpose',
-    body: 'Why we do what we do, and the values that guide us.',
-    href: '/about/our-purpose/',
-    image: 'purpose-generations',
-  },
+  { title: 'Our Business', href: '/about/our-business/', image: 'copper-still' },
+  { title: 'Our Purpose', href: '/about/our-purpose/', image: 'purpose-generations' },
 ];
 
 /* Kartu ketiga di hub About saja: menuju bagian lain situs, jadi tidak ikut
    SiblingCards (yang menyaring per bagian). */
 export const ABOUT_MORE: LinkCard = {
   title: 'Sustainability',
-  body: 'Caring for nature and for the people who tend it.',
   href: '/sustainability/',
   image: 'rainforest-aerial',
 };
@@ -57,9 +45,9 @@ export const ABOUT_MORE: LinkCard = {
 export const BUSINESS_INTRO: PageIntro = {
   eyebrow: 'About Us',
   title: 'Our Business',
-  lede: 'Our work follows natural ingredients along their whole journey, from the places where they grow to the fragrances they become.',
+  lede: '',
   description:
-    'What Adhiloka does: sourcing and processing natural aromatic ingredients from Indonesia, supplying them to perfumery, and creating fragrances.',
+    'What Adhiloka does: sourcing and processing natural aromatic ingredients, supplying them to perfumery, and creating fragrances.',
   image: 'perfume-workshop',
   caption: 'hands at work on a perfumery bench',
 };
@@ -67,14 +55,8 @@ export const BUSINESS_INTRO: PageIntro = {
 export const BUSINESS_PASSAGES: Passage[] = [
   {
     id: 'source',
-    eyebrow: 'Sourcing',
-    title: 'It starts where the plants grow',
-    body: 'Every ingredient begins with a plant, a place and the people who know both. We stay close to the source, so that we understand what we receive and where it comes from.',
-    points: [
-      'Close to growers and to the land',
-      'Materials gathered in their season',
-      'Origin kept in view from the start',
-    ],
+    title: 'Sourcing',
+    body: 'It starts where the plants grow.',
     cta: 'Responsible Sourcing',
     href: '/sustainability/responsible-sourcing/',
     caption: 'nutmeg fruit on the tree',
@@ -82,14 +64,8 @@ export const BUSINESS_PASSAGES: Passage[] = [
   },
   {
     id: 'processing',
-    eyebrow: 'Processing',
-    title: 'Turning plants into ingredients',
-    body: 'Resins, leaves, roots and spices each ask for their own treatment. We choose the method that respects the character of the plant and brings out what perfumers look for.',
-    points: [
-      'A method chosen for each material',
-      'The character of the plant preserved',
-      'Attention at every step',
-    ],
+    title: 'Processing',
+    body: 'A method chosen for each material.',
     cta: 'Technology',
     href: '/ingredients/technology/',
     caption: 'fire beneath traditional distillation stills',
@@ -97,14 +73,8 @@ export const BUSINESS_PASSAGES: Passage[] = [
   },
   {
     id: 'ingredients',
-    eyebrow: 'Ingredients',
-    title: 'Naturals for those who create with scent',
-    body: 'We supply natural aromatic ingredients to perfumers, fragrance houses and brands, together with the samples and information they need to work with confidence.',
-    points: [
-      'Resins, leaves, roots and spices',
-      'Samples on request',
-      'A direct line to our team',
-    ],
+    title: 'Ingredients',
+    body: 'Naturals for those who create with scent.',
     cta: 'Ingredients Catalog',
     href: '/ingredients/catalog/',
     caption: 'amber glass bottles',
@@ -112,14 +82,8 @@ export const BUSINESS_PASSAGES: Passage[] = [
   },
   {
     id: 'perfumery',
-    eyebrow: 'Perfumery',
-    title: 'Fragrances shaped in dialogue',
-    body: 'Our perfumery creates fragrances for fine fragrance, personal care, home care and fabric care, in close dialogue with each client.',
-    points: [
-      'Fine fragrance',
-      'Consumer fragrance',
-      'Fragrance innovation',
-    ],
+    title: 'Perfumery',
+    body: 'Fine fragrance and consumer fragrance, created in dialogue with each client.',
     cta: 'Perfumery',
     href: '/perfumery/',
     caption: 'smelling a handful of dried flowers',
@@ -132,7 +96,7 @@ export const BUSINESS_PASSAGES: Passage[] = [
 export const PURPOSE_INTRO: PageIntro = {
   eyebrow: 'About Us',
   title: 'Our Purpose',
-  lede: 'We exist to carry the nature of Indonesia, with care, to those who create with scent.',
+  lede: '',
   description:
     'The purpose and values of Adhiloka: growing together with nature, and bringing its ingredients to perfumery with care.',
   caption: 'tree canopy seen from below',
@@ -140,27 +104,14 @@ export const PURPOSE_INTRO: PageIntro = {
 };
 
 export const PURPOSE_BODY = [
-  'Every scent begins with a living plant and the hands that tend it. Our role is to bring both closer to the perfumer: to honour the plant, to respect the people who grow it, and to deliver its character intact.',
-  'It is a simple idea, and it guides the choices we make: what we source, how we work, and who we work with.',
+  'Every scent begins with a living plant and the hands that tend it. Our role is to bring both closer to the perfumer.',
 ];
 
 export const PURPOSE_VALUES: { title: string; body: string }[] = [
-  {
-    title: 'Respect for Nature',
-    body: 'Our ingredients are gifts of the living world. We treat the land they come from with care.',
-  },
-  {
-    title: 'Care for People',
-    body: 'Behind every ingredient are people. We value fair and lasting relationships with those we work with.',
-  },
-  {
-    title: 'Craft',
-    body: 'We take the time to do things properly, from the first selection to the last detail.',
-  },
-  {
-    title: 'Openness',
-    body: 'We speak plainly about what we offer, and we listen closely to what our customers need.',
-  },
+  { title: 'Respect for Nature', body: 'Care for the land our ingredients come from.' },
+  { title: 'Care for People', body: 'Fair and lasting relationships.' },
+  { title: 'Craft', body: 'Time taken to do things properly.' },
+  { title: 'Openness', body: 'Plain words and close listening.' },
 ];
 
 export const PURPOSE_QUOTE: Quote = {

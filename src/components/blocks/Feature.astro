@@ -11,7 +11,7 @@ interface Props {
   id?: string;
   heading: string;
   subheading?: string;
-  body: string | string[];
+  body?: string | string[];
   points?: string[];
   cta?: string;
   href?: string;
@@ -24,7 +24,7 @@ interface Props {
   zoom?: boolean;
 }
 const { id, heading, subheading, body, points, cta, href, image, alt = '', shot, flip = false, grey = false, zoom = false } = Astro.props;
-const paras = Array.isArray(body) ? body : [body];
+const paras = (Array.isArray(body) ? body : [body]).filter((p): p is string => Boolean(p));
 ---
 
 <section class:list={['sec', 'feat', { 'sec--grey': grey, 'feat--flip': flip }]} id={id}>
@@ -32,9 +32,11 @@ const paras = Array.isArray(body) ? body : [body];
     <div class="feat__text">
       <h2 class="h2 feat__h" data-anim="title">{heading}</h2>
       {subheading && <p class="feat__sub">{subheading}</p>}
-      <div class="prose feat__body">
-        {paras.map((p) => <p>{p}</p>)}
-      </div>
+      {paras.length > 0 && (
+        <div class="prose feat__body">
+          {paras.map((p) => <p>{p}</p>)}
+        </div>
+      )}
       {
         points && points.length > 0 && (
           <ul class="feat__points">

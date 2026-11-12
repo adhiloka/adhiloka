@@ -21,13 +21,11 @@ export const MEDIA_INTRO: PageIntro = {
 export const MEDIA_CARDS: LinkCard[] = [
   {
     title: 'News',
-    body: 'The latest news and stories from Adhiloka.',
     href: '/media/news/',
     image: 'nutmeg-mace',
   },
   {
     title: 'Media Resources',
-    body: 'Logos and documents for press and partners.',
     href: '/media/media-resources/',
     image: 'amber-bottle-shelf',
   },
@@ -37,7 +35,6 @@ export const MEDIA_KIT_TEXT = 'Our logo and catalog, ready to download.';
 
 export const MEDIA_CONTACT = {
   title: 'Press enquiries',
-  body: 'For press and media enquiries, please write to us. We will be glad to help.',
   email: 'info@adhiloka.com', // DATA: I4
 };
 

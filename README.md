@@ -34,12 +34,12 @@ kolom yang berdiri sendiri: halaman anaknya dikelompokkan di bawah label grup ta
 | `/about/our-business/`, `/about/our-purpose/` | Banner · pembuka · isi halaman · Explore More |
 | `/about/our-leadership/`, `our-history/`, `our-locations/` | **Diparkir** (lihat "Halaman yang diparkir"); rutenya dialihkan ke `/about/` |
 | `/perfumery/` | **Satu halaman, tanpa subhalaman** (12 Nov 2026): banner · pembuka · Fine Fragrance · Consumer Fragrance · Fragrance Innovation · How We Work · Our Palette · penutup. Subhalaman lama dialihkan ke sini |
-| `/ingredients/technology/` | Pembuka · Extraction & Distillation (9 teknik) · Science & Renewables (4) · What We Produce · Quality & Compliance · Explore More |
+| `/ingredients/technology/` | Extraction & Distillation (9 teknik) · Science & Renewables (4) · What We Produce · Quality & Compliance · Explore More |
 | `/ingredients/`, `/sustainability/` | Banner · pembuka dengan Read More · kartu anak · penutup berfoto dua tombol |
 | `/media/` | Banner · slider Media Releases · promosi Media Kit · Media Centre · kontak pers |
 | `/ingredients/catalog/` | 6 bahan inti; laci filter (keluarga, nota aroma), urutan, pencarian, grid/list; pita unduhan katalog PDF |
 | `/ingredients/catalog/<slug>/` | Kepala berwarna keluarga · strip fakta (nama botani, keluarga, bagian tanaman, asal) · nota aroma, deskripsi dan pemakaian · Did you know? · Samples & Documents (tiga tombol ke formulir kontak + katalog PDF) · slider Other Ingredients |
-| `/ingredients/ordering/` | Pembuka · 6 langkah pesan · Documents (jenis dokumen + Request Documents) · Logistics · FAQ dengan dua tombol · Explore More |
+| `/ingredients/ordering/` | 6 langkah pesan · Documents (jenis dokumen + Request Documents) · Logistics dengan dua tombol · Explore More |
 | `/media/news/` | Media Releases: cari, kategori, tahun, urutan, tag filter + Clear All, Load More (6 per langkah), laci filter di ≤767 px |
 | `/media/news/<slug>/` | Banner setengah layar (remah saja) · judul dan isi · slider Other Releases |
 | `/contact/` | Formulir + satu kontak (info@adhiloka.com); `?material=slug&kind=sample\|specification\|quotation` mengisi jenis permintaan dan pesan |
@@ -176,6 +176,20 @@ Tab, penyaring, "Read More" dan formulir mengirim event `fx:refresh` karena ting
 berubah. Dengan `prefers-reduced-motion` atau tanpa JS, semuanya tampil diam.
 
 ## Naskah
+
+**Hierarki naskah (koreksi pemilik 12 Nov 2026).** Naskah lama terlalu banyak menjelaskan dan
+terlalu banyak tingkat (judul, subjudul, paragraf, butir). Sekarang: judul, lalu paling banyak
+satu keterangan pendek yang tidak menjelaskan. Tidak ada subjudul di bawah judul, tidak ada
+kalimat pengantar di bawah judul section, tidak ada butir yang mengulang paragraf, tidak ada
+"tell us…" atau "here is how…". Kartu menuju halaman lain cukup judul. Aturan lengkapnya di
+skill `adhiloka-voice`, bagian "Hierarki naskah situs". Yang berubah di kode:
+
+- `Passages` tidak lagi mencetak subjudul; `Passage.body`, `LinkCard.body` dan isi `InfoGrid`
+  opsional. Blok boleh hanya judul, atau judul + butir tanpa paragraf.
+- Halaman anak (Our Business, People, Responsible Sourcing, Technology, Ordering, Media
+  Resources) tidak lagi diawali blok pembuka; banner langsung disusul isinya.
+- Kalimat di banner (`lineInBanner`) dan "Read More" di pembuka hub tidak dipakai.
+- FAQ di Ordering dilepas: keempat jawabannya hanya menyuruh menghubungi kami.
 
 Sejak 10 November 2026 **tidak ada lagi lorem ipsum di situs**. Beranda ditulis 18 Oktober, Perfumery
 10 November (parafrase alur robertet.com/en/fragrances/), dan semua halaman lain 10 November atas

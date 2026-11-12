@@ -1,9 +1,8 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
-import Intro from '../../components/blocks/Intro.astro';
 import PressContact from '../../components/blocks/PressContact.astro';
 import SiblingCards from '../../components/blocks/SiblingCards.astro';
-import { RESOURCES_INTRO, RESOURCES, RESOURCES_NOTE } from '../../data/pages/media';
+import { RESOURCES_INTRO, RESOURCES } from '../../data/pages/media';
 import { CATALOG_DOWNLOAD as cat, formatSize } from '../../data/downloads';
 
 /* "Media Kit" adani.com: daftar berkas dengan jenis, ukuran dan tombol unduh.
@@ -23,7 +22,6 @@ const rows = [
 ---
 
 <PageLayout intro={RESOURCES_INTRO}>
-  <Intro title="Media Kit" paragraphs={[RESOURCES_INTRO.lede, RESOURCES_NOTE]} />
   <section class="sec sec--grey">
     <div class="wrap">
       <ul class="dl" data-anim="columns">

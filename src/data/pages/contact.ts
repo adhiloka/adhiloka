@@ -2,9 +2,9 @@ import type { PageIntro } from './types';
 
 export const CONTACT_INTRO: PageIntro = {
   eyebrow: 'Contact',
-  title: 'Samples, quotations or a fragrance project: tell us what you need and we will come back to you.',
+  title: 'Contact',
   metaTitle: 'Contact',
-  lede: 'We would be glad to hear from you.',
+  lede: '',
   description:
     'Contact Adhiloka for samples, specifications, quotations and fragrance projects.',
   caption: 'oil dropped into an amber bottle',
@@ -18,7 +18,7 @@ export const OFFICES = [
   {
     role: 'General enquiries',
     city: 'Adhiloka Group',
-    address: 'Samples, specifications, quotations, fragrance projects and press.',
+    address: 'Samples, quotations, fragrance projects and press.',
     contact: 'info@adhiloka.com',
     href: 'mailto:info@adhiloka.com',
   },

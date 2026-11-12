@@ -2,7 +2,7 @@
 /* Grid butir berjudul — "Our core values" adani.com. Dipakai untuk nilai,
  * rute ekstraksi, rantai sumber (bernomor) dan kanal sosial (bertautan). */
 
-type Item = { title: string; body: string; sub?: string; n?: string; href?: string; linkLabel?: string };
+type Item = { title: string; body?: string; sub?: string; n?: string; href?: string; linkLabel?: string };
 
 interface Props {
   title?: string;
@@ -26,7 +26,7 @@ const { title, lead, items, grey = false, id, cols = 4 } = Astro.props;
             {it.n && <span class="info__n">{it.n}</span>}
             <h3 class="info__title">{it.title}</h3>
             {it.sub && <p class="info__sub">{it.sub}</p>}
-            <p class="info__body">{it.body}</p>
+            {it.body && <p class="info__body">{it.body}</p>}
             {it.href && (
               <a class="info__link" href={it.href} rel={it.href.startsWith('http') ? 'noopener' : undefined} target={it.href.startsWith('http') ? '_blank' : undefined}>
                 {it.linkLabel ?? 'Know More'}

@@ -19,7 +19,8 @@ export type Stat = { value: string; label: string };
 /** Kartu yang mengantar ke halaman lain. */
 export type LinkCard = {
   title: string;
-  body: string;
+  /** Opsional: kartu menuju halaman lain cukup judul (adhiloka-voice). */
+  body?: string;
   href: string;
   cta?: string;
   image?: ImageKey;
@@ -29,9 +30,11 @@ export type LinkCard = {
 /** Blok naskah bergambar — dipakai Band. */
 export type Passage = {
   id?: string;
+  /** Tidak dipakai lagi sebagai judul terpisah: satu blok, satu judul. */
   eyebrow?: string;
   title: string;
-  body: string;
+  /** Paling banyak dua kalimat; boleh kosong bila blok hanya berisi butir. */
+  body?: string;
   points?: string[];
   cta?: string;
   href?: string;

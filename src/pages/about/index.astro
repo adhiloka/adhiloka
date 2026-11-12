@@ -7,7 +7,7 @@ import InfoGrid from '../../components/blocks/InfoGrid.astro';
 import CardGrid from '../../components/blocks/CardGrid.astro';
 import {
   ABOUT_INTRO,
-  ABOUT_OPENING,
+  ABOUT_WHO,
   ABOUT_HOW,
   ABOUT_CARDS,
   ABOUT_MORE,
@@ -35,8 +35,7 @@ import { HOME_QUOTE } from '../../data/pages/home';
 
   <VisionSlider
     heading="Who We Are"
-    subheading={ABOUT_INTRO.title}
-    body={[ABOUT_INTRO.lede, ABOUT_OPENING[0]]}
+    body={[ABOUT_WHO]}
     slides={[
       { image: 'material-benzoin', alt: 'Sorted benzoin resin tears' },
       { image: 'fragrance-resin', alt: 'Resin pieces, close' },
@@ -46,8 +45,7 @@ import { HOME_QUOTE } from '../../data/pages/home';
 
   <Feature
     heading="How We Work"
-    subheading={ABOUT_HOW}
-    body={ABOUT_OPENING[1]}
+    body={ABOUT_HOW}
     cta="Our Business"
     href="/about/our-business/"
     image="hero-benzoin-tears"
