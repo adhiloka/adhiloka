@@ -236,7 +236,7 @@ export function catalogHtml(o) {
     </div>
   </div>
   <div class="or__cta">
-    <p>Samples, specifications and quotations<small>Tell us the ingredient and the quantity you have in mind.</small></p>
+    <p>Samples, specifications and quotations</p>
     <a href="mailto:info@adhiloka.com">info@adhiloka.com</a>
   </div>
   ${foot(ms.length + 3)}
