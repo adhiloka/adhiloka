@@ -99,9 +99,12 @@ const plain = text.replace(/\*/g, '');
     line-height: 0;
     vertical-align: -0.25em;
     color: var(--line);
+    transition: color 0.3s var(--ease-std);
   }
   .qs__quote.is-done p::after { color: var(--ink); }
-  /* Huruf abu (#c1c1c1) sampai skrip menyalakannya; tanpa JS langsung gelap. */
+  /* Huruf abu sampai skrip menyalakannya; tanpa JS langsung gelap. Tiap
+     huruf menggelap 0,3 s, jadi tepinya menyapu halus, tidak berkedip. */
+  .qs__c { transition: color 0.3s var(--ease-std); }
   .qs__c.is-on { color: var(--ink); }
   html:not(.js) .qs__c { color: var(--ink); }
   html:not(.js) .qs__quote p::after { color: var(--ink); }
@@ -135,6 +138,7 @@ const plain = text.replace(/\*/g, '');
   .qs__role {
     margin-top: 6px;
     font-size: calc(14px * var(--fs));
+    letter-spacing: 0.04em;
     color: var(--ink-muted);
   }
   .qs__btn { margin-top: 28px; }

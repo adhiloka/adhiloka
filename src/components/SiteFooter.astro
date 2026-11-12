@@ -135,8 +135,9 @@ const ICONS: Record<string, { box: string; w: number; h: number; body: string }>
   .ftr__bg {
     position: relative;
     overflow: hidden;
-    padding: 50px 0 70px;
-    background: linear-gradient(180deg, #fafafa 0%, #f1f2f1 100%);
+    padding: 56px 0 72px;
+    border-top: 1px solid var(--line-soft);
+    background: linear-gradient(180deg, #fafbfa 0%, var(--bg-grey) 100%);
   }
   /* Foto menempati 70 % kanan, dipucatkan dan memudar ke kiri supaya
      kolom tautan tetap di atas bidang yang nyaris putih. */
@@ -178,9 +179,10 @@ const ICONS: Record<string, { box: string; w: number; h: number; body: string }>
     margin-top: 10px;
     font-size: calc(14px * var(--fs));
     font-weight: 440;
-    color: #000;
+    color: var(--ink-strong);
     text-decoration: underline;
     text-underline-offset: 4px;
+    transition: color var(--t) var(--ease-std);
   }
 
   /* Deret ikon sosial dibingkai garis 1 px di atas dan bawah (tanpa garis
@@ -200,7 +202,7 @@ const ICONS: Record<string, { box: string; w: number; h: number; body: string }>
   .ftr__social a {
     display: grid;
     place-items: center;
-    color: #000;
+    color: var(--ink-strong);
   }
   .ftr__social svg { display: block; }
 
@@ -210,23 +212,28 @@ const ICONS: Record<string, { box: string; w: number; h: number; body: string }>
     padding-bottom: 33px;
     font-size: calc(18px * var(--fs));
     font-weight: 440;
-    color: #000;
+    color: var(--ink-strong);
   }
   .ftr__col li + li { margin-top: 16px; }
   .ftr__col li a {
     font-size: calc(14px * var(--fs));
     color: var(--ink);
+    transition: color var(--t) var(--ease-std);
   }
   .ftr__major li + li { margin-top: 18px; }
   .ftr__major a {
     font-size: calc(18px * var(--fs));
     font-weight: 440;
-    color: #000;
+    color: var(--ink-strong);
+    transition: color var(--t) var(--ease-std);
   }
   .ftr a:hover { text-decoration: underline; }
+  .ftr__upper a:hover { color: var(--brand-green); }
   .ftr__social a:hover { text-decoration: none; }
 
-  .ftr__policy { background: var(--line); }
+  /* Bar kebijakan hijau tua merek dengan teks putih (dulu abu #c1c1c1
+     Adani): penutup halaman yang memakai warna struktur Adhiloka. */
+  .ftr__policy { background: var(--brand-green-deep); }
   .ftr__policy-row {
     display: flex;
     align-items: center;
@@ -234,8 +241,11 @@ const ICONS: Record<string, { box: string; w: number; h: number; body: string }>
     gap: 16px;
     min-height: 56px;
     font-size: calc(13px * var(--fs));
-    color: var(--ink);
+    letter-spacing: 0.03em;
+    color: rgb(255 255 255 / 0.86);
   }
+  .ftr__policy a { transition: color var(--t) var(--ease-std); }
+  .ftr__policy a:hover { color: #fff; }
   .ftr__policy ul { display: flex; gap: 28px; flex-wrap: wrap; }
 
   @media (max-width: 1026px) {

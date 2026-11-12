@@ -107,7 +107,7 @@ const { title, items, perView = 3, viewAll, grey = false } = Astro.props;
     aspect-ratio: 16 / 10;
     overflow: hidden;
   }
-  .cs__media :global(img) { transition: transform 1s linear; }
+  .cs__media :global(img) { transition: transform var(--t-img) var(--ease-out); }
   .cs__card:hover .cs__media :global(img) { transform: scale(1.05); }
   .cs__tag {
     position: absolute;

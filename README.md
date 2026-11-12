@@ -29,7 +29,7 @@ kolom yang berdiri sendiri: halaman anaknya dikelompokkan di bawah label grup ta
 
 | Jalur | Susunan |
 | --- | --- |
-| `/` | Hero slider · kutipan terbelah · Our Business (tab Ingredients/Perfumery) · akordeon keberlanjutan · Latest News · Join Us · peringatan penipuan |
+| `/` | Hero slider · kutipan terbelah · Our Business (tab Ingredients/Perfumery) · akordeon keberlanjutan · Latest News · Join Us |
 | `/about/` | Pola /about-us Adani: banner · kutipan · Who We Are (slider foto fade dalam panel inset) · How We Work · nilai · kartu |
 | `/about/our-business/`, `/about/our-purpose/` | Banner · pembuka · isi halaman · Explore More |
 | `/about/our-leadership/`, `our-history/`, `our-locations/` | **Diparkir** (lihat "Halaman yang diparkir"); rutenya dialihkan ke `/about/` |
@@ -99,8 +99,28 @@ Yang sengaja berbeda:
   layar lebar. Jangan animasikan `flex-basis` ke `auto`: nilai itu tidak bisa diinterpolasi dan
   panelnya meloncat. Judul tegak hanya di pita tertutup. Untuk foto asli nanti, pakai foto
   mendatar ±2:1 seperti Adani (1660×830) supaya tidak terpotong banyak.
-- **Popup peringatan penipuan** saat halaman dibuka tidak ditiru; peringatannya cukup di kotak
-  bawah beranda, dengan naskah Adhiloka sendiri.
+- **Peringatan penipuan** (popup maupun kotak di bawah beranda) tidak dipakai. Kotaknya dilepas
+  dari beranda 12 Nov 2026; komponennya masih ada di `components/home/NoticeBox.astro`.
+
+### Penyegaran 12 November 2026
+
+Atas permintaan pemilik (perhalus warna, gerak dan detail, bukan rombak), beberapa takaran Adani
+diganti. Susunan, kontainer 88,88 %, header 65 px, skala huruf dan tombol tetap.
+
+- **Netral** condong ke hijau merek: teks `#1f2a27` (Tinta), teks sekunder `#5c6d68` (Sage), garis
+  `#c2c9c6` / `#e6eae8`, bidang abu `#f2f4f3`. Dulu `#393939`, `#6b6b6b`, `#c1c1c1`, `#f0f0f0`.
+- **Bar kebijakan footer** hijau tua `--brand-green-deep` berteks putih, bukan abu `#c1c1c1`.
+- **Token gerak** di `global.css`: `--ease-out`, `--ease-io`, `--ease-std`, `--t-fast`, `--t`,
+  `--t-slow`, `--t-img`. Transisi baru memakai token ini, tidak menulis `ease` atau durasi lepas.
+- **Bayangan foto** memakai `--scrim` (hitam yang naik melengkung), bukan gradien lurus.
+- **Zoom foto saat hover** 1,05–1,06 selama 1,2 s (dulu 1,08–1,1 selama 1 s).
+- **Kontrol hero** rata dengan tepi kanan kontainer (Adani menjorok 27 px keluar); rel progres
+  putih 38 %, bayangan kartu dua lapis.
+- **Isi akordeon keberlanjutan** rata dengan garis kiri kontainer: `calc(5.56cqw - 35.5px)`.
+- **Panah kecil** di tile, kartu dan Join Us masuk dengan opasitas + geser, tidak lagi `display`.
+- **Header** bergaris rambut di dasarnya; isi mega-menu muncul menyusul panelnya.
+- **Formulir kontak**: panah pilihan digambar sendiri, cincin fokus hijau, slot galat kosong tidak
+  makan tempat.
 
 ## Gerak gulir
 
@@ -108,12 +128,13 @@ Yang sengaja berbeda:
 ScrollSmoother; lisensi *Standard no charge*, boleh untuk situs komersial). Takarannya disalin dari
 JavaScript Adani v94, bukan dikira-kira:
 
-- **Gulir halus** ScrollSmoother `smooth: 2` di layar ≥992 px. Isi halaman ada di
+- **Gulir halus** ScrollSmoother `smooth: 1.2` di layar ≥992 px (Adani 2; terasa berat). Isi halaman ada di
   `#smooth-wrapper > #smooth-content` (BaseLayout); header, panel pencarian dan tombol ke atas
   sengaja di luarnya karena `position: fixed`. Konstanta `SMOOTH` untuk melunakkan inersianya.
 - **Parallax `data-speed`**: hero 0,8, teks kutipan 1,1, kolom foto besar Business 0,9.
-- **`data-anim`** di markup: `title` (opacity mengikuti gulir), `sub` dan `thumb` (naik 100 px),
-  `columns` + `data-anim-item` (anak naik 250 px bergiliran 0,2 s), `pad` (padding akordeon
+- **`data-anim`** di markup: `title` (opacity mengikuti gulir), `sub` dan `thumb` (naik 60 px,
+  0,9 s; Adani 100 px, 0,6 s), `columns` + `data-anim-item` (anak naik 90 px bergiliran 0,12 s,
+  1 s; Adani 250 px, 0,2 s), `pad` (padding akordeon
   0→40 px), `zoom` (foto Who We Are dari skala 0,4). `data-parallax` menggeser foto berita di
   dalam bingkainya; `data-count` menghitung angka naik.
 - **Kutipan** dipecah per huruf di server; huruf menggelap satu per satu mengikuti gulir. Di

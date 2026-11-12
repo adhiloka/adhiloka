@@ -160,9 +160,11 @@ const path = Astro.url.pathname;
     inset: 0 0 auto;
     z-index: 9991;
     background: var(--bg-header);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    transition: background 0.3s;
+    -webkit-backdrop-filter: saturate(1.5) blur(14px);
+    backdrop-filter: saturate(1.5) blur(14px);
+    /* Garis rambut di dasar header: batasnya tetap terbaca di atas section putih. */
+    box-shadow: 0 1px 0 var(--hairline);
+    transition: background var(--t) var(--ease-std);
   }
 
   .hdr__bar {
@@ -236,7 +238,7 @@ const path = Astro.url.pathname;
     border-top: 1px solid var(--ink-strong);
     border-left: 1px solid var(--ink-strong);
     transform: rotate(-135deg);
-    transition: transform 0.2s, top 0.2s;
+    transition: transform var(--t) var(--ease-out), top var(--t) var(--ease-out);
   }
   .hdr__link::before {
     content: '';
@@ -246,10 +248,10 @@ const path = Astro.url.pathname;
     bottom: 0;
     height: 4px;
     background: var(--grad-bar);
-    transform: scale(0);
-    transition: transform 0.3s ease-out;
+    transform: scaleX(0);
+    transition: transform 0.45s var(--ease-out);
   }
-  .hdr__item.is-active > .hdr__link::before { transform: scale(1); }
+  .hdr__item.is-active > .hdr__link::before { transform: none; }
 
   /* Pemilih bahasa Adani memakai segitiga padat 4 px, bukan panah garis. */
   @media (min-width: 1027px) {
@@ -272,7 +274,10 @@ const path = Astro.url.pathname;
     width: 40px;
     height: 40px;
     color: var(--ink-strong);
+    border-radius: 50%;
+    transition: background-color var(--t-fast) var(--ease-std);
   }
+  .hdr__icon:hover { background: var(--hairline); }
 
   .hdr__search-m,
   .hdr__burger { display: none; }
@@ -303,7 +308,7 @@ const path = Astro.url.pathname;
     border: 4px solid transparent;
     border-top-color: var(--ink-strong);
     border-bottom: 0;
-    transition: transform 0.2s;
+    transition: transform var(--t) var(--ease-out);
   }
   .hdr__a11y-icon { flex: none; }
   .hdr__a11y-text { display: none; }
@@ -319,7 +324,6 @@ const path = Astro.url.pathname;
     visibility: hidden;
     padding: 0 30px;
     background: var(--bg);
-    box-shadow: 0 10px 20px rgb(0 0 0 / 0.08);
     transform: translateX(-50%);
     /* slideToggle jQuery: 400 ms "swing". */
     transition: max-height 0.4s cubic-bezier(0.45, 0, 0.55, 1), padding 0.4s cubic-bezier(0.45, 0, 0.55, 1), visibility 0s 0.4s;
@@ -328,6 +332,7 @@ const path = Astro.url.pathname;
     max-height: 600px;
     visibility: visible;
     padding: 40px 30px;
+    box-shadow: 0 1px 0 var(--hairline), 0 24px 48px -24px rgb(15 23 21 / 0.22);
     transition-delay: 0s;
   }
   @media (min-width: 1027px) and (max-width: 1219px) {
@@ -336,7 +341,7 @@ const path = Astro.url.pathname;
 
   .a11y__head {
     padding-bottom: 22px;
-    border-bottom: 1px solid #7b7b7b;
+    border-bottom: 1px solid var(--line);
   }
   .a11y__title {
     font-size: calc(20px * var(--fs));
@@ -354,7 +359,7 @@ const path = Astro.url.pathname;
   .a11y__row {
     display: flex;
     padding: 28px 0;
-    border-bottom: 1px solid #7b7b7b;
+    border-bottom: 1px solid var(--line);
   }
   .a11y__row--theme { gap: 5.1%; }
   .a11y__row--theme .a11y__opt { flex: 0 0 47%; }
@@ -422,7 +427,7 @@ const path = Astro.url.pathname;
   /* ── Mega-menu desktop ─────────────────────────────────────────────── */
   @media (min-width: 1027px) {
     .hdr__item:hover > .hdr__link::before,
-    .hdr__item:focus-within > .hdr__link::before { transform: scale(1); }
+    .hdr__item:focus-within > .hdr__link::before { transform: none; }
     .hdr__item:not(.hdr__item--lang):hover > .hdr__link.has-child::after,
     .hdr__item:not(.hdr__item--lang):focus-within > .hdr__link.has-child::after {
       transform: rotate(45deg);
@@ -439,13 +444,27 @@ const path = Astro.url.pathname;
       background: var(--bg-menu);
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.35s ease, box-shadow 0.35s ease;
+      transition: max-height 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
     }
     .hdr__item:hover > .mega,
     .hdr__item:focus-within > .mega {
       max-height: 80vh;
-      box-shadow: 0 10px 20px rgb(0 0 0 / 0.08);
+      box-shadow: 0 1px 0 var(--hairline), 0 24px 48px -24px rgb(15 23 21 / 0.22);
     }
+    /* Isi panel menyusul sedikit di belakang panelnya: turun 10 px sambil muncul. */
+    .mega__wrap > * {
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.2s var(--ease-std), transform 0.2s var(--ease-std);
+    }
+    .hdr__item:hover > .mega .mega__wrap > *,
+    .hdr__item:focus-within > .mega .mega__wrap > * {
+      opacity: 1;
+      transform: none;
+      transition: opacity 0.45s var(--ease-std) 0.08s, transform 0.6s var(--ease-out) 0.08s;
+    }
+    .hdr__item:hover > .mega .mega__wrap > * + *,
+    .hdr__item:focus-within > .mega .mega__wrap > * + * { transition-delay: 0.14s; }
 
     /* Foto utama selebar 34 % kontainer, sisanya kolom tautan. */
     .mega__wrap {
@@ -481,15 +500,15 @@ const path = Astro.url.pathname;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.9s ease;
+      transition: transform var(--t-img) var(--ease-out);
     }
     .mega__feature::after {
       content: '';
       position: absolute;
       inset: auto 0 0;
       height: 65%;
-      background: linear-gradient(to bottom, transparent, #000);
-      opacity: 0.7;
+      background: var(--scrim);
+      opacity: 0.75;
     }
     .mega__label {
       position: absolute;
@@ -515,9 +534,9 @@ const path = Astro.url.pathname;
       background: var(--grad-bar);
       transform: scaleX(0);
       transform-origin: left;
-      transition: transform 0.4s ease;
+      transition: transform 0.5s var(--ease-out);
     }
-    .mega__arrow { flex: none; transition: transform 0.5s ease; }
+    .mega__arrow { flex: none; transition: transform 0.5s var(--ease-out); }
     .mega__feature:hover .mega__img { transform: scale(1.05); }
     .mega__feature:hover .mega__arrow { transform: translateX(10px); }
     .mega__feature:hover .mega__label::after { transform: none; }
@@ -533,7 +552,7 @@ const path = Astro.url.pathname;
       max-height: 0;
       overflow: hidden;
       background: var(--bg-menu);
-      transition: max-height 0.3s ease;
+      transition: max-height var(--t) var(--ease-out);
     }
     .hdr__item--lang:hover .lang,
     .hdr__item--lang:focus-within .lang { max-height: 200px; }
@@ -565,8 +584,8 @@ const path = Astro.url.pathname;
     gap: 10px;
     font-size: calc(16px * var(--fs));
     color: var(--ink-strong);
-    opacity: 0.6;
-    transition: opacity 0.3s;
+    opacity: 0.62;
+    transition: opacity var(--t) var(--ease-std);
   }
   .mega__links a:hover { opacity: 1; }
   .mega__links a:hover span { text-decoration: underline; }
@@ -575,7 +594,7 @@ const path = Astro.url.pathname;
     flex: none;
     opacity: 0;
     transform: translateX(-8px);
-    transition: opacity 0.3s, transform 0.3s ease-out;
+    transition: opacity var(--t) var(--ease-std), transform var(--t) var(--ease-out);
   }
   .mega__links a:hover .mega__chev,
   .mega__links a:focus-visible .mega__chev { opacity: 1; transform: none; }
@@ -659,7 +678,9 @@ const path = Astro.url.pathname;
   @media (prefers-reduced-motion: reduce) {
     .mega__img,
     .mega__arrow,
-    .mega__chev { transition: none; }
+    .mega__chev,
+    .mega__wrap > * { transition: none; }
+    .mega__wrap > * { transform: none; }
     .mega__feature:hover .mega__img { transform: none; }
   }
 
@@ -691,7 +712,7 @@ const path = Astro.url.pathname;
       height: 2px;
       border-radius: 25px;
       background: var(--ink-strong);
-      transition: 0.25s ease-in-out;
+      transition: 0.3s var(--ease-io);
     }
     .hdr__burger span:nth-child(1) { top: 0; }
     .hdr__burger span:nth-child(2),
@@ -710,7 +731,7 @@ const path = Astro.url.pathname;
       height: calc(100dvh - var(--header-h));
       overflow-y: auto;
       background: var(--bg);
-      transition: right 0.4s ease-in-out;
+      transition: right 0.5s var(--ease-io);
     }
     .is-open .hdr__nav { right: 0; }
 
@@ -724,7 +745,7 @@ const path = Astro.url.pathname;
     .hdr__item {
       display: block;
       padding: 0;
-      border-bottom: 1px solid #808080;
+      border-bottom: 1px solid var(--line);
     }
     .hdr__item--search { display: none; }
     .hdr__link {

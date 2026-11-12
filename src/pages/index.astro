@@ -6,12 +6,12 @@ import BusinessShowcase from '../components/home/BusinessShowcase.astro';
 import SustainAccordion from '../components/home/SustainAccordion.astro';
 import NewsCards from '../components/NewsCards.astro';
 import JoinUs from '../components/home/JoinUs.astro';
-import NoticeBox from '../components/home/NoticeBox.astro';
 import { SITE } from '../data/site';
 import { HERO_SLIDES, HOME_QUOTE } from '../data/pages/home';
 import { NEWS, byDate } from '../data/pages/media';
 
-/* Beranda, urutan section persis beranda adani.com. */
+/* Beranda, urutan section beranda adani.com. Kotak peringatan penipuan
+   (NoticeBox) dilepas 12 Nov 2026; komponennya masih ada di components/home/. */
 const latest = [...NEWS].sort(byDate).slice(0, 3);
 ---
 
@@ -22,5 +22,4 @@ const latest = [...NEWS].sort(byDate).slice(0, 3);
   <SustainAccordion />
   <NewsCards title="Latest News" viewAll="/media/news/" articles={latest} />
   <JoinUs />
-  <NoticeBox />
 </BaseLayout>

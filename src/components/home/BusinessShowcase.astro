@@ -151,6 +151,7 @@ const perfumery = [
     /* Adani memakai #c1c1c1 (1,7:1); digelapkan supaya tab tetap terbaca. */
     color: var(--ink-muted);
     letter-spacing: 0.2px;
+    transition: color var(--t) var(--ease-std);
   }
   .tab::after {
     content: '';
@@ -161,7 +162,8 @@ const perfumery = [
     height: 4px;
     background: var(--grad-bar);
     transform: scaleX(0);
-    transition: transform 0.3s;
+    transform-origin: left;
+    transition: transform 0.5s var(--ease-out);
   }
   .tab:hover { color: var(--ink); }
   .tab.is-active {
@@ -205,9 +207,9 @@ const perfumery = [
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 1s ease;
+    transition: transform var(--t-img) var(--ease-out);
   }
-  .tile:hover :global(img) { transform: scale(1.1); }
+  .tile:hover :global(img) { transform: scale(1.06); }
   /* Lapisan gradien yang menyapu tile aktif (`thumb-image::after`). */
   .tile::before {
     content: '';
@@ -216,8 +218,8 @@ const perfumery = [
     z-index: 1;
     background: var(--grad-bar);
     opacity: 0.92;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
+    transform: translateX(-101%);
+    transition: transform 0.5s var(--ease-out);
   }
   .tile.is-active::before { transform: none; }
   .tile.is-active::after { opacity: 0; }
@@ -245,13 +247,20 @@ const perfumery = [
     background: #fff;
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 0.3s ease;
+    transition: transform 0.5s var(--ease-out);
   }
   .tile:hover .tile__text::after,
   .tile.is-active .tile__text::after { transform: none; }
-  .tile__arrow { display: none; margin-left: auto; }
+  /* Panah masuk dari kiri sambil muncul, bukan tiba-tiba ada. */
+  .tile__arrow {
+    flex: none;
+    margin-left: auto;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity var(--t) var(--ease-std), transform 0.5s var(--ease-out);
+  }
   .tile:hover .tile__arrow,
-  .tile.is-active .tile__arrow { display: block; }
+  .tile.is-active .tile__arrow { opacity: 1; transform: none; }
 
   .biz__big { position: relative; width: 61.1%; min-height: 420px; }
   .big {
@@ -267,8 +276,9 @@ const perfumery = [
   .big::after {
     content: '';
     position: absolute;
-    inset: 50% 0 0;
-    background: linear-gradient(transparent, #000);
+    inset: 40% 0 0;
+    background: var(--scrim);
+    opacity: 0.92;
     pointer-events: none;
   }
   .big__links {
@@ -284,7 +294,7 @@ const perfumery = [
     flex-wrap: wrap;
     gap: 0 10px;
     padding: 20px 0 8px;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid rgb(255 255 255 / 0.55);
   }
   .big__links li {
     position: relative;
@@ -298,7 +308,7 @@ const perfumery = [
     inset: 0;
     background: var(--grad-bar);
     transform: translateX(-101%);
-    transition: transform 0.3s ease;
+    transition: transform 0.45s var(--ease-out);
   }
   .big__links li:hover::after { transform: none; }
   .big__links li a {
@@ -307,8 +317,9 @@ const perfumery = [
     display: block;
     padding: 12px 13px 12px 12px;
     font-size: calc(16px * var(--fs));
-    color: #dcdcdc;
+    color: rgb(255 255 255 / 0.86);
     letter-spacing: 0.16px;
+    transition: color var(--t) var(--ease-std);
   }
   .big__links li:hover a { color: #fff; }
   .big__more { padding-top: 20px; }

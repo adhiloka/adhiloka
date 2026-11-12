@@ -28,8 +28,9 @@ import { ScrollSmoother } from 'gsap/ScrollSmoother';
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
-/** Inersia gulir halus dalam detik. Adani memakai 2; turunkan bila terasa berat. */
-const SMOOTH = 2;
+/** Inersia gulir halus dalam detik. Adani memakai 2, yang terasa berat dan
+ *  tertinggal dari roda tetikus; 1,2 masih halus tapi langsung menurut. */
+const SMOOTH = 1.2;
 /** Tinggi header (--header-h): sasaran tautan # berhenti di bawahnya. */
 const HEADER_H = 65;
 
@@ -107,8 +108,10 @@ function rises() {
   const starts = { sub: 'top 90%', thumb: 'top 85%' } as const;
   (Object.keys(starts) as (keyof typeof starts)[]).forEach((kind) =>
     each(`[data-anim="${kind}"]`).forEach((el) =>
-      gsap.fromTo(el, { opacity: 0, y: 100 }, {
-        opacity: 1, y: 0, duration: 0.6, ease: 'power2.out',
+      // Adani: naik 100 px dalam 0,6 s. Di sini 60 px dalam 0,9 s dengan kurva
+      // yang lebih landai di ujung, supaya masuknya tenang, tidak melompat.
+      gsap.fromTo(el, { opacity: 0, y: 60 }, {
+        opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
         scrollTrigger: { trigger: el, start: starts[kind], toggleActions: 'play none none reverse' },
       }),
     ),
@@ -121,9 +124,11 @@ function columns() {
     if (!items.length) return;
     // fromTo berstagger (cara Adani) di GSAP 3.15 hanya merender posisi awal
     // anak pertama; sisanya tampil sebelum waktunya. Posisi awal dipasang dulu.
-    gsap.set(items, { opacity: 0, y: 250 });
+    // Adani: naik 250 px, 0,6 s, giliran 0,2 s. Jarak dipendekkan ke 90 px dan
+    // gilirannya dirapatkan supaya deret kartu masuk sebagai satu gerakan.
+    gsap.set(items, { opacity: 0, y: 90 });
     gsap.to(items, {
-      opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', stagger: 0.2,
+      opacity: 1, y: 0, duration: 1, ease: 'power3.out', stagger: 0.12,
       scrollTrigger: { trigger: box, start: 'top 80%', toggleActions: 'play none none reverse' },
     });
   });
@@ -162,8 +167,8 @@ function parallaxImages() {
     });
     // Zoom hover kartu (dulu transisi CSS) ikut GSAP, supaya tidak berebut transform.
     const card = frame.closest('a') ?? frame;
-    const zoom = (scale: number) => () => gsap.to(img, { scale, duration: 1, ease: 'power1.out', overwrite: 'auto' });
-    const enter = zoom(1.06);
+    const zoom = (scale: number) => () => gsap.to(img, { scale, duration: 1.2, ease: 'power3.out', overwrite: 'auto' });
+    const enter = zoom(1.05);
     const leave = zoom(1);
     card.addEventListener('mouseenter', enter);
     card.addEventListener('mouseleave', leave);
@@ -188,7 +193,7 @@ function businessImages() {
   // …dan saat tile dipilih, fotonya masuk dari skala 1,2.
   const onPick = (e: Event) => {
     const img = (e as CustomEvent<HTMLElement | undefined>).detail?.querySelector('img');
-    if (img) gsap.fromTo(img, { scale: 1.2, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.8, ease: 'power2.out' });
+    if (img) gsap.fromTo(img, { scale: 1.12, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.1, ease: 'power3.out' });
   };
   window.addEventListener('fx:pick', onPick);
   return () => window.removeEventListener('fx:pick', onPick);

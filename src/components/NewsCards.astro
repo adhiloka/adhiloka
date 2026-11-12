@@ -90,7 +90,7 @@ const H = headingLevel;
     height: calc(100% + 40px);
     padding: 20px 20px 28px;
     margin: -20px;
-    transition: background 0.3s;
+    transition: background-color var(--t) var(--ease-std);
   }
   .news__card:hover,
   .news__card:focus-visible { background: var(--bg-grey); }
@@ -100,8 +100,8 @@ const H = headingLevel;
     display: block;
     aspect-ratio: 364 / 207;
   }
-  .news__media :global(img) { transition: transform 1s ease; }
-  .news__card:hover .news__media :global(img) { transform: scale(1.06); }
+  .news__media :global(img) { transition: transform var(--t-img) var(--ease-out); }
+  .news__card:hover .news__media :global(img) { transform: scale(1.05); }
   .news__cat {
     position: absolute;
     z-index: 1;
@@ -113,16 +113,17 @@ const H = headingLevel;
   .news__date {
     display: block;
     padding: 20px 0 14px;
-    font-size: calc(16px * var(--fs));
+    font-size: calc(15px * var(--fs));
+    letter-spacing: 0.03em;
     color: var(--ink-muted);
   }
   .news__title {
     font-size: calc(20px * var(--fs));
-    line-height: 1.19;
+    line-height: 1.25;
     font-weight: 360;
     color: var(--ink);
   }
-  .news__card:hover .news__title { text-decoration: underline; text-underline-offset: 3px; }
+  .news__card:hover .news__title { text-decoration: underline; }
 
   @media (max-width: 1026px) {
     .news:not(.news--grid) {

@@ -45,7 +45,7 @@ const { sites } = Astro.props;
     gap: 32px 2.4%;
   }
   .loc__item { background: var(--bg); }
-  .loc__media :global(img) { transition: transform 1s linear; }
+  .loc__media :global(img) { transition: transform var(--t-img) var(--ease-out); }
   .loc__item:hover .loc__media :global(img) { transform: scale(1.05); }
   .loc__media { display: block; aspect-ratio: 16 / 10; }
   .loc__kind {

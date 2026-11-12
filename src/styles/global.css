@@ -25,16 +25,44 @@
   /* Nomor bagian (adhiloka-brand: angka 01, 02) */
   --brand-number: #9a5800;
 
-  --ink: #393939;
-  --ink-strong: #000;
-  --ink-muted: #6b6b6b;
-  --line: #c1c1c1;
-  --line-soft: #eaeaea;
+  /* Netral (penyegaran 12 Nov 2026): abu mati Adani (#393939, #6b6b6b,
+     #c1c1c1, #f0f0f0) diganti netral yang condong ke hijau merek, supaya
+     teks, garis dan bidang abu senada dengan logo. Tinta dan sage adalah
+     warna merek (adhiloka-brand: Tinta #1F2A27, Sage #5C6D68). */
+  --ink: #1f2a27;
+  --ink-strong: #0f1715;
+  --ink-muted: #5c6d68;
+  --line: #c2c9c6;
+  --line-soft: #e6eae8;
   --bg: #fff;
-  --bg-grey: #f0f0f0;
-  --bg-menu: #f4f4f4;
-  --bg-header: rgb(255 255 255 / 0.7);
+  --bg-grey: #f2f4f3;
+  --bg-menu: #f6f7f6;
+  --bg-header: rgb(255 255 255 / 0.72);
+  --hairline: rgb(15 23 21 / 0.08);
   --error: #b3261e;
+
+  /* Gerak. Satu keluarga kurva untuk seluruh situs: `out` untuk yang masuk
+     atau menyorot (cepat lalu melambat), `io` untuk yang bergeser bolak-
+     balik (panel, laci), `std` untuk warna dan opasitas. */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-std: cubic-bezier(0.4, 0, 0.2, 1);
+  --t-fast: 0.2s;
+  --t: 0.35s;
+  --t-slow: 0.6s;
+  --t-img: 1.2s;
+
+  /* Bayangan foto: hitam yang naik melengkung (bukan garis lurus transparan
+     → hitam), supaya tidak ada pita tepi yang terlihat di atas foto. */
+  --scrim: linear-gradient(
+    to bottom,
+    rgb(0 0 0 / 0) 0%, rgb(0 0 0 / 0.013) 8.1%, rgb(0 0 0 / 0.049) 15.5%,
+    rgb(0 0 0 / 0.104) 22.5%, rgb(0 0 0 / 0.175) 29%, rgb(0 0 0 / 0.259) 35.3%,
+    rgb(0 0 0 / 0.352) 41.2%, rgb(0 0 0 / 0.45) 47.1%, rgb(0 0 0 / 0.55) 52.9%,
+    rgb(0 0 0 / 0.648) 58.8%, rgb(0 0 0 / 0.741) 64.7%, rgb(0 0 0 / 0.825) 71%,
+    rgb(0 0 0 / 0.896) 77.5%, rgb(0 0 0 / 0.951) 84.5%, rgb(0 0 0 / 0.987) 91.9%,
+    rgb(0 0 0 / 1) 100%
+  );
 
   /* Pengali ukuran huruf dari panel Accessibility (-A / A / +A). Setiap
      font-size di situs ditulis `calc(... * var(--fs))`. */
@@ -90,7 +118,8 @@ html.dark-mode {
   --bg: #000;
   --bg-grey: #101917;
   --bg-menu: #18211f;
-  --bg-header: rgb(57 57 57 / 0.7);
+  --bg-header: rgb(24 33 31 / 0.72);
+  --hairline: rgb(255 255 255 / 0.1);
   --error: #ff8a80;
   --brand-number: #d9aa5a;
   --grad-bar: linear-gradient(to right, #248f76, #3fae92, #d9aa5a, #d58207);
@@ -122,16 +151,41 @@ body {
   line-height: 1.5;
   letter-spacing: 0.02em;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+  font-synthesis: none;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
   overflow-x: clip;
 }
 body.is-locked { overflow: hidden; }
+
+::selection {
+  background: var(--brand-green-deep);
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+}
+
+/* Paragraf tidak meninggalkan satu kata sendirian di baris terakhir. */
+p,
+li,
+blockquote { text-wrap: pretty; }
+time { font-variant-numeric: tabular-nums; }
 
 ol,
 ul { list-style: none; }
 img,
 video,
 svg { display: block; max-width: 100%; }
-a { color: inherit; text-decoration: none; }
+/* Garis bawah tautan: 1 px tajam, sedikit turun dari huruf. */
+a {
+  color: inherit;
+  text-decoration: none;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+}
 button,
 input,
 select,
@@ -253,8 +307,12 @@ strong { font-weight: 670; }
   font-weight: 440;
   color: var(--ink);
   white-space: nowrap;
-  transition: color 0.3s, border-color 0.3s;
+  transition:
+    color var(--t) var(--ease-std),
+    border-color var(--t) var(--ease-std),
+    transform var(--t-fast) var(--ease-out);
 }
+.btn:active { transform: scale(0.98); }
 .btn::before {
   content: '';
   position: absolute;
@@ -269,7 +327,8 @@ strong { font-weight: 670; }
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity var(--t) var(--ease-std);
+  pointer-events: none;
 }
 .btn:hover { border-color: transparent; }
 .btn:hover::before { opacity: 1; }
@@ -329,14 +388,14 @@ a[href='#'] { cursor: default; }
   position: absolute;
   inset: auto 0 0;
   height: 60%;
-  background: linear-gradient(to bottom, transparent 0, #000 100%);
+  background: var(--scrim);
   opacity: 0.8;
   pointer-events: none;
 }
 
-/* Zoom pelan saat hover, `transform: scale(1.1)` selama 1 s pada Adani. */
-.zoom img { transition: transform 1s ease; }
-.zoom:hover img { transform: scale(1.08); }
+/* Zoom pelan saat hover: 1,2 s, cepat di awal lalu melambat, skala 1,05. */
+.zoom img { transition: transform var(--t-img) var(--ease-out); }
+.zoom:hover img { transform: scale(1.05); }
 
 /* ── Gerak gulir ala adani.com (scripts/scroll-fx.ts) ────────────────── */
 

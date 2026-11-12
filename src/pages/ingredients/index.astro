@@ -105,7 +105,9 @@ const collections = FAMILY_FILTERS.filter((f) => f.value !== 'All').map((f) => {
     margin-top: 48px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    background: var(--line) 0 5px / 100% 1px no-repeat local;
+    /* Garis 1 px setinggi pusat titik. Harus gradien: warna polos mengabaikan
+       ukuran latar dan memenuhi seluruh kotak (dulu jadi blok abu). */
+    background: linear-gradient(var(--line), var(--line)) 0 5.5px / 100% 1px no-repeat local;
   }
   .ms__item {
     position: relative;

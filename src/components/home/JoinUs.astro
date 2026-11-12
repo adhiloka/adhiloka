@@ -58,7 +58,7 @@ import { JOIN_US } from '../../data/pages/home';
   .join__card {
     flex: 1 1 0;
     min-width: 0;
-    transition: flex-grow 0.5s ease;
+    transition: flex-grow 0.6s var(--ease-io);
   }
   .join__card.is-active { flex-grow: 2.14; }
 
@@ -66,7 +66,7 @@ import { JOIN_US } from '../../data/pages/home';
     display: block;
     height: 100%;
   }
-  .join__link :global(img) { transition: transform 1s ease; }
+  .join__link :global(img) { transition: transform var(--t-img) var(--ease-out); }
   .join__link:hover :global(img) { transform: scale(1.05); }
 
   .join__label {
@@ -82,8 +82,13 @@ import { JOIN_US } from '../../data/pages/home';
     line-height: 1.2;
     color: #fff;
   }
-  .join__label svg { flex: none; display: none; }
-  .is-active .join__label svg { display: block; }
+  .join__label svg {
+    flex: none;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity var(--t) var(--ease-std), transform 0.5s var(--ease-out);
+  }
+  .is-active .join__label svg { opacity: 1; transform: none; transition-delay: 0.15s; }
   .join__label::after {
     content: '';
     position: absolute;
@@ -94,7 +99,7 @@ import { JOIN_US } from '../../data/pages/home';
     background: var(--grad-bar);
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 0.4s ease;
+    transition: transform 0.6s var(--ease-out);
   }
   .is-active .join__label::after { transform: none; }
 
@@ -107,6 +112,6 @@ import { JOIN_US } from '../../data/pages/home';
       margin-top: 36px;
     }
     .join__link { aspect-ratio: 3 / 4; height: auto; }
-    .join__label svg { display: block; }
+    .join__label svg { opacity: 1; transform: none; }
   }
 </style>

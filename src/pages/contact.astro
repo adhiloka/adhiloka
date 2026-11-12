@@ -128,7 +128,7 @@ const configured = accessKey.length > 0;
   .form[hidden] { display: none; }
   .form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
   .field { display: flex; flex-direction: column; gap: 8px; }
-  .field__label { font-size: calc(15px * var(--fs)); color: var(--ink-muted); }
+  .field__label { font-size: calc(14px * var(--fs)); letter-spacing: 0.03em; color: var(--ink-muted); }
   .field input,
   .field select,
   .field textarea {
@@ -139,14 +139,42 @@ const configured = accessKey.length > 0;
     font-size: calc(16px * var(--fs));
     color: var(--ink);
     background: var(--bg);
-    transition: border-color 0.2s;
+    transition:
+      border-color var(--t-fast) var(--ease-std),
+      box-shadow var(--t-fast) var(--ease-std);
   }
-  .field textarea { resize: vertical; line-height: 1.6; }
+  .field input,
+  .field select { height: 52px; }
+  .field ::placeholder { color: var(--ink-muted); opacity: 0.75; }
+  .field textarea { min-height: 148px; resize: vertical; line-height: 1.6; }
+  /* Panah pilihan digambar sendiri (segitiga 5 px seperti pemilih di header),
+     pengganti panah bawaan peramban yang berbeda di tiap sistem. */
+  .field select {
+    padding-right: 44px;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image:
+      linear-gradient(45deg, transparent 50%, currentColor 50%),
+      linear-gradient(135deg, currentColor 50%, transparent 50%);
+    background-position: calc(100% - 22px) 50%, calc(100% - 17px) 50%;
+    background-size: 5px 5px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+  }
+  .field input:hover,
+  .field select:hover,
+  .field textarea:hover { border-color: var(--ink-muted); }
   .field input:focus,
   .field select:focus,
-  .field textarea:focus { border-color: var(--brand-green); outline: none; }
+  .field textarea:focus {
+    border-color: var(--brand-green);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand-green-light) 22%, transparent);
+    outline: none;
+  }
   .field :global([aria-invalid='true']) { border-color: var(--error); }
-  .field__error { min-height: 1em; font-size: calc(14px * var(--fs)); color: var(--error); }
+  .field__error { font-size: calc(14px * var(--fs)); color: var(--error); }
+  /* Slot galat kosong tidak makan tempat: jarak antarbaris formulir sama rata. */
+  .field__error:empty { display: none; }
   .form__foot { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
   .form__status { font-size: calc(15px * var(--fs)); color: var(--ink-muted); }
   .form__notice { font-size: calc(14px * var(--fs)); line-height: 1.6; color: var(--ink-muted); }
@@ -169,6 +197,7 @@ const configured = accessKey.length > 0;
     font-weight: 440;
     text-decoration: underline;
     text-underline-offset: 4px;
+    transition: color var(--t) var(--ease-std);
   }
   .office__contact:hover { color: var(--brand-green); }
 

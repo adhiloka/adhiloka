@@ -39,15 +39,25 @@
     place-items: center;
     width: 44px;
     height: 44px;
-    border: 1px solid #393933;
+    border: 1px solid var(--ink);
     border-radius: 50%;
     background: rgb(255 255 255 / 0.8);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
     color: var(--ink);
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s, visibility 0.3s, border-color 0.3s;
+    transform: translateY(10px);
+    transition:
+      opacity var(--t) var(--ease-std),
+      visibility var(--t),
+      border-color var(--t) var(--ease-std),
+      color var(--t) var(--ease-std),
+      transform 0.5s var(--ease-out);
   }
-  .top.is-on { opacity: 1; visibility: visible; }
+  .top.is-on { opacity: 1; visibility: visible; transform: none; }
+  .top svg { transition: transform 0.5s var(--ease-out); }
+  .top:hover svg { transform: translateY(-2px); }
 
   /* Cincin empat warna saat hover (Adani: biru, ungu; di sini warna logo). */
   .top::before {
