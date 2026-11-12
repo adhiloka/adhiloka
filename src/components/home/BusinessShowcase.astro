@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import { images, type ImageKey } from '../../data/images';
 import { MATERIALS, materialHref, type Family } from '../../data/materials';
 import { ROUTES } from '../../data/pages/ingredients';
-import { PERFUMERY_CARDS, SIGNATURE_PASSAGES, NATURALS_PASSAGES } from '../../data/pages/perfumery';
+import { PERFUMERY_TILES } from '../../data/pages/perfumery';
 
 /* Section "BUSINESSES" adani.com, diisi usaha Adhiloka.
  * Tab kanan atas: Ingredients (seperti "Verticals": grid tile 2 kolom di kiri,
@@ -44,17 +44,13 @@ const panes: Pane[] = [
     key: 'technology',
     label: 'Technology',
     image: 'copper-still',
-    chips: ROUTES.map((r) => ({ label: r.name, href: '/ingredients/technology/' })),
+    chips: ROUTES.slice(0, 6).map((r) => ({ label: r.name, href: '/ingredients/technology/#routes' })),
     more: '/ingredients/technology/',
   },
 ];
 
-/* Delapan ubin: tiga subhalaman, dua bagian Signature Creations, tiga bagian Mindful Naturals. */
-const perfumery = [
-  ...PERFUMERY_CARDS.map((c) => ({ label: c.title, href: c.href, image: (c.image ?? 'fragrance-petal') as ImageKey })),
-  ...SIGNATURE_PASSAGES.map((p) => ({ label: p.eyebrow ?? p.title, href: `/perfumery/signature-creations/#${p.id}`, image: (p.image ?? 'fragrance-petal') as ImageKey })),
-  ...NATURALS_PASSAGES.map((p) => ({ label: p.eyebrow ?? p.title, href: `/perfumery/mindful-naturals/#${p.id}`, image: (p.image ?? 'fragrance-resin') as ImageKey })),
-];
+/* Empat ubin: bagian-bagian halaman Perfumery (satu halaman sejak 12 Nov 2026). */
+const perfumery = PERFUMERY_TILES;
 ---
 
 <section class="sec sec--grey biz" data-tabs>

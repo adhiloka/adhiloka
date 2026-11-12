@@ -33,7 +33,9 @@ kolom yang berdiri sendiri: halaman anaknya dikelompokkan di bawah label grup ta
 | `/about/` | Pola /about-us Adani: banner · kutipan · Who We Are (slider foto fade dalam panel inset) · How We Work · nilai · kartu |
 | `/about/our-business/`, `/about/our-purpose/` | Banner · pembuka · isi halaman · Explore More |
 | `/about/our-leadership/`, `our-history/`, `our-locations/` | **Diparkir** (lihat "Halaman yang diparkir"); rutenya dialihkan ke `/about/` |
-| `/perfumery/`, `/ingredients/`, `/sustainability/` | Banner · pembuka dengan Read More · kartu anak · penutup berfoto dua tombol |
+| `/perfumery/` | **Satu halaman, tanpa subhalaman** (12 Nov 2026): banner · pembuka · Fine Fragrance · Consumer Fragrance · Fragrance Innovation · How We Work · Our Palette · penutup. Subhalaman lama dialihkan ke sini |
+| `/ingredients/technology/` | Pembuka · Extraction & Distillation (9 teknik) · Science & Renewables (4) · What We Produce · Quality & Compliance · Explore More |
+| `/ingredients/`, `/sustainability/` | Banner · pembuka dengan Read More · kartu anak · penutup berfoto dua tombol |
 | `/media/` | Banner · slider Media Releases · promosi Media Kit · Media Centre · kontak pers |
 | `/ingredients/catalog/` | 6 bahan inti; laci filter (keluarga, nota aroma), urutan, pencarian, grid/list; pita unduhan katalog PDF |
 | `/ingredients/catalog/<slug>/` | Kepala berwarna keluarga · strip fakta (nama botani, keluarga, bagian tanaman, asal) · nota aroma, deskripsi dan pemakaian · Did you know? · Samples & Documents (tiga tombol ke formulir kontak + katalog PDF) · slider Other Ingredients |
@@ -180,7 +182,14 @@ Sejak 10 November 2026 **tidak ada lagi lorem ipsum di situs**. Beranda ditulis 
 permintaan pemilik: ringkas, hangat, bergaya situs rumah fragrance (Robertet, Givaudan,
 dsm-firmenich, IFF), tidak menjelaskan berlebihan.
 
-Aturan yang tetap berlaku (keputusan 2 Okt 2026): **tidak ada klaim yang belum terbukti**. Naskah
+**Perfumery dan Technology** ditulis ulang 12 November 2026 mengikuti cara dsm-firmenich, Givaudan,
+IFF dan Robertet menerangkannya (rujukan di `../../../market-research/references/`, berkas
+`Web … - 2026`). Pemilik menyatakan teknologi dan jajaran produk Adhiloka lengkap, jadi daftar
+teknik dan kemampuan di dua halaman itu ditulis penuh, tanpa kata "Indonesia" dan tanpa
+dikecilkan ke kondisi sekarang. Kalimatnya ditulis sendiri; nama dagang dan slogan rujukan tidak
+dipakai. Tetap tanpa angka, tahun, nama orang, paten dan sertifikat.
+
+Aturan yang tetap berlaku untuk halaman lain (keputusan 2 Okt 2026): **tidak ada klaim yang belum terbukti**. Naskah
 tidak memuat angka, tahun berdiri, nama orang, alamat, kapasitas, nama alat, sertifikat, MOQ, lama
 kirim, atau dokumen yang "tersedia". Data bahan di `materials.ts` hanya pengetahuan umum perfumery
 (nama botani, bagian tanaman, nota aroma, pemakaian), bukan data lot Adhiloka. Sebelum menambah

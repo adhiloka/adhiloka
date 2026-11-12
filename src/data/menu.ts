@@ -42,28 +42,22 @@ const COLUMNS: Record<string, MenuColumn[]> = {
       links: [{ label: 'Our Values', href: '/about/our-purpose/#values' }],
     },
   ],
+  // Perfumery satu halaman (12 Nov 2026): tautannya menuju bagian halaman
+  // itu, dikelompokkan di bawah label grup seperti About Us dan Media.
   '/perfumery/': [
     {
-      head: { label: 'Signature Creations', href: '/perfumery/signature-creations/' },
+      head: { label: 'Creation' },
       links: [
-        { label: 'Our Craft', href: '/perfumery/signature-creations/#craft' },
-        { label: 'Our Approach', href: '/perfumery/signature-creations/#approach' },
+        { label: 'Fine Fragrance', href: '/perfumery/#fine-fragrance' },
+        { label: 'Consumer Fragrance', href: '/perfumery/#consumer-fragrance' },
       ],
     },
     {
-      head: { label: 'Beyond Fragrance', href: '/perfumery/beyond-fragrance/' },
+      head: { label: 'Expertise' },
       links: [
-        { label: 'Knowing the Material', href: '/perfumery/beyond-fragrance/#material-study' },
-        { label: 'In the Finished Product', href: '/perfumery/beyond-fragrance/#application' },
-        { label: 'Naturals Research', href: '/perfumery/beyond-fragrance/#naturals-research' },
-      ],
-    },
-    {
-      head: { label: 'Mindful Naturals', href: '/perfumery/mindful-naturals/' },
-      links: [
-        { label: 'The Essence of Adhiloka', href: '/perfumery/mindful-naturals/#essence' },
-        { label: 'Nature as Inspiration', href: '/perfumery/mindful-naturals/#inspired-by-nature' },
-        { label: 'Responsible Sourcing', href: '/perfumery/mindful-naturals/#sourcing' },
+        { label: 'Fragrance Innovation', href: '/perfumery/#innovation' },
+        { label: 'How We Work', href: '/perfumery/#approach' },
+        { label: 'Our Palette', href: '/perfumery/#palette' },
       ],
     },
   ],

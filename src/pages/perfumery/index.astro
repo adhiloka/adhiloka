@@ -1,34 +1,38 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import Intro from '../../components/blocks/Intro.astro';
-import CardGrid from '../../components/blocks/CardGrid.astro';
+import Passages from '../../components/blocks/Passages.astro';
 import InfoGrid from '../../components/blocks/InfoGrid.astro';
 import ClosingCta from '../../components/blocks/ClosingCta.astro';
-import { PERFUMERY_INTRO, PERFUMERY_OPENING, PERFUMERY_CARDS, PERFUMERY_FIELDS } from '../../data/pages/perfumery';
+import {
+  PERFUMERY_INTRO,
+  PERFUMERY_OPENING,
+  PERFUMERY_AREAS,
+  PERFUMERY_INNOVATION,
+  PERFUMERY_INNOVATION_LEAD,
+  PERFUMERY_STEPS,
+  PERFUMERY_PALETTE,
+  PERFUMERY_CLOSING,
+} from '../../data/pages/perfumery';
 
-/* Hub Perfumery berpola sama dengan hub Sustainability dan Ingredients:
- * banner + kalimat, intro Read More, kartu tiga subhalaman, grid bidang,
- * lalu penutup. Isinya mengikuti robertet.com/en/fragrances/. */
+/* Perfumery: satu halaman tanpa subhalaman. Urutannya mengikuti cara
+ * dsm-firmenich, Givaudan, IFF dan Robertet menerangkan perfumery:
+ * bidang kreasi (Fine Fragrance, Consumer Fragrance), inovasi, cara kerja,
+ * palet, lalu ajakan. Rincian di data/pages/perfumery.ts. */
 ---
 
 <PageLayout intro={PERFUMERY_INTRO} bannerTitle="Perfumery" lineInBanner>
-  <Intro title={PERFUMERY_INTRO.title} paragraphs={PERFUMERY_OPENING} more />
-  <CardGrid title="Our Perfumery" cards={PERFUMERY_CARDS} grey />
-  <InfoGrid
-    title="What We Create"
-    cols={3}
-    items={PERFUMERY_FIELDS.map((f) => ({
-      ...f,
-      href: '/perfumery/signature-creations/#craft',
-      linkLabel: 'Learn more',
-    }))}
-  />
+  <Intro title={PERFUMERY_INTRO.title} paragraphs={PERFUMERY_OPENING} />
+  <Passages passages={PERFUMERY_AREAS} startGrey />
+  <InfoGrid id="innovation" title="Fragrance Innovation" lead={PERFUMERY_INNOVATION_LEAD} cols={3} items={PERFUMERY_INNOVATION} grey />
+  <InfoGrid id="approach" title="How We Work" cols={4} items={PERFUMERY_STEPS} />
+  <Passages passages={[PERFUMERY_PALETTE]} startGrey />
   <ClosingCta
-    text="Every fragrance begins with a conversation."
+    text={PERFUMERY_CLOSING}
     image="fragrance-petal"
     buttons={[
-      { label: 'Signature Creations', href: '/perfumery/signature-creations/' },
       { label: 'Contact Us', href: '/contact/?kind=bespoke' },
+      { label: 'Explore Ingredients', href: '/ingredients/' },
     ]}
   />
 </PageLayout>

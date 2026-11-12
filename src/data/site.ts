@@ -50,15 +50,15 @@ export const NAV: NavItem[] = [
     label: 'Perfumery',
     href: '/perfumery/',
     blurb:
-      'Fragrances composed from the natural materials of Indonesia, for fine perfumery, personal care and the home.',
+      'Fragrance creation for fine fragrance, personal care, home care and fabric care.',
     panel: {
       title: 'Perfumery',
       shot: 'perfumer at work with a dropper',
       image: 'perfumer-dropper',
       links: [
-        { label: 'Signature Creations', href: '/perfumery/signature-creations/' },
-        { label: 'Beyond Fragrance', href: '/perfumery/beyond-fragrance/' },
-        { label: 'Mindful Naturals', href: '/perfumery/mindful-naturals/' },
+        { label: 'Fine Fragrance', href: '/perfumery/#fine-fragrance' },
+        { label: 'Consumer Fragrance', href: '/perfumery/#consumer-fragrance' },
+        { label: 'Fragrance Innovation', href: '/perfumery/#innovation' },
       ],
     },
   },
@@ -126,7 +126,7 @@ export const SOCIAL: { label: string; href: string }[] = [];
 export const SEARCH_SUGGESTIONS = [
   { label: 'Benzoin Sumatra', href: '/ingredients/catalog/benzoin-sumatra/' },
   { label: 'Patchouli', href: '/ingredients/catalog/patchouli/' },
-  { label: 'Signature creations', href: '/perfumery/signature-creations/' },
+  { label: 'Fine fragrance', href: '/perfumery/#fine-fragrance' },
   { label: 'Responsible sourcing', href: '/sustainability/responsible-sourcing/' },
   { label: 'Ordering & documents', href: '/ingredients/ordering/' },
   { label: 'Sample request', href: '/contact/?kind=sample' },
