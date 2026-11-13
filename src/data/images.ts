@@ -49,6 +49,13 @@ import stillFire from '../assets/images/still-fire.jpg';
 import cargoShip from '../assets/images/cargo-ship.jpg';
 import burlapSacks from '../assets/images/burlap-sacks.jpg';
 
+/* Pengganti foto yang salah isi, 13 Nov 2026. Dua foto Wikimedia berlisensi
+   CC BY 3.0 (Forest & Kim Starr); kreditnya wajib dan tercantum di /legal/. */
+import patchouliLeaves from '../assets/images/patchouli-leaves.jpg';
+import vetiverClump from '../assets/images/vetiver-clump.jpg';
+import labVials from '../assets/images/lab-vials.jpg';
+import harvestSorting from '../assets/images/harvest-sorting.jpg';
+
 /* Satu-satunya tempat berkas gambar dipetakan ke kunci yang dipakai data.
  *
  * PERINGATAN: kunci di bawah ini mewarisi nama berkas dari bundle desain, dan
@@ -106,6 +113,16 @@ import burlapSacks from '../assets/images/burlap-sacks.jpg';
  *   still-fire           tungku api di bawah ketel suling tradisional  [stock-photos/lab/35105788]
  *   cargo-ship           kapal kontainer di laut saat senja  [stock-photos/logistics/262353]
  *   burlap-sacks         tumpukan kain karung goni  [stock-photos/logistics/unsplash-ERB2nH1Jz3U]
+ *
+ * 13 Nov 2026 (pemilik: masih banyak foto yang tidak sesuai):
+ *   patchouli-leaves     daun nilam asli, Pogostemon cablin  [stock-photos/wikimedia/patchouli, Starr 070906-8832, CC BY 3.0]
+ *   vetiver-clump        rumpun akar wangi, Chrysopogon zizanioides  [stock-photos/wikimedia/vetiver, Starr 090721-3248, CC BY 3.0]
+ *   lab-vials            tangan bersarung memegang vial kaca  [stock-photos/perfumery/5922103]
+ *   harvest-sorting      petani menyortir hasil panen rimpang (bukan petani Adhiloka)  [stock-photos/markets/39932436]
+ * Dilepas dari halaman: material-patchouli (tetes air di daun, bukan nilam),
+ * grass-blades (rumput biasa), fragrance-resin (rimpang kering berlabel
+ * resin), hero-benzoin-tears (kayu manis berlabel benzoin), about-table
+ * (orang makan malam). Berkasnya tetap di repo.
  *
  * Caption di seluruh situs sudah disetel ke apa yang benar-benar terlihat.
  * Tempat yang butuh foto pabrik, stasiun, atau orang memakai pelat hatch
@@ -169,6 +186,10 @@ export const images = {
   'still-fire': stillFire,
   'cargo-ship': cargoShip,
   'burlap-sacks': burlapSacks,
+  'patchouli-leaves': patchouliLeaves,
+  'vetiver-clump': vetiverClump,
+  'lab-vials': labVials,
+  'harvest-sorting': harvestSorting,
 } satisfies Record<string, ImageMetadata>;
 
 export type ImageKey = keyof typeof images;

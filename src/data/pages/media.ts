@@ -31,7 +31,8 @@ export const MEDIA_CARDS: LinkCard[] = [
   },
 ];
 
-export const MEDIA_KIT_TEXT = 'Our logo and catalog, ready to download.';
+export const MEDIA_KIT_TEXT =
+  'Our logo files and ingredients catalog, ready to download for articles, presentations and partner materials. Please use them as provided, without changing colours or proportions.';
 
 export const MEDIA_CONTACT = {
   title: 'Press enquiries',

@@ -6,8 +6,8 @@ import SiblingCards from '../../components/blocks/SiblingCards.astro';
 import { TECHNOLOGY_INTRO, ROUTES, TECHNOLOGY_SCIENCE, TECHNOLOGY_RANGE, TECHNOLOGY_PASSAGES } from '../../data/pages/ingredients';
 
 /* Susunan mengikuti halaman teknologi dsm-firmenich: daftar teknik, lalu
- * jajaran produk dan mutu. Tiap teknik cukup nama + satu keterangan pendek;
- * tidak ada pembuka dan tidak ada kalimat pengantar di bawah judul. */
+ * jajaran produk dan mutu. Tiap teknik: nama + satu paragraf tentang hasil dan
+ * gunanya (pemilik, 13 Nov 2026); tidak ada pembuka di bawah judul section. */
 const asItems = (list: typeof ROUTES) => list.map((r) => ({ title: r.name, body: r.note }));
 ---
 

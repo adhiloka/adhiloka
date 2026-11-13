@@ -183,6 +183,13 @@ berubah. Dengan `prefers-reduced-motion` atau tanpa JS, semuanya tampil diam.
 
 ## Naskah
 
+**Satu paragraf per judul (koreksi pemilik 13 Nov 2026).** Keterangan sepatah kata ternyata terlalu
+singkat. Mengikuti dsm-firmenich, IFF, Robertet dan Givaudan, tiap judul kini diberi satu paragraf
+(dua sampai tiga kalimat): blok bergambar, kartu teknik, nilai, langkah pesan, logistik, langkah
+Perfumery dan rantai sumber, keluarga bahan, pembuka hub, serta "Perfumery usage" tiap bahan.
+Hero, kutipan, pita penutup, panel akordeon beranda dan kartu menuju halaman lain tetap pendek.
+Aturan di bawah ini (12 Nov) masih berlaku kecuali batas "satu keterangan pendek"-nya.
+
 **Hierarki naskah (koreksi pemilik 12 Nov 2026).** Naskah lama terlalu banyak menjelaskan dan
 terlalu banyak tingkat (judul, subjudul, paragraf, butir). Sekarang: judul, lalu paling banyak
 satu keterangan pendek yang tidak menjelaskan. Tidak ada subjudul di bawah judul, tidak ada
@@ -271,6 +278,11 @@ Tanda logonya sama persis dengan versi sebelumnya, jadi favicon tidak berubah.
    `resin-*` bukan benzoin Sumatra, kayu manis jenisnya tidak diketahui, dan Vetiver memakai foto
    daun rumput (`grass-blades`) karena foto akar wangi asli belum ada. Benzoin dan Patchouli masih
    memakai foto lama. Begitu ada foto barang sendiri, ganti lewat `images.ts`.
+   13 Nov 2026: foto yang salah isi diganti. Patchouli dan Vetiver kini memakai foto tanaman asli
+   dari Wikimedia Commons (Forest & Kim Starr, CC BY 3.0; kreditnya wajib dan ada di `/legal/`
+   bagian Photo Credits). "Who We Are" tidak lagi memakai rimpang kering berlabel resin, "How We
+   Work" tidak lagi kayu manis, kartu About di Media Resources tidak lagi foto orang makan malam,
+   dan tile Fragrance Innovation memakai foto vial laboratorium, bukan alat uji titik nyala.
 3. **Data** untuk halaman yang diparkir dan untuk spesifikasi bahan (lihat di atas).
 4. **JSON-LD.** Telepon, `foundingDate` dan alamat masih dilepas (formulir A2–A5).
 
