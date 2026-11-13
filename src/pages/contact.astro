@@ -3,6 +3,7 @@ import PageLayout from '../layouts/PageLayout.astro';
 import { OFFICES, ENQUIRY_KINDS, CONTACT_INTRO } from '../data/pages/contact';
 import { MATERIAL_NAMES } from '../data/material-names';
 import { SITE } from '../data/site';
+import SiblingCards from '../components/blocks/SiblingCards.astro';
 
 /* Contact ala adani.com/contact-us: banner, lalu formulir di kiri dan
  * alamat kantor di kanan. Formulir dan skripnya (contact-form.ts) tetap yang
@@ -104,6 +105,7 @@ const configured = accessKey.length > 0;
       </aside>
     </div>
   </section>
+  <SiblingCards />
 </PageLayout>
 
 <script>

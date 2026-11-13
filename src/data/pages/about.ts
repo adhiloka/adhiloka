@@ -69,8 +69,8 @@ export const BUSINESS_PASSAGES: Passage[] = [
     body: 'Every material asks for its own method. Leaves, roots and spices are distilled, resins are extracted, and each process is adjusted to keep as much of the original scent as possible. The result is an ingredient that still smells of the plant it came from.',
     cta: 'Technology',
     href: '/ingredients/technology/',
-    caption: 'fire beneath traditional distillation stills',
-    image: 'still-fire',
+    caption: 'copper distillation still',
+    image: 'copper-still',
   },
   {
     id: 'ingredients',

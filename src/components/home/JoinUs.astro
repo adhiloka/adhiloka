@@ -4,7 +4,7 @@ import { images } from '../../data/images';
 import { JOIN_US } from '../../data/pages/home';
 
 /* "JOIN US" adani.com: judul + satu kalimat + Know More, lalu empat kartu foto
- * setinggi ±600 px. Kartu aktif lebar (490 px pada 1440), tiga lainnya sempit;
+ * setinggi ±600 px (Adhiloka: tiga kartu sejak 13 Nov 2026). Kartu aktif lebar (490 px pada 1440), tiga lainnya sempit;
  * hover atau fokus memindahkan lebarnya. Tautan tombol dan tiap kartu dari
  * JOIN_US (home.ts). */
 ---
@@ -111,6 +111,9 @@ import { JOIN_US } from '../../data/pages/home';
       margin-top: 36px;
     }
     .join__link { aspect-ratio: 3 / 4; height: auto; }
+    /* Kartu ganjil terakhir selebar dua kolom supaya baris tidak bolong. */
+    .join__card:last-child:nth-child(odd) { grid-column: span 2; }
+    .join__card:last-child:nth-child(odd) .join__link { aspect-ratio: 3 / 2; }
     .join__label svg { opacity: 1; transform: none; }
   }
 </style>

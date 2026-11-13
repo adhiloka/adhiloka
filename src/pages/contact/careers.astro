@@ -1,0 +1,11 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Passages from '../../components/blocks/Passages.astro';
+import SiblingCards from '../../components/blocks/SiblingCards.astro';
+import { CAREERS_INTRO, CAREERS_PASSAGES } from '../../data/pages/connect';
+---
+
+<PageLayout intro={CAREERS_INTRO}>
+  <Passages passages={CAREERS_PASSAGES} />
+  <SiblingCards />
+</PageLayout>

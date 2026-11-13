@@ -53,8 +53,8 @@ export const HERO_SLIDES: HeroSlide[] = [
     title: ['What Comes Before', 'the First Spray'],
     line: ['Our Expertise'],
     href: '/ingredients/technology/',
-    image: 'still-fire',
-    alt: 'Fire beneath traditional distillation stills',
+    image: 'botanical-jars',
+    alt: 'Glass jars of dried botanicals and golden oil',
   },
   {
     title: ['Material for', 'Makers of Scent'],
@@ -67,8 +67,8 @@ export const HERO_SLIDES: HeroSlide[] = [
     title: ['The Source', 'Collection'],
     line: ['Signature Ingredients'],
     href: '/ingredients/catalog/',
-    image: 'nutmeg-mace',
-    alt: 'Nutmeg with red mace',
+    image: 'spice-box',
+    alt: 'Wooden box of cinnamon, dried citrus and whole spices',
   },
   {
     title: ['Growing Together', 'with Nature'],
@@ -92,6 +92,10 @@ export const HOME_QUOTE = {
   href: '/about/our-purpose/',
   image: 'purpose-generations' as ImageKey,
   alt: 'Two children running through a meadow at dusk',
+  /* Foto mendatar di bingkai tegak: kedua anak ada di sepertiga kiri foto,
+     jadi titik fokusnya digeser ke kiri supaya tidak terpotong (pemilik,
+     13 Nov 2026). */
+  focus: '10% 50%',
 };
 
 /* ── Akordeon keberlanjutan ──────────────────────────────────────────── */
@@ -139,17 +143,17 @@ export const PILLARS: Pillar[] = [
 
 /* ── Join Us ─────────────────────────────────────────────────────────── */
 
-/* Naskah disetujui pemilik 18 Okt 2026 (gaya Symrise/Ventós). Halaman karier
- * belum ada, jadi tombol dan semua kartu sementara menuju /contact/. */
+/* Naskah disetujui pemilik 18 Okt 2026 (gaya Symrise/Ventós). Sejak 13 Nov
+ * 2026 tiga kartu menuju halamannya sendiri di menu Connect; "Life at
+ * Adhiloka" dilepas (pemilik). */
 export const JOIN_US = {
   title: 'Join Us',
   cta: 'Know More',
-  href: '/contact/',
+  href: '/contact/careers/',
   cards: [
-    { label: 'Careers', href: '/contact/', image: 'perfume-workshop' as ImageKey, alt: 'Hands at work on a perfumery bench' },
-    { label: 'Become a Supplier', href: '/contact/', image: 'cloves-in-hand' as ImageKey, alt: 'Dried cloves in an open hand' },
-    { label: 'Partner with Us', href: '/contact/', image: 'amber-bottles' as ImageKey, alt: 'Two amber glass bottles' },
-    { label: 'Life at Adhiloka', href: '/contact/', image: 'jungle-stream' as ImageKey, alt: 'Stream through a sunlit jungle' },
+    { label: 'Careers', href: '/contact/careers/', image: 'perfume-workshop' as ImageKey, alt: 'Hands at work on a perfumery bench' },
+    { label: 'Become a Supplier', href: '/contact/suppliers/', image: 'cloves-in-hand' as ImageKey, alt: 'Dried cloves in an open hand' },
+    { label: 'Partner with Us', href: '/contact/partners/', image: 'amber-bottles' as ImageKey, alt: 'Two amber glass bottles' },
   ],
 };
 

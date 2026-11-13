@@ -43,6 +43,9 @@ export function initContactForm() {
     specification: 'Specification & documents',
     quotation: 'Quotation',
     bespoke: 'Bespoke fragrance',
+    supplier: 'Supplier registration',
+    partnership: 'Partnership',
+    careers: 'Careers',
   };
   const kind = KINDS[params.get('kind') ?? ''] ?? (material ? KINDS.sample : null);
   const messageEl = form.querySelector<HTMLTextAreaElement>('[name="message"]')!;

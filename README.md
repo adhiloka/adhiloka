@@ -14,7 +14,7 @@ npm run preview  # menyajikan dist/
 ## Halaman
 
 Menunya tetap menu Adhiloka (About Us · Perfumery · Ingredients · Sustainability · Media ·
-Contact), tetapi tampil dan bekerja seperti menu Adani: kapital, chevron, mega-menu saat hover di
+Connect), tetapi tampil dan bekerja seperti menu Adani: kapital, chevron, mega-menu saat hover di
 desktop, laci dari kanan dengan akordeon di layar ≤1026 px. Isi menu hanya di `NAV`
 (`src/data/site.ts`); `src/data/menu.ts` cuma membentuk panelnya.
 
@@ -28,7 +28,10 @@ kolom kanan (`grid-auto-flow: column`). Nama produk tidak pernah masuk menu; pro
 katalog. Isi panel: About Us (Our Business, Our Purpose) · Perfumery (Fine Fragrance, Consumer
 Fragrance, Fragrance Innovation, How We Work, Our Palette) · Ingredients (Natural Ingredients,
 Ingredient Catalog, Ingredients Map, Technology, Working With Us) · Sustainability (Driving progress
-for people, Responsible Sourcing) · Media (News, Media Resources).
+for people, Responsible Sourcing) · Media (News, Media Resources) · Connect (Careers, Become a
+Supplier, Partner with Us, Contact Us). **Connect** (pemilik, 13 Nov 2026) menggantikan Contact yang
+dulu berdiri sendiri; halamannya di bawah `/contact/` supaya remah, menu aktif dan Explore More
+ikut sendiri. "Life at Adhiloka" dilepas.
 
 | Jalur | Susunan |
 | --- | --- |
@@ -49,7 +52,8 @@ for people, Responsible Sourcing) · Media (News, Media Resources).
 | `/ingredients/working-with-us/` | Dulu Ordering & Documents (`/ingredients/ordering/` dialihkan): 6 langkah pesan · Documents (jenis dokumen + Request Documents) · Logistics dengan dua tombol · Explore More |
 | `/media/news/` | Media Releases: cari, kategori, tahun, urutan, tag filter + Clear All, Load More (6 per langkah), laci filter di ≤767 px |
 | `/media/news/<slug>/` | Banner setengah layar (remah saja) · judul dan isi · slider Other Releases |
-| `/contact/` | Formulir + satu kontak (info@adhiloka.com); `?material=slug&kind=sample\|specification\|quotation` mengisi jenis permintaan dan pesan |
+| `/contact/` | Formulir + satu kontak (info@adhiloka.com) · Explore More (tiga halaman Connect); `?material=slug&kind=sample\|specification\|quotation\|bespoke\|supplier\|partnership\|careers` mengisi jenis permintaan dan pesan |
+| `/contact/careers/`, `/contact/suppliers/`, `/contact/partners/` | Banner · tiga blok bergambar (`data/pages/connect.ts`), blok terakhir bertombol ke formulir dengan `?kind=` · Explore More. Tanpa lowongan, angka atau nama |
 | `/legal/` | Legal Notice · Privacy Notice · Cookies (tujuan tiga tautan di bar bawah footer) |
 
 Rute lama `/our-story/`, `/fragrances/` dan `/raw-materials/` dialihkan lewat `redirects` di
@@ -247,7 +251,7 @@ berkas, cabut baris pengalihannya, lalu kembalikan tautannya di `site.ts` (`NAV`
 
 Yang juga dilepas sampai datanya ada: angka sekilas (CounterGrid) di About dan Sustainability,
 teaser Our Journey, ikon sosial footer (`SOCIAL` di `site.ts` kosong), pemilih bahasa ENG/IND,
-tautan Careers di footer, kalender panen di halaman bahan, facet "Origin" di katalog.
+kalender panen di halaman bahan, facet "Origin" di katalog.
 
 ## Data produk (13 Nov 2026)
 
@@ -275,8 +279,8 @@ karena nilai spesifikasinya belum ada; templatnya ada di riwayat git (commit `84
 
 ## Tautan kosong
 
-Tidak ada lagi `href="#"`. Semua kartu dan tombol Join Us di beranda sementara menuju `/contact/`
-karena halaman karier belum ada.
+Tidak ada lagi `href="#"`. Kartu Join Us di beranda (Careers, Become a Supplier, Partner with Us)
+menuju halamannya di menu Connect sejak 13 Nov 2026; "Know More" menuju Careers.
 
 ## Logo
 
@@ -299,11 +303,15 @@ Tanda logonya sama persis dengan versi sebelumnya, jadi favicon tidak berubah.
    bagian Photo Credits). "Who We Are" tidak lagi memakai rimpang kering berlabel resin, "How We
    Work" tidak lagi kayu manis, kartu About di Media Resources tidak lagi foto orang makan malam,
    dan tile Fragrance Innovation memakai foto vial laboratorium, bukan alat uji titik nyala.
+   13 Nov 2026 (pemilik): hero "Our Expertise" tidak lagi memakai `still-fire` (pria bertelanjang
+   dada, kotor) tetapi `botanical-jars`; "The Source Collection" memakai `spice-box`, bukan
+   `nutmeg-mace`; blok Processing di About memakai `copper-still`. Foto dua anak berlari di
+   kutipan beranda dan Our Purpose diberi `focus="10% 50%"` (prop `QuoteSplit`) supaya kedua
+   anak masuk bingkai tegak. Orang di foto harus berpakaian rapi dan tampak profesional.
 3. **Data** untuk halaman yang diparkir dan untuk spesifikasi bahan (lihat di atas).
 4. **JSON-LD.** Telepon, `foundingDate` dan alamat masih dilepas (formulir A2–A5).
 
 ## Yang belum dikerjakan
 
 - **Dwibahasa.** Belum ada rute `/id/`.
-- **Halaman karier.**
 - **Sertifikasi** (ISO 9001, IFRA, Halal, CITES, EUDR): belum ada yang bisa dicantumkan.

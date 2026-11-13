@@ -5,12 +5,13 @@ import { ABOUT_CARDS, ABOUT_MORE } from '../../data/pages/about';
 import { INGREDIENTS_CARDS } from '../../data/pages/ingredients';
 import { SUSTAINABILITY_CARDS } from '../../data/pages/sustainability';
 import { MEDIA_CARDS } from '../../data/pages/media';
+import { CONNECT_CARDS } from '../../data/pages/connect';
 import type { LinkCard } from '../../data/pages/types';
 
 /* "Explore More" di kaki halaman anak: kartu saudara-saudaranya, tanpa
  * halaman yang sedang dibuka. Lebih dari tiga kartu menjadi slider tiga
  * kartu bertombol prev/next ala `threecard-slider` Adani. */
-const all = [...ABOUT_CARDS, ...INGREDIENTS_CARDS, ...SUSTAINABILITY_CARDS, ...MEDIA_CARDS];
+const all = [...ABOUT_CARDS, ...INGREDIENTS_CARDS, ...SUSTAINABILITY_CARDS, ...MEDIA_CARDS, ...CONNECT_CARDS];
 const path = Astro.url.pathname;
 const section = `/${path.split('/').filter(Boolean)[0]}/`;
 const cards = all.filter((c) => c.href.startsWith(section) && c.href !== path);

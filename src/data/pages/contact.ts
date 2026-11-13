@@ -32,6 +32,8 @@ export const ENQUIRY_KINDS = [
   'Quotation',
   'Bespoke fragrance',
   'Supplier registration',
+  'Partnership',
+  'Careers',
   'Press',
   'Other',
 ];

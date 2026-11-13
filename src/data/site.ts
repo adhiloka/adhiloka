@@ -32,7 +32,9 @@ export type NavItem = {
    dropdown, daftar datar tanpa sub-menu atau label grup (pemilik, 13 Nov
    2026): panel mengisinya 3 ke bawah lalu pindah ke kolom kanan. Juga sumber
    remah roti, indeks pencarian dan 404. Tidak ada nama produk di sini:
-   produk hanya di katalog. Contact tanpa panel: ia tujuan. */
+   produk hanya di katalog. Menu terakhir "Connect" (pemilik, 13 Nov 2026)
+   menggantikan Contact yang berdiri sendiri: Careers, Become a Supplier,
+   Partner with Us dan Contact Us dalam satu panel. */
 export const NAV: NavItem[] = [
   {
     label: 'About Us',
@@ -112,8 +114,20 @@ export const NAV: NavItem[] = [
     },
   },
   {
-    label: 'Contact',
+    label: 'Connect',
     href: '/contact/',
+    blurb: 'Careers, suppliers, partners and enquiries.',
+    panel: {
+      title: 'Connect',
+      shot: 'oil dropped into an amber bottle',
+      image: 'amber-dropper',
+      links: [
+        { label: 'Careers', href: '/contact/careers/' },
+        { label: 'Become a Supplier', href: '/contact/suppliers/' },
+        { label: 'Partner with Us', href: '/contact/partners/' },
+        { label: 'Contact Us', href: '/contact/' },
+      ],
+    },
   },
 ];
 
