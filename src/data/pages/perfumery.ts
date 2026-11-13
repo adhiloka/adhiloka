@@ -46,8 +46,8 @@ export const PERFUMERY_AREAS: Passage[] = [
     id: 'consumer-fragrance',
     title: 'Consumer Fragrance',
     body: 'Fragrance is often the first thing people notice about a product, and the reason they choose it again. We create scents for personal care, home care and fabric care that stay true from the bottle to the shower, the washing machine or the living room, and that work within the base, the budget and the regulations of each market.',
-    caption: 'amber glass bottles',
-    image: 'amber-bottles',
+    caption: 'reed diffuser in an amber glass bottle at home',
+    image: 'reed-diffuser-home',
   },
 ];
 
@@ -116,7 +116,7 @@ export const PERFUMERY_CLOSING = 'Every fragrance begins with a conversation.';
 /** Tile tab Perfumery di beranda (BusinessShowcase): bagian-bagian halaman ini. */
 export const PERFUMERY_TILES: { label: string; href: string; image: ImageKey }[] = [
   { label: 'Fine Fragrance', href: '/perfumery/#fine-fragrance', image: 'perfumer-dropper' },
-  { label: 'Consumer Fragrance', href: '/perfumery/#consumer-fragrance', image: 'amber-bottles' },
+  { label: 'Consumer Fragrance', href: '/perfumery/#consumer-fragrance', image: 'reed-diffuser-home' },
   { label: 'Fragrance Innovation', href: '/perfumery/#innovation', image: 'lab-vials' },
   { label: 'Our Palette', href: '/perfumery/#palette', image: 'vials-dried-flowers' },
 ];

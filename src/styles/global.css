@@ -470,3 +470,9 @@ html.dark-mode .ftr .ftr__policy { background: #262a29; }
 .dtable td.is-center,
 .dtable th.is-center { text-align: center; padding-right: 0; }
 
+
+/* Halaman bahan dan produk berkepala warna keluarga (.ph): header dibuat lebih
+ * pekat supaya tulisan logo sage tidak ikut tenggelam di atas warnanya
+ * (koreksi pemilik 13 Nov 2026). Beranda dan halaman lain tetap 0,72. */
+body:has(.ph) { --bg-header: rgb(255 255 255 / 0.88); }
+html.dark-mode body:has(.ph) { --bg-header: rgb(24 33 31 / 0.88); }

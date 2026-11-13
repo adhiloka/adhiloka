@@ -129,15 +129,20 @@ export const FAMILY_FILTERS: { value: 'All' | Family; label: string }[] = [
 ];
 
 /** Warna kepala halaman bahan per keluarga (hero berwarna ala halaman produk
- *  dsm-firmenich). Semuanya cukup gelap untuk teks putih (kontras ≥ 4,5). */
+ *  dsm-firmenich Studio, yang memakai satu oranye jenuh #cc7414). Disusun ulang
+ *  13 Nov 2026 atas koreksi pemilik: warna lama kusam, dan Root sama persis
+ *  dengan abu sage tulisan logo sehingga logo di header tenggelam. Sekarang
+ *  sembilan rona OKLCH yang berjauhan (terang 0,49–0,58, kroma 0,085–0,15),
+ *  jenuh tetapi tidak gelap, tidak ada yang abu-hijau seperti logo, dan semua
+ *  kontras teks putih >= 4,5:1. */
 export const FAMILY_COLOR: Record<Family, string> = {
-  Resin: '#8a4f06',
-  Root: '#5c6d68',
-  Wood: '#6b4a2b',
-  Leaf: '#026a5b',
-  Spice: '#8f3b1b',
-  Flower: '#7a4a5e',
-  Citrus: '#6f6312',
-  Herbal: '#3f5a2a',
-  Gourmand: '#5b3a24',
+  Resin: '#a76a00', // madu ambar
+  Wood: '#9f5b27', // tembaga cedar
+  Spice: '#b24133', // merah cengkih
+  Flower: '#a74469', // mawar beri
+  Gourmand: '#885036', // kakao
+  Root: '#435d8e', // biru asap (vetiver)
+  Herbal: '#197587', // hijau laut
+  Leaf: '#0a7d51', // zamrud
+  Citrus: '#5c8311', // hijau limau
 };

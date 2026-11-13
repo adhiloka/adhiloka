@@ -309,6 +309,15 @@ Tanda logonya sama persis dengan versi sebelumnya, jadi favicon tidak berubah.
    `labelled-bottles`, bukan `harvest-sorting` (bapak tanpa baju rapi). Foto dua anak berlari di
    kutipan beranda dan Our Purpose diberi `focus="10% 50%"` (prop `QuoteSplit`) supaya kedua
    anak masuk bingkai tegak. Orang di foto harus berpakaian rapi dan tampak profesional.
+   13 Nov 2026 (pemilik, putaran ketiga): foto bahan yang salah atau amatir diganti, mengikuti
+   cara dsm-firmenich Studio (close-up bahannya sendiri): White Pepper (mangkuk lada putih),
+   Fenugreek (biji dalam toples), Gurjun Balsam (getah emas menetes dari kulit kayu), Cubeb (buah
+   kering bertangkai), Homalomena (daun, bukan poster pameran), Temulawak (rimpang). Consumer
+   Fragrance memakai diffuser rotan di ruang tamu, bukan botol amber kosong (rujukan Givaudan dan
+   dsm-firmenich menampilkan produk jadi). Red Ginger masih foto jahe biasa: foto jahe merah yang
+   layak belum ada di sumber gratis.
+   Warna kepala halaman bahan disusun ulang (lihat `FAMILY_COLOR`): sembilan rona jenuh, tidak ada
+   yang abu-hijau seperti tulisan logo; header di halaman berkepala warna putih 88 %.
 3. **Data** untuk halaman yang diparkir dan untuk spesifikasi bahan (lihat di atas).
 4. **JSON-LD.** Telepon, `foundingDate` dan alamat masih dilepas (formulir A2–A5).
 
