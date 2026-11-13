@@ -305,7 +305,8 @@ Tanda logonya sama persis dengan versi sebelumnya, jadi favicon tidak berubah.
    dan tile Fragrance Innovation memakai foto vial laboratorium, bukan alat uji titik nyala.
    13 Nov 2026 (pemilik): hero "Our Expertise" tidak lagi memakai `still-fire` (pria bertelanjang
    dada, kotor) tetapi `botanical-jars`; "The Source Collection" memakai `spice-box`, bukan
-   `nutmeg-mace`; blok Processing di About memakai `copper-still`. Foto dua anak berlari di
+   `nutmeg-mace`; blok Processing di About memakai `copper-still`; "How We Work" di About memakai
+   `labelled-bottles`, bukan `harvest-sorting` (bapak tanpa baju rapi). Foto dua anak berlari di
    kutipan beranda dan Our Purpose diberi `focus="10% 50%"` (prop `QuoteSplit`) supaya kedua
    anak masuk bingkai tegak. Orang di foto harus berpakaian rapi dan tampak profesional.
 3. **Data** untuk halaman yang diparkir dan untuk spesifikasi bahan (lihat di atas).

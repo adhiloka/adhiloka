@@ -60,6 +60,7 @@ import harvestSorting from '../assets/images/harvest-sorting.jpg';
    foto The Source Collection kurang menarik). Pexels, bebas atribusi. */
 import botanicalJars from '../assets/images/botanical-jars.jpg';
 import spiceBox from '../assets/images/spice-box.jpg';
+import labelledBottles from '../assets/images/labelled-bottles.jpg';
 
 /* Foto bahan katalog baru, 13 Nov 2026 (stock-photos/, Pexels dan Wikimedia
    Commons; yang CC BY/CC BY-SA wajib kredit, tercantum di /legal/). */
@@ -155,6 +156,8 @@ import kaffirLimeLeaves from '../assets/images/kaffir-lime-leaves.jpg';
  *   lab-vials            tangan bersarung memegang vial kaca  [stock-photos/perfumery/5922103]
  *   botanical-jars       toples kaca berisi bahan kering dan minyak kuning di meja marmer  [stock-photos/perfumery/glass-jars-botanicals-oil-8450519]
  *   spice-box            kotak kayu bersekat berisi kayu manis, jeruk kering, lada merah muda, adas bintang  [stock-photos/perfumery/29172136]
+ *   labelled-bottles     tangan menata botol amber berlabel di meja marmer  [stock-photos/perfumery/8450361]
+ *   harvest-sorting      TIDAK DIPAKAI sejak 13 Nov 2026: bapak tanpa baju rapi (pemilik)
  *   still-fire           TIDAK DIPAKAI sejak 13 Nov 2026: pria bertelanjang dada, tidak profesional (pemilik)
  *   harvest-sorting      petani menyortir hasil panen rimpang (bukan petani Adhiloka)  [stock-photos/markets/39932436]
  * 13 Nov 2026, foto bahan katalog baru (berkas sumber di stock-photos/):
@@ -258,6 +261,7 @@ export const images = {
   'harvest-sorting': harvestSorting,
   'botanical-jars': botanicalJars,
   'spice-box': spiceBox,
+  'labelled-bottles': labelledBottles,
   'palmarosa-grass': palmarosaGrass,
   'kaffir-lime-leaves': kaffirLimeLeaves,
   'black-peppercorns': blackPeppercorns,
