@@ -14,7 +14,7 @@
 
 import { fadeIn } from './tabs';
 
-const FACETS = ['family', 'note'] as const;
+const FACETS = ['family', 'type', 'ingredient'] as const;
 const VIEWS = ['grid', 'list'];
 const emit = () => window.dispatchEvent(new CustomEvent('fx:refresh'));
 const plural = (n: number) => `${n} ${n === 1 ? 'result' : 'results'}`;

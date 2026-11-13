@@ -43,8 +43,9 @@ for people, Responsible Sourcing) · Media (News, Media Resources).
 | `/ingredients/map/` | Meniru Raw Materials Map Robertet: tab wilayah · peta Indonesia (build-time, `data/map.ts`) dengan penanda per pulau · angka ringkas · kartu wilayah berisi bahannya. Wilayah di `data/regions.ts`, bahan per wilayah di `materials.ts` (`regions`). Satu-satunya tempat asal ditulis lebih rinci dari "Indonesia" |
 | `/sustainability/` | Banner · pembuka dengan Read More · kartu anak · penutup berfoto dua tombol |
 | `/media/` | Banner · slider Media Releases · promosi Media Kit · Media Centre · kontak pers |
-| `/ingredients/catalog/` | 6 bahan inti; laci filter (keluarga, nota aroma), urutan, pencarian, grid/list; pita unduhan katalog PDF |
-| `/ingredients/catalog/<slug>/` | Kepala berwarna keluarga · strip fakta (nama botani, keluarga, bagian tanaman, asal) · nota aroma, deskripsi dan pemakaian · Did you know? · Samples & Documents (tiga tombol ke formulir kontak + katalog PDF) · slider Other Ingredients |
+| `/ingredients/catalog/` | Sejak 13 Nov 2026 satu kartu per **kode produk** (98 kode, 33 bahan); laci filter (keluarga, jenis produk, bahan), urutan, pencarian (termasuk kode 6 digit), grid/list; pita unduhan katalog PDF |
+| `/ingredients/catalog/<slug>/` | Halaman bahan: kepala berwarna keluarga · strip fakta (nama botani, keluarga, bagian tanaman, asal) · nota aroma, deskripsi dan pemakaian · Did you know? · **Products** (semua kode bahan itu) · Samples & Documents · slider Other Ingredients (keluarga sama dulu, maks 9) |
+| `/ingredients/catalog/<slug>/<produk>/` | Halaman produk (13 Nov 2026): kepala dengan kode dan jenis · strip fakta (kode, jenis, nama botani, asal) · Specification (nilai tipikal) · Identification (proses, pelarut, INCI, CAS, EC, FEMA, HS) · Use & handling · Samples & Documents · slider produk lain dari bahan yang sama |
 | `/ingredients/working-with-us/` | Dulu Ordering & Documents (`/ingredients/ordering/` dialihkan): 6 langkah pesan · Documents (jenis dokumen + Request Documents) · Logistics dengan dua tombol · Explore More |
 | `/media/news/` | Media Releases: cari, kategori, tahun, urutan, tag filter + Clear All, Load More (6 per langkah), laci filter di ≤767 px |
 | `/media/news/<slug>/` | Banner setengah layar (remah saja) · judul dan isi · slider Other Releases |
@@ -246,8 +247,23 @@ berkas, cabut baris pengalihannya, lalu kembalikan tautannya di `site.ts` (`NAV`
 
 Yang juga dilepas sampai datanya ada: angka sekilas (CounterGrid) di About dan Sustainability,
 teaser Our Journey, ikon sosial footer (`SOCIAL` di `site.ts` kosong), pemilih bahasa ENG/IND,
-tautan Careers di footer, tabel grade/spesifikasi/regulasi dan kalender panen di halaman bahan,
-facet "Ingredient type" dan "Origin" di katalog.
+tautan Careers di footer, kalender panen di halaman bahan, facet "Origin" di katalog.
+
+## Data produk (13 Nov 2026)
+
+Sumber tunggal data bahan dan produk adalah **master database** di vault:
+`catalog/Product master database.xlsx` (sheet Products = satu baris per kode 6 digit, Ingredients =
+naskah halaman bahan). `py scripts/export_products_site.py` (dari akar vault) menulis
+`src/data/catalog-data.json`; `materials.ts` hanya membentuk tipe dan pembantu (`MATERIALS`,
+`PRODUCTS`, `productsOf`, `productHref`). **Jangan menyunting JSON-nya**: ubah Excel, ekspor,
+lalu `npm run build` dan `npm run pdf`. Kode baru ditulis dulu di `catalog/Product code register.md`.
+Angka spesifikasi adalah nilai tipikal mutu itu (kolom Spec basis di Excel), bukan data lot dan
+bukan sertifikat; halaman produk menyatakannya di bawah tabel. Keputusannya:
+`decisions/2026-11-13 Natural range from Van Aroma benchmark.md`.
+
+Keluarga `Herbal` dan `Gourmand` serta wilayah peta `Kalimantan` dan `Papua` ditambahkan untuk
+bahan baru. Foto bahan baru dari Pexels dan Wikimedia Commons; yang berlisensi CC dikreditkan di
+`/legal/` bagian Photo Credits.
 
 ## Unduhan PDF
 

@@ -50,7 +50,12 @@ export const INGREDIENTS_COLLECTIONS_BODY: Record<string, string> = {
   Resin: 'Warm, balsamic materials tapped from the bark of living trees. Resins bring depth, sweetness and lasting power to amber, oriental and gourmand accords.',
   Root: 'Earthy, woody materials from roots that are dried and rested before processing. They give structure and elegance to the base of a fragrance.',
   Leaf: 'Green, deep and lasting materials distilled from dried leaves. They anchor chypre and woody compositions and grow richer as they dry down.',
-  Spice: 'Warm, vivid materials from buds, seeds, barks and arils. Spices add brightness to an opening and warmth to the heart of a fragrance.',
+  Spice: 'Warm, vivid materials from buds, seeds, barks, arils and rhizomes. Spices add brightness to an opening and warmth to the heart of a fragrance.',
+  Wood: 'Barks, rhizomes and woody materials with a creamy or earthy depth. They give body and softness to the heart and base of a composition.',
+  Flower: 'Floral oils distilled from fresh flowers and fragrant grasses. They bring radiance, creaminess and a natural floral heart.',
+  Citrus: 'Fresh, zesty materials from leaves and grasses rich in citral and citronellal. They lift the opening and bring a clean, bright energy.',
+  Herbal: 'Green, aromatic and camphoraceous materials from leaves and roots. They add freshness and a natural herbal character to fragrance and care products.',
+  Gourmand: 'Cocoa, coffee and tamarind extracts with a roasted, sweet or tangy character. They bring natural depth to gourmand fragrances and flavours.',
 };
 
 /* ── Natural Ingredients (13 Nov 2026) ───────────────────────────────── */
@@ -94,7 +99,7 @@ export const CATALOG_INTRO: PageIntro = {
   title: 'Ingredient Catalog',
   lede: '',
   description:
-    'The Adhiloka ingredients catalog: benzoin, patchouli, cinnamon, vetiver, clove, nutmeg and mace.',
+    'The Adhiloka ingredients catalog: essential oils, resinoids, absolutes, CO2 extracts and extracts from benzoin, patchouli, vetiver, clove, nutmeg, cinnamon and other Indonesian botanicals, each with its product code and typical specification.',
   caption: 'whole spices on wooden spoons',
   image: 'spices-spoons',
 };

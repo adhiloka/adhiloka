@@ -4,7 +4,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import CardSlider from '../../../components/blocks/CardSlider.astro';
 import DocCard from '../../../components/blocks/DocCard.astro';
 import { images } from '../../../data/images';
-import { MATERIALS, FAMILY_COLOR, materialHref, type Material } from '../../../data/materials';
+import { MATERIALS, FAMILY_COLOR, materialHref, productHref, productsOf, type Material } from '../../../data/materials';
 import { CATALOG_DOWNLOAD } from '../../../data/downloads';
 
 /* Halaman satu bahan bergaya halaman produk dsm-firmenich (23 Okt 2026):
@@ -13,17 +13,21 @@ import { CATALOG_DOWNLOAD } from '../../../data/downloads';
  * pemakaian di parfum; "Did you know?"; lalu Samples & Documents dengan tiga
  * tombol ke formulir kontak (?material=…&kind=…) dan unduhan katalog.
  *
- * Sejak 10 Nov 2026 halaman ini sengaja ringkas (permintaan pemilik). Tabel
- * grade dan spesifikasi, regulasi, kalender panen, kode produk dan syarat
- * pesan dilepas karena datanya belum ada; lihat catatan di materials.ts. */
+ * Sejak 13 Nov 2026 ada section Products: semua kode produk bahan ini
+ * (kode, nama, jenis, grade) menuju halaman produknya, tempat tabel
+ * spesifikasi tinggal. Kalender panen dan syarat pesan tetap tidak dimuat. */
 export function getStaticPaths() {
   return MATERIALS.map((material) => ({ params: { slug: material.slug }, props: { material } }));
 }
 
 const { material: m } = Astro.props as { material: Material };
-const others = MATERIALS.filter((o) => o.slug !== m.slug);
+/* 33 bahan sejak 13 Nov 2026: slider cukup sembilan, keluarga yang sama dulu. */
+const others = MATERIALS.filter((o) => o.slug !== m.slug)
+  .sort((a, b) => Number(b.family === m.family) - Number(a.family === m.family))
+  .slice(0, 9);
 const notes = m.notes.split(' · ');
 const contact = (kind: string) => `/contact/?material=${m.slug}&kind=${kind}`;
+const products = productsOf(m.slug);
 
 const facts = [
   { label: 'Botanical name', value: m.latin, latin: true },
@@ -91,6 +95,30 @@ const facts = [
       </aside>
     </div>
   </section>
+
+  {
+    products.length > 0 && (
+      <section class="sec prl" id="products">
+        <div class="wrap">
+          <h2 class="h2" data-anim="title">Products</h2>
+          <ul class="prl__list">
+            {products.map((p) => (
+              <li>
+                <a class="prl__row" href={productHref(p)}>
+                  <span class="prl__code">{p.code}</span>
+                  <span class="prl__name">{p.name}</span>
+                  <span class="prl__type">{p.type}</span>
+                  <span class="prl__arrow" aria-hidden="true">
+                    <svg viewBox="0 0 16 16" width="14" height="14"><path d="M3 8h10m-4-4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"></path></svg>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
 
   <section class="sec sec--grey mord" id="ordering">
     <div class="wrap mord__grid">
@@ -250,6 +278,26 @@ const facts = [
   }
   .pd__lead { margin-top: 24px; }
 
+  /* ── Products: satu baris per kode ───────────────────────────────── */
+  .prl__list { margin-top: 28px; border-top: 1px solid var(--line); }
+  .prl__row {
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr) minmax(0, 220px) 24px;
+    gap: 6px 24px;
+    align-items: center;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line-soft);
+    font-size: calc(16px * var(--fs));
+    color: var(--ink);
+    transition: color var(--t) var(--ease-std);
+  }
+  .prl__row:hover { color: var(--brand-green); }
+  .prl__code { font-weight: 530; font-variant-numeric: tabular-nums; color: var(--ink-muted); }
+  .prl__name { font-weight: 530; }
+  .prl__type { font-size: calc(14px * var(--fs)); color: var(--ink-muted); }
+  .prl__arrow { justify-self: end; transition: transform var(--t) var(--ease-std); }
+  .prl__row:hover .prl__arrow { transform: translateX(4px); }
+
   /* ── Samples & Documents ──────────────────────────────────────────── */
   .mord__grid {
     display: grid;
@@ -281,5 +329,8 @@ const facts = [
     .ph__grid { grid-template-columns: 1fr; gap: 28px; margin-top: 28px; }
     .ph__media { width: min(100%, 320px); }
     .pf__grid { grid-template-columns: 1fr 1fr; }
+    .prl__row { grid-template-columns: 72px minmax(0, 1fr) 20px; }
+    .prl__type { grid-column: 2; grid-row: 2; }
+    .prl__arrow { grid-column: 3; grid-row: 1 / span 2; }
   }
 </style>

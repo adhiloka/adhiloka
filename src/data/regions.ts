@@ -7,7 +7,7 @@ import type { ImageKey } from './images';
  * atau klaim kemitraan. Koordinat = titik tengah wilayah, bukan lokasi
  * pemasok. Bahan per wilayah diatur di materials.ts (`regions`). */
 
-export type Region = 'Sumatra' | 'Java' | 'Sulawesi' | 'Maluku';
+export type Region = 'Sumatra' | 'Java' | 'Kalimantan' | 'Sulawesi' | 'Maluku' | 'Papua';
 
 export type RegionInfo = {
   name: Region;
@@ -37,6 +37,13 @@ export const REGIONS: RegionInfo[] = [
     shot: 'green hills below a mountain at dusk',
   },
   {
+    name: 'Kalimantan',
+    coords: [114.0, 0.3],
+    note: 'Balsams and pepper from the lowland forest.',
+    image: 'jungle-stream',
+    shot: 'a small stream in a sunlit forest',
+  },
+  {
     name: 'Sulawesi',
     coords: [120.3, -2.2],
     note: 'Leaves and buds from the hills.',
@@ -49,5 +56,12 @@ export const REGIONS: RegionInfo[] = [
     note: 'The spice islands.',
     image: 'nutmeg-on-tree',
     shot: 'nutmeg fruit on the tree',
+  },
+  {
+    name: 'Papua',
+    coords: [138.0, -4.2],
+    note: 'Aromatic bark from the eastern forests.',
+    image: 'rainforest-sunbeams',
+    shot: 'sunlight through tall rainforest trees',
   },
 ];

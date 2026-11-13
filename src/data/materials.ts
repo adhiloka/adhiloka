@@ -1,7 +1,8 @@
 import type { ImageKey } from './images';
 import type { Region } from './regions';
+import data from './catalog-data.json';
 
-export type Family = 'Resin' | 'Root' | 'Wood' | 'Leaf' | 'Spice' | 'Flower' | 'Citrus';
+export type Family = 'Resin' | 'Root' | 'Wood' | 'Leaf' | 'Spice' | 'Flower' | 'Citrus' | 'Herbal' | 'Gourmand';
 
 export type Material = {
   slug: string;
@@ -29,110 +30,88 @@ export type Material = {
   image?: ImageKey;
 };
 
-/* Enam bahan inti (keputusan pemilik, 2 Okt 2026): benzoin dan nilam, plus
- * kayu manis Kerinci, akar wangi Jawa, cengkeh, pala & fuli.
- *
- * Sejak 10 Nov 2026 naskahnya asli tetapi sengaja umum (permintaan pemilik:
- * ringkas, tidak terlalu rinci): nama, nama botani, keluarga, bagian tanaman,
- * nota aroma dan pemakaian di parfum. Semuanya pengetahuan umum perfumery,
- * bukan data lot Adhiloka. Yang BELUM ditampilkan karena datanya belum ada:
- * bentuk yang dijual, grade, tabel spesifikasi, CAS, dokumen, MOQ, kemasan,
- * musim panen dan status regulasi. Halaman bahan mengarahkan semuanya ke
- * formulir kontak. Tambahkan field baru di sini bila datanya sudah pasti
- * (formulir data B2, D, K). Tiap bahan punya halaman sendiri di
- * /ingredients/catalog/<slug>/. */
-export const MATERIALS: Material[] = [
-  {
-    slug: 'benzoin-sumatra',
-    name: 'Benzoin Sumatra',
-    latin: 'Styrax benzoin / S. paralleloneurum',
-    family: 'Resin',
-    regions: ['Sumatra'],
-    origin: 'Indonesia',
-    part: 'Resin',
-    notes: 'Balsamic · Sweet · Warm',
-    note: 'A warm, balsamic resin with sweet, vanilla-like and softly spicy facets.',
-    usage: 'Brings warmth and roundness to amber, oriental and floral accords, and helps a fragrance last on the skin. Its soft vanilla facets blend naturally with woods, spices and balsams, and a small touch gives depth to the base of almost any composition.',
-    know: 'Benzoin is the resin of the Styrax tree, known in Indonesia as kemenyan.',
-    shot: 'sorted benzoin tears',
-    image: 'material-benzoin',
-  },
-  {
-    slug: 'patchouli',
-    name: 'Patchouli',
-    latin: 'Pogostemon cablin',
-    family: 'Leaf',
-    regions: ['Sumatra', 'Sulawesi'],
-    origin: 'Indonesia',
-    part: 'Leaves',
-    notes: 'Earthy · Woody · Deep',
-    note: 'Rich, earthy and woody, with a dark sweetness that deepens over time.',
-    usage: 'A cornerstone of chypre, woody and oriental fragrances, valued for its depth and its staying power. It anchors a composition, softens sharp edges and pairs especially well with rose, vetiver and resins.',
-    know: 'Patchouli leaves are dried before they are distilled, which helps release their scent.',
-    shot: 'patchouli plant, leaves close',
-    image: 'patchouli-leaves',
-  },
-  {
-    slug: 'cinnamon-kerinci',
-    name: 'Cinnamon Kerinci',
-    latin: 'Cinnamomum burmannii',
-    family: 'Spice',
-    regions: ['Sumatra'],
-    origin: 'Indonesia',
-    part: 'Bark',
-    notes: 'Spicy · Warm · Sweet',
-    note: 'Warm, sweet and spicy, with all the comfort of cinnamon bark.',
-    usage: 'Adds warmth and vibrancy to spicy, oriental and gourmand compositions. Used with restraint, it lifts the heart of a fragrance and gives a comforting sweetness to ambers and woods.',
-    know: 'This cinnamon takes its name from Kerinci, a highland region known for its cinnamon trees.',
-    shot: 'rolled cinnamon bark',
-    image: 'cinnamon-sticks',
-  },
-  {
-    slug: 'vetiver-java',
-    name: 'Vetiver Java',
-    latin: 'Chrysopogon zizanioides',
-    family: 'Root',
-    regions: ['Java'],
-    origin: 'Indonesia',
-    part: 'Roots',
-    notes: 'Woody · Earthy · Smoky',
-    note: 'Deep, woody and earthy, with a dry, smoky edge.',
-    usage: 'Gives structure and elegance to woody, aromatic and chypre fragrances. Its dry, rooty depth works as a backbone in masculine compositions and brings a cool, earthy freshness to modern florals and citrus.',
-    know: 'Vetiver is a grass, but its scent lies in its roots.',
-    shot: 'a clump of vetiver grass',
-    image: 'vetiver-clump',
-  },
-  {
-    slug: 'clove',
-    name: 'Clove',
-    latin: 'Syzygium aromaticum',
-    family: 'Spice',
-    regions: ['Maluku', 'Sulawesi', 'Java'],
-    origin: 'Indonesia',
-    part: 'Buds',
-    notes: 'Spicy · Warm · Rich',
-    note: 'Warm, rich and spicy, instantly recognisable.',
-    usage: 'Brings a spicy accent to floral, oriental and woody accords, carnation notes above all. In small amounts it warms rose and other florals, and in larger ones it gives a bold, festive spice to ambers and woods.',
-    know: 'Cloves are the dried flower buds of a tree native to the Maluku Islands of Indonesia.',
-    shot: 'dried cloves, close',
-    image: 'cloves-dried',
-  },
-  {
-    slug: 'nutmeg-mace',
-    name: 'Nutmeg & Mace',
-    latin: 'Myristica fragrans',
-    family: 'Spice',
-    regions: ['Maluku'],
-    origin: 'Indonesia',
-    part: 'Seed and aril',
-    notes: 'Spicy · Fresh · Aromatic',
-    note: 'A fresh, aromatic spice with a warm, gently sweet heart.',
-    usage: 'Lifts the opening of woody, aromatic and spicy fragrances with a lively, natural warmth. It pairs well with citrus, lavender and woods, and mace adds a softer, slightly floral side to the same note.',
-    know: 'Nutmeg is the seed and mace the red aril around it: two spices from one fruit, native to the Banda Islands.',
-    shot: 'nutmeg with red mace',
-    image: 'nutmeg-mace',
-  },
+/* Sejak 13 Nov 2026 isi katalog datang dari master database produk
+ * (catalog/Product master database.xlsx di vault, sheet Ingredients dan
+ * Products) lewat `py scripts/export_products_site.py`, yang menulis
+ * catalog-data.json. Jangan menyunting JSON-nya langsung: ubah Excel, lalu
+ * ekspor ulang. Enam bahan inti (keputusan pemilik, 2 Okt 2026) tetap dengan
+ * naskah 10 Nov 2026; bahan lain ditambahkan dari daftar produk natural yang
+ * dibandingkan dengan Van Aroma (lihat decisions/2026-11-13 Natural range from
+ * Van Aroma benchmark). Angka spesifikasi adalah nilai tipikal mutu itu, bukan
+ * data lot dan bukan sertifikat. Tiap bahan punya halaman sendiri di
+ * /ingredients/catalog/<slug>/, tiap produk di /ingredients/catalog/<slug>/<produk>/. */
+export const MATERIALS: Material[] = data.ingredients.map((i) => ({
+  slug: i.slug,
+  name: i.name,
+  latin: i.latin,
+  family: i.family as Family,
+  regions: i.regions as Region[],
+  origin: 'Indonesia',
+  part: i.part,
+  notes: i.notes,
+  note: i.note,
+  usage: i.usage,
+  know: i.know,
+  shot: i.shot,
+  image: i.image as ImageKey,
+}));
+
+/** Satu kode produk (6 digit, aturan Product code register). */
+export type Product = {
+  code: string;
+  slug: string;
+  name: string;
+  ingredient: string;
+  type: string;
+  grade: string;
+  process: string;
+  solvent: string;
+  appearance: string;
+  colour: string;
+  odour: string;
+  notePos: string;
+  sg: string;
+  ri: string;
+  rot: string;
+  acid: string;
+  constituents: string;
+  other: string;
+  solubility: string;
+  flash: string;
+  shelf: string;
+  storage: string;
+  origin: string;
+  inci: string;
+  cas: string;
+  ec: string;
+  fema: string;
+  hs: string;
+  apps: string;
+  packaging: string;
+  part: string;
+};
+
+export const PRODUCTS: Product[] = data.products as Product[];
+
+/** Urutan tampil jenis produk (facet "Ingredient type"). */
+export const PRODUCT_TYPES = [
+  'Essential oil',
+  'Rectified essential oil',
+  'Molecular distilled oil',
+  'Heart fraction',
+  'Terpene fraction',
+  'CO2 extract',
+  'Absolute',
+  'Resinoid',
+  'Oleoresin',
+  'Extract',
+  'Liquid extract',
+  'Dried spice',
 ];
+
+export const productsOf = (slug: string) => PRODUCTS.filter((p) => p.ingredient === slug);
+export const materialOf = (p: Product) => MATERIALS.find((m) => m.slug === p.ingredient)!;
+export const productHref = (p: Product) => `/ingredients/catalog/${p.ingredient}/${p.slug}/`;
 
 export const materialHref = (slug: string) => `/ingredients/catalog/${slug}/`;
 
@@ -141,7 +120,12 @@ export const FAMILY_FILTERS: { value: 'All' | Family; label: string }[] = [
   { value: 'Resin', label: 'Resins' },
   { value: 'Root', label: 'Roots' },
   { value: 'Leaf', label: 'Leaf' },
+  { value: 'Wood', label: 'Woods' },
   { value: 'Spice', label: 'Spices' },
+  { value: 'Flower', label: 'Flowers' },
+  { value: 'Citrus', label: 'Citrus' },
+  { value: 'Herbal', label: 'Herbal' },
+  { value: 'Gourmand', label: 'Gourmand' },
 ];
 
 /** Warna kepala halaman bahan per keluarga (hero berwarna ala halaman produk
@@ -154,4 +138,6 @@ export const FAMILY_COLOR: Record<Family, string> = {
   Spice: '#8f3b1b',
   Flower: '#7a4a5e',
   Citrus: '#6f6312',
+  Herbal: '#3f5a2a',
+  Gourmand: '#5b3a24',
 };

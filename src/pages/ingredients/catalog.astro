@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import PageLayout from '../../layouts/PageLayout.astro';
 import { images } from '../../data/images';
-import { MATERIALS, FAMILY_FILTERS, materialHref, type Material } from '../../data/materials';
+import { PRODUCTS, PRODUCT_TYPES, FAMILY_FILTERS, materialOf, productHref, type Product } from '../../data/materials';
 import { CATALOG_INTRO } from '../../data/pages/ingredients';
 import { CATALOG_DOWNLOAD as cat, formatSize } from '../../data/downloads';
 
@@ -13,16 +13,21 @@ import { CATALOG_DOWNLOAD as cat, formatSize } from '../../data/downloads';
  * dan Request sample. Logikanya di scripts/catalog-filter.ts; keadaannya ikut
  * query URL (?family=Resin). Id kartu = slug, supaya tautan #slug lama tetap
  * mendarat di kartunya. Pita hijau di bawah grid = unduhan katalog PDF.
- * Facet "Ingredient type" dan "Origin", kode produk dan lembar spesifikasi
- * PDF dilepas 10 Nov 2026 (datanya belum ada; lihat materials.ts). */
+ * Sejak 13 Nov 2026 kartunya satu per KODE PRODUK (seperti katalog
+ * dsm-firmenich), bukan satu per bahan: facet keluarga, jenis produk
+ * ("Ingredient type", kembali karena datanya sudah ada di master database)
+ * dan bahan. Pencarian juga mencocokkan kode 6 digit. Facet "Origin" tetap
+ * tidak dipakai: semua asal Indonesia. */
 
-const noteList = (m: Material) => m.notes?.split(' · ') ?? [];
-/** Nilai facet tiap kartu; facet bernilai ganda (nota) dipisah "|". */
-const facetOf = (m: Material) => ({ family: [m.family], note: noteList(m) });
-const tally = (key: keyof ReturnType<typeof facetOf>) => {
+/** Nilai facet tiap kartu. */
+const facetOf = (p: Product) => ({ family: [materialOf(p).family], type: [p.type], ingredient: [materialOf(p).name] });
+const tally = (key: keyof ReturnType<typeof facetOf>, order?: string[]) => {
   const counts = new Map<string, number>();
-  MATERIALS.forEach((m) => facetOf(m)[key].forEach((v) => counts.set(v, (counts.get(v) ?? 0) + 1)));
-  return [...counts].map(([value, n]) => ({ value, label: value, n }));
+  PRODUCTS.forEach((p) => facetOf(p)[key].forEach((v) => counts.set(v, (counts.get(v) ?? 0) + 1)));
+  const list = [...counts].map(([value, n]) => ({ value, label: value, n }));
+  return order
+    ? list.sort((a, b) => order.indexOf(a.value) - order.indexOf(b.value))
+    : list.sort((a, b) => a.label.localeCompare(b.label));
 };
 const familyLabel = (v: string) => FAMILY_FILTERS.find((f) => f.value === v)?.label ?? v;
 const facets = [
@@ -30,12 +35,13 @@ const facets = [
     name: 'family',
     label: 'Olfactive family',
     options: FAMILY_FILTERS.filter((f) => f.value !== 'All')
-      .map((f) => ({ value: f.value, label: f.label, n: MATERIALS.filter((m) => m.family === f.value).length }))
+      .map((f) => ({ value: f.value, label: f.label, n: PRODUCTS.filter((p) => materialOf(p).family === f.value).length }))
       .filter((o) => o.n > 0),
   },
-  { name: 'note', label: 'Olfactive descriptor', options: tally('note') },
+  { name: 'type', label: 'Ingredient type', options: tally('type', PRODUCT_TYPES) },
+  { name: 'ingredient', label: 'Ingredient', options: tally('ingredient') },
 ];
-const results = `${MATERIALS.length} results`;
+const results = `${PRODUCTS.length} results`;
 ---
 
 <PageLayout intro={CATALOG_INTRO} bannerMeta={results}>
@@ -111,32 +117,35 @@ const results = `${MATERIALS.length} results`;
 
       <ul class="cat__grid" data-filter-grid data-view="grid">
         {
-          MATERIALS.map((m, i) => {
-            const f = facetOf(m);
+          PRODUCTS.map((p, i) => {
+            const m = materialOf(p);
+            const f = facetOf(p);
             return (
               <li
                 class="mat"
-                id={m.slug}
+                id={p.slug}
                 data-order={i}
-                data-name={m.name}
-                data-text={[m.name, m.latin, m.family, m.part, m.notes, m.origin].join(' ').toLowerCase()}
+                data-name={p.name}
+                data-text={[p.code, p.name, m.name, m.latin, m.family, p.type, p.grade, p.odour].join(' ').toLowerCase()}
                 data-family={f.family.join('|')}
-                data-note={f.note.join('|')}
+                data-type={f.type.join('|')}
+                data-ingredient={f.ingredient.join('|')}
               >
-                <a class="mat__media cover" href={materialHref(m.slug)} tabindex="-1" aria-hidden="true">
+                <a class="mat__media cover" href={productHref(p)} tabindex="-1" aria-hidden="true">
                   {m.image ? <Image quality={70} src={images[m.image]} alt="" widths={[400, 720]} sizes="(max-width: 767px) 100vw, 30vw" loading="lazy" /> : <span class="plate">{m.shot}</span>}
                 </a>
                 <div class="mat__body">
-                  <h2 class="mat__name"><a href={materialHref(m.slug)}>{m.name}</a></h2>
+                  <p class="mat__code">{p.code}</p>
+                  <h2 class="mat__name"><a href={productHref(p)}>{p.name}</a></h2>
                   <p class="mat__latin">{m.latin}</p>
                   <p class="mat__tags">
                     <span>{familyLabel(m.family)}</span>
-                    <span>{m.part}</span>
+                    <span>{p.type}</span>
                   </p>
-                  <p class="mat__desc">{m.note}</p>
+                  <p class="mat__desc">{p.odour}.</p>
                   <p class="mat__links">
-                    <a class="mat__more" href={materialHref(m.slug)}>Read more<span class="sr-only"> about {m.name}</span></a>
-                    <a class="mat__sample" href={`/contact/?material=${m.slug}&kind=sample`}>Request sample<span class="sr-only"> of {m.name}</span></a>
+                    <a class="mat__more" href={productHref(p)}>Read more<span class="sr-only"> about {p.name}</span></a>
+                    <a class="mat__sample" href={`/contact/?material=${p.slug}&kind=sample`}>Request sample<span class="sr-only"> of {p.name}</span></a>
                   </p>
                 </div>
               </li>
@@ -410,6 +419,14 @@ const results = `${MATERIALS.length} results`;
   }
   .mat__body { display: flex; flex-direction: column; flex: 1; padding: 22px 24px 24px; }
   .mat__code { font-size: calc(14px * var(--fs)); letter-spacing: 0.04em; color: var(--ink-muted); }
+  .mat__code {
+    font-size: calc(13px * var(--fs));
+    font-weight: 530;
+    letter-spacing: 0.08em;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-muted);
+  }
+  .mat__code + .mat__name { margin-top: 4px; }
   .mat__name {
     margin-top: 6px;
     font-size: calc(22px * var(--fs));

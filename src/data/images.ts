@@ -56,6 +56,36 @@ import vetiverClump from '../assets/images/vetiver-clump.jpg';
 import labVials from '../assets/images/lab-vials.jpg';
 import harvestSorting from '../assets/images/harvest-sorting.jpg';
 
+/* Foto bahan katalog baru, 13 Nov 2026 (stock-photos/, Pexels dan Wikimedia
+   Commons; yang CC BY/CC BY-SA wajib kredit, tercantum di /legal/). */
+import blackPeppercorns from '../assets/images/black-peppercorns.jpg';
+import whitePeppercorn from '../assets/images/white-peppercorn.jpg';
+import fenugreekSeeds from '../assets/images/fenugreek-seeds.jpg';
+import turmericRoots from '../assets/images/turmeric-roots.jpg';
+import betelLeaves from '../assets/images/betel-leaves.jpg';
+import basilPlant from '../assets/images/basil-plant.jpg';
+import teaLeaves from '../assets/images/tea-leaves.jpg';
+import coffeeCherries from '../assets/images/coffee-cherries.jpg';
+import coffeeRoasted from '../assets/images/coffee-roasted.jpg';
+import cocoaBeans from '../assets/images/cocoa-beans.jpg';
+import tamarindPods from '../assets/images/tamarind-pods.jpg';
+import lemongrassField from '../assets/images/lemongrass-field.jpg';
+import gingerFresh from '../assets/images/ginger-fresh.jpg';
+import gingerRoots from '../assets/images/ginger-roots.jpg';
+import driedBark from '../assets/images/dried-bark.jpg';
+import cubebVine from '../assets/images/cubeb-vine.jpg';
+import canangaFlowers from '../assets/images/cananga-flowers.jpg';
+import ylangFlowers from '../assets/images/ylang-flowers.jpg';
+import citronellaGrass from '../assets/images/citronella-grass.jpg';
+import kencurDried from '../assets/images/kencur-dried.jpg';
+import temulawakPlant from '../assets/images/temulawak-plant.jpg';
+import rhubarbPlant from '../assets/images/rhubarb-plant.jpg';
+import cajeputTree from '../assets/images/cajeput-tree.jpg';
+import homalomenaPlant from '../assets/images/homalomena-plant.jpg';
+import dipterocarpTree from '../assets/images/dipterocarp-tree.jpg';
+import palmarosaGrass from '../assets/images/palmarosa-grass.jpg';
+import kaffirLimeLeaves from '../assets/images/kaffir-lime-leaves.jpg';
+
 /* Satu-satunya tempat berkas gambar dipetakan ke kunci yang dipakai data.
  *
  * PERINGATAN: kunci di bawah ini mewarisi nama berkas dari bundle desain, dan
@@ -119,6 +149,34 @@ import harvestSorting from '../assets/images/harvest-sorting.jpg';
  *   vetiver-clump        rumpun akar wangi, Chrysopogon zizanioides  [stock-photos/wikimedia/vetiver, Starr 090721-3248, CC BY 3.0]
  *   lab-vials            tangan bersarung memegang vial kaca  [stock-photos/perfumery/5922103]
  *   harvest-sorting      petani menyortir hasil panen rimpang (bukan petani Adhiloka)  [stock-photos/markets/39932436]
+ * 13 Nov 2026, foto bahan katalog baru (berkas sumber di stock-photos/):
+ *   black-peppercorns  black-peppercorns-macro-8559086.jpg  [Pexels License, Frank Cone]
+ *   white-peppercorn   white-peppercorn-delso.jpg  [CC BY-SA 4.0, Diego Delso]
+ *   fenugreek-seeds    fenugreek-seeds-chandrakala-01.jpg  [CC BY-SA 4.0, சந்திரகலா (Chandrakala)]
+ *   turmeric-roots     turmeric-roots-31346461.jpg  [Pexels License]
+ *   betel-leaves       betel-leaves-40190512.jpg  [Pexels License]
+ *   basil-plant        basil-plant-6133135.jpg  [Pexels License]
+ *   tea-leaves         tea-plant-close-11669658.jpg  [Pexels License]
+ *   coffee-cherries    arabica-coffee-cherries-30658799.jpg  [Pexels License]
+ *   coffee-roasted     roasted-coffee-beans-30444143.jpg  [Pexels License]
+ *   cocoa-beans        cocoa-beans-dry-32597040.jpg  [Pexels License]
+ *   tamarind-pods      tamarind-pods-basket-11536825.jpg  [Pexels License]
+ *   lemongrass-field   pexels-38004213.jpg  [Pexels License]
+ *   ginger-fresh       pile-of-fresh-ginger-in-close-up-photography-7543128.jpg  [Pexels License]
+ *   ginger-roots       roots-of-ginger-20234970.jpg  [Pexels License]
+ *   dried-bark         dried-bark-for-herbal-tea-and-natural-remedies-36863456.jpg  [Pexels License]
+ *   cubeb-vine         piper-cubeba-kenraiz-kz01.jpg  [CC BY-SA 4.0, Krzysztof Ziarnek, Kenraiz]
+ *   cananga-flowers    cananga-odorata-prenn-02.jpg  [CC BY-SA 3.0, Prenn]
+ *   ylang-flowers      cananga-odorata-starr-071024-0356.jpg  [CC BY 3.0, Forest and Kim Starr]
+ *   citronella-grass   cymbopogon-nardus-steakley-DITSL.jpg  [CC BY-SA 3.0, James Steakley]
+ *   kencur-dried       kaempferia-galanga-dried-sagisavas.jpg  [CC0, Fumikas Sagisavas]
+ *   temulawak-plant    curcuma-zanthorrhiza-rahmatlahay-01.jpg  [CC BY-SA 4.0, Rahmatlahay]
+ *   rhubarb-plant      rheum-officinale-salicyna-8064.jpg  [CC BY-SA 4.0, Salicyna]
+ *   cajeput-tree       melaleuca-leucadendra-ayuwadala-1.jpg  [CC BY 4.0, Ayuwadala]
+ *   homalomena-plant   homalomena-aromatica-medhijyoti.jpg  [CC BY 4.0, Medhi jyoti]
+ *   dipterocarp-tree   dipterocarpus-turbinatus-anupsadi-3.jpg  [CC BY-SA 4.0, Anup Sadi]
+ *   palmarosa-grass    cymbopogon-martini-upadhyay.jpg  [CC BY 4.0, Ravi Upadhyay]
+ *   kaffir-lime-leaves daun-jeruk-purut-herusutimbul.jpg  [CC BY-SA 4.0, Herusutimbul]
  * Dilepas dari halaman: material-patchouli (tetes air di daun, bukan nilam),
  * grass-blades (rumput biasa), fragrance-resin (rimpang kering berlabel
  * resin), hero-benzoin-tears (kayu manis berlabel benzoin), about-table
@@ -190,6 +248,33 @@ export const images = {
   'vetiver-clump': vetiverClump,
   'lab-vials': labVials,
   'harvest-sorting': harvestSorting,
+  'palmarosa-grass': palmarosaGrass,
+  'kaffir-lime-leaves': kaffirLimeLeaves,
+  'black-peppercorns': blackPeppercorns,
+  'white-peppercorn': whitePeppercorn,
+  'fenugreek-seeds': fenugreekSeeds,
+  'turmeric-roots': turmericRoots,
+  'betel-leaves': betelLeaves,
+  'basil-plant': basilPlant,
+  'tea-leaves': teaLeaves,
+  'coffee-cherries': coffeeCherries,
+  'coffee-roasted': coffeeRoasted,
+  'cocoa-beans': cocoaBeans,
+  'tamarind-pods': tamarindPods,
+  'lemongrass-field': lemongrassField,
+  'ginger-fresh': gingerFresh,
+  'ginger-roots': gingerRoots,
+  'dried-bark': driedBark,
+  'cubeb-vine': cubebVine,
+  'cananga-flowers': canangaFlowers,
+  'ylang-flowers': ylangFlowers,
+  'citronella-grass': citronellaGrass,
+  'kencur-dried': kencurDried,
+  'temulawak-plant': temulawakPlant,
+  'rhubarb-plant': rhubarbPlant,
+  'cajeput-tree': cajeputTree,
+  'homalomena-plant': homalomenaPlant,
+  'dipterocarp-tree': dipterocarpTree,
 } satisfies Record<string, ImageMetadata>;
 
 export type ImageKey = keyof typeof images;

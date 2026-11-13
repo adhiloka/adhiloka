@@ -2,6 +2,10 @@
  * src/data/materials.ts dan src/data/pages/ingredients.ts, jadi katalog
  * selalu sama dengan situs; jalankan `npm run pdf` setiap kali data berubah.
  *
+ * Sejak 13 Nov 2026 (33 bahan, 98 kode) daftar isi berdiri sendiri, "The range"
+ * pindah ke halaman sendiri, dan tiap halaman bahan memuat daftar kode
+ * produknya (kode, nama, jenis); tabel spesifikasi ada di halaman produk situs.
+ *
  * Lembar spesifikasi produk per bahan (ADH-PS-xx, dua halaman) dilepas
  * 10 Nov 2026 karena nilai spesifikasinya belum ada. Templatnya masih ada di
  * riwayat git (commit 847d673) bila datanya sudah siap. */
@@ -61,18 +65,22 @@ const CATALOG_CSS = `
 .in__p { margin-top: 6mm; font-size: 9.6pt; line-height: 1.65; }
 .in__p + .in__p { margin-top: 3mm; }
 .toc { margin-top: 4mm; border-top: .35mm solid var(--green-deep); }
-.toc li { display: flex; align-items: baseline; gap: 3mm; padding: 2.4mm 0; border-bottom: .25mm solid var(--line-soft); list-style: none; font-size: 9pt; }
+.toc li { display: flex; align-items: baseline; gap: 3mm; padding: .5mm 0; border-bottom: .25mm solid var(--line-soft); list-style: none; font-size: 7.8pt; }
 .toc li em { font-style: normal; font-size: 7pt; color: var(--amber); font-weight: 500; letter-spacing: .08em; }
 .toc li span { flex: 1; }
 .toc li b { font-weight: 400; color: var(--muted); font-variant-numeric: tabular-nums; }
-.range { margin-top: 16mm; }
-.range__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6mm 5mm; margin-top: 5mm; }
-.range__item img { width: 100%; height: 30mm; object-fit: cover; }
-.range__item p { margin-top: 2.4mm; font-family: 'Crimson', serif; font-size: 12.5pt; font-weight: 600; line-height: 1.15; color: var(--green-deep); }
-.range__item small { display: block; font-size: 7.4pt; color: var(--muted); }
-.range__item small i { font-family: 'Crimson', serif; font-size: 8.6pt; }
+.range { margin-top: 10mm; }
+.range__grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 3.5mm 4mm; margin-top: 4mm; }
+.range__item img { width: 100%; height: 17mm; object-fit: cover; }
+.range__item p { margin-top: 1.8mm; font-family: 'Crimson', serif; font-size: 10.5pt; font-weight: 600; line-height: 1.15; color: var(--green-deep); }
+.range__item small { display: block; font-size: 6.4pt; line-height: 1.35; color: var(--muted); }
+.range__item small i { display: block; font-family: 'Crimson', serif; font-size: 7.6pt; }
+.mt__prods { margin-top: 5mm; }
+.prods { margin-top: 2mm; padding-top: 1mm; border-top: .3mm solid var(--green-deep); columns: 3; column-gap: 6mm; }
+.prods li { display: grid; grid-template-columns: 10mm 1fr; gap: 1.6mm; padding: .55mm 0; border-bottom: .2mm solid var(--line-soft); break-inside: avoid; list-style: none; font-size: 6.6pt; line-height: 1.25; }
+.prods li b { font-weight: 500; color: var(--amber); font-variant-numeric: tabular-nums; }
 
-.mt__hero { position: relative; height: 112mm; overflow: hidden; background: #1d2b28; }
+.mt__hero { position: relative; height: 98mm; overflow: hidden; background: #1d2b28; }
 .mt__shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgb(2 30 27 / .45) 0%, rgb(2 30 27 / 0) 28%, rgb(2 30 27 / 0) 55%, rgb(2 30 27 / .7) 100%); }
 .mt__run { position: absolute; top: 12mm; left: 16mm; font-size: 7pt; letter-spacing: .16em; text-transform: uppercase; color: rgb(255 255 255 / .85); }
 .mt__fam { position: absolute; top: 10.5mm; right: 16mm; padding: 1mm 3.4mm; border: .3mm solid rgb(255 255 255 / .7); border-radius: 10mm; font-size: 7.4pt; letter-spacing: .08em; color: #fff; }
@@ -127,8 +135,9 @@ const CATALOG_CSS = `
  * @param {{ materials: any[], steps: {n:string,title:string,body:string}[], intro: string[], docsLead: string, docs: string[], img: (m:any)=>string, cover: string, assets: {lockup:string, lockupDark:string} }} o
  */
 export function catalogHtml(o) {
-  const { materials: ms, steps, intro, docsLead, docs, img, assets } = o;
-  const total = ms.length + 4;
+  const { materials: ms, products = [], steps, intro, docsLead, docs, img, assets } = o;
+  const total = ms.length + 5;
+  const prodsOf = (m) => products.filter((p) => p.ingredient === m.slug);
   const foot = (n) =>
     `<footer class="foot"><span><b>Adhiloka</b> · Ingredients Catalog ${EDITION}</span><span>${pad(n)} / ${pad(total)}</span></footer>`;
 
@@ -147,8 +156,9 @@ export function catalogHtml(o) {
 </section>`;
 
   const toc = [
-    ...ms.map((m, i) => [pad(i + 1), m.name, i + 3]),
-    ['—', 'Ordering & Documents', ms.length + 3],
+    ['—', 'The range', 3],
+    ...ms.map((m, i) => [pad(i + 1), m.name, i + 4]),
+    ['—', 'Ordering & Documents', ms.length + 4],
   ];
   const contents = `
 <section class="page">
@@ -165,6 +175,12 @@ export function catalogHtml(o) {
         <ul class="toc">${toc.map(([n, t, p]) => `<li><em>${n}</em><span>${esc(t)}</span><b>${pad(p)}</b></li>`).join('')}</ul>
       </div>
     </div>
+  </div>
+  ${foot(2)}
+</section>
+<section class="page">
+  <div class="in">
+    <div class="in__top"><img src="${assets.lockup}" alt="Adhiloka"><span>Ingredients Catalog · ${EDITION}</span></div>
     <div class="range">
       <p class="eyebrow">The range</p>
       <div class="range__grid">
@@ -176,7 +192,7 @@ export function catalogHtml(o) {
       </div>
     </div>
   </div>
-  ${foot(2)}
+  ${foot(3)}
 </section>`;
 
   const matPages = ms
@@ -216,9 +232,10 @@ export function catalogHtml(o) {
         ])}
       </div>
     </div>
+    ${prodsOf(m).length ? `<div class="mt__prods"><h3 class="h-sec">Products · ${prodsOf(m).length} ${prodsOf(m).length === 1 ? 'code' : 'codes'}</h3><ul class="prods">${prodsOf(m).map((p) => `<li><b>${esc(p.code)}</b><span>${esc(p.name)}</span></li>`).join('')}</ul></div>` : ''}
   </div>
-  <a class="mt__link" href="${pageUrl(m.slug)}"><span><b>Samples and specification</b> on request</span><span>${shortUrl(pageUrl(m.slug))} →</span></a>
-  ${foot(i + 3)}
+  <a class="mt__link" href="${pageUrl(m.slug)}"><span><b>Specifications</b> for every code online · samples on request</span><span>${shortUrl(pageUrl(m.slug))} →</span></a>
+  ${foot(i + 4)}
 </section>`,
     )
     .join('');
@@ -239,7 +256,7 @@ export function catalogHtml(o) {
     <p>Samples, specifications and quotations</p>
     <a href="mailto:info@adhiloka.com">info@adhiloka.com</a>
   </div>
-  ${foot(ms.length + 3)}
+  ${foot(ms.length + 4)}
 </section>`;
 
   const back = `

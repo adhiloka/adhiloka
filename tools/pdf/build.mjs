@@ -35,7 +35,7 @@ if (!CHROME) throw new Error('Chrome tidak ditemukan; set CHROME_PATH.');
 // Data situs dibundel esbuild karena impor TS di src/ tanpa ekstensi berkas.
 const bundle = await build({
   stdin: {
-    contents: `export { MATERIALS } from './src/data/materials.ts';
+    contents: `export { MATERIALS, PRODUCTS } from './src/data/materials.ts';
                export { ORDERING_STEPS, ORDERING_DOCUMENTS, ORDERING_DOCUMENTS_LEAD, INGREDIENTS_OPENING } from './src/data/pages/ingredients.ts';`,
     resolveDir: ROOT,
     loader: 'ts',
@@ -45,7 +45,7 @@ const bundle = await build({
   platform: 'node',
   write: false,
 });
-const { MATERIALS, ORDERING_STEPS, ORDERING_DOCUMENTS, ORDERING_DOCUMENTS_LEAD, INGREDIENTS_OPENING } = await import(
+const { MATERIALS, PRODUCTS, ORDERING_STEPS, ORDERING_DOCUMENTS, ORDERING_DOCUMENTS_LEAD, INGREDIENTS_OPENING } = await import(
   'data:text/javascript;base64,' + Buffer.from(bundle.outputFiles[0].text).toString('base64')
 );
 
@@ -115,6 +115,7 @@ const manifest = { edition: EDITION, issued: ISSUED, revision: REVISION, catalog
   const file = 'adhiloka-ingredients-catalog.pdf';
   const html = catalogHtml({
     materials: MATERIALS,
+    products: PRODUCTS,
     steps: ORDERING_STEPS,
     intro: INGREDIENTS_OPENING,
     docsLead: ORDERING_DOCUMENTS_LEAD,
