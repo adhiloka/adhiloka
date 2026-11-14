@@ -22,7 +22,7 @@ export const INGREDIENTS_INTRO: PageIntro = {
 
 /* Juga dipakai katalog PDF (tools/pdf/build.mjs). */
 export const INGREDIENTS_OPENING = [
-  'Resins, leaves, roots and spices have shaped perfumery for generations. We follow each one from the plant to the finished material, through harvest, selection, processing and evaluation, so that what reaches the perfumer keeps the character of where it grew. The result is a palette of natural ingredients for fine fragrance, personal care and home care.',
+  'Resins, leaves, roots and spices have shaped perfumery for generations. We follow each one from the plant to the finished material, so that what reaches the perfumer keeps the character of where it grew. Our palette serves fine fragrance, personal care and home care.',
 ];
 
 /* Lima halaman anak, urutan sama dengan menu (NAV di site.ts). Dipakai
@@ -74,7 +74,7 @@ export const NATURAL_INTRO: PageIntro = {
 
 export const NATURAL_CATALOG = {
   title: 'Ingredient Catalog',
-  text: 'Every ingredient in our range, with its botanical name, olfactive profile and use in perfumery. Browse by family or by note, and request a sample or specification from each page.',
+  text: 'Every ingredient in our range, with its botanical name, olfactive profile and place in perfumery. Samples and specifications can be requested from each page.',
   cta: 'Explore the Catalog',
 };
 
@@ -135,23 +135,23 @@ export type Route = { name: string; note: string };
 export const ROUTES: Route[] = [
   {
     name: 'Steam Distillation',
-    note: 'The classic route to essential oils from leaves, roots, woods, barks and spices. Each material is distilled on its own terms to bring out its full profile. The oils it gives are clear, true to the plant and the backbone of most natural palettes.',
+    note: 'The classic route to essential oils from leaves, roots, woods, barks and spices. Each material is distilled on its own terms, for oils that are clear, true to the plant and the backbone of most natural palettes.',
   },
   {
     name: 'Solvent Extraction',
-    note: 'Flowers and resins give their scent more fully to extraction than to steam. Extraction yields concretes, absolutes and resinoids: rich, deep materials that hold the heavier facets of the plant and give a fragrance warmth and body.',
+    note: 'Flowers and resins give their scent more fully to extraction than to steam. The concretes, absolutes and resinoids that result are rich and deep, and give a fragrance warmth and body.',
   },
   {
     name: 'Supercritical CO₂ Extraction',
-    note: 'Extraction with carbon dioxide at low temperature gives extracts that stay remarkably close to the raw material. Heat-sensitive notes are kept intact and no solvent remains, which makes CO₂ extracts a natural choice for clean formulas.',
+    note: 'Carbon dioxide at low temperature gives extracts that stay remarkably close to the raw material. Delicate notes are kept intact and no solvent remains, a natural choice for clean formulas.',
   },
   {
     name: 'Molecular Distillation',
-    note: 'A gentle refinement that lightens colour and removes unwanted facets from oils and absolutes. The material keeps its character but becomes cleaner and clearer, easier to use in fine fragrance and in delicate bases.',
+    note: 'A gentle refinement that lightens colour and removes unwanted facets from oils and absolutes. The material keeps its character and becomes easier to use in fine fragrance and delicate bases.',
   },
   {
     name: 'Fractional Distillation',
-    note: 'An essential oil is a blend of many molecules. Fractionation separates it into parts, so that a single facet, a heart or a natural isolate can be offered on its own and used with greater precision in a formula.',
+    note: 'An essential oil is a blend of many molecules. Fractionation lets us offer a single facet, a heart or a natural isolate on its own, for greater precision in the formula.',
   },
   {
     name: 'Cold Expression',
@@ -163,7 +163,7 @@ export const ROUTES: Route[] = [
   },
   {
     name: 'Co-Distillation',
-    note: 'Two materials distilled together become one ingredient with a character of its own. The result is a natural accord that neither material could give alone, ready for the perfumer to use as a single note.',
+    note: 'Two materials distilled together become one ingredient with a character of its own: a natural accord that neither could give alone.',
   },
   {
     name: 'Pyrogenation',
@@ -174,7 +174,7 @@ export const ROUTES: Route[] = [
 export const TECHNOLOGY_SCIENCE: Route[] = [
   {
     name: 'Headspace Analysis',
-    note: 'The scent of a living flower or leaf is not the same as that of its oil. Headspace analysis captures the air around the plant and reveals what it really smells like, so perfumers can recreate nature as it is, without harvesting a thing.',
+    note: 'The scent of a living flower is not the same as that of its oil. Headspace analysis captures the air around the plant, so perfumers can recreate nature as it is, without harvesting a thing.',
   },
   {
     name: 'Biotechnology',
@@ -205,7 +205,7 @@ export const TECHNOLOGY_PASSAGES: Passage[] = [
   {
     id: 'quality',
     title: 'Quality & Compliance',
-    body: 'Every batch is checked against its specification before it leaves us. Gas chromatography and physical constants confirm its composition, and an evaluator smells it against the reference, so that each delivery matches the one before. Documentation is prepared for the market the ingredient is going to.',
+    body: 'Every batch is checked against its specification before it leaves us, by analysis and by nose. Each delivery matches the one before, and travels with the documents its market asks for.',
     cta: 'Working With Us',
     href: '/ingredients/working-with-us/',
     caption: 'flash point tester in a laboratory',
@@ -233,32 +233,32 @@ export const ORDERING_STEPS: OrderStep[] = [
   {
     n: '01',
     title: 'Enquiry',
-    body: 'Every order starts with the ingredient and its intended use. Knowing the application, the market and the quantity in mind helps us point to the right material from the start.',
+    body: 'It starts with the ingredient and what it is for. The application, the market and the quantity in mind point us to the right material.',
   },
   {
     n: '02',
     title: 'Sample',
-    body: 'A sample is sent for evaluation in your own work. Your perfumers and technicians can try the material in the formula before any commitment is made.',
+    body: 'We send a sample to try in your own formula. Your perfumers can judge the material before any commitment is made.',
   },
   {
     n: '03',
     title: 'Quotation',
-    body: 'Once the sample is approved, we prepare a quotation for the quantity you need. Price, packaging and timing are set out clearly in one document.',
+    body: 'Once the sample is approved, we quote for the quantity you need. Price, packaging and timing come in one document.',
   },
   {
     n: '04',
     title: 'Order',
-    body: 'Specification, quantity, packaging, documents and delivery terms are agreed together and confirmed in writing. The order then moves into preparation.',
+    body: 'Specification, quantity, documents and delivery terms are agreed together. We confirm them in writing and begin.',
   },
   {
     n: '05',
     title: 'Preparation',
-    body: 'The material is drawn from a batch that has passed evaluation and packed to suit its nature and the quantity ordered. Its documents are prepared alongside it.',
+    body: 'Your order is drawn from a batch that has passed evaluation and packed to suit the material. Its documents are prepared alongside.',
   },
   {
     n: '06',
     title: 'Delivery',
-    body: 'The shipment is arranged on the agreed terms and followed until it arrives. We stay in touch afterwards, for the next order or a new request.',
+    body: 'We ship on the agreed terms and follow the goods until they arrive. After that, we stay in touch for the next order.',
   },
 ];
 
@@ -279,18 +279,18 @@ export const ORDERING_DOCUMENTS: string[] = [
 export const ORDERING_LOGISTICS: { title: string; body: string }[] = [
   {
     title: 'Packaging',
-    body: 'Materials are packed to suit their nature and the quantity ordered, from small containers for evaluation to drums for production. Every pack is labelled for safe handling and transport.',
+    body: 'From small containers for evaluation to drums for production, each material is packed to suit its nature. Every pack is labelled for safe handling and transport.',
   },
   {
     title: 'Quantities',
-    body: 'Quantities are set by ingredient, from sample sizes to regular production volumes. The practical minimum for each material is confirmed with the quotation.',
+    body: 'We supply from sample sizes to regular production volumes. The minimum for each material is confirmed with the quotation.',
   },
   {
     title: 'Lead Time',
-    body: 'Lead time depends on the material, the season and the quantity. It is confirmed with each quotation and kept up to date until the goods are on their way.',
+    body: 'Lead time depends on the material, the season and the quantity. We confirm it with each quotation and keep you informed until the goods are on their way.',
   },
   {
     title: 'Shipping',
-    body: 'Shipping terms and routes are agreed with each order. The shipment is prepared for its destination and followed until it reaches you.',
+    body: 'Terms and routes are agreed with each order. We prepare the shipment for its destination and follow it until it reaches you.',
   },
 ];

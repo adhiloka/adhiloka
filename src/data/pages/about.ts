@@ -21,10 +21,10 @@ export const ABOUT_INTRO: PageIntro = {
 };
 
 export const ABOUT_WHO =
-  'Adhiloka is a house of natural ingredients and perfumery. We work with resins, leaves, roots and spices that have shaped perfumery for generations, and turn them into essential oils, resinoids and extracts for those who create with scent. We stay close to the plants, the seasons and the growers behind them, because the character of a natural ingredient is decided long before it reaches the bench.';
+  'Adhiloka is a house of natural ingredients and perfumery. We work with the resins, leaves, roots and spices that have shaped perfumery for generations, and turn them into essential oils, resinoids and extracts for those who create with scent. We stay close to the plants, the seasons and the growers behind them.';
 
 export const ABOUT_HOW =
-  'One thread runs through everything we do, from the plant to the perfumer. We follow each material from the field through processing and evaluation, and we know the people who grow it. That continuity lets us answer for every ingredient we supply, and gives perfumers materials they can build on with confidence.';
+  'We follow each material from the field to the finished ingredient, and we know the people who grow it. We stand behind everything we supply, and perfumers can build on it with confidence.';
 
 /* Kartu halaman anak, dipakai grid penutup hub About dan bilah "Explore
    More" di halaman anaknya. */
@@ -57,7 +57,7 @@ export const BUSINESS_PASSAGES: Passage[] = [
   {
     id: 'source',
     title: 'Sourcing',
-    body: 'Our work starts where the plants grow. We buy from growers and gatherers we know, follow each harvest through its season, and select the raw material by eye and by nose before it travels any further. Knowing where an ingredient comes from is the first part of its quality.',
+    body: 'Our work starts where the plants grow. We buy from growers and gatherers we know, follow each harvest through its season and choose the raw material by eye and by nose.',
     cta: 'Responsible Sourcing',
     href: '/sustainability/responsible-sourcing/',
     caption: 'nutmeg fruit on the tree',
@@ -66,7 +66,7 @@ export const BUSINESS_PASSAGES: Passage[] = [
   {
     id: 'processing',
     title: 'Processing',
-    body: 'Every material asks for its own method. Leaves, roots and spices are distilled, resins are extracted, and each process is adjusted to keep as much of the original scent as possible. The result is an ingredient that still smells of the plant it came from.',
+    body: 'Every material asks for its own method. We distil leaves, roots and spices and extract resins, always looking to keep the scent of the plant as it was in the field.',
     cta: 'Technology',
     href: '/ingredients/technology/',
     caption: 'copper distillation still',
@@ -75,7 +75,7 @@ export const BUSINESS_PASSAGES: Passage[] = [
   {
     id: 'ingredients',
     title: 'Ingredients',
-    body: 'We supply essential oils, resinoids and extracts to fragrance houses, independent perfumers and makers of scented products. Each one is evaluated before it is released, and a sample is usually the first step, so that the material can be tried in the formula before it is ordered.',
+    body: 'Essential oils, resinoids and extracts for fragrance houses, independent perfumers and makers of scented products. Every ingredient is evaluated before it is released, and most conversations begin with a sample.',
     cta: 'Ingredient Catalog',
     href: '/ingredients/catalog/',
     caption: 'amber glass bottles',
@@ -84,7 +84,7 @@ export const BUSINESS_PASSAGES: Passage[] = [
   {
     id: 'perfumery',
     title: 'Perfumery',
-    body: 'Alongside our ingredients we create fragrances, for fine fragrance and for consumer products. Our perfumers work in dialogue with each client, from the first brief to the final formula, and draw on the natural materials we know best. A fragrance built this way carries the warmth and depth of real naturals.',
+    body: 'Alongside our ingredients, we create fragrances for fine fragrance and consumer products. Our perfumers work closely with each client, from the first brief to the final formula, with the naturals we know best at the heart of the palette.',
     cta: 'Perfumery',
     href: '/perfumery/',
     caption: 'smelling a handful of dried flowers',
@@ -105,25 +105,25 @@ export const PURPOSE_INTRO: PageIntro = {
 };
 
 export const PURPOSE_BODY = [
-  'Every scent begins with a living plant and the hands that tend it. Our role is to bring both closer to the perfumer: to look after the land our ingredients come from, to keep fair and lasting ties with the people who grow them, and to prepare each material with the time it deserves. Growing together with nature is how we describe that work, and the standard we hold ourselves to.',
+  'Every scent begins with a living plant and the hands that tend it. We look after the land our ingredients come from, keep fair and lasting ties with the people who grow them, and give each material the time it deserves. We call it growing together with nature.',
 ];
 
 export const PURPOSE_VALUES: { title: string; body: string }[] = [
   {
     title: 'Respect for Nature',
-    body: 'We take from the land only what it can give. Harvests follow the season and plants are given time to recover, so that the places our ingredients come from stay healthy for the next generation of growers.',
+    body: 'We take from the land only what it can give. Harvests follow the season and plants are given time to recover, so the land stays healthy for the growers who come after us.',
   },
   {
     title: 'Care for People',
-    body: 'Our ingredients carry the work of many hands. We build fair and lasting relationships with growers, gatherers and partners, and we value their knowledge, much of it handed down over generations.',
+    body: 'Our ingredients carry the work of many hands. We keep fair, lasting relationships with growers, gatherers and partners, and we value what they know.',
   },
   {
     title: 'Craft',
-    body: 'Good natural ingredients cannot be rushed. We take the time to select, process and evaluate each material properly, and keep the methods that bring out its true character.',
+    body: 'Good naturals take time. We select, process and evaluate each material with patience, and keep to the methods that bring out its character.',
   },
   {
     title: 'Openness',
-    body: 'We speak plainly about what we make and how we make it. Clients, growers and partners get a straight answer, and we listen closely before we act.',
+    body: 'We speak plainly about what we make and how we make it. Clients, growers and partners can expect a straight answer.',
   },
 ];
 

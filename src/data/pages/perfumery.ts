@@ -30,7 +30,7 @@ export const PERFUMERY_INTRO: PageIntro = {
 };
 
 export const PERFUMERY_OPENING = [
-  'Scent stirs memory, sets a mood and gives a product its character. Perfumers, evaluators, application specialists and regulatory experts work as one team, from the first brief to the finished product, combining natural ingredients and fragrance molecules into compositions that perform in the bottle, on the skin and in the home.',
+  'Scent stirs memory, sets a mood and gives a product its character. Our perfumers, evaluators and technical teams work as one, from the first brief to the finished fragrance, bringing naturals and molecules together in compositions people remember.',
 ];
 
 /** Dua bidang kreasi. Id-nya ditaut mega-menu, footer dan tile beranda. */
@@ -38,14 +38,14 @@ export const PERFUMERY_AREAS: Passage[] = [
   {
     id: 'fine-fragrance',
     title: 'Fine Fragrance',
-    body: 'Perfumes with a signature of their own, composed hand in hand with each brand. Our perfumers listen first, to the story, the audience and the feeling the brand wants to leave, then build the fragrance through rounds of trials until it says exactly that. Natural materials sit at the heart of the work, giving depth and a sense of life that lasts on the skin.',
+    body: 'Perfumes with a signature of their own, composed hand in hand with each brand. Our perfumers start from the story a brand wants to tell and refine the fragrance until it tells it. Naturals sit at the heart of the work, for depth and a sense of life on the skin.',
     caption: 'perfumer at work with a dropper',
     image: 'perfumer-dropper',
   },
   {
     id: 'consumer-fragrance',
     title: 'Consumer Fragrance',
-    body: 'Fragrance is often the first thing people notice about a product, and the reason they choose it again. We create scents for personal care, home care and fabric care that stay true from the bottle to the shower, the washing machine or the living room, and that work within the base, the budget and the regulations of each market.',
+    body: 'Fragrance is often the first thing people notice about a product, and the reason they choose it again. We create scents for personal care, home care and fabric care that stay true in use and fit the base, the brief and the market.',
     caption: 'reed diffuser in an amber glass bottle at home',
     image: 'reed-diffuser-home',
   },
@@ -54,27 +54,27 @@ export const PERFUMERY_AREAS: Passage[] = [
 export const PERFUMERY_INNOVATION: { title: string; body: string }[] = [
   {
     title: 'Long-Lasting Freshness',
-    body: 'Encapsulation and controlled release keep a fragrance fresh long after use. Scent is held on skin, hair and fabric, then released with movement and touch through the day.',
+    body: 'Encapsulation and controlled release hold a fragrance on skin, hair and fabric, then let it go with movement and touch. Freshness lasts through the day.',
   },
   {
     title: 'Bloom',
-    body: 'A fragrance should open at the right moment: as a shampoo lathers, a candle warms or laundry is unfolded. We design and test for that moment, so the scent is noticed when it matters most.',
+    body: 'A fragrance should open at the right moment: as a shampoo lathers, a candle warms or laundry is unfolded. We design and test for that moment.',
   },
   {
     title: 'Malodour Control',
-    body: 'Unwanted odours in the home, on fabric and on the body are neutralised rather than covered up. The fragrance can then be enjoyed on a clean background.',
+    body: 'Unwanted odours in the home, on fabric and on the body are neutralised rather than covered up. The fragrance is left to be enjoyed on a clean background.',
   },
   {
     title: 'Emotion & Wellbeing',
-    body: 'Scent acts directly on mood. We study how fragrances are felt as well as smelled, and use that knowledge to create scents that calm, refresh or lift the spirit.',
+    body: 'Scent acts directly on mood. We study how a fragrance is felt as well as smelled, and create scents that calm, refresh or lift the spirit.',
   },
   {
     title: 'Digital Creation',
-    body: 'Data and AI tools work at the perfumer’s side, suggesting directions, predicting performance and shortening trials. The creative decisions stay with the perfumer, who gains more time to make them.',
+    body: 'Data and AI tools work at the perfumer’s side, suggesting directions and predicting performance. The creative decisions stay with the perfumer.',
   },
   {
     title: 'Mindful Design',
-    body: 'Fragrances built with biodegradable and renewable ingredients, and concentrated formats that use less material and less packaging. Responsibility is part of the formula from the first brief.',
+    body: 'Fragrances built with biodegradable and renewable ingredients, in concentrated formats that use less material and less packaging. Responsibility is part of the formula from the start.',
   },
 ];
 
@@ -82,29 +82,29 @@ export const PERFUMERY_STEPS: { n: string; title: string; body: string }[] = [
   {
     n: '01',
     title: 'Brief',
-    body: 'Every project starts with listening. We learn the brand, the product, the consumer and the market, and agree on direction, budget and timing before the first trial is made.',
+    body: 'Every project starts with listening. We get to know the brand, the product and the people it is made for, and agree on a direction before the first trial.',
   },
   {
     n: '02',
     title: 'Creation',
-    body: 'Perfumers compose the first proposals and refine them over rounds of evaluation. Each trial is smelled, compared and adjusted until the fragrance says what the brief asked for.',
+    body: 'Our perfumers compose the first proposals, then refine them with our evaluators, trial after trial, until the fragrance answers the brief.',
   },
   {
     n: '03',
     title: 'Application',
-    body: 'A fragrance must work in the product as well as on the blotter. It is tested in the real base for stability, colour and performance over time, and the formula is adjusted where needed.',
+    body: 'A fragrance has to work in the product as well as on the blotter. We test it in the real base for stability and performance, and adjust the formula where needed.',
   },
   {
     n: '04',
     title: 'Compliance & Delivery',
-    body: 'Every formula is checked against the regulations of the markets where it will be sold. The approved fragrance is then produced, documented and delivered, ready for manufacture.',
+    body: 'Every formula is checked against the regulations of the markets where it will be sold. Once approved, the fragrance is produced and delivered with its documents.',
   },
 ];
 
 export const PERFUMERY_PALETTE: Passage = {
   id: 'palette',
   title: 'Our Palette',
-  body: 'Essential oils, absolutes, resinoids and extracts, alongside fragrance molecules and specialty bases. Natural materials bring depth, texture and a sense of origin, while molecules bring lift, diffusion and stability. Together they give our perfumers a full palette to compose with, and the freedom to make each fragrance its own.',
+  body: 'Essential oils, absolutes, resinoids and extracts sit alongside fragrance molecules and specialty bases. Naturals bring depth and a sense of origin, molecules bring lift and stability, and our perfumers are free to make each fragrance its own.',
   cta: 'Explore Ingredients',
   href: '/ingredients/',
   caption: 'dried flowers in glass vials',

@@ -88,7 +88,7 @@ export const NEWS: Article[] = [
     category: 'Harvest',
     title: 'The Rhythm of the Harvest',
     standfirst:
-      'Every natural ingredient follows the seasons. Here is why timing matters as much as care.',
+      'Every natural ingredient follows the seasons, and timing matters as much as care.',
     body: [
       'Natural ingredients do not arrive on a schedule of our choosing. Each one follows its own season, set by rain, sun and the life of the plant.',
       'Knowing when to gather a leaf, a seed or a resin is knowledge passed between growers, and it shapes the character of what we receive.',

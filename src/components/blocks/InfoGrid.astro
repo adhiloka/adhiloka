@@ -29,7 +29,7 @@ const { title, lead, items, grey = false, id, cols = 4 } = Astro.props;
             {it.body && <p class="info__body">{it.body}</p>}
             {it.href && (
               <a class="info__link" href={it.href} rel={it.href.startsWith('http') ? 'noopener' : undefined} target={it.href.startsWith('http') ? '_blank' : undefined}>
-                {it.linkLabel ?? 'Know More'}
+                {it.linkLabel ?? 'Discover More'}
               </a>
             )}
           </li>

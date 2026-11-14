@@ -148,7 +148,7 @@ export const PILLARS: Pillar[] = [
  * Adhiloka" dilepas (pemilik). */
 export const JOIN_US = {
   title: 'Join Us',
-  cta: 'Know More',
+  cta: 'Discover More',
   href: '/contact/careers/',
   cards: [
     { label: 'Careers', href: '/contact/careers/', image: 'perfume-workshop' as ImageKey, alt: 'Hands at work on a perfumery bench' },

@@ -93,7 +93,7 @@ Yang sengaja berbeda:
   Rubik variabel 300–700, di-host sendiri lewat Fonts API, dengan bobot digeser supaya setara tinta
   Rubrik (400→360, 500→440, 600→530, 700→670). Rinciannya di `astro.config.mjs`.
 - **Tab tidak aktif** memakai `#6b6b6b`, bukan `#c1c1c1` Adani yang kontrasnya cuma 1,7:1.
-- **"Watch Video"** di hero menjadi "Know More"; situs ini tidak memakai video.
+- **"Watch Video"** di hero menjadi "Discover More" (dulu "Know More", diganti 14 Nov 2026); situs ini tidak memakai video.
 - **Awards & Accolades** di halaman About dilewati: tidak ada penghargaan yang bisa dicantumkan.
 - **Banner cookie** tidak ditiru; situs ini tidak memasang cookie.
 - **Footer** berlatar foto tajuk pohon (`canopy-from-below`, foto stok tajam) yang dipucatkan dan
@@ -188,6 +188,12 @@ berubah. Dengan `prefers-reduced-motion` atau tanpa JS, semuanya tampil diam.
 
 ## Naskah
 
+**Dilenturkan 14 Nov 2026 (pemilik: masih kaku, berbau AI, terlalu rinci).** 63 blok naskah di
+`data/pages/` ditulis ulang mengikuti cara Robertet, Givaudan, dsm-firmenich, Indesso dan Symrise
+menulis: tetap satu paragraf per judul, tetapi dua kalimat (±20–50 kata), suara "we", tanpa rangka
+berulang ("so that…", "The result is…") dan tanpa kalimat penutup berpetuah. Data bahan dan produk
+(nota, pemakaian, spesifikasi) tidak disentuh. Label "Know More" jadi "Discover More".
+
 **Satu paragraf per judul (koreksi pemilik 13 Nov 2026).** Keterangan sepatah kata ternyata terlalu
 singkat. Mengikuti dsm-firmenich, IFF, Robertet dan Givaudan, tiap judul kini diberi satu paragraf
 (dua sampai tiga kalimat): blok bergambar, kartu teknik, nilai, langkah pesan, logistik, langkah
@@ -280,7 +286,7 @@ karena nilai spesifikasinya belum ada; templatnya ada di riwayat git (commit `84
 ## Tautan kosong
 
 Tidak ada lagi `href="#"`. Kartu Join Us di beranda (Careers, Become a Supplier, Partner with Us)
-menuju halamannya di menu Connect sejak 13 Nov 2026; "Know More" menuju Careers.
+menuju halamannya di menu Connect sejak 13 Nov 2026; "Discover More" menuju Careers.
 
 ## Logo
 
