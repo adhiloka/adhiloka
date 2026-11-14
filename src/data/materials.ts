@@ -109,6 +109,41 @@ export const PRODUCT_TYPES = [
   'Dried spice',
 ];
 
+/** Kosakata wangi katalog (chip di kartu dan filter Scent; pemilik 15 Nov
+ *  2026, setara facet "Olfactive Descriptor" dsm-firmenich). Tiap kelompok
+ *  menampung nota (`notes`, dari master Excel) yang searti. Urutan = urutan
+ *  tampil chip. */
+export const SCENTS: { name: string; notes: string[] }[] = [
+  { name: 'Floral', notes: ['Floral', 'Rosy', 'Exotic'] },
+  { name: 'Citrus', notes: ['Citrus', 'Lemony'] },
+  { name: 'Fresh', notes: ['Fresh', 'Camphoraceous', 'Aromatic'] },
+  { name: 'Green', notes: ['Green', 'Grassy'] },
+  { name: 'Herbal', notes: ['Herbal', 'Herbaceous', 'Anisic'] },
+  { name: 'Spicy', notes: ['Spicy', 'Peppery', 'Pungent', 'Phenolic'] },
+  { name: 'Warm', notes: ['Warm', 'Rich'] },
+  { name: 'Woody', notes: ['Woody', 'Deep'] },
+  { name: 'Earthy', notes: ['Earthy', 'Bitter'] },
+  { name: 'Balsamic', notes: ['Balsamic', 'Soft'] },
+  { name: 'Sweet', notes: ['Sweet', 'Caramel'] },
+  { name: 'Fruity', notes: ['Fruity', 'Sour'] },
+  { name: 'Creamy', notes: ['Creamy', 'Milky', 'Coconut'] },
+  { name: 'Smoky', notes: ['Smoky'] },
+  { name: 'Roasted', notes: ['Roasted', 'Coffee', 'Chocolate'] },
+  { name: 'Animalic', notes: ['Animalic'] },
+];
+
+/** Kelompok wangi satu bahan, urut SCENTS, tanpa duplikat. Nota yang belum
+ *  ada di SCENTS menggagalkan build supaya bahan baru tidak lolos tanpa wangi. */
+export const scentsOf = (m: Material) => {
+  const notes = m.notes.split('·').map((n) => n.trim()).filter(Boolean);
+  for (const n of notes) {
+    if (!SCENTS.some((s) => s.notes.includes(n))) {
+      throw new Error(`Nota "${n}" (${m.name}) belum masuk SCENTS di materials.ts`);
+    }
+  }
+  return SCENTS.filter((s) => s.notes.some((n) => notes.includes(n))).map((s) => s.name);
+};
+
 export const productsOf = (slug: string) => PRODUCTS.filter((p) => p.ingredient === slug);
 export const materialOf = (p: Product) => MATERIALS.find((m) => m.slug === p.ingredient)!;
 export const productHref = (p: Product) => `/ingredients/catalog/${p.ingredient}/${p.slug}/`;

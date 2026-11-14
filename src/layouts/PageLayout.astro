@@ -11,7 +11,8 @@ interface Props {
   bannerTitle?: string;
   /** Lede ditampilkan di banner, bukan di blok pembuka. */
   lineInBanner?: boolean;
-  /** Keterangan kecil di kanan bawah banner (jumlah hasil katalog). */
+  /** Keterangan kecil di kanan bawah banner. Bukan untuk hitungan (jumlah
+   *  bahan/produk): dilarang pemilik, 15 Nov 2026. */
   bannerMeta?: string;
 }
 const { intro, bannerTitle, lineInBanner = false, bannerMeta } = Astro.props;

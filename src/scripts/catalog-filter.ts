@@ -1,32 +1,26 @@
-/** Penyaring katalog bahan ala Ingredient Catalog dsm-firmenich: tombol
- *  All filters membuka laci kiri berisi facet bercentang, lalu ada urutan
- *  (Relevance / Name A–Z / Z–A), kotak pencarian dan tombol tampilan grid/
- *  list. Filter aktif tampil sebagai tag yang bisa dilepas; seluruh keadaan
- *  disimpan di query URL (?family=Resin&q=…&sort=az&view=list&show=products)
- *  sehingga kartu Collections di hub bisa menaut ke katalog yang tersaring.
+/** Katalog bahan (dirombak 15 Nov 2026, pemilik; rujukan Ingredient Catalog
+ *  dsm-firmenich Studio).
  *
- *  Dua tampilan (pemilik, 14 Nov 2026), sakelar `[data-mode-btn]`:
- *  - ingredients (bawaan): kartu per bahan `[data-filter-grid] > li`. Kartu
- *    tampil bila facet keluarga/bahan cocok DAN minimal satu kodenya cocok
- *    dengan pencarian + facet jenis. Bila yang cocok hanya sebagian kode,
- *    kode itu dibuka di daftar kecil `[data-hits]` dalam kartu (maks 3, sisanya
- *    lewat tombol yang pindah ke tampilan kode).
- *  - products: baris per kode `[data-prod-list] > li`, disaring langsung.
- *
- *  Pencarian dipecah per kata; semua kata harus ada sebagai awal kata
- *  (urutan bebas), jadi
- *  "benzoin propylene glycol", "955671" atau "patchouli md 34" langsung kena.
- *  Kata Indonesia yang lazim (sumatera, propilen glikol, nilam, kemenyan, …)
- *  diterjemahkan dulu lewat ALIAS. Nilai facet ganda dipisah "|". */
+ *  - Kartu per bahan `[data-filter-grid] > li` tampil bila facet keluarga dan
+ *    wangi cocok DAN minimal satu kodenya cocok dengan pencarian + facet jenis
+ *    produk. Bila yang cocok hanya sebagian kode, kode itu dibuka di daftar
+ *    kecil `[data-hits]` dalam kartu (maks 3, sisanya tautan More products).
+ *  - Saran langsung `[data-suggest]` di bawah kotak cari: bahan (maks 4) dan
+ *    kode produk (maks 6), tiap baris tautan ke halamannya. Ini pengganti
+ *    daftar Product codes yang dulu lewat sakelar.
+ *  - Pencarian dipecah per kata; semua kata harus ada sebagai awal kata
+ *    (urutan bebas): "benzoin propylene glycol", "955671", "terpene", "co2
+ *    extract", "floral". Kata Indonesia yang lazim diterjemahkan lewat ALIAS.
+ *  - Keadaan di query URL (?q=&scent=&type=&family=&sort=); kartu Collections
+ *    di Natural Ingredients menaut ke ?family=.
+ *  - Tidak ada hitungan di mana pun (koreksi pemilik berulang).
+ *  - Supaya tidak berkedip: tanpa animasi fade, kartu hanya dipindah di DOM
+ *    saat urutan berubah, dan fx:refresh (ScrollSmoother) didebounce. */
 
-import { fadeIn } from './tabs';
-
-type Mode = 'ingredients' | 'products';
-const FACETS = ['family', 'type', 'ingredient'] as const;
-const VIEWS = ['grid', 'list'];
+const FACETS = ['family', 'scent'] as const;
 const HIT_MAX = 3;
-const emit = () => window.dispatchEvent(new CustomEvent('fx:refresh'));
-const count = (n: number, one: string, many: string) => `${n} ${n === 1 ? one : many}`;
+const SUG_ING = 4;
+const SUG_PROD = 6;
 
 /** Istilah Indonesia → istilah katalog (Inggris). Frasa dua kata dulu. */
 const ALIAS: [RegExp, string][] = [
@@ -63,10 +57,15 @@ const ALIAS: [RegExp, string][] = [
   [/\bkristal\b/g, 'crystals'],
   [/\babsolut\b/g, 'absolute'],
   [/\bresinoida?\b/g, 'resinoid'],
+  [/\bterpen\b/g, 'terpene'],
+  [/\bbunga\b/g, 'floral'],
+  [/\bkayu\b/g, 'woody'],
+  [/\bpedas\b/g, 'spicy'],
+  [/\bsegar\b/g, 'fresh'],
+  [/\bmanis\b/g, 'sweet'],
 ];
 
-/** Pasangan `norm` di catalog.astro: huruf kecil tanpa diakritik, tanda
- *  baca jadi spasi. */
+/** Pasangan `norm` di catalog.astro. */
 const norm = (s: string) =>
   s
     .normalize('NFD')
@@ -80,6 +79,13 @@ const tokensOf = (raw: string) => {
   for (const [re, to] of ALIAS) s = s.replace(re, to);
   return s.split(' ').filter(Boolean);
 };
+/** Tiap kata dicocokkan dari awal kata: "propylene" tidak menangkap
+ *  "dipropylene", "9556" menangkap 955671. */
+const textOk = (el: HTMLElement, tokens: string[]) => {
+  const text = ` ${el.dataset.text ?? ''}`;
+  return tokens.every((t) => text.includes(` ${t}`));
+};
+const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
 
 export function initCatalog() {
   const root = document.querySelector<HTMLElement>('[data-catalog]:not([data-ready])');
@@ -91,95 +97,86 @@ export function initCatalog() {
   const openBtn = root.querySelector<HTMLButtonElement>('[data-cat-open]')!;
   const badge = root.querySelector<HTMLElement>('[data-cat-badge]')!;
   const tags = root.querySelector<HTMLElement>('[data-cat-tags]')!;
-  const countEl = root.querySelector<HTMLElement>('[data-filter-count]');
-  const shown = root.querySelector<HTMLElement>('[data-cat-shown]');
   const empty = root.querySelector<HTMLElement>('[data-cat-empty]');
   const grid = root.querySelector<HTMLElement>('[data-filter-grid]')!;
-  const prodWrap = root.querySelector<HTMLElement>('[data-prod-wrap]')!;
-  const prodList = root.querySelector<HTMLElement>('[data-prod-list]')!;
+  const find = root.querySelector<HTMLElement>('[data-find]')!;
+  const sug = root.querySelector<HTMLElement>('[data-suggest]')!;
+  const sugIng = sug.querySelector<HTMLElement>('[data-sug-ing]')!;
+  const sugProd = sug.querySelector<HTMLElement>('[data-sug-prod]')!;
+  const sugIngWrap = sug.querySelector<HTMLElement>('[data-sug-ing-wrap]')!;
+  const sugProdWrap = sug.querySelector<HTMLElement>('[data-sug-prod-wrap]')!;
   const cards = [...grid.children] as HTMLElement[];
-  const rows = [...prodList.children] as HTMLElement[];
-  const viewBtns = [...root.querySelectorAll<HTMLButtonElement>('[data-view]')];
-  const modeBtns = [...root.querySelectorAll<HTMLButtonElement>('[data-mode-btn]')];
   const q = form.elements.namedItem('q') as HTMLInputElement;
   const sort = form.elements.namedItem('sort') as HTMLSelectElement;
   const boxes = [...form.querySelectorAll<HTMLInputElement>('input[type="checkbox"]')];
-  const banner = document.querySelector<HTMLElement>('.banner__meta');
-  const bannerText = banner?.textContent ?? '';
+  const drawerBoxes = boxes.filter((b) => b.name !== 'scent');
 
-  let mode: Mode = 'ingredients';
-  const checked = () => boxes.filter((b) => b.checked && (mode === 'products' || b.name !== 'ingredient'));
+  const checked = () => boxes.filter((b) => b.checked);
   const wanted = (facet: string) => checked().filter((b) => b.name === facet).map((b) => b.value);
-  const values = (el: HTMLElement, facet: string) => (el.dataset[facet] ?? '').split('|');
   const facetOk = (el: HTMLElement, facets: readonly string[]) =>
     facets.every((f) => {
       const want = wanted(f);
-      return !want.length || want.some((v) => values(el, f).includes(v));
+      const have = (el.dataset[f] ?? '').split('|');
+      return !want.length || want.some((v) => have.includes(v));
     });
-  /** Tiap kata dicocokkan dari awal kata: "propylene" tidak menangkap
-   *  "dipropylene", "9556" menangkap 955671. */
-  const textOk = (el: HTMLElement, tokens: string[]) => {
-    const text = ` ${el.dataset.text ?? ''}`;
-    return tokens.every((t) => text.includes(` ${t}`));
+
+  // fx:refresh memicu ScrollSmoother menghitung ulang tinggi halaman; cukup
+  // sekali setelah pengetikan berhenti.
+  let refreshT: number | undefined;
+  const refresh = () => {
+    clearTimeout(refreshT);
+    refreshT = window.setTimeout(() => window.dispatchEvent(new CustomEvent('fx:refresh')), 300);
   };
 
-  const order = (a: HTMLElement, b: HTMLElement) => {
-    if (sort.value === 'az') return (a.dataset.name ?? '').localeCompare(b.dataset.name ?? '');
-    if (sort.value === 'za') return (b.dataset.name ?? '').localeCompare(a.dataset.name ?? '');
-    return Number(a.dataset.order) - Number(b.dataset.order);
-  };
-
-  const setView = (view: string) => {
-    grid.dataset.view = view;
-    viewBtns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === view)));
-  };
-
-  const setMode = (m: Mode) => {
-    mode = m;
-    root.dataset.mode = m;
-    modeBtns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.modeBtn === m)));
-    grid.hidden = m !== 'ingredients';
-    prodWrap.hidden = m !== 'products';
-    form.querySelectorAll<HTMLElement>('[data-n-ing]').forEach((el) => {
-      el.textContent = `(${m === 'products' ? el.dataset.nProd : el.dataset.nIng})`;
-    });
+  let lastSort: string | null = null;
+  const reorder = () => {
+    if (sort.value === lastSort) return;
+    lastSort = sort.value;
+    const by = (a: HTMLElement, b: HTMLElement) => {
+      if (sort.value === 'az') return (a.dataset.name ?? '').localeCompare(b.dataset.name ?? '');
+      if (sort.value === 'za') return (b.dataset.name ?? '').localeCompare(a.dataset.name ?? '');
+      return Number(a.dataset.order) - Number(b.dataset.order);
+    };
+    grid.append(...[...cards].sort(by));
   };
 
   const syncUrl = () => {
     const p = new URLSearchParams();
-    checked().forEach((b) => p.append(b.name, b.value));
     if (q.value.trim()) p.set('q', q.value.trim());
+    checked().forEach((b) => p.append(b.name, b.value));
     if (sort.value) p.set('sort', sort.value);
-    if (grid.dataset.view !== 'grid') p.set('view', grid.dataset.view!);
-    if (mode === 'products') p.set('show', 'products');
     const qs = p.toString();
     history.replaceState(history.state, '', `${location.pathname}${qs ? `?${qs}` : ''}${location.hash}`);
   };
 
+  const clear = () => {
+    boxes.forEach((b) => (b.checked = false));
+    q.value = '';
+  };
+
+  /** Tag hanya untuk yang tidak terlihat di bilah: isi laci dan kata cari.
+   *  Chip wangi sudah menunjukkan keadaannya sendiri. */
   const renderTags = () => {
-    const active = [
-      ...checked().map((b) => ({ box: b as HTMLInputElement | null, label: b.dataset.label ?? b.value })),
-      ...(q.value.trim() ? [{ box: null, label: `“${q.value.trim()}”` }] : []),
+    const tagBtn = (label: string, onRemove: () => void) => {
+      const li = document.createElement('li');
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'cat__tag';
+      btn.setAttribute('aria-label', `Remove ${label}`);
+      btn.innerHTML = `<span></span><svg viewBox="0 0 10 10" width="9" height="9" aria-hidden="true"><path d="m1 1 8 8M9 1 1 9" stroke="currentColor" stroke-width="1.4"/></svg>`;
+      btn.querySelector('span')!.textContent = label;
+      btn.addEventListener('click', () => {
+        onRemove();
+        apply();
+      });
+      li.append(btn);
+      return li;
+    };
+    const items = [
+      ...(q.value.trim() ? [tagBtn(`“${q.value.trim()}”`, () => (q.value = ''))] : []),
+      ...drawerBoxes.filter((b) => b.checked).map((b) => tagBtn(b.dataset.label ?? b.value, () => (b.checked = false))),
     ];
-    tags.replaceChildren(
-      ...active.map(({ box, label }) => {
-        const li = document.createElement('li');
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'cat__tag';
-        btn.setAttribute('aria-label', `Remove filter ${label}`);
-        btn.innerHTML = `<span></span><svg viewBox="0 0 10 10" width="9" height="9" aria-hidden="true"><path d="m1 1 8 8M9 1 1 9" stroke="currentColor" stroke-width="1.4"/></svg>`;
-        btn.querySelector('span')!.textContent = label;
-        btn.addEventListener('click', () => {
-          if (box) box.checked = false;
-          else q.value = '';
-          apply();
-        });
-        li.append(btn);
-        return li;
-      }),
-    );
-    if (active.length) {
+    if (items.length || checked().length) {
       const li = document.createElement('li');
       const btn = document.createElement('button');
       btn.type = 'button';
@@ -190,140 +187,154 @@ export function initCatalog() {
         apply();
       });
       li.append(btn);
-      tags.append(li);
+      items.push(li);
     }
-    tags.hidden = active.length === 0;
+    tags.replaceChildren(...items);
+    tags.hidden = items.length === 0;
   };
 
-  const clear = () => {
-    boxes.forEach((b) => (b.checked = false));
-    q.value = '';
-  };
-
-  /** Kartu bahan: cocokkan kode di dalamnya, buka yang cocok bila sebagian. */
-  const applyCards = (tokens: string[]) => {
+  const apply = () => {
+    const tokens = tokensOf(q.value);
     const narrowing = tokens.length > 0 || wanted('type').length > 0;
-    let nCards = 0;
-    let nHits = 0;
+    let shown = 0;
     cards.forEach((card) => {
       const hits = [...card.querySelectorAll<HTMLElement>('[data-hit]')];
       const box = card.querySelector<HTMLElement>('[data-hits]')!;
-      const more = card.querySelector<HTMLButtonElement>('[data-hits-more]')!;
-      const head = card.querySelector<HTMLElement>('[data-hits-head]')!;
-      const matched = facetOk(card, ['family', 'ingredient']) ? hits.filter((h) => textOk(h, tokens) && facetOk(h, ['type'])) : [];
+      const more = card.querySelector<HTMLElement>('[data-hits-more]')!;
+      const matched = facetOk(card, FACETS)
+        ? hits.filter((h) => textOk(h, tokens) && (!wanted('type').length || wanted('type').includes(h.dataset.type ?? '')))
+        : [];
       const show = matched.length > 0;
-      card.hidden = !show;
+      if (card.hidden === show) card.hidden = !show;
       if (!show) return;
-      nCards++;
-      nHits += matched.length;
-      // Semua kode cocok = tidak perlu dibuka; kartunya sudah mewakili.
+      shown++;
+      // Semua kode cocok = kartunya sudah mewakili; tidak perlu dibuka.
       const partial = narrowing && matched.length < hits.length;
       box.hidden = !partial;
-      hits.forEach((h) => (h.hidden = !partial || matched.indexOf(h) < 0 || matched.indexOf(h) >= HIT_MAX));
-      head.textContent = partial ? `${count(matched.length, 'matching product', 'matching products')} of ${hits.length}` : '';
-      const rest = matched.length - HIT_MAX;
-      more.hidden = !partial || rest <= 0;
-      if (rest > 0) more.textContent = `+ ${count(rest, 'more code', 'more codes')}`;
-      more.dataset.ingredient = card.dataset.ingredient ?? '';
+      hits.forEach((h) => {
+        const i = matched.indexOf(h);
+        h.hidden = !partial || i < 0 || i >= HIT_MAX;
+      });
+      more.hidden = !partial || matched.length <= HIT_MAX;
     });
-    [...cards].sort(order).forEach((el) => grid.append(el));
-    return { nCards, nHits, narrowing };
-  };
-
-  const applyRows = (tokens: string[]) => {
-    let n = 0;
-    rows.forEach((row) => {
-      const ok = facetOk(row, FACETS) && textOk(row, tokens);
-      row.hidden = !ok;
-      if (ok) n++;
-    });
-    [...rows].sort(order).forEach((el) => prodList.append(el));
-    return n;
-  };
-
-  const apply = (animate = true) => {
-    const tokens = tokensOf(q.value);
-    let label: string;
-    let n: number;
-    if (mode === 'ingredients') {
-      const r = applyCards(tokens);
-      n = r.nCards;
-      label = count(r.nCards, 'ingredient', 'ingredients');
-      if (r.narrowing && n) label += ` · ${count(r.nHits, 'product', 'products')}`;
-    } else {
-      n = applyRows(tokens);
-      label = count(n, 'product code', 'product codes');
-    }
-    const filtered = tokens.length > 0 || checked().length > 0;
-    if (countEl) countEl.textContent = label;
-    if (banner) banner.textContent = filtered ? label : bannerText;
-    if (shown) shown.textContent = `Show ${label}`;
-    if (empty) empty.hidden = n > 0;
-    const k = checked().length;
-    badge.textContent = String(k);
-    badge.hidden = k === 0;
+    reorder();
+    if (empty) empty.hidden = shown > 0;
+    badge.hidden = !drawerBoxes.some((b) => b.checked);
     renderTags();
     syncUrl();
-    if (animate) fadeIn(mode === 'ingredients' ? grid : prodWrap);
-    emit();
+    refresh();
+  };
+
+  /* ── Saran langsung ─────────────────────────────────────────────────── */
+  let sugLinks: HTMLAnchorElement[] = [];
+  let active = -1;
+  const closeSug = () => {
+    sug.hidden = true;
+    q.setAttribute('aria-expanded', 'false');
+    active = -1;
+  };
+  const mark = (i: number) => {
+    active = i;
+    sugLinks.forEach((a, k) => a.setAttribute('aria-selected', String(k === i)));
+    sugLinks[i]?.scrollIntoView({ block: 'nearest' });
+  };
+  const suggest = () => {
+    const tokens = tokensOf(q.value);
+    if (!tokens.length || norm(q.value).length < 2) return closeSug();
+    // Bahan: namanya cocok dulu, lalu bahan yang punya kode cocok.
+    const byName = cards.filter((c) => textOk(c, tokens));
+    const byProd = cards.filter((c) => !byName.includes(c) && [...c.querySelectorAll<HTMLElement>('[data-hit]')].some((h) => textOk(h, tokens)));
+    const ings = [...byName, ...byProd].slice(0, SUG_ING);
+    // Produk: kode yang diawali angka yang diketik dulu.
+    const allHits = cards.flatMap((c) => [...c.querySelectorAll<HTMLElement>('[data-hit]')]);
+    const num = tokens.find((t) => /^\d+$/.test(t));
+    const prods = allHits
+      .filter((h) => textOk(h, tokens))
+      .sort((a, b) => Number(!!num && !(a.dataset.code ?? '').startsWith(num)) - Number(!!num && !(b.dataset.code ?? '').startsWith(num)))
+      .slice(0, SUG_PROD);
+    sugIng.innerHTML = ings
+      .map((c) => {
+        const a = c.querySelector<HTMLAnchorElement>('.mat__link')!;
+        // Kandidat srcset terkecil (400w), bukan src ukuran asli.
+        const el = c.querySelector('img');
+        const img = el?.getAttribute('srcset')?.split(',')[0]?.trim().split(' ')[0] || el?.getAttribute('src');
+        const latin = c.querySelector('.mat__latin')?.textContent ?? '';
+        return `<li><a href="${a.getAttribute('href')}">${img ? `<img class="sug__img" src="${esc(img)}" alt="" loading="lazy">` : '<span class="sug__img"></span>'}<span><span class="sug__name">${esc(c.dataset.name ?? '')}</span><span class="sug__latin">${esc(latin)}</span></span></a></li>`;
+      })
+      .join('');
+    sugProd.innerHTML = prods
+      .map((h) => `<li><a href="${h.querySelector('a')!.getAttribute('href')}"><span class="sug__code">${esc(h.dataset.code ?? '')}</span><span class="sug__name">${esc(h.dataset.name ?? '')}</span></a></li>`)
+      .join('');
+    sugIngWrap.hidden = !ings.length;
+    sugProdWrap.hidden = !prods.length;
+    sugLinks = [...sug.querySelectorAll<HTMLAnchorElement>('a')];
+    sugLinks.forEach((a) => a.setAttribute('tabindex', '-1'));
+    active = -1;
+    const open = sugLinks.length > 0 && document.activeElement === q;
+    sug.hidden = !open;
+    q.setAttribute('aria-expanded', String(open));
   };
 
   // Keadaan awal dari URL.
   const params = new URLSearchParams(location.search);
-  setMode(params.get('show') === 'products' ? 'products' : 'ingredients');
   boxes.forEach((b) => (b.checked = params.getAll(b.name).includes(b.value)));
   q.value = params.get('q') ?? '';
   if ([...sort.options].some((o) => o.value === params.get('sort'))) sort.value = params.get('sort')!;
-  setView(VIEWS.includes(params.get('view') ?? '') ? params.get('view')! : 'grid');
-  // Tautan #slug: slug bahan → kartu, slug produk → baris di tampilan kode.
-  const target = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
-  if (target && rows.includes(target)) setMode('products');
-  if (target && (rows.includes(target) || cards.includes(target))) {
-    apply(false);
-    if (target.hidden) clear();
+  // Tautan lama #slug-produk (dari daftar kode yang sudah dilepas) → halaman produknya.
+  const hash = decodeURIComponent(location.hash.slice(1));
+  const oldRow = hash && root.querySelector<HTMLElement>(`[data-hit][data-slug="${CSS.escape(hash)}"] a`);
+  if (oldRow) {
+    location.replace(oldRow.getAttribute('href')!);
+    return;
   }
-  apply(false);
+  const target = hash ? document.getElementById(hash) : null;
+  apply();
+  if (target && cards.includes(target) && target.hidden) {
+    clear();
+    apply();
+  }
 
-  form.addEventListener('change', () => apply());
+  form.addEventListener('change', (e) => {
+    if ((e.target as HTMLElement) === q) return;
+    apply();
+  });
   let t: number | undefined;
   q.addEventListener('input', () => {
+    suggest();
     clearTimeout(t);
-    t = window.setTimeout(() => apply(), 250);
+    t = window.setTimeout(apply, 200);
+  });
+  q.addEventListener('focus', suggest);
+  q.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' && !sug.hidden) {
+      e.preventDefault();
+      mark(Math.min(active + 1, sugLinks.length - 1));
+    } else if (e.key === 'ArrowUp' && !sug.hidden) {
+      e.preventDefault();
+      mark(Math.max(active - 1, -1));
+    } else if (e.key === 'Enter' && active >= 0 && !sug.hidden) {
+      e.preventDefault();
+      sugLinks[active].click();
+    } else if (e.key === 'Escape') {
+      closeSug();
+    }
+  });
+  // Saran ditutup saat fokus atau klik pindah keluar dari kotak cari.
+  document.addEventListener('pointerdown', (e) => {
+    if (!find.contains(e.target as Node)) closeSug();
+  });
+  q.addEventListener('blur', () => {
+    window.setTimeout(() => {
+      if (!find.contains(document.activeElement)) closeSug();
+    }, 150);
   });
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+    clearTimeout(t);
     apply();
+    closeSug();
     if (drawer.open) drawer.close();
   });
-
-  modeBtns.forEach((b) =>
-    b.addEventListener('click', () => {
-      if (b.dataset.modeBtn === mode) return;
-      setMode(b.dataset.modeBtn as Mode);
-      apply();
-    }),
-  );
-
-  // "+ n more codes" di kartu: pindah ke tampilan kode, tersaring ke bahan itu.
-  grid.addEventListener('click', (e) => {
-    const more = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-hits-more]');
-    if (!more) return;
-    setMode('products');
-    boxes.forEach((b) => {
-      if (b.name === 'ingredient') b.checked = b.value === more.dataset.ingredient;
-    });
-    apply();
-    root.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-
-  viewBtns.forEach((b) =>
-    b.addEventListener('click', () => {
-      setView(b.dataset.view!);
-      syncUrl();
-      fadeIn(grid);
-      emit();
-    }),
-  );
 
   // Laci: <dialog> modal duduk di top layer, jadi tidak ikut ditransform
   // ScrollSmoother; body.is-locked menjeda gulir halaman di belakangnya.
@@ -336,12 +347,11 @@ export function initCatalog() {
     openBtn.focus();
   });
   root.querySelectorAll('[data-cat-close]').forEach((b) => b.addEventListener('click', () => drawer.close()));
-  // Klik di luar panel (pada ::backdrop) menutup laci.
   drawer.addEventListener('click', (e) => {
     if (e.target === drawer) drawer.close();
   });
   root.querySelector('[data-cat-reset]')?.addEventListener('click', () => {
-    boxes.forEach((b) => (b.checked = false));
+    drawerBoxes.forEach((b) => (b.checked = false));
     apply();
   });
 }
