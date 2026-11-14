@@ -30,7 +30,7 @@ export const ABOUT_HOW =
    More" di halaman anaknya. */
 export const ABOUT_CARDS: LinkCard[] = [
   { title: 'Our Business', href: '/about/our-business/', image: 'copper-still' },
-  { title: 'Our Purpose', href: '/about/our-purpose/', image: 'purpose-generations' },
+  { title: 'Our Purpose', href: '/about/our-purpose/', image: 'pepper-harvest-hands' },
 ];
 
 /* Kartu ketiga di hub About saja: menuju bagian lain situs, jadi tidak ikut

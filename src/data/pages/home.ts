@@ -85,17 +85,16 @@ export const HERO_SLIDES: HeroSlide[] = [
    di beranda Adani. Sejak 18 Okt 2026 berupa pernyataan tujuan atas nama
    perusahaan (gaya "Our purpose" Givaudan/Robertet), disetujui pemilik. */
 export const HOME_QUOTE = {
-  text: "Every scent begins with a *living plant* and the *hands that tend it*. We exist to carry that nature, *with care*, from Indonesian soil to the perfumer's bench.",
+  text: 'We bring the *scent of living plants* to those who create with it, and we look after *the land and the hands* behind every harvest.',
   name: 'Adhiloka',
   role: 'Our Purpose',
   cta: 'Our Purpose',
   href: '/about/our-purpose/',
-  image: 'purpose-generations' as ImageKey,
-  alt: 'Two children running through a meadow at dusk',
-  /* Foto mendatar di bingkai tegak: kedua anak ada di sepertiga kiri foto,
-     jadi titik fokusnya digeser ke kiri supaya tidak terpotong (pemilik,
-     13 Nov 2026). */
-  focus: '10% 50%',
+  /* Kutipan dan foto diganti 14 Nov 2026 (pemilik: yang anak-anak berlari
+     dibuat yang lain). Polanya pernyataan tujuan satu kalimat seperti
+     dsm-firmenich, Robertet dan Symrise; fotonya tegak, pas dengan bingkai. */
+  image: 'pepper-harvest-hands' as ImageKey,
+  alt: 'Hands picking pepper berries from the vine',
 };
 
 /* ── Akordeon keberlanjutan ──────────────────────────────────────────── */

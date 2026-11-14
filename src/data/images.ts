@@ -96,6 +96,7 @@ import goldenSap from '../assets/images/golden-sap.jpg';
 import cubebDried from '../assets/images/cubeb-dried.jpg';
 import homalomenaLeaves from '../assets/images/homalomena-leaves.jpg';
 import reedDiffuserHome from '../assets/images/reed-diffuser-home.jpg';
+import pepperHarvestHands from '../assets/images/pepper-harvest-hands.jpg';
 import temulawakRhizomes from '../assets/images/temulawak-rhizomes.jpg';
 import palmarosaGrass from '../assets/images/palmarosa-grass.jpg';
 import kaffirLimeLeaves from '../assets/images/kaffir-lime-leaves.jpg';
@@ -114,7 +115,7 @@ import kaffirLimeLeaves from '../assets/images/kaffir-lime-leaves.jpg';
  *   fragrance-petal      kelopak jingga, makro
  *   fragrance-resin      potongan rimpang kering
  *   fragrance-bloom      kembang sepatu, makro
- *   purpose-generations  dua anak berlari di padang rumput senja ← isi cocok
+ *   purpose-generations  dua anak berlari di padang rumput senja — TIDAK DIPAKAI sejak 14 Nov 2026; dulu
  *                        dengan pemakaiannya (pita "Our purpose")
  *   about-chick          anak ayam kuning di rumput di antara bunga buttercup
  *   about-table          tiga orang mengobrol di meja makan yang tertata —
@@ -206,6 +207,8 @@ import kaffirLimeLeaves from '../assets/images/kaffir-lime-leaves.jpg';
  *   homalomena-leaves  homalomena-stang-1zz.jpg  [CC BY-SA 4.0, David J. Stang]
  *   temulawak-rhizomes tomulawa-curcuma-zanthorrhiza-03-jpg-commons-79e6369e.jpg  [CC BY-SA 4.0, Rahmatlahay]
  *   reed-diffuser-home reed-diffuser-home-pexels-7795650.jpg  [Pexels License] (Consumer Fragrance, ganti amber-bottles)
+ *   pepper-harvest-hands  tangan memetik buah lada dari sulurnya, tegak  [stock-photos/spices/pexels-36292687, Pexels License]
+ *                         (kutipan beranda dan Our Purpose, ganti purpose-generations; pemilik, 14 Nov 2026)
  * Dilepas dari halaman: material-patchouli (tetes air di daun, bukan nilam),
  * grass-blades (rumput biasa), fragrance-resin (rimpang kering berlabel
  * resin), hero-benzoin-tears (kayu manis berlabel benzoin), about-table
@@ -314,6 +317,7 @@ export const images = {
   'homalomena-leaves': homalomenaLeaves,
   'temulawak-rhizomes': temulawakRhizomes,
   'reed-diffuser-home': reedDiffuserHome,
+  'pepper-harvest-hands': pepperHarvestHands,
 } satisfies Record<string, ImageMetadata>;
 
 export type ImageKey = keyof typeof images;

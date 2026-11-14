@@ -324,6 +324,12 @@ Tanda logonya sama persis dengan versi sebelumnya, jadi favicon tidak berubah.
    layak belum ada di sumber gratis.
    Warna kepala halaman bahan disusun ulang (lihat `FAMILY_COLOR`): sembilan rona jenuh, tidak ada
    yang abu-hijau seperti tulisan logo; header di halaman berkepala warna putih 88 %.
+   14 Nov 2026 (pemilik): kutipan beranda ditulis ulang jadi pernyataan tujuan satu kalimat dan
+   fotonya diganti `pepper-harvest-hands` (tangan memetik lada, tegak); foto dua anak berlari
+   (`purpose-generations`) tidak dipakai lagi, juga di Our Purpose dan kartunya. Bagian **Photo
+   Credits di `/legal/` dihapus** atas keputusan pemilik; kalimat di atas yang menyebut kredit di
+   Legal tidak berlaku lagi. Foto Wikimedia berlisensi CC BY / CC BY-SA masih terpasang tanpa
+   kredit di situs; daftar sumbernya tetap ada di komentar `src/data/images.ts`.
 3. **Data** untuk halaman yang diparkir dan untuk spesifikasi bahan (lihat di atas).
 4. **JSON-LD.** Telepon, `foundingDate` dan alamat masih dilepas (formulir A2–A5).
 
