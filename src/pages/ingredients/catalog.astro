@@ -2,52 +2,87 @@
 import { Image } from 'astro:assets';
 import PageLayout from '../../layouts/PageLayout.astro';
 import { images } from '../../data/images';
-import { PRODUCTS, PRODUCT_TYPES, FAMILY_FILTERS, materialOf, productHref, type Product } from '../../data/materials';
+import { MATERIALS, PRODUCTS, PRODUCT_TYPES, FAMILY_FILTERS, materialOf, materialHref, productHref, productsOf, type Material, type Product } from '../../data/materials';
 import { CATALOG_INTRO } from '../../data/pages/ingredients';
 import { CATALOG_DOWNLOAD as cat, formatSize } from '../../data/downloads';
 
 /* Katalog bergaya Ingredient Catalog dsm-firmenich (23 Okt 2026): jumlah hasil
  * di banner, bilah alat (All filters, urutan, pencarian, grid/list), laci
- * filter dengan facet bercentang, tag filter aktif, lalu grid kartu: foto,
- * nama kapital, nama botani, keluarga · bagian tanaman, deskripsi, Read more
- * dan Request sample. Logikanya di scripts/catalog-filter.ts; keadaannya ikut
- * query URL (?family=Resin). Id kartu = slug, supaya tautan #slug lama tetap
- * mendarat di kartunya. Pita hijau di bawah grid = unduhan katalog PDF.
- * Sejak 13 Nov 2026 kartunya satu per KODE PRODUK (seperti katalog
- * dsm-firmenich), bukan satu per bahan: facet keluarga, jenis produk
- * ("Ingredient type", kembali karena datanya sudah ada di master database)
- * dan bahan. Pencarian juga mencocokkan kode 6 digit. Facet "Origin" tetap
- * tidak dipakai: semua asal Indonesia. */
+ * filter dengan facet bercentang, tag filter aktif, lalu grid kartu.
+ * Logikanya di scripts/catalog-filter.ts; keadaannya ikut query URL.
+ *
+ * Sejak 14 Nov 2026 (pemilik) dua tampilan, dipilih lewat sakelar di bilah:
+ *  - Ingredients (bawaan): SATU kartu per bahan induk (33), dengan jumlah
+ *    produknya. Pencarian dan facet "Ingredient type" tetap membaca semua
+ *    kode di bawahnya: kalau yang cocok hanya sebagian kode (mis. "benzoin
+ *    propylene glycol" atau "955671"), kodenya muncul sebagai daftar kecil di
+ *    dalam kartu bahan itu, menuju halaman produknya.
+ *  - Product codes: daftar datar semua kode 6 digit (98) tanpa foto, seperti
+ *    daftar produk Van Aroma, untuk pembeli yang mencari langsung per kode.
+ * Id kartu = slug bahan, id baris = slug produk, supaya tautan #slug lama
+ * tetap mendarat. Facet "Origin" tetap tidak dipakai: semua asal Indonesia. */
 
-/** Nilai facet tiap kartu. */
-const facetOf = (p: Product) => ({ family: [materialOf(p).family], type: [p.type], ingredient: [materialOf(p).name] });
-const tally = (key: keyof ReturnType<typeof facetOf>, order?: string[]) => {
-  const counts = new Map<string, number>();
-  PRODUCTS.forEach((p) => facetOf(p)[key].forEach((v) => counts.set(v, (counts.get(v) ?? 0) + 1)));
-  const list = [...counts].map(([value, n]) => ({ value, label: value, n }));
-  return order
-    ? list.sort((a, b) => order.indexOf(a.value) - order.indexOf(b.value))
-    : list.sort((a, b) => a.label.localeCompare(b.label));
-};
+/** Teks pencarian: huruf kecil tanpa diakritik, tanda baca jadi spasi
+ *  (pasangannya `norm` di skrip; kata dicocokkan dari awal kata). */
+const norm = (s: string) =>
+  s.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase().replace(/[.]/g, '').replace(/[^a-z0-9%]+/g, ' ').trim();
+/** Urut kode skema v2: kepala (D1) dari 9 turun ke 1, lalu kode menaik. */
+const byCode = (a: Product, b: Product) => Number(b.code[0]) - Number(a.code[0]) || a.code.localeCompare(b.code);
+const prodText = (p: Product, m: Material) =>
+  norm([p.code, p.name, p.slug.replace(/-/g, ' '), m.name, m.latin, m.family, m.part, m.notes, p.type, p.grade, p.process, p.solvent, p.inci, p.cas, p.odour].join(' '));
+
 const familyLabel = (v: string) => FAMILY_FILTERS.find((f) => f.value === v)?.label ?? v;
+const families = FAMILY_FILTERS.filter((f) => f.value !== 'All');
+const plural = (n: number, one: string, many: string) => `${n} ${n === 1 ? one : many}`;
+
+/* Jumlah per facet untuk dua tampilan: data-n-ing (bahan) dan data-n-prod
+ * (kode). Facet "Ingredient" hanya tampil di Product codes. */
 const facets = [
   {
     name: 'family',
     label: 'Olfactive family',
-    options: FAMILY_FILTERS.filter((f) => f.value !== 'All')
-      .map((f) => ({ value: f.value, label: f.label, n: PRODUCTS.filter((p) => materialOf(p).family === f.value).length }))
-      .filter((o) => o.n > 0),
+    options: families
+      .map((f) => ({
+        value: f.value,
+        label: f.label,
+        ing: MATERIALS.filter((m) => m.family === f.value).length,
+        prod: PRODUCTS.filter((p) => materialOf(p).family === f.value).length,
+      }))
+      .filter((o) => o.prod > 0),
   },
-  { name: 'type', label: 'Ingredient type', options: tally('type', PRODUCT_TYPES) },
-  { name: 'ingredient', label: 'Ingredient', options: tally('ingredient') },
+  {
+    name: 'type',
+    label: 'Ingredient type',
+    options: PRODUCT_TYPES.map((t) => ({
+      value: t,
+      label: t,
+      ing: MATERIALS.filter((m) => productsOf(m.slug).some((p) => p.type === t)).length,
+      prod: PRODUCTS.filter((p) => p.type === t).length,
+    })).filter((o) => o.prod > 0),
+  },
+  {
+    name: 'ingredient',
+    label: 'Ingredient',
+    productsOnly: true,
+    options: [...MATERIALS]
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .map((m) => ({ value: m.name, label: m.name, ing: 1, prod: productsOf(m.slug).length })),
+  },
 ];
-const results = `${PRODUCTS.length} results`;
+const nIng = MATERIALS.length;
+const nProd = PRODUCTS.length;
+const results = `${plural(nIng, 'ingredient', 'ingredients')} · ${plural(nProd, 'product', 'products')}`;
+const codeList = [...PRODUCTS].sort(byCode);
 ---
 
 <PageLayout intro={CATALOG_INTRO} bannerMeta={results}>
-  <section class="sec cat" data-catalog>
+  <section class="sec cat" data-catalog data-mode="ingredients">
     <div class="wrap">
       <form class="cat__bar" data-cat-form role="search" aria-label="Filter the catalog">
+        <div class="cat__mode" role="group" aria-label="Show">
+          <button type="button" data-mode-btn="ingredients" aria-pressed="true">Ingredients <small>{nIng}</small></button>
+          <button type="button" data-mode-btn="products" aria-pressed="false">Product codes <small>{nProd}</small></button>
+        </div>
         <button class="cat__all" type="button" data-cat-open aria-haspopup="dialog" aria-controls="cat-drawer">
           <svg viewBox="0 0 16 14" width="15" height="13" aria-hidden="true"><path d="M1 1.5h14L9.5 7.6v4.4l-3 1.5V7.6z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"></path></svg>
           All filters
@@ -62,9 +97,9 @@ const results = `${PRODUCTS.length} results`;
           </select>
         </label>
         <label class="cat__search">
-          <span class="sr-only">Catalog search</span>
+          <span class="sr-only">Search by name, product code, solvent or CAS</span>
           <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"></circle><path d="m15.5 15.5 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>
-          <input type="search" name="q" placeholder="Catalog search" autocomplete="off" />
+          <input type="search" name="q" placeholder="Name, product code, solvent…" autocomplete="off" />
         </label>
         <div class="cat__views" role="group" aria-label="Layout">
           <button type="button" data-view="grid" aria-pressed="true" aria-label="Grid view">
@@ -86,7 +121,7 @@ const results = `${PRODUCTS.length} results`;
             <div class="drw__body">
               {
                 facets.map((f, i) => (
-                  <details class="fct" open={i < 2}>
+                  <details class="fct" open={i < 2} data-products-only={f.productsOnly ? '' : undefined}>
                     <summary class="fct__head">{f.label}</summary>
                     <fieldset class="fct__list">
                       <legend class="sr-only">{f.label}</legend>
@@ -94,7 +129,7 @@ const results = `${PRODUCTS.length} results`;
                         <label class="fct__opt">
                           <input type="checkbox" name={f.name} value={o.value} data-label={o.label} />
                           <span>{o.label}</span>
-                          <small>({o.n})</small>
+                          <small data-n-ing={o.ing} data-n-prod={o.prod}>({o.ing})</small>
                         </label>
                       ))}
                     </fieldset>
@@ -104,7 +139,7 @@ const results = `${PRODUCTS.length} results`;
             </div>
             <div class="drw__foot">
               <button type="button" class="drw__reset" data-cat-reset>Clear all</button>
-              <button type="submit" class="drw__show" data-cat-shown>Show {results}</button>
+              <button type="submit" class="drw__show" data-cat-shown>Show results</button>
             </div>
           </div>
         </dialog>
@@ -112,40 +147,58 @@ const results = `${PRODUCTS.length} results`;
 
       <div class="cat__meta">
         <ul class="cat__tags" data-cat-tags aria-label="Active filters" hidden></ul>
-        <p class="cat__count" role="status" aria-live="polite" data-filter-count>{results}</p>
+        <p class="cat__count" role="status" aria-live="polite" data-filter-count>{plural(nIng, 'ingredient', 'ingredients')}</p>
       </div>
 
       <ul class="cat__grid" data-filter-grid data-view="grid">
         {
-          PRODUCTS.map((p, i) => {
-            const m = materialOf(p);
-            const f = facetOf(p);
+          MATERIALS.map((m, i) => {
+            const prods = productsOf(m.slug).sort(byCode);
+            /* Jenis produk yang tersedia: yang kodenya terbanyak dulu, lalu urut PRODUCT_TYPES. */
+            const rank = (t: string) => (PRODUCT_TYPES.indexOf(t) + 1 || 99);
+            const nOf = (t: string) => prods.filter((p) => p.type === t).length;
+            const types = [...new Set(prods.map((p) => p.type))].sort((a, b) => nOf(b) - nOf(a) || rank(a) - rank(b));
             return (
               <li
                 class="mat"
-                id={p.slug}
+                id={m.slug}
                 data-order={i}
-                data-name={p.name}
-                data-text={[p.code, p.name, m.name, m.latin, m.family, p.type, p.grade, p.odour].join(' ').toLowerCase()}
-                data-family={f.family.join('|')}
-                data-type={f.type.join('|')}
-                data-ingredient={f.ingredient.join('|')}
+                data-name={m.name}
+                data-family={m.family}
+                data-ingredient={m.name}
               >
-                <a class="mat__media cover" href={productHref(p)} tabindex="-1" aria-hidden="true">
+                <a class="mat__media cover" href={materialHref(m.slug)} tabindex="-1" aria-hidden="true">
                   {m.image ? <Image quality={70} src={images[m.image]} alt="" widths={[400, 720]} sizes="(max-width: 767px) 100vw, 30vw" loading="lazy" /> : <span class="plate">{m.shot}</span>}
                 </a>
                 <div class="mat__body">
-                  <p class="mat__code">{p.code}</p>
-                  <h2 class="mat__name"><a href={productHref(p)}>{p.name}</a></h2>
+                  <p class="mat__count">{plural(prods.length, 'product', 'products')}</p>
+                  <h2 class="mat__name"><a href={materialHref(m.slug)}>{m.name}</a></h2>
                   <p class="mat__latin">{m.latin}</p>
                   <p class="mat__tags">
                     <span>{familyLabel(m.family)}</span>
-                    <span>{p.type}</span>
+                    {types.slice(0, 1).map((t) => <span>{t}</span>)}
+                    {types.length > 1 && <span>+{types.length - 1}</span>}
                   </p>
-                  <p class="mat__desc">{p.odour}.</p>
+                  <p class="mat__desc">{m.note}</p>
+                  <div class="mat__hits" data-hits hidden>
+                    <p class="mat__hits-head" data-hits-head>Matching products</p>
+                    <ul>
+                      {prods.map((p) => (
+                        <li data-hit data-code={p.code} data-type={p.type} data-text={prodText(p, m)} hidden>
+                          <a href={productHref(p)}>
+                            <span class="mat__hit-code">{p.code}</span>
+                            <span class="mat__hit-name">{p.name}</span>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                    <button type="button" class="mat__hits-more" data-hits-more hidden></button>
+                  </div>
                   <p class="mat__links">
-                    <a class="mat__more" href={productHref(p)}>Read more<span class="sr-only"> about {p.name}</span></a>
-                    <a class="mat__sample" href={`/contact/?material=${p.slug}&kind=sample`}>Request sample<span class="sr-only"> of {p.name}</span></a>
+                    <a class="mat__more" href={`${materialHref(m.slug)}#products`}>
+                      View products<span class="sr-only"> of {m.name}</span>
+                    </a>
+                    <a class="mat__sample" href={`/contact/?material=${m.slug}&kind=sample`}>Request sample<span class="sr-only"> of {m.name}</span></a>
                   </p>
                 </div>
               </li>
@@ -153,7 +206,48 @@ const results = `${PRODUCTS.length} results`;
           })
         }
       </ul>
-      <p class="cat__empty" data-cat-empty hidden>No ingredients match these filters.</p>
+
+      <div class="prd" data-prod-wrap hidden>
+        <p class="prd__head" aria-hidden="true">
+          <span>Code</span>
+          <span>Product</span>
+          <span>Type</span>
+          <span>Family</span>
+        </p>
+        <ul class="prd__list" data-prod-list>
+          {
+            codeList.map((p, i) => {
+              const m = materialOf(p);
+              return (
+                <li
+                  class="prd__row"
+                  id={p.slug}
+                  data-order={i}
+                  data-name={p.name}
+                  data-text={prodText(p, m)}
+                  data-family={m.family}
+                  data-type={p.type}
+                  data-ingredient={m.name}
+                >
+                  <a href={productHref(p)}>
+                    <span class="prd__code">{p.code}</span>
+                    <span class="prd__name">
+                      {p.name}
+                      <small>ex-{m.latin}</small>
+                    </span>
+                    <span class="prd__type">{p.type}</span>
+                    <span class="prd__fam">{familyLabel(m.family)}</span>
+                    <span class="prd__arrow" aria-hidden="true">
+                      <svg viewBox="0 0 16 16" width="14" height="14"><path d="M3 8h10m-4-4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"></path></svg>
+                    </span>
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </div>
+      <p class="cat__empty" data-cat-empty hidden>Nothing matches these filters. Try a product code, an ingredient or a solvent such as DPG.</p>
     </div>
   </section>
 
@@ -418,15 +512,6 @@ const results = `${PRODUCTS.length} results`;
     color: #fff;
   }
   .mat__body { display: flex; flex-direction: column; flex: 1; padding: 22px 24px 24px; }
-  .mat__code { font-size: calc(14px * var(--fs)); letter-spacing: 0.04em; color: var(--ink-muted); }
-  .mat__code {
-    font-size: calc(13px * var(--fs));
-    font-weight: 530;
-    letter-spacing: 0.08em;
-    font-variant-numeric: tabular-nums;
-    color: var(--ink-muted);
-  }
-  .mat__code + .mat__name { margin-top: 4px; }
   .mat__name {
     margin-top: 6px;
     font-size: calc(22px * var(--fs));
@@ -524,6 +609,126 @@ const results = `${PRODUCTS.length} results`;
   }
   @media (prefers-reduced-motion: reduce) {
     .cat__drawer[open] { animation: none; }
+  }
+
+  /* ── Sakelar tampilan Ingredients / Product codes ──────────────────── */
+  .cat__mode {
+    display: inline-flex;
+    padding: 4px;
+    border-radius: 999px;
+    background: var(--bg-grey);
+  }
+  .cat__mode button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 36px;
+    padding: 0 16px;
+    border-radius: 999px;
+    font-size: calc(15px * var(--fs));
+    font-weight: 440;
+    color: var(--ink-muted);
+    transition: background 0.25s, color 0.25s;
+  }
+  .cat__mode button:hover { color: var(--ink); }
+  .cat__mode button[aria-pressed='true'] { background: var(--bg); color: var(--ink); box-shadow: 0 1px 3px rgb(0 0 0 / 0.12); }
+  .cat__mode small { font-size: calc(12px * var(--fs)); font-variant-numeric: tabular-nums; color: var(--ink-muted); }
+  [data-mode='products'] .cat__views { display: none; }
+  [data-mode='ingredients'] .fct[data-products-only] { display: none; }
+
+  /* Jumlah kode di atas nama bahan. */
+  .mat__count {
+    font-size: calc(13px * var(--fs));
+    font-weight: 530;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .mat__count + .mat__name { margin-top: 4px; }
+
+  /* Kode yang cocok dengan pencarian/facet, di dalam kartu bahan. */
+  .mat__hits {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line-soft);
+  }
+  .mat__hits-head {
+    font-size: calc(12px * var(--fs));
+    font-weight: 530;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .mat__hits ul { margin-top: 6px; }
+  .mat__hits li a {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+    padding: 7px 0;
+    font-size: calc(14px * var(--fs));
+    line-height: 1.35;
+  }
+  .mat__hits li + li a { border-top: 1px dashed var(--line-soft); }
+  .mat__hits li a:hover .mat__hit-name { color: var(--brand-green); text-decoration: underline; text-underline-offset: 4px; }
+  .mat__hit-code { font-weight: 530; font-variant-numeric: tabular-nums; color: var(--ink-muted); }
+  .mat__hits-more {
+    margin-top: 6px;
+    font-size: calc(14px * var(--fs));
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .mat__hits-more:hover { color: var(--brand-green); }
+
+  /* ── Daftar kode (tampilan Product codes) ─────────────────────────── */
+  .prd { margin-top: 24px; }
+  .prd__head,
+  .prd__row a {
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr) 210px 120px 24px;
+    gap: 20px;
+    align-items: center;
+  }
+  .prd__head {
+    padding: 0 16px 12px;
+    border-bottom: 1px solid var(--ink);
+    font-size: calc(12px * var(--fs));
+    font-weight: 530;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .prd__row { scroll-margin-top: calc(var(--header-h) + 20px); }
+  .prd__row a {
+    padding: 16px;
+    border-bottom: 1px solid var(--line-soft);
+    font-size: calc(15px * var(--fs));
+    transition: background 0.2s;
+  }
+  .prd__row a:hover { background: var(--bg-grey); }
+  .prd__row:target a { outline: 3px solid var(--brand-green-light); outline-offset: -3px; }
+  .prd__code { font-weight: 530; font-variant-numeric: tabular-nums; letter-spacing: 0.04em; }
+  .prd__name { font-weight: 440; }
+  .prd__name small { display: block; margin-top: 2px; font-size: calc(13px * var(--fs)); font-style: italic; font-weight: 400; color: var(--ink-muted); }
+  .prd__row a:hover .prd__name { color: var(--brand-green); }
+  .prd__type,
+  .prd__fam { color: var(--ink-muted); font-size: calc(14px * var(--fs)); }
+  .prd__arrow { color: var(--ink-muted); justify-self: end; }
+
+  @media (max-width: 767px) {
+    .prd__head { display: none; }
+    .prd__row a {
+      grid-template-columns: auto minmax(0, 1fr) 16px;
+      grid-template-areas: 'code type arrow' 'name name arrow';
+      gap: 4px 12px;
+      padding: 14px 4px;
+    }
+    .prd__code { grid-area: code; }
+    .prd__type { grid-area: type; }
+    .prd__name { grid-area: name; }
+    .prd__fam { display: none; }
+    .prd__arrow { grid-area: arrow; }
+    .cat__mode { width: 100%; }
+    .cat__mode button { flex: 1; justify-content: center; }
   }
 
   /* ── Pita unduhan katalog ─────────────────────────────────────────── */
