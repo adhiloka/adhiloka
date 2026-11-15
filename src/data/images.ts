@@ -75,6 +75,8 @@ import coffeeCherries from '../assets/images/coffee-cherries.jpg';
 import coffeeRoasted from '../assets/images/coffee-roasted.jpg';
 import cocoaBeans from '../assets/images/cocoa-beans.jpg';
 import tamarindPods from '../assets/images/tamarind-pods.jpg';
+import vanillaBeans from '../assets/images/vanilla-beans.jpg';
+import vanillaBeansWhite from '../assets/images/vanilla-beans-white.jpg';
 import lemongrassField from '../assets/images/lemongrass-field.jpg';
 import gingerFresh from '../assets/images/ginger-fresh.jpg';
 import gingerRoots from '../assets/images/ginger-roots.jpg';
@@ -223,6 +225,8 @@ import kaffirLimeLeaves from '../assets/images/kaffir-lime-leaves.jpg';
  *   coffee-roasted     roasted-coffee-beans-30444143.jpg  [Pexels License]
  *   cocoa-beans        cocoa-beans-dry-32597040.jpg  [Pexels License]
  *   tamarind-pods      tamarind-pods-basket-11536825.jpg  [Pexels License]
+ *   vanilla-beans      vanilla-beans-bundle-unsplash-fIGw-jVGy5g.jpg  [Unsplash License] (Vanilla Planifolia)
+ *   vanilla-beans-white  vanilla-beans-two-white-unsplash-GA6WtJ7DtSo.jpg  [Unsplash License] (Vanilla Tahitensis)
  *   lemongrass-field   pexels-38004213.jpg  [Pexels License]
  *   ginger-fresh       pile-of-fresh-ginger-in-close-up-photography-7543128.jpg  [Pexels License]
  *   ginger-roots       roots-of-ginger-20234970.jpg  [Pexels License]
@@ -386,6 +390,8 @@ export const images = {
   'coffee-roasted': coffeeRoasted,
   'cocoa-beans': cocoaBeans,
   'tamarind-pods': tamarindPods,
+  'vanilla-beans': vanillaBeans,
+  'vanilla-beans-white': vanillaBeansWhite,
   'lemongrass-field': lemongrassField,
   'ginger-fresh': gingerFresh,
   'ginger-roots': gingerRoots,

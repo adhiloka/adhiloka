@@ -54,6 +54,7 @@ const ALIAS: [RegExp, string][] = [
   [/\bteh\b/g, 'tea'],
   [/\b(kakao|coklat|cokelat)\b/g, 'cocoa'],
   [/\bkopi\b/g, 'coffee'],
+  [/\b(vanili|vanila|panili)\b/g, 'vanilla'],
   [/\bminyak\b/g, 'oil'],
   [/\bekstrak\b/g, 'extract'],
   [/\bkristal\b/g, 'crystals'],

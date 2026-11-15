@@ -116,6 +116,8 @@ Tidak ada.
 | `terraces-mist` | sawah berundak di lereng berkabut (berita Where Our Ingredients Begin) | mendatar | `blok src/data/pages/media.ts · Where Our Ingredients Begin` | src/data/pages/media.ts:112 (blok Where Our Ingredients Begin) |
 | `toba-hills` | bukit hijau di tepi danau besar (wilayah Sumatra) | mendatar | `blok src/data/regions.ts · Sumatra` | src/data/regions.ts:29 (blok Sumatra) |
 | `turmeric-roots` | turmeric-roots-31346461.jpg | mendatar | `/ingredients/catalog/turmeric/` | catalog-data.json (bahan Turmeric) |
+| `vanilla-beans` | vanilla-beans-bundle-unsplash-fIGw-jVGy5g.jpg | mendatar | `/ingredients/catalog/vanilla-planifolia/` | catalog-data.json (bahan Vanilla Planifolia) |
+| `vanilla-beans-white` | vanilla-beans-two-white-unsplash-GA6WtJ7DtSo.jpg | mendatar | `/ingredients/catalog/vanilla-tahitensis/` | catalog-data.json (bahan Vanilla Tahitensis) |
 | `vetiver-clump` | rumpun akar wangi, Chrysopogon zizanioides | tegak | `/ingredients/catalog/vetiver-java/` | catalog-data.json (bahan Vetiver Java) |
 | `vials-dried-flowers` | bunga kering dalam botol kaca | mendatar | `/perfumery/#palette` | src/data/pages/perfumery.ts:112 (blok PERFUMERY_PALETTE)<br>src/data/pages/perfumery.ts:122 (tautan /perfumery/#palette) |
 | `warehouse-boxes` | tumpukan kardus di gudang (Distribution) | mendatar | `blok src/data/pages/connect.ts · Distribution` | src/data/pages/connect.ts:110 (blok Distribution) |

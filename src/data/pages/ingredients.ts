@@ -55,7 +55,7 @@ export const INGREDIENTS_COLLECTIONS_BODY: Record<string, string> = {
   Flower: 'Floral oils distilled from fresh flowers and fragrant grasses. They bring radiance, creaminess and a natural floral heart.',
   Citrus: 'Fresh, zesty materials from leaves and grasses rich in citral and citronellal. They lift the opening and bring a clean, bright energy.',
   Herbal: 'Green, aromatic and camphoraceous materials from leaves and roots. They add freshness and a natural herbal character to fragrance and care products.',
-  Gourmand: 'Cocoa, coffee and tamarind extracts with a roasted, sweet or tangy character. They bring natural depth to gourmand fragrances and flavours.',
+  Gourmand: 'Vanilla, cocoa, coffee and tamarind with a creamy, roasted or tangy character. They bring natural depth to gourmand fragrances and flavours.',
 };
 
 /* ── Natural Ingredients (13 Nov 2026) ───────────────────────────────── */
