@@ -2,6 +2,9 @@
  * src/data/materials.ts dan src/data/pages/ingredients.ts, jadi katalog
  * selalu sama dengan situs; jalankan `npm run pdf` setiap kali data berubah.
  *
+ * 15 Nov 2026: tanpa hitungan ("/ 35", "12 codes"), bagian penutup bernama
+ * Working With Us seperti menu situs.
+ *
  * Sejak 13 Nov 2026 (33 bahan, 98 kode) daftar isi berdiri sendiri, "The range"
  * pindah ke halaman sendiri, dan tiap halaman bahan memuat daftar kode
  * produknya (kode, nama, jenis); tabel spesifikasi ada di halaman produk situs.
@@ -66,7 +69,7 @@ const CATALOG_CSS = `
 .in__p + .in__p { margin-top: 3mm; }
 .toc { margin-top: 4mm; border-top: .35mm solid var(--green-deep); }
 .toc li { display: flex; align-items: baseline; gap: 3mm; padding: .5mm 0; border-bottom: .25mm solid var(--line-soft); list-style: none; font-size: 7.8pt; }
-.toc li em { font-style: normal; font-size: 7pt; color: var(--amber); font-weight: 500; letter-spacing: .08em; }
+.toc li em { flex: 0 0 4mm; font-variant-numeric: tabular-nums; font-style: normal; font-size: 7pt; color: var(--amber); font-weight: 500; letter-spacing: .08em; }
 .toc li span { flex: 1; }
 .toc li b { font-weight: 400; color: var(--muted); font-variant-numeric: tabular-nums; }
 .range { margin-top: 10mm; }
@@ -158,7 +161,7 @@ export function catalogHtml(o) {
   const toc = [
     ['—', 'The range', 3],
     ...ms.map((m, i) => [pad(i + 1), m.name, i + 4]),
-    ['—', 'Ordering & Documents', ms.length + 4],
+    ['—', 'Working With Us', ms.length + 4],
   ];
   const contents = `
 <section class="page">
@@ -204,7 +207,7 @@ export function catalogHtml(o) {
     <div class="mt__shade"></div>
     <span class="mt__run">Ingredients Catalog · ${EDITION}</span>
     <span class="mt__fam">${esc(m.family)}</span>
-    <span class="mt__idx">${pad(i + 1)}<small> / ${pad(ms.length)}</small></span>
+    <span class="mt__idx">${pad(i + 1)}</span>
   </div>
   <div class="bar"></div>
   <div class="mt__body">
@@ -232,7 +235,7 @@ export function catalogHtml(o) {
         ])}
       </div>
     </div>
-    ${prodsOf(m).length ? `<div class="mt__prods"><h3 class="h-sec">Products · ${prodsOf(m).length} ${prodsOf(m).length === 1 ? 'code' : 'codes'}</h3><ul class="prods">${prodsOf(m).map((p) => `<li><b>${esc(p.code)}</b><span>${esc(p.name)}</span></li>`).join('')}</ul></div>` : ''}
+    ${prodsOf(m).length ? `<div class="mt__prods"><h3 class="h-sec">Products</h3><ul class="prods">${prodsOf(m).map((p) => `<li><b>${esc(p.code)}</b><span>${esc(p.name)}</span></li>`).join('')}</ul></div>` : ''}
   </div>
   <a class="mt__link" href="${pageUrl(m.slug)}"><span><b>Specifications</b> for every code online · samples on request</span><span>${shortUrl(pageUrl(m.slug))} →</span></a>
   ${foot(i + 4)}
@@ -243,7 +246,7 @@ export function catalogHtml(o) {
   const ordering = `
 <section class="page">
   <div class="or">
-    <p class="eyebrow">Ordering &amp; Documents</p>
+    <p class="eyebrow">Working With Us</p>
     <h2 class="or__h">From enquiry to shipment</h2>
     <ul class="steps">${steps.map((s) => `<li><em>${esc(s.n)}</em><b>${esc(s.title)}</b><p>${esc(s.body)}</p></li>`).join('')}</ul>
     <div class="or__docs">
