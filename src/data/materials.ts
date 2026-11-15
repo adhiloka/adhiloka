@@ -163,6 +163,21 @@ export const FAMILY_FILTERS: { value: 'All' | Family; label: string }[] = [
   { value: 'Gourmand', label: 'Gourmand' },
 ];
 
+/** Foto keluarga bahan: kartu Collections di Natural Ingredients dan tile
+ *  keluarga di Our Business beranda. Sendiri, bukan meminjam foto bahan
+ *  pertama (satu foto = satu konteks, pemilik 15 Nov 2026). */
+export const FAMILY_IMAGE: Record<Family, { image: ImageKey; shot: string }> = {
+  Resin: { image: 'resin-pieces', shot: 'pieces of amber resin, close' },
+  Root: { image: 'fragrance-resin', shot: 'dried root pieces' },
+  Leaf: { image: 'green-leaves', shot: 'broad green leaves, close' },
+  Wood: { image: 'wood-slice', shot: 'a cut slice of wood' },
+  Spice: { image: 'chili-sacks', shot: 'sacks of dried chillies and spices' },
+  Flower: { image: 'white-blossom', shot: 'white blossom, close' },
+  Citrus: { image: 'lemongrass-basket', shot: 'lemongrass stalks in a basket' },
+  Herbal: { image: 'herb-basket', shot: 'a basket of fresh herbs' },
+  Gourmand: { image: 'cocoa-pod', shot: 'a cocoa pod with cocoa beans' },
+};
+
 /** Warna kepala halaman bahan per keluarga (hero berwarna ala halaman produk
  *  dsm-firmenich Studio, yang memakai satu oranye jenuh #cc7414). Disusun ulang
  *  13 Nov 2026 atas koreksi pemilik: warna lama kusam, dan Root sama persis

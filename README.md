@@ -38,7 +38,7 @@ ikut sendiri. "Life at Adhiloka" dilepas.
 
 | Jalur | Susunan |
 | --- | --- |
-| `/` | Hero slider · kutipan terbelah · Our Business (tab Ingredients/Perfumery) · akordeon keberlanjutan · Latest News · Join Us |
+| `/` | Hero slider · kutipan terbelah (tanpa label, garis dan nama, 15 Nov 2026) · Our Business (tab Ingredients/Perfumery) · akordeon keberlanjutan · Latest News · Join Us |
 | `/about/` | Pola /about-us Adani: banner · kutipan · Who We Are (slider foto fade dalam panel inset) · How We Work · nilai · kartu |
 | `/about/our-business/`, `/about/our-purpose/` | Banner · pembuka · isi halaman · Explore More |
 | `/about/our-leadership/`, `our-history/`, `our-locations/` | **Diparkir** (lihat "Halaman yang diparkir"); rutenya dialihkan ke `/about/` |
@@ -278,6 +278,20 @@ bukan sertifikat; halaman produk menyatakannya di bawah tabel. Keputusannya:
 Keluarga `Herbal` dan `Gourmand` serta wilayah peta `Kalimantan` dan `Papua` ditambahkan untuk
 bahan baru. Foto bahan baru dari Pexels dan Wikimedia Commons; yang berlisensi CC dikreditkan di
 `/legal/` bagian Photo Credits.
+
+## Foto: satu foto satu konteks (15 Nov 2026)
+
+Pemilik: foto yang sama tidak boleh dipakai untuk dua konteks berbeda; boleh berulang hanya bila
+semua tempatnya menunjuk hal yang sama (banner halaman, panel menu, kartu dan Explore More ke
+halaman itu; foto bahan di katalog dan halaman bahannya). `tools/photo-usage.mjs` membaca semua
+kunci foto di `src/`, memberi tiap pemakaian konteks (jalur tujuan, banner halaman, kutipan, hero
+beranda, keluarga bahan, atau blok), menulis daftar rumah foto ke **`PHOTOS.md`**, dan gagal bila
+satu foto punya lebih dari satu konteks. `npm run build` menjalankannya lebih dulu; `npm run photos`
+hanya menulis laporan. Pengecualian disengaja di `ALLOW` skrip itu (saat ini: slide hero Perfumery
+memakai foto halaman Perfumery). Foto keluarga bahan ada di `FAMILY_IMAGE` (`materials.ts`), dipakai
+tile Our Business beranda dan kartu Collections. Banner halaman bisa diberi `focus` (object-position)
+di intro-nya. Parallax banner kini hanya di fotonya, jadi judul dan remah tidak lagi tertutup
+section berikutnya saat digulir.
 
 ## Unduhan PDF
 

@@ -98,6 +98,47 @@ import homalomenaLeaves from '../assets/images/homalomena-leaves.jpg';
 import reedDiffuserHome from '../assets/images/reed-diffuser-home.jpg';
 import pepperHarvestHands from '../assets/images/pepper-harvest-hands.jpg';
 import taggedSampleBottles from '../assets/images/tagged-sample-bottles.jpg';
+import chiliSacks from '../assets/images/chili-sacks.jpg';
+import seedSpoons from '../assets/images/seed-spoons.jpg';
+import labWomanHall from '../assets/images/lab-woman-hall.jpg';
+import hillsLakeView from '../assets/images/hills-lake-view.jpg';
+import farmersStanding from '../assets/images/farmers-standing.jpg';
+import greenHillsTea from '../assets/images/green-hills-tea.jpg';
+import plantationRows from '../assets/images/plantation-rows.jpg';
+import terracesMist from '../assets/images/terraces-mist.jpg';
+import labTechnician from '../assets/images/lab-technician.jpg';
+import labBalanceFlask from '../assets/images/lab-balance-flask.jpg';
+import labScientistVial from '../assets/images/lab-scientist-vial.jpg';
+import labGlassware from '../assets/images/lab-glassware.jpg';
+import oilOnPalm from '../assets/images/oil-on-palm.jpg';
+import brownBottlesClose from '../assets/images/brown-bottles-close.jpg';
+import spiceMarketTrays from '../assets/images/spice-market-trays.jpg';
+import clovesScattered from '../assets/images/cloves-scattered.jpg';
+import lemongrassBasket from '../assets/images/lemongrass-basket.jpg';
+import fineFragranceBottles from '../assets/images/fine-fragrance-bottles.jpg';
+import deskLaptop from '../assets/images/desk-laptop.jpg';
+import spiceSacks from '../assets/images/spice-sacks.jpg';
+import clovesBowl from '../assets/images/cloves-bowl.jpg';
+import warehouseBoxes from '../assets/images/warehouse-boxes.jpg';
+import stationeryFlatlay from '../assets/images/stationery-flatlay.jpg';
+import notebookPens from '../assets/images/notebook-pens.jpg';
+import tobaHills from '../assets/images/toba-hills.jpg';
+import jungleWaterfall from '../assets/images/jungle-waterfall.jpg';
+import teaHillsMist from '../assets/images/tea-hills-mist.jpg';
+import mistyPalmForest from '../assets/images/misty-palm-forest.jpg';
+import growersField from '../assets/images/growers-field.jpg';
+import teaPicker from '../assets/images/tea-picker.jpg';
+import nutmegInHand from '../assets/images/nutmeg-in-hand.jpg';
+import grainDrying from '../assets/images/grain-drying.jpg';
+import farmerPortrait from '../assets/images/farmer-portrait.jpg';
+import resinBarkClose from '../assets/images/resin-bark-close.jpg';
+import copperDistillery from '../assets/images/copper-distillery.jpg';
+import chiliPickers from '../assets/images/chili-pickers.jpg';
+import starAniseMace from '../assets/images/star-anise-mace.jpg';
+import herbBasket from '../assets/images/herb-basket.jpg';
+import woodSlice from '../assets/images/wood-slice.jpg';
+import greenLeaves from '../assets/images/green-leaves.jpg';
+import cocoaPod from '../assets/images/cocoa-pod.jpg';
 import temulawakRhizomes from '../assets/images/temulawak-rhizomes.jpg';
 import palmarosaGrass from '../assets/images/palmarosa-grass.jpg';
 import kaffirLimeLeaves from '../assets/images/kaffir-lime-leaves.jpg';
@@ -210,6 +251,53 @@ import kaffirLimeLeaves from '../assets/images/kaffir-lime-leaves.jpg';
  *   reed-diffuser-home reed-diffuser-home-pexels-7795650.jpg  [Pexels License] (Consumer Fragrance, ganti amber-bottles)
  *   pepper-harvest-hands  tangan memetik buah lada dari sulurnya, tegak  [stock-photos/spices/pexels-36292687, Pexels License]
  *   tagged-sample-bottles  tangan meraih botol sampel amber berlabel gantung (Connect/Contact, 15 Nov 2026)  [stock-photos/perfumery/pexels-8450361, Pexels License]
+ * 15 Nov 2026, satu foto satu konteks (pemilik): foto baru untuk konteks yang dulu berbagi foto.
+ * Rumah tiap foto: PHOTOS.md (node tools/photo-usage.mjs).
+ *   chili-sacks  karung goni berisi cabai kering dan rempah (keluarga Spices)  [stock-photos/spices/pexels-18620484.jpg, Pexels License]
+ *   seed-spoons  sendok berisi biji dan rempah kering di meja gelap (berita katalog online)  [stock-photos/spices/pexels-5669187.jpg, Pexels License]
+ *   lab-woman-hall  peneliti perempuan bekerja di laboratorium terang (Working at Adhiloka)  [stock-photos/lab/unsplash-8yS04veb1TQ.jpg, Unsplash License]
+ *   hills-lake-view  perbukitan hijau di tepi danau dari ketinggian (banner Our Purpose)  [stock-photos/indonesia/pexels-15901135.jpg, Pexels License]
+ *   farmers-standing  tiga petani berdiri di kebun di bawah pohon (Close to the Source)  [stock-photos/indonesia/pexels-5849182.jpg, Pexels License]
+ *   green-hills-tea  bukit kebun teh hijau di bawah langit cerah (penutup Sustainability)  [stock-photos/indonesia/pexels-39904893.jpg, Pexels License]
+ *   plantation-rows  barisan kebun di lereng bukit (wilayah Sulawesi)  [stock-photos/indonesia/pexels-9771342.jpg, Pexels License]
+ *   terraces-mist  sawah berundak di lereng berkabut (berita Where Our Ingredients Begin)  [stock-photos/indonesia/unsplash-PeRt3uMmjYM.jpg, Unsplash License]
+ * 15 Nov 2026, satu foto satu konteks (pemilik): foto baru untuk konteks yang dulu berbagi foto.
+ * Rumah tiap foto: PHOTOS.md (node tools/photo-usage.mjs).
+ *   lab-technician  teknisi berjas lab dan penutup rambut bekerja di meja laboratorium (Working at Adhiloka)  [stock-photos/lab/pexels-15831836.jpg, Pexels License]
+ *   lab-balance-flask  tangan bersarung meletakkan labu di neraca analitik (Areas of Work)  [stock-photos/lab/pexels-9629662.jpg, Pexels License]
+ *   lab-scientist-vial  peneliti memeriksa vial di laboratorium (Co-development)  [stock-photos/lab/pexels-8863037.jpg, Pexels License]
+ *   lab-glassware  gelas ukur dan tabung laboratorium berisi cairan merah (Research & Education)  [stock-photos/lab/pexels-9629701.jpg, Pexels License]
+ *   oil-on-palm  minyak diteteskan dari botol amber ke telapak tangan (berita From Raw Material)  [stock-photos/perfumery/unsplash-0MoF-Fe0w0A.jpg, Unsplash License]
+ *   brown-bottles-close  botol kaca coklat kecil, dekat (pita unduh katalog di hub Ingredients)  [stock-photos/bottles/close-up-shot-of-brown-bottles-6694146.jpg, Pexels License]
+ *   spice-market-trays  deretan nampan rempah dan biji kering (berita katalog online)  [stock-photos/spices/pexels-5332489.jpg, Pexels License]
+ *   cloves-scattered  cengkih kering berserakan di permukaan abu (slider Who We Are)  [stock-photos/spices/pexels-12142752.jpg, Pexels License]
+ *   lemongrass-basket  batang serai di keranjang bersama sayuran hijau (keluarga Citrus)  [stock-photos/spices/pexels-37091865.jpg, Pexels License]
+ * 15 Nov 2026, satu foto satu konteks (pemilik): foto baru untuk konteks yang dulu berbagi foto.
+ * Rumah tiap foto: PHOTOS.md (node tools/photo-usage.mjs).
+ *   fine-fragrance-bottles  deretan botol parfum kaca berisi parfum (Fine Fragrance)  [stock-photos/perfumery/unsplash--j6LLsAehUo.jpg, Unsplash License]
+ *   desk-laptop  meja kerja putih dengan laptop dan tanaman (How to Apply)  [stock-photos/textures-and-business/pexels-8473795.jpg, Pexels License]
+ *   spice-sacks  karung berisi rempah dan biji kering (What We Buy)  [stock-photos/markets/diverse-assortment-of-spices-at-market-31558746.jpg, Pexels License]
+ *   cloves-bowl  cengkih kering di mangkuk keramik (What We Look For)  [stock-photos/clove/dry-cloves-in-a-brown-ceramic-bowl-8804297.jpg, Pexels License]
+ *   warehouse-boxes  tumpukan kardus di gudang (Distribution)  [stock-photos/logistics/stacked-boxes-in-a-warehouse-10834810.jpg, Pexels License]
+ *   stationery-flatlay  buku catatan, pena dan kartu di meja putih (Media Resources)  [stock-photos/textures-and-business/pexels-7657973.jpg, Pexels License]
+ *   notebook-pens  buku catatan bergaris dan dua pena (Legal)  [stock-photos/textures-and-business/pexels-867482.jpg, Pexels License]
+ *   toba-hills  bukit hijau di tepi danau besar (wilayah Sumatra)  [stock-photos/indonesia/pexels-33562774.jpg, Pexels License]
+ *   jungle-waterfall  hutan hujan lebat dengan air terjun kecil (wilayah Kalimantan)  [stock-photos/indonesia/unsplash-VDPFEyIrAn0.jpg, Unsplash License]
+ *   tea-hills-mist  kebun teh berbukit di bawah kabut (wilayah Sulawesi)  [stock-photos/indonesia/pexels-3848200.jpg, Pexels License]
+ *   misty-palm-forest  hutan berkabut dengan pohon palem (wilayah Papua)  [stock-photos/indonesia/pexels-14023085.jpg, Pexels License]
+ *   growers-field  dua petani berdiri di ladang dengan hasil panen (Partnerships)  [stock-photos/indonesia/pexels-15830193.jpg, Pexels License]
+ *   tea-picker  pemetik teh bercaping di kebun (Continuity)  [stock-photos/indonesia/pexels-15275060.jpg, Pexels License]
+ *   nutmeg-in-hand  buah pala terbelah di telapak tangan (Close to the Source)  [stock-photos/nutmeg/close-up-of-nutmeg-fruit-in-hand-39367487.jpg, Pexels License]
+ *   grain-drying  petani perempuan meratakan hasil panen yang dijemur (berita The Rhythm of the Harvest)  [stock-photos/farmers/woman-in-white-top-2371826.jpg, Pexels License]
+ *   farmer-portrait  petani tua bercaping tersenyum di sawah (kutipan People)  [stock-photos/indonesia/unsplash-6ySPcMiS_rg.jpg, Unsplash License]
+ *   resin-bark-close  getah damar mengeras di kulit kayu, makro (berita Benzoin; bukan benzoin)  [stock-photos/resin/close-up-of-tree-resin-on-textured-bark-35963723.jpg, Pexels License]
+ *   copper-distillery  alat suling tembaga di ruang bata (berita Patchouli)  [stock-photos/distillation/copper-distillation-equipment-in-rustic-setup-28792582.jpg, Pexels License]
+ *   chili-pickers  dua petani bercaping memetik cabai (Become a Supplier)  [stock-photos/farmers/farmers-picking-chili-in-a-farm-12470180.jpg, Pexels License]
+ *   star-anise-mace  adas bintang dan fuli di permukaan gelap (slider Who We Are)  [stock-photos/nutmeg/close-up-of-star-anise-and-mace-on-dark-surface-36745315.jpg, Pexels License]
+ *   herb-basket  keranjang berisi daun herba segar di meja kayu (keluarga Herbal)  [stock-photos/botanical/unsplash-hyVPSa0DmEw.jpg, Unsplash License]
+ *   wood-slice  potongan batang kayu (keluarga Woods)  [stock-photos/botanical/unsplash-2x-LQAMJ-YY.jpg, Unsplash License]
+ *   green-leaves  daun hijau lebar, dekat (keluarga Leaf)  [stock-photos/botanical/pexels-36674428.jpg, Pexels License]
+ *   cocoa-pod  buah kakao dan biji kakao (keluarga Gourmand)  [stock-photos/spices/cocoa-pod-beans-33662910.jpg, Pexels License]
  *                         (kutipan beranda dan Our Purpose, ganti purpose-generations; pemilik, 14 Nov 2026)
  * Dilepas dari halaman: material-patchouli (tetes air di daun, bukan nilam),
  * grass-blades (rumput biasa), fragrance-resin (rimpang kering berlabel
@@ -321,6 +409,47 @@ export const images = {
   'reed-diffuser-home': reedDiffuserHome,
   'pepper-harvest-hands': pepperHarvestHands,
   'tagged-sample-bottles': taggedSampleBottles,
+  'chili-sacks': chiliSacks,
+  'seed-spoons': seedSpoons,
+  'lab-woman-hall': labWomanHall,
+  'hills-lake-view': hillsLakeView,
+  'farmers-standing': farmersStanding,
+  'green-hills-tea': greenHillsTea,
+  'plantation-rows': plantationRows,
+  'terraces-mist': terracesMist,
+  'lab-technician': labTechnician,
+  'lab-balance-flask': labBalanceFlask,
+  'lab-scientist-vial': labScientistVial,
+  'lab-glassware': labGlassware,
+  'oil-on-palm': oilOnPalm,
+  'brown-bottles-close': brownBottlesClose,
+  'spice-market-trays': spiceMarketTrays,
+  'cloves-scattered': clovesScattered,
+  'lemongrass-basket': lemongrassBasket,
+  'fine-fragrance-bottles': fineFragranceBottles,
+  'desk-laptop': deskLaptop,
+  'spice-sacks': spiceSacks,
+  'cloves-bowl': clovesBowl,
+  'warehouse-boxes': warehouseBoxes,
+  'stationery-flatlay': stationeryFlatlay,
+  'notebook-pens': notebookPens,
+  'toba-hills': tobaHills,
+  'jungle-waterfall': jungleWaterfall,
+  'tea-hills-mist': teaHillsMist,
+  'misty-palm-forest': mistyPalmForest,
+  'growers-field': growersField,
+  'tea-picker': teaPicker,
+  'nutmeg-in-hand': nutmegInHand,
+  'grain-drying': grainDrying,
+  'farmer-portrait': farmerPortrait,
+  'resin-bark-close': resinBarkClose,
+  'copper-distillery': copperDistillery,
+  'chili-pickers': chiliPickers,
+  'star-anise-mace': starAniseMace,
+  'herb-basket': herbBasket,
+  'wood-slice': woodSlice,
+  'green-leaves': greenLeaves,
+  'cocoa-pod': cocoaPod,
 } satisfies Record<string, ImageMetadata>;
 
 export type ImageKey = keyof typeof images;

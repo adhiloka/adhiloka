@@ -28,11 +28,11 @@ export const INGREDIENTS_OPENING = [
 /* Lima halaman anak, urutan sama dengan menu (NAV di site.ts). Dipakai
    Discover More di hub dan Explore More di kaki tiap halaman anak. */
 export const INGREDIENTS_CARDS: LinkCard[] = [
-  { title: 'Natural Ingredients', href: '/ingredients/natural-ingredients/', image: 'resin-pieces' },
-  { title: 'Ingredient Catalog', href: '/ingredients/catalog/', image: 'nutmeg-mace' },
-  { title: 'Ingredients Map', href: '/ingredients/map/', image: 'misty-hills' },
+  { title: 'Natural Ingredients', href: '/ingredients/natural-ingredients/', image: 'spice-market-trays' },
+  { title: 'Ingredient Catalog', href: '/ingredients/catalog/', image: 'spices-spoons' },
+  { title: 'Ingredients Map', href: '/ingredients/map/', image: 'jungle-stream' },
   { title: 'Technology', href: '/ingredients/technology/', image: 'copper-still' },
-  { title: 'Working With Us', href: '/ingredients/working-with-us/', image: 'burlap-sacks' },
+  { title: 'Working With Us', href: '/ingredients/working-with-us/', image: 'cargo-ship' },
 ];
 
 /* Lima langkah perjalanan bahan; hanya judul, tanpa keterangan. */
@@ -68,7 +68,7 @@ export const NATURAL_INTRO: PageIntro = {
   lede: '',
   description:
     'Natural ingredients by Adhiloka: essential oils, resinoids and extracts from resins, leaves, roots and spices.',
-  image: 'cloves-sorting',
+  image: 'spice-market-trays',
   caption: 'cloves sorted on a drying rack',
 };
 

@@ -25,7 +25,7 @@ export const SUSTAINABILITY_OPENING = [
 
 export const SUSTAINABILITY_CARDS: LinkCard[] = [
   { title: 'Driving progress for people', href: '/sustainability/people/', image: 'rice-planting' },
-  { title: 'Responsible Sourcing', href: '/sustainability/responsible-sourcing/', image: 'nutmeg-on-tree' },
+  { title: 'Responsible Sourcing', href: '/sustainability/responsible-sourcing/', image: 'rainforest-aerial' },
 ];
 
 export const SUSTAINABILITY_CLOSING = 'Good ingredients begin with respect, for nature and for people.';
@@ -47,15 +47,15 @@ export const PEOPLE_PASSAGES: Passage[] = [
     id: 'partnerships',
     title: 'Partnerships',
     body: 'We work side by side with the people who grow and gather our ingredients. Buying close to the source keeps the chain short, and lets us agree on price and quality face to face.',
-    caption: 'green hills beneath a volcano at dusk',
-    image: 'tea-hills-dusk',
+    caption: 'two growers in a field with their harvest',
+    image: 'growers-field',
   },
   {
     id: 'continuity',
     title: 'Continuity',
     body: 'Our relationships last beyond one harvest. Growers who can count on a buyer season after season can plan ahead and look after their land, and quality stays steady from year to year.',
-    caption: 'dried cloves in an open hand',
-    image: 'cloves-in-hand',
+    caption: 'a tea picker at work on a hillside',
+    image: 'tea-picker',
   },
   {
     id: 'knowledge',
@@ -126,8 +126,8 @@ export const SOURCING_PASSAGES: Passage[] = [
     id: 'source',
     title: 'Close to the Source',
     body: 'We stay close to the places where our ingredients grow. We know the growers, the land and the season behind each material, and can say where it comes from.',
-    caption: 'nutmeg fruit on the tree',
-    image: 'nutmeg-on-tree',
+    caption: 'growers standing in their garden',
+    image: 'farmers-standing',
   },
   {
     id: 'land',
@@ -135,7 +135,7 @@ export const SOURCING_PASSAGES: Passage[] = [
     body: 'We take only what nature can give, so that plants recover and landscapes stay alive. Resins are tapped with care for the tree, leaves and spices are harvested in season, and we favour material grown among the forest.',
     cta: 'Our Purpose',
     href: '/about/our-purpose/',
-    caption: 'stream through a sunlit jungle',
-    image: 'jungle-stream',
+    caption: 'green hills above a lake',
+    image: 'hills-lake-view',
   },
 ];

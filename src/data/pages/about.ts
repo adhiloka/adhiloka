@@ -29,8 +29,8 @@ export const ABOUT_HOW =
 /* Kartu halaman anak, dipakai grid penutup hub About dan bilah "Explore
    More" di halaman anaknya. */
 export const ABOUT_CARDS: LinkCard[] = [
-  { title: 'Our Business', href: '/about/our-business/', image: 'copper-still' },
-  { title: 'Our Purpose', href: '/about/our-purpose/', image: 'pepper-harvest-hands' },
+  { title: 'Our Business', href: '/about/our-business/', image: 'perfume-workshop' },
+  { title: 'Our Purpose', href: '/about/our-purpose/', image: 'hills-lake-view' },
 ];
 
 /* Kartu ketiga di hub About saja: menuju bagian lain situs, jadi tidak ikut
@@ -38,7 +38,7 @@ export const ABOUT_CARDS: LinkCard[] = [
 export const ABOUT_MORE: LinkCard = {
   title: 'Sustainability',
   href: '/sustainability/',
-  image: 'rainforest-aerial',
+  image: 'canopy-from-below',
 };
 
 /* ── Our Business ────────────────────────────────────────────────────── */
@@ -60,8 +60,8 @@ export const BUSINESS_PASSAGES: Passage[] = [
     body: 'Our work starts where the plants grow. We buy from growers and gatherers we know, follow each harvest through its season and choose the raw material by eye and by nose.',
     cta: 'Responsible Sourcing',
     href: '/sustainability/responsible-sourcing/',
-    caption: 'nutmeg fruit on the tree',
-    image: 'nutmeg-on-tree',
+    caption: 'rainforest seen from above',
+    image: 'rainforest-aerial',
   },
   {
     id: 'processing',
@@ -78,8 +78,8 @@ export const BUSINESS_PASSAGES: Passage[] = [
     body: 'Essential oils, resinoids and extracts for fragrance houses, independent perfumers and makers of scented products. Every ingredient is evaluated before it is released, and most conversations begin with a sample.',
     cta: 'Ingredient Catalog',
     href: '/ingredients/catalog/',
-    caption: 'amber glass bottles',
-    image: 'amber-bottles',
+    caption: 'whole spices on wooden spoons',
+    image: 'spices-spoons',
   },
   {
     id: 'perfumery',
@@ -87,8 +87,8 @@ export const BUSINESS_PASSAGES: Passage[] = [
     body: 'Alongside our ingredients, we create fragrances for fine fragrance and consumer products. Our perfumers work closely with each client, from the first brief to the final formula, with the naturals we know best at the heart of the palette.',
     cta: 'Perfumery',
     href: '/perfumery/',
-    caption: 'smelling a handful of dried flowers',
-    image: 'smelling-flowers',
+    caption: 'perfumer at work with a dropper',
+    image: 'perfumer-dropper',
   },
 ];
 
@@ -100,8 +100,8 @@ export const PURPOSE_INTRO: PageIntro = {
   lede: '',
   description:
     'The purpose and values of Adhiloka: growing together with nature, and bringing its ingredients to perfumery with care.',
-  caption: 'sunlight through the rainforest',
-  image: 'rainforest-sunbeams',
+  caption: 'green hills above a lake',
+  image: 'hills-lake-view',
 };
 
 export const PURPOSE_BODY = [

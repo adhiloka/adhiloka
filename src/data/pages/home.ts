@@ -86,7 +86,6 @@ export const HERO_SLIDES: HeroSlide[] = [
    perusahaan (gaya "Our purpose" Givaudan/Robertet), disetujui pemilik. */
 export const HOME_QUOTE = {
   text: 'We bring the *scent of living plants* to those who create with it, and we look after *the land and the hands* behind every harvest.',
-  label: 'Our Purpose',
   cta: 'Discover More',
   href: '/about/our-purpose/',
   /* Kutipan dan foto diganti 14 Nov 2026 (pemilik: yang anak-anak berlari
@@ -126,8 +125,8 @@ export const PILLARS: Pillar[] = [
     stat: 'Working side by side with our growers',
     cta: 'View Progress for People',
     href: '/sustainability/people/',
-    image: 'cloves-sorting',
-    alt: 'Cloves sorted by hand on drying racks',
+    image: 'rice-planting',
+    alt: 'Planting rice by hand',
   },
   {
     label: 'Communities',
@@ -149,9 +148,9 @@ export const JOIN_US = {
   cta: 'Discover More',
   href: '/contact/careers/',
   cards: [
-    { label: 'Careers', href: '/contact/careers/', image: 'perfume-workshop' as ImageKey, alt: 'Hands at work on a perfumery bench' },
-    { label: 'Become a Supplier', href: '/contact/suppliers/', image: 'cloves-in-hand' as ImageKey, alt: 'Dried cloves in an open hand' },
-    { label: 'Partner with Us', href: '/contact/partners/', image: 'amber-bottles' as ImageKey, alt: 'Two amber glass bottles' },
+    { label: 'Careers', href: '/contact/careers/', image: 'lab-technician' as ImageKey, alt: 'Technician at work in a laboratory' },
+    { label: 'Become a Supplier', href: '/contact/suppliers/', image: 'chili-pickers' as ImageKey, alt: 'Two growers picking chillies' },
+    { label: 'Partner with Us', href: '/contact/partners/', image: 'amber-bottle-shelf' as ImageKey, alt: 'Amber bottles on a laboratory shelf' },
   ],
 };
 

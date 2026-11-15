@@ -5,9 +5,9 @@ import { NAV, NAV_LINKS } from '../../data/site';
 
 /* Banner halaman dalam ala `#spotlightBanner` adani.com (mis. /about-us):
  * foto selayar dengan bayangan hitam 0,85 dari bawah, judul 44 px di kiri
- * bawah dan remah roti menempel di dasar banner. Seluruh banner bergerak
- * 0,8× kecepatan gulir (data-speed Adani) sehingga section berikutnya
- * meluncur menutupinya. Remah dirakit dari NAV, jadi label halaman tidak
+ * bawah dan remah roti menempel di dasar banner. Fotonya bergerak 0,8×
+ * kecepatan gulir (data-speed Adani); judul dan remah ikut gulir biasa supaya
+ * tidak tertutup section berikutnya. Remah dirakit dari NAV, jadi label halaman tidak
  * ditulis dua kali.
  *
  * `half`: banner setengah layar tanpa judul (`halfbanner press-release-banner`
@@ -40,8 +40,11 @@ if (section && path !== section.href) {
 }
 ---
 
-<section class:list={['banner', { 'banner--half': half }]} data-speed="0.8">
-  <div class="banner__media">
+<section class:list={['banner', { 'banner--half': half }]}>
+  {/* Parallax hanya di foto (0,8×). Dulu seluruh banner ikut melambat, jadi
+      judul dan remah di dasarnya tertutup section berikutnya saat digulir
+      (pemilik: "subpage kepotong", 15 Nov 2026). */}
+  <div class="banner__media" data-speed="0.8">
     {
       image ? (
         <Image quality={70} src={images[image]} alt={alt} widths={[768, 1280, 1920]} sizes="100vw" loading="eager" fetchpriority="high" style={focus ? `object-position: ${focus}` : undefined} />

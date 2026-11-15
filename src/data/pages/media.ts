@@ -24,12 +24,12 @@ export const MEDIA_CARDS: LinkCard[] = [
   {
     title: 'News',
     href: '/media/news/',
-    image: 'vials-dried-flowers',
+    image: 'hero-still-hall',
   },
   {
     title: 'Media Resources',
     href: '/media/media-resources/',
-    image: 'perfume-workshop',
+    image: 'stationery-flatlay',
   },
 ];
 
@@ -46,8 +46,8 @@ export const NEWS_INTRO: PageIntro = {
   lede: 'News and stories from Adhiloka.',
   description:
     'News and stories from Adhiloka, on natural ingredients, the people who grow them and the craft of perfumery.',
-  caption: 'dried flowers in glass vials',
-  image: 'vials-dried-flowers',
+  caption: 'a rose with water drops, close',
+  image: 'hero-still-hall',
 };
 
 export type Article = {
@@ -58,7 +58,7 @@ export type Article = {
   standfirst: string;
   body: string[];
   shot: string;
-  image?: ImageKey;
+  image: ImageKey;
 };
 
 /* Enam cerita umum bergaya "stories" situs fragrance (Symrise, Givaudan).
@@ -78,8 +78,8 @@ export const NEWS: Article[] = [
       'Perfumers and buyers can search by name, product code or scent, and request a sample from the same page.',
       'A PDF edition of the catalog can be downloaded to read offline or share with a team.',
     ],
-    shot: 'dried spices in a wooden box',
-    image: 'spice-box',
+    shot: 'spoons of seeds and dried spices',
+    image: 'seed-spoons',
   },
   {
     slug: 'from-raw-material-to-fragrance',
@@ -93,8 +93,8 @@ export const NEWS: Article[] = [
       'There it is smelled, studied and tried alongside other materials, to find the role it plays best: a bright opening, a warm heart or a lasting base.',
       'Our own perfumery follows the same path, working with the materials we supply to understand them from the inside of a formula.',
     ],
-    shot: 'perfumer at work',
-    image: 'perfumer-dropper',
+    shot: 'oil dropped from an amber bottle onto a palm',
+    image: 'oil-on-palm',
   },
   {
     slug: 'where-our-ingredients-begin',
@@ -108,8 +108,8 @@ export const NEWS: Article[] = [
       "Indonesia's islands are home to some of the most familiar materials in perfumery: resins, woods, roots, leaves and spices. Each comes from its own landscape, with its own season.",
       'We work close to that source, so that what reaches the perfumer still carries the character of where it grew.',
     ],
-    shot: 'resin on bark',
-    image: 'resin-on-bark',
+    shot: 'terraced fields on a misty hillside',
+    image: 'terraces-mist',
   },
   {
     slug: 'the-rhythm-of-the-harvest',
@@ -123,8 +123,8 @@ export const NEWS: Article[] = [
       'Knowing when to gather a leaf, a seed or a resin is knowledge passed between growers, and it shapes the character of what we receive.',
       'We plan around those seasons, so that the ingredients we supply are gathered at the right moment and handled with care.',
     ],
-    shot: 'nutmeg on the tree',
-    image: 'nutmeg-on-tree',
+    shot: 'a grower spreading the harvest to dry',
+    image: 'grain-drying',
   },
   {
     slug: 'patchouli-from-leaf-to-oil',
@@ -137,8 +137,8 @@ export const NEWS: Article[] = [
       'Distillation draws out a dark, earthy oil with a sweet, woody depth. With time its rough edges soften and the character rounds out.',
       'Perfumers use it to anchor chypre, woody and oriental accords, where a little goes a long way.',
     ],
-    shot: 'patchouli leaves',
-    image: 'patchouli-leaves',
+    shot: 'copper distillation equipment',
+    image: 'copper-distillery',
   },
   {
     slug: 'benzoin-tapped-from-living-trees',
@@ -151,8 +151,8 @@ export const NEWS: Article[] = [
       'Its scent is warm and sweet, with hints of vanilla and balsam. In perfumery it softens and fixes amber, oriental and gourmand accords.',
       'The tears are gathered by hand and sorted by colour and size before they are prepared for perfumery.',
     ],
-    shot: 'benzoin resin tears',
-    image: 'material-benzoin',
+    shot: 'resin hardening on tree bark, close',
+    image: 'resin-bark-close',
   },
 ];
 
@@ -183,8 +183,8 @@ export const RESOURCES_INTRO: PageIntro = {
   lede: 'Company information and documents, for press and partners.',
   description:
     'Adhiloka media resources: company information and the ingredients catalog, for press and partners.',
-  caption: 'perfumery bench',
-  image: 'perfume-workshop',
+  caption: 'notebooks and pens on a white desk',
+  image: 'stationery-flatlay',
 };
 
 /** Paragraf baku tentang perusahaan, untuk dikutip pers apa adanya. */

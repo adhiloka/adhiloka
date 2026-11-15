@@ -6,15 +6,13 @@ import { images, type ImageKey } from '../data/images';
  * kiri (42,1 %), kutipan di kanan dengan padding 8,4 % / 9,8 %. Hurufnya
  * berubah dari abu #c1c1c1 ke gelap satu per satu mengikuti gulir (SplitText
  * Adani; di sini dipecah di server, digerakkan scripts/scroll-fx.ts), kata
- * kunci (*bintang* di naskah) dicetak tebal, lalu tombol. Label kecil
- * (mis. "Our Purpose") duduk di atas kutipan; garis balon dan nama "Adhiloka"
- * di bawahnya dilepas (pemilik, 15 Nov 2026). Teks kutipan bergerak 1,1× kecepatan gulir (data-speed Adani).
+ * kunci (*bintang* di naskah) dicetak tebal, lalu tombol. Tanpa label di
+ * atas, tanpa garis balon dan nama "Adhiloka" di bawah (pemilik, 15 Nov 2026):
+ * kutipannya berdiri sendiri. Teks kutipan bergerak 1,1× kecepatan gulir (data-speed Adani).
  * Di halaman dalam pemicunya memakai takaran inner-page.js (data-quote="inner"). */
 
 interface Props {
   text: string;
-  /** Label kecil di atas kutipan, mis. "Our Purpose". */
-  label?: string;
   cta?: string;
   href?: string;
   image?: ImageKey;
@@ -25,7 +23,7 @@ interface Props {
   /** object-position foto, mis. '10% 50%', bila subjeknya tidak di tengah. */
   focus?: string;
 }
-const { text, label, cta, href, image, alt = '', shot, grey = false, focus } = Astro.props;
+const { text, cta, href, image, alt = '', shot, grey = false, focus } = Astro.props;
 
 // "*kata kunci*" → token tebal; sisanya dipecah per kata, lalu per huruf.
 const tokens = text
@@ -47,7 +45,6 @@ const plain = text.replace(/\*/g, '');
     {image ? <Image quality={70} src={images[image]} alt={alt} widths={[640, 960, 1280]} sizes="(max-width: 1026px) 100vw, 42vw" style={focus ? `object-position: ${focus}` : undefined} /> : <span class="plate">{shot}</span>}
   </div>
   <div class="qs__body" data-speed="1.1">
-    {label && <p class="qs__label">{label}</p>}
     <blockquote class="qs__quote">
       {/* Satu baris: spasi dari pemformatan tidak boleh masuk ke dalam kata. */}
       <p><span class="sr-only">{plain}</span><span aria-hidden="true">{tokens.map((t) => (t.space ? t.w : <span class:list={['qs__w', { 'qs__b': t.bold }]}>{[...t.w].map((c) => <span class="qs__c">{c}</span>)}</span>))}</span></p>
@@ -111,14 +108,6 @@ const plain = text.replace(/\*/g, '');
   html:not(.js) .qs__quote p::after { color: var(--ink); }
   .qs__b { font-weight: 670; }
 
-  .qs__label {
-    margin-bottom: 36px;
-    font-size: calc(14px * var(--fs));
-    font-weight: 530;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--brand-green);
-  }
   .qs__btn { margin-top: 44px; }
 
   @media (max-width: 1026px) {

@@ -6,10 +6,11 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "node tools/photo-usage.mjs && astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "pdf": "node tools/pdf/build.mjs"
+    "pdf": "node tools/pdf/build.mjs",
+    "photos": "node tools/photo-usage.mjs --report"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

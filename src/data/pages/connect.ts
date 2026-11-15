@@ -8,9 +8,9 @@ import type { LinkCard, PageIntro, Passage } from './types';
  * sertifikat. Tombol membawa ?kind= ke formulir kontak. */
 
 export const CONNECT_CARDS: LinkCard[] = [
-  { title: 'Careers', href: '/contact/careers/', image: 'perfume-workshop', caption: 'perfumery bench seen from above' },
-  { title: 'Become a Supplier', href: '/contact/suppliers/', image: 'cloves-in-hand', caption: 'dried cloves in an open hand' },
-  { title: 'Partner with Us', href: '/contact/partners/', image: 'amber-bottles', caption: 'two amber glass bottles' },
+  { title: 'Careers', href: '/contact/careers/', image: 'lab-technician', caption: 'technician at work in a laboratory' },
+  { title: 'Become a Supplier', href: '/contact/suppliers/', image: 'chili-pickers', caption: 'two growers picking chillies' },
+  { title: 'Partner with Us', href: '/contact/partners/', image: 'amber-bottle-shelf', caption: 'amber bottles on a laboratory shelf' },
 ];
 
 /* ── Careers ─────────────────────────────────────────────────────────── */
@@ -21,8 +21,8 @@ export const CAREERS_INTRO: PageIntro = {
   lede: '',
   description:
     'Careers at Adhiloka: work across sourcing, processing, quality and perfumery of natural aromatic ingredients.',
-  caption: 'perfumery bench seen from above',
-  image: 'perfume-workshop',
+  caption: 'technician at work in a laboratory',
+  image: 'lab-technician',
 };
 
 export const CAREERS_PASSAGES: Passage[] = [
@@ -30,15 +30,15 @@ export const CAREERS_PASSAGES: Passage[] = [
     id: 'working-here',
     title: 'Working at Adhiloka',
     body: 'Our work runs from the field to the formula, and most roles touch more than one step of it. We look for people who are curious about plants and careful with detail.',
-    caption: 'perfumer blending with a dropper',
-    image: 'perfumer-dropper',
+    caption: 'researcher at work in a bright laboratory',
+    image: 'lab-woman-hall',
   },
   {
     id: 'areas',
     title: 'Areas of Work',
     body: 'Sourcing, distillation and extraction, quality control, perfumery and customer service. Some roles are spent with growers and harvests, others with samples, formulas and clients.',
-    caption: 'gloved hand holding a glass vial',
-    image: 'lab-vials',
+    caption: 'gloved hand placing a flask on a balance',
+    image: 'lab-balance-flask',
   },
   {
     id: 'apply',
@@ -46,8 +46,8 @@ export const CAREERS_PASSAGES: Passage[] = [
     body: 'We welcome applications at any time, with a CV and a short note on the work you are looking for. We will be in touch when a role fits. Adhiloka never charges a fee to apply.',
     cta: 'Send Your CV',
     href: '/contact/?kind=careers',
-    caption: 'smelling a handful of dried flowers',
-    image: 'smelling-flowers',
+    caption: 'a quiet desk with a laptop',
+    image: 'desk-laptop',
   },
 ];
 
@@ -59,8 +59,8 @@ export const SUPPLIERS_INTRO: PageIntro = {
   lede: '',
   description:
     'Supply natural raw materials to Adhiloka: resins, leaves, roots, barks, seeds and spices for perfumery.',
-  caption: 'cloves sorted by hand on drying racks',
-  image: 'cloves-sorting',
+  caption: 'two growers picking chillies',
+  image: 'chili-pickers',
 };
 
 export const SUPPLIERS_PASSAGES: Passage[] = [
@@ -68,15 +68,15 @@ export const SUPPLIERS_PASSAGES: Passage[] = [
     id: 'what-we-buy',
     title: 'What We Buy',
     body: 'Resins, leaves, roots, barks, seeds and spices for perfumery, and the essential oils and extracts made from them. We buy from growers, gatherers, cooperatives and distillers, as close to the source as we can.',
-    caption: 'pieces of amber resin, close',
-    image: 'resin-pieces',
+    caption: 'sacks of seeds and dried spices',
+    image: 'spice-sacks',
   },
   {
     id: 'what-we-look-for',
     title: 'What We Look For',
     body: 'Material that is true to its species, harvested at the right time and handled with care, with clear information on where it was grown. We value suppliers who keep quality steady from one harvest to the next.',
-    caption: 'dried cloves, close',
-    image: 'cloves-dried',
+    caption: 'dried cloves in a ceramic bowl',
+    image: 'cloves-bowl',
   },
   {
     id: 'register',
@@ -106,15 +106,15 @@ export const PARTNERS_PASSAGES: Passage[] = [
     id: 'distribution',
     title: 'Distribution',
     body: 'We work with distributors and trading houses who bring natural ingredients to perfumers and manufacturers in their own markets. Our partners have samples, product information and a direct line to us.',
-    caption: 'container ship at sea at dusk',
-    image: 'cargo-ship',
+    caption: 'boxes stacked in a warehouse',
+    image: 'warehouse-boxes',
   },
   {
     id: 'co-development',
     title: 'Co-development',
     body: 'Some materials are best developed together: a new extract, a specific grade, or an ingredient prepared for one application. We work on projects like these with fragrance houses and manufacturers, from the first trial to regular supply.',
-    caption: 'dried flowers in glass bottles',
-    image: 'vials-dried-flowers',
+    caption: 'researcher checking a vial in a laboratory',
+    image: 'lab-scientist-vial',
   },
   {
     id: 'research',
@@ -122,7 +122,7 @@ export const PARTNERS_PASSAGES: Passage[] = [
     body: 'We welcome universities, institutes and perfumery schools working on aromatic plants, extraction or natural fragrance, and support their research and teaching with field knowledge and material from our sources.',
     cta: 'Partner with Us',
     href: '/contact/?kind=partnership',
-    caption: 'glass jars of dried botanicals and golden oil',
-    image: 'botanical-jars',
+    caption: 'laboratory glassware and test tubes',
+    image: 'lab-glassware',
   },
 ];

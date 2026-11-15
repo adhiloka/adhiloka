@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { images, type ImageKey } from '../../data/images';
-import { MATERIALS, materialHref, type Family } from '../../data/materials';
+import { MATERIALS, materialHref, FAMILY_IMAGE, type Family } from '../../data/materials';
 import { ROUTES } from '../../data/pages/ingredients';
 import { PERFUMERY_TILES } from '../../data/pages/perfumery';
 
@@ -37,7 +37,7 @@ const panes: Pane[] = [
     return {
       key: family.toLowerCase(),
       label,
-      image: (items[0]?.image ?? 'material-benzoin') as ImageKey,
+      image: FAMILY_IMAGE[family].image,
       chips: items.map((m) => ({ label: m.name, href: materialHref(m.slug) })),
       more: '/ingredients/catalog/',
     };
