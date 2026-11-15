@@ -15,8 +15,8 @@ export const SUSTAINABILITY_INTRO: PageIntro = {
   lede: '',
   description:
     'Sustainability at Adhiloka: respect for the land our natural ingredients come from, and lasting relationships with the people who grow them.',
-  caption: 'rainforest seen from above',
-  image: 'rainforest-aerial',
+  caption: 'tree canopy seen from below',
+  image: 'canopy-from-below',
 };
 
 export const SUSTAINABILITY_OPENING = [
@@ -81,8 +81,8 @@ export const SOURCING_INTRO: PageIntro = {
   lede: '',
   description:
     'Responsible sourcing at Adhiloka: staying close to the source, knowing where ingredients come from and caring for the land.',
-  image: 'canopy-from-below',
-  caption: 'tree canopy seen from below',
+  image: 'rainforest-aerial',
+  caption: 'rainforest seen from above',
 };
 
 /* Rantai sumber: nomor dan judul saja. */

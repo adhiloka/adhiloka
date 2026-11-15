@@ -28,7 +28,11 @@ export type NavItem = {
   };
 };
 
-/* Enam menu utama, urutan kiri ke kanan di header. `panel.links` adalah isi
+/* Foto panel = foto banner halaman induknya (pemilik, 15 Nov 2026): menu
+   About Us, Perfumery, Ingredients, Sustainability, Media dan Connect
+   menampilkan foto yang sama dengan banner halaman yang dituju. Ganti
+   keduanya bersamaan.
+   Enam menu utama, urutan kiri ke kanan di header. `panel.links` adalah isi
    dropdown, daftar datar tanpa sub-menu atau label grup (pemilik, 13 Nov
    2026): panel mengisinya 3 ke bawah lalu pindah ke kolom kanan. Juga sumber
    remah roti, indeks pencarian dan 404. Tidak ada nama produk di sini:
@@ -42,8 +46,8 @@ export const NAV: NavItem[] = [
     blurb: 'A house of natural ingredients and perfumery, rooted in Indonesia.',
     panel: {
       title: 'About Us',
-      shot: 'benzoin resin, hand-graded',
-      image: 'material-benzoin',
+      shot: 'misty green hills',
+      image: 'misty-hills',
       links: [
         { label: 'Our Business', href: '/about/our-business/' },
         { label: 'Our Purpose', href: '/about/our-purpose/' },
@@ -74,8 +78,8 @@ export const NAV: NavItem[] = [
     blurb: 'Resins, leaves, roots and spices from Indonesia, selected and prepared for perfumery.',
     panel: {
       title: 'Ingredients',
-      shot: 'whole spices on wooden spoons',
-      image: 'spices-spoons',
+      shot: 'dried cloves in an open hand',
+      image: 'cloves-in-hand',
       links: [
         { label: 'Natural Ingredients', href: '/ingredients/natural-ingredients/' },
         { label: 'Ingredient Catalog', href: '/ingredients/catalog/' },
@@ -105,8 +109,8 @@ export const NAV: NavItem[] = [
     blurb: 'News, stories and resources from Adhiloka.',
     panel: {
       title: 'Media',
-      shot: 'amber glass bottles',
-      image: 'amber-bottles',
+      shot: 'smelling a handful of dried flowers',
+      image: 'smelling-flowers',
       links: [
         { label: 'News', href: '/media/news/' },
         { label: 'Media Resources', href: '/media/media-resources/' },
@@ -119,8 +123,8 @@ export const NAV: NavItem[] = [
     blurb: 'Careers, suppliers, partners and enquiries.',
     panel: {
       title: 'Connect',
-      shot: 'oil dropped into an amber bottle',
-      image: 'amber-dropper',
+      shot: 'a hand reaching for tagged amber sample bottles',
+      image: 'tagged-sample-bottles',
       links: [
         { label: 'Careers', href: '/contact/careers/' },
         { label: 'Become a Supplier', href: '/contact/suppliers/' },

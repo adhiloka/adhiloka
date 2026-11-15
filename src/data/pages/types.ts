@@ -10,6 +10,8 @@ export type PageIntro = {
   lede: string;
   description: string;
   image?: ImageKey;
+  /** object-position foto banner, mis. '50% 20%'. */
+  focus?: string;
   caption: string;
 };
 

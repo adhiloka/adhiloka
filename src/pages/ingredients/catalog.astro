@@ -11,10 +11,13 @@ import { CATALOG_DOWNLOAD as cat, formatSize } from '../../data/downloads';
  * berfoto, satu tautan per kartu, facet jenis + keluarga + deskriptor wangi.
  *
  * - Tampilan awal: satu kartu per bahan, 3 kolom. Seluruh kartu satu tautan ke
- *   halaman bahan; chip di kartu = kelompok wangi (SCENTS di materials.ts).
+ *   halaman bahan; baris wangi di kartu = kelompok wangi (SCENTS di materials.ts).
  * - Bilah: kotak cari dengan saran langsung (bahan + kode produk, tiap baris
  *   menuju halamannya), tombol Filters (laci: jenis produk, keluarga), urutan;
- *   di bawahnya baris chip wangi.
+ *   di bawahnya tab wangi PILIHAN TUNGGAL (All, Citrus, Floral…). Dulu chip
+ *   centang ganda: pengunjung tidak tahu itu filter atau komposisi, dan memilih
+ *   dua wangi malah menambah hasil (pemilik, 15 Nov 2026). Wangi di kartu kini
+ *   teks biasa "Woody · Balsamic", bukan chip, supaya tidak mirip tombol.
  * - Pencarian membaca semua kode di bawah bahan (nama, kode, jenis, pelarut,
  *   INCI, CAS, wangi). Kartu tampil bila minimal satu kodenya cocok; bila yang
  *   cocok hanya sebagian, kodenya muncul di dalam kartu.
@@ -90,11 +93,15 @@ const arrow = '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true
           </label>
         </div>
 
-        <div class="cat__scents" role="group" aria-label="Scent">
+        <div class="cat__scents" role="radiogroup" aria-label="Scent">
+          <label class="stab">
+            <input type="radio" name="scent" value="" checked />
+            <span>All</span>
+          </label>
           {
             scents.map((s) => (
-              <label class="chip">
-                <input type="checkbox" name="scent" value={s} />
+              <label class="stab">
+                <input type="radio" name="scent" value={s} />
                 <span>{s}</span>
               </label>
             ))
@@ -158,9 +165,7 @@ const arrow = '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true
                 <div class="mat__body">
                   <h2 class="mat__name"><a class="mat__link" href={materialHref(m.slug)}>{m.name}</a></h2>
                   <p class="mat__latin">{m.latin}</p>
-                  <ul class="mat__scents" aria-label="Scent">
-                    {sc.map((s) => <li>{s}</li>)}
-                  </ul>
+                  <p class="mat__scents"><span class="sr-only">Scent: </span>{sc.join(' · ')}</p>
                   <p class="mat__desc">{m.note}</p>
                   <div class="mat__hits" data-hits hidden>
                     <ul>
@@ -333,27 +338,50 @@ const arrow = '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true
   }
 
   /* ── Chip wangi ───────────────────────────────────────────────────── */
+  /* Tab wangi: satu pilihan, garis bawah bergradien seperti tab Our Business
+     dan tab wilayah peta. */
   .cat__scents {
     display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 20px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-top: 24px;
+    border-bottom: 1px solid var(--line);
+    scrollbar-width: none;
   }
-  .chip { position: relative; cursor: pointer; }
-  .chip input { position: absolute; opacity: 0; pointer-events: none; }
-  .chip span {
-    display: inline-block;
-    padding: 7px 13px;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    font-size: calc(14px * var(--fs));
+  .cat__scents::-webkit-scrollbar { display: none; }
+  /* Tab yang tidak muat digulir ke samping; tepi kanan memudar sebagai tanda. */
+  @media (max-width: 1365px) {
+    .cat__scents { mask-image: linear-gradient(to right, #000 calc(100% - 48px), transparent); }
+  }
+  .stab { position: relative; cursor: pointer; }
+  .stab input { position: absolute; opacity: 0; pointer-events: none; }
+  .stab span {
+    position: relative;
+    display: block;
+    padding: 10px 12px 12px;
+    font-size: calc(16px * var(--fs));
+    font-weight: 440;
     line-height: 1.2;
-    color: var(--ink);
-    transition: background var(--t-fast) var(--ease-std), border-color var(--t-fast) var(--ease-std), color var(--t-fast) var(--ease-std);
+    color: var(--ink-muted);
+    white-space: nowrap;
+    transition: color var(--t) var(--ease-std);
   }
-  .chip:hover span { border-color: var(--ink); }
-  .chip input:checked + span { background: var(--ink); border-color: var(--ink); color: var(--bg); }
-  .chip input:focus-visible + span { outline: 2px solid var(--brand-green-light); outline-offset: 2px; }
+  .stab span::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 3px;
+    background: var(--grad-bar);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s var(--ease-out);
+  }
+  .stab:hover span { color: var(--ink); }
+  .stab input:checked + span { color: var(--ink); }
+  .stab input:checked + span::after { transform: none; }
+  .stab input:focus-visible + span { outline: 2px solid var(--brand-green-light); outline-offset: -2px; }
 
   /* ── Tag filter aktif ─────────────────────────────────────────────── */
   .cat__tags { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 16px; }
@@ -487,13 +515,13 @@ const arrow = '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true
   /* Tautan judul direntang menutupi seluruh kartu. */
   .mat__link::after { content: ''; position: absolute; inset: 0; z-index: 1; }
   .mat__latin { margin-top: 4px; font-size: calc(15px * var(--fs)); font-style: italic; color: var(--ink-muted); }
-  .mat__scents { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
-  .mat__scents li {
-    padding: 4px 10px;
-    border-radius: 4px;
-    background: var(--bg-grey);
+  .mat__scents {
+    margin-top: 12px;
     font-size: calc(13px * var(--fs));
-    color: var(--ink);
+    font-weight: 530;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--brand-green);
   }
   .mat__desc {
     display: -webkit-box;
@@ -573,7 +601,6 @@ const arrow = '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true
       scrollbar-width: none;
     }
     .cat__scents::-webkit-scrollbar { display: none; }
-    .chip span { white-space: nowrap; }
   }
   @media (max-width: 640px) {
     .cat__grid { grid-template-columns: 1fr; }

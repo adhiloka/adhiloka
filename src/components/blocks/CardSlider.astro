@@ -6,7 +6,7 @@ import 'swiper/css';
 /* Slider kartu ala `Com-threeImageSlider` (Awards, Media Releases) dan
  * `twoImageSlider` (Other Releases, In the Spotlight) adani.com: kartu
  * berpadding 20 px yang latarnya memutih/mengabu saat hover, foto yang
- * membesar pelan, dan dua tombol bulat bertuliskan "prev"/"next" di kanan
+ * membesar pelan, dan dua tombol bulat berpanah (tanpa tulisan, pemilik 15 Nov 2026) di kanan
  * bawah. Di layar ≤1023 px tombolnya hilang dan slider digeser dengan usap.
  * Kartu masuk bergiliran naik 250 px (columnAnimation-single). */
 
@@ -66,8 +66,8 @@ const { title, items, perView = 3, viewAll, grey = false } = Astro.props;
         </ul>
       </div>
       <div class="cs__nav">
-        <button class="cs__btn" type="button" data-prev aria-label="Previous"><span>prev</span></button>
-        <button class="cs__btn" type="button" data-next aria-label="Next"><span>next</span></button>
+        <button class="cs__btn" type="button" data-prev aria-label="Previous"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="m14.5 6-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+        <button class="cs__btn" type="button" data-next aria-label="Next"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="m9.5 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
       </div>
     </div>
   </div>
@@ -145,8 +145,9 @@ const { title, items, perView = 3, viewAll, grey = false } = Astro.props;
     color: var(--ink);
   }
 
-  /* Tombol bulat 50 px bertuliskan prev/next di kanan bawah; saat hover
-     teks dan cincinnya bergradien (lapisan ber-mask, seperti .btn). */
+  /* Tombol bulat 50 px berpanah di kanan bawah (tanpa tulisan prev/next,
+     pemilik 15 Nov 2026); saat hover cincinnya bergradien (lapisan ber-mask,
+     seperti .btn) dan panahnya hijau. */
   .cs__nav {
     position: absolute;
     right: 0.5%;
@@ -184,12 +185,10 @@ const { title, items, perView = 3, viewAll, grey = false } = Astro.props;
   }
   .cs__btn:hover:not(.is-disabled) { border-color: transparent; }
   .cs__btn:hover:not(.is-disabled)::before { opacity: 1; }
-  .cs__btn:hover:not(.is-disabled) span {
-    background: var(--grad-text);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
+  .cs__btn svg { transition: transform var(--t) var(--ease-out); }
+  .cs__btn:hover:not(.is-disabled) { color: var(--brand-green); }
+  .cs__btn[data-prev]:hover:not(.is-disabled) svg { transform: translateX(-2px); }
+  .cs__btn[data-next]:hover:not(.is-disabled) svg { transform: translateX(2px); }
   .cs__btn.is-disabled { opacity: 0.35; cursor: default; }
 
   @media (max-width: 1023px) {

@@ -86,9 +86,8 @@ export const HERO_SLIDES: HeroSlide[] = [
    perusahaan (gaya "Our purpose" Givaudan/Robertet), disetujui pemilik. */
 export const HOME_QUOTE = {
   text: 'We bring the *scent of living plants* to those who create with it, and we look after *the land and the hands* behind every harvest.',
-  name: 'Adhiloka',
-  role: 'Our Purpose',
-  cta: 'Our Purpose',
+  label: 'Our Purpose',
+  cta: 'Discover More',
   href: '/about/our-purpose/',
   /* Kutipan dan foto diganti 14 Nov 2026 (pemilik: yang anak-anak berlari
      dibuat yang lain). Polanya pernyataan tujuan satu kalimat seperti

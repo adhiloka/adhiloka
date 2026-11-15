@@ -2,20 +2,20 @@
 import PageLayout from '../../layouts/PageLayout.astro';
 import Intro from '../../components/blocks/Intro.astro';
 import CardSlider from '../../components/blocks/CardSlider.astro';
-import PromoBanner from '../../components/blocks/PromoBanner.astro';
 import CardGrid from '../../components/blocks/CardGrid.astro';
 import PressContact from '../../components/blocks/PressContact.astro';
 import { MEDIA_INTRO, MEDIA_CARDS, NEWS, byDate, formatDate } from '../../data/pages/media';
 
-/* Newsroom ala adani.com/newsroom: Media Releases berupa slider tiga kartu
- * bertanggal, promosi Media Kit (`media-kit-section`), lalu kartu pusat
- * media dan kontak pers. */
+/* Hub Media ala adani.com/newsroom: News berupa slider tiga kartu bertanggal,
+ * lalu kartu Media Centre dan kontak pers. Judul banner "Media" sama dengan
+ * menunya (dulu "Newsroom"); promosi Media Kit dilepas bersama logo di Media
+ * Resources (pemilik, 15 Nov 2026). */
 const releases = [...NEWS].sort(byDate);
 ---
 
-<PageLayout intro={MEDIA_INTRO} bannerTitle="Newsroom">
+<PageLayout intro={MEDIA_INTRO} bannerTitle="Media">
   <CardSlider
-    title="Media Releases"
+    title="News"
     viewAll="/media/news/"
     items={releases.map((a) => ({
       href: `/media/news/${a.slug}/`,
@@ -26,12 +26,6 @@ const releases = [...NEWS].sort(byDate);
       meta: formatDate(a.date),
       datetime: a.date,
     }))}
-  />
-  <PromoBanner
-    title="Media Kit"
-    cta="Explore Media Kit"
-    href="/media/media-resources/"
-    image="agroforest-canopy"
   />
   <CardGrid title="Media Centre" cards={MEDIA_CARDS} grey />
   <PressContact grey={false} />

@@ -13,6 +13,8 @@
  *    extract", "floral". Kata Indonesia yang lazim diterjemahkan lewat ALIAS.
  *  - Keadaan di query URL (?q=&scent=&type=&family=&sort=); kartu Collections
  *    di Natural Ingredients menaut ke ?family=.
+ *  - Wangi = radio pilihan tunggal (tab All/Citrus/Floral…, pemilik 15 Nov
+ *    2026); jenis produk dan keluarga di laci tetap centang ganda.
  *  - Tidak ada hitungan di mana pun (koreksi pemilik berulang).
  *  - Supaya tidak berkedip: tanpa animasi fade, kartu hanya dipindah di DOM
  *    saat urutan berubah, dan fx:refresh (ScrollSmoother) didebounce. */
@@ -108,10 +110,11 @@ export function initCatalog() {
   const cards = [...grid.children] as HTMLElement[];
   const q = form.elements.namedItem('q') as HTMLInputElement;
   const sort = form.elements.namedItem('sort') as HTMLSelectElement;
-  const boxes = [...form.querySelectorAll<HTMLInputElement>('input[type="checkbox"]')];
+  // Kotak centang laci + radio wangi; radio "All" bernilai kosong.
+  const boxes = [...form.querySelectorAll<HTMLInputElement>('input[type="checkbox"], input[type="radio"]')];
   const drawerBoxes = boxes.filter((b) => b.name !== 'scent');
 
-  const checked = () => boxes.filter((b) => b.checked);
+  const checked = () => boxes.filter((b) => b.checked && b.value);
   const wanted = (facet: string) => checked().filter((b) => b.name === facet).map((b) => b.value);
   const facetOk = (el: HTMLElement, facets: readonly string[]) =>
     facets.every((f) => {
@@ -150,12 +153,12 @@ export function initCatalog() {
   };
 
   const clear = () => {
-    boxes.forEach((b) => (b.checked = false));
+    boxes.forEach((b) => (b.checked = b.type === 'radio' && b.value === ''));
     q.value = '';
   };
 
   /** Tag hanya untuk yang tidak terlihat di bilah: isi laci dan kata cari.
-   *  Chip wangi sudah menunjukkan keadaannya sendiri. */
+   *  Tab wangi sudah menunjukkan keadaannya sendiri. */
   const renderTags = () => {
     const tagBtn = (label: string, onRemove: () => void) => {
       const li = document.createElement('li');
@@ -277,7 +280,15 @@ export function initCatalog() {
 
   // Keadaan awal dari URL.
   const params = new URLSearchParams(location.search);
-  boxes.forEach((b) => (b.checked = params.getAll(b.name).includes(b.value)));
+  boxes.forEach((b) => {
+    if (b.type === 'radio') b.checked = (params.get(b.name) ?? '') === b.value;
+    else b.checked = params.getAll(b.name).includes(b.value);
+  });
+  // Nilai wangi tak dikenal di URL: kembali ke All.
+  if (!boxes.some((b) => b.type === 'radio' && b.checked)) {
+    const all = boxes.find((b) => b.type === 'radio' && b.value === '');
+    if (all) all.checked = true;
+  }
   q.value = params.get('q') ?? '';
   if ([...sort.options].some((o) => o.value === params.get('sort'))) sort.value = params.get('sort')!;
   // Tautan lama #slug-produk (dari daftar kode yang sudah dilepas) → halaman produknya.

@@ -7,10 +7,12 @@ import { REGIONS } from '../../data/regions';
 
 /* Ingredients Map (13 Nov 2026), meniru Raw Materials Map robertet.com:
  * tab wilayah di atas (All locations, Europe, Asia… → All Regions, Sumatra,
- * Java…), angka ringkas, peta dengan penanda berdenyut, dan kartu wilayah
+ * Java…), peta dengan penanda berdenyut, dan kartu wilayah
  * (foto, nama, keterangan, bahan) saat tab atau penanda dipilih. Peta Indonesia
  * dirender saat build lewat data/map.ts, sama dengan peta Our Presence.
- * Wilayah tanpa bahan tidak tampil. Logikanya di scripts/ingredients-map.ts. */
+ * Wilayah tanpa bahan tidak tampil. Logikanya di scripts/ingredients-map.ts.
+ * Tanpa angka ringkas dan tanpa hitungan bahan per wilayah (pemilik, 15 Nov
+ * 2026): panel awal berisi daftar wilayah berfoto kecil dan keterangannya. */
 
 const map = presenceMap();
 const regions = REGIONS.map((r) => ({
@@ -19,10 +21,6 @@ const regions = REGIONS.map((r) => ({
   xy: map.project(r.coords),
   items: MATERIALS.filter((m) => m.regions.includes(r.name)),
 })).filter((r) => r.items.length > 0);
-const stats = [
-  { value: MATERIALS.length, label: MATERIALS.length === 1 ? 'Ingredient' : 'Ingredients' },
-  { value: regions.length, label: regions.length === 1 ? 'Region' : 'Regions' },
-];
 ---
 
 <section class="sec imap" data-imap>
@@ -60,23 +58,19 @@ const stats = [
 
       <div class="imap__side">
         <div class="imap__panel" data-panel="">
-          <dl class="imap__stats">
-            {
-              stats.map((s) => (
-                <div>
-                  <dt>{s.label}</dt>
-                  <dd>{s.value}</dd>
-                </div>
-              ))
-            }
-          </dl>
           <ul class="imap__index">
             {
               regions.map((r) => (
                 <li>
                   <button type="button" data-region={r.id}>
-                    <span>{r.name}</span>
-                    <small>{r.items.length}</small>
+                    <span class="imap__thumb cover">
+                      <Image quality={60} src={images[r.image]} alt="" widths={[160]} sizes="80px" loading="lazy" />
+                    </span>
+                    <span class="imap__label">
+                      <span class="imap__label-name">{r.name}</span>
+                      <span class="imap__label-note">{r.note}</span>
+                    </span>
+                    <svg viewBox="0 0 16 12" width="14" height="10" aria-hidden="true"><path d="M0 6h14M9 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4"></path></svg>
                   </button>
                 </li>
               ))
@@ -191,30 +185,25 @@ const stats = [
   }
 
   /* ── Kartu ────────────────────────────────────────────────────────── */
-  .imap__stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    padding-bottom: 28px;
-    border-bottom: 1px solid var(--line);
-  }
-  .imap__stats div { display: flex; flex-direction: column-reverse; gap: 6px; }
-  .imap__stats dd {
-    font-size: calc(56px * var(--fs));
-    font-weight: 360;
-    line-height: 1;
-    color: var(--ink);
-  }
-  .imap__stats dt {
-    font-size: calc(13px * var(--fs));
-    font-weight: 530;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-muted);
-  }
+  .imap__index { border-top: 1px solid var(--line); }
   .imap__index li,
   .imap__items li { border-bottom: 1px solid var(--line-soft); }
-  .imap__index button,
+  .imap__index li:last-child { border-bottom-color: var(--line); }
+  .imap__index button {
+    display: grid;
+    grid-template-columns: 80px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    padding: 16px 0;
+    text-align: left;
+    color: var(--ink);
+  }
+  .imap__thumb { display: block; width: 80px; aspect-ratio: 4 / 3; overflow: hidden; }
+  .imap__thumb :global(img) { transition: transform var(--t-img) var(--ease-out); }
+  .imap__label { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .imap__label-name { font-size: calc(19px * var(--fs)); font-weight: 440; }
+  .imap__label-note { font-size: calc(14px * var(--fs)); line-height: 1.45; color: var(--ink-muted); }
   .imap__items a {
     display: flex;
     width: 100%;
@@ -227,11 +216,13 @@ const stats = [
     color: var(--ink);
     text-align: left;
   }
-  .imap__index small { font-size: calc(14px * var(--fs)); color: var(--ink-muted); }
-  .imap__index button:hover span,
-  .imap__items a:hover span { text-decoration: underline; }
-  .imap__items svg { flex: none; color: var(--ink-muted); transition: transform var(--t) var(--ease-out); }
-  .imap__items a:hover svg { transform: translateX(4px); }
+  .imap__index svg,
+  .imap__items svg { flex: none; color: var(--ink-muted); transition: transform var(--t) var(--ease-out), color var(--t) var(--ease-std); }
+  .imap__index button:hover .imap__label-name,
+  .imap__items a:hover span { text-decoration: underline; text-underline-offset: 4px; }
+  .imap__index button:hover :global(img) { transform: scale(1.06); }
+  .imap__index button:hover svg,
+  .imap__items a:hover svg { transform: translateX(4px); color: var(--ink); }
 
   .imap__photo { display: block; aspect-ratio: 16 / 9; }
   .imap__region { margin-top: 22px; font-size: calc(28px * var(--fs)); font-weight: 530; color: var(--ink); }
@@ -242,7 +233,6 @@ const stats = [
     .imap__grid { grid-template-columns: 1fr; gap: 32px; }
     .imap__map { padding: 12px; }
     .imap__tab { padding: 10px 16px; font-size: calc(17px * var(--fs)); }
-    .imap__stats dd { font-size: calc(44px * var(--fs)); }
   }
   @media (prefers-reduced-motion: reduce) {
     .imap__pulse { animation: none; }

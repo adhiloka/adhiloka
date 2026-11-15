@@ -97,6 +97,7 @@ import cubebDried from '../assets/images/cubeb-dried.jpg';
 import homalomenaLeaves from '../assets/images/homalomena-leaves.jpg';
 import reedDiffuserHome from '../assets/images/reed-diffuser-home.jpg';
 import pepperHarvestHands from '../assets/images/pepper-harvest-hands.jpg';
+import taggedSampleBottles from '../assets/images/tagged-sample-bottles.jpg';
 import temulawakRhizomes from '../assets/images/temulawak-rhizomes.jpg';
 import palmarosaGrass from '../assets/images/palmarosa-grass.jpg';
 import kaffirLimeLeaves from '../assets/images/kaffir-lime-leaves.jpg';
@@ -208,6 +209,7 @@ import kaffirLimeLeaves from '../assets/images/kaffir-lime-leaves.jpg';
  *   temulawak-rhizomes tomulawa-curcuma-zanthorrhiza-03-jpg-commons-79e6369e.jpg  [CC BY-SA 4.0, Rahmatlahay]
  *   reed-diffuser-home reed-diffuser-home-pexels-7795650.jpg  [Pexels License] (Consumer Fragrance, ganti amber-bottles)
  *   pepper-harvest-hands  tangan memetik buah lada dari sulurnya, tegak  [stock-photos/spices/pexels-36292687, Pexels License]
+ *   tagged-sample-bottles  tangan meraih botol sampel amber berlabel gantung (Connect/Contact, 15 Nov 2026)  [stock-photos/perfumery/pexels-8450361, Pexels License]
  *                         (kutipan beranda dan Our Purpose, ganti purpose-generations; pemilik, 14 Nov 2026)
  * Dilepas dari halaman: material-patchouli (tetes air di daun, bukan nilam),
  * grass-blades (rumput biasa), fragrance-resin (rimpang kering berlabel
@@ -318,6 +320,7 @@ export const images = {
   'temulawak-rhizomes': temulawakRhizomes,
   'reed-diffuser-home': reedDiffuserHome,
   'pepper-harvest-hands': pepperHarvestHands,
+  'tagged-sample-bottles': taggedSampleBottles,
 } satisfies Record<string, ImageMetadata>;
 
 export type ImageKey = keyof typeof images;

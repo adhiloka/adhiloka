@@ -1,64 +1,82 @@
 ---
+import { Image } from 'astro:assets';
 import PageLayout from '../../layouts/PageLayout.astro';
 import PressContact from '../../components/blocks/PressContact.astro';
 import SiblingCards from '../../components/blocks/SiblingCards.astro';
-import { RESOURCES_INTRO, RESOURCES } from '../../data/pages/media';
+import { RESOURCES_INTRO, BOILERPLATE } from '../../data/pages/media';
 import { CATALOG_DOWNLOAD as cat, formatSize } from '../../data/downloads';
 
-/* "Media Kit" adani.com: daftar berkas dengan jenis, ukuran dan tombol unduh.
- * Berkas logo dari RESOURCES (public/brand/), lalu katalog PDF dari
- * data/downloads.ts. */
-const rows = [
-  ...RESOURCES,
-  {
-    title: cat.title,
-    body: cat.sub + '.',
-    kind: 'PDF',
-    size: formatSize(cat.bytes),
-    href: cat.href,
-    filename: cat.filename,
-  },
-];
+/* Media Resources (dirombak 15 Nov 2026, pemilik): logo dan simbol dicoret.
+ * Susunan mengikuti halaman media Robertet, Symrise dan dsm-firmenich, minus
+ * logo dan pustaka foto: paragraf "About Adhiloka" siap kutip, unduhan katalog
+ * PDF (data/downloads.ts), kontak pers, Explore More. */
 ---
 
 <PageLayout intro={RESOURCES_INTRO}>
+  <section class="sec">
+    <div class="wrap about">
+      <h2 class="h2" data-anim="title">{BOILERPLATE.title}</h2>
+      <p class="about__body" data-anim="sub">{BOILERPLATE.body}</p>
+    </div>
+  </section>
+
   <section class="sec sec--grey">
     <div class="wrap">
-      <ul class="dl" data-anim="columns">
-        {
-          rows.map((r) => (
-            <li class="dl__row" data-anim-item>
-              <div>
-                <h2 class="dl__title">{r.title}</h2>
-                <p class="dl__body">{r.body}</p>
-              </div>
-              <p class="dl__meta">{r.kind} · {r.size}</p>
-              <a class="btn" href={r.href} download={r.filename}><span class="btn__label">Download</span></a>
-            </li>
-          ))
-        }
+      <h2 class="h2" data-anim="title">Downloads</h2>
+      <ul class="dl">
+        <li class="dl__row">
+          <a class="dl__cover" href={cat.href} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+            <Image quality={75} src={cat.thumb} alt="" widths={[160, 320]} sizes="120px" loading="lazy" />
+          </a>
+          <div>
+            <h3 class="dl__title">{cat.title}</h3>
+            <p class="dl__body">{cat.sub}.</p>
+          </div>
+          <p class="dl__meta">PDF · {formatSize(cat.bytes)}</p>
+          <a class="btn" href={cat.href} download={cat.filename}><span class="btn__label">Download</span></a>
+        </li>
       </ul>
     </div>
   </section>
+
   <PressContact grey={false} />
   <SiblingCards />
 </PageLayout>
 
 <style>
-  .dl { border-top: 1px solid var(--line); }
+  .about {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+    gap: 5%;
+    align-items: start;
+  }
+  .about__body {
+    font-size: calc(clamp(19px, 1.5vw, 22px) * var(--fs));
+    line-height: 1.6;
+    color: var(--ink);
+  }
+
+  .dl { margin-top: 36px; border-top: 1px solid var(--line); }
   .dl__row {
     display: grid;
-    grid-template-columns: 1fr 200px auto;
+    grid-template-columns: 96px 1fr 160px auto;
     gap: 32px;
     align-items: center;
     padding: 28px 0;
     border-bottom: 1px solid var(--line);
   }
+  .dl__cover { display: block; box-shadow: 0 2px 4px rgb(0 0 0 / 0.08), 0 8px 24px rgb(0 0 0 / 0.1); }
+  .dl__cover :global(img) { display: block; width: 100%; height: auto; }
   .dl__title { font-size: calc(22px * var(--fs)); font-weight: 530; color: var(--ink); }
   .dl__body { margin-top: 8px; max-width: 720px; font-size: calc(16px * var(--fs)); line-height: 1.6; }
   .dl__meta { font-size: calc(15px * var(--fs)); color: var(--ink-muted); }
+
+  @media (max-width: 1026px) {
+    .about { grid-template-columns: 1fr; gap: 20px; }
+  }
   @media (max-width: 767px) {
-    .dl__row { grid-template-columns: 1fr; gap: 14px; }
-    .dl__row .btn { justify-self: start; }
+    .dl__row { grid-template-columns: 72px 1fr; gap: 14px 20px; }
+    .dl__meta,
+    .dl__row .btn { grid-column: 2; justify-self: start; }
   }
 </style>

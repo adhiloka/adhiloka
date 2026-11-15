@@ -16,6 +16,8 @@ import { NAV, NAV_LINKS } from '../../data/site';
 interface Props {
   title: string;
   image?: ImageKey;
+  /** object-position foto bila subjeknya tidak di tengah, mis. '50% 20%'. */
+  focus?: string;
   alt?: string;
   /** Kalimat di bawah judul (lede halaman). */
   line?: string;
@@ -23,7 +25,7 @@ interface Props {
   meta?: string;
   half?: boolean;
 }
-const { title, image, alt = '', line, meta, half = false } = Astro.props;
+const { title, image, alt = '', line, meta, half = false, focus } = Astro.props;
 
 const path = Astro.url.pathname;
 const label = (href: string) => NAV_LINKS.find((l) => l.href === href)?.label;
@@ -42,7 +44,7 @@ if (section && path !== section.href) {
   <div class="banner__media">
     {
       image ? (
-        <Image quality={70} src={images[image]} alt={alt} widths={[768, 1280, 1920]} sizes="100vw" loading="eager" fetchpriority="high" />
+        <Image quality={70} src={images[image]} alt={alt} widths={[768, 1280, 1920]} sizes="100vw" loading="eager" fetchpriority="high" style={focus ? `object-position: ${focus}` : undefined} />
       ) : (
         <span class="plate" />
       )

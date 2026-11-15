@@ -100,8 +100,8 @@ export const PURPOSE_INTRO: PageIntro = {
   lede: '',
   description:
     'The purpose and values of Adhiloka: growing together with nature, and bringing its ingredients to perfumery with care.',
-  caption: 'tree canopy seen from below',
-  image: 'canopy-from-below',
+  caption: 'sunlight through the rainforest',
+  image: 'rainforest-sunbeams',
 };
 
 export const PURPOSE_BODY = [

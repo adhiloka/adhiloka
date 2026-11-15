@@ -23,6 +23,7 @@ const { intro, bannerTitle, lineInBanner = false, bannerMeta } = Astro.props;
     title={bannerTitle ?? intro.metaTitle ?? intro.title}
     image={intro.image}
     alt={intro.caption}
+    focus={intro.focus}
     line={lineInBanner ? intro.lede : undefined}
     meta={bannerMeta}
   />
