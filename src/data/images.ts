@@ -30,11 +30,11 @@ import resinBowl from '../assets/images/resin-bowl.jpg';
 import cinnamonSticks from '../assets/images/cinnamon-sticks.jpg';
 import cinnamonQuills from '../assets/images/cinnamon-quills.jpg';
 import heroRoseDew from '../assets/images/hero-rose-dew.jpg';
-import heroIrisBlue from '../assets/images/hero-iris-blue.jpg';
-import heroOrangeBloom from '../assets/images/hero-orange-bloom.jpg';
-import heroOrchidDew from '../assets/images/hero-orchid-dew.jpg';
-import heroPlumeria from '../assets/images/hero-plumeria.jpg';
-import heroDaisyDew from '../assets/images/hero-daisy-dew.jpg';
+import heroTerracesValley from '../assets/images/hero-terraces-valley.jpg';
+import heroExtractionRig from '../assets/images/hero-extraction-rig.jpg';
+import heroPerfumerBlending from '../assets/images/hero-perfumer-blending.jpg';
+import heroTeaHills from '../assets/images/hero-tea-hills.jpg';
+import heroGreenTerraces from '../assets/images/hero-green-terraces.jpg';
 import clovesDried from '../assets/images/cloves-dried.jpg';
 import clovesInHand from '../assets/images/cloves-in-hand.jpg';
 import clovesSorting from '../assets/images/cloves-sorting.jpg';
@@ -198,11 +198,11 @@ import kaffirLimeLeaves from '../assets/images/kaffir-lime-leaves.jpg';
  *   cinnamon-sticks      batang kayu manis diikat (jenis tak diketahui)  [stock-photos/cinnamon/15486150]
  *   cinnamon-quills      tumpukan gulungan kulit kayu manis, close-up tajam, latar gelap  [stock-photos/cinnamon/beatsnoop-2eAvVfuJ64]  (standar kualitas foto pemilik)
  *   hero-rose-dew        makro mawar merah muda berembun  [stock-photos/flowers/9241044]  (standar kualitas foto pemilik)
- *   hero-iris-blue  iris biru berembun, makro (hero We Are Adhiloka dan halaman About)  [stock-photos/hero-2026-11-18/pexels-38261003.jpg, Pexels License]  (standar kualitas foto pemilik, 18 Nov 2026)
- *   hero-orange-bloom  bunga jingga cerah dari dekat (hero Our Expertise dan halaman Technology)  [stock-photos/hero-2026-11-18/pexels-35487880.jpg, Pexels License]  (standar kualitas foto pemilik, 18 Nov 2026)
- *   hero-orchid-dew  anggrek ungu berembun, makro (hero Perfumery dan halaman Perfumery)  [stock-photos/hero-2026-11-18/pexels-35908854.jpg, Pexels License]  (standar kualitas foto pemilik, 18 Nov 2026)
- *   hero-plumeria  kamboja warna-warni di langit biru (hero The Source Collection dan Ingredient Catalog)  [stock-photos/hero-2026-11-18/pexels-24845909.jpg, Pexels License]  (standar kualitas foto pemilik, 18 Nov 2026)
- *   hero-daisy-dew  bunga kuning berembun di latar hijau (hero Growing Together dan Our Purpose)  [stock-photos/hero-2026-11-18/pexels-40650966.jpg, Pexels License]  (standar kualitas foto pemilik, 18 Nov 2026)
+ *   hero-terraces-valley  sawah berundak di lembah di bawah pegunungan hijau, langit biru (hero We Are Adhiloka dan halaman About)  [stock-photos/hero-2026-11-18/pexels-28938202.jpg, Pexels License]  (standar kualitas foto pemilik, 18 Nov 2026)
+ *   hero-extraction-rig  close-up rangkaian alat ekstraksi kaca dan baja nirkarat di laboratorium terang (hero Our Expertise dan halaman Technology)  [stock-photos/hero-2026-11-18/pexels-10514729.jpg, Pexels License]  (standar kualitas foto pemilik, 18 Nov 2026)
+ *   hero-perfumer-blending  perfumer meracik dengan pipet di botol berisi cairan amber, close-up (hero Perfumery dan halaman Perfumery; bukan staf Adhiloka)  [stock-photos/hero-2026-11-18/pexels-8450352.jpg, Pexels License]  (standar kualitas foto pemilik, 18 Nov 2026)
+ *   hero-tea-hills  perbukitan kebun teh hijau di bawah matahari cerah (hero The Source Collection dan Ingredient Catalog)  [stock-photos/hero-2026-11-18/pexels-6713245.jpg, Pexels License]  (standar kualitas foto pemilik, 18 Nov 2026)
+ *   hero-green-terraces  sawah berundak hijau cerah di bawah langit biru (hero Growing Together dan Our Purpose)  [stock-photos/hero-2026-11-18/pexels-37432395.jpg, Pexels License]  (standar kualitas foto pemilik, 18 Nov 2026)
  *   cloves-dried         cengkih kering, makro  [stock-photos/clove/11000777]
  *   cloves-in-hand       cengkih kering di telapak tangan  [stock-photos/clove/8804299]
  *   cloves-sorting       cengkih disortir di rak jemur (bukan petani Adhiloka)  [stock-photos/clove/40319393]
@@ -380,11 +380,11 @@ export const images = {
   'cinnamon-sticks': cinnamonSticks,
   'cinnamon-quills': cinnamonQuills,
   'hero-rose-dew': heroRoseDew,
-  'hero-iris-blue': heroIrisBlue,
-  'hero-orange-bloom': heroOrangeBloom,
-  'hero-orchid-dew': heroOrchidDew,
-  'hero-plumeria': heroPlumeria,
-  'hero-daisy-dew': heroDaisyDew,
+  'hero-terraces-valley': heroTerracesValley,
+  'hero-extraction-rig': heroExtractionRig,
+  'hero-perfumer-blending': heroPerfumerBlending,
+  'hero-tea-hills': heroTeaHills,
+  'hero-green-terraces': heroGreenTerraces,
   'cloves-dried': clovesDried,
   'cloves-in-hand': clovesInHand,
   'cloves-sorting': clovesSorting,

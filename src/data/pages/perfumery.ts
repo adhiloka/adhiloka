@@ -25,9 +25,9 @@ export const PERFUMERY_INTRO: PageIntro = {
   lede: '',
   description:
     'Adhiloka perfumery: fragrance creation for fine fragrance, personal care, home care and fabric care, backed by fragrance technology and a full palette of naturals and molecules.',
-  image: 'hero-orchid-dew',
-  focus: '60% 50%',
-  caption: 'purple orchid covered in dew drops',
+  image: 'hero-perfumer-blending',
+  focus: '50% 55%',
+  caption: 'perfumer blending with a pipette',
 };
 
 export const PERFUMERY_OPENING = [
