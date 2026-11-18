@@ -21,7 +21,7 @@ desktop, laci dari kanan dengan akordeon di layar ≤1026 px. Isi menu hanya di 
 Isi panel mega-menu desktop memakai konsep Adhiloka versi pertama (yang meniru robertet.com):
 foto utama berjudul dengan panah di kiri, menuju halaman induk, lalu kolom tautan di kanan. Foto
 dan judulnya dari `panel.image` / `panel.title` di `NAV`. **Foto panel = foto banner halaman induk**
-(pemilik, 15 Nov 2026): About Us `hero-about-forest`, Perfumery `hero-perfumery-vanity`, Ingredients
+(pemilik, 15 Nov 2026): About Us `hero-iris-blue`, Perfumery `hero-orchid-dew`, Ingredients
 `hero-rose-dew`, Sustainability `canopy-from-below`, Media `smelling-flowers`, Connect/Contact
 `tagged-sample-bottles`; ganti keduanya bersamaan. Di laci mobile fotonya disembunyikan.
 
@@ -289,7 +289,7 @@ beranda, keluarga bahan, atau blok), menulis daftar rumah foto ke **`PHOTOS.md`*
 satu foto punya lebih dari satu konteks. `npm run build` menjalankannya lebih dulu; `npm run photos`
 hanya menulis laporan. Pengecualian disengaja di `ALLOW` skrip itu (saat ini: slide hero Perfumery
 memakai foto halaman Perfumery). Foto keluarga bahan ada di `FAMILY_IMAGE` (`materials.ts`), dipakai
-tile Our Business beranda dan kartu Collections. **Slide hero beranda memakai foto halaman yang ditautnya** (18 Nov 2026): We Are Adhiloka `hero-about-forest` (/about/), Scent Begins Here `hero-rose-dew` (/ingredients/), Our Expertise `hero-technology-alembic` (/ingredients/technology/), Perfumery `hero-perfumery-vanity` (/perfumery/), The Source Collection `hero-catalog-anise` (/ingredients/catalog/), Growing Together `hero-purpose-terraces` (/about/our-purpose/); skrip memperlakukan slide sebagai konteks jalur tujuannya, dan `ALLOW` kini kosong. Banner halaman bisa diberi `focus` (object-position)
+tile Our Business beranda dan kartu Collections. **Slide hero beranda memakai foto halaman yang ditautnya** (18 Nov 2026): We Are Adhiloka `hero-iris-blue` (/about/), Scent Begins Here `hero-rose-dew` (/ingredients/), Our Expertise `hero-orange-bloom` (/ingredients/technology/), Perfumery `hero-orchid-dew` (/perfumery/), The Source Collection `hero-plumeria` (/ingredients/catalog/), Growing Together `hero-daisy-dew` (/about/our-purpose/); skrip memperlakukan slide sebagai konteks jalur tujuannya, dan `ALLOW` kini kosong. Banner halaman bisa diberi `focus` (object-position)
 di intro-nya. Parallax banner kini hanya di fotonya, jadi judul dan remah tidak lagi tertutup
 section berikutnya saat digulir.
 

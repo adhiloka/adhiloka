@@ -16,8 +16,8 @@ export const ABOUT_INTRO: PageIntro = {
   lede: '',
   description:
     'Adhiloka is a house of natural ingredients and perfumery from Indonesia, working with resins, leaves, roots and spices and the people who grow them.',
-  image: 'hero-about-forest',
-  caption: 'misty rainforest canopy',
+  image: 'hero-iris-blue',
+  caption: 'blue iris with morning dew',
 };
 
 export const ABOUT_WHO =
@@ -30,7 +30,7 @@ export const ABOUT_HOW =
    More" di halaman anaknya. */
 export const ABOUT_CARDS: LinkCard[] = [
   { title: 'Our Business', href: '/about/our-business/', image: 'perfume-workshop' },
-  { title: 'Our Purpose', href: '/about/our-purpose/', image: 'hero-purpose-terraces' },
+  { title: 'Our Purpose', href: '/about/our-purpose/', image: 'hero-daisy-dew' },
 ];
 
 /* Kartu ketiga di hub About saja: menuju bagian lain situs, jadi tidak ikut
@@ -69,8 +69,8 @@ export const BUSINESS_PASSAGES: Passage[] = [
     body: 'Every material asks for its own method. We distil leaves, roots and spices and extract resins, always looking to keep the scent of the plant as it was in the field.',
     cta: 'Technology',
     href: '/ingredients/technology/',
-    caption: 'hammered copper still on black marble',
-    image: 'hero-technology-alembic',
+    caption: 'bright orange flower in close-up',
+    image: 'hero-orange-bloom',
   },
   {
     id: 'ingredients',
@@ -78,8 +78,8 @@ export const BUSINESS_PASSAGES: Passage[] = [
     body: 'Essential oils, resinoids and extracts for fragrance houses, independent perfumers and makers of scented products. Every ingredient is evaluated before it is released, and most conversations begin with a sample.',
     cta: 'Ingredient Catalog',
     href: '/ingredients/catalog/',
-    caption: 'close-up of dried star anise',
-    image: 'hero-catalog-anise',
+    caption: 'colourful frangipani against a blue sky',
+    image: 'hero-plumeria',
   },
   {
     id: 'perfumery',
@@ -87,8 +87,8 @@ export const BUSINESS_PASSAGES: Passage[] = [
     body: 'Alongside our ingredients, we create fragrances for fine fragrance and consumer products. Our perfumers work closely with each client, from the first brief to the final formula, with the naturals we know best at the heart of the palette.',
     cta: 'Perfumery',
     href: '/perfumery/',
-    caption: 'perfume bottles on a dark wooden table',
-    image: 'hero-perfumery-vanity',
+    caption: 'purple orchid covered in dew drops',
+    image: 'hero-orchid-dew',
   },
 ];
 
@@ -100,8 +100,8 @@ export const PURPOSE_INTRO: PageIntro = {
   lede: '',
   description:
     'The purpose and values of Adhiloka: growing together with nature, and bringing its ingredients to perfumery with care.',
-  caption: 'terraced rice fields in afternoon light',
-  image: 'hero-purpose-terraces',
+  caption: 'yellow flower with dew on green leaves',
+  image: 'hero-daisy-dew',
 };
 
 export const PURPOSE_BODY = [
