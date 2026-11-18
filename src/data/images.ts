@@ -77,6 +77,13 @@ import cocoaBeans from '../assets/images/cocoa-beans.jpg';
 import tamarindPods from '../assets/images/tamarind-pods.jpg';
 import vanillaBeans from '../assets/images/vanilla-beans.jpg';
 import vanillaBeansWhite from '../assets/images/vanilla-beans-white.jpg';
+import jasmineGrandiflorumFlowers from '../assets/images/jasmine-grandiflorum-flowers.jpg';
+import jasmineSambac from '../assets/images/jasmine-sambac.jpg';
+import lavenderFlowers from '../assets/images/lavender-flowers.jpg';
+import roseBush from '../assets/images/rose-bush.jpg';
+import cardamomPods from '../assets/images/cardamom-pods.jpg';
+import corianderSeeds from '../assets/images/coriander-seeds.jpg';
+import sandalwoodChips from '../assets/images/sandalwood-chips.jpg';
 import lemongrassField from '../assets/images/lemongrass-field.jpg';
 import gingerFresh from '../assets/images/ginger-fresh.jpg';
 import gingerRoots from '../assets/images/ginger-roots.jpg';
@@ -227,6 +234,13 @@ import kaffirLimeLeaves from '../assets/images/kaffir-lime-leaves.jpg';
  *   tamarind-pods      tamarind-pods-basket-11536825.jpg  [Pexels License]
  *   vanilla-beans      vanilla-beans-bundle-unsplash-fIGw-jVGy5g.jpg  [Unsplash License] (Vanilla Planifolia)
  *   vanilla-beans-white  vanilla-beans-two-white-unsplash-GA6WtJ7DtSo.jpg  [Unsplash License] (Vanilla Tahitensis)
+ *   jasmine-grandiflorum-flowers  jasmine-white-flowers-unsplash--cF4m5LEmlA.jpg  [Unsplash License] (Jasmine Grandiflorum)
+ *   jasmine-sambac     jasmine-sambac-bud-unsplash-Zqai2COyXBw.jpg  [Unsplash License] (Jasmine Sambac)
+ *   lavender-flowers   lavender-bed-closeup-unsplash-bIHJ4oxQlYs.jpg  [Unsplash License] (Lavender)
+ *   rose-bush          pink-roses-bush-unsplash--pldRipVgx4.jpg  [Unsplash License] (Rose)
+ *   cardamom-pods      cardamom-pods-split-unsplash-bF404j83DH0.jpg  [Unsplash License] (Cardamom)
+ *   coriander-seeds    coriander-seeds-bowl-unsplash-nOyjlj-dse0.jpg  [Unsplash License] (Coriander)
+ *   sandalwood-chips   sandalwood-chips-unsplash-iOx1F024kXk.jpg  [Unsplash License] (Sandalwood)
  *   lemongrass-field   pexels-38004213.jpg  [Pexels License]
  *   ginger-fresh       pile-of-fresh-ginger-in-close-up-photography-7543128.jpg  [Pexels License]
  *   ginger-roots       roots-of-ginger-20234970.jpg  [Pexels License]
@@ -392,6 +406,13 @@ export const images = {
   'tamarind-pods': tamarindPods,
   'vanilla-beans': vanillaBeans,
   'vanilla-beans-white': vanillaBeansWhite,
+  'jasmine-grandiflorum-flowers': jasmineGrandiflorumFlowers,
+  'jasmine-sambac': jasmineSambac,
+  'lavender-flowers': lavenderFlowers,
+  'rose-bush': roseBush,
+  'cardamom-pods': cardamomPods,
+  'coriander-seeds': corianderSeeds,
+  'sandalwood-chips': sandalwoodChips,
   'lemongrass-field': lemongrassField,
   'ginger-fresh': gingerFresh,
   'ginger-roots': gingerRoots,
