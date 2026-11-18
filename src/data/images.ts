@@ -28,6 +28,8 @@ import resinOnBark from '../assets/images/resin-on-bark.jpg';
 import resinPieces from '../assets/images/resin-pieces.jpg';
 import resinBowl from '../assets/images/resin-bowl.jpg';
 import cinnamonSticks from '../assets/images/cinnamon-sticks.jpg';
+import cinnamonQuills from '../assets/images/cinnamon-quills.jpg';
+import heroRoseDew from '../assets/images/hero-rose-dew.jpg';
 import clovesDried from '../assets/images/cloves-dried.jpg';
 import clovesInHand from '../assets/images/cloves-in-hand.jpg';
 import clovesSorting from '../assets/images/cloves-sorting.jpg';
@@ -189,6 +191,8 @@ import kaffirLimeLeaves from '../assets/images/kaffir-lime-leaves.jpg';
  *   resin-pieces         bongkah damar amber, makro (bukan benzoin)  [stock-photos/resin/unsplash-u37SOLQkxfw]
  *   resin-bowl           butir damar amber di mangkuk kayu (bukan benzoin)  [stock-photos/resin/unsplash-GpooiAnoCeE]
  *   cinnamon-sticks      batang kayu manis diikat (jenis tak diketahui)  [stock-photos/cinnamon/15486150]
+ *   cinnamon-quills      tumpukan gulungan kulit kayu manis, close-up tajam, latar gelap  [stock-photos/cinnamon/beatsnoop-2eAvVfuJ64]  (standar kualitas foto pemilik)
+ *   hero-rose-dew        makro mawar merah muda berembun  [stock-photos/flowers/9241044]  (standar kualitas foto pemilik)
  *   cloves-dried         cengkih kering, makro  [stock-photos/clove/11000777]
  *   cloves-in-hand       cengkih kering di telapak tangan  [stock-photos/clove/8804299]
  *   cloves-sorting       cengkih disortir di rak jemur (bukan petani Adhiloka)  [stock-photos/clove/40319393]
@@ -364,6 +368,8 @@ export const images = {
   'resin-pieces': resinPieces,
   'resin-bowl': resinBowl,
   'cinnamon-sticks': cinnamonSticks,
+  'cinnamon-quills': cinnamonQuills,
+  'hero-rose-dew': heroRoseDew,
   'cloves-dried': clovesDried,
   'cloves-in-hand': clovesInHand,
   'cloves-sorting': clovesSorting,

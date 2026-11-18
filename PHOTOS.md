@@ -28,7 +28,7 @@ Tidak ada.
 | `cargo-ship` | kapal kontainer di laut saat senja | mendatar | `/ingredients/working-with-us/` | src/data/pages/ingredients.ts:35 (tautan /ingredients/working-with-us/)<br>src/data/pages/ingredients.ts:225 (banner ORDERING_INTRO) |
 | `chili-pickers` | dua petani bercaping memetik cabai (Become a Supplier) | mendatar | `/contact/suppliers/` | src/data/pages/connect.ts:12 (tautan /contact/suppliers/)<br>src/data/pages/connect.ts:63 (banner SUPPLIERS_INTRO)<br>src/data/pages/home.ts:152 (tautan /contact/suppliers/) |
 | `chili-sacks` | karung goni berisi cabai kering dan rempah (keluarga Spices) | mendatar | `/ingredients/catalog/?family=Spice` | src/data/materials.ts:174 (keluarga Spice) |
-| `cinnamon-sticks` | batang kayu manis diikat (jenis tak diketahui) | mendatar | `/ingredients/catalog/cinnamon-kerinci/` | catalog-data.json (bahan Cinnamon Kerinci) |
+| `cinnamon-quills` | tumpukan gulungan kulit kayu manis, close-up tajam, latar gelap | mendatar | `/ingredients/catalog/cinnamon-kerinci/` | catalog-data.json (bahan Cinnamon Kerinci) |
 | `citronella-grass` | cymbopogon-nardus-steakley-DITSL.jpg | mendatar | `/ingredients/catalog/citronella-java/` | catalog-data.json (bahan Citronella Java) |
 | `cloves-bowl` | cengkih kering di mangkuk keramik (What We Look For) | mendatar | `blok src/data/pages/connect.ts · What We Look For` | src/data/pages/connect.ts:79 (blok What We Look For) |
 | `cloves-dried` | cengkih kering, makro | mendatar | `/ingredients/catalog/clove/` | catalog-data.json (bahan Clove) |
@@ -60,6 +60,7 @@ Tidak ada.
 | `growers-field` | dua petani berdiri di ladang dengan hasil panen (Partnerships) | mendatar | `blok src/data/pages/sustainability.ts · Partnerships` | src/data/pages/sustainability.ts:51 (blok Partnerships) |
 | `herb-basket` | keranjang berisi daun herba segar di meja kayu (keluarga Herbal) | mendatar | `/ingredients/catalog/?family=Herbal` | src/data/materials.ts:177 (keluarga Herbal) |
 | `hero-benzoin-tears` |  | mendatar | `blok /about/ · baris 40` | src/pages/about/index.astro:40 (blok baris 40) |
+| `hero-rose-dew` | makro mawar merah muda berembun | mendatar | `hero beranda · Scent Begins Here` | src/data/pages/home.ts:49 (hero Scent Begins Here) |
 | `hero-still-hall` |  | mendatar | `/media/news/` | src/data/pages/media.ts:27 (tautan /media/news/)<br>src/data/pages/media.ts:50 (banner NEWS_INTRO) |
 | `hills-lake-view` | perbukitan hijau di tepi danau dari ketinggian (banner Our Purpose) | mendatar | `/about/our-purpose/` | src/data/pages/about.ts:33 (tautan /about/our-purpose/)<br>src/data/pages/about.ts:104 (banner PURPOSE_INTRO)<br>src/data/pages/sustainability.ts:139 (tautan /about/our-purpose/) |
 | `homalomena-leaves` | homalomena-stang-1zz.jpg | mendatar | `/ingredients/catalog/sugandh-mantri/` | catalog-data.json (bahan Homalomena) |
@@ -98,7 +99,6 @@ Tidak ada.
 | `rainforest-sunbeams` | sinar matahari menembus pohon tinggi hutan hujan | mendatar | `hero beranda · We Are Adhiloka` | src/data/pages/home.ts:42 (hero We Are Adhiloka) |
 | `reed-diffuser-home` |  | mendatar | `/perfumery/#consumer-fragrance` | src/data/pages/perfumery.ts:51 (bagian Consumer Fragrance)<br>src/data/pages/perfumery.ts:120 (tautan /perfumery/#consumer-fragrance) |
 | `resin-bark-close` | getah damar mengeras di kulit kayu, makro (berita Benzoin; bukan benzoin) | mendatar | `blok src/data/pages/media.ts · Benzoin, Tapped From Living Trees` | src/data/pages/media.ts:155 (blok Benzoin, Tapped From Living Trees) |
-| `resin-on-bark` | damar amber di kulit pohon (bukan benzoin) | mendatar | `hero beranda · Scent Begins Here` | src/data/pages/home.ts:49 (hero Scent Begins Here) |
 | `resin-pieces` | bongkah damar amber, makro (bukan benzoin) | mendatar | `/ingredients/catalog/?family=Resin` | src/data/materials.ts:170 (keluarga Resin) |
 | `rhubarb-plant` | rheum-officinale-salicyna-8064.jpg | mendatar | `/ingredients/catalog/rhubarb/` | catalog-data.json (bahan Rhubarb) |
 | `rice-planting` | orang menanam padi | mendatar | `/sustainability/people/` | src/data/pages/home.ts:128 (tautan /sustainability/people/)<br>src/data/pages/sustainability.ts:27 (tautan /sustainability/people/)<br>src/data/pages/sustainability.ts:42 (banner PEOPLE_INTRO) |
@@ -141,7 +141,9 @@ Tidak ada.
 - `purpose-generations` · mendatar · 
 - `about-chick` · mendatar · 
 - `fragrance-bloom` · mendatar · 
+- `resin-on-bark` · mendatar · damar amber di kulit pohon (bukan benzoin)
 - `resin-bowl` · tegak · butir damar amber di mangkuk kayu (bukan benzoin)
+- `cinnamon-sticks` · mendatar · batang kayu manis diikat (jenis tak diketahui)
 - `grass-blades` · tegak · daun rumput tegak, makro (dipakai untuk vetiver)
 - `amber-bottles` · tegak · dua botol kaca amber
 - `amber-dropper` · tegak · minyak diteteskan ke botol amber

@@ -46,8 +46,8 @@ export const HERO_SLIDES: HeroSlide[] = [
     title: ['Scent Begins Here'],
     line: ['Natural Raw Materials'],
     href: '/ingredients/',
-    image: 'resin-on-bark',
-    alt: 'Amber resin on tree bark',
+    image: 'hero-rose-dew',
+    alt: 'Pink rose petals with morning dew',
   },
   {
     title: ['What Comes Before', 'the First Spray'],
