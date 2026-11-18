@@ -135,7 +135,7 @@ export const SOURCING_PASSAGES: Passage[] = [
     body: 'We take only what nature can give, so that plants recover and landscapes stay alive. Resins are tapped with care for the tree, leaves and spices are harvested in season, and we favour material grown among the forest.',
     cta: 'Our Purpose',
     href: '/about/our-purpose/',
-    caption: 'green hills above a lake',
-    image: 'hills-lake-view',
+    caption: 'terraced rice fields in afternoon light',
+    image: 'hero-purpose-terraces',
   },
 ];

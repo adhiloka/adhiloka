@@ -46,8 +46,8 @@ export const NAV: NavItem[] = [
     blurb: 'A house of natural ingredients and perfumery, rooted in Indonesia.',
     panel: {
       title: 'About Us',
-      shot: 'misty green hills',
-      image: 'misty-hills',
+      shot: 'misty rainforest canopy',
+      image: 'hero-about-forest',
       links: [
         { label: 'Our Business', href: '/about/our-business/' },
         { label: 'Our Purpose', href: '/about/our-purpose/' },
@@ -61,8 +61,8 @@ export const NAV: NavItem[] = [
       'Fragrance creation for fine fragrance, personal care, home care and fabric care.',
     panel: {
       title: 'Perfumery',
-      shot: 'perfumer at work with a dropper',
-      image: 'perfumer-dropper',
+      shot: 'perfume bottles on a dark wooden table',
+      image: 'hero-perfumery-vanity',
       links: [
         { label: 'Fine Fragrance', href: '/perfumery/#fine-fragrance' },
         { label: 'Consumer Fragrance', href: '/perfumery/#consumer-fragrance' },
@@ -78,8 +78,8 @@ export const NAV: NavItem[] = [
     blurb: 'Resins, leaves, roots and spices from Indonesia, selected and prepared for perfumery.',
     panel: {
       title: 'Ingredients',
-      shot: 'dried cloves in an open hand',
-      image: 'cloves-in-hand',
+      shot: 'pink rose petals with morning dew',
+      image: 'hero-rose-dew',
       links: [
         { label: 'Natural Ingredients', href: '/ingredients/natural-ingredients/' },
         { label: 'Ingredient Catalog', href: '/ingredients/catalog/' },

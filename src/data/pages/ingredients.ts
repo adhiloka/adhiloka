@@ -16,8 +16,8 @@ export const INGREDIENTS_INTRO: PageIntro = {
   lede: '',
   description:
     'Natural aromatic ingredients by Adhiloka: resins, leaves, roots and spices, selected and prepared for perfumery.',
-  image: 'cloves-in-hand',
-  caption: 'dried cloves in an open hand',
+  image: 'hero-rose-dew',
+  caption: 'pink rose petals with morning dew',
 };
 
 /* Juga dipakai katalog PDF (tools/pdf/build.mjs). */
@@ -29,9 +29,9 @@ export const INGREDIENTS_OPENING = [
    Discover More di hub dan Explore More di kaki tiap halaman anak. */
 export const INGREDIENTS_CARDS: LinkCard[] = [
   { title: 'Natural Ingredients', href: '/ingredients/natural-ingredients/', image: 'spice-market-trays' },
-  { title: 'Ingredient Catalog', href: '/ingredients/catalog/', image: 'spices-spoons' },
+  { title: 'Ingredient Catalog', href: '/ingredients/catalog/', image: 'hero-catalog-anise' },
   { title: 'Ingredients Map', href: '/ingredients/map/', image: 'jungle-stream' },
-  { title: 'Technology', href: '/ingredients/technology/', image: 'copper-still' },
+  { title: 'Technology', href: '/ingredients/technology/', image: 'hero-technology-alembic' },
   { title: 'Working With Us', href: '/ingredients/working-with-us/', image: 'cargo-ship' },
 ];
 
@@ -100,8 +100,8 @@ export const CATALOG_INTRO: PageIntro = {
   lede: '',
   description:
     'The Adhiloka ingredients catalog: essential oils, resinoids, absolutes, CO2 extracts and extracts from benzoin, patchouli, vetiver, clove, nutmeg, cinnamon and other Indonesian botanicals, each with its product code and typical specification.',
-  caption: 'whole spices on wooden spoons',
-  image: 'spices-spoons',
+  caption: 'close-up of dried star anise',
+  image: 'hero-catalog-anise',
 };
 
 /* ── Technology ──────────────────────────────────────────────────────── */
@@ -124,8 +124,8 @@ export const TECHNOLOGY_INTRO: PageIntro = {
   lede: '',
   description:
     'Adhiloka ingredient technology: steam distillation, solvent extraction, supercritical CO₂ extraction, molecular and fractional distillation, headspace analysis, biotechnology and green chemistry.',
-  caption: 'copper distillation still',
-  image: 'copper-still',
+  caption: 'hammered copper still on black marble',
+  image: 'hero-technology-alembic',
 };
 
 export type Route = { name: string; note: string };

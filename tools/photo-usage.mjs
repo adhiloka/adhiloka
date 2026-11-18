@@ -32,9 +32,7 @@ const rel = (p) => relative(ROOT, p).split(sep).join('/');
 
 /* Pengecualian yang disengaja: kunci → alasan. Isi hanya bila konteksnya
    memang sama tetapi skrip tidak bisa melihatnya. */
-const ALLOW = {
-  'perfumer-dropper': 'slide hero beranda "Perfumery" menuju /perfumery/, konteksnya halaman Perfumery',
-};
+const ALLOW = {};
 /* Pemakaian yang bukan tampilan halaman (meta, gambar bagikan). */
 const IGNORE = [/src\/layouts\/BaseLayout\.astro/];
 /* Konteks yang sama dengan nama berbeda: blok di halaman ↔ tautan ke jangkarnya. */
@@ -162,7 +160,9 @@ function contextAt(text, pos, file) {
       break;
     }
   }
-  if (owner === 'HERO_SLIDES') {
+  /* Slide hero beranda (pemilik, 18 Nov 2026): fotonya = foto halaman yang
+     ditautnya, jadi konteksnya jalur tujuan (href) seperti kartu lain. */
+  if (owner === 'HERO_SLIDES' && !href) {
     const t = titleIn(full) ?? title;
     return { ctx: `hero beranda · ${t}`, how: `hero ${t}`, lineNo };
   }
