@@ -32,10 +32,12 @@ if (cmd === 'done') {
       const x = c.context || {};
       console.log(`\n[${c.id}] (${c.device || '?'}, lebar ${c.vw || '?'}px) ${c.text}`);
       console.log(`  elemen : <${x.tag || '?'}> ${c.selector || ''}`);
+      if (c.docArea) console.log(`  area   : ${c.docArea.w}×${c.docArea.h} px, mulai ${c.docArea.x},${c.docArea.y} dari kiri atas halaman`);
       if (x.heading) console.log(`  bagian : ${x.heading}`);
       if (x.classes) console.log(`  kelas  : ${x.classes}`);
       if (x.snippet) console.log(`  teks   : ${x.snippet}`);
       if (x.img) console.log(`  foto   : ${x.img}`);
+      if (x.inside?.length) console.log('  isi area:\n' + x.inside.map((l) => `    - ${l}`).join('\n'));
       if (x.href) console.log(`  tautan : ${x.href}`);
     }
   }

@@ -28,6 +28,9 @@
     display: grid; place-items: center; cursor: pointer; pointer-events: auto; z-index: 2147483001; }
   .pin span { transform: rotate(45deg); font-size: 12px; font-weight: 700; }
   .pin.lost { background: #8a8a8a; border-style: dashed; }
+  .sel { position: fixed; border: 2px dashed #e8572a; background: rgba(232,87,42,.14); display: none; z-index: 2147483001; }
+  .area { position: fixed; border: 2px dashed #e8572a; background: rgba(232,87,42,.07); border-radius: 3px; pointer-events: none; z-index: 2147483000; }
+  .area.lost { border-color: #8a8a8a; background: rgba(138,138,138,.07); }
   .pop { position: fixed; width: 300px; background: #fff; color: #1f2a24; border-radius: 10px; padding: 12px;
     box-shadow: 0 10px 30px rgba(0,0,0,.3); pointer-events: auto; z-index: 2147483003; font-size: 13px; }
   .pop textarea { width: 100%; min-height: 84px; resize: vertical; border: 1px solid #c9cfc9; border-radius: 6px; padding: 8px;
@@ -52,8 +55,9 @@
 </style>
 <div class="layer">
   <div class="hl"></div>
+  <div class="sel"></div>
   <div class="pins"></div>
-  <div class="tip">Klik bagian yang mau dikomentari · Esc batal</div>
+  <div class="tip">Klik satu titik, atau seret untuk menandai area · Esc batal</div>
   <div class="popwrap"></div>
   <div class="listwrap"></div>
   <div class="bar">
@@ -63,7 +67,7 @@
 </div>`;
 
   const $ = (s) => root.querySelector(s);
-  const hl = $('.hl'), pinsEl = $('.pins'), tip = $('.tip'), popwrap = $('.popwrap'), listwrap = $('.listwrap');
+  const hl = $('.hl'), selEl = $('.sel'), pinsEl = $('.pins'), tip = $('.tip'), popwrap = $('.popwrap'), listwrap = $('.listwrap');
   const addBtn = $('.add'), countBtn = $('.count');
 
   const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
@@ -114,12 +118,30 @@
   function find(sel) {
     try { return sel ? document.querySelector(sel) : null; } catch { return null; }
   }
+  // Judul terdekat: judul terakhir yang terlihat sebelum (atau memuat) elemen, menurut urutan dokumen.
   function headingFor(el) {
+    let best = null;
+    for (const h of document.querySelectorAll('h1, h2, h3, h4')) {
+      if (h.closest('adhiloka-review')) continue;
+      const r = h.getBoundingClientRect();
+      if (!r.width || !r.height || !h.innerText.trim()) continue;
+      const rel = h.compareDocumentPosition(el);
+      if (h === el || rel & Node.DOCUMENT_POSITION_FOLLOWING || rel & Node.DOCUMENT_POSITION_CONTAINED_BY) best = h;
+      else break;
+    }
+    if (best) return best.innerText.trim().replace(/\s+/g, ' ').slice(0, 100);
     const sec = el.closest('section, header, footer, nav, article, aside, main');
-    const h = sec && sec.querySelector('h1, h2, h3');
-    if (h && h.innerText.trim()) return h.innerText.trim().replace(/\s+/g, ' ').slice(0, 100);
-    if (sec) return `<${sec.localName}${sec.className ? ' class="' + String(sec.className).slice(0, 60) + '"' : ''}>`;
-    return '';
+    return sec ? `<${sec.localName}${sec.className ? ' class="' + String(sec.className).slice(0, 60) + '"' : ''}>` : '';
+  }
+  // /_image/?href=…/src/assets/images/x.jpg… → src/assets/images/x.jpg
+  function imgName(src) {
+    try {
+      const u = new URL(src, location.href);
+      const href = u.searchParams.get('href');
+      const p = decodeURIComponent(href ? href.split('?')[0] : u.pathname);
+      const i = p.indexOf('/src/');
+      return i >= 0 ? p.slice(i + 1) : p.replace(/^\/@fs\//, '');
+    } catch { return src; }
   }
   function context(el) {
     const img = el.closest('img, picture')?.querySelector?.('img') || (el.localName === 'img' ? el : el.querySelector('img'));
@@ -130,14 +152,61 @@
       classes: String(el.className?.baseVal ?? el.className ?? '').slice(0, 120),
       heading: headingFor(el),
       snippet: (el.innerText || el.getAttribute('alt') || el.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' ').slice(0, 180),
-      img: img ? (img.currentSrc || img.src || '').replace(location.origin, '') + (img.alt ? ` (alt: ${img.alt})` : '') : (bg && bg !== 'none' ? bg.slice(0, 160) : undefined),
+      img: img ? imgName(img.currentSrc || img.src || '') + (img.alt ? ` (alt: ${img.alt})` : '') : (bg && bg !== 'none' ? bg.slice(0, 160) : undefined),
       href: link ? link.getAttribute('href') : undefined,
     };
   }
   function isUi(e) { return e.composedPath().includes(host); }
 
+  // Area: jangkarnya elemen terdalam yang memuat seluruh area, supaya kotak ikut bila tata letak bergeser.
+  function anchorFor(s) {
+    let el = targetAt(s.l + s.w / 2, s.t + s.h / 2) || document.body;
+    while (el && el !== document.body) {
+      const r = el.getBoundingClientRect();
+      if (r.left <= s.l + 1 && r.top <= s.t + 1 && r.right >= s.l + s.w - 1 && r.bottom >= s.t + s.h - 1) break;
+      el = el.parentElement;
+    }
+    return el || document.body;
+  }
+  function insideArea(anchor, s) {
+    const out = [];
+    const seen = new Set();
+    for (const el of anchor.querySelectorAll('h1,h2,h3,h4,h5,p,li,a,button,label,figcaption,td,th,img,span,strong,em')) {
+      const r = el.getBoundingClientRect();
+      if (!r.width || !r.height) continue;
+      if (r.right < s.l || r.left > s.l + s.w || r.bottom < s.t || r.top > s.t + s.h) continue;
+      let line;
+      if (el.localName === 'img') line = 'foto ' + imgName(el.currentSrc || el.src || '') + (el.alt ? ` (alt: ${el.alt})` : '');
+      else {
+        if (el.querySelector('h1,h2,h3,h4,h5,p,li,a,button,label,figcaption,td,th')) continue; // ambil yang paling dalam saja
+        const t = (el.innerText || '').trim().replace(/\s+/g, ' ');
+        if (!t) continue;
+        line = `<${el.localName}> ${t.slice(0, 90)}`;
+      }
+      if (seen.has(line)) continue;
+      seen.add(line);
+      out.push(line);
+      if (out.length >= 10) break;
+    }
+    return out;
+  }
+
   // ---------- posisi pin ----------
   function pos(c) {
+    if (c.area) {
+      const el = find(c.selector);
+      let b, lost = false;
+      if (el) {
+        const r = el.getBoundingClientRect();
+        if (!r.width && !r.height) return null;
+        b = { l: r.left + c.area.rx * r.width, t: r.top + c.area.ry * r.height, w: c.area.rw * r.width, h: c.area.rh * r.height };
+      } else {
+        const d = c.docArea || { x: 0, y: 0, w: 0, h: 0 };
+        b = { l: d.x - scrollX, t: d.y - scrollY, w: d.w, h: d.h };
+        lost = true;
+      }
+      return { x: b.l, y: b.t, box: b, lost };
+    }
     const el = find(c.selector);
     if (el) {
       const r = el.getBoundingClientRect();
@@ -147,14 +216,19 @@
     return { x: (c.docX ?? 0) - scrollX, y: (c.docY ?? 0) - scrollY, lost: true };
   }
   function placePins() {
-    for (const pin of pinsEl.children) {
+    for (const pin of pinsEl.querySelectorAll('.pin')) {
       const c = comments.find((x) => x.id === pin.dataset.id);
+      const box = pinsEl.querySelector(`.area[data-id="${pin.dataset.id}"]`);
       const p = c && pos(c);
-      if (!p) { pin.style.display = 'none'; continue; }
+      if (!p) { pin.style.display = 'none'; if (box) box.style.display = 'none'; continue; }
       pin.style.display = '';
       pin.style.left = p.x + 'px';
       pin.style.top = p.y + 'px';
       pin.classList.toggle('lost', p.lost);
+      if (box && p.box) {
+        Object.assign(box.style, { display: '', left: p.box.l + 'px', top: p.box.t + 'px', width: p.box.w + 'px', height: p.box.h + 'px' });
+        box.classList.toggle('lost', p.lost);
+      }
     }
     if (open?.kind === 'view') {
       const c = comments.find((x) => x.id === open.id);
@@ -169,7 +243,7 @@
   function render() {
     const list = here();
     countBtn.textContent = comments.length ? `${list.length} di sini · ${comments.length} total` : '0';
-    pinsEl.innerHTML = list.map((c, i) => `<div class="pin" data-id="${c.id}" title="${esc(c.text)}"><span>${i + 1}</span></div>`).join('');
+    pinsEl.innerHTML = list.map((c, i) => (c.area ? `<div class="area" data-id="${c.id}"></div>` : '') + `<div class="pin"data-id="${c.id}" title="${esc(c.text)}"><span>${i + 1}</span></div>`).join('');
     placePins();
     if (listOpen) renderList();
   }
@@ -196,10 +270,41 @@
     pop.style.left = left + 'px';
     pop.style.top = top + 'px';
   }
-  function closePop() { open = null; popwrap.innerHTML = ''; }
+  function closePop() { open = null; popwrap.innerHTML = ''; selEl.style.display = 'none'; }
 
-  function openNew(el, x, y) {
+  function openNew(el, x, y, s) {
     const r = el.getBoundingClientRect();
+    if (s) {
+      const ctx = context(el);
+      const inside = insideArea(el, s);
+      ctx.inside = inside;
+      if (inside.length) ctx.snippet = inside.filter((l) => !l.startsWith('foto ')).map((l) => l.replace(/^<\w+> /, '')).join(' · ').slice(0, 180);
+      const mid = targetAt(s.l + s.w / 2, s.t + s.h / 2);
+      ctx.heading = headingFor(mid && el.contains(mid) ? mid : el);
+      const foto = inside.find((l) => l.startsWith('foto '));
+      ctx.img = foto ? foto.slice(5) : undefined;
+      open = {
+        kind: 'new',
+        data: {
+          page: page(),
+          title: document.title,
+          selector: el === document.body ? 'body' : cssPath(el),
+          area: {
+            rx: +((s.l - r.left) / r.width).toFixed(4),
+            ry: +((s.t - r.top) / r.height).toFixed(4),
+            rw: +(s.w / r.width).toFixed(4),
+            rh: +(s.h / r.height).toFixed(4),
+          },
+          docArea: { x: Math.round(s.l + scrollX), y: Math.round(s.t + scrollY), w: Math.round(s.w), h: Math.round(s.h) },
+          vw: innerWidth,
+          device: innerWidth < 768 ? 'mobile' : innerWidth < 1024 ? 'tablet' : 'desktop',
+          context: ctx,
+        },
+      };
+      // kotak sementara tetap terlihat selama menulis
+      Object.assign(selEl.style, { display: 'block', left: s.l + 'px', top: s.t + 'px', width: s.w + 'px', height: s.h + 'px' });
+      return composer(x, y, `Area ${Math.round(s.w)}×${Math.round(s.h)} px · ${esc(ctx.heading || '')}`);
+    }
     open = {
       kind: 'new',
       data: {
@@ -216,8 +321,12 @@
       },
     };
     const ctx = open.data.context;
+    composer(x, y, `&lt;${esc(ctx.tag)}&gt; ${esc(ctx.heading || '')}${ctx.snippet ? ' · “' + esc(ctx.snippet.slice(0, 60)) + '”' : ''}`);
+  }
+
+  function composer(x, y, meta) {
     popwrap.innerHTML = `<div class="pop">
-      <div class="meta">&lt;${esc(ctx.tag)}&gt; ${esc(ctx.heading || '')}${ctx.snippet ? ' · “' + esc(ctx.snippet.slice(0, 60)) + '”' : ''}</div>
+      <div class="meta">${meta}</div>
       <textarea placeholder="Tulis komentar…"></textarea>
       <div class="row"><button class="cancel">Batal</button><button class="main save">Simpan</button></div>
     </div>`;
@@ -251,7 +360,7 @@
     popwrap.innerHTML = editing
       ? `<div class="pop"><div class="meta">#${n} · ubah</div><textarea>${esc(c.text)}</textarea>
           <div class="row"><button class="cancel">Batal</button><button class="main save">Simpan</button></div></div>`
-      : `<div class="pop"><div class="meta">#${n} · ${esc(c.device || '')} ${c.vw ? c.vw + 'px' : ''} · ${esc(when)}</div>
+      : `<div class="pop"><div class="meta">#${n}${c.area ? ' · area' : ''} · ${esc(c.device || '')} ${c.vw ? c.vw + 'px' : ''} · ${esc(when)}</div>
           <div class="txt">${esc(c.text)}</div>
           <div class="row"><button class="danger del">Hapus</button><button class="edit">Ubah</button><button class="main close">Tutup</button></div></div>`;
     const p = pos(c) || { x: innerWidth / 2, y: innerHeight / 2 };
@@ -305,21 +414,58 @@
     e.stopPropagation();
     e.stopImmediatePropagation();
   };
-  ['pointerdown', 'mousedown', 'mouseup', 'pointerup', 'touchstart', 'touchend', 'dblclick', 'contextmenu', 'submit'].forEach((t) =>
+  // Klik = satu titik; seret lebih dari 6 px = area.
+  let drag = null; // { x, y, s }
+  let swallowUntil = 0;
+  const rectOf = (a, b) => ({ l: Math.min(a.x, b.x), t: Math.min(a.y, b.y), w: Math.abs(a.x - b.x), h: Math.abs(a.y - b.y) });
+  ['mousedown', 'mouseup', 'touchstart', 'touchend', 'dblclick', 'contextmenu', 'submit', 'dragstart', 'selectstart'].forEach((t) =>
     window.addEventListener(t, block, { capture: true, passive: false }));
-  window.addEventListener('mousemove', (e) => {
-    if (!picking || isUi(e)) { hl.style.display = 'none'; return; }
+  window.addEventListener('pointerdown', (e) => {
+    if (!picking || isUi(e)) return;
+    block(e);
+    if (e.button !== 0) return;
+    drag = { x: e.clientX, y: e.clientY, s: null };
+    try { e.target.setPointerCapture?.(e.pointerId); } catch {}
+  }, { capture: true, passive: false });
+  window.addEventListener('pointermove', (e) => {
+    if (!picking || isUi(e)) { if (!drag) hl.style.display = 'none'; return; }
+    if (drag) {
+      if (Math.hypot(e.clientX - drag.x, e.clientY - drag.y) > 6) {
+        drag.s = rectOf(drag, { x: e.clientX, y: e.clientY });
+        hl.style.display = 'none';
+        Object.assign(selEl.style, { display: 'block', left: drag.s.l + 'px', top: drag.s.t + 'px', width: drag.s.w + 'px', height: drag.s.h + 'px' });
+      }
+      e.preventDefault();
+      return;
+    }
     const el = targetAt(e.clientX, e.clientY);
     if (!el) return;
     const r = el.getBoundingClientRect();
     Object.assign(hl.style, { display: 'block', left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px' });
-  }, true);
-  window.addEventListener('click', (e) => {
-    if (!picking || isUi(e)) return;
+  }, { capture: true, passive: false });
+  window.addEventListener('pointerup', (e) => {
+    if (!picking || !drag) return;
     block(e);
-    const el = targetAt(e.clientX, e.clientY);
+    const d = drag;
+    drag = null;
+    swallowUntil = Date.now() + 500; // klik bawaan yang menyusul jangan sampai membuka tautan
     setPicking(false);
-    if (el) openNew(el, e.clientX, e.clientY);
+    if (d.s && d.s.w > 6 && d.s.h > 6) {
+      openNew(anchorFor(d.s), d.s.l + d.s.w, d.s.t + d.s.h, d.s);
+    } else {
+      selEl.style.display = 'none';
+      const el = targetAt(d.x, d.y);
+      if (el) openNew(el, d.x, d.y);
+    }
+  }, { capture: true, passive: false });
+  window.addEventListener('pointercancel', () => { drag = null; selEl.style.display = 'none'; }, true);
+  window.addEventListener('click', (e) => {
+    if (isUi(e)) return;
+    if (picking || Date.now() < swallowUntil) {
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+    }
   }, true);
 
   // ---------- tombol & keyboard ----------

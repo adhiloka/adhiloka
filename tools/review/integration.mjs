@@ -35,12 +35,11 @@ function readBody(req) {
   });
 }
 
-const FIELDS = ['page', 'title', 'text', 'selector', 'rx', 'ry', 'docX', 'docY', 'vw', 'device', 'context'];
-
+// Semua kolom dari klien diterima kecuali yang diatur server, supaya kolom baru
+// di client.js tidak perlu restart server.
 function pick(src) {
-  const out = {};
-  for (const k of FIELDS) if (src[k] !== undefined) out[k] = src[k];
-  return out;
+  const { id, created, updated, ...rest } = src || {};
+  return rest;
 }
 
 function middleware() {
