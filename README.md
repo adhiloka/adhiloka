@@ -11,6 +11,13 @@ npm run build    # keluaran statis di dist/
 npm run preview  # menyajikan dist/
 ```
 
+### Komentar review (lokal saja)
+
+Saat `npm run dev`, tombol **+ Komentar** di kiri bawah (Alt+C): klik satu titik, tulis catatan.
+Tersimpan di `../../review/comments.json` (vault `website/review/`, di luar repo). Hanya disuntik
+saat `astro dev`; `astro build` tidak menyertakan apa pun. Daftar: `node tools/review/comments.mjs`;
+selesai: `node tools/review/comments.mjs done <id>`.
+
 ## Halaman
 
 Menunya tetap menu Adhiloka (About Us · Perfumery · Ingredients · Sustainability · Media ·

@@ -1,6 +1,8 @@
 // @ts-check
 import { defineConfig, fontProviders } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+// Komentar review lokal, hanya aktif di `astro dev` (lihat tools/review/).
+import reviewComments from './tools/review/integration.mjs';
 
 // Ganti lewat variabel lingkungan saat deploy.
 const site = process.env.SITE_URL || 'https://adhiloka.com';
@@ -11,7 +13,7 @@ export default defineConfig({
 
   // Toolbar dev Astro menutupi kontrol slider hero di kanan bawah.
   devToolbar: { enabled: false },
-  integrations: [sitemap({ filter: (page) => !page.includes('/under-construction/') })],
+  integrations: [sitemap({ filter: (page) => !page.includes('/under-construction/') }), reviewComments()],
 
   // Tiga rute lama dari susunan menu sebelumnya. Tautan luar dan hasil telusur
   // masih menunjuk ke sini, jadi mereka diarahkan, bukan dibiarkan jadi 404.
