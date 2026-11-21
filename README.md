@@ -28,8 +28,8 @@ desktop, laci dari kanan dengan akordeon di layar ≤1026 px. Isi menu hanya di 
 Isi panel mega-menu desktop memakai konsep Adhiloka versi pertama (yang meniru robertet.com):
 foto utama berjudul dengan panah di kiri, menuju halaman induk, lalu kolom tautan di kanan. Foto
 dan judulnya dari `panel.image` / `panel.title` di `NAV`. **Foto panel = foto banner halaman induk**
-(pemilik, 15 Nov 2026): About Us `hero-terraces-valley`, Perfumery `hero-perfumer-blending`, Ingredients
-`hero-rose-dew`, Sustainability `canopy-from-below`, Media `smelling-flowers`, Connect/Contact
+(pemilik, 15 Nov 2026): About Us `hero-woman-golden-light`, Perfumery `hero-smelling-vial`, Ingredients
+`hero-blossom-golden`, Sustainability `hero-hands-seedling`, Media `smelling-flowers`, Connect/Contact
 `tagged-sample-bottles`; ganti keduanya bersamaan. Di laci mobile fotonya disembunyikan.
 
 Kolom kanan diawali baris judul panel (ABOUT US ───), lalu **tautan datar tanpa sub-menu, label
@@ -45,7 +45,7 @@ ikut sendiri. "Life at Adhiloka" dilepas.
 
 | Jalur | Susunan |
 | --- | --- |
-| `/` | Hero slider · kutipan terbelah (tanpa label, garis dan nama, 15 Nov 2026) · Our Business (tab Ingredients/Perfumery) · akordeon keberlanjutan · Latest News · Join Us |
+| `/` | Hero slider empat slide tetap (About, Perfumery, Ingredients, Sustainability; pemilik 21 Nov 2026, foto slide = banner tujuan) · kutipan terbelah (tanpa label, garis dan nama, 15 Nov 2026) · Our Business (tab Ingredients/Perfumery) · akordeon keberlanjutan · Latest News · Join Us |
 | `/about/` | Pola /about-us Adani: banner · kutipan · Who We Are (slider foto fade dalam panel inset) · How We Work · nilai · kartu |
 | `/about/our-business/`, `/about/our-purpose/` | Banner · pembuka · isi halaman · Explore More |
 | `/about/our-leadership/`, `our-history/`, `our-locations/` | **Diparkir** (lihat "Halaman yang diparkir"); rutenya dialihkan ke `/about/` |
