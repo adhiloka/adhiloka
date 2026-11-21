@@ -16,8 +16,8 @@ export const INGREDIENTS_INTRO: PageIntro = {
   lede: '',
   description:
     'Natural aromatic ingredients by Adhiloka: resins, leaves, roots and spices, selected and prepared for perfumery.',
-  image: 'hero-rose-dew',
-  caption: 'pink rose petals with morning dew',
+  image: 'hero-blossom-golden',
+  caption: 'blossom in golden evening light',
 };
 
 /* Juga dipakai katalog PDF (tools/pdf/build.mjs). */

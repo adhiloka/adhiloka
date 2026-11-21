@@ -39,7 +39,7 @@ export const ABOUT_CARDS: LinkCard[] = [
 export const ABOUT_MORE: LinkCard = {
   title: 'Sustainability',
   href: '/sustainability/',
-  image: 'canopy-from-below',
+  image: 'hero-hands-seedling',
 };
 
 /* ── Our Business ────────────────────────────────────────────────────── */
@@ -89,7 +89,7 @@ export const BUSINESS_PASSAGES: Passage[] = [
     cta: 'Perfumery',
     href: '/perfumery/',
     caption: 'smelling a handful of dried flowers',
-    image: 'hero-smelling-flowers',
+    image: 'hero-smelling-vial',
   },
 ];
 

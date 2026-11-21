@@ -15,8 +15,9 @@ export const SUSTAINABILITY_INTRO: PageIntro = {
   lede: '',
   description:
     'Sustainability at Adhiloka: respect for the land our natural ingredients come from, and lasting relationships with the people who grow them.',
-  caption: 'tree canopy seen from below',
-  image: 'canopy-from-below',
+  caption: 'hands holding a seedling in soil',
+  image: 'hero-hands-seedling',
+  focus: '50% 30%',
 };
 
 export const SUSTAINABILITY_OPENING = [

@@ -14,7 +14,7 @@ Tidak ada.
 | --- | --- | --- | --- | --- |
 | `about-table` |  | mendatar |  | src/data/pages/about.ts:157 (banner LEADERSHIP_INTRO (halaman diparkir)) |
 | `agroforest-canopy` |  | mendatar | `blok src/components/SiteFooter.astro · ICONS` | src/components/SiteFooter.astro:78 (blok ICONS)<br>src/data/pages/about.ts:192 (banner LOCATIONS_INTRO (halaman diparkir))<br>src/data/pages/media.ts:204 (banner SOCIAL_INTRO (halaman diparkir)) |
-| `amber-bottle-shelf` | botol amber di rak | mendatar | `/contact/partners/` | src/data/pages/connect.ts:13 (tautan /contact/partners/)<br>src/data/pages/connect.ts:101 (banner PARTNERS_INTRO)<br>src/data/pages/home.ts:158 (tautan /contact/partners/) |
+| `amber-bottle-shelf` | botol amber di rak | mendatar | `/contact/partners/` | src/data/pages/connect.ts:13 (tautan /contact/partners/)<br>src/data/pages/connect.ts:101 (banner PARTNERS_INTRO)<br>src/data/pages/home.ts:145 (tautan /contact/partners/) |
 | `basil-plant` | basil-plant-6133135.jpg | mendatar | `/ingredients/catalog/sweet-basil/` | catalog-data.json (bahan Sweet Basil) |
 | `betel-leaves` | betel-leaves-40190512.jpg | mendatar | `/ingredients/catalog/betel-leaf/` | catalog-data.json (bahan Betel Leaf) |
 | `black-peppercorns` | black-peppercorns-macro-8559086.jpg | mendatar | `/ingredients/catalog/black-pepper/` | catalog-data.json (bahan Black Pepper) |
@@ -22,17 +22,16 @@ Tidak ada.
 | `burlap-sacks` | tumpukan kain karung goni | tegak | `/contact/?kind=supplier` | src/data/pages/connect.ts:88 (tautan /contact/?kind=supplier) |
 | `cajeput-tree` | melaleuca-leucadendra-ayuwadala-1.jpg | tegak | `/ingredients/catalog/cajeput/` | catalog-data.json (bahan Cajeput) |
 | `cananga-flowers` | cananga-odorata-prenn-02.jpg | mendatar | `/ingredients/catalog/cananga/` | catalog-data.json (bahan Cananga) |
-| `canopy-from-below` | tajuk pohon dilihat dari bawah | mendatar | `/sustainability/` | src/data/pages/about.ts:42 (blok ABOUT_MORE)<br>src/data/pages/sustainability.ts:19 (banner SUSTAINABILITY_INTRO)<br>src/data/site.ts:99 (tautan /sustainability/) |
 | `cardamom-pods` | cardamom-pods-split-unsplash-bF404j83DH0.jpg | mendatar | `/ingredients/catalog/cardamom/` | catalog-data.json (bahan Cardamom) |
 | `cargo-ship` | kapal kontainer di laut saat senja | mendatar | `/ingredients/working-with-us/` | src/data/pages/ingredients.ts:35 (tautan /ingredients/working-with-us/)<br>src/data/pages/ingredients.ts:225 (banner ORDERING_INTRO) |
-| `chili-pickers` | dua petani bercaping memetik cabai (Become a Supplier) | mendatar | `/contact/suppliers/` | src/data/pages/connect.ts:12 (tautan /contact/suppliers/)<br>src/data/pages/connect.ts:63 (banner SUPPLIERS_INTRO)<br>src/data/pages/home.ts:157 (tautan /contact/suppliers/) |
+| `chili-pickers` | dua petani bercaping memetik cabai (Become a Supplier) | mendatar | `/contact/suppliers/` | src/data/pages/connect.ts:12 (tautan /contact/suppliers/)<br>src/data/pages/connect.ts:63 (banner SUPPLIERS_INTRO)<br>src/data/pages/home.ts:144 (tautan /contact/suppliers/) |
 | `chili-sacks` | karung goni berisi cabai kering dan rempah (keluarga Spices) | mendatar | `/ingredients/catalog/?family=Spice` | src/data/materials.ts:174 (keluarga Spice) |
 | `cinnamon-quills` | tumpukan gulungan kulit kayu manis, close-up tajam, latar gelap | mendatar | `/ingredients/catalog/cinnamon-kerinci/` | catalog-data.json (bahan Cinnamon Kerinci) |
 | `citronella-grass` | cymbopogon-nardus-steakley-DITSL.jpg | mendatar | `/ingredients/catalog/citronella-java/` | catalog-data.json (bahan Citronella Java) |
 | `cloves-bowl` | cengkih kering di mangkuk keramik (What We Look For) | mendatar | `blok src/data/pages/connect.ts · What We Look For` | src/data/pages/connect.ts:79 (blok What We Look For) |
 | `cloves-dried` | cengkih kering, makro | mendatar | `/ingredients/catalog/clove/` | catalog-data.json (bahan Clove) |
 | `cloves-scattered` | cengkih kering berserakan di permukaan abu (slider Who We Are) | mendatar | `blok /about/ · baris 39` | src/pages/about/index.astro:39 (blok baris 39) |
-| `cloves-sorting` | cengkih disortir di rak jemur (bukan petani Adhiloka) | mendatar | `/sustainability/responsible-sourcing/` | src/data/pages/sustainability.ts:67 (tautan /sustainability/responsible-sourcing/) |
+| `cloves-sorting` | cengkih disortir di rak jemur (bukan petani Adhiloka) | mendatar | `/sustainability/responsible-sourcing/` | src/data/pages/sustainability.ts:68 (tautan /sustainability/responsible-sourcing/) |
 | `cocoa-beans` | cocoa-beans-dry-32597040.jpg | mendatar | `/ingredients/catalog/cocoa/` | catalog-data.json (bahan Cocoa) |
 | `cocoa-pod` | buah kakao dan biji kakao (keluarga Gourmand) | mendatar | `/ingredients/catalog/?family=Gourmand` | src/data/materials.ts:178 (keluarga Gourmand) |
 | `coffee-cherries` | arabica-coffee-cherries-30658799.jpg | mendatar | `/ingredients/catalog/coffee-arabica/` | catalog-data.json (bahan Coffee Arabica) |
@@ -43,7 +42,7 @@ Tidak ada.
 | `desk-laptop` | meja kerja putih dengan laptop dan tanaman (How to Apply) | mendatar | `/contact/?kind=careers` | src/data/pages/connect.ts:50 (tautan /contact/?kind=careers) |
 | `dried-bark` | dried-bark-for-herbal-tea-and-natural-remedies-36863456.jpg | mendatar | `/ingredients/catalog/massoia/` | catalog-data.json (bahan Massoia) |
 | `farmer-portrait` | petani tua bercaping tersenyum di sawah (kutipan People) | mendatar | `kutipan PEOPLE_QUOTE` | src/pages/sustainability/people.astro:11 (kutipan PEOPLE_QUOTE) |
-| `farmers-standing` | tiga petani berdiri di kebun di bawah pohon (Close to the Source) | mendatar | `blok src/data/pages/sustainability.ts · Close to the Source` | src/data/pages/sustainability.ts:130 (blok Close to the Source) |
+| `farmers-standing` | tiga petani berdiri di kebun di bawah pohon (Close to the Source) | mendatar | `blok src/data/pages/sustainability.ts · Close to the Source` | src/data/pages/sustainability.ts:131 (blok Close to the Source) |
 | `fenugreek-jar` | fenugreek-seeds-jar-pexels-35156984.jpg | persegi | `/ingredients/catalog/fenugreek/` | catalog-data.json (bahan Fenugreek) |
 | `fine-fragrance-bottles` | deretan botol parfum kaca berisi parfum (Fine Fragrance) | mendatar | `/perfumery/#fine-fragrance` | src/data/pages/perfumery.ts:44 (bagian Fine Fragrance)<br>src/data/pages/perfumery.ts:119 (tautan /perfumery/#fine-fragrance) |
 | `fragrance-petal` |  | mendatar | `blok /perfumery/ · Contact Us` | src/pages/perfumery/index.astro:31 (blok Contact Us) |
@@ -54,14 +53,15 @@ Tidak ada.
 | `grain-drying` | petani perempuan meratakan hasil panen yang dijemur (berita The Rhythm of the Harvest) | mendatar | `blok src/data/pages/media.ts · The Rhythm of the Harvest` | src/data/pages/media.ts:127 (blok The Rhythm of the Harvest) |
 | `green-hills-tea` | bukit kebun teh hijau di bawah langit cerah (penutup Sustainability) | mendatar | `blok /sustainability/ · Responsible Sourcing` | src/pages/sustainability/index.astro:21 (blok Responsible Sourcing) |
 | `green-leaves` | daun hijau lebar, dekat (keluarga Leaf) | tegak | `/ingredients/catalog/?family=Leaf` | src/data/materials.ts:172 (keluarga Leaf) |
-| `growers-field` | dua petani berdiri di ladang dengan hasil panen (Partnerships) | mendatar | `blok src/data/pages/sustainability.ts · Partnerships` | src/data/pages/sustainability.ts:51 (blok Partnerships) |
+| `growers-field` | dua petani berdiri di ladang dengan hasil panen (Partnerships) | mendatar | `blok src/data/pages/sustainability.ts · Partnerships` | src/data/pages/sustainability.ts:52 (blok Partnerships) |
 | `herb-basket` | keranjang berisi daun herba segar di meja kayu (keluarga Herbal) | mendatar | `/ingredients/catalog/?family=Herbal` | src/data/materials.ts:177 (keluarga Herbal) |
 | `hero-benzoin-tears` |  | mendatar | `blok /about/ · baris 40` | src/pages/about/index.astro:40 (blok baris 40) |
-| `hero-farmer-lychees` | petani perempuan tertawa memegang tandan leci, latar kebun hijau (hero The Source Collection dan Ingredient Catalog; bukan petani Adhiloka) | mendatar | `/ingredients/catalog/` | src/data/pages/about.ts:83 (tautan /ingredients/catalog/)<br>src/data/pages/home.ts:73 (tautan /ingredients/catalog/)<br>src/data/pages/ingredients.ts:32 (tautan /ingredients/catalog/)<br>src/data/pages/ingredients.ts:104 (banner CATALOG_INTRO) |
-| `hero-hands-peppercorns` | dua tangan menangkup lada hijau segar, latar bokeh (hero Our Expertise dan halaman Technology) | mendatar | `/ingredients/technology/` | src/components/home/BusinessShowcase.astro:48 (tile Technology)<br>src/data/pages/about.ts:74 (tautan /ingredients/technology/)<br>src/data/pages/home.ts:59 (tautan /ingredients/technology/)<br>src/data/pages/ingredients.ts:34 (tautan /ingredients/technology/)<br>src/data/pages/ingredients.ts:128 (banner TECHNOLOGY_INTRO) |
-| `hero-misty-terraces` | sawah berundak keemasan dengan dua orang kecil di puncaknya, kabut tebal di lembah (hero Growing Together dan Our Purpose) | mendatar | `/about/our-purpose/` | src/data/pages/about.ts:34 (tautan /about/our-purpose/)<br>src/data/pages/about.ts:105 (banner PURPOSE_INTRO)<br>src/data/pages/home.ts:81 (tautan /about/our-purpose/)<br>src/data/pages/sustainability.ts:139 (tautan /about/our-purpose/) |
-| `hero-rose-dew` | makro mawar merah muda berembun | mendatar | `/ingredients/` | src/data/pages/home.ts:52 (tautan /ingredients/)<br>src/data/pages/ingredients.ts:19 (banner INGREDIENTS_INTRO)<br>src/data/site.ts:82 (tautan /ingredients/) |
-| `hero-smelling-flowers` | pria mencium segenggam bunga kering kuning, close-up (hero Perfumery dan halaman Perfumery; bukan staf Adhiloka) | mendatar | `/perfumery/` | src/data/pages/about.ts:92 (tautan /perfumery/)<br>src/data/pages/home.ts:66 (tautan /perfumery/)<br>src/data/pages/perfumery.ts:28 (banner PERFUMERY_INTRO)<br>src/data/site.ts:65 (tautan /perfumery/) |
+| `hero-blossom-golden` | kuncup bunga apel disinari matahari senja, latar keemasan (hero Ingredients dan halaman Ingredients) | mendatar | `/ingredients/` | src/data/pages/home.ts:60 (tautan /ingredients/)<br>src/data/pages/ingredients.ts:19 (banner INGREDIENTS_INTRO)<br>src/data/site.ts:82 (tautan /ingredients/) |
+| `hero-farmer-lychees` | petani perempuan tertawa memegang tandan leci, latar kebun hijau (hero The Source Collection dan Ingredient Catalog; bukan petani Adhiloka) | mendatar | `/ingredients/catalog/` | src/data/pages/about.ts:83 (tautan /ingredients/catalog/)<br>src/data/pages/ingredients.ts:32 (tautan /ingredients/catalog/)<br>src/data/pages/ingredients.ts:104 (banner CATALOG_INTRO) |
+| `hero-hands-peppercorns` | dua tangan menangkup lada hijau segar, latar bokeh (hero Our Expertise dan halaman Technology) | mendatar | `/ingredients/technology/` | src/components/home/BusinessShowcase.astro:48 (tile Technology)<br>src/data/pages/about.ts:74 (tautan /ingredients/technology/)<br>src/data/pages/ingredients.ts:34 (tautan /ingredients/technology/)<br>src/data/pages/ingredients.ts:128 (banner TECHNOLOGY_INTRO) |
+| `hero-hands-seedling` | tangan menangkup tunas di segenggam tanah, cahaya hangat (hero Sustainability dan halaman Sustainability) | mendatar | `/sustainability/` | src/data/pages/about.ts:42 (blok ABOUT_MORE)<br>src/data/pages/home.ts:68 (tautan /sustainability/)<br>src/data/pages/sustainability.ts:19 (banner SUSTAINABILITY_INTRO)<br>src/data/site.ts:99 (tautan /sustainability/) |
+| `hero-misty-terraces` | sawah berundak keemasan dengan dua orang kecil di puncaknya, kabut tebal di lembah (hero Growing Together dan Our Purpose) | mendatar | `/about/our-purpose/` | src/data/pages/about.ts:34 (tautan /about/our-purpose/)<br>src/data/pages/about.ts:105 (banner PURPOSE_INTRO)<br>src/data/pages/sustainability.ts:140 (tautan /about/our-purpose/) |
+| `hero-smelling-vial` | perempuan memejamkan mata mencium botol kecil, cahaya jendela lembut (hero Perfumery dan halaman Perfumery; bukan staf Adhiloka) | mendatar | `/perfumery/` | src/data/pages/about.ts:92 (tautan /perfumery/)<br>src/data/pages/home.ts:52 (tautan /perfumery/)<br>src/data/pages/perfumery.ts:28 (banner PERFUMERY_INTRO)<br>src/data/site.ts:65 (tautan /perfumery/) |
 | `hero-still-hall` |  | mendatar | `/media/news/` | src/data/pages/media.ts:27 (tautan /media/news/)<br>src/data/pages/media.ts:50 (banner NEWS_INTRO) |
 | `hero-woman-golden-light` | perempuan tersenyum disinari matahari sore dari belakang, latar kabur (hero We Are Adhiloka dan halaman About; bukan staf Adhiloka) | mendatar | `/about/` | src/components/blocks/SiblingCards.astro:28 (tautan /about/)<br>src/data/pages/about.ts:19 (banner ABOUT_INTRO)<br>src/data/pages/home.ts:44 (tautan /about/)<br>src/data/site.ts:50 (tautan /about/) |
 | `homalomena-leaves` | homalomena-stang-1zz.jpg | mendatar | `/ingredients/catalog/sugandh-mantri/` | catalog-data.json (bahan Homalomena) |
@@ -75,7 +75,7 @@ Tidak ada.
 | `lab-flash-point` | alat uji titik nyala Pensky-Martens | tegak | `/ingredients/working-with-us/` | src/data/pages/ingredients.ts:212 (tautan /ingredients/working-with-us/) |
 | `lab-glassware` | gelas ukur dan tabung laboratorium berisi cairan merah (Research & Education) | mendatar | `/contact/?kind=partnership` | src/data/pages/connect.ts:126 (tautan /contact/?kind=partnership) |
 | `lab-scientist-vial` | peneliti memeriksa vial di laboratorium (Co-development) | mendatar | `blok src/data/pages/connect.ts · Co-development` | src/data/pages/connect.ts:117 (blok Co-development) |
-| `lab-technician` | teknisi berjas lab dan penutup rambut bekerja di meja laboratorium (Working at Adhiloka) | mendatar | `/contact/careers/` | src/data/pages/connect.ts:11 (tautan /contact/careers/)<br>src/data/pages/connect.ts:25 (banner CAREERS_INTRO)<br>src/data/pages/home.ts:156 (tautan /contact/careers/) |
+| `lab-technician` | teknisi berjas lab dan penutup rambut bekerja di meja laboratorium (Working at Adhiloka) | mendatar | `/contact/careers/` | src/data/pages/connect.ts:11 (tautan /contact/careers/)<br>src/data/pages/connect.ts:25 (banner CAREERS_INTRO)<br>src/data/pages/home.ts:143 (tautan /contact/careers/) |
 | `lab-vials` | tangan bersarung memegang vial kaca | mendatar | `/perfumery/#innovation` | src/data/pages/perfumery.ts:121 (tautan /perfumery/#innovation) |
 | `lab-woman-hall` | peneliti perempuan bekerja di laboratorium terang (Working at Adhiloka) | mendatar | `blok src/data/pages/connect.ts · Working at Adhiloka` | src/data/pages/connect.ts:34 (blok Working at Adhiloka) |
 | `lavender-flowers` | lavender-bed-closeup-unsplash-bIHJ4oxQlYs.jpg | mendatar | `/ingredients/catalog/lavender/` | catalog-data.json (bahan Lavender) |
@@ -91,16 +91,16 @@ Tidak ada.
 | `oil-on-palm` | minyak diteteskan dari botol amber ke telapak tangan (berita From Raw Material) | mendatar | `blok src/data/pages/media.ts · From Raw Material to Fragrance` | src/data/pages/media.ts:97 (blok From Raw Material to Fragrance) |
 | `palmarosa-grass` | cymbopogon-martini-upadhyay.jpg | tegak | `/ingredients/catalog/palmarosa/` | catalog-data.json (bahan Palmarosa) |
 | `patchouli-leaves` | daun nilam asli, Pogostemon cablin | mendatar | `/ingredients/catalog/patchouli/` | catalog-data.json (bahan Patchouli) |
-| `pepper-harvest-hands` | tangan memetik buah lada dari sulurnya, tegak | tegak | `kutipan HOME_QUOTE` | src/data/pages/home.ts:99 (kutipan HOME_QUOTE)<br>src/pages/about/index.astro:30 (kutipan HOME_QUOTE) |
+| `pepper-harvest-hands` | tangan memetik buah lada dari sulurnya, tegak | tegak | `kutipan HOME_QUOTE` | src/data/pages/home.ts:86 (kutipan HOME_QUOTE)<br>src/pages/about/index.astro:30 (kutipan HOME_QUOTE) |
 | `perfume-workshop` | meja racik parfum dari atas | mendatar | `/about/our-business/` | src/data/pages/about.ts:33 (tautan /about/our-business/)<br>src/data/pages/about.ts:53 (banner BUSINESS_INTRO)<br>src/pages/about/index.astro:49 (tautan /about/our-business/) |
 | `plantation-rows` | barisan kebun di lereng bukit (wilayah Sulawesi) | mendatar | `blok src/data/regions.ts · Sulawesi` | src/data/regions.ts:50 (blok Sulawesi) |
-| `rainforest-aerial` | hutan hujan dari udara | mendatar | `/sustainability/responsible-sourcing/` | src/data/pages/about.ts:65 (tautan /sustainability/responsible-sourcing/)<br>src/data/pages/home.ts:125 (tautan /sustainability/responsible-sourcing/)<br>src/data/pages/sustainability.ts:28 (tautan /sustainability/responsible-sourcing/)<br>src/data/pages/sustainability.ts:84 (banner SOURCING_INTRO) |
+| `rainforest-aerial` | hutan hujan dari udara | mendatar | `/sustainability/responsible-sourcing/` | src/data/pages/about.ts:65 (tautan /sustainability/responsible-sourcing/)<br>src/data/pages/home.ts:112 (tautan /sustainability/responsible-sourcing/)<br>src/data/pages/sustainability.ts:29 (tautan /sustainability/responsible-sourcing/)<br>src/data/pages/sustainability.ts:85 (banner SOURCING_INTRO) |
 | `reed-diffuser-home` |  | mendatar | `/perfumery/#consumer-fragrance` | src/data/pages/perfumery.ts:51 (bagian Consumer Fragrance)<br>src/data/pages/perfumery.ts:120 (tautan /perfumery/#consumer-fragrance) |
 | `resin-bark-close` | getah damar mengeras di kulit kayu, makro (berita Benzoin; bukan benzoin) | mendatar | `blok src/data/pages/media.ts · Benzoin, Tapped From Living Trees` | src/data/pages/media.ts:155 (blok Benzoin, Tapped From Living Trees) |
 | `resin-pieces` | bongkah damar amber, makro (bukan benzoin) | mendatar | `/ingredients/catalog/?family=Resin` | src/data/materials.ts:170 (keluarga Resin) |
 | `rhubarb-plant` | rheum-officinale-salicyna-8064.jpg | mendatar | `/ingredients/catalog/rhubarb/` | catalog-data.json (bahan Rhubarb) |
-| `rice-planting` | orang menanam padi | mendatar | `/sustainability/people/` | src/data/pages/home.ts:133 (tautan /sustainability/people/)<br>src/data/pages/sustainability.ts:27 (tautan /sustainability/people/)<br>src/data/pages/sustainability.ts:42 (banner PEOPLE_INTRO) |
-| `rice-terraces` | sawah berundak dari udara | mendatar | `/sustainability/` | src/data/pages/home.ts:141 (tautan /sustainability/) |
+| `rice-planting` | orang menanam padi | mendatar | `/sustainability/people/` | src/data/pages/home.ts:120 (tautan /sustainability/people/)<br>src/data/pages/sustainability.ts:28 (tautan /sustainability/people/)<br>src/data/pages/sustainability.ts:43 (banner PEOPLE_INTRO) |
+| `rice-terraces` | sawah berundak dari udara | mendatar | `/sustainability/` | src/data/pages/home.ts:128 (tautan /sustainability/) |
 | `rose-bush` | pink-roses-bush-unsplash--pldRipVgx4.jpg | mendatar | `/ingredients/catalog/rose/` | catalog-data.json (bahan Rose) |
 | `sandalwood-chips` | sandalwood-chips-unsplash-iOx1F024kXk.jpg | mendatar | `/ingredients/catalog/sandalwood/` | catalog-data.json (bahan Sandalwood) |
 | `seed-spoons` | sendok berisi biji dan rempah kering di meja gelap (berita katalog online) | mendatar | `blok src/data/pages/media.ts · Our Ingredient Catalog, Now Online` | src/data/pages/media.ts:82 (blok Our Ingredient Catalog, Now Online) |
@@ -114,7 +114,7 @@ Tidak ada.
 | `tamarind-pods` | tamarind-pods-basket-11536825.jpg | mendatar | `/ingredients/catalog/tamarind/` | catalog-data.json (bahan Tamarind) |
 | `tea-hills-mist` | kebun teh berbukit di bawah kabut (wilayah Sulawesi) | mendatar | `blok src/data/regions.ts · Java` | src/data/regions.ts:36 (blok Java) |
 | `tea-leaves` | tea-plant-close-11669658.jpg | mendatar | `/ingredients/catalog/tea/` | catalog-data.json (bahan Tea) |
-| `tea-picker` | pemetik teh bercaping di kebun (Continuity) | mendatar | `blok src/data/pages/sustainability.ts · Continuity` | src/data/pages/sustainability.ts:58 (blok Continuity) |
+| `tea-picker` | pemetik teh bercaping di kebun (Continuity) | mendatar | `blok src/data/pages/sustainability.ts · Continuity` | src/data/pages/sustainability.ts:59 (blok Continuity) |
 | `temulawak-rhizomes` |  | mendatar | `/ingredients/catalog/temulawak/` | catalog-data.json (bahan Temulawak) |
 | `terraces-mist` | sawah berundak di lereng berkabut (berita Where Our Ingredients Begin) | mendatar | `blok src/data/pages/media.ts · Where Our Ingredients Begin` | src/data/pages/media.ts:112 (blok Where Our Ingredients Begin) |
 | `toba-hills` | bukit hijau di tepi danau besar (wilayah Sumatra) | mendatar | `blok src/data/regions.ts · Sumatra` | src/data/regions.ts:29 (blok Sumatra) |
@@ -138,16 +138,19 @@ Tidak ada.
 - `about-chick` · mendatar · 
 - `fragrance-bloom` · mendatar · 
 - `rainforest-sunbeams` · mendatar · sinar matahari menembus pohon tinggi hutan hujan
+- `canopy-from-below` · mendatar · tajuk pohon dilihat dari bawah
 - `misty-hills` · mendatar · bukit hijau berkabut
 - `tea-hills-dusk` · mendatar · bukit hijau di kaki gunung saat senja
 - `resin-on-bark` · mendatar · damar amber di kulit pohon (bukan benzoin)
 - `resin-bowl` · tegak · butir damar amber di mangkuk kayu (bukan benzoin)
 - `cinnamon-sticks` · mendatar · batang kayu manis diikat (jenis tak diketahui)
+- `hero-rose-dew` · mendatar · makro mawar merah muda berembun
 - `hero-terraces-valley` · mendatar · sawah berundak di lembah di bawah pegunungan hijau, langit biru (hero We Are Adhiloka dan halaman About)
 - `hero-extraction-rig` · mendatar · close-up rangkaian alat ekstraksi kaca dan baja nirkarat di laboratorium terang (hero Our Expertise dan halaman Technology)
 - `hero-perfumer-blending` · mendatar · perfumer meracik dengan pipet di botol berisi cairan amber, close-up (hero Perfumery dan halaman Perfumery; bukan staf Adhiloka)
 - `hero-tea-hills` · mendatar · perbukitan kebun teh hijau di bawah matahari cerah (hero The Source Collection dan Ingredient Catalog)
 - `hero-green-terraces` · mendatar · sawah berundak hijau cerah di bawah langit biru (hero Growing Together dan Our Purpose)
+- `hero-smelling-flowers` · mendatar · pria mencium segenggam bunga kering kuning, close-up (hero Perfumery dan halaman Perfumery; bukan staf Adhiloka)
 - `cloves-in-hand` · mendatar · cengkih kering di telapak tangan
 - `grass-blades` · tegak · daun rumput tegak, makro (dipakai untuk vetiver)
 - `perfumer-dropper` · mendatar · perfumer meracik dengan pipet (bukan staf Adhiloka)

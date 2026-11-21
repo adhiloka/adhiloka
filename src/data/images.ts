@@ -40,6 +40,9 @@ import heroHandsPeppercorns from '../assets/images/hero-hands-peppercorns.jpg';
 import heroSmellingFlowers from '../assets/images/hero-smelling-flowers.jpg';
 import heroFarmerLychees from '../assets/images/hero-farmer-lychees.jpg';
 import heroMistyTerraces from '../assets/images/hero-misty-terraces.jpg';
+import heroSmellingVial from '../assets/images/hero-smelling-vial.jpg';
+import heroBlossomGolden from '../assets/images/hero-blossom-golden.jpg';
+import heroHandsSeedling from '../assets/images/hero-hands-seedling.jpg';
 import clovesDried from '../assets/images/cloves-dried.jpg';
 import clovesInHand from '../assets/images/cloves-in-hand.jpg';
 import clovesSorting from '../assets/images/cloves-sorting.jpg';
@@ -213,6 +216,9 @@ import kaffirLimeLeaves from '../assets/images/kaffir-lime-leaves.jpg';
  *   hero-smelling-flowers  pria mencium segenggam bunga kering kuning, close-up (hero Perfumery dan halaman Perfumery; bukan staf Adhiloka)  [stock-photos/hero-2026-11-21/C-man-smelling-dried-flowers-unsplash-UOT38o_Y79I.jpg, Unsplash License]  (gaya dsm-firmenich, 21 Nov 2026)
  *   hero-farmer-lychees  petani perempuan tertawa memegang tandan leci, latar kebun hijau (hero The Source Collection dan Ingredient Catalog; bukan petani Adhiloka)  [stock-photos/hero-2026-11-21/D-woman-farmer-lychees-smiling-pexels-32530102.jpg, Pexels License]  (gaya dsm-firmenich, 21 Nov 2026)
  *   hero-misty-terraces  sawah berundak keemasan dengan dua orang kecil di puncaknya, kabut tebal di lembah (hero Growing Together dan Our Purpose)  [stock-photos/hero-2026-11-21/E-misty-terraces-two-figures-pexels-34238088.jpg, Pexels License]  (gaya dsm-firmenich, 21 Nov 2026)
+ *   hero-smelling-vial  perempuan memejamkan mata mencium botol kecil, cahaya jendela lembut (hero Perfumery dan halaman Perfumery; bukan staf Adhiloka)  [stock-photos/hero-2026-11-21/P-woman-smelling-vial-window-light-pexels-11401969.jpg, Pexels License]  (beranda 4 slide, 21 Nov 2026)
+ *   hero-blossom-golden  kuncup bunga apel disinari matahari senja, latar keemasan (hero Ingredients dan halaman Ingredients)  [stock-photos/hero-2026-11-21/F-blossom-backlit-golden-sunset-pexels-732088.jpg, Pexels License]  (beranda 4 slide, 21 Nov 2026)
+ *   hero-hands-seedling  tangan menangkup tunas di segenggam tanah, cahaya hangat (hero Sustainability dan halaman Sustainability)  [stock-photos/hero-2026-11-21/S-hands-seedling-soil-warm-pexels-12969371.jpg, Pexels License]  (beranda 4 slide, 21 Nov 2026)
  *   cloves-dried         cengkih kering, makro  [stock-photos/clove/11000777]
  *   cloves-in-hand       cengkih kering di telapak tangan  [stock-photos/clove/8804299]
  *   cloves-sorting       cengkih disortir di rak jemur (bukan petani Adhiloka)  [stock-photos/clove/40319393]
@@ -400,6 +406,9 @@ export const images = {
   'hero-smelling-flowers': heroSmellingFlowers,
   'hero-farmer-lychees': heroFarmerLychees,
   'hero-misty-terraces': heroMistyTerraces,
+  'hero-smelling-vial': heroSmellingVial,
+  'hero-blossom-golden': heroBlossomGolden,
+  'hero-hands-seedling': heroHandsSeedling,
   'cloves-dried': clovesDried,
   'cloves-in-hand': clovesInHand,
   'cloves-sorting': clovesSorting,

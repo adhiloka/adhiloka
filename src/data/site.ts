@@ -61,8 +61,8 @@ export const NAV: NavItem[] = [
       'Fragrance creation for fine fragrance, personal care, home care and fabric care.',
     panel: {
       title: 'Perfumery',
-      shot: 'smelling a handful of dried flowers',
-      image: 'hero-smelling-flowers',
+      shot: 'woman smelling a fragrance by the window',
+      image: 'hero-smelling-vial',
       links: [
         { label: 'Fine Fragrance', href: '/perfumery/#fine-fragrance' },
         { label: 'Consumer Fragrance', href: '/perfumery/#consumer-fragrance' },
@@ -78,8 +78,8 @@ export const NAV: NavItem[] = [
     blurb: 'Resins, leaves, roots and spices from Indonesia, selected and prepared for perfumery.',
     panel: {
       title: 'Ingredients',
-      shot: 'pink rose petals with morning dew',
-      image: 'hero-rose-dew',
+      shot: 'blossom in golden evening light',
+      image: 'hero-blossom-golden',
       links: [
         { label: 'Natural Ingredients', href: '/ingredients/natural-ingredients/' },
         { label: 'Ingredient Catalog', href: '/ingredients/catalog/' },
@@ -95,8 +95,8 @@ export const NAV: NavItem[] = [
     blurb: 'Caring for nature and for the people who tend it.',
     panel: {
       title: 'Sustainability',
-      shot: 'tree canopy seen from below',
-      image: 'canopy-from-below',
+      shot: 'hands holding a seedling in soil',
+      image: 'hero-hands-seedling',
       links: [
         { label: 'Driving progress for people', href: '/sustainability/people/' },
         { label: 'Responsible Sourcing', href: '/sustainability/responsible-sourcing/' },
