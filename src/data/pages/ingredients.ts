@@ -29,9 +29,9 @@ export const INGREDIENTS_OPENING = [
    Discover More di hub dan Explore More di kaki tiap halaman anak. */
 export const INGREDIENTS_CARDS: LinkCard[] = [
   { title: 'Natural Ingredients', href: '/ingredients/natural-ingredients/', image: 'spice-market-trays' },
-  { title: 'Ingredient Catalog', href: '/ingredients/catalog/', image: 'hero-tea-hills' },
+  { title: 'Ingredient Catalog', href: '/ingredients/catalog/', image: 'hero-farmer-lychees' },
   { title: 'Ingredients Map', href: '/ingredients/map/', image: 'jungle-stream' },
-  { title: 'Technology', href: '/ingredients/technology/', image: 'hero-extraction-rig' },
+  { title: 'Technology', href: '/ingredients/technology/', image: 'hero-hands-peppercorns' },
   { title: 'Working With Us', href: '/ingredients/working-with-us/', image: 'cargo-ship' },
 ];
 
@@ -100,8 +100,8 @@ export const CATALOG_INTRO: PageIntro = {
   lede: '',
   description:
     'The Adhiloka ingredients catalog: essential oils, resinoids, absolutes, CO2 extracts and extracts from benzoin, patchouli, vetiver, clove, nutmeg, cinnamon and other Indonesian botanicals, each with its product code and typical specification.',
-  caption: 'green tea hills in bright sunshine',
-  image: 'hero-tea-hills',
+  caption: 'grower holding freshly picked lychees',
+  image: 'hero-farmer-lychees',
 };
 
 /* ── Technology ──────────────────────────────────────────────────────── */
@@ -124,8 +124,8 @@ export const TECHNOLOGY_INTRO: PageIntro = {
   lede: '',
   description:
     'Adhiloka ingredient technology: steam distillation, solvent extraction, supercritical CO₂ extraction, molecular and fractional distillation, headspace analysis, biotechnology and green chemistry.',
-  caption: 'stainless steel and glass extraction apparatus',
-  image: 'hero-extraction-rig',
+  caption: 'hands holding fresh green peppercorns',
+  image: 'hero-hands-peppercorns',
 };
 
 export type Route = { name: string; note: string };

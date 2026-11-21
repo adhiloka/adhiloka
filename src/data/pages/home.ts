@@ -32,6 +32,8 @@ export type HeroSlide = {
   image: ImageKey;
   /** Keterangan isi foto yang sebenarnya, untuk alt. */
   alt: string;
+  /** Titik fokus foto (object-position) bila subjek tidak di tengah; terasa di layar tegak (HP). */
+  focus?: string;
 };
 
 export const HERO_SLIDES: HeroSlide[] = [
@@ -39,8 +41,9 @@ export const HERO_SLIDES: HeroSlide[] = [
     title: ['We Are Adhiloka'],
     line: ['Natural Ingredients & Perfumery'],
     href: '/about/',
-    image: 'hero-terraces-valley',
-    alt: 'Terraced rice fields beneath green mountains',
+    image: 'hero-woman-golden-light',
+    focus: '72% 50%',
+    alt: 'Smiling woman lit by the late afternoon sun',
   },
   {
     title: ['Scent Begins Here'],
@@ -53,29 +56,31 @@ export const HERO_SLIDES: HeroSlide[] = [
     title: ['What Comes Before', 'the First Spray'],
     line: ['Our Expertise'],
     href: '/ingredients/technology/',
-    image: 'hero-extraction-rig',
-    alt: 'Close-up of stainless steel and glass extraction apparatus',
+    image: 'hero-hands-peppercorns',
+    alt: 'Hands holding fresh green peppercorns',
   },
   {
     title: ['Material for', 'Makers of Scent'],
     line: ['Perfumery'],
     href: '/perfumery/',
-    image: 'hero-perfumer-blending',
-    alt: 'Perfumer blending a fragrance with a pipette',
+    image: 'hero-smelling-flowers',
+    alt: 'Man smelling a handful of dried flowers',
   },
   {
     title: ['The Source', 'Collection'],
     line: ['Signature Ingredients'],
     href: '/ingredients/catalog/',
-    image: 'hero-tea-hills',
-    alt: 'Green tea hills in bright sunshine',
+    image: 'hero-farmer-lychees',
+    focus: '55% 50%',
+    alt: 'Smiling grower holding freshly picked lychees',
   },
   {
     title: ['Growing Together', 'with Nature'],
     line: ['Our Purpose'],
     href: '/about/our-purpose/',
-    image: 'hero-green-terraces',
-    alt: 'Bright green terraced rice fields under a blue sky',
+    image: 'hero-misty-terraces',
+    focus: '30% 50%',
+    alt: 'Golden terraced fields in morning mist',
   },
 ];
 

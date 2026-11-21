@@ -46,8 +46,8 @@ export const NAV: NavItem[] = [
     blurb: 'A house of natural ingredients and perfumery, rooted in Indonesia.',
     panel: {
       title: 'About Us',
-      shot: 'terraced rice fields beneath green mountains',
-      image: 'hero-terraces-valley',
+      shot: 'smiling woman in late afternoon sun',
+      image: 'hero-woman-golden-light',
       links: [
         { label: 'Our Business', href: '/about/our-business/' },
         { label: 'Our Purpose', href: '/about/our-purpose/' },
@@ -61,8 +61,8 @@ export const NAV: NavItem[] = [
       'Fragrance creation for fine fragrance, personal care, home care and fabric care.',
     panel: {
       title: 'Perfumery',
-      shot: 'perfumer blending with a pipette',
-      image: 'hero-perfumer-blending',
+      shot: 'smelling a handful of dried flowers',
+      image: 'hero-smelling-flowers',
       links: [
         { label: 'Fine Fragrance', href: '/perfumery/#fine-fragrance' },
         { label: 'Consumer Fragrance', href: '/perfumery/#consumer-fragrance' },

@@ -35,6 +35,11 @@ import heroExtractionRig from '../assets/images/hero-extraction-rig.jpg';
 import heroPerfumerBlending from '../assets/images/hero-perfumer-blending.jpg';
 import heroTeaHills from '../assets/images/hero-tea-hills.jpg';
 import heroGreenTerraces from '../assets/images/hero-green-terraces.jpg';
+import heroWomanGoldenLight from '../assets/images/hero-woman-golden-light.jpg';
+import heroHandsPeppercorns from '../assets/images/hero-hands-peppercorns.jpg';
+import heroSmellingFlowers from '../assets/images/hero-smelling-flowers.jpg';
+import heroFarmerLychees from '../assets/images/hero-farmer-lychees.jpg';
+import heroMistyTerraces from '../assets/images/hero-misty-terraces.jpg';
 import clovesDried from '../assets/images/cloves-dried.jpg';
 import clovesInHand from '../assets/images/cloves-in-hand.jpg';
 import clovesSorting from '../assets/images/cloves-sorting.jpg';
@@ -203,6 +208,11 @@ import kaffirLimeLeaves from '../assets/images/kaffir-lime-leaves.jpg';
  *   hero-perfumer-blending  perfumer meracik dengan pipet di botol berisi cairan amber, close-up (hero Perfumery dan halaman Perfumery; bukan staf Adhiloka)  [stock-photos/hero-2026-11-18/pexels-8450352.jpg, Pexels License]  (standar kualitas foto pemilik, 18 Nov 2026)
  *   hero-tea-hills  perbukitan kebun teh hijau di bawah matahari cerah (hero The Source Collection dan Ingredient Catalog)  [stock-photos/hero-2026-11-18/pexels-6713245.jpg, Pexels License]  (standar kualitas foto pemilik, 18 Nov 2026)
  *   hero-green-terraces  sawah berundak hijau cerah di bawah langit biru (hero Growing Together dan Our Purpose)  [stock-photos/hero-2026-11-18/pexels-37432395.jpg, Pexels License]  (standar kualitas foto pemilik, 18 Nov 2026)
+ *   hero-woman-golden-light  perempuan tersenyum disinari matahari sore dari belakang, latar kabur (hero We Are Adhiloka dan halaman About; bukan staf Adhiloka)  [stock-photos/hero-2026-11-21/A-woman-backlit-golden-smile-pexels-12255938.jpg, Pexels License]  (gaya dsm-firmenich, 21 Nov 2026)
+ *   hero-hands-peppercorns  dua tangan menangkup lada hijau segar, latar bokeh (hero Our Expertise dan halaman Technology)  [stock-photos/hero-2026-11-21/B-hands-green-peppercorns-pexels-16238699.jpg, Pexels License]  (gaya dsm-firmenich, 21 Nov 2026)
+ *   hero-smelling-flowers  pria mencium segenggam bunga kering kuning, close-up (hero Perfumery dan halaman Perfumery; bukan staf Adhiloka)  [stock-photos/hero-2026-11-21/C-man-smelling-dried-flowers-unsplash-UOT38o_Y79I.jpg, Unsplash License]  (gaya dsm-firmenich, 21 Nov 2026)
+ *   hero-farmer-lychees  petani perempuan tertawa memegang tandan leci, latar kebun hijau (hero The Source Collection dan Ingredient Catalog; bukan petani Adhiloka)  [stock-photos/hero-2026-11-21/D-woman-farmer-lychees-smiling-pexels-32530102.jpg, Pexels License]  (gaya dsm-firmenich, 21 Nov 2026)
+ *   hero-misty-terraces  sawah berundak keemasan dengan dua orang kecil di puncaknya, kabut tebal di lembah (hero Growing Together dan Our Purpose)  [stock-photos/hero-2026-11-21/E-misty-terraces-two-figures-pexels-34238088.jpg, Pexels License]  (gaya dsm-firmenich, 21 Nov 2026)
  *   cloves-dried         cengkih kering, makro  [stock-photos/clove/11000777]
  *   cloves-in-hand       cengkih kering di telapak tangan  [stock-photos/clove/8804299]
  *   cloves-sorting       cengkih disortir di rak jemur (bukan petani Adhiloka)  [stock-photos/clove/40319393]
@@ -385,6 +395,11 @@ export const images = {
   'hero-perfumer-blending': heroPerfumerBlending,
   'hero-tea-hills': heroTeaHills,
   'hero-green-terraces': heroGreenTerraces,
+  'hero-woman-golden-light': heroWomanGoldenLight,
+  'hero-hands-peppercorns': heroHandsPeppercorns,
+  'hero-smelling-flowers': heroSmellingFlowers,
+  'hero-farmer-lychees': heroFarmerLychees,
+  'hero-misty-terraces': heroMistyTerraces,
   'cloves-dried': clovesDried,
   'cloves-in-hand': clovesInHand,
   'cloves-sorting': clovesSorting,

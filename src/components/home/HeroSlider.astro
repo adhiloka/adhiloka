@@ -43,6 +43,7 @@ const { slides } = Astro.props;
             sizes="100vw"
             loading={i === 0 ? 'eager' : 'lazy'}
             fetchpriority={i === 0 ? 'high' : 'auto'}
+            style={s.focus ? `object-position: ${s.focus}` : undefined}
           />
         </div>
         <div class="hero__text">
