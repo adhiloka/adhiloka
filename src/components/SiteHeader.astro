@@ -517,9 +517,11 @@ const path = Astro.url.pathname;
       transform-origin: left;
       transition: transform 0.5s var(--ease-out);
     }
-    .mega__arrow { flex: none; transition: transform 0.5s var(--ease-out); }
+    /* Panah foto panel tersembunyi sampai foto di-hover (pemilik, 22 Nov 2026). */
+    .mega__arrow { flex: none; opacity: 0; transform: translateX(-10px); transition: opacity var(--t) var(--ease-std), transform 0.5s var(--ease-out); }
     .mega__feature:hover .mega__img { transform: scale(1.05); }
-    .mega__feature:hover .mega__arrow { transform: translateX(10px); }
+    .mega__feature:hover .mega__arrow,
+    .mega__feature:focus-visible .mega__arrow { opacity: 1; transform: none; }
     .mega__feature:hover .mega__label::after { transform: none; }
 
     .hdr__item--lang { position: relative; }

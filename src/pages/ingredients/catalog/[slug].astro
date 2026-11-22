@@ -295,8 +295,10 @@ const facts = [
   .prl__code { font-weight: 530; font-variant-numeric: tabular-nums; color: var(--ink-muted); }
   .prl__name { font-weight: 530; }
   .prl__type { font-size: calc(14px * var(--fs)); color: var(--ink-muted); }
-  .prl__arrow { justify-self: end; transition: transform var(--t) var(--ease-std); }
-  .prl__row:hover .prl__arrow { transform: translateX(4px); }
+  /* Panah baris tersembunyi sampai hover/fokus (pemilik, 22 Nov 2026). */
+  .prl__arrow { justify-self: end; opacity: 0; transform: translateX(-6px); transition: opacity var(--t) var(--ease-std), transform var(--t) var(--ease-std); }
+  .prl__row:hover .prl__arrow,
+  .prl__row:focus-visible .prl__arrow { opacity: 1; transform: none; }
 
   /* ── Samples & Documents ──────────────────────────────────────────── */
   .mord__grid {

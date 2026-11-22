@@ -210,8 +210,15 @@ import { PILLARS, PILLAR_HEADLINE } from '../../data/pages/home';
     font-weight: 300;
     color: #fff;
   }
-  .sa__cta svg { flex: none; transition: transform 0.5s var(--ease-out); }
-  .sa__cta:hover svg { transform: translateX(6px); }
+  /* Panah tersembunyi sampai hover/fokus (pemilik, 22 Nov 2026). */
+  .sa__cta svg {
+    flex: none;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity var(--t) var(--ease-std), transform 0.5s var(--ease-out);
+  }
+  .sa__cta:hover svg,
+  .sa__cta:focus-visible svg { opacity: 1; transform: none; }
 
   @media (max-width: 1026px) {
     .sa { flex-direction: column; height: auto; min-height: 0; }

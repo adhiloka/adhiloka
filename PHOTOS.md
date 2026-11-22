@@ -23,7 +23,7 @@ Tidak ada.
 | `cananga-flowers` | cananga-odorata-prenn-02.jpg | mendatar | `/ingredients/catalog/cananga/` | catalog-data.json (bahan Cananga) |
 | `cardamom-pods` | cardamom-pods-split-unsplash-bF404j83DH0.jpg | mendatar | `/ingredients/catalog/cardamom/` | catalog-data.json (bahan Cardamom) |
 | `cargo-ship` | kapal kontainer di laut saat senja | mendatar | `/ingredients/working-with-us/` | src/data/pages/home.ts:142 (tautan /ingredients/working-with-us/)<br>src/data/pages/ingredients.ts:35 (tautan /ingredients/working-with-us/)<br>src/data/pages/ingredients.ts:225 (banner ORDERING_INTRO) |
-| `chili-pickers` | dua petani bercaping memetik cabai (Partner with Us) | mendatar | `/contact/partners/` | src/data/pages/connect.ts:16 (tautan /contact/partners/)<br>src/data/pages/connect.ts:51 (banner PARTNERS_INTRO)<br>src/data/pages/home.ts:158 (tautan /contact/partners/) |
+| `chili-pickers` | dua petani bercaping memetik cabai (Partner with Us) | mendatar | `/contact/partners/` | src/data/pages/connect.ts:16 (tautan /contact/partners/)<br>src/data/pages/connect.ts:51 (banner PARTNERS_INTRO)<br>src/data/pages/home.ts:156 (tautan /contact/partners/) |
 | `chili-sacks` | karung goni berisi cabai kering dan rempah (keluarga Spices) | mendatar | `/ingredients/catalog/?family=Spice` | src/data/materials.ts:174 (keluarga Spice) |
 | `cinnamon-quills` | tumpukan gulungan kulit kayu manis, close-up tajam, latar gelap | mendatar | `/ingredients/catalog/cinnamon-kerinci/` | catalog-data.json (bahan Cinnamon Kerinci) |
 | `citronella-grass` | cymbopogon-nardus-steakley-DITSL.jpg | mendatar | `/ingredients/catalog/citronella-java/` | catalog-data.json (bahan Citronella Java) |
@@ -69,7 +69,7 @@ Tidak ada.
 | `kaffir-lime-leaves` |  | mendatar | `/ingredients/catalog/kaffir-lime-leaf/` | catalog-data.json (bahan Kaffir Lime Leaf) |
 | `kencur-dried` | kaempferia-galanga-dried-sagisavas.jpg | persegi | `/ingredients/catalog/kencur/` | catalog-data.json (bahan Kencur) |
 | `lab-flash-point` | alat uji titik nyala Pensky-Martens | tegak | `/ingredients/working-with-us/` | src/data/pages/ingredients.ts:212 (tautan /ingredients/working-with-us/) |
-| `lab-technician` | teknisi berjas lab dan penutup rambut bekerja di meja laboratorium (Working at Adhiloka) | mendatar | `/contact/careers/` | src/data/pages/connect.ts:15 (tautan /contact/careers/)<br>src/data/pages/connect.ts:28 (banner CAREERS_INTRO)<br>src/data/pages/home.ts:157 (tautan /contact/careers/) |
+| `lab-technician` | teknisi berjas lab dan penutup rambut bekerja di meja laboratorium (Working at Adhiloka) | mendatar | `/contact/careers/` | src/data/pages/connect.ts:15 (tautan /contact/careers/)<br>src/data/pages/connect.ts:28 (banner CAREERS_INTRO)<br>src/data/pages/home.ts:155 (tautan /contact/careers/) |
 | `lab-vials` | tangan bersarung memegang vial kaca | mendatar | `/perfumery/#innovation` | src/data/pages/home.ts:141 (tautan /perfumery/#innovation) |
 | `lab-woman-hall` | peneliti perempuan bekerja di laboratorium terang (Working at Adhiloka) | mendatar | `/contact/?kind=careers` | src/data/pages/connect.ts:39 (tautan /contact/?kind=careers) |
 | `lavender-flowers` | lavender-bed-closeup-unsplash-bIHJ4oxQlYs.jpg | mendatar | `/ingredients/catalog/lavender/` | catalog-data.json (bahan Lavender) |

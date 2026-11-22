@@ -3,7 +3,8 @@ import { Image } from 'astro:assets';
 import { images } from '../../data/images';
 import { JOIN_US } from '../../data/pages/home';
 
-/* "JOIN US" adani.com: judul + satu kalimat + Know More, lalu empat kartu foto
+/* "JOIN US" adani.com: judul lalu kartu foto (tombol Discover More di samping
+ * judul dilepas 22 Nov 2026: sama dengan kartu Careers, berlebihan). Kartu foto
  * setinggi ±600 px (Adhiloka: dua kartu sejak 22 Nov 2026, Careers dan Partner with Us). Kartu aktif lebar (490 px pada 1440), tiga lainnya sempit;
  * hover atau fokus memindahkan lebarnya. Tautan tombol dan tiap kartu dari
  * JOIN_US (home.ts). */
@@ -15,7 +16,6 @@ import { JOIN_US } from '../../data/pages/home';
       <div class="head-row__text">
         <h2 class="h2">{JOIN_US.title}</h2>
       </div>
-      <a class="btn" href={JOIN_US.href}><span class="btn__label">{JOIN_US.cta}</span></a>
     </div>
 
     <ul class="join__cards" data-join data-anim="columns">

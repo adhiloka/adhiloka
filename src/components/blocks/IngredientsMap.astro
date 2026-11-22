@@ -216,13 +216,16 @@ const regions = REGIONS.map((r) => ({
     color: var(--ink);
     text-align: left;
   }
+  /* Panah baris tersembunyi sampai hover/fokus (pemilik, 22 Nov 2026). */
   .imap__index svg,
-  .imap__items svg { flex: none; color: var(--ink-muted); transition: transform var(--t) var(--ease-out), color var(--t) var(--ease-std); }
+  .imap__items svg { flex: none; color: var(--ink-muted); opacity: 0; transform: translateX(-6px); transition: opacity var(--t) var(--ease-std), transform var(--t) var(--ease-out), color var(--t) var(--ease-std); }
   .imap__index button:hover .imap__label-name,
   .imap__items a:hover span { text-decoration: underline; text-underline-offset: 4px; }
   .imap__index button:hover :global(img) { transform: scale(1.06); }
   .imap__index button:hover svg,
-  .imap__items a:hover svg { transform: translateX(4px); color: var(--ink); }
+  .imap__index button:focus-visible svg,
+  .imap__items a:hover svg,
+  .imap__items a:focus-visible svg { opacity: 1; transform: none; color: var(--ink); }
 
   .imap__photo { display: block; aspect-ratio: 16 / 9; }
   .imap__region { margin-top: 22px; font-size: calc(28px * var(--fs)); font-weight: 530; color: var(--ink); }

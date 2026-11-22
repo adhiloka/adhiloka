@@ -343,7 +343,7 @@ const arrow = '<path d="M0 6h16M11 1l5 5-5 5" fill="none" stroke="currentColor" 
   .big__links li a:focus-visible { color: #fff; }
 
   /* Explore More: garis putih 1 px di bawah; saat hover garis gradien tumbuh
-     dari kiri menimpanya dan panah bergeser ke kanan. */
+     dari kiri menimpanya dan panah muncul. */
   .big__more { padding-top: 18px; }
   .more {
     position: relative;
@@ -370,11 +370,17 @@ const arrow = '<path d="M0 6h16M11 1l5 5-5 5" fill="none" stroke="currentColor" 
     transform-origin: left;
     transition: transform 0.5s var(--ease-out);
   }
-  .more__arrow { flex: none; transition: transform 0.5s var(--ease-out); }
+  /* Panah tersembunyi sampai hover/fokus (pemilik, 22 Nov 2026). */
+  .more__arrow {
+    flex: none;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity var(--t) var(--ease-std), transform 0.5s var(--ease-out);
+  }
   .more:hover::after,
   .more:focus-visible::after { transform: none; }
   .more:hover .more__arrow,
-  .more:focus-visible .more__arrow { transform: translateX(6px); }
+  .more:focus-visible .more__arrow { opacity: 1; transform: none; }
 
   @media (max-width: 1026px) {
     .biz__panel:not([hidden]) { flex-direction: column; gap: 20px; }

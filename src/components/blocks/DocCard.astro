@@ -148,7 +148,10 @@ const sheets = Math.min(d.pages, 3);
     text-decoration: underline;
     text-underline-offset: 5px;
   }
+  .doc__view svg { opacity: 0; transition: opacity var(--t) var(--ease-std); }
   .doc__view:hover { color: var(--brand-green); }
+  .doc__view:hover svg,
+  .doc__view:focus-visible svg { opacity: 1; }
 
   @media (max-width: 640px) {
     .doc { grid-template-columns: 96px 1fr; gap: 20px; padding: 22px 20px; align-items: start; }

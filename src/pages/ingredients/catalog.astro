@@ -44,7 +44,6 @@ const facets = [
   },
 ];
 const scents = SCENTS.map((s) => s.name).filter((s) => MATERIALS.some((m) => scentsOf(m).includes(s)));
-const arrow = '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M2 8h11m-4-4.5L13.5 8 9 12.5" fill="none" stroke="currentColor" stroke-width="1.5"></path></svg>';
 ---
 
 <PageLayout intro={CATALOG_INTRO}>
@@ -180,7 +179,6 @@ const arrow = '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true
                     </ul>
                     <a class="mat__hits-more" href={`${materialHref(m.slug)}#products`} data-hits-more hidden>More products</a>
                   </div>
-                  <span class="mat__go" aria-hidden="true">Discover <Fragment set:html={arrow} /></span>
                 </div>
               </li>
             );
@@ -533,19 +531,6 @@ const arrow = '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true
     font-size: calc(15px * var(--fs));
     line-height: 1.55;
   }
-  .mat__go {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: auto;
-    padding-top: 22px;
-    font-size: calc(15px * var(--fs));
-    font-weight: 530;
-    color: var(--ink);
-  }
-  .mat__go :global(svg) { transition: transform var(--t) var(--ease-out); }
-  .mat:hover .mat__go { color: var(--brand-green); }
-  .mat:hover .mat__go :global(svg) { transform: translateX(4px); }
 
   /* Kode yang cocok dengan pencarian, di dalam kartu (di atas tautan kartu). */
   .mat__hits {

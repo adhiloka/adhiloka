@@ -151,8 +151,6 @@ export const BUSINESS_EXPERTISE: { label: string; href: string; image: ImageKey 
 
 export const JOIN_US = {
   title: 'Join Us',
-  cta: 'Discover More',
-  href: '/contact/careers/',
   cards: [
     { label: 'Careers', href: '/contact/careers/', image: 'lab-technician' as ImageKey, alt: 'Technician at work in a laboratory' },
     { label: 'Partner with Us', href: '/contact/partners/', image: 'chili-pickers' as ImageKey, alt: 'Two growers picking chillies' },
