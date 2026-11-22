@@ -124,8 +124,8 @@ export const NAV: NavItem[] = [
     blurb: 'Careers, suppliers, partners and enquiries.',
     panel: {
       title: 'Connect',
-      shot: 'a hand reaching for tagged amber sample bottles',
-      image: 'tagged-sample-bottles',
+      shot: 'smiling woman taking notes during a phone call',
+      image: 'contact-phone-call',
       links: [
         { label: 'Careers', href: '/contact/careers/' },
         { label: 'Partner with Us', href: '/contact/partners/' },

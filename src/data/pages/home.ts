@@ -132,14 +132,16 @@ export const PILLARS: Pillar[] = [
 
 /* ── Our Business ────────────────────────────────────────────────────── */
 
-/* Tab kedua Our Business (pemilik, 22 Nov 2026: Ingredients dan Perfumery
- * digabung jadi tab Products, tab kedua bebas). Empat tile tautan ke cara
- * kerja kita; foto = foto banner atau bagian yang dituju. */
-export const BUSINESS_EXPERTISE: { label: string; href: string; image: ImageKey }[] = [
-  { label: 'Technology', href: '/ingredients/technology/', image: 'hero-hands-peppercorns' },
-  { label: 'Ingredients Map', href: '/ingredients/map/', image: 'jungle-stream' },
-  { label: 'Fragrance Innovation', href: '/perfumery/#innovation', image: 'lab-vials' },
-  { label: 'Working With Us', href: '/ingredients/working-with-us/', image: 'cargo-ship' },
+/* Our Business dirombak total 22 Nov 2026 (komentar pemilik): tanpa tab,
+ * cukup empat kartu, masing-masing satu tautan. Fotonya ditetapkan pemilik:
+ * mawar merah muda untuk Natural Ingredients, foto perfumery close-up (bukan
+ * foto hero) untuk Fine Fragrance, alat lab close-up untuk Technology, alam
+ * untuk Sustainability. */
+export const BUSINESS_CARDS: { label: string; href: string; image: ImageKey; alt: string }[] = [
+  { label: 'Natural Ingredients', href: '/ingredients/catalog/', image: 'hero-rose-dew', alt: 'Pink rose petals with dew drops, close up' },
+  { label: 'Perfumery', href: '/perfumery/#fine-fragrance', image: 'hero-perfumer-blending', alt: 'Perfumer blending with a pipette, close up' },
+  { label: 'Technology', href: '/ingredients/technology/', image: 'hero-extraction-rig', alt: 'Glass and steel extraction equipment in a laboratory' },
+  { label: 'Sustainability', href: '/sustainability/', image: 'hero-tea-hills', alt: 'Green tea hills under a bright sky' },
 ];
 
 /* ── Join Us ─────────────────────────────────────────────────────────── */
@@ -153,7 +155,7 @@ export const JOIN_US = {
   title: 'Join Us',
   cards: [
     { label: 'Careers', href: '/contact/careers/', image: 'lab-technician' as ImageKey, alt: 'Technician at work in a laboratory' },
-    { label: 'Partner with Us', href: '/contact/partners/', image: 'chili-pickers' as ImageKey, alt: 'Two growers picking chillies' },
+    { label: 'Partner with Us', href: '/contact/partners/', image: 'partner-hands-coffee' as ImageKey, alt: 'Four pairs of hands holding red coffee cherries' },
   ],
 };
 

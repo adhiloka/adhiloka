@@ -166,6 +166,9 @@ import cocoaPod from '../assets/images/cocoa-pod.jpg';
 import temulawakRhizomes from '../assets/images/temulawak-rhizomes.jpg';
 import palmarosaGrass from '../assets/images/palmarosa-grass.jpg';
 import kaffirLimeLeaves from '../assets/images/kaffir-lime-leaves.jpg';
+import partnerHandsCoffee from '../assets/images/partner-hands-coffee.jpg';
+import contactPhoneCall from '../assets/images/contact-phone-call.jpg';
+import footerLeaves from '../assets/images/footer-leaves.jpg';
 
 /* Satu-satunya tempat berkas gambar dipetakan ke kunci yang dipakai data.
  *
@@ -346,6 +349,9 @@ import kaffirLimeLeaves from '../assets/images/kaffir-lime-leaves.jpg';
  *   wood-slice  potongan batang kayu (keluarga Woods)  [stock-photos/botanical/unsplash-2x-LQAMJ-YY.jpg, Unsplash License]
  *   green-leaves  daun hijau lebar, dekat (keluarga Leaf)  [stock-photos/botanical/pexels-36674428.jpg, Pexels License]
  *   cocoa-pod  buah kakao dan biji kakao (keluarga Gourmand)  [stock-photos/spices/cocoa-pod-beans-33662910.jpg, Pexels License]
+ *   partner-hands-coffee  empat pasang tangan menangkup buah kopi merah, dari atas (Partner with Us, ganti chili-pickers; pemilik 22 Nov 2026)  [stock-photos/farmers/four-hands-coffee-cherries-27777797.jpg, Pexels License]
+ *   contact-phone-call  perempuan tersenyum menelepon sambil mencatat di meja kantor terang (Contact Us, ganti tagged-sample-bottles; pemilik 22 Nov 2026)  [stock-photos/textures-and-business/woman-phone-call-notes-7793187.jpg, Pexels License]
+ *   footer-leaves  daun muda hijau kekuningan disinari matahari, latar kabur (latar footer, ganti agroforest-canopy; pemilik 22 Nov 2026)  [stock-photos/botanical/green-leaves-soft-sunlight-4141393.jpg, Pexels License]
  *                         (kutipan beranda dan Our Purpose, ganti purpose-generations; pemilik, 14 Nov 2026)
  * Dilepas dari halaman: material-patchouli (tetes air di daun, bukan nilam),
  * grass-blades (rumput biasa), fragrance-resin (rimpang kering berlabel
@@ -522,6 +528,9 @@ export const images = {
   'wood-slice': woodSlice,
   'green-leaves': greenLeaves,
   'cocoa-pod': cocoaPod,
+  'partner-hands-coffee': partnerHandsCoffee,
+  'contact-phone-call': contactPhoneCall,
+  'footer-leaves': footerLeaves,
 } satisfies Record<string, ImageMetadata>;
 
 export type ImageKey = keyof typeof images;

@@ -13,8 +13,8 @@ import type { LinkCard, PageIntro, Passage } from './types';
 
 export const CONNECT_CARDS: LinkCard[] = [
   { title: 'Careers', href: '/contact/careers/', image: 'lab-technician', caption: 'technician at work in a laboratory' },
-  { title: 'Partner with Us', href: '/contact/partners/', image: 'chili-pickers', caption: 'two growers picking chillies' },
-  { title: 'Contact Us', href: '/contact/', image: 'tagged-sample-bottles', caption: 'a hand reaching for tagged amber sample bottles' },
+  { title: 'Partner with Us', href: '/contact/partners/', image: 'partner-hands-coffee', caption: 'four pairs of hands holding red coffee cherries' },
+  { title: 'Contact Us', href: '/contact/', image: 'contact-phone-call', caption: 'smiling woman taking notes during a phone call' },
 ];
 
 /* ── Careers ─────────────────────────────────────────────────────────── */
@@ -46,19 +46,19 @@ export const PARTNERS_INTRO: PageIntro = {
   eyebrow: 'Connect',
   title: 'Partner with Us',
   lede: '',
-  description: 'Supply raw materials to Adhiloka, or partner with us in distribution and research.',
-  caption: 'two growers picking chillies',
-  image: 'chili-pickers',
+  description: 'Partner with Adhiloka in natural aromatic ingredients and perfumery.',
+  caption: 'four pairs of hands holding red coffee cherries',
+  image: 'partner-hands-coffee',
 };
 
 export const PARTNERS_PASSAGES: Passage[] = [
   {
     id: 'suppliers-partners',
     title: 'Suppliers & Partners',
-    body: 'We work with growers, distillers, distributors and research partners. Tell us what you offer and we will be in touch.',
+    body: 'Every great ingredient is the work of many hands. If you share our care for the plant and the people who grow it, there is a place for you alongside us.',
     cta: 'Get in Touch',
     href: '/contact/?kind=partnership',
-    caption: 'amber bottles on a shelf',
-    image: 'amber-bottle-shelf',
+    caption: 'dried cloves in an open hand',
+    image: 'cloves-in-hand',
   },
 ];

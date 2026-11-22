@@ -1,230 +1,66 @@
 ---
 import { Image } from 'astro:assets';
-import { images, type ImageKey } from '../../data/images';
-import { MATERIALS, materialHref, FAMILY_IMAGE, type Family } from '../../data/materials';
-import { PERFUMERY_TILES } from '../../data/pages/perfumery';
-import { BUSINESS_EXPERTISE } from '../../data/pages/home';
+import { images } from '../../data/images';
+import { BUSINESS_CARDS } from '../../data/pages/home';
 
-/* Section "BUSINESSES" adani.com, diisi usaha Adhiloka.
- * Dirombak 22 Nov 2026 (komentar pemilik): tab Ingredients dan Perfumery
- * digabung jadi satu tab Products, tab kedua Expertise. Paling banyak 8 tile
- * dan jumlahnya tetap, jadi section tidak memanjang saat produk bertambah.
- *   Products  = grid tile 2 kolom di kiri, foto besar berchip dan Explore More
- *               di kanan; tile memilih fotonya ("Verticals" Adani). Enam
- *               keluarga bahan + dua bidang Perfumery. Chip bahan paling banyak
- *               lima; sisanya lewat Explore More.
- *   Expertise = empat tile tautan dalam satu baris ("Listed Companies").
- * Tile terpilih tidak ditutup gradien lagi: tile lain meredup, yang terpilih
- * tetap terang dengan bilah gradien di dasarnya, garis bawah dan panah. */
-
-type Pane = {
-  key: string;
-  label: string;
-  image: ImageKey;
-  chips: { label: string; href: string }[];
-  more: string;
-};
-
-const MAX_CHIPS = 5;
-
-const FAMILIES: { family: Family; label: string }[] = [
-  { family: 'Resin', label: 'Resins' },
-  { family: 'Wood', label: 'Woods' },
-  { family: 'Root', label: 'Roots' },
-  { family: 'Leaf', label: 'Leaf Oils' },
-  { family: 'Spice', label: 'Spices' },
-  { family: 'Flower', label: 'Flowers' },
-];
-
-const panes: Pane[] = [
-  ...FAMILIES.filter(({ family }) => MATERIALS.some((m) => m.family === family)).map(({ family, label }) => ({
-    key: family.toLowerCase(),
-    label,
-    image: FAMILY_IMAGE[family].image,
-    chips: MATERIALS.filter((m) => m.family === family)
-      .slice(0, MAX_CHIPS)
-      .map((m) => ({ label: m.name, href: materialHref(m.slug) })),
-    more: `/ingredients/catalog/?family=${family}`,
-  })),
-  ...PERFUMERY_TILES.map((t) => ({
-    key: t.href.split('#')[1],
-    label: t.label,
-    image: t.image,
-    chips: t.chips.map((c) => ({ label: c, href: t.href })),
-    more: t.href,
-  })),
-].slice(0, 8);
+/* Section "Our Business" beranda.
+ * Dirombak total 22 Nov 2026 (komentar pemilik): tab Products/Expertise dan
+ * tile pemilih dilepas. Isinya empat kartu tautan dalam satu baris, pola
+ * deret "Our businesses" dsm-firmenich: foto, nama di bawah kiri, seluruh
+ * kartu satu tautan. Panah tersembunyi dan baru muncul saat kursor ada di
+ * mana pun di atas kartu (pemilik, 22 Nov 2026). */
 
 const arrow = '<path d="M0 6h16M11 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4"></path>';
 ---
 
-<section class="sec sec--grey biz" data-tabs>
+<section class="sec sec--grey biz">
   <div class="wrap">
-    <div class="biz__head">
-      <h2 class="h2" data-anim="title">Our Business</h2>
-      <div class="biz__tabs" role="tablist" aria-label="Business" data-anim="title">
-        <button class="tab is-active" type="button" role="tab" data-tab="products" aria-selected="true">Products</button>
-        <button class="tab" type="button" role="tab" data-tab="expertise" aria-selected="false" tabindex="-1">Expertise</button>
-      </div>
-    </div>
+    <h2 class="h2" data-anim="title">Our Business</h2>
 
-    <div class="biz__panel" data-panel="products" role="tabpanel" data-picker>
-      <ul class="biz__tiles biz__tiles--pick">
-        {
-          panes.map((p, i) => (
-            <li data-anim="thumb">
-              <button class:list={['tile', 'shade', { 'is-active': i === 0 }]} type="button" data-pick={p.key} aria-pressed={i === 0 ? 'true' : 'false'}>
-                <Image quality={70} src={images[p.image]} alt="" widths={[320, 520]} sizes="(max-width: 767px) 50vw, 18vw" loading="lazy" />
-                <span class="tile__text">
-                  {p.label}
-                  <svg class="tile__arrow" viewBox="0 0 18 12" width="17" height="11" aria-hidden="true" set:html={arrow} />
-                </span>
-              </button>
-            </li>
-          ))
-        }
-      </ul>
-
-      <div class="biz__big" data-speed="0.9">
-        {
-          panes.map((p, i) => (
-            <div class="big" data-pane={p.key} hidden={i !== 0} data-anim="thumb">
-              <Image quality={70} class="big__img" src={images[p.image]} alt="" widths={[640, 960, 1400]} sizes="(max-width: 1026px) 100vw, 55vw" loading="lazy" />
-              <div class="big__links">
-                <ul>
-                  {p.chips.map((c) => (
-                    <li><a href={c.href}>{c.label}</a></li>
-                  ))}
-                </ul>
-                <div class="big__more">
-                  <a class="more" href={p.more}>
-                    <span class="more__label">Explore More</span>
-                    <svg class="more__arrow" viewBox="0 0 18 12" width="17" height="11" aria-hidden="true" set:html={arrow} />
-                  </a>
-                </div>
-              </div>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-
-    <div class="biz__panel" data-panel="expertise" role="tabpanel" hidden>
-      <ul class="biz__tiles biz__tiles--full">
-        {
-          BUSINESS_EXPERTISE.map((p) => (
-            <li data-anim="thumb">
-              <a class="tile shade" href={p.href}>
-                <Image quality={70} src={images[p.image]} alt="" widths={[320, 520]} sizes="(max-width: 767px) 50vw, 22vw" loading="lazy" />
-                <span class="tile__text">
-                  {p.label}
-                  <svg class="tile__arrow" viewBox="0 0 18 12" width="17" height="11" aria-hidden="true" set:html={arrow} />
-                </span>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
+    <ul class="biz__cards">
+      {
+        BUSINESS_CARDS.map((c) => (
+          <li data-anim="thumb">
+            <a class="card shade" href={c.href}>
+              <Image quality={72} src={images[c.image]} alt={c.alt} widths={[400, 640, 900]} sizes="(max-width: 767px) 100vw, (max-width: 1026px) 50vw, 25vw" loading="lazy" />
+              <span class="card__text">
+                {c.label}
+                <svg class="card__arrow" viewBox="0 0 18 12" width="17" height="11" aria-hidden="true" set:html={arrow} />
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </section>
 
-<script>
-  import { initTabs, initPickers } from '../../scripts/tabs';
-  initTabs();
-  initPickers();
-</script>
-
 <style>
-  .biz__head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-
-  /* Tab: 20 px medium, aktif = teks bergradien + garis gradien 4 px. */
-  .biz__tabs { display: flex; }
-  .tab {
-    position: relative;
-    padding: 10px 24px;
-    border-bottom: 1px solid var(--line);
-    font-size: calc(20px * var(--fs));
-    font-weight: 440;
-    /* Adani memakai #c1c1c1 (1,7:1); digelapkan supaya tab tetap terbaca. */
-    color: var(--ink-muted);
-    letter-spacing: 0.2px;
-    transition: color var(--t) var(--ease-std);
-  }
-  .tab::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -1px;
-    height: 4px;
-    background: var(--grad-bar);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.5s var(--ease-out);
-  }
-  .tab:hover { color: var(--ink); }
-  .tab.is-active {
-    background: var(--grad-text);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  .tab.is-active::after { transform: none; }
-
-  .biz__panel:not([hidden]) {
-    display: flex;
-    align-items: stretch;
-    gap: 0.8%;
+  .biz__cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
     margin-top: 40px;
   }
 
-  .biz__tiles {
-    width: 38.4%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    align-content: start;
-  }
-  .biz__tiles--full {
-    width: 100%;
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  .tile {
+  .card {
     position: relative;
     display: block;
-    width: 100%;
-    aspect-ratio: 2.2 / 1;
+    aspect-ratio: 4 / 3;
     overflow: hidden;
     background: #222;
-    text-align: left;
   }
-  .biz__tiles--full .tile { aspect-ratio: 16 / 9; }
-  .tile :global(img) {
+  .card :global(img) {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition:
-      transform var(--t-img) var(--ease-out),
-      filter var(--t-slow) var(--ease-std);
+    transition: transform var(--t-img) var(--ease-out);
   }
-  .tile:hover :global(img),
-  .tile:focus-visible :global(img) { transform: scale(1.06); }
+  .card:hover :global(img),
+  .card:focus-visible :global(img) { transform: scale(1.06); }
 
-  /* Tanda tile terpilih (pemilik, 22 Nov 2026: jangan ditutup gradien).
-     Tile lain meredup sedikit; yang terpilih tetap penuh warna, bilah
-     gradien 4 px tumbuh dari kiri di dasarnya. Hover menerangkan lagi. */
-  .biz__tiles--pick .tile:not(.is-active) :global(img) { filter: saturate(0.55) brightness(0.72); }
-  .biz__tiles--pick .tile:not(.is-active):hover :global(img),
-  .biz__tiles--pick .tile:not(.is-active):focus-visible :global(img) { filter: none; }
-  .tile::before {
+  /* Bilah gradien 4 px tumbuh dari kiri di dasar kartu saat hover. */
+  .card::before {
     content: '';
     position: absolute;
     left: 0;
@@ -237,26 +73,27 @@ const arrow = '<path d="M0 6h16M11 1l5 5-5 5" fill="none" stroke="currentColor" 
     transform-origin: left;
     transition: transform 0.6s var(--ease-out);
   }
-  .tile.is-active::before { transform: none; }
+  .card:hover::before,
+  .card:focus-visible::before { transform: none; }
 
-  .tile__text {
+  .card__text {
     position: absolute;
     z-index: 2;
-    left: 20px;
-    right: 20px;
-    bottom: 20px;
-    display: inline-flex;
+    left: 24px;
+    right: 24px;
+    bottom: 24px;
+    display: flex;
     align-items: center;
     gap: 12px;
-    font-size: calc(16px * var(--fs));
+    font-size: calc(20px * var(--fs));
     color: #fff;
-    letter-spacing: 0.16px;
+    letter-spacing: 0.2px;
   }
-  .tile__text::after {
+  .card__text::after {
     content: '';
     position: absolute;
     left: 0;
-    bottom: -7px;
+    bottom: -8px;
     height: 2px;
     width: 100%;
     background: #fff;
@@ -264,138 +101,24 @@ const arrow = '<path d="M0 6h16M11 1l5 5-5 5" fill="none" stroke="currentColor" 
     transform-origin: left;
     transition: transform 0.5s var(--ease-out);
   }
-  .tile:hover .tile__text::after,
-  .tile:focus-visible .tile__text::after,
-  .tile.is-active .tile__text::after { transform: none; }
-  /* Panah tersembunyi; muncul (masuk dari kiri) hanya saat kursor ada di
-     mana pun di atas tile, atau saat fokus keyboard (pemilik, 22 Nov 2026). */
-  .tile__arrow {
+  .card:hover .card__text::after,
+  .card:focus-visible .card__text::after { transform: none; }
+  .card__arrow {
     flex: none;
     margin-left: auto;
     opacity: 0;
     transform: translateX(-10px);
     transition: opacity var(--t) var(--ease-std), transform 0.5s var(--ease-out);
   }
-  .tile:hover .tile__arrow,
-  .tile:focus-visible .tile__arrow { opacity: 1; transform: none; }
-
-  .biz__big { position: relative; width: 61.1%; min-height: 360px; }
-  .big {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    background: #222;
-  }
-  .big__img { width: 100%; height: 100%; object-fit: cover; }
-  /* Foto besar bergeser −5,4 % mengikuti gulir (scroll-fx.ts); dilebihkan 6 %
-     supaya tepi bawahnya tidak terlihat. */
-  :global(html.fx) .big__img { height: 106%; }
-  .big::after {
-    content: '';
-    position: absolute;
-    inset: 40% 0 0;
-    background: var(--scrim);
-    opacity: 0.92;
-    pointer-events: none;
-  }
-  .big__links {
-    position: absolute;
-    z-index: 2;
-    left: 0;
-    right: 0;
-    bottom: 26px;
-    padding: 0 30px;
-  }
-  .big__links ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0 10px;
-    padding: 20px 0 8px;
-    border-bottom: 1px solid rgb(255 255 255 / 0.55);
-  }
-  .big__links li {
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 12px;
-    background: rgb(0 0 0 / 0.6);
-  }
-  .big__links li::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--grad-bar);
-    transform: translateX(-101%);
-    transition: transform 0.45s var(--ease-out);
-  }
-  .big__links li:hover::after,
-  .big__links li:focus-within::after { transform: none; }
-  .big__links li a {
-    position: relative;
-    z-index: 1;
-    display: block;
-    padding: 12px 13px 12px 12px;
-    font-size: calc(16px * var(--fs));
-    color: rgb(255 255 255 / 0.86);
-    letter-spacing: 0.16px;
-    transition: color var(--t) var(--ease-std);
-  }
-  .big__links li:hover a,
-  .big__links li a:focus-visible { color: #fff; }
-
-  /* Explore More: garis putih 1 px di bawah; saat hover garis gradien tumbuh
-     dari kiri menimpanya dan panah muncul. */
-  .big__more { padding-top: 18px; }
-  .more {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding-bottom: 6px;
-    font-size: calc(16px * var(--fs));
-    color: #fff;
-  }
-  .more::before,
-  .more::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
-  .more::before { height: 1px; background: rgb(255 255 255 / 0.7); }
-  .more::after {
-    height: 2px;
-    background: var(--grad-bar);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.5s var(--ease-out);
-  }
-  /* Panah tersembunyi sampai hover/fokus (pemilik, 22 Nov 2026). */
-  .more__arrow {
-    flex: none;
-    opacity: 0;
-    transform: translateX(-8px);
-    transition: opacity var(--t) var(--ease-std), transform 0.5s var(--ease-out);
-  }
-  .more:hover::after,
-  .more:focus-visible::after { transform: none; }
-  .more:hover .more__arrow,
-  .more:focus-visible .more__arrow { opacity: 1; transform: none; }
+  .card:hover .card__arrow,
+  .card:focus-visible .card__arrow { opacity: 1; transform: none; }
 
   @media (max-width: 1026px) {
-    .biz__panel:not([hidden]) { flex-direction: column; gap: 20px; }
-    .biz__tiles { width: 100%; }
-    .biz__tiles--full { grid-template-columns: 1fr 1fr; }
-    .biz__big { width: 100%; min-height: 0; aspect-ratio: 4 / 3; }
-    .tab { padding: 10px 16px; font-size: calc(17px * var(--fs)); }
+    .biz__cards { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 480px) {
-    .biz__big { aspect-ratio: 1 / 1; }
-    .big__links { padding: 0 16px; bottom: 16px; }
-    .big__links li a { font-size: calc(14px * var(--fs)); padding: 9px 10px; }
-    /* Label dua baris ("Consumer Fragrance") butuh tile sedikit lebih tinggi. */
-    .biz__tiles--pick .tile { aspect-ratio: 1.75 / 1; }
-    .tile__text { left: 12px; right: 18px; bottom: 12px; gap: 8px; font-size: calc(14px * var(--fs)); line-height: 1.2; }
-    .tile__text::after { bottom: -5px; }
+    .biz__cards { grid-template-columns: 1fr; margin-top: 28px; }
+    .card { aspect-ratio: 16 / 10; }
+    .card__text { left: 16px; right: 16px; bottom: 18px; font-size: calc(17px * var(--fs)); }
   }
 </style>

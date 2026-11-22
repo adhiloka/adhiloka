@@ -7,8 +7,9 @@ export const CONTACT_INTRO: PageIntro = {
   lede: '',
   description:
     'Contact Adhiloka for samples, specifications, quotations and fragrance projects.',
-  caption: 'a hand reaching for tagged amber sample bottles',
-  image: 'tagged-sample-bottles',
+  caption: 'smiling woman taking notes during a phone call',
+  image: 'contact-phone-call',
+  focus: '50% 18%',
 };
 
 /* Satu-satunya kontak yang sudah pasti (2 Okt 2026). Alamat, nomor dan kantor
