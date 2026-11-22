@@ -28,9 +28,9 @@ import { ScrollSmoother } from 'gsap/ScrollSmoother';
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
-/** Inersia gulir halus dalam detik. Adani memakai 2, yang terasa berat dan
- *  tertinggal dari roda tetikus; 1,2 masih halus tapi langsung menurut. */
-const SMOOTH = 1.2;
+/** Inersia gulir halus dalam detik, sama dengan Adani (2). Sempat diturunkan
+ *  ke 1,2 (12 Nov 2026); pemilik 22 Nov 2026 memilih rasa luncur Adani. */
+const SMOOTH = 2;
 /** Tinggi header (--header-h): sasaran tautan # berhenti di bawahnya. */
 const HEADER_H = 65;
 

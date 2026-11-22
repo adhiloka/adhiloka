@@ -152,7 +152,7 @@ diganti. Susunan, kontainer 88,88 %, header 65 px, skala huruf dan tombol tetap.
 ScrollSmoother; lisensi *Standard no charge*, boleh untuk situs komersial). Takarannya disalin dari
 JavaScript Adani v94, bukan dikira-kira:
 
-- **Gulir halus** ScrollSmoother `smooth: 1.2` di layar ≥992 px (Adani 2; terasa berat). Isi halaman ada di
+- **Gulir halus** ScrollSmoother `smooth: 2` di layar ≥992 px, sama dengan Adani (pemilik 22 Nov 2026). Isi halaman ada di
   `#smooth-wrapper > #smooth-content` (BaseLayout); header, panel pencarian dan tombol ke atas
   sengaja di luarnya karena `position: fixed`. Konstanta `SMOOTH` untuk melunakkan inersianya.
 - **Parallax `data-speed`**: hero 0,8, teks kutipan 1,1, kolom foto besar Business 0,9.
