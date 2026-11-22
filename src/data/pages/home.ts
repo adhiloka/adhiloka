@@ -132,16 +132,69 @@ export const PILLARS: Pillar[] = [
 
 /* ── Our Business ────────────────────────────────────────────────────── */
 
-/* Our Business dirombak total 22 Nov 2026 (komentar pemilik): tanpa tab,
- * cukup empat kartu, masing-masing satu tautan. Fotonya ditetapkan pemilik:
- * mawar merah muda untuk Natural Ingredients, foto perfumery close-up (bukan
- * foto hero) untuk Fine Fragrance, alat lab close-up untuk Technology, alam
- * untuk Sustainability. */
-export const BUSINESS_CARDS: { label: string; href: string; image: ImageKey; alt: string }[] = [
-  { label: 'Natural Ingredients', href: '/ingredients/catalog/', image: 'hero-rose-dew', alt: 'Pink rose petals with dew drops, close up' },
-  { label: 'Perfumery', href: '/perfumery/#fine-fragrance', image: 'hero-perfumer-blending', alt: 'Perfumer blending with a pipette, close up' },
-  { label: 'Technology', href: '/ingredients/technology/', image: 'hero-extraction-rig', alt: 'Glass and steel extraction equipment in a laboratory' },
-  { label: 'Sustainability', href: '/sustainability/', image: 'hero-tea-hills', alt: 'Green tea hills under a bright sky' },
+/* Our Business (pemilik, 22 Nov 2026): bentuk tile + foto besar ("overview")
+ * tetap, tapi tanpa tab Ingredients/Perfumery; cukup empat tile. Fotonya
+ * ditetapkan pemilik: mawar merah muda untuk Natural Ingredients, foto
+ * perfumery close-up (bukan foto hero) untuk Perfumery, alat lab close-up
+ * untuk Technology, alam untuk Sustainability. `href` = tujuan Explore More
+ * yang ditetapkan pemilik; chip = bagian di halaman tujuan. */
+export type BusinessPane = {
+  key: string;
+  label: string;
+  image: ImageKey;
+  chips: { label: string; href: string }[];
+  href: string;
+};
+
+export const BUSINESS_PANES: BusinessPane[] = [
+  {
+    key: 'ingredients',
+    label: 'Natural Ingredients',
+    image: 'hero-rose-dew',
+    chips: [
+      { label: 'Resins', href: '/ingredients/catalog/?family=Resin' },
+      { label: 'Woods', href: '/ingredients/catalog/?family=Wood' },
+      { label: 'Roots', href: '/ingredients/catalog/?family=Root' },
+      { label: 'Leaf Oils', href: '/ingredients/catalog/?family=Leaf' },
+      { label: 'Spices', href: '/ingredients/catalog/?family=Spice' },
+    ],
+    href: '/ingredients/catalog/',
+  },
+  {
+    key: 'perfumery',
+    label: 'Perfumery',
+    image: 'hero-perfumer-blending',
+    chips: [
+      { label: 'Fine Fragrance', href: '/perfumery/#fine-fragrance' },
+      { label: 'Consumer Fragrance', href: '/perfumery/#consumer-fragrance' },
+      { label: 'Fragrance Innovation', href: '/perfumery/#innovation' },
+      { label: 'Our Palette', href: '/perfumery/#palette' },
+    ],
+    href: '/perfumery/#fine-fragrance',
+  },
+  {
+    key: 'technology',
+    label: 'Technology',
+    image: 'hero-extraction-rig',
+    chips: [
+      { label: 'Extraction & Distillation', href: '/ingredients/technology/#routes' },
+      { label: 'Science & Renewables', href: '/ingredients/technology/#science' },
+      { label: 'What We Produce', href: '/ingredients/technology/#range' },
+      { label: 'Quality', href: '/ingredients/technology/#quality' },
+    ],
+    href: '/ingredients/technology/',
+  },
+  {
+    key: 'sustainability',
+    label: 'Sustainability',
+    image: 'hero-tea-hills',
+    chips: [
+      { label: 'Responsible Sourcing', href: '/sustainability/responsible-sourcing/' },
+      { label: 'Progress for People', href: '/sustainability/people/' },
+      { label: 'Partnerships', href: '/sustainability/people/#partnerships' },
+    ],
+    href: '/sustainability/',
+  },
 ];
 
 /* ── Join Us ─────────────────────────────────────────────────────────── */

@@ -45,7 +45,7 @@ ikut sendiri. "Life at Adhiloka" dilepas.
 
 | Jalur | Susunan |
 | --- | --- |
-| `/` | Hero slider empat slide tetap (About, Perfumery, Ingredients, Sustainability; pemilik 21 Nov 2026, foto slide = banner tujuan) · kutipan terbelah (tanpa label, garis dan nama, 15 Nov 2026) · Our Business (22 Nov 2026, dirombak total: tanpa tab, empat kartu tautan Natural Ingredients, Perfumery, Technology, Sustainability dari `BUSINESS_CARDS`) · akordeon keberlanjutan · Latest News · Join Us |
+| `/` | Hero slider empat slide tetap (About, Perfumery, Ingredients, Sustainability; pemilik 21 Nov 2026, foto slide = banner tujuan) · kutipan terbelah (tanpa label, garis dan nama, 15 Nov 2026) · Our Business (22 Nov 2026: tanpa tab, empat tile 2 x 2 Natural Ingredients, Perfumery, Technology, Sustainability yang memilih foto besar berchip + Explore More, dari `BUSINESS_PANES`) · akordeon keberlanjutan · Latest News · Join Us |
 | `/about/` | Pola /about-us Adani: banner · kutipan · Who We Are (slider foto fade dalam panel inset) · How We Work · nilai · kartu |
 | `/about/our-business/`, `/about/our-purpose/` | Banner · pembuka · isi halaman · Explore More |
 | `/about/our-leadership/`, `our-history/`, `our-locations/` | **Diparkir** (lihat "Halaman yang diparkir"); rutenya dialihkan ke `/about/` |
