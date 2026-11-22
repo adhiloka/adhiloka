@@ -67,7 +67,7 @@ export function initTabs() {
 }
 
 /** Tile di kiri memilih foto besar di kanan (`[data-pick]` → `[data-pane]`),
- *  tile aktif diberi lapisan gradien — perilaku grid "Verticals" Adani. */
+ *  perilaku grid "Verticals" Adani. Tanda tile aktif diatur CSS komponennya. */
 export function initPickers() {
   document.querySelectorAll<HTMLElement>('[data-picker]:not([data-ready])').forEach((root) => {
     root.dataset.ready = '';

@@ -40,8 +40,8 @@ export const PERFUMERY_AREAS: Passage[] = [
     id: 'fine-fragrance',
     title: 'Fine Fragrance',
     body: 'Perfumes with a signature of their own, composed hand in hand with each brand. Our perfumers start from the story a brand wants to tell and refine the fragrance until it tells it. Naturals sit at the heart of the work, for depth and a sense of life on the skin.',
-    caption: 'perfume bottles in a row',
-    image: 'fine-fragrance-bottles',
+    caption: 'perfumer blending with a pipette',
+    image: 'hero-perfumer-blending',
   },
   {
     id: 'consumer-fragrance',
@@ -114,10 +114,20 @@ export const PERFUMERY_PALETTE: Passage = {
 
 export const PERFUMERY_CLOSING = 'Every fragrance begins with a conversation.';
 
-/** Tile tab Perfumery di beranda (BusinessShowcase): bagian-bagian halaman ini. */
-export const PERFUMERY_TILES: { label: string; href: string; image: ImageKey }[] = [
-  { label: 'Fine Fragrance', href: '/perfumery/#fine-fragrance', image: 'fine-fragrance-bottles' },
-  { label: 'Consumer Fragrance', href: '/perfumery/#consumer-fragrance', image: 'reed-diffuser-home' },
-  { label: 'Fragrance Innovation', href: '/perfumery/#innovation', image: 'lab-vials' },
-  { label: 'Our Palette', href: '/perfumery/#palette', image: 'vials-dried-flowers' },
+/** Dua tile Perfumery di tab Products, Our Business beranda (BusinessShowcase).
+ *  Chip = bentuk dan bidang yang biasa dikerjakan rumah fragrance; semuanya
+ *  menuju bagian yang sama di halaman ini. */
+export const PERFUMERY_TILES: { label: string; href: string; image: ImageKey; chips: string[] }[] = [
+  {
+    label: 'Fine Fragrance',
+    href: '/perfumery/#fine-fragrance',
+    image: 'hero-perfumer-blending',
+    chips: ['Extrait de Parfum', 'Eau de Parfum', 'Eau de Toilette', 'Body & Hair Mist'],
+  },
+  {
+    label: 'Consumer Fragrance',
+    href: '/perfumery/#consumer-fragrance',
+    image: 'reed-diffuser-home',
+    chips: ['Personal Care', 'Home Care', 'Fabric Care'],
+  },
 ];

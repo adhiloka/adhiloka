@@ -208,7 +208,7 @@ import kaffirLimeLeaves from '../assets/images/kaffir-lime-leaves.jpg';
  *   hero-rose-dew        makro mawar merah muda berembun  [stock-photos/flowers/9241044]  (standar kualitas foto pemilik)
  *   hero-terraces-valley  sawah berundak di lembah di bawah pegunungan hijau, langit biru (hero We Are Adhiloka dan halaman About)  [stock-photos/hero-2026-11-18/pexels-28938202.jpg, Pexels License]  (standar kualitas foto pemilik, 18 Nov 2026)
  *   hero-extraction-rig  close-up rangkaian alat ekstraksi kaca dan baja nirkarat di laboratorium terang (hero Our Expertise dan halaman Technology)  [stock-photos/hero-2026-11-18/pexels-10514729.jpg, Pexels License]  (standar kualitas foto pemilik, 18 Nov 2026)
- *   hero-perfumer-blending  perfumer meracik dengan pipet di botol berisi cairan amber, close-up (hero Perfumery dan halaman Perfumery; bukan staf Adhiloka)  [stock-photos/hero-2026-11-18/pexels-8450352.jpg, Pexels License]  (standar kualitas foto pemilik, 18 Nov 2026)
+ *   hero-perfumer-blending  perfumer meracik dengan pipet di botol berisi cairan amber, close-up (Fine Fragrance sejak 22 Nov 2026; bukan staf Adhiloka)  [stock-photos/hero-2026-11-18/pexels-8450352.jpg, Pexels License]  (standar kualitas foto pemilik, 18 Nov 2026)
  *   hero-tea-hills  perbukitan kebun teh hijau di bawah matahari cerah (hero The Source Collection dan Ingredient Catalog)  [stock-photos/hero-2026-11-18/pexels-6713245.jpg, Pexels License]  (standar kualitas foto pemilik, 18 Nov 2026)
  *   hero-green-terraces  sawah berundak hijau cerah di bawah langit biru (hero Growing Together dan Our Purpose)  [stock-photos/hero-2026-11-18/pexels-37432395.jpg, Pexels License]  (standar kualitas foto pemilik, 18 Nov 2026)
  *   hero-woman-golden-light  perempuan tersenyum disinari matahari sore dari belakang, latar kabur (hero We Are Adhiloka dan halaman About; bukan staf Adhiloka)  [stock-photos/hero-2026-11-21/A-woman-backlit-golden-smile-pexels-12255938.jpg, Pexels License]  (gaya dsm-firmenich, 21 Nov 2026)
@@ -322,7 +322,7 @@ import kaffirLimeLeaves from '../assets/images/kaffir-lime-leaves.jpg';
  *   lemongrass-basket  batang serai di keranjang bersama sayuran hijau (keluarga Citrus)  [stock-photos/spices/pexels-37091865.jpg, Pexels License]
  * 15 Nov 2026, satu foto satu konteks (pemilik): foto baru untuk konteks yang dulu berbagi foto.
  * Rumah tiap foto: PHOTOS.md (node tools/photo-usage.mjs).
- *   fine-fragrance-bottles  deretan botol parfum kaca berisi parfum (Fine Fragrance)  [stock-photos/perfumery/unsplash--j6LLsAehUo.jpg, Unsplash License]
+ *   fine-fragrance-bottles  deretan botol parfum kaca; JANGAN DIPAKAI: label merek Lancôme terbaca (dilepas 22 Nov 2026)  [stock-photos/perfumery/unsplash--j6LLsAehUo.jpg, Unsplash License]
  *   desk-laptop  meja kerja putih dengan laptop dan tanaman (How to Apply)  [stock-photos/textures-and-business/pexels-8473795.jpg, Pexels License]
  *   spice-sacks  karung berisi rempah dan biji kering (What We Buy)  [stock-photos/markets/diverse-assortment-of-spices-at-market-31558746.jpg, Pexels License]
  *   cloves-bowl  cengkih kering di mangkuk keramik (What We Look For)  [stock-photos/clove/dry-cloves-in-a-brown-ceramic-bowl-8804297.jpg, Pexels License]
@@ -340,7 +340,7 @@ import kaffirLimeLeaves from '../assets/images/kaffir-lime-leaves.jpg';
  *   farmer-portrait  petani tua bercaping tersenyum di sawah (kutipan People)  [stock-photos/indonesia/unsplash-6ySPcMiS_rg.jpg, Unsplash License]
  *   resin-bark-close  getah damar mengeras di kulit kayu, makro (berita Benzoin; bukan benzoin)  [stock-photos/resin/close-up-of-tree-resin-on-textured-bark-35963723.jpg, Pexels License]
  *   copper-distillery  alat suling tembaga di ruang bata (berita Patchouli)  [stock-photos/distillation/copper-distillation-equipment-in-rustic-setup-28792582.jpg, Pexels License]
- *   chili-pickers  dua petani bercaping memetik cabai (Become a Supplier)  [stock-photos/farmers/farmers-picking-chili-in-a-farm-12470180.jpg, Pexels License]
+ *   chili-pickers  dua petani bercaping memetik cabai (Partner with Us)  [stock-photos/farmers/farmers-picking-chili-in-a-farm-12470180.jpg, Pexels License]
  *   star-anise-mace  adas bintang dan fuli di permukaan gelap (slider Who We Are)  [stock-photos/nutmeg/close-up-of-star-anise-and-mace-on-dark-surface-36745315.jpg, Pexels License]
  *   herb-basket  keranjang berisi daun herba segar di meja kayu (keluarga Herbal)  [stock-photos/botanical/unsplash-hyVPSa0DmEw.jpg, Unsplash License]
  *   wood-slice  potongan batang kayu (keluarga Woods)  [stock-photos/botanical/unsplash-2x-LQAMJ-YY.jpg, Unsplash License]

@@ -130,19 +130,32 @@ export const PILLARS: Pillar[] = [
   },
 ];
 
+/* ── Our Business ────────────────────────────────────────────────────── */
+
+/* Tab kedua Our Business (pemilik, 22 Nov 2026: Ingredients dan Perfumery
+ * digabung jadi tab Products, tab kedua bebas). Empat tile tautan ke cara
+ * kerja kita; foto = foto banner atau bagian yang dituju. */
+export const BUSINESS_EXPERTISE: { label: string; href: string; image: ImageKey }[] = [
+  { label: 'Technology', href: '/ingredients/technology/', image: 'hero-hands-peppercorns' },
+  { label: 'Ingredients Map', href: '/ingredients/map/', image: 'jungle-stream' },
+  { label: 'Fragrance Innovation', href: '/perfumery/#innovation', image: 'lab-vials' },
+  { label: 'Working With Us', href: '/ingredients/working-with-us/', image: 'cargo-ship' },
+];
+
 /* ── Join Us ─────────────────────────────────────────────────────────── */
 
 /* Naskah disetujui pemilik 18 Okt 2026 (gaya Symrise/Ventós). Sejak 13 Nov
- * 2026 tiga kartu menuju halamannya sendiri di menu Connect; "Life at
- * Adhiloka" dilepas (pemilik). */
+ * 2026 kartu menuju halamannya sendiri di menu Connect; "Life at Adhiloka"
+ * dilepas. Become a Supplier dan Partner with Us digabung jadi Partner with Us
+ * (pemilik, 22 Nov 2026), jadi tinggal dua kartu. */
+
 export const JOIN_US = {
   title: 'Join Us',
   cta: 'Discover More',
   href: '/contact/careers/',
   cards: [
     { label: 'Careers', href: '/contact/careers/', image: 'lab-technician' as ImageKey, alt: 'Technician at work in a laboratory' },
-    { label: 'Become a Supplier', href: '/contact/suppliers/', image: 'chili-pickers' as ImageKey, alt: 'Two growers picking chillies' },
-    { label: 'Partner with Us', href: '/contact/partners/', image: 'amber-bottle-shelf' as ImageKey, alt: 'Amber bottles on a laboratory shelf' },
+    { label: 'Partner with Us', href: '/contact/partners/', image: 'chili-pickers' as ImageKey, alt: 'Two growers picking chillies' },
   ],
 };
 

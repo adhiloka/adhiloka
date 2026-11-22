@@ -5,12 +5,16 @@ import type { LinkCard, PageIntro, Passage } from './types';
  * Supplier dan Partner with Us. "Life at Adhiloka" dilepas. Halamannya di
  * bawah /contact/ supaya remah, menu aktif dan Explore More ikut sendiri.
  * Naskah umum gaya rumah fragrance: tanpa lowongan, angka, nama atau
- * sertifikat. Tombol membawa ?kind= ke formulir kontak. */
+ * sertifikat. Tombol membawa ?kind= ke formulir kontak.
+ *
+ * 22 Nov 2026 (komentar pemilik): Become a Supplier digabung ke Partner with
+ * Us (/contact/suppliers/ dialihkan ke /contact/partners/), dan kedua halaman
+ * dipersingkat jadi satu blok saja: formalitas, tidak menjelaskan berlebihan. */
 
 export const CONNECT_CARDS: LinkCard[] = [
   { title: 'Careers', href: '/contact/careers/', image: 'lab-technician', caption: 'technician at work in a laboratory' },
-  { title: 'Become a Supplier', href: '/contact/suppliers/', image: 'chili-pickers', caption: 'two growers picking chillies' },
-  { title: 'Partner with Us', href: '/contact/partners/', image: 'amber-bottle-shelf', caption: 'amber bottles on a laboratory shelf' },
+  { title: 'Partner with Us', href: '/contact/partners/', image: 'chili-pickers', caption: 'two growers picking chillies' },
+  { title: 'Contact Us', href: '/contact/', image: 'tagged-sample-bottles', caption: 'a hand reaching for tagged amber sample bottles' },
 ];
 
 /* ── Careers ─────────────────────────────────────────────────────────── */
@@ -19,8 +23,7 @@ export const CAREERS_INTRO: PageIntro = {
   eyebrow: 'Connect',
   title: 'Careers',
   lede: '',
-  description:
-    'Careers at Adhiloka: work across sourcing, processing, quality and perfumery of natural aromatic ingredients.',
+  description: 'Careers at Adhiloka, in natural aromatic ingredients and perfumery.',
   caption: 'technician at work in a laboratory',
   image: 'lab-technician',
 };
@@ -29,100 +32,33 @@ export const CAREERS_PASSAGES: Passage[] = [
   {
     id: 'working-here',
     title: 'Working at Adhiloka',
-    body: 'Our work runs from the field to the formula, and most roles touch more than one step of it. We look for people who are curious about plants and careful with detail.',
+    body: 'We welcome applications at any time. Send your CV and a short note, and we will be in touch when a role fits.',
+    cta: 'Send Your CV',
+    href: '/contact/?kind=careers',
     caption: 'researcher at work in a bright laboratory',
     image: 'lab-woman-hall',
   },
-  {
-    id: 'areas',
-    title: 'Areas of Work',
-    body: 'Sourcing, distillation and extraction, quality control, perfumery and customer service. Some roles are spent with growers and harvests, others with samples, formulas and clients.',
-    caption: 'gloved hand placing a flask on a balance',
-    image: 'lab-balance-flask',
-  },
-  {
-    id: 'apply',
-    title: 'How to Apply',
-    body: 'We welcome applications at any time, with a CV and a short note on the work you are looking for. We will be in touch when a role fits. Adhiloka never charges a fee to apply.',
-    cta: 'Send Your CV',
-    href: '/contact/?kind=careers',
-    caption: 'a quiet desk with a laptop',
-    image: 'desk-laptop',
-  },
 ];
 
-/* ── Become a Supplier ───────────────────────────────────────────────── */
-
-export const SUPPLIERS_INTRO: PageIntro = {
-  eyebrow: 'Connect',
-  title: 'Become a Supplier',
-  lede: '',
-  description:
-    'Supply natural raw materials to Adhiloka: resins, leaves, roots, barks, seeds and spices for perfumery.',
-  caption: 'two growers picking chillies',
-  image: 'chili-pickers',
-};
-
-export const SUPPLIERS_PASSAGES: Passage[] = [
-  {
-    id: 'what-we-buy',
-    title: 'What We Buy',
-    body: 'Resins, leaves, roots, barks, seeds and spices for perfumery, and the essential oils and extracts made from them. We buy from growers, gatherers, cooperatives and distillers, as close to the source as we can.',
-    caption: 'sacks of seeds and dried spices',
-    image: 'spice-sacks',
-  },
-  {
-    id: 'what-we-look-for',
-    title: 'What We Look For',
-    body: 'Material that is true to its species, harvested at the right time and handled with care, with clear information on where it was grown. We value suppliers who keep quality steady from one harvest to the next.',
-    caption: 'dried cloves in a ceramic bowl',
-    image: 'cloves-bowl',
-  },
-  {
-    id: 'register',
-    title: 'How to Register',
-    body: 'A short introduction is enough to begin: the materials you offer, the season you harvest and the form you supply them in. We evaluate a sample before any first order, and registering is always free.',
-    cta: 'Register as a Supplier',
-    href: '/contact/?kind=supplier',
-    caption: 'stacked burlap sacks',
-    image: 'burlap-sacks',
-  },
-];
-
-/* ── Partner with Us ─────────────────────────────────────────────────── */
+/* ── Partner with Us (termasuk pemasok) ──────────────────────────────── */
 
 export const PARTNERS_INTRO: PageIntro = {
   eyebrow: 'Connect',
   title: 'Partner with Us',
   lede: '',
-  description:
-    'Partner with Adhiloka in distribution, ingredient co-development, and research on aromatic plants.',
-  caption: 'amber bottles on a shelf',
-  image: 'amber-bottle-shelf',
+  description: 'Supply raw materials to Adhiloka, or partner with us in distribution and research.',
+  caption: 'two growers picking chillies',
+  image: 'chili-pickers',
 };
 
 export const PARTNERS_PASSAGES: Passage[] = [
   {
-    id: 'distribution',
-    title: 'Distribution',
-    body: 'We work with distributors and trading houses who bring natural ingredients to perfumers and manufacturers in their own markets. Our partners have samples, product information and a direct line to us.',
-    caption: 'boxes stacked in a warehouse',
-    image: 'warehouse-boxes',
-  },
-  {
-    id: 'co-development',
-    title: 'Co-development',
-    body: 'Some materials are best developed together: a new extract, a specific grade, or an ingredient prepared for one application. We work on projects like these with fragrance houses and manufacturers, from the first trial to regular supply.',
-    caption: 'researcher checking a vial in a laboratory',
-    image: 'lab-scientist-vial',
-  },
-  {
-    id: 'research',
-    title: 'Research & Education',
-    body: 'We welcome universities, institutes and perfumery schools working on aromatic plants, extraction or natural fragrance, and support their research and teaching with field knowledge and material from our sources.',
-    cta: 'Partner with Us',
+    id: 'suppliers-partners',
+    title: 'Suppliers & Partners',
+    body: 'We work with growers, distillers, distributors and research partners. Tell us what you offer and we will be in touch.',
+    cta: 'Get in Touch',
     href: '/contact/?kind=partnership',
-    caption: 'laboratory glassware and test tubes',
-    image: 'lab-glassware',
+    caption: 'amber bottles on a shelf',
+    image: 'amber-bottle-shelf',
   },
 ];

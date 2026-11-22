@@ -35,6 +35,8 @@ export default defineConfig({
     '/raw-materials/': '/ingredients/catalog/',
     // Ordering & Documents diganti nama Working With Us 13 Nov 2026.
     '/ingredients/ordering/': '/ingredients/working-with-us/',
+    // Become a Supplier digabung ke Partner with Us 22 Nov 2026.
+    '/contact/suppliers/': '/contact/partners/',
   },
   build: { inlineStylesheets: 'auto' },
 

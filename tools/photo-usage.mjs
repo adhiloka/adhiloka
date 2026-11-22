@@ -170,8 +170,6 @@ function contextAt(text, pos, file) {
   if (owner === 'FAMILY_IMAGE' && prop) return { ctx: `/ingredients/catalog/?family=${prop}`, how: `keluarga ${prop}`, lineNo };
   if (OWNER_CTX[owner]) return { ctx: OWNER_CTX[owner], how: `blok ${owner}`, lineNo };
   if (anchor && rel(file) === 'src/data/pages/perfumery.ts') return { ctx: `/perfumery/#${anchor}`, how: `bagian ${title ?? anchor}`, lineNo };
-  // Tile Technology di Our Business beranda menuju /ingredients/technology/ (href dirakit).
-  if (title === 'Technology' && rel(file).endsWith('BusinessShowcase.astro')) return { ctx: '/ingredients/technology/', how: 'tile Technology', lineNo };
   if (href) return { ctx: norm(href), how: `tautan ${href}`, lineNo };
   if (owner && (/_INTRO$/.test(owner) || owner === 'intro') && introPage[owner]) return { ctx: introPage[owner], how: `banner ${owner}`, lineNo };
   if (owner && /_INTRO$/.test(owner)) return { ctx: `intro:${owner}`, how: `banner ${owner} (halaman diparkir)`, lineNo };

@@ -38,14 +38,14 @@ kolom kanan (`grid-auto-flow: column`). Nama produk tidak pernah masuk menu; pro
 katalog. Isi panel: About Us (Our Business, Our Purpose) · Perfumery (Fine Fragrance, Consumer
 Fragrance, Fragrance Innovation, How We Work, Our Palette) · Ingredients (Natural Ingredients,
 Ingredient Catalog, Ingredients Map, Technology, Working With Us) · Sustainability (Driving progress
-for people, Responsible Sourcing) · Media (News, Media Resources) · Connect (Careers, Become a
-Supplier, Partner with Us, Contact Us). **Connect** (pemilik, 13 Nov 2026) menggantikan Contact yang
+for people, Responsible Sourcing) · Media (News, Media Resources) · Connect (Careers, Partner with
+Us, Contact Us; Become a Supplier digabung ke Partner with Us 22 Nov 2026). **Connect** (pemilik, 13 Nov 2026) menggantikan Contact yang
 dulu berdiri sendiri; halamannya di bawah `/contact/` supaya remah, menu aktif dan Explore More
 ikut sendiri. "Life at Adhiloka" dilepas.
 
 | Jalur | Susunan |
 | --- | --- |
-| `/` | Hero slider empat slide tetap (About, Perfumery, Ingredients, Sustainability; pemilik 21 Nov 2026, foto slide = banner tujuan) · kutipan terbelah (tanpa label, garis dan nama, 15 Nov 2026) · Our Business (tab Ingredients/Perfumery) · akordeon keberlanjutan · Latest News · Join Us |
+| `/` | Hero slider empat slide tetap (About, Perfumery, Ingredients, Sustainability; pemilik 21 Nov 2026, foto slide = banner tujuan) · kutipan terbelah (tanpa label, garis dan nama, 15 Nov 2026) · Our Business (22 Nov 2026: tab Products = 6 keluarga bahan + Fine/Consumer Fragrance, maks 8 tile, chip maks 5; tab Expertise = 4 tile tautan; tile terpilih tanpa tutupan gradien, tile lain meredup + bilah gradien di dasar) · akordeon keberlanjutan · Latest News · Join Us |
 | `/about/` | Pola /about-us Adani: banner · kutipan · Who We Are (slider foto fade dalam panel inset) · How We Work · nilai · kartu |
 | `/about/our-business/`, `/about/our-purpose/` | Banner · pembuka · isi halaman · Explore More |
 | `/about/our-leadership/`, `our-history/`, `our-locations/` | **Diparkir** (lihat "Halaman yang diparkir"); rutenya dialihkan ke `/about/` |
@@ -64,7 +64,7 @@ ikut sendiri. "Life at Adhiloka" dilepas.
 | `/media/news/` | News (enam cerita, Februari 2025 sampai November 2026): cari, kategori, tahun, urutan, tag filter + Clear All, Load More (6 per langkah), laci filter di ≤767 px |
 | `/media/news/<slug>/` | Banner setengah layar (remah saja) · judul dan isi · slider Other Releases |
 | `/contact/` | Formulir + satu kontak (info@adhiloka.com) · Explore More (tiga halaman Connect); `?material=slug&kind=sample\|specification\|quotation\|bespoke\|supplier\|partnership\|careers` mengisi jenis permintaan dan pesan |
-| `/contact/careers/`, `/contact/suppliers/`, `/contact/partners/` | Banner · tiga blok bergambar (`data/pages/connect.ts`), blok terakhir bertombol ke formulir dengan `?kind=` · Explore More. Tanpa lowongan, angka atau nama |
+| `/contact/careers/`, `/contact/partners/` | Banner · satu blok singkat bergambar bertombol ke formulir dengan `?kind=` (`data/pages/connect.ts`) · Explore More. Dipersingkat 22 Nov 2026 (formalitas); Become a Supplier digabung ke Partner with Us, `/contact/suppliers/` dialihkan. Tanpa lowongan, angka atau nama |
 | `/legal/` | Legal · Privacy · Cookies (tujuan tiga tautan di bar bawah footer; label tanpa "Notice" sejak 15 Nov 2026) |
 
 Rute lama `/our-story/`, `/fragrances/` dan `/raw-materials/` dialihkan lewat `redirects` di

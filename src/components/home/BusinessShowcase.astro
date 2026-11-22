@@ -2,13 +2,20 @@
 import { Image } from 'astro:assets';
 import { images, type ImageKey } from '../../data/images';
 import { MATERIALS, materialHref, FAMILY_IMAGE, type Family } from '../../data/materials';
-import { ROUTES } from '../../data/pages/ingredients';
 import { PERFUMERY_TILES } from '../../data/pages/perfumery';
+import { BUSINESS_EXPERTISE } from '../../data/pages/home';
 
 /* Section "BUSINESSES" adani.com, diisi usaha Adhiloka.
- * Tab kanan atas: Ingredients (seperti "Verticals": grid tile 2 kolom di kiri,
- * foto besar dengan chip dan Explore More di kanan; tile memilih fotonya) dan
- * Perfumery (seperti "Listed Companies": grid penuh 4 kolom berisi tautan). */
+ * Dirombak 22 Nov 2026 (komentar pemilik): tab Ingredients dan Perfumery
+ * digabung jadi satu tab Products, tab kedua Expertise. Paling banyak 8 tile
+ * dan jumlahnya tetap, jadi section tidak memanjang saat produk bertambah.
+ *   Products  = grid tile 2 kolom di kiri, foto besar berchip dan Explore More
+ *               di kanan; tile memilih fotonya ("Verticals" Adani). Enam
+ *               keluarga bahan + dua bidang Perfumery. Chip bahan paling banyak
+ *               lima; sisanya lewat Explore More.
+ *   Expertise = empat tile tautan dalam satu baris ("Listed Companies").
+ * Tile terpilih tidak ditutup gradien lagi: tile lain meredup, yang terpilih
+ * tetap terang dengan bilah gradien di dasarnya, garis bawah dan panah. */
 
 type Pane = {
   key: string;
@@ -18,41 +25,37 @@ type Pane = {
   more: string;
 };
 
+const MAX_CHIPS = 5;
+
 const FAMILIES: { family: Family; label: string }[] = [
   { family: 'Resin', label: 'Resins' },
   { family: 'Wood', label: 'Woods' },
+  { family: 'Root', label: 'Roots' },
   { family: 'Leaf', label: 'Leaf Oils' },
   { family: 'Spice', label: 'Spices' },
   { family: 'Flower', label: 'Flowers' },
-  { family: 'Root', label: 'Roots' },
-  { family: 'Citrus', label: 'Citrus' },
-  { family: 'Herbal', label: 'Herbal' },
-  { family: 'Gourmand', label: 'Gourmand' },
 ];
 
-// Keluarga tanpa bahan di katalog tidak dapat tile.
 const panes: Pane[] = [
-  ...FAMILIES.filter(({ family }) => MATERIALS.some((m) => m.family === family)).map(({ family, label }) => {
-    const items = MATERIALS.filter((m) => m.family === family);
-    return {
-      key: family.toLowerCase(),
-      label,
-      image: FAMILY_IMAGE[family].image,
-      chips: items.map((m) => ({ label: m.name, href: materialHref(m.slug) })),
-      more: '/ingredients/catalog/',
-    };
-  }),
-  {
-    key: 'technology',
-    label: 'Technology',
-    image: 'hero-hands-peppercorns',
-    chips: ROUTES.slice(0, 6).map((r) => ({ label: r.name, href: '/ingredients/technology/#routes' })),
-    more: '/ingredients/technology/',
-  },
-];
+  ...FAMILIES.filter(({ family }) => MATERIALS.some((m) => m.family === family)).map(({ family, label }) => ({
+    key: family.toLowerCase(),
+    label,
+    image: FAMILY_IMAGE[family].image,
+    chips: MATERIALS.filter((m) => m.family === family)
+      .slice(0, MAX_CHIPS)
+      .map((m) => ({ label: m.name, href: materialHref(m.slug) })),
+    more: `/ingredients/catalog/?family=${family}`,
+  })),
+  ...PERFUMERY_TILES.map((t) => ({
+    key: t.href.split('#')[1],
+    label: t.label,
+    image: t.image,
+    chips: t.chips.map((c) => ({ label: c, href: t.href })),
+    more: t.href,
+  })),
+].slice(0, 8);
 
-/* Empat ubin: bagian-bagian halaman Perfumery (satu halaman sejak 12 Nov 2026). */
-const perfumery = PERFUMERY_TILES;
+const arrow = '<path d="M0 6h16M11 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4"></path>';
 ---
 
 <section class="sec sec--grey biz" data-tabs>
@@ -60,13 +63,13 @@ const perfumery = PERFUMERY_TILES;
     <div class="biz__head">
       <h2 class="h2" data-anim="title">Our Business</h2>
       <div class="biz__tabs" role="tablist" aria-label="Business" data-anim="title">
-        <button class="tab is-active" type="button" role="tab" data-tab="ingredients" aria-selected="true">Ingredients</button>
-        <button class="tab" type="button" role="tab" data-tab="perfumery" aria-selected="false" tabindex="-1">Perfumery</button>
+        <button class="tab is-active" type="button" role="tab" data-tab="products" aria-selected="true">Products</button>
+        <button class="tab" type="button" role="tab" data-tab="expertise" aria-selected="false" tabindex="-1">Expertise</button>
       </div>
     </div>
 
-    <div class="biz__panel" data-panel="ingredients" role="tabpanel" data-picker>
-      <ul class="biz__tiles">
+    <div class="biz__panel" data-panel="products" role="tabpanel" data-picker>
+      <ul class="biz__tiles biz__tiles--pick">
         {
           panes.map((p, i) => (
             <li data-anim="thumb">
@@ -74,7 +77,7 @@ const perfumery = PERFUMERY_TILES;
                 <Image quality={70} src={images[p.image]} alt="" widths={[320, 520]} sizes="(max-width: 767px) 50vw, 18vw" loading="lazy" />
                 <span class="tile__text">
                   {p.label}
-                  <svg class="tile__arrow" viewBox="0 0 18 12" width="17" height="11" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4"></path></svg>
+                  <svg class="tile__arrow" viewBox="0 0 18 12" width="17" height="11" aria-hidden="true" set:html={arrow} />
                 </span>
               </button>
             </li>
@@ -94,7 +97,10 @@ const perfumery = PERFUMERY_TILES;
                   ))}
                 </ul>
                 <div class="big__more">
-                  <a href={p.more}>Explore More</a>
+                  <a class="more" href={p.more}>
+                    <span class="more__label">Explore More</span>
+                    <svg class="more__arrow" viewBox="0 0 18 12" width="17" height="11" aria-hidden="true" set:html={arrow} />
+                  </a>
                 </div>
               </div>
             </div>
@@ -103,16 +109,16 @@ const perfumery = PERFUMERY_TILES;
       </div>
     </div>
 
-    <div class="biz__panel" data-panel="perfumery" role="tabpanel" hidden>
+    <div class="biz__panel" data-panel="expertise" role="tabpanel" hidden>
       <ul class="biz__tiles biz__tiles--full">
         {
-          perfumery.map((p) => (
+          BUSINESS_EXPERTISE.map((p) => (
             <li data-anim="thumb">
               <a class="tile shade" href={p.href}>
                 <Image quality={70} src={images[p.image]} alt="" widths={[320, 520]} sizes="(max-width: 767px) 50vw, 22vw" loading="lazy" />
                 <span class="tile__text">
                   {p.label}
-                  <svg class="tile__arrow" viewBox="0 0 18 12" width="17" height="11" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4"></path></svg>
+                  <svg class="tile__arrow" viewBox="0 0 18 12" width="17" height="11" aria-hidden="true" set:html={arrow} />
                 </span>
               </a>
             </li>
@@ -195,7 +201,7 @@ const perfumery = PERFUMERY_TILES;
     position: relative;
     display: block;
     width: 100%;
-    aspect-ratio: 2 / 1;
+    aspect-ratio: 2.2 / 1;
     overflow: hidden;
     background: #222;
     text-align: left;
@@ -205,29 +211,40 @@ const perfumery = PERFUMERY_TILES;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform var(--t-img) var(--ease-out);
+    transition:
+      transform var(--t-img) var(--ease-out),
+      filter var(--t-slow) var(--ease-std);
   }
-  .tile:hover :global(img) { transform: scale(1.06); }
-  /* Lapisan gradien yang menyapu tile aktif (`thumb-image::after`). */
+  .tile:hover :global(img),
+  .tile:focus-visible :global(img) { transform: scale(1.06); }
+
+  /* Tanda tile terpilih (pemilik, 22 Nov 2026: jangan ditutup gradien).
+     Tile lain meredup sedikit; yang terpilih tetap penuh warna, bilah
+     gradien 4 px tumbuh dari kiri di dasarnya. Hover menerangkan lagi. */
+  .biz__tiles--pick .tile:not(.is-active) :global(img) { filter: saturate(0.55) brightness(0.72); }
+  .biz__tiles--pick .tile:not(.is-active):hover :global(img),
+  .biz__tiles--pick .tile:not(.is-active):focus-visible :global(img) { filter: none; }
   .tile::before {
     content: '';
     position: absolute;
-    inset: 0;
-    z-index: 1;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    height: 4px;
     background: var(--grad-bar);
-    opacity: 0.92;
-    transform: translateX(-101%);
-    transition: transform 0.5s var(--ease-out);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s var(--ease-out);
   }
   .tile.is-active::before { transform: none; }
-  .tile.is-active::after { opacity: 0; }
 
   .tile__text {
     position: absolute;
     z-index: 2;
     left: 20px;
     right: 20px;
-    bottom: 22px;
+    bottom: 20px;
     display: inline-flex;
     align-items: center;
     gap: 12px;
@@ -248,19 +265,21 @@ const perfumery = PERFUMERY_TILES;
     transition: transform 0.5s var(--ease-out);
   }
   .tile:hover .tile__text::after,
+  .tile:focus-visible .tile__text::after,
   .tile.is-active .tile__text::after { transform: none; }
-  /* Panah masuk dari kiri sambil muncul, bukan tiba-tiba ada. */
+  /* Panah masuk dari kiri sambil muncul saat hover, fokus, atau terpilih. */
   .tile__arrow {
     flex: none;
     margin-left: auto;
     opacity: 0;
-    transform: translateX(-8px);
+    transform: translateX(-10px);
     transition: opacity var(--t) var(--ease-std), transform 0.5s var(--ease-out);
   }
   .tile:hover .tile__arrow,
+  .tile:focus-visible .tile__arrow,
   .tile.is-active .tile__arrow { opacity: 1; transform: none; }
 
-  .biz__big { position: relative; width: 61.1%; min-height: 420px; }
+  .biz__big { position: relative; width: 61.1%; min-height: 360px; }
   .big {
     position: absolute;
     inset: 0;
@@ -284,7 +303,7 @@ const perfumery = PERFUMERY_TILES;
     z-index: 2;
     left: 0;
     right: 0;
-    bottom: 30px;
+    bottom: 26px;
     padding: 0 30px;
   }
   .big__links ul {
@@ -308,7 +327,8 @@ const perfumery = PERFUMERY_TILES;
     transform: translateX(-101%);
     transition: transform 0.45s var(--ease-out);
   }
-  .big__links li:hover::after { transform: none; }
+  .big__links li:hover::after,
+  .big__links li:focus-within::after { transform: none; }
   .big__links li a {
     position: relative;
     z-index: 1;
@@ -319,14 +339,42 @@ const perfumery = PERFUMERY_TILES;
     letter-spacing: 0.16px;
     transition: color var(--t) var(--ease-std);
   }
-  .big__links li:hover a { color: #fff; }
-  .big__more { padding-top: 20px; }
-  .big__more a {
+  .big__links li:hover a,
+  .big__links li a:focus-visible { color: #fff; }
+
+  /* Explore More: garis putih 1 px di bawah; saat hover garis gradien tumbuh
+     dari kiri menimpanya dan panah bergeser ke kanan. */
+  .big__more { padding-top: 18px; }
+  .more {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 6px;
     font-size: calc(16px * var(--fs));
     color: #fff;
-    text-decoration: underline;
-    text-underline-offset: 5px;
   }
+  .more::before,
+  .more::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  .more::before { height: 1px; background: rgb(255 255 255 / 0.7); }
+  .more::after {
+    height: 2px;
+    background: var(--grad-bar);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s var(--ease-out);
+  }
+  .more__arrow { flex: none; transition: transform 0.5s var(--ease-out); }
+  .more:hover::after,
+  .more:focus-visible::after { transform: none; }
+  .more:hover .more__arrow,
+  .more:focus-visible .more__arrow { transform: translateX(6px); }
 
   @media (max-width: 1026px) {
     .biz__panel:not([hidden]) { flex-direction: column; gap: 20px; }
@@ -336,9 +384,16 @@ const perfumery = PERFUMERY_TILES;
     .tab { padding: 10px 16px; font-size: calc(17px * var(--fs)); }
   }
   @media (max-width: 480px) {
-    .biz__big { aspect-ratio: 3 / 4; }
+    .biz__big { aspect-ratio: 1 / 1; }
     .big__links { padding: 0 16px; bottom: 16px; }
     .big__links li a { font-size: calc(14px * var(--fs)); padding: 9px 10px; }
-    .tile__text { left: 12px; bottom: 14px; font-size: calc(14px * var(--fs)); }
+    /* Label dua baris ("Consumer Fragrance") butuh tile sedikit lebih tinggi. */
+    .biz__tiles--pick .tile { aspect-ratio: 1.75 / 1; }
+    .tile__text { left: 12px; right: 12px; bottom: 12px; gap: 8px; font-size: calc(14px * var(--fs)); line-height: 1.2; }
+    .tile__text::after { bottom: -5px; }
+  }
+  /* Layar sentuh tanpa hover: panah selalu tampil supaya jelas bisa diklik. */
+  @media (hover: none) {
+    .tile__arrow { opacity: 1; transform: none; }
   }
 </style>

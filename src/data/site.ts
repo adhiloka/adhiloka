@@ -37,8 +37,9 @@ export type NavItem = {
    2026): panel mengisinya 3 ke bawah lalu pindah ke kolom kanan. Juga sumber
    remah roti, indeks pencarian dan 404. Tidak ada nama produk di sini:
    produk hanya di katalog. Menu terakhir "Connect" (pemilik, 13 Nov 2026)
-   menggantikan Contact yang berdiri sendiri: Careers, Become a Supplier,
-   Partner with Us dan Contact Us dalam satu panel. */
+   menggantikan Contact yang berdiri sendiri: Careers, Partner with Us dan
+   Contact Us dalam satu panel (Become a Supplier digabung ke Partner with Us,
+   pemilik 22 Nov 2026). */
 export const NAV: NavItem[] = [
   {
     label: 'About Us',
@@ -127,7 +128,6 @@ export const NAV: NavItem[] = [
       image: 'tagged-sample-bottles',
       links: [
         { label: 'Careers', href: '/contact/careers/' },
-        { label: 'Become a Supplier', href: '/contact/suppliers/' },
         { label: 'Partner with Us', href: '/contact/partners/' },
         { label: 'Contact Us', href: '/contact/' },
       ],
