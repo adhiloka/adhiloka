@@ -141,7 +141,7 @@ diganti. Susunan, kontainer 88,88 %, header 65 px, skala huruf dan tombol tetap.
 - **Kontrol hero** rata dengan tepi kanan kontainer (Adani menjorok 27 px keluar); rel progres
   putih 38 %, bayangan kartu dua lapis.
 - **Isi akordeon keberlanjutan** rata dengan garis kiri kontainer: `calc(5.56cqw - 35.5px)`.
-- **Panah kecil** di tile, kartu dan Join Us masuk dengan opasitas + geser, tidak lagi `display`.
+- **Panah kecil** di tile, kartu dan Join Us selalu tampil (pemilik, 22 Nov 2026: jangan hanya muncul saat hover); hover di mana pun di tile/kartu menggesernya 6 px ke kanan.
 - **Header** bergaris rambut di dasarnya; isi mega-menu muncul menyusul panelnya.
 - **Formulir kontak**: panah pilihan digambar sendiri, cincin fokus hijau, slot galat kosong tidak
   makan tempat.

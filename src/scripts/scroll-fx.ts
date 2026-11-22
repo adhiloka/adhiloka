@@ -39,11 +39,14 @@ const each = <T extends Element = HTMLElement>(sel: string, root: ParentNode = d
 
 /* ── Gulir halus (initGSAPScroll) ───────────────────────────────────────── */
 
-function smoothScroll() {
+/** `wide` = foto besar Business bersisian dengan tile (>1026px). Di tata letak
+ *  bertumpuk (992–1026px) data-speed-nya dimatikan: kalau tidak, foto itu naik
+ *  menutupi baris tile terbawah dan hover di sana tidak kena (22 Nov 2026). */
+function smoothScroll(wide = true) {
   const root = document.documentElement;
   const smoother = ScrollSmoother.create({
     smooth: SMOOTH,
-    effects: true,
+    effects: wide ? true : '[data-speed]:not(.biz__big)',
     // Adani: normalizeScroll true. allowNestedScroll supaya laci menu dan
     // panel pencarian yang punya gulir sendiri tetap bisa digulir.
     normalizeScroll: { allowNestedScroll: true },
@@ -324,7 +327,8 @@ export function initScrollFx() {
 
   const mm = gsap.matchMedia();
   // Gulir halus hanya di layar >991px, seperti Adani; dibuat sebelum efek lain.
-  mm.add('(min-width: 992px) and (prefers-reduced-motion: no-preference)', smoothScroll);
+  mm.add('(min-width: 1027px) and (prefers-reduced-motion: no-preference)', () => smoothScroll(true));
+  mm.add('(min-width: 992px) and (max-width: 1026px) and (prefers-reduced-motion: no-preference)', () => smoothScroll(false));
   mm.add('(prefers-reduced-motion: no-preference)', () => {
     root.classList.add('fx');
     titles();

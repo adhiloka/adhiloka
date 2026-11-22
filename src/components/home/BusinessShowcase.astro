@@ -267,17 +267,17 @@ const arrow = '<path d="M0 6h16M11 1l5 5-5 5" fill="none" stroke="currentColor" 
   .tile:hover .tile__text::after,
   .tile:focus-visible .tile__text::after,
   .tile.is-active .tile__text::after { transform: none; }
-  /* Panah masuk dari kiri sambil muncul saat hover, fokus, atau terpilih. */
+  /* Panah selalu tampil (pemilik, 22 Nov 2026: jangan hanya muncul saat
+     hover). Hover di mana pun di tile, fokus, atau tile terpilih menggesernya
+     ke kanan. */
   .tile__arrow {
     flex: none;
     margin-left: auto;
-    opacity: 0;
-    transform: translateX(-10px);
-    transition: opacity var(--t) var(--ease-std), transform 0.5s var(--ease-out);
+    transition: transform 0.5s var(--ease-out);
   }
   .tile:hover .tile__arrow,
   .tile:focus-visible .tile__arrow,
-  .tile.is-active .tile__arrow { opacity: 1; transform: none; }
+  .tile.is-active .tile__arrow { transform: translateX(6px); }
 
   .biz__big { position: relative; width: 61.1%; min-height: 360px; }
   .big {
@@ -389,11 +389,7 @@ const arrow = '<path d="M0 6h16M11 1l5 5-5 5" fill="none" stroke="currentColor" 
     .big__links li a { font-size: calc(14px * var(--fs)); padding: 9px 10px; }
     /* Label dua baris ("Consumer Fragrance") butuh tile sedikit lebih tinggi. */
     .biz__tiles--pick .tile { aspect-ratio: 1.75 / 1; }
-    .tile__text { left: 12px; right: 12px; bottom: 12px; gap: 8px; font-size: calc(14px * var(--fs)); line-height: 1.2; }
+    .tile__text { left: 12px; right: 18px; bottom: 12px; gap: 8px; font-size: calc(14px * var(--fs)); line-height: 1.2; }
     .tile__text::after { bottom: -5px; }
-  }
-  /* Layar sentuh tanpa hover: panah selalu tampil supaya jelas bisa diklik. */
-  @media (hover: none) {
-    .tile__arrow { opacity: 1; transform: none; }
   }
 </style>

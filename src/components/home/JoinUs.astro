@@ -81,13 +81,13 @@ import { JOIN_US } from '../../data/pages/home';
     line-height: 1.2;
     color: #fff;
   }
+  /* Panah selalu tampil di semua kartu; kartu aktif (hover/fokus) menggesernya
+     (pemilik, 22 Nov 2026). */
   .join__label svg {
     flex: none;
-    opacity: 0;
-    transform: translateX(-8px);
-    transition: opacity var(--t) var(--ease-std), transform 0.5s var(--ease-out);
+    transition: transform 0.5s var(--ease-out);
   }
-  .is-active .join__label svg { opacity: 1; transform: none; transition-delay: 0.15s; }
+  .is-active .join__label svg { transform: translateX(6px); transition-delay: 0.15s; }
   .join__label::after {
     content: '';
     position: absolute;
@@ -114,6 +114,5 @@ import { JOIN_US } from '../../data/pages/home';
     /* Kartu ganjil terakhir selebar dua kolom supaya baris tidak bolong. */
     .join__card:last-child:nth-child(odd) { grid-column: span 2; }
     .join__card:last-child:nth-child(odd) .join__link { aspect-ratio: 3 / 2; }
-    .join__label svg { opacity: 1; transform: none; }
   }
 </style>
