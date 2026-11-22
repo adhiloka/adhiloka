@@ -267,17 +267,17 @@ const arrow = '<path d="M0 6h16M11 1l5 5-5 5" fill="none" stroke="currentColor" 
   .tile:hover .tile__text::after,
   .tile:focus-visible .tile__text::after,
   .tile.is-active .tile__text::after { transform: none; }
-  /* Panah selalu tampil (pemilik, 22 Nov 2026: jangan hanya muncul saat
-     hover). Hover di mana pun di tile, fokus, atau tile terpilih menggesernya
-     ke kanan. */
+  /* Panah tersembunyi; muncul (masuk dari kiri) hanya saat kursor ada di
+     mana pun di atas tile, atau saat fokus keyboard (pemilik, 22 Nov 2026). */
   .tile__arrow {
     flex: none;
     margin-left: auto;
-    transition: transform 0.5s var(--ease-out);
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity var(--t) var(--ease-std), transform 0.5s var(--ease-out);
   }
   .tile:hover .tile__arrow,
-  .tile:focus-visible .tile__arrow,
-  .tile.is-active .tile__arrow { transform: translateX(6px); }
+  .tile:focus-visible .tile__arrow { opacity: 1; transform: none; }
 
   .biz__big { position: relative; width: 61.1%; min-height: 360px; }
   .big {

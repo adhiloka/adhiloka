@@ -81,13 +81,16 @@ import { JOIN_US } from '../../data/pages/home';
     line-height: 1.2;
     color: #fff;
   }
-  /* Panah selalu tampil di semua kartu; kartu aktif (hover/fokus) menggesernya
-     (pemilik, 22 Nov 2026). */
+  /* Panah tersembunyi; muncul hanya saat kartu di-hover atau difokus, bukan
+     karena kartu pertama lebar sejak awal (pemilik, 22 Nov 2026). */
   .join__label svg {
     flex: none;
-    transition: transform 0.5s var(--ease-out);
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity var(--t) var(--ease-std), transform 0.5s var(--ease-out);
   }
-  .is-active .join__label svg { transform: translateX(6px); transition-delay: 0.15s; }
+  .join__card:hover .join__label svg,
+  .join__card:focus-within .join__label svg { opacity: 1; transform: none; transition-delay: 0.15s; }
   .join__label::after {
     content: '';
     position: absolute;
