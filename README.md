@@ -28,17 +28,19 @@ bilah sub-menu tiap lini: `src/data/businesses.ts`.
 | --- | --- |
 | `/` | **Beranda grup**: hero empat slide (We Are Adhiloka, tiga lini; `GROUP_HERO_SLIDES`) · kutipan grup (`GROUP_QUOTE`) · Our Businesses **bertab per lini ala adani.com** (`GROUP_TABS`: tiap tab empat tile 2 x 2 + foto besar berchip) · keberlanjutan · berita · Join Us |
 | `/our-businesses/` | Banner · pembuka · satu blok Feature per lini (pola adani.com/businesses). `/about/our-business/` dialihkan ke sini (halamannya diparkir jadi `_our-business.astro`) |
-| `/natural-aromatics/` · `/marine-products/` · `/polymers/` | **Sub-halaman lini ringkas** (27 Nov 2026): banner · pembuka satu paragraf + satu tombol · kartu Our Portfolio (naturals: halaman di dalam lini; dua lini lain: kategori menuju `products/#kategori`) |
-| `/marine-products/products/` · `/polymers/products/` | Products lini (`LineCatalog`): dikelompokkan per kategori (judul + paragraf kiri, foto berjudul 3 kolom kanan), jangkar `#kategori`, tanpa tab penyaring dan tanpa hitungan. Sengaja tidak meniru katalog bahan |
+| `/fragrance/` · `/fisheries/` · `/polymers/` | **Sub-halaman lini ringkas** (27 Nov 2026): banner · pembuka satu paragraf + satu tombol · kartu Our Portfolio (Fragrance: Ingredients dan Perfumery saja; dua lini lain: kategori menuju `products/#kategori`). **Tanpa bilah sub-menu lini** (`BusinessSubnav` tidak dipakai): remah banner + kartu, pola adani.com/businesses/materials |
+| `/fisheries/products/` · `/polymers/products/` | Products lini (`LineCatalog`): dikelompokkan per kategori (judul + paragraf kiri, foto berjudul 3 kolom kanan), jangkar `#kategori`, tanpa tab penyaring dan tanpa hitungan. Sengaja tidak meniru katalog bahan |
 | `…/products/<slug>/` | Halaman produk lini (`LineProductPage`): satu section terbelah (foto; nama, satu kalimat, tabel spesifikasi + penanganan, Request a Quotation) · slider produk sekategori |
 
-Nama lini sejak 27 Nov 2026: Natural Aromatics, Marine Products, Polymers (keputusan
+Nama lini sejak 27 Nov 2026: Fragrance, Fisheries, Polymers (keputusan
 `decisions/2026-11-27 Business line names and line subpages.md`); alamat lama
-(`/natural-ingredients-perfumery/`, `/seafood/…`, `/plastics-packaging/…`) dialihkan di `astro.config.mjs`.
+(`/natural-ingredients-perfumery/`, `/natural-aromatics/`, `/seafood/…`, `/marine-products/…`, `/plastics-packaging/…`) dialihkan di `astro.config.mjs`.
+How We Work dihapus dari About dan Perfumery; Working With Us diparkir (`_working-with-us.astro`, dialihkan ke `/contact/`).
+Hub Ingredients memuat empat anaknya (Natural Ingredients, Catalog, Map, Technology) sebagai kartu 2 x 2.
 Kunci internal di kode tetap `naturals`, `seafood`, `packaging`.
 
 - Data produk: `src/data/seafood.ts`, `src/data/packaging.ts`, tipe dan helper di `line-products.ts`. Tanpa kode produk.
-- Menu atas: About Us · Our Businesses · Sustainability · Media · Connect. Perfumery dan Ingredients tidak lagi di header; tautannya di **bilah sub-menu lini** (`BusinessSubnav`, otomatis di `PageLayout` untuk halaman lini).
+- Menu atas: About Us · Our Businesses · Sustainability · Media · Connect. Perfumery dan Ingredients tidak di header; dicapai dari kartu halaman Fragrance dan remah banner (bilah sub-menu lini dilepas 27 Nov 2026).
 - Remah halaman lini: Home › lini › bagian › halaman (`PageBanner` + `businessOf`).
 - Kontak: kolom **Business** dan `?business=naturals|seafood|packaging`, `?product=<slug>` mengisi pesan.
 

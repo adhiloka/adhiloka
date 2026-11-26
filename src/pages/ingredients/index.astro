@@ -1,8 +1,7 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import Intro from '../../components/blocks/Intro.astro';
-import InfoGrid from '../../components/blocks/InfoGrid.astro';
-import CardSlider from '../../components/blocks/CardSlider.astro';
+import CardGrid from '../../components/blocks/CardGrid.astro';
 import PromoBanner from '../../components/blocks/PromoBanner.astro';
 import ClosingCta from '../../components/blocks/ClosingCta.astro';
 import { CATALOG_DOWNLOAD } from '../../data/downloads';
@@ -12,23 +11,20 @@ import {
   INGREDIENTS_CARDS,
   INGREDIENTS_MILESTONES,
   INGREDIENTS_CLOSING,
-  ROUTES,
 } from '../../data/pages/ingredients';
 
-/* Hub Ingredients, urutannya meniru halaman Ingredients dsm-firmenich:
- * Discover More (lima halaman anak, urutan menu; slider karena lebih dari
- * tiga), lima langkah mendatar, Technologies (tiga proses), pita unduhan
- * katalog, lalu penutup. Slider Collections per keluarga pindah ke Natural
+/* Hub Ingredients, urutannya meniru halaman Ingredients dsm-firmenich.
+ * 27 Nov 2026 (pemilik): lini Fragrance cukup Ingredients dan Perfumery;
+ * katalog, peta bahan, teknologi dan Natural Ingredients dipadatkan di sini
+ * sebagai Discover More (empat kartu 2 x 2, bukan slider). Working With Us dan
+ * blok Technologies dilepas. Lalu lima langkah mendatar, pita unduhan
+ * katalog, penutup. Slider Collections per keluarga pindah ke Natural
  * Ingredients 13 Nov 2026. */
 ---
 
 <PageLayout intro={INGREDIENTS_INTRO} bannerTitle="Ingredients">
   <Intro title={INGREDIENTS_INTRO.title} paragraphs={INGREDIENTS_OPENING} />
-  <CardSlider
-    title="Discover More"
-    items={INGREDIENTS_CARDS.map((c) => ({ href: c.href, title: c.title, image: c.image }))}
-    grey
-  />
+  <CardGrid title="Discover More" cards={INGREDIENTS_CARDS} grey />
 
   <section class="sec ms" aria-labelledby="ms-title">
     <div class="wrap">
@@ -46,17 +42,6 @@ import {
     </div>
   </section>
 
-  <InfoGrid
-    title="Technologies"
-    cols={3}
-    grey
-    items={ROUTES.slice(0, 3).map((r) => ({
-      title: r.name,
-      body: r.note,
-      href: '/ingredients/technology/#routes',
-      linkLabel: 'Learn more',
-    }))}
-  />
 
   <PromoBanner
     title={CATALOG_DOWNLOAD.title}

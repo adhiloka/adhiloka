@@ -38,7 +38,7 @@ const IGNORE = [/src\/layouts\/BaseLayout\.astro/];
 /* Konteks yang sama dengan nama berbeda: blok di halaman ↔ tautan ke jangkarnya. */
 const OWNER_CTX = { PERFUMERY_PALETTE: '/perfumery/#palette', ABOUT_MORE: '/sustainability/' };
 /* Berkas produk lini → halaman Products-nya. */
-const LINE_FILES = { 'src/data/seafood.ts': '/marine-products/products/', 'src/data/packaging.ts': '/polymers/products/' };
+const LINE_FILES = { 'src/data/seafood.ts': '/fisheries/products/', 'src/data/packaging.ts': '/polymers/products/' };
 
 /* ── Kunci dan berkasnya ─────────────────────────────────────────────── */
 const imagesTs = readFileSync(join(SRC, 'data/images.ts'), 'utf8');
@@ -171,7 +171,7 @@ function contextAt(text, pos, file) {
   if (quote && owner) return { ctx: `kutipan ${owner}`, how: `kutipan ${owner}`, lineNo };
   if (owner === 'FAMILY_IMAGE' && prop) return { ctx: `/ingredients/catalog/?family=${prop}`, how: `keluarga ${prop}`, lineNo };
   if (OWNER_CTX[owner]) return { ctx: OWNER_CTX[owner], how: `blok ${owner}`, lineNo };
-  /* Produk lini Marine Products / Polymers (27 Nov 2026): kategori adalah
+  /* Produk lini Fisheries / Polymers (27 Nov 2026): kategori adalah
      satuannya (tanpa kode produk), jadi foto produk dan foto wakil kategori
      berkonteks kategori itu: /…/products/#<kategori>. Tile beranda dan kartu
      halaman lini yang menaut ke jangkar itu memakai salah satu foto ini. */

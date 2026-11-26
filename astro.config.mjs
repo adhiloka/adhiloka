@@ -34,17 +34,23 @@ export default defineConfig({
     '/perfumery/mindful-naturals/': '/perfumery/',
     '/raw-materials/': '/ingredients/catalog/',
     // Ordering & Documents diganti nama Working With Us 13 Nov 2026.
-    '/ingredients/ordering/': '/ingredients/working-with-us/',
+    '/ingredients/ordering/': '/contact/',
     // Become a Supplier digabung ke Partner with Us 22 Nov 2026.
     '/contact/suppliers/': '/contact/partners/',
     // Situs grup 26 Nov 2026: Our Business jadi Our Businesses di level grup.
     '/about/our-business/': '/our-businesses/',
-    // Nama lini diganti 27 Nov 2026 (pemilik): Natural Aromatics, Marine
-    // Products, Polymers. Alamat lama dialihkan.
-    '/natural-ingredients-perfumery/': '/natural-aromatics/',
-    '/seafood/': '/marine-products/',
-    '/seafood/products/': '/marine-products/products/',
-    '/seafood/products/[slug]': '/marine-products/products/[slug]',
+    // Nama lini diganti 27 Nov 2026 (pemilik): Fragrance, Fisheries,
+    // Polymers. Alamat lama (dua putaran nama) dialihkan langsung.
+    '/natural-ingredients-perfumery/': '/fragrance/',
+    '/natural-aromatics/': '/fragrance/',
+    '/seafood/': '/fisheries/',
+    '/seafood/products/': '/fisheries/products/',
+    '/seafood/products/[slug]': '/fisheries/products/[slug]',
+    '/marine-products/': '/fisheries/',
+    '/marine-products/products/': '/fisheries/products/',
+    '/marine-products/products/[slug]': '/fisheries/products/[slug]',
+    // Working With Us dilepas 27 Nov 2026 (pemilik); halamannya diparkir.
+    '/ingredients/working-with-us/': '/contact/',
     '/plastics-packaging/': '/polymers/',
     '/plastics-packaging/products/': '/polymers/products/',
     '/plastics-packaging/products/[slug]': '/polymers/products/[slug]',

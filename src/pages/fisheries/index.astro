@@ -6,7 +6,7 @@ import { SEAFOOD_CATEGORIES } from '../../data/seafood';
 import { lineCategoryHref, categoryImage } from '../../data/line-products';
 import { SEAFOOD_INTRO, SEAFOOD_OPENING } from '../../data/pages/seafood-line';
 
-/* Lini Marine Products (pemilik, 27 Nov 2026): sub-halaman ringkas.
+/* Lini Fisheries (pemilik, 27 Nov 2026): sub-halaman ringkas.
    Banner · pembuka · kartu kategori (foto = foto wakil kategori, sama dengan
    tile beranda grup) menuju jangkar kategori di halaman Products. */
 const cards = SEAFOOD_CATEGORIES.map((c) => ({ title: c.label, href: lineCategoryHref('seafood', c.key), image: categoryImage('seafood', c.key) }));

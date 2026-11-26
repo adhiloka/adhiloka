@@ -29,7 +29,7 @@ export type LineProduct = {
 };
 
 export const LINE_CATALOG = {
-  seafood: { base: '/marine-products/products/', categories: SEAFOOD_CATEGORIES, products: SEAFOOD_PRODUCTS },
+  seafood: { base: '/fisheries/products/', categories: SEAFOOD_CATEGORIES, products: SEAFOOD_PRODUCTS },
   packaging: { base: '/polymers/products/', categories: PACKAGING_CATEGORIES, products: PACKAGING_PRODUCTS },
 } as const;
 

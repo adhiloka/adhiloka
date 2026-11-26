@@ -1,13 +1,12 @@
 ---
 import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import BusinessSubnav from './BusinessSubnav.astro';
 import CardSlider from './CardSlider.astro';
 import { images } from '../../data/images';
 import { businessByKey } from '../../data/businesses';
 import { LINE_CATALOG, lineProductHref, categoryLabel, lineCategoryHref, type LineProduct } from '../../data/line-products';
 
-/* Halaman satu produk lini Marine Products / Polymers.
+/* Halaman satu produk lini Fisheries / Polymers.
  * 27 Nov 2026 (pemilik: jangan mirip katalog bahan, jangan terlalu rinci):
  * kepala berwarna, strip fakta, kotak samping dan section permintaan
  * dilepas. Kini satu section terbelah: foto di kiri; nama, satu kalimat,
@@ -25,10 +24,6 @@ const rows: [string, string][] = [...p.spec, ...p.handling, ['Origin', 'Indonesi
 ---
 
 <BaseLayout title={`${p.name} | ${biz.name}`} description={`${p.name}${p.latin ? ` (${p.latin})` : ''}. ${p.note}`} inner>
-  <div class="lp__top">
-    <BusinessSubnav />
-  </div>
-
   <section class="sec lp">
     <div class="wrap">
       <nav class="lp__crumbs" aria-label="Breadcrumb">
@@ -85,8 +80,7 @@ const rows: [string, string][] = [...p.spec, ...p.handling, ['Origin', 'Indonesi
 </BaseLayout>
 
 <style>
-  .lp__top { padding-top: var(--header-h); }
-  .lp { padding-top: 40px; }
+  .lp { padding-top: calc(var(--header-h) + 40px); }
 
   .lp__crumbs {
     display: flex;

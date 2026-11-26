@@ -107,7 +107,7 @@ export type BusinessPane = {
 };
 
 /* Situs grup: empat tile di bawah ini (final 22 Nov 2026) pindah apa adanya
- * ke beranda lini naturals; sejak 27 Nov 2026 jadi tab Natural Aromatics di
+ * ke beranda lini naturals; sejak 27 Nov 2026 jadi tab Fragrance di
  * Our Businesses beranda grup (GROUP_TABS). */
 export const NATURALS_PANES: BusinessPane[] = [
   {
@@ -169,7 +169,7 @@ export const NATURALS_PANES: BusinessPane[] = [
 export const GROUP_HERO_SLIDES: HeroSlide[] = [
   {
     title: ['We Are Adhiloka'],
-    line: ['Natural Aromatics · Marine Products · Polymers'],
+    line: ['Fragrance · Fisheries · Polymers'],
     href: '/about/',
     image: 'hero-woman-golden-light',
     focus: '72% 50%',
@@ -177,15 +177,15 @@ export const GROUP_HERO_SLIDES: HeroSlide[] = [
   },
   {
     title: ['Scent from', 'Living Plants'],
-    line: ['Natural Aromatics'],
-    href: '/natural-aromatics/',
+    line: ['Fragrance'],
+    href: '/fragrance/',
     image: 'labelled-bottles',
     alt: 'Hands arranging labelled amber bottles on a marble table',
   },
   {
     title: ["The Sea's Harvest"],
-    line: ['Marine Products'],
-    href: '/marine-products/',
+    line: ['Fisheries'],
+    href: '/fisheries/',
     image: 'line-seafood',
     alt: 'Fresh fish laid on crushed ice',
   },
@@ -210,8 +210,8 @@ export const GROUP_QUOTE = {
 /* Our Businesses beranda grup (pemilik, 27 Nov 2026: "tiru Adani, sekarang
  * bisnisnya sudah tiga"). Pola section Businesses adani.com: tab per lini,
  * tiap tab empat tile 2 x 2 yang memilih foto besar berchip + Explore More.
- *   Natural Aromatics = empat tile final 22 Nov 2026 (NATURALS_PANES).
- *   Marine Products / Polymers = empat kategori; foto = foto produk pertama
+ *   Fragrance = empat tile final 22 Nov 2026 (NATURALS_PANES).
+ *   Fisheries / Polymers = empat kategori; foto = foto produk pertama
  *   kategori itu (categoryImage), chip = produknya, Explore More = jangkar
  *   kategori di halaman Products. */
 export type BusinessTab = { key: string; label: string; href: string; panes: BusinessPane[] };

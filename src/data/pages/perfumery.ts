@@ -6,8 +6,8 @@ import type { PageIntro, Passage } from './types';
  * mereka (rujukan di market-research/references/, "Web … - dsm-firmenich /
  * Givaudan / IFF / Robertet - 2026"):
  *
- *   Fine Fragrance · Consumer Fragrance · Fragrance Innovation ·
- *   How We Work · Our Palette
+ *   Fine Fragrance · Consumer Fragrance · Fragrance Innovation · Our Palette
+ *   (How We Work dilepas 27 Nov 2026, pemilik)
  *
  * Aturan naskah (pemilik, 12 Nov 2026):
  * - ditulis sebagai rumah fragrance penuh, tidak disesuaikan dengan kondisi
@@ -76,29 +76,6 @@ export const PERFUMERY_INNOVATION: { title: string; body: string }[] = [
   {
     title: 'Mindful Design',
     body: 'Fragrances built with biodegradable and renewable ingredients, in concentrated formats that use less material and less packaging. Responsibility is part of the formula from the start.',
-  },
-];
-
-export const PERFUMERY_STEPS: { n: string; title: string; body: string }[] = [
-  {
-    n: '01',
-    title: 'Brief',
-    body: 'Every project starts with listening. We get to know the brand, the product and the people it is made for, and agree on a direction before the first trial.',
-  },
-  {
-    n: '02',
-    title: 'Creation',
-    body: 'Our perfumers compose the first proposals, then refine them with our evaluators, trial after trial, until the fragrance answers the brief.',
-  },
-  {
-    n: '03',
-    title: 'Application',
-    body: 'A fragrance has to work in the product as well as on the blotter. We test it in the real base for stability and performance, and adjust the formula where needed.',
-  },
-  {
-    n: '04',
-    title: 'Compliance & Delivery',
-    body: 'Every formula is checked against the regulations of the markets where it will be sold. Once approved, the fragrance is produced and delivered with its documents.',
   },
 ];
 

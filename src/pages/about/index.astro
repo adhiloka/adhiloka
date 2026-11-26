@@ -1,14 +1,12 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import QuoteSplit from '../../components/QuoteSplit.astro';
-import Feature from '../../components/blocks/Feature.astro';
 import VisionSlider from '../../components/blocks/VisionSlider.astro';
 import InfoGrid from '../../components/blocks/InfoGrid.astro';
 import CardGrid from '../../components/blocks/CardGrid.astro';
 import {
   ABOUT_INTRO,
   ABOUT_WHO,
-  ABOUT_HOW,
   ABOUT_CARDS,
   ABOUT_MORE,
   PURPOSE_VALUES,
@@ -36,15 +34,6 @@ import { GROUP_QUOTE } from '../../data/pages/home';
     ]}
   />
 
-  <Feature
-    heading="How We Work"
-    body={ABOUT_HOW}
-    cta="Our Businesses"
-    href="/our-businesses/"
-    image="biz-overview"
-    alt="Container ship at sea in warm evening light"
-    flip
-  />
 
 
   <InfoGrid title="Our Values" items={PURPOSE_VALUES} grey />

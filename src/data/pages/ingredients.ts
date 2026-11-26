@@ -32,7 +32,6 @@ export const INGREDIENTS_CARDS: LinkCard[] = [
   { title: 'Ingredient Catalog', href: '/ingredients/catalog/', image: 'hero-farmer-lychees' },
   { title: 'Ingredients Map', href: '/ingredients/map/', image: 'jungle-stream' },
   { title: 'Technology', href: '/ingredients/technology/', image: 'hero-hands-peppercorns' },
-  { title: 'Working With Us', href: '/ingredients/working-with-us/', image: 'cargo-ship' },
 ];
 
 /* Lima langkah perjalanan bahan; hanya judul, tanpa keterangan. */
@@ -206,8 +205,8 @@ export const TECHNOLOGY_PASSAGES: Passage[] = [
     id: 'quality',
     title: 'Quality & Compliance',
     body: 'Every batch is checked against its specification before it leaves us, by analysis and by nose. Each delivery matches the one before, and travels with the documents its market asks for.',
-    cta: 'Working With Us',
-    href: '/ingredients/working-with-us/',
+    cta: 'Request Documents',
+    href: '/contact/?kind=specification',
     caption: 'flash point tester in a laboratory',
     image: 'lab-flash-point',
   },

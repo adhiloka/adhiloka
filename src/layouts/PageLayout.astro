@@ -1,7 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import PageBanner from '../components/blocks/PageBanner.astro';
-import BusinessSubnav from '../components/blocks/BusinessSubnav.astro';
 import type { PageIntro } from '../data/pages/types';
 
 /* Kerangka halaman dalam: banner selayar ala adani.com, lalu isi. Judul
@@ -28,6 +27,5 @@ const { intro, bannerTitle, lineInBanner = false, bannerMeta } = Astro.props;
     line={lineInBanner ? intro.lede : undefined}
     meta={bannerMeta}
   />
-  <BusinessSubnav />
   <slot />
 </BaseLayout>

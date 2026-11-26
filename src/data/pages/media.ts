@@ -190,7 +190,7 @@ export const RESOURCES_INTRO: PageIntro = {
 /** Paragraf baku tentang perusahaan, untuk dikutip pers apa adanya. */
 export const BOILERPLATE = {
   title: 'About Adhiloka',
-  body: 'Adhiloka Group is a family of businesses in Indonesia. It supplies natural aromatic ingredients and creates fragrances, exports frozen and dried marine products, and supplies polymer resins, films and containers.',
+  body: 'Adhiloka Group is a family of businesses in Indonesia. It supplies natural aromatic ingredients and creates fragrances, exports frozen and dried fish and shellfish, and supplies polymer resins, films and containers.',
 };
 
 /* ── Social Media (diparkir) ─────────────────────────────────────────── */
