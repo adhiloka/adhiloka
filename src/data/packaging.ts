@@ -1,0 +1,333 @@
+import type { ImageKey } from './images';
+import type { LineCategory, LineProduct } from './line-products';
+
+/* Produk lini Plastics & Packaging (situs grup, pemilik 26 Nov 2026).
+ * Pemilik: "intinya semua plastik", termasuk biji plastik (LDPE, LLDPE, HDPE,
+ * PP), plastik lembaran & fleksibel, botol & jar, kemasan makanan, botol kaca
+ * & aksesori parfum. Situs tidak menyebut produksi sendiri atau trading.
+ *
+ * Sifat resin = rentang tipikal kelas komersial (densitas, MFI 190 °C/2,16 kg
+ * untuk PE, 230 °C/2,16 kg untuk PP), dari datasheet polyolefin Chandra Asri
+ * dan katalog distributor (Formerra, Berlin Packaging) di
+ * market-research/references/Group site/. Nilai pesanan tetap mengikuti grade
+ * yang disepakati. Tanpa kode produk dan tanpa nama merek produsen. */
+
+export const PACKAGING_CATEGORIES: LineCategory[] = [
+  { key: 'resins', label: 'Plastic Resins', body: 'Polyethylene, polypropylene, PET, PVC and polystyrene in pellet and powder form. We match the grade to your process, whether film, injection, blow moulding or extrusion.' },
+  { key: 'flexible', label: 'Films & Flexible', body: 'Polyethylene film on rolls, and bags and pouches for food, retail and industry. Printed or plain, in the thickness and width you work with.' },
+  { key: 'rigid', label: 'Bottles & Jars', body: 'PET, HDPE and PP bottles and jars with matching caps and closures. For food, home care, personal care and chemicals.' },
+  { key: 'food', label: 'Food Packaging', body: 'Containers, cups, lids and trays for takeaway, bakery and fresh food. Microwave-safe PP and clear PET in common sizes.' },
+  { key: 'glass', label: 'Glass for Fragrance', body: 'Glass perfume bottles, sprayers, caps and sample vials. Clear or coloured glass in standard neck finishes.' },
+];
+
+const P = (p: Omit<LineProduct, 'line'>): LineProduct => ({ ...p, line: 'packaging' });
+
+export const PACKAGING_PRODUCTS: LineProduct[] = [
+  P({
+    slug: 'ldpe',
+    name: 'LDPE',
+    latin: 'Low-density polyethylene',
+    category: 'resins',
+    image: 'pk-ldpe' as ImageKey,
+    alt: 'Translucent polyethylene pellets, close',
+    note: 'Soft, clear and easy to process. The resin for shrink film, carrier bags, liners and extrusion coating.',
+    spec: [
+      ['Grades', 'Film · Extrusion coating · Injection'],
+      ['Density', '0.918–0.930 g/cm³'],
+      ['Melt flow index', '0.3–8 g/10 min (190 °C/2.16 kg)'],
+      ['Form', 'Natural pellets'],
+    ],
+    handling: [
+      ['Applications', 'Shrink and lamination film, bags, liners, coatings, caps'],
+      ['Packing', '25 kg bags, palletised'],
+      ['Storage', 'Dry, covered, away from direct sun'],
+    ],
+    hs: '3901.10',
+  }),
+  P({
+    slug: 'lldpe',
+    name: 'LLDPE',
+    latin: 'Linear low-density polyethylene',
+    category: 'resins',
+    image: 'pk-lldpe' as ImageKey,
+    alt: 'Clear plastic granules poured from a scoop',
+    note: 'Tough and flexible with strong seals. Used for stretch film, frozen-food bags, pouches and injection-moulded lids.',
+    spec: [
+      ['Grades', 'Film (butene, hexene, metallocene) · Injection · Rotomoulding'],
+      ['Density', '0.915–0.925 g/cm³'],
+      ['Melt flow index', 'Film 0.8–2 · Injection 20–50 g/10 min (190 °C/2.16 kg)'],
+      ['Form', 'Natural pellets'],
+    ],
+    handling: [
+      ['Applications', 'Stretch and multilayer film, standing pouches, sachets, lids, tanks'],
+      ['Packing', '25 kg bags, palletised'],
+      ['Storage', 'Dry, covered, away from direct sun'],
+    ],
+    hs: '3901.40',
+  }),
+  P({
+    slug: 'hdpe',
+    name: 'HDPE',
+    latin: 'High-density polyethylene',
+    category: 'resins',
+    image: 'pk-hdpe' as ImageKey,
+    alt: 'White plastic pellets in a pile',
+    note: 'Stiff and strong with good chemical resistance. For bottles, crates, pipes, thin bags and monofilament.',
+    spec: [
+      ['Grades', 'Blow moulding · Injection · Film · Pipe · Monofilament'],
+      ['Density', '0.941–0.965 g/cm³'],
+      ['Melt flow index', 'Blow 0.2–0.5 · Injection 4–20 g/10 min (190 °C/2.16 kg)'],
+      ['Form', 'Natural pellets'],
+    ],
+    handling: [
+      ['Applications', 'Bottles and jerrycans, crates, caps, pipes, T-shirt bags, ropes'],
+      ['Packing', '25 kg bags, palletised'],
+      ['Storage', 'Dry, covered, away from direct sun'],
+    ],
+    hs: '3901.20',
+  }),
+  P({
+    slug: 'polypropylene',
+    name: 'PP',
+    latin: 'Polypropylene',
+    category: 'resins',
+    image: 'pk-pp' as ImageKey,
+    alt: 'Plastic granules in an open hand',
+    note: 'Light, rigid and heat resistant. Homopolymer, random and impact copolymer grades for raffia, film, fibre and moulded parts.',
+    spec: [
+      ['Grades', 'Homopolymer · Random copolymer · Impact copolymer'],
+      ['Density', '0.900–0.910 g/cm³'],
+      ['Melt flow rate', 'Raffia 2–4 · BOPP 3 · Injection 10–40 g/10 min (230 °C/2.16 kg)'],
+      ['Form', 'Natural pellets'],
+    ],
+    handling: [
+      ['Applications', 'Woven bags, BOPP and CPP film, food containers, caps, buckets, fibre'],
+      ['Packing', '25 kg bags, palletised'],
+      ['Storage', 'Dry, covered, away from direct sun'],
+    ],
+    hs: '3902.10 · 3902.30',
+  }),
+  P({
+    slug: 'pet-resin',
+    name: 'PET',
+    latin: 'Polyethylene terephthalate',
+    category: 'resins',
+    image: 'pk-pet' as ImageKey,
+    alt: 'Clear PET chips, close',
+    note: 'Clear, strong and a good barrier. Bottle-grade chips for water, soft drink and edible oil bottles and for thermoformed sheet.',
+    spec: [
+      ['Grades', 'Bottle grade · Sheet grade · Fibre grade'],
+      ['Intrinsic viscosity', '0.76–0.84 dl/g'],
+      ['Moisture', '≤ 0.2 %'],
+      ['Form', 'Clear chips'],
+    ],
+    handling: [
+      ['Applications', 'Preforms and bottles, thermoformed trays, strapping, fibre'],
+      ['Packing', '1,100 kg jumbo bags or 25 kg bags'],
+      ['Storage', 'Dry, sealed; dry before processing'],
+    ],
+    hs: '3907.61',
+  }),
+  P({
+    slug: 'pvc-resin',
+    name: 'PVC',
+    latin: 'Polyvinyl chloride',
+    category: 'resins',
+    image: 'pk-pvc' as ImageKey,
+    alt: 'White resin powder in a scoop',
+    note: 'Suspension resin for rigid and flexible products. K-values for pipes, profiles, film, cables and footwear.',
+    spec: [
+      ['Grades', 'Suspension resin, K57 · K66 · K67 · K70'],
+      ['Bulk density', '0.48–0.58 g/cm³'],
+      ['Volatile matter', '≤ 0.3 %'],
+      ['Form', 'White powder'],
+    ],
+    handling: [
+      ['Applications', 'Pipes and fittings, profiles, rigid and soft film, cable, footwear'],
+      ['Packing', '25 kg bags, palletised'],
+      ['Storage', 'Dry, covered'],
+    ],
+    hs: '3904.10',
+  }),
+  P({
+    slug: 'polystyrene',
+    name: 'PS',
+    latin: 'Polystyrene, GPPS and HIPS',
+    category: 'resins',
+    image: 'pk-ps' as ImageKey,
+    alt: 'Clear and white plastic beads, close',
+    note: 'GPPS for clear, rigid parts and HIPS where impact strength matters. For cups, trays, housings and sheet.',
+    spec: [
+      ['Grades', 'GPPS (general purpose) · HIPS (high impact)'],
+      ['Density', '1.04–1.05 g/cm³'],
+      ['Melt flow rate', '3–12 g/10 min (200 °C/5 kg)'],
+      ['Form', 'Clear (GPPS) or white (HIPS) pellets'],
+    ],
+    handling: [
+      ['Applications', 'Disposable cups and cutlery, food trays, sheet, appliance housings'],
+      ['Packing', '25 kg bags, palletised'],
+      ['Storage', 'Dry, covered, away from direct sun'],
+    ],
+    hs: '3903.19',
+  }),
+  P({
+    slug: 'pe-film',
+    name: 'Polyethylene Film',
+    category: 'flexible',
+    image: 'pk-film' as ImageKey,
+    alt: 'Rolls of clear plastic film',
+    note: 'Blown LDPE and LLDPE film on rolls, plain or printed, for packing lines, liners and wrapping.',
+    spec: [
+      ['Forms', 'Roll stock · Tubing · Sheeting · Stretch film'],
+      ['Thickness', '15–200 µm'],
+      ['Width', 'Up to 2,000 mm'],
+      ['Printing', 'Plain or up to 8 colours'],
+    ],
+    handling: [
+      ['Applications', 'Automatic packing, pallet wrap, bin and drum liners, agriculture'],
+      ['Packing', 'Rolls on cores, palletised'],
+      ['Storage', 'Dry, covered, away from heat'],
+    ],
+    hs: '3920.10',
+  }),
+  P({
+    slug: 'bags-pouches',
+    name: 'Bags & Pouches',
+    category: 'flexible',
+    image: 'pk-pouches' as ImageKey,
+    alt: 'Stand-up pouches in different colours',
+    note: 'Stand-up and flat pouches, zip bags, carrier bags and sacks in single or laminated films.',
+    spec: [
+      ['Forms', 'Stand-up pouch · Flat pouch · Zip bag · Carrier bag · Sack'],
+      ['Materials', 'PE · PP · laminated PET/PE · metallised films'],
+      ['Sizes', 'To specification'],
+      ['Printing', 'Plain or up to 8 colours'],
+    ],
+    handling: [
+      ['Applications', 'Snacks, coffee, frozen food, rice, detergent, retail'],
+      ['Packing', 'Cartons or bales'],
+      ['Storage', 'Dry, covered, away from heat'],
+    ],
+    hs: '3923.21 · 3923.29',
+  }),
+  P({
+    slug: 'plastic-bottles',
+    name: 'Plastic Bottles',
+    category: 'rigid',
+    image: 'pk-bottles' as ImageKey,
+    alt: 'Empty clear plastic bottles in rows',
+    note: 'PET and HDPE bottles from small cosmetic sizes to five-litre containers, with caps to match.',
+    spec: [
+      ['Materials', 'PET · HDPE · PP'],
+      ['Volume', '30 ml–5 L'],
+      ['Neck finishes', '18/410 · 20/410 · 24/410 · 28 mm PCO · 38 mm'],
+      ['Colours', 'Clear, white, amber or custom'],
+    ],
+    handling: [
+      ['Applications', 'Water and beverages, edible oil, sauces, personal and home care'],
+      ['Packing', 'Cartons or bulk bags'],
+      ['Storage', 'Clean, dry, covered'],
+    ],
+    hs: '3923.30',
+  }),
+  P({
+    slug: 'jars-closures',
+    name: 'Jars & Closures',
+    category: 'rigid',
+    image: 'pk-jars' as ImageKey,
+    alt: 'Plastic jars with screw caps',
+    note: 'PET and PP jars for food and cosmetics, with screw caps, flip-tops, pumps and triggers.',
+    spec: [
+      ['Materials', 'PET · PP · HDPE'],
+      ['Volume', '50 ml–2 L'],
+      ['Closures', 'Screw cap · Flip-top · Disc-top · Pump · Trigger'],
+      ['Colours', 'Clear, white or custom'],
+    ],
+    handling: [
+      ['Applications', 'Food, confectionery, creams, supplements, household products'],
+      ['Packing', 'Cartons'],
+      ['Storage', 'Clean, dry, covered'],
+    ],
+    hs: '3923.30 · 3923.50',
+  }),
+  P({
+    slug: 'food-containers',
+    name: 'Food Containers',
+    category: 'food',
+    image: 'pk-food' as ImageKey,
+    alt: 'Takeaway food containers with lids',
+    note: 'Takeaway containers, cups, lids and trays in microwave-safe PP and clear PET.',
+    spec: [
+      ['Forms', 'Containers · Cups · Lids · Trays · Clamshells'],
+      ['Materials', 'PP · PET · PS'],
+      ['Sizes', 'Containers 250–1,500 ml · Cups 8–22 oz'],
+      ['Features', 'Microwave-safe (PP) · Tamper-evident lids'],
+    ],
+    handling: [
+      ['Applications', 'Takeaway, catering, bakery, fresh produce, beverages'],
+      ['Packing', 'Sleeves in cartons'],
+      ['Storage', 'Clean, dry, covered'],
+    ],
+    hs: '3924.10 · 3923.10',
+  }),
+  P({
+    slug: 'perfume-bottles',
+    name: 'Perfume Bottles',
+    category: 'glass',
+    image: 'pk-perfume-bottles' as ImageKey,
+    alt: 'Empty glass perfume bottles',
+    note: 'Glass perfume bottles in round, square and flat shapes, clear or coloured.',
+    spec: [
+      ['Volume', '5 ml–100 ml'],
+      ['Neck', 'FEA 13 · FEA 15 · screw neck 18/415'],
+      ['Glass', 'Flint (clear) or coloured'],
+      ['Decoration', 'Plain, frosted, sprayed or screen printed'],
+    ],
+    handling: [
+      ['Applications', 'Fine fragrance, body mist, reed diffusers'],
+      ['Packing', 'Cartons with dividers'],
+      ['Storage', 'Clean, dry, covered'],
+    ],
+    hs: '7010.90',
+  }),
+  P({
+    slug: 'sprayers-caps',
+    name: 'Sprayers & Caps',
+    category: 'glass',
+    image: 'pk-sprayers' as ImageKey,
+    alt: 'Perfume spray pumps and caps',
+    note: 'Crimp and screw sprayers, collars and caps to match standard glass necks.',
+    spec: [
+      ['Forms', 'Crimp sprayer · Screw sprayer · Collar · Cap'],
+      ['Neck', 'FEA 13 · FEA 15 · 18/415'],
+      ['Dosage', '0.07–0.10 ml per actuation'],
+      ['Finish', 'Silver, gold, black or custom'],
+    ],
+    handling: [
+      ['Applications', 'Perfume and body mist bottles'],
+      ['Packing', 'Cartons'],
+      ['Storage', 'Clean, dry, covered'],
+    ],
+    hs: '9616.10 · 3923.50',
+  }),
+  P({
+    slug: 'sample-vials',
+    name: 'Sample Vials',
+    category: 'glass',
+    image: 'pk-vials' as ImageKey,
+    alt: 'Small glass sample vials',
+    note: 'Small glass vials, spray vials and roll-ons for samples and travel sizes.',
+    spec: [
+      ['Forms', 'Vial with plug · Spray vial · Roll-on'],
+      ['Volume', '1 ml–10 ml'],
+      ['Glass', 'Clear or amber'],
+      ['Closure', 'Plastic plug, mini sprayer or roller ball'],
+    ],
+    handling: [
+      ['Applications', 'Perfume samples, discovery sets, essential oils'],
+      ['Packing', 'Cartons'],
+      ['Storage', 'Clean, dry, covered'],
+    ],
+    hs: '7010.90',
+  }),
+];

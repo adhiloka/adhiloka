@@ -7,18 +7,20 @@ import SustainAccordion from '../components/home/SustainAccordion.astro';
 import NewsCards from '../components/NewsCards.astro';
 import JoinUs from '../components/home/JoinUs.astro';
 import { SITE } from '../data/site';
-import { HERO_SLIDES, HOME_QUOTE } from '../data/pages/home';
+import { GROUP_HERO_SLIDES, GROUP_QUOTE, GROUP_PANES } from '../data/pages/home';
 import { NEWS, byDate } from '../data/pages/media';
 
-/* Beranda, urutan section beranda adani.com. Kotak peringatan penipuan
-   (NoticeBox) dilepas 12 Nov 2026; komponennya masih ada di components/home/. */
+/* Beranda grup (pemilik, 26 Nov 2026), urutan section beranda adani.com:
+   hero tiga lini · kutipan grup · Our Businesses · keberlanjutan · berita ·
+   Join Us. Beranda lama (naturals) pindah apa adanya ke
+   /natural-ingredients-perfumery/. */
 const latest = [...NEWS].sort(byDate).slice(0, 3);
 ---
 
 <BaseLayout title={SITE.name} description={SITE.description}>
-  <HeroSlider slides={HERO_SLIDES} />
-  <QuoteSplit {...HOME_QUOTE} />
-  <BusinessShowcase />
+  <HeroSlider slides={GROUP_HERO_SLIDES} />
+  <QuoteSplit {...GROUP_QUOTE} />
+  <BusinessShowcase panes={GROUP_PANES} title="Our Businesses" />
   <SustainAccordion />
   <NewsCards title="Latest News" viewAll="/media/news/" articles={latest} />
   <JoinUs />

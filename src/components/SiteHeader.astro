@@ -22,7 +22,7 @@ interface Props {
 }
 const { active } = Astro.props;
 
-const isActive = (href: string) => active === href || active.startsWith(href);
+const isActive = (href: string, match: string[] = []) => active === href || active.startsWith(href) || match.some((m) => active.startsWith(m));
 const path = Astro.url.pathname;
 ---
 
@@ -46,7 +46,7 @@ const path = Astro.url.pathname;
       <ul class="hdr__list">
         {
           MENU.map((item) => (
-            <li class:list={['hdr__item', { 'is-active': isActive(item.href), 'has-mega': !!item.mega }]} data-item>
+            <li class:list={['hdr__item', { 'is-active': isActive(item.href, item.match), 'has-mega': !!item.mega }]} data-item>
               <a class:list={['hdr__link', { 'has-child': !!item.mega }]} href={item.href} data-top>
                 {item.label}
               </a>

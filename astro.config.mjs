@@ -37,6 +37,8 @@ export default defineConfig({
     '/ingredients/ordering/': '/ingredients/working-with-us/',
     // Become a Supplier digabung ke Partner with Us 22 Nov 2026.
     '/contact/suppliers/': '/contact/partners/',
+    // Situs grup 26 Nov 2026: Our Business jadi Our Businesses di level grup.
+    '/about/our-business/': '/our-businesses/',
   },
   build: { inlineStylesheets: 'auto' },
 

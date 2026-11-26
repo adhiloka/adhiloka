@@ -1,0 +1,11 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import LineCatalog from '../../components/blocks/LineCatalog.astro';
+import { PACKAGING_PRODUCTS_INTRO } from '../../data/pages/packaging-line';
+
+/* Katalog produk Plastics & Packaging (situs grup, 26 Nov 2026). */
+---
+
+<PageLayout intro={PACKAGING_PRODUCTS_INTRO} bannerTitle="Products">
+  <LineCatalog line="packaging" />
+</PageLayout>

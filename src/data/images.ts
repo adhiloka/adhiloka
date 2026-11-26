@@ -169,6 +169,45 @@ import kaffirLimeLeaves from '../assets/images/kaffir-lime-leaves.jpg';
 import partnerHandsCoffee from '../assets/images/partner-hands-coffee.jpg';
 import contactPhoneCall from '../assets/images/contact-phone-call.jpg';
 import footerLeaves from '../assets/images/footer-leaves.jpg';
+// Situs grup, 26 Nov 2026: lini Seafood dan Plastics & Packaging.
+import bizOverview from '../assets/images/biz-overview.jpg';
+import lineSeafood from '../assets/images/line-seafood.jpg';
+import linePackaging from '../assets/images/line-packaging.jpg';
+import groupQuote from '../assets/images/group-quote.jpg';
+import aboutSea from '../assets/images/about-sea.jpg';
+import aboutPlastics from '../assets/images/about-plastics.jpg';
+import sfProducts from '../assets/images/sf-products.jpg';
+import sfQuality from '../assets/images/sf-quality.jpg';
+import sfTuna from '../assets/images/sf-tuna.jpg';
+import sfSnapper from '../assets/images/sf-snapper.jpg';
+import sfGrouper from '../assets/images/sf-grouper.jpg';
+import sfVannamei from '../assets/images/sf-vannamei.jpg';
+import sfTiger from '../assets/images/sf-tiger.jpg';
+import sfCrab from '../assets/images/sf-crab.jpg';
+import sfSquid from '../assets/images/sf-squid.jpg';
+import sfOctopus from '../assets/images/sf-octopus.jpg';
+import sfClams from '../assets/images/sf-clams.jpg';
+import sfSeaCucumber from '../assets/images/sf-sea-cucumber.jpg';
+import sfFishMaw from '../assets/images/sf-fish-maw.jpg';
+import sfSharkFin from '../assets/images/sf-shark-fin.jpg';
+import sfAnchovy from '../assets/images/sf-anchovy.jpg';
+import pkProducts from '../assets/images/pk-products.jpg';
+import pkGrades from '../assets/images/pk-grades.jpg';
+import pkLdpe from '../assets/images/pk-ldpe.jpg';
+import pkLldpe from '../assets/images/pk-lldpe.jpg';
+import pkHdpe from '../assets/images/pk-hdpe.jpg';
+import pkPp from '../assets/images/pk-pp.jpg';
+import pkPet from '../assets/images/pk-pet.jpg';
+import pkPvc from '../assets/images/pk-pvc.jpg';
+import pkPs from '../assets/images/pk-ps.jpg';
+import pkFilm from '../assets/images/pk-film.jpg';
+import pkPouches from '../assets/images/pk-pouches.jpg';
+import pkBottles from '../assets/images/pk-bottles.jpg';
+import pkJars from '../assets/images/pk-jars.jpg';
+import pkFood from '../assets/images/pk-food.jpg';
+import pkPerfumeBottles from '../assets/images/pk-perfume-bottles.jpg';
+import pkSprayers from '../assets/images/pk-sprayers.jpg';
+import pkVials from '../assets/images/pk-vials.jpg';
 
 /* Satu-satunya tempat berkas gambar dipetakan ke kunci yang dipakai data.
  *
@@ -363,7 +402,48 @@ import footerLeaves from '../assets/images/footer-leaves.jpg';
  * dengan keterangan foto yang dibutuhkan — itu keadaan yang sah di sistem
  * desain ini, bukan tambalan. Begitu fotografi sungguhan ada, daftarkan di
  * sini lalu pasang kunci `image` pada entri data yang captionnya menyebut
- * tempat. */
+ * tempat.
+ *
+ * 26 Nov 2026, situs grup (lini Seafood dan Plastics & Packaging), semua Pexels License.
+ *   biz-overview  kapal kontainer di laut saat senja (Our Businesses)  [stock-photos/group/container-ship-sunset-pexels-14392678.jpg, Pexels License]
+ *   line-seafood  ikan laut utuh bertumpuk di atas es (lini Seafood)  [stock-photos/seafood/sea-bass-on-ice-pexels-2042564.jpg, Pexels License]
+ *   line-packaging  tangan memegang gelas berisi biji plastik biru (lini Plastics & Packaging)  [stock-photos/plastics-packaging/hands-plastic-granules-pexels-15158323.jpg, Pexels License]
+ *   group-quote  perahu nelayan tertambat di air tenang pagi hari, tegak (kutipan grup)  [stock-photos/group/fishing-boat-morning-pexels-30669124.jpg, Pexels License]
+ *   about-sea  perahu kecil di air tenang di bawah langit senja (slider Who We Are)  [stock-photos/group/boats-calm-water-evening-pexels-33167436.jpg, Pexels License]
+ *   about-plastics  biji plastik warna-warni berjajar (slider Who We Are)  [stock-photos/plastics-packaging/colourful-plastic-pellets-pexels-38741337.jpg, Pexels License]
+ *   sf-products  hamparan ikan dan seafood di atas es dengan lemon (banner Seafood Products)  [stock-photos/seafood/seafood-flatlay-ice-pexels-20810997.jpg, Pexels License]
+ *   sf-quality  ikan sea bass di atas es, dekat (Quality & Cold Chain)  [stock-photos/seafood/sea-bass-close-ice-pexels-10112459.jpg, Pexels License]
+ *   sf-tuna  potongan loin tuna merah di atas es (Yellowfin Tuna)  [stock-photos/seafood/tuna-loin-ice-pexels-14062112.jpg, Pexels License]
+ *   sf-snapper  kakap merah di atas es, dekat (Red Snapper)  [stock-photos/seafood/red-snapper-ice-pexels-8352787.jpg, Pexels License]
+ *   sf-grouper  penjual ikan memegang kerapu utuh (Grouper)  [stock-photos/seafood/grouper-held-pexels-23626394.jpg, Pexels License]
+ *   sf-vannamei  tumpukan udang mentah utuh (Vannamei Shrimp)  [stock-photos/seafood/raw-shrimp-heap-pexels-5273798.jpg, Pexels License]
+ *   sf-tiger  udang windu mentah di atas es (Black Tiger Shrimp)  [stock-photos/seafood/tiger-prawns-ice-pexels-33653815.jpg, Pexels License]
+ *   sf-crab  rajungan mentah bertumpuk (Blue Swimming Crab)  [stock-photos/seafood/blue-swimming-crabs-pexels-32987812.jpg, Pexels License]
+ *   sf-squid  cumi segar di pasar ikan, dekat (Squid)  [stock-photos/seafood/squid-market-pexels-9995821.jpg, Pexels License]
+ *   sf-octopus  gurita di nampan berisi es (Octopus)  [stock-photos/seafood/octopus-tray-ice-pexels-5589591.jpg, Pexels License]
+ *   sf-clams  kerang segar dalam cangkang, dekat (Clams)  [stock-photos/seafood/clams-close-pexels-8352389.jpg, Pexels License]
+ *   sf-sea-cucumber  tangan memegang teripang di atas air laut (Sea Cucumber)  [stock-photos/seafood/sea-cucumber-hand-pexels-8824660.jpg, Pexels License]
+ *   sf-fish-maw  potongan ikan kering di nampan anyaman; bukan fish maw, pengganti sampai ada foto asli (Fish Maw)  [stock-photos/seafood/dried-fish-wicker-pexels-33634913.jpg, Pexels License]
+ *   sf-shark-fin  seafood dijemur di pasar; bukan sirip hiu, pengganti sampai ada foto asli (Shark Fin)  [stock-photos/seafood/sun-dried-seafood-pexels-9638365.jpg, Pexels License]
+ *   sf-anchovy  ikan kecil kering keemasan, dekat (Dried Anchovy)  [stock-photos/seafood/dried-small-fish-pexels-37035198.jpg, Pexels License]
+ *   pk-products  krat plastik biru bertumpuk (banner Plastics & Packaging Products)  [stock-photos/plastics-packaging/blue-plastic-crates-pexels-24517725.jpg, Pexels License]
+ *   pk-grades  botol bergerak di jalur mesin pengisian (The Right Grade for the Process)  [stock-photos/plastics-packaging/bottle-filling-line-pexels-18631423.jpg, Pexels License]
+ *   pk-ldpe  sayuran di nampan berbalut film plastik bening (LDPE)  [stock-photos/plastics-packaging/vegetables-cling-film-pexels-30893267.jpg, Pexels License]
+ *   pk-lldpe  palet barang berbalut stretch film di gudang (LLDPE)  [stock-photos/plastics-packaging/pallets-stretch-film-pexels-17229385.jpg, Pexels License]
+ *   pk-hdpe  krat plastik merah dan jingga bertumpuk (HDPE)  [stock-photos/plastics-packaging/stacked-plastic-crates-pexels-18502967.jpg, Pexels License]
+ *   pk-pp  wadah makanan plastik bening bertumpuk (PP)  [stock-photos/plastics-packaging/plastic-food-containers-stack-pexels-4096909.jpg, Pexels License]
+ *   pk-pet  preform botol PET bening di krat (PET)  [stock-photos/plastics-packaging/pet-preforms-pexels-9259978.jpg, Pexels License]
+ *   pk-pvc  tumpukan pipa PVC abu-abu (PVC)  [stock-photos/plastics-packaging/pvc-pipes-pexels-29301874.jpg, Pexels License]
+ *   pk-ps  deretan gelas plastik sekali pakai bening (PS)  [stock-photos/plastics-packaging/clear-disposable-cups-pexels-7829819.jpg, Pexels License]
+ *   pk-film  gulungan film dan mesin shrink film di gudang (Polyethylene Film)  [stock-photos/plastics-packaging/shrink-film-line-pexels-36423819.jpg, Pexels License]
+ *   pk-pouches  dua standing pouch putih polos (Bags & Pouches)  [stock-photos/plastics-packaging/white-stand-up-pouches-pexels-12024976.jpg, Pexels License]
+ *   pk-bottles  botol PET bening kosong berjajar (Plastic Bottles)  [stock-photos/plastics-packaging/clear-pet-bottles-pexels-5719837.jpg, Pexels License]
+ *   pk-jars  tiga jar kosmetik kecil bertutup metalik (Jars & Closures)  [stock-photos/plastics-packaging/cosmetic-jars-pexels-36437998.jpg, Pexels License]
+ *   pk-food  wadah clamshell plastik bening (Food Containers)  [stock-photos/plastics-packaging/clear-clamshell-container-pexels-37851490.jpg, Pexels License]
+ *   pk-perfume-bottles  deretan botol parfum kaca kosong (Perfume Bottles)  [stock-photos/plastics-packaging/empty-perfume-bottles-pexels-14696052.jpg, Pexels License]
+ *   pk-sprayers  jari menekan pompa semprot botol parfum (Sprayers & Caps)  [stock-photos/plastics-packaging/perfume-spray-pump-pexels-7033934.jpg, Pexels License]
+ *   pk-vials  deretan vial kaca kecil (Sample Vials)  [stock-photos/plastics-packaging/glass-vials-row-pexels-9259964.jpg, Pexels License]
+ */
 export const images = {
   'hero-still-hall': heroStillHall,
   'hero-benzoin-tears': heroBenzoinTears,
@@ -531,6 +611,44 @@ export const images = {
   'partner-hands-coffee': partnerHandsCoffee,
   'contact-phone-call': contactPhoneCall,
   'footer-leaves': footerLeaves,
+  'biz-overview': bizOverview,
+  'line-seafood': lineSeafood,
+  'line-packaging': linePackaging,
+  'group-quote': groupQuote,
+  'about-sea': aboutSea,
+  'about-plastics': aboutPlastics,
+  'sf-products': sfProducts,
+  'sf-quality': sfQuality,
+  'sf-tuna': sfTuna,
+  'sf-snapper': sfSnapper,
+  'sf-grouper': sfGrouper,
+  'sf-vannamei': sfVannamei,
+  'sf-tiger': sfTiger,
+  'sf-crab': sfCrab,
+  'sf-squid': sfSquid,
+  'sf-octopus': sfOctopus,
+  'sf-clams': sfClams,
+  'sf-sea-cucumber': sfSeaCucumber,
+  'sf-fish-maw': sfFishMaw,
+  'sf-shark-fin': sfSharkFin,
+  'sf-anchovy': sfAnchovy,
+  'pk-products': pkProducts,
+  'pk-grades': pkGrades,
+  'pk-ldpe': pkLdpe,
+  'pk-lldpe': pkLldpe,
+  'pk-hdpe': pkHdpe,
+  'pk-pp': pkPp,
+  'pk-pet': pkPet,
+  'pk-pvc': pkPvc,
+  'pk-ps': pkPs,
+  'pk-film': pkFilm,
+  'pk-pouches': pkPouches,
+  'pk-bottles': pkBottles,
+  'pk-jars': pkJars,
+  'pk-food': pkFood,
+  'pk-perfume-bottles': pkPerfumeBottles,
+  'pk-sprayers': pkSprayers,
+  'pk-vials': pkVials,
 } satisfies Record<string, ImageMetadata>;
 
 export type ImageKey = keyof typeof images;

@@ -1,0 +1,180 @@
+---
+import { Image } from 'astro:assets';
+import { images } from '../../data/images';
+import { LINE_CATALOG, lineProductHref, cardLine, type LineProduct } from '../../data/line-products';
+
+/* Katalog produk lini Seafood / Plastics & Packaging (situs grup, 26 Nov
+ * 2026). Meniru katalog bahan: tab kategori pilihan tunggal bergaris bawah
+ * gradien, kartu berfoto 3 kolom yang seluruhnya satu tautan, tanpa hitungan,
+ * tanpa "Discover →", tanpa fade saat menyaring. `?cat=` memilih tab awal. */
+interface Props {
+  line: LineProduct['line'];
+}
+const { line } = Astro.props;
+const { categories, products } = LINE_CATALOG[line];
+---
+
+<section class="sec lc" data-line-catalog>
+  <div class="wrap">
+    <div class="lc__tabs" role="radiogroup" aria-label="Category">
+      <label class="stab">
+        <input type="radio" name="cat" value="" checked />
+        <span>All</span>
+      </label>
+      {
+        categories.map((c) => (
+          <label class="stab">
+            <input type="radio" name="cat" value={c.key} />
+            <span>{c.label}</span>
+          </label>
+        ))
+      }
+    </div>
+
+    <ul class="lc__grid">
+      {
+        products.map((p) => (
+          <li class="lc__card" data-cat={p.category} id={p.slug}>
+            <div class="lc__media cover">
+              <Image quality={70} src={images[p.image]} alt="" widths={[400, 720]} sizes="(max-width: 640px) 100vw, (max-width: 1026px) 46vw, 30vw" loading="lazy" />
+            </div>
+            <div class="lc__body">
+              <h2 class="lc__name"><a class="lc__link" href={lineProductHref(p)}>{p.name}</a></h2>
+              {p.latin && <p class="lc__latin">{p.latin}</p>}
+              <p class="lc__forms">{cardLine(p)}</p>
+              <p class="lc__desc">{p.note}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<script>
+  /* Tab kategori: sembunyikan kartu di luar kategori terpilih; ?cat= di URL
+     memilih tab awal dan ikut diperbarui tanpa memuat ulang. */
+  document.querySelectorAll<HTMLElement>('[data-line-catalog]').forEach((root) => {
+    const radios = [...root.querySelectorAll<HTMLInputElement>('input[name="cat"]')];
+    const cards = [...root.querySelectorAll<HTMLElement>('[data-cat]')];
+    const apply = (cat: string) => {
+      cards.forEach((c) => (c.hidden = Boolean(cat) && c.dataset.cat !== cat));
+    };
+    const initial = new URLSearchParams(location.search).get('cat') ?? '';
+    const start = radios.find((r) => r.value === initial);
+    if (start) start.checked = true;
+    apply(start ? initial : '');
+    radios.forEach((r) =>
+      r.addEventListener('change', () => {
+        apply(r.value);
+        const url = new URL(location.href);
+        if (r.value) url.searchParams.set('cat', r.value);
+        else url.searchParams.delete('cat');
+        history.replaceState(null, '', url);
+      }),
+    );
+  });
+</script>
+
+<style>
+  .lc__tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--line);
+    scrollbar-width: none;
+  }
+  .lc__tabs::-webkit-scrollbar { display: none; }
+  .stab { position: relative; cursor: pointer; }
+  .stab input { position: absolute; opacity: 0; pointer-events: none; }
+  .stab span {
+    position: relative;
+    display: block;
+    padding: 10px 12px 12px;
+    font-size: calc(16px * var(--fs));
+    font-weight: 440;
+    line-height: 1.2;
+    color: var(--ink-muted);
+    white-space: nowrap;
+    transition: color var(--t) var(--ease-std);
+  }
+  .stab span::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 3px;
+    background: var(--grad-bar);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s var(--ease-out);
+  }
+  .stab:hover span,
+  .stab input:checked + span { color: var(--ink); }
+  .stab input:checked + span::after { transform: none; }
+  .stab input:focus-visible + span { outline: 2px solid var(--brand-green-light); outline-offset: -2px; }
+
+  .lc__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px 2.4%;
+    margin-top: 32px;
+  }
+  .lc__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--line-soft);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bg);
+    scroll-margin-top: calc(var(--header-h) + 20px);
+    transition: box-shadow var(--t) var(--ease-out), border-color var(--t) var(--ease-out);
+  }
+  .lc__card[hidden] { display: none; }
+  .lc__card:hover { border-color: var(--line); box-shadow: 0 18px 40px -24px rgb(0 0 0 / 0.35); }
+  .lc__card:has(.lc__link:focus-visible) { outline: 2px solid var(--brand-green-light); outline-offset: 3px; }
+  .lc__media { display: block; aspect-ratio: 4 / 3; }
+  .lc__media :global(img) { transition: transform var(--t-img) var(--ease-out); }
+  .lc__card:hover .lc__media :global(img) { transform: scale(1.05); }
+  .lc__body { display: flex; flex-direction: column; flex: 1; padding: 22px 24px 24px; }
+  .lc__name {
+    font-size: calc(22px * var(--fs));
+    line-height: 1.15;
+    font-weight: 670;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .lc__link { outline: 0; }
+  .lc__link::after { content: ''; position: absolute; inset: 0; z-index: 1; }
+  .lc__latin { margin-top: 4px; font-size: calc(15px * var(--fs)); font-style: italic; color: var(--ink-muted); }
+  .lc__forms {
+    margin-top: 12px;
+    font-size: calc(13px * var(--fs));
+    font-weight: 530;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--brand-green);
+  }
+  .lc__desc {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+    margin-top: 14px;
+    font-size: calc(15px * var(--fs));
+    line-height: 1.55;
+  }
+
+  @media (max-width: 1026px) {
+    .lc__grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 767px) {
+    .lc__tabs { margin-inline: -5.56vw; padding-inline: 5.56vw; }
+  }
+  @media (max-width: 640px) {
+    .lc__grid { grid-template-columns: 1fr; }
+  }
+</style>

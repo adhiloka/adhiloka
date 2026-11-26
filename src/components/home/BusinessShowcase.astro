@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { images } from '../../data/images';
-import { BUSINESS_PANES } from '../../data/pages/home';
+import type { BusinessPane } from '../../data/pages/home';
 
 /* Section "BUSINESSES" adani.com, diisi usaha Adhiloka.
  * 22 Nov 2026 (pemilik): bentuk tile + foto besar tetap, tetapi tab
@@ -12,13 +12,19 @@ import { BUSINESS_PANES } from '../../data/pages/home';
  * Tile terpilih tidak ditutup gradien: tile lain meredup, yang terpilih tetap
  * terang dengan bilah gradien di dasarnya, garis bawah dan panah. */
 
-const panes = BUSINESS_PANES;
+/* Situs grup (26 Nov 2026): isinya lewat prop. Beranda grup memberi
+   GROUP_PANES, beranda lini naturals NATURALS_PANES. */
+interface Props {
+  panes: BusinessPane[];
+  title?: string;
+}
+const { panes, title = 'Our Business' } = Astro.props;
 const arrow = '<path d="M0 6h16M11 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4"></path>';
 ---
 
 <section class="sec sec--grey biz">
   <div class="wrap">
-    <h2 class="h2" data-anim="title">Our Business</h2>
+    <h2 class="h2" data-anim="title">{title}</h2>
 
     <div class="biz__panel" data-picker>
       <ul class="biz__tiles biz__tiles--pick">

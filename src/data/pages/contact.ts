@@ -6,7 +6,7 @@ export const CONTACT_INTRO: PageIntro = {
   metaTitle: 'Contact',
   lede: '',
   description:
-    'Contact Adhiloka for samples, specifications, quotations and fragrance projects.',
+    'Contact Adhiloka Group for natural ingredients and perfumery, seafood, and plastics and packaging.',
   caption: 'smiling woman taking notes during a phone call',
   image: 'contact-phone-call',
   focus: '50% 18%',
@@ -19,7 +19,7 @@ export const OFFICES = [
   {
     role: 'General enquiries',
     city: 'Adhiloka Group',
-    address: 'Samples, quotations, fragrance projects and press.',
+    address: 'Samples, quotations, fragrance projects, seafood, plastics and packaging, and press.',
     contact: 'info@adhiloka.com',
     href: 'mailto:info@adhiloka.com',
   },

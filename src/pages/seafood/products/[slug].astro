@@ -1,0 +1,12 @@
+---
+import LineProductPage from '../../../components/blocks/LineProductPage.astro';
+import { SEAFOOD_PRODUCTS } from '../../../data/seafood';
+import type { LineProduct } from '../../../data/line-products';
+
+export function getStaticPaths() {
+  return SEAFOOD_PRODUCTS.map((p) => ({ params: { slug: p.slug }, props: { p } }));
+}
+const { p } = Astro.props as { p: LineProduct };
+---
+
+<LineProductPage p={p} />

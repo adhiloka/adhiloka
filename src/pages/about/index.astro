@@ -13,7 +13,7 @@ import {
   ABOUT_MORE,
   PURPOSE_VALUES,
 } from '../../data/pages/about';
-import { HOME_QUOTE } from '../../data/pages/home';
+import { GROUP_QUOTE } from '../../data/pages/home';
 
 /* Susunan halaman /about-us adani.com: banner, kutipan terbelah, visi
  * (slider foto fade), konten + foto, nilai, kartu. Angka sekilas, pimpinan
@@ -23,31 +23,26 @@ import { HOME_QUOTE } from '../../data/pages/home';
 ---
 
 <PageLayout intro={ABOUT_INTRO} bannerTitle="About Us">
-  <QuoteSplit
-    text={HOME_QUOTE.text}
-    cta="Discover More"
-    href="/about/our-purpose/"
-    image="pepper-harvest-hands"
-    alt="Hands picking pepper berries from the vine"
-  />
+  {/* Situs grup (26 Nov 2026): kutipan grup, foto sama dengan kutipan beranda. */}
+  <QuoteSplit text={GROUP_QUOTE.text} cta="Discover More" href="/about/our-purpose/" image={GROUP_QUOTE.image} alt={GROUP_QUOTE.alt} />
 
   <VisionSlider
     heading="Who We Are"
     body={[ABOUT_WHO]}
     slides={[
       { image: 'star-anise-mace', alt: 'Star anise and mace, close' },
-      { image: 'cloves-scattered', alt: 'Dried cloves, close' },
-      { image: 'hero-benzoin-tears', alt: 'Cinnamon quills, close' },
+      { image: 'about-sea', alt: 'Fishing boats at anchor on calm water' },
+      { image: 'about-plastics', alt: 'Coloured plastic pellets, close' },
     ]}
   />
 
   <Feature
     heading="How We Work"
     body={ABOUT_HOW}
-    cta="Our Business"
-    href="/about/our-business/"
-    image="perfume-workshop"
-    alt="Hands at work on a perfumery bench"
+    cta="Our Businesses"
+    href="/our-businesses/"
+    image="biz-overview"
+    alt="Container ship at sea in warm evening light"
     flip
   />
 

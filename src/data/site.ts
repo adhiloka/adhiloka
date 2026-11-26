@@ -1,11 +1,12 @@
 import type { ImageKey } from './images';
+import { BUSINESSES, BUSINESS_LINKS } from './businesses';
 
 export const SITE = {
   name: 'Adhiloka',
   legalName: 'Adhiloka Group',
-  tagline: 'Natural Ingredients & Perfumery',
+  tagline: 'Natural Ingredients & Perfumery · Seafood · Plastics & Packaging',
   description:
-    'Adhiloka supplies natural aromatic ingredients from Indonesia, from benzoin and patchouli to roots and spices, and creates fragrances in its own perfumery.',
+    'Adhiloka Group is a family of businesses in Indonesia: natural ingredients and perfumery, seafood, and plastics and packaging.',
   locale: 'en_ID',
   lang: 'en',
   email: 'info@adhiloka.com',
@@ -17,6 +18,8 @@ export type NavLink = { label: string; href: string };
 export type NavItem = {
   label: string;
   href: string;
+  /** Awalan jalur lain yang membuat menu ini aktif. */
+  match?: string[];
   /** Kalimat pengantar mega panel desain lama; tidak dirender di desain Adani. */
   blurb?: string;
   /** Tanpa panel, tautannya langsung — dipakai Contact. */
@@ -29,10 +32,11 @@ export type NavItem = {
 };
 
 /* Foto panel = foto banner halaman induknya (pemilik, 15 Nov 2026): menu
-   About Us, Perfumery, Ingredients, Sustainability, Media dan Connect
-   menampilkan foto yang sama dengan banner halaman yang dituju. Ganti
-   keduanya bersamaan.
-   Enam menu utama, urutan kiri ke kanan di header. `panel.links` adalah isi
+   About Us, Our Businesses, Sustainability, Media dan Connect menampilkan
+   foto yang sama dengan banner halaman yang dituju. Ganti keduanya bersamaan.
+   Lima menu utama sejak situs jadi situs grup (pemilik, 26 Nov 2026), urutan
+   kiri ke kanan di header. Perfumery dan Ingredients pindah ke bilah
+   sub-menu lini Natural Ingredients & Perfumery (businesses.ts). `panel.links` adalah isi
    dropdown, daftar datar tanpa sub-menu atau label grup (pemilik, 13 Nov
    2026): panel mengisinya 3 ke bawah lalu pindah ke kolom kanan. Juga sumber
    remah roti, indeks pencarian dan 404. Tidak ada nama produk di sini:
@@ -44,50 +48,28 @@ export const NAV: NavItem[] = [
   {
     label: 'About Us',
     href: '/about/',
-    blurb: 'A house of natural ingredients and perfumery, rooted in Indonesia.',
+    blurb: 'Adhiloka Group, a family of businesses rooted in Indonesia.',
     panel: {
       title: 'About Us',
       shot: 'smiling woman in late afternoon sun',
       image: 'hero-woman-golden-light',
-      links: [
-        { label: 'Our Business', href: '/about/our-business/' },
-        { label: 'Our Purpose', href: '/about/our-purpose/' },
-      ],
+      links: [{ label: 'Our Purpose', href: '/about/our-purpose/' }],
     },
   },
   {
-    label: 'Perfumery',
-    href: '/perfumery/',
-    blurb:
-      'Fragrance creation for fine fragrance, personal care, home care and fabric care.',
+    /* Satu menu untuk ketiga lini (pemilik, 26 Nov 2026), pola "Businesses"
+       adani.com. Sub-halaman tiap lini ada di bilah sub-menu halaman lini
+       (BusinessSubnav), bukan di sini. `match`: menu tetap aktif di halaman
+       mana pun di dalam lini. */
+    label: 'Our Businesses',
+    href: '/our-businesses/',
+    match: BUSINESSES.flatMap((b) => b.paths),
+    blurb: 'Natural ingredients and perfumery, seafood, and plastics and packaging.',
     panel: {
-      title: 'Perfumery',
-      shot: 'woman smelling a fragrance by the window',
-      image: 'hero-smelling-vial',
-      links: [
-        { label: 'Fine Fragrance', href: '/perfumery/#fine-fragrance' },
-        { label: 'Consumer Fragrance', href: '/perfumery/#consumer-fragrance' },
-        { label: 'Fragrance Innovation', href: '/perfumery/#innovation' },
-        { label: 'How We Work', href: '/perfumery/#approach' },
-        { label: 'Our Palette', href: '/perfumery/#palette' },
-      ],
-    },
-  },
-  {
-    label: 'Ingredients',
-    href: '/ingredients/',
-    blurb: 'Resins, leaves, roots and spices from Indonesia, selected and prepared for perfumery.',
-    panel: {
-      title: 'Ingredients',
-      shot: 'blossom in golden evening light',
-      image: 'hero-blossom-golden',
-      links: [
-        { label: 'Natural Ingredients', href: '/ingredients/natural-ingredients/' },
-        { label: 'Ingredient Catalog', href: '/ingredients/catalog/' },
-        { label: 'Ingredients Map', href: '/ingredients/map/' },
-        { label: 'Technology', href: '/ingredients/technology/' },
-        { label: 'Working With Us', href: '/ingredients/working-with-us/' },
-      ],
+      title: 'Our Businesses',
+      shot: 'container ship at sea in warm evening light',
+      image: 'biz-overview',
+      links: BUSINESSES.map((b) => ({ label: b.name, href: b.href })),
     },
   },
   {
@@ -136,10 +118,10 @@ export const NAV: NavItem[] = [
 ];
 
 /** Semua tautan navigasi yang ada, rata — dipakai indeks pencarian dan 404. */
-export const NAV_LINKS: NavLink[] = NAV.flatMap((item) => [
-  { label: item.label, href: item.href },
-  ...(item.panel?.links ?? []),
-]);
+export const NAV_LINKS: NavLink[] = [
+  ...NAV.flatMap((item) => [{ label: item.label, href: item.href }, ...(item.panel?.links ?? [])]),
+  ...BUSINESS_LINKS,
+];
 
 /* Akun media sosial resmi. Kosong sampai akunnya ada (formulir data I1):
    tautan lama hanya menuju beranda tiap platform, jadi ikonnya dilepas dari
@@ -150,8 +132,8 @@ export const SOCIAL: { label: string; href: string }[] = [];
 export const SEARCH_SUGGESTIONS = [
   { label: 'Benzoin Sumatra', href: '/ingredients/catalog/benzoin-sumatra/' },
   { label: 'Patchouli', href: '/ingredients/catalog/patchouli/' },
-  { label: 'Fine fragrance', href: '/perfumery/#fine-fragrance' },
-  { label: 'Responsible sourcing', href: '/sustainability/responsible-sourcing/' },
+  { label: 'Seafood products', href: '/seafood/products/' },
+  { label: 'Plastic resins', href: '/plastics-packaging/products/?cat=resins' },
   { label: 'Working with us', href: '/ingredients/working-with-us/' },
   { label: 'Sample request', href: '/contact/?kind=sample' },
 ];

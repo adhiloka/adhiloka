@@ -1,0 +1,11 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import LineCatalog from '../../components/blocks/LineCatalog.astro';
+import { SEAFOOD_PRODUCTS_INTRO } from '../../data/pages/seafood-line';
+
+/* Katalog produk Seafood (situs grup, 26 Nov 2026). */
+---
+
+<PageLayout intro={SEAFOOD_PRODUCTS_INTRO} bannerTitle="Products">
+  <LineCatalog line="seafood" />
+</PageLayout>

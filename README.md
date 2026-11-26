@@ -18,10 +18,30 @@ Tersimpan di `../../review/comments.json` (vault `website/review/`, di luar repo
 saat `astro dev`; `astro build` tidak menyertakan apa pun. Daftar: `node tools/review/comments.mjs`;
 selesai: `node tools/review/comments.mjs done <id>`.
 
+## Situs grup (26 Nov 2026)
+
+adhiloka.com adalah situs induk Adhiloka Group dengan tiga lini (keputusan vault
+`decisions/2026-11-26 Website becomes group site.md`). Sumber tunggal nama, alamat, foto dan
+bilah sub-menu tiap lini: `src/data/businesses.ts`.
+
+| Jalur | Susunan |
+| --- | --- |
+| `/` | **Beranda grup**: hero empat slide (We Are Adhiloka, tiga lini; `GROUP_HERO_SLIDES`) · kutipan grup (`GROUP_QUOTE`) · Our Businesses 2 x 2 (`GROUP_PANES`) · keberlanjutan · berita · Join Us |
+| `/our-businesses/` | Banner · pembuka · satu blok Feature per lini (pola adani.com/businesses). `/about/our-business/` dialihkan ke sini (halamannya diparkir jadi `_our-business.astro`) |
+| `/natural-ingredients-perfumery/` | Beranda lini naturals: isi beranda lama apa adanya (hero final 21 Nov, tile final 22 Nov; `NATURALS_HERO_SLIDES`, `NATURALS_PANES`) + bilah sub-menu |
+| `/seafood/` · `/plastics-packaging/` | Beranda lini: banner · pembuka · Our Products (kategori, menuju katalog `?cat=`) · blok bergambar · Working With Us |
+| `/seafood/products/` · `/plastics-packaging/products/` | Katalog lini (`LineCatalog`): tab kategori pilihan tunggal, kartu berfoto 3 kolom satu tautan, tanpa hitungan; `?cat=` memilih tab |
+| `…/products/<slug>/` | Halaman produk lini (`LineProductPage`): kepala berwarna lini, strip fakta, Specification, Packing/Use, tombol permintaan, slider produk sekategori |
+
+- Data produk: `src/data/seafood.ts`, `src/data/packaging.ts`, tipe dan helper di `line-products.ts`. Tanpa kode produk.
+- Menu atas: About Us · Our Businesses · Sustainability · Media · Connect. Perfumery dan Ingredients tidak lagi di header; tautannya di **bilah sub-menu lini** (`BusinessSubnav`, otomatis di `PageLayout` untuk halaman lini).
+- Remah halaman lini: Home › lini › bagian › halaman (`PageBanner` + `businessOf`).
+- Kontak: kolom **Business** dan `?business=naturals|seafood|packaging`, `?product=<slug>` mengisi pesan.
+
 ## Halaman
 
-Menunya tetap menu Adhiloka (About Us · Perfumery · Ingredients · Sustainability · Media ·
-Connect), tetapi tampil dan bekerja seperti menu Adani: kapital, chevron, mega-menu saat hover di
+Menu naturals di bawah ini (About Us · Perfumery · Ingredients · …) adalah susunan sebelum situs
+grup; Perfumery dan Ingredients kini di bilah sub-menu lini. Menunya tampil dan bekerja seperti menu Adani: kapital, chevron, mega-menu saat hover di
 desktop, laci dari kanan dengan akordeon di layar ≤1026 px. Isi menu hanya di `NAV`
 (`src/data/site.ts`); `src/data/menu.ts` cuma membentuk panelnya.
 
@@ -45,7 +65,7 @@ ikut sendiri. "Life at Adhiloka" dilepas.
 
 | Jalur | Susunan |
 | --- | --- |
-| `/` | Hero slider empat slide tetap (About, Perfumery, Ingredients, Sustainability; pemilik 21 Nov 2026, foto slide = banner tujuan) · kutipan terbelah (tanpa label, garis dan nama, 15 Nov 2026) · Our Business (22 Nov 2026: tanpa tab, empat tile 2 x 2 Natural Ingredients, Perfumery, Technology, Sustainability yang memilih foto besar berchip + Explore More, dari `BUSINESS_PANES`) · akordeon keberlanjutan · Latest News · Join Us |
+| `/` (kini `/natural-ingredients-perfumery/`) | Hero slider empat slide tetap (About, Perfumery, Ingredients, Sustainability; pemilik 21 Nov 2026, foto slide = banner tujuan) · kutipan terbelah (tanpa label, garis dan nama, 15 Nov 2026) · Our Business (22 Nov 2026: tanpa tab, empat tile 2 x 2 Natural Ingredients, Perfumery, Technology, Sustainability yang memilih foto besar berchip + Explore More, dari `BUSINESS_PANES`) · akordeon keberlanjutan · Latest News · Join Us |
 | `/about/` | Pola /about-us Adani: banner · kutipan · Who We Are (slider foto fade dalam panel inset) · How We Work · nilai · kartu |
 | `/about/our-business/`, `/about/our-purpose/` | Banner · pembuka · isi halaman · Explore More |
 | `/about/our-leadership/`, `our-history/`, `our-locations/` | **Diparkir** (lihat "Halaman yang diparkir"); rutenya dialihkan ke `/about/` |

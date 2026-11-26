@@ -36,7 +36,10 @@ export type HeroSlide = {
   focus?: string;
 };
 
-export const HERO_SLIDES: HeroSlide[] = [
+/* Situs grup (pemilik, 26 Nov 2026): empat slide di bawah ini (final 21 Nov
+ * 2026) pindah apa adanya ke beranda lini /natural-ingredients-perfumery/.
+ * Beranda grup memakai GROUP_HERO_SLIDES. */
+export const NATURALS_HERO_SLIDES: HeroSlide[] = [
   {
     title: ['We Are Adhiloka'],
     line: ['Natural Ingredients & Perfumery'],
@@ -146,7 +149,9 @@ export type BusinessPane = {
   href: string;
 };
 
-export const BUSINESS_PANES: BusinessPane[] = [
+/* Situs grup: empat tile di bawah ini (final 22 Nov 2026) pindah apa adanya
+ * ke beranda lini naturals. Beranda grup memakai GROUP_PANES. */
+export const NATURALS_PANES: BusinessPane[] = [
   {
     key: 'ingredients',
     label: 'Natural Ingredients',
@@ -183,6 +188,105 @@ export const BUSINESS_PANES: BusinessPane[] = [
       { label: 'Quality', href: '/ingredients/technology/#quality' },
     ],
     href: '/ingredients/technology/',
+  },
+  {
+    key: 'sustainability',
+    label: 'Sustainability',
+    image: 'hero-tea-hills',
+    chips: [
+      { label: 'Responsible Sourcing', href: '/sustainability/responsible-sourcing/' },
+      { label: 'Progress for People', href: '/sustainability/people/' },
+      { label: 'Partnerships', href: '/sustainability/people/#partnerships' },
+    ],
+    href: '/sustainability/',
+  },
+];
+
+/* ── Beranda grup (situs grup, pemilik 26 Nov 2026) ──────────────────── */
+
+/* Hero grup, takaran sama dengan hero naturals: judul pendek dua baris, satu
+ * baris kecil. Slide 1 memakai foto dan tautan slide We Are Adhiloka yang
+ * final; baris kecilnya menyebut ketiga lini. Foto slide lini = foto beranda
+ * lini itu (businesses.ts). */
+export const GROUP_HERO_SLIDES: HeroSlide[] = [
+  {
+    title: ['We Are Adhiloka'],
+    line: ['Natural Ingredients · Seafood · Plastics & Packaging'],
+    href: '/about/',
+    image: 'hero-woman-golden-light',
+    focus: '72% 50%',
+    alt: 'Smiling woman lit by the late afternoon sun',
+  },
+  {
+    title: ['Scent from', 'Living Plants'],
+    line: ['Natural Ingredients & Perfumery'],
+    href: '/natural-ingredients-perfumery/',
+    image: 'labelled-bottles',
+    alt: 'Hands arranging labelled amber bottles on a marble table',
+  },
+  {
+    title: ["The Sea's Harvest"],
+    line: ['Frozen & Dried Seafood'],
+    href: '/seafood/',
+    image: 'line-seafood',
+    alt: 'Fresh fish laid on crushed ice',
+  },
+  {
+    title: ['Made to Hold', 'and Protect'],
+    line: ['Resins, Films & Packaging'],
+    href: '/plastics-packaging/',
+    image: 'line-packaging',
+    alt: 'Clear plastic pellets held in an open hand',
+  },
+];
+
+/* Kutipan grup, pola pernyataan tujuan satu kalimat seperti HOME_QUOTE. */
+export const GROUP_QUOTE = {
+  text: 'From *the land*, from *the sea*, and the *materials that carry them*: we know what we supply, and we stand behind it.',
+  cta: 'Discover More',
+  href: '/about/',
+  image: 'group-quote' as ImageKey,
+  alt: 'Fishing boats resting on calm water at first light',
+};
+
+/* Our Business beranda grup: bentuk tile 2 x 2 + foto besar tetap; tiga lini
+ * dan Sustainability. Chip = bagian di halaman tujuan. */
+export const GROUP_PANES: BusinessPane[] = [
+  {
+    key: 'naturals',
+    label: 'Natural Ingredients & Perfumery',
+    image: 'labelled-bottles',
+    chips: [
+      { label: 'Ingredient Catalog', href: '/ingredients/catalog/' },
+      { label: 'Ingredients Map', href: '/ingredients/map/' },
+      { label: 'Technology', href: '/ingredients/technology/' },
+      { label: 'Perfumery', href: '/perfumery/' },
+    ],
+    href: '/natural-ingredients-perfumery/',
+  },
+  {
+    key: 'seafood',
+    label: 'Seafood',
+    image: 'line-seafood',
+    chips: [
+      { label: 'Frozen Fish', href: '/seafood/products/?cat=fish' },
+      { label: 'Shrimp & Crab', href: '/seafood/products/?cat=crustaceans' },
+      { label: 'Squid & Octopus', href: '/seafood/products/?cat=cephalopods' },
+      { label: 'Dried Marine Products', href: '/seafood/products/?cat=dried' },
+    ],
+    href: '/seafood/',
+  },
+  {
+    key: 'packaging',
+    label: 'Plastics & Packaging',
+    image: 'line-packaging',
+    chips: [
+      { label: 'Plastic Resins', href: '/plastics-packaging/products/?cat=resins' },
+      { label: 'Films & Flexible', href: '/plastics-packaging/products/?cat=flexible' },
+      { label: 'Bottles & Jars', href: '/plastics-packaging/products/?cat=rigid' },
+      { label: 'Glass for Fragrance', href: '/plastics-packaging/products/?cat=glass' },
+    ],
+    href: '/plastics-packaging/',
   },
   {
     key: 'sustainability',

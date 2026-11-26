@@ -1,0 +1,98 @@
+---
+import { businessOf } from '../../data/businesses';
+
+/* Bilah sub-menu lini usaha (situs grup, 26 Nov 2026): satu baris tautan
+ * datar di bawah banner tiap halaman lini, seperti bilah halaman bisnis
+ * adani.com. Tanpa label grup atau sub-menu (aturan menu 13 Nov 2026).
+ * Tautan aktif = awalan jalur terpanjang; garis bawah bergradien seperti tab
+ * katalog. Di layar sempit digeser mendatar. */
+const path = Astro.url.pathname;
+const biz = businessOf(path);
+const links = biz?.subnav ?? [];
+const plain = links.filter((l) => !l.href.includes('#'));
+const current = plain
+  .filter((l) => (l.href === biz?.href ? path === l.href : path.startsWith(l.href)))
+  .sort((a, b) => b.href.length - a.href.length)[0]?.href;
+---
+
+{
+  biz && (
+    <nav class="bsn" aria-label={biz.name}>
+      <div class="wrap bsn__row">
+        <a class="bsn__name" href={biz.href}>{biz.name}</a>
+        <ul class="bsn__links">
+          {links.map((l) => (
+            <li>
+              <a href={l.href} aria-current={l.href === current ? 'page' : undefined}>{l.label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </nav>
+  )
+}
+
+<style>
+  .bsn {
+    position: relative;
+    z-index: 2;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+  .bsn__row {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .bsn__name {
+    flex: none;
+    padding: 18px 0;
+    font-size: calc(14px * var(--fs));
+    font-weight: 530;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .bsn__links {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-left: auto;
+    scrollbar-width: none;
+  }
+  .bsn__links::-webkit-scrollbar { display: none; }
+  .bsn__links a {
+    position: relative;
+    display: block;
+    padding: 18px 14px;
+    font-size: calc(16px * var(--fs));
+    font-weight: 440;
+    line-height: 1.2;
+    color: var(--ink-muted);
+    white-space: nowrap;
+    transition: color var(--t) var(--ease-std);
+  }
+  .bsn__links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 3px;
+    background: var(--grad-bar);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s var(--ease-out);
+  }
+  .bsn__links a:hover,
+  .bsn__links a[aria-current] { color: var(--ink); }
+  .bsn__links a[aria-current]::after { transform: none; }
+
+  @media (max-width: 1026px) {
+    .bsn__name { display: none; }
+    .bsn__links {
+      margin-left: -14px;
+      mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent);
+    }
+  }
+</style>

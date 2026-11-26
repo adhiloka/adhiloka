@@ -11,26 +11,27 @@ import type { LinkCard, PageIntro, Passage, Quote } from './types';
 
 export const ABOUT_INTRO: PageIntro = {
   eyebrow: 'About Us',
-  title: 'Natural ingredients and perfumery, rooted in Indonesia',
+  title: 'A family of businesses, rooted in Indonesia',
   metaTitle: 'About',
   lede: '',
   description:
-    'Adhiloka is a house of natural ingredients and perfumery from Indonesia, working with resins, leaves, roots and spices and the people who grow them.',
+    'Adhiloka Group brings together natural ingredients and perfumery, seafood, and plastics and packaging, from Indonesia.',
   image: 'hero-woman-golden-light',
   focus: '50% 30%',
   caption: 'smiling woman in late afternoon sun',
 };
 
+/* Situs grup (26 Nov 2026): Who We Are dan How We Work ditulis untuk grup. */
 export const ABOUT_WHO =
-  'Adhiloka is a house of natural ingredients and perfumery. We work with the resins, leaves, roots and spices that have shaped perfumery for generations, and turn them into essential oils, resinoids and extracts for those who create with scent. We stay close to the plants, the seasons and the growers behind them.';
+  'Adhiloka Group brings together natural ingredients and perfumery, seafood, and plastics and packaging. Each business works with its own materials and its own customers, and all of them share one way of working: stay close to the source and stand behind what we supply.';
 
 export const ABOUT_HOW =
-  'We follow each material from the field to the finished ingredient, and we know the people who grow it. We stand behind everything we supply, and perfumers can build on it with confidence.';
+  'We know where every product comes from and who handled it before us. We check what we ship, keep to the agreed specification, and build relationships that last beyond the first order.';
 
 /* Kartu halaman anak, dipakai grid penutup hub About dan bilah "Explore
    More" di halaman anaknya. */
 export const ABOUT_CARDS: LinkCard[] = [
-  { title: 'Our Business', href: '/about/our-business/', image: 'perfume-workshop' },
+  { title: 'Our Businesses', href: '/our-businesses/', image: 'biz-overview' },
   { title: 'Our Purpose', href: '/about/our-purpose/', image: 'hero-misty-terraces' },
 ];
 
@@ -43,6 +44,10 @@ export const ABOUT_MORE: LinkCard = {
 };
 
 /* ── Our Business ────────────────────────────────────────────────────── */
+
+/* Diparkir 26 Nov 2026 (situs grup): halamannya jadi src/pages/about/
+   _our-business.astro dan rutenya dialihkan ke /our-businesses/. Naskahnya
+   disimpan untuk bahan bila halaman ini dipakai lagi. */
 
 export const BUSINESS_INTRO: PageIntro = {
   eyebrow: 'About Us',

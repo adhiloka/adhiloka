@@ -2,6 +2,7 @@
 import { NAV_LINKS, SEARCH_SUGGESTIONS } from '../data/site';
 import { MATERIALS, PRODUCTS, materialHref, productHref } from '../data/materials';
 import { NEWS } from '../data/pages/media';
+import { LINE_CATALOG, lineProductHref, categoryLabel } from '../data/line-products';
 
 /* Panel cari ala `.search-bar-wrapper` adani.com: lembar putih selayar yang
  * turun dari atas, satu kolom input besar, lalu "Popular Pages". Situs ini
@@ -21,6 +22,13 @@ const index = [
     href: productHref(p),
     kind: 'Product',
     extra: `${p.code} ${p.type} ${p.grade}`,
+  })),
+  // Situs grup (26 Nov 2026): produk seafood dan plastik.
+  ...[...LINE_CATALOG.seafood.products, ...LINE_CATALOG.packaging.products].map((p) => ({
+    label: p.name,
+    href: lineProductHref(p),
+    kind: p.line === 'seafood' ? 'Seafood' : 'Plastics & Packaging',
+    extra: `${p.latin ?? ''} ${categoryLabel(p.line, p.category)} ${p.spec[0]?.[1] ?? ''}`,
   })),
   ...NEWS.map((n) => ({ label: n.title, href: `/media/news/${n.slug}/`, kind: 'News' })),
   { label: 'Contact', href: '/contact/', kind: 'Page' },

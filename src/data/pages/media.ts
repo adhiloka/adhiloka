@@ -190,7 +190,7 @@ export const RESOURCES_INTRO: PageIntro = {
 /** Paragraf baku tentang perusahaan, untuk dikutip pers apa adanya. */
 export const BOILERPLATE = {
   title: 'About Adhiloka',
-  body: 'Adhiloka is a house of natural aromatic ingredients and perfumery from Indonesia. We source resins, roots, leaves and spices, prepare them for perfumery, and create fragrances for fine fragrance and consumer products.',
+  body: 'Adhiloka Group is a family of businesses in Indonesia. It supplies natural aromatic ingredients and creates fragrances, exports frozen and dried seafood, and supplies plastic resins and packaging.',
 };
 
 /* ── Social Media (diparkir) ─────────────────────────────────────────── */

@@ -37,7 +37,13 @@ export function initContactForm() {
      pesan diisi awal supaya pengguna tidak mengetik ulang. Tombol "Start a
      brief" di Perfumery membawa ?kind=bespoke. */
   const params = new URL(window.location.href).searchParams;
-  const material = params.get('material');
+  // Situs grup (26 Nov 2026): ?product= dari halaman produk seafood/plastik,
+  // ?business=naturals|seafood|packaging memilih lini di kolom Business.
+  const material = params.get('material') ?? params.get('product');
+  const business = params.get('business');
+  const businessEl = form.querySelector<HTMLSelectElement>('[data-business]');
+  const bizOpt = businessEl && business ? [...businessEl.options].find((o) => o.dataset.key === business) : undefined;
+  if (businessEl && bizOpt) businessEl.value = bizOpt.value;
   const KINDS: Record<string, string> = {
     sample: 'Sample request',
     specification: 'Specification & documents',
@@ -129,6 +135,7 @@ export function initContactForm() {
         `Company: ${data.get('company')}`,
         `Email: ${data.get('email')}`,
         `Enquiry: ${data.get('kind')}`,
+        `Business: ${data.get('business') || 'Adhiloka Group'}`,
         '',
         String(data.get('message') ?? ''),
       ].join('\n');

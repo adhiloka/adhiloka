@@ -14,14 +14,15 @@ export const SUSTAINABILITY_INTRO: PageIntro = {
   metaTitle: 'Sustainability',
   lede: '',
   description:
-    'Sustainability at Adhiloka: respect for the land our natural ingredients come from, and lasting relationships with the people who grow them.',
+    'Sustainability at Adhiloka Group: respect for the land and sea our products come from, and lasting relationships with the people behind them.',
   caption: 'hands holding a seedling in soil',
   image: 'hero-hands-seedling',
   focus: '50% 30%',
 };
 
 export const SUSTAINABILITY_OPENING = [
-  'Natural ingredients depend on healthy land and on the people who work it. We buy from growers we know, respect the rhythm of each harvest and take only what the land can give, so the forests, fields and villages behind our ingredients can thrive for generations to come.',
+  /* Situs grup (26 Nov 2026): pembuka untuk ketiga lini. */
+  'Our businesses depend on healthy land, healthy seas and the people who work them. We buy from growers and fishers we know, respect the seasons of each harvest and catch, and use materials with care, so the places behind our products can thrive for generations to come.',
 ];
 
 export const SUSTAINABILITY_CARDS: LinkCard[] = [

@@ -2,6 +2,8 @@
 import PageLayout from '../layouts/PageLayout.astro';
 import { OFFICES, ENQUIRY_KINDS, CONTACT_INTRO } from '../data/pages/contact';
 import { MATERIAL_NAMES } from '../data/material-names';
+import { BUSINESSES } from '../data/businesses';
+import { LINE_CATALOG } from '../data/line-products';
 import { SITE } from '../data/site';
 import SiblingCards from '../components/blocks/SiblingCards.astro';
 
@@ -10,7 +12,11 @@ import SiblingCards from '../components/blocks/SiblingCards.astro';
  * lama: Web3Forms bila PUBLIC_FORM_ACCESS_KEY diisi, mailto bila belum. */
 
 // Peta slug ke nama, supaya ?material=nutmeg-mace terisi "Nutmeg & Mace".
-const materialNames = MATERIAL_NAMES;
+// Situs grup (26 Nov 2026): produk seafood dan plastik ikut, lewat ?product=slug.
+const materialNames = {
+  ...MATERIAL_NAMES,
+  ...Object.fromEntries([...LINE_CATALOG.seafood.products, ...LINE_CATALOG.packaging.products].map((p) => [p.slug, p.name])),
+};
 
 const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? 'https://api.web3forms.com/submit';
 const accessKey = import.meta.env.PUBLIC_FORM_ACCESS_KEY ?? '';
@@ -70,8 +76,15 @@ const configured = accessKey.length > 0;
           </div>
 
           <label class="field">
+            <span class="field__label">Business</span>
+            <select name="business" data-business>
+              <option value="">Adhiloka Group</option>
+              {BUSINESSES.map((b) => <option value={b.name} data-key={b.key}>{b.name}</option>)}
+            </select>
+          </label>
+          <label class="field">
             <span class="field__label">Message*</span>
-            <textarea rows="5" name="message" placeholder="Ingredient, quantity, application, timing" required aria-describedby="err-message"></textarea>
+            <textarea rows="5" name="message" placeholder="Product, quantity, specification, timing" required aria-describedby="err-message"></textarea>
             <span class="field__error" id="err-message" data-error-for="message"></span>
           </label>
 

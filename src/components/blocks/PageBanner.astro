@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { images, type ImageKey } from '../../data/images';
 import { NAV, NAV_LINKS } from '../../data/site';
+import { businessOf } from '../../data/businesses';
 
 /* Banner halaman dalam ala `#spotlightBanner` adani.com (mis. /about-us):
  * foto selayar dengan bayangan hitam 0,85 dari bawah, judul 44 px di kiri
@@ -29,14 +30,23 @@ const { title, image, alt = '', line, meta, half = false, focus } = Astro.props;
 
 const path = Astro.url.pathname;
 const label = (href: string) => NAV_LINKS.find((l) => l.href === href)?.label;
-const section = NAV.find((n) => path.startsWith(n.href) && n.href !== '/');
+const parts = path.split('/').filter(Boolean);
 const crumbs = [{ label: 'Home', href: '/' }];
-if (section && path !== section.href) crumbs.push({ label: section.label, href: section.href });
-if (section && path !== section.href) {
-  // Halaman anak; artikel berita menambah "News" sebagai jenjang antara.
-  const parts = path.split('/').filter(Boolean);
-  const mid = `/${parts.slice(0, 2).join('/')}/`;
-  if (parts.length > 2 && label(mid)) crumbs.push({ label: label(mid)!, href: mid });
+/* Halaman di dalam satu lini usaha (situs grup, 26 Nov 2026): Home › lini ›
+   bagian (mis. Ingredients) › halaman. Halaman grup: Home › menu › halaman. */
+const biz = businessOf(path);
+if (biz) {
+  if (path !== biz.href) crumbs.push({ label: biz.name, href: biz.href });
+  const top = `/${parts[0]}/`;
+  if (top !== biz.href && path !== top && label(top)) crumbs.push({ label: label(top)!, href: top });
+} else {
+  const section = NAV.find((n) => path.startsWith(n.href) && n.href !== '/');
+  if (section && path !== section.href) {
+    crumbs.push({ label: section.label, href: section.href });
+    // Artikel berita menambah "News" sebagai jenjang antara.
+    const mid = `/${parts.slice(0, 2).join('/')}/`;
+    if (parts.length > 2 && label(mid)) crumbs.push({ label: label(mid)!, href: mid });
+  }
 }
 ---
 
