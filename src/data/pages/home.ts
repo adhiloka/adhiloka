@@ -1,6 +1,6 @@
 import type { ImageKey } from '../images';
 import { businessByKey } from '../businesses';
-import { LINE_CATALOG, categoryImage, lineCategoryHref, lineProductHref } from '../line-products';
+import { LINE_CATALOG, categoryImage, lineCategoryHref, lineItemHref, lineItemsOf } from '../line-products';
 
 /* Naskah beranda, disusun menurut urutan section adani.com:
  * hero slider → kutipan terbelah → Our Business → akordeon keberlanjutan →
@@ -218,13 +218,12 @@ export type BusinessTab = { key: string; label: string; href: string; panes: Bus
 
 const linePanes = (line: 'seafood' | 'packaging', cats: string[]): BusinessPane[] =>
   cats.map((cat) => {
-    const { categories, products } = LINE_CATALOG[line];
-    const c = categories.find((x) => x.key === cat)!;
+    const c = LINE_CATALOG[line].categories.find((x) => x.key === cat)!;
     return {
       key: `${line}-${cat}`,
       label: c.label,
       image: categoryImage(line, cat),
-      chips: products.filter((p) => p.category === cat).slice(0, 4).map((p) => ({ label: p.name, href: lineProductHref(p) })),
+      chips: lineItemsOf(line, cat).slice(0, 5).map((i) => ({ label: i.name, href: lineItemHref(i) })),
       href: lineCategoryHref(line, cat),
     };
   });
@@ -232,7 +231,7 @@ const linePanes = (line: 'seafood' | 'packaging', cats: string[]): BusinessPane[
 export const GROUP_TABS: BusinessTab[] = [
   { key: 'naturals', label: businessByKey('naturals').name, href: businessByKey('naturals').href, panes: NATURALS_PANES },
   { key: 'seafood', label: businessByKey('seafood').name, href: businessByKey('seafood').href, panes: linePanes('seafood', ['fish', 'crustaceans', 'cephalopods', 'dried']) },
-  { key: 'packaging', label: businessByKey('packaging').name, href: businessByKey('packaging').href, panes: linePanes('packaging', ['resins', 'flexible', 'rigid', 'glass']) },
+  { key: 'packaging', label: businessByKey('packaging').name, href: businessByKey('packaging').href, panes: linePanes('packaging', ['bags', 'films', 'sacks', 'food']) },
 ];
 
 /* ── Join Us ─────────────────────────────────────────────────────────── */

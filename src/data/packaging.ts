@@ -1,333 +1,244 @@
 import type { ImageKey } from './images';
-import type { LineCategory, LineProduct } from './line-products';
+import type { LineCategory, LineItem, LineProduct } from './line-products';
 
-/* Produk lini Plastics & Packaging (situs grup, pemilik 26 Nov 2026).
- * Pemilik: "intinya semua plastik", termasuk biji plastik (LDPE, LLDPE, HDPE,
- * PP), plastik lembaran & fleksibel, botol & jar, kemasan makanan, botol kaca
- * & aksesori parfum. Situs tidak menyebut produksi sendiri atau trading.
+/* Katalog lini Polymers (pemilik, 27 Nov 2026): kemasan plastik untuk
+ * restoran dan toko, bukan barang industri. Kantong (kresek, bening, zipper,
+ * pouch, sampah), plastik wrap, karung, jumbo bag, goni, gelas dan wadah
+ * makanan. Biji plastik, pipa, krat, jeriken, botol kaca, tutup dan sprayer
+ * parfum dilepas.
  *
- * Sifat resin = rentang tipikal kelas komersial (densitas, MFI 190 °C/2,16 kg
- * untuk PE, 230 °C/2,16 kg untuk PP), dari datasheet polyolefin Chandra Asri
- * dan katalog distributor (Formerra, Berlin Packaging) di
- * market-research/references/Group site/. Nilai pesanan tetap mengikuti grade
- * yang disepakati. Tanpa kode produk dan tanpa nama merek produsen. */
+ * Item = nama yang dipahami orang awam (Carrier Bags, Trash Bags); produk
+ * berkode = bahan + konstruksi + warna. Kode kepala 1, D2 5–8
+ * (catalog/Product code register.md):
+ *   D2 kategori · D3 item · D4 bahan · D5 konstruksi · D6 warna
+ *   D4: 1 HDPE · 2 LDPE · 3 LLDPE · 4 PP · 5 OPP · 6 PET dan laminasi PET ·
+ *       7 Nylon/PE · 8 PVC · 9 Goni (jute)
+ *   D6: 1 bening/natural · 2 putih · 3 hitam · 4 warna · 5 cetak
+ * Ukuran dan ketebalan dibuat sesuai pesanan; rentangnya tertulis di spesifikasi.
+ *
+ * Nilai = rentang tipikal dagang (rujukan: Chandra Asri, Formerra, Berlin
+ * Packaging di market-research/references/Group site/). Situs tidak menyebut
+ * produksi sendiri atau trading; tanpa klaim food-contact bersertifikat. */
 
 export const PACKAGING_CATEGORIES: LineCategory[] = [
-  { key: 'resins', label: 'Plastic Resins', image: 'pk-pet', body: 'Polyethylene, polypropylene, PET, PVC and polystyrene in pellet and powder form. We match the grade to your process, whether film, injection, blow moulding or extrusion.' },
-  { key: 'flexible', label: 'Films & Flexible', image: 'pk-pouches', body: 'Polyethylene film on rolls, and bags and pouches for food, retail and industry. Printed or plain, in the thickness and width you work with.' },
-  { key: 'rigid', label: 'Bottles & Jars', body: 'PET, HDPE and PP bottles and jars with matching caps and closures. For food, home care, personal care and chemicals.' },
-  { key: 'food', label: 'Food Packaging', body: 'Containers, cups, lids and trays for takeaway, bakery and fresh food. Microwave-safe PP and clear PET in common sizes.' },
-  { key: 'glass', label: 'Glass for Fragrance', body: 'Glass perfume bottles, sprayers, caps and sample vials. Clear or coloured glass in standard neck finishes.' },
+  { key: 'bags', label: 'Bags & Pouches', body: 'Carrier bags, clear bags, zipper bags, stand-up pouches and trash bags for shops, restaurants and kitchens.' },
+  { key: 'films', label: 'Films & Wraps', image: 'pk-ldpe', body: 'Cling wrap for the kitchen and stretch film for wrapping cartons and pallets.' },
+  { key: 'sacks', label: 'Sacks & Bulk Bags', image: 'pm-woven-sacks', body: 'Woven plastic sacks, jute sacks and jumbo bags for rice, flour, sugar, produce and bulk goods.' },
+  { key: 'food', label: 'Cups & Containers', body: 'Takeaway cups, lids and food containers for cafés, restaurants and delivery.' },
 ];
 
-const P = (p: Omit<LineProduct, 'line'>): LineProduct => ({ ...p, line: 'packaging' });
+const P = (code: string, name: string, type: string, spec: [string, string][]): LineProduct => ({ code, name, type, spec });
+const I = (i: Omit<LineItem, 'line'>): LineItem => ({ ...i, line: 'packaging' });
 
-export const PACKAGING_PRODUCTS: LineProduct[] = [
-  P({
-    slug: 'ldpe',
-    name: 'LDPE',
-    latin: 'Low-density polyethylene',
-    category: 'resins',
-    image: 'pk-ldpe' as ImageKey,
-    alt: 'Translucent polyethylene pellets, close',
-    note: 'Soft, clear and easy to process. The resin for shrink film, carrier bags, liners and extrusion coating.',
-    spec: [
-      ['Grades', 'Film · Extrusion coating · Injection'],
-      ['Density', '0.918–0.930 g/cm³'],
-      ['Melt flow index', '0.3–8 g/10 min (190 °C/2.16 kg)'],
-      ['Form', 'Natural pellets'],
+const STORE = ['Storage', 'Dry, covered, away from direct sun'] as [string, string];
+
+export const PACKAGING_ITEMS: LineItem[] = [
+  /* ── Bags & pouches ── */
+  I({
+    slug: 'carrier-bags',
+    name: 'Carrier Bags',
+    local: 'Kantong Kresek',
+    latin: 'HDPE · LDPE',
+    category: 'bags',
+    image: 'pm-carrier-bags' as ImageKey,
+    alt: 'Plastic carrier bags with groceries on a table',
+    note: 'Shopping and takeaway bags in T-shirt and die-cut styles. Plain or printed with your logo.',
+    range: 'HDPE T-shirt · LDPE Die-cut',
+    usage: 'Retail checkouts, markets, takeaway and delivery.',
+    handling: [STORE, ['Packing', '100 bags per pack, packs in bales or cartons']],
+    products: [
+      P('151112', 'HDPE T-shirt Bag, White', 'HDPE', [['Material', 'HDPE'], ['Style', 'T-shirt (singlet) handle'], ['Size', '15 × 30 cm to 50 × 85 cm'], ['Thickness', '10–30 µm']]),
+      P('151113', 'HDPE T-shirt Bag, Black', 'HDPE', [['Material', 'HDPE'], ['Style', 'T-shirt (singlet) handle'], ['Size', '15 × 30 cm to 50 × 85 cm'], ['Thickness', '10–30 µm']]),
+      P('151115', 'HDPE T-shirt Bag, Printed', 'HDPE', [['Material', 'HDPE'], ['Style', 'T-shirt handle, printed up to 4 colours'], ['Size', '20 × 40 cm to 50 × 85 cm'], ['Thickness', '15–35 µm']]),
+      P('151225', 'LDPE Die-cut Bag, Printed', 'LDPE', [['Material', 'LDPE'], ['Style', 'Die-cut handle, printed up to 4 colours'], ['Size', '20 × 30 cm to 45 × 55 cm'], ['Thickness', '40–80 µm']]),
     ],
-    handling: [
-      ['Applications', 'Shrink and lamination film, bags, liners, coatings, caps'],
-      ['Packing', '25 kg bags, palletised'],
-      ['Storage', 'Dry, covered, away from direct sun'],
-    ],
-    hs: '3901.10',
   }),
-  P({
-    slug: 'lldpe',
-    name: 'LLDPE',
-    latin: 'Linear low-density polyethylene',
-    category: 'resins',
-    image: 'pk-lldpe' as ImageKey,
-    alt: 'Clear plastic granules poured from a scoop',
-    note: 'Tough and flexible with strong seals. Used for stretch film, frozen-food bags, pouches and injection-moulded lids.',
-    spec: [
-      ['Grades', 'Film (butene, hexene, metallocene) · Injection · Rotomoulding'],
-      ['Density', '0.915–0.925 g/cm³'],
-      ['Melt flow index', 'Film 0.8–2 · Injection 20–50 g/10 min (190 °C/2.16 kg)'],
-      ['Form', 'Natural pellets'],
+  I({
+    slug: 'clear-bags',
+    name: 'Clear Bags',
+    local: 'Kantong Plastik Bening',
+    latin: 'HDPE · LDPE · PP · OPP · Nylon/PE',
+    category: 'bags',
+    image: 'pm-clear-bags' as ImageKey,
+    alt: 'Garlic bulbs in a clear plastic bag',
+    note: 'Flat clear bags for food, produce and retail packing, from thin HDPE to glass-clear PP and nylon vacuum bags.',
+    range: 'HDPE · LDPE · PP · OPP · Vacuum',
+    usage: 'Packing produce, bread, frozen food, snacks and portions; vacuum bags for meat and fish.',
+    handling: [STORE, ['Packing', '100 bags per pack or by weight']],
+    products: [
+      P('152111', 'HDPE Flat Bag, Clear', 'HDPE', [['Material', 'HDPE'], ['Style', 'Flat, open top'], ['Size', '8 × 15 cm to 40 × 60 cm'], ['Thickness', '10–25 µm']]),
+      P('152211', 'LDPE Flat Bag, Clear', 'LDPE', [['Material', 'LDPE'], ['Style', 'Flat, open top'], ['Size', '8 × 15 cm to 60 × 90 cm'], ['Thickness', '30–100 µm']]),
+      P('152411', 'PP Flat Bag, Clear', 'PP', [['Material', 'Cast PP'], ['Style', 'Flat, open top, glass-clear'], ['Size', '6 × 10 cm to 40 × 60 cm'], ['Thickness', '20–50 µm']]),
+      P('152521', 'OPP Self-seal Bag', 'OPP', [['Material', 'BOPP'], ['Style', 'Flat with adhesive seal flap'], ['Size', '5 × 8 cm to 35 × 45 cm'], ['Thickness', '30–60 µm']]),
+      P('152731', 'Nylon/PE Vacuum Bag', 'Nylon/PE', [['Material', 'PA/PE co-extruded'], ['Style', 'Three-side seal, for vacuum sealers'], ['Size', '10 × 15 cm to 40 × 60 cm'], ['Thickness', '70–120 µm']]),
     ],
-    handling: [
-      ['Applications', 'Stretch and multilayer film, standing pouches, sachets, lids, tanks'],
-      ['Packing', '25 kg bags, palletised'],
-      ['Storage', 'Dry, covered, away from direct sun'],
-    ],
-    hs: '3901.40',
   }),
-  P({
-    slug: 'hdpe',
-    name: 'HDPE',
-    latin: 'High-density polyethylene',
-    category: 'resins',
-    image: 'pk-hdpe' as ImageKey,
-    alt: 'White plastic pellets in a pile',
-    note: 'Stiff and strong with good chemical resistance. For bottles, crates, pipes, thin bags and monofilament.',
-    spec: [
-      ['Grades', 'Blow moulding · Injection · Film · Pipe · Monofilament'],
-      ['Density', '0.941–0.965 g/cm³'],
-      ['Melt flow index', 'Blow 0.2–0.5 · Injection 4–20 g/10 min (190 °C/2.16 kg)'],
-      ['Form', 'Natural pellets'],
-    ],
-    handling: [
-      ['Applications', 'Bottles and jerrycans, crates, caps, pipes, T-shirt bags, ropes'],
-      ['Packing', '25 kg bags, palletised'],
-      ['Storage', 'Dry, covered, away from direct sun'],
-    ],
-    hs: '3901.20',
-  }),
-  P({
-    slug: 'polypropylene',
-    name: 'PP',
-    latin: 'Polypropylene',
-    category: 'resins',
-    image: 'pk-pp' as ImageKey,
-    alt: 'Plastic granules in an open hand',
-    note: 'Light, rigid and heat resistant. Homopolymer, random and impact copolymer grades for raffia, film, fibre and moulded parts.',
-    spec: [
-      ['Grades', 'Homopolymer · Random copolymer · Impact copolymer'],
-      ['Density', '0.900–0.910 g/cm³'],
-      ['Melt flow rate', 'Raffia 2–4 · BOPP 3 · Injection 10–40 g/10 min (230 °C/2.16 kg)'],
-      ['Form', 'Natural pellets'],
-    ],
-    handling: [
-      ['Applications', 'Woven bags, BOPP and CPP film, food containers, caps, buckets, fibre'],
-      ['Packing', '25 kg bags, palletised'],
-      ['Storage', 'Dry, covered, away from direct sun'],
-    ],
-    hs: '3902.10 · 3902.30',
-  }),
-  P({
-    slug: 'pet-resin',
-    name: 'PET',
-    latin: 'Polyethylene terephthalate',
-    category: 'resins',
-    image: 'pk-pet' as ImageKey,
-    alt: 'Clear PET chips, close',
-    note: 'Clear, strong and a good barrier. Bottle-grade chips for water, soft drink and edible oil bottles and for thermoformed sheet.',
-    spec: [
-      ['Grades', 'Bottle grade · Sheet grade · Fibre grade'],
-      ['Intrinsic viscosity', '0.76–0.84 dl/g'],
-      ['Moisture', '≤ 0.2 %'],
-      ['Form', 'Clear chips'],
-    ],
-    handling: [
-      ['Applications', 'Preforms and bottles, thermoformed trays, strapping, fibre'],
-      ['Packing', '1,100 kg jumbo bags or 25 kg bags'],
-      ['Storage', 'Dry, sealed; dry before processing'],
-    ],
-    hs: '3907.61',
-  }),
-  P({
-    slug: 'pvc-resin',
-    name: 'PVC',
-    latin: 'Polyvinyl chloride',
-    category: 'resins',
-    image: 'pk-pvc' as ImageKey,
-    alt: 'White resin powder in a scoop',
-    note: 'Suspension resin for rigid and flexible products. K-values for pipes, profiles, film, cables and footwear.',
-    spec: [
-      ['Grades', 'Suspension resin, K57 · K66 · K67 · K70'],
-      ['Bulk density', '0.48–0.58 g/cm³'],
-      ['Volatile matter', '≤ 0.3 %'],
-      ['Form', 'White powder'],
-    ],
-    handling: [
-      ['Applications', 'Pipes and fittings, profiles, rigid and soft film, cable, footwear'],
-      ['Packing', '25 kg bags, palletised'],
-      ['Storage', 'Dry, covered'],
-    ],
-    hs: '3904.10',
-  }),
-  P({
-    slug: 'polystyrene',
-    name: 'PS',
-    latin: 'Polystyrene, GPPS and HIPS',
-    category: 'resins',
-    image: 'pk-ps' as ImageKey,
-    alt: 'Clear and white plastic beads, close',
-    note: 'GPPS for clear, rigid parts and HIPS where impact strength matters. For cups, trays, housings and sheet.',
-    spec: [
-      ['Grades', 'GPPS (general purpose) · HIPS (high impact)'],
-      ['Density', '1.04–1.05 g/cm³'],
-      ['Melt flow rate', '3–12 g/10 min (200 °C/5 kg)'],
-      ['Form', 'Clear (GPPS) or white (HIPS) pellets'],
-    ],
-    handling: [
-      ['Applications', 'Disposable cups and cutlery, food trays, sheet, appliance housings'],
-      ['Packing', '25 kg bags, palletised'],
-      ['Storage', 'Dry, covered, away from direct sun'],
-    ],
-    hs: '3903.19',
-  }),
-  P({
-    slug: 'pe-film',
-    name: 'Polyethylene Film',
-    category: 'flexible',
-    image: 'pk-film' as ImageKey,
-    alt: 'Rolls of clear plastic film',
-    note: 'Blown LDPE and LLDPE film on rolls, plain or printed, for packing lines, liners and wrapping.',
-    spec: [
-      ['Forms', 'Roll stock · Tubing · Sheeting · Stretch film'],
-      ['Thickness', '15–200 µm'],
-      ['Width', 'Up to 2,000 mm'],
-      ['Printing', 'Plain or up to 8 colours'],
-    ],
-    handling: [
-      ['Applications', 'Automatic packing, pallet wrap, bin and drum liners, agriculture'],
-      ['Packing', 'Rolls on cores, palletised'],
-      ['Storage', 'Dry, covered, away from heat'],
-    ],
-    hs: '3920.10',
-  }),
-  P({
-    slug: 'bags-pouches',
-    name: 'Bags & Pouches',
-    category: 'flexible',
+  I({
+    slug: 'pouches-zipper-bags',
+    name: 'Pouches & Zipper Bags',
+    local: 'Plastik Klip & Standing Pouch',
+    latin: 'LDPE · PET/PE · PET/AL/PE',
+    category: 'bags',
     image: 'pk-pouches' as ImageKey,
-    alt: 'Stand-up pouches in different colours',
-    note: 'Stand-up and flat pouches, zip bags, carrier bags and sacks in single or laminated films.',
-    spec: [
-      ['Forms', 'Stand-up pouch · Flat pouch · Zip bag · Carrier bag · Sack'],
-      ['Materials', 'PE · PP · laminated PET/PE · metallised films'],
-      ['Sizes', 'To specification'],
-      ['Printing', 'Plain or up to 8 colours'],
+    alt: 'Two plain white stand-up pouches',
+    note: 'Resealable bags and stand-up pouches for coffee, snacks, spices and frozen food. Clear, foil or printed.',
+    range: 'Zipper Bag · Stand-up Pouch · Foil Pouch',
+    usage: 'Retail packs of coffee, tea, snacks, spices, dried fish and frozen food.',
+    handling: [STORE, ['Packing', '50–100 pieces per pack, cartons']],
+    products: [
+      P('154211', 'LDPE Zipper Bag, Clear', 'LDPE', [['Material', 'LDPE'], ['Style', 'Press-to-close zipper'], ['Size', '4 × 6 cm to 30 × 40 cm'], ['Thickness', '40–100 µm']]),
+      P('154621', 'Stand-up Pouch, Clear', 'PET/PE', [['Material', 'PET/PE laminate'], ['Style', 'Bottom gusset, zipper, tear notch'], ['Size', '8 × 13 cm to 26 × 35 cm'], ['Thickness', '90–130 µm']]),
+      P('154625', 'Stand-up Pouch, Printed', 'PET/PE', [['Material', 'PET/PE laminate'], ['Style', 'Bottom gusset, zipper, printed up to 8 colours'], ['Size', '8 × 13 cm to 26 × 35 cm'], ['Thickness', '90–130 µm']]),
+      P('154631', 'Foil Stand-up Pouch', 'PET/AL/PE', [['Material', 'PET/AL/PE laminate'], ['Style', 'Bottom gusset, zipper, light and oxygen barrier'], ['Size', '8 × 13 cm to 26 × 35 cm'], ['Thickness', '100–140 µm']]),
     ],
-    handling: [
-      ['Applications', 'Snacks, coffee, frozen food, rice, detergent, retail'],
-      ['Packing', 'Cartons or bales'],
-      ['Storage', 'Dry, covered, away from heat'],
-    ],
-    hs: '3923.21 · 3923.29',
   }),
-  P({
-    slug: 'plastic-bottles',
-    name: 'Plastic Bottles',
-    category: 'rigid',
-    image: 'pk-bottles' as ImageKey,
-    alt: 'Empty clear plastic bottles in rows',
-    note: 'PET and HDPE bottles from small cosmetic sizes to five-litre containers, with caps to match.',
-    spec: [
-      ['Materials', 'PET · HDPE · PP'],
-      ['Volume', '30 ml–5 L'],
-      ['Neck finishes', '18/410 · 20/410 · 24/410 · 28 mm PCO · 38 mm'],
-      ['Colours', 'Clear, white, amber or custom'],
+  I({
+    slug: 'trash-bags',
+    name: 'Trash Bags',
+    local: 'Kantong Sampah',
+    latin: 'HDPE · LDPE · LLDPE',
+    category: 'bags',
+    image: 'pm-trash-bags' as ImageKey,
+    alt: 'Black plastic garbage bag tied at the top',
+    note: 'Bin liners and trash bags on rolls or flat-packed, from light kitchen bags to heavy-duty sacks for restaurants and buildings.',
+    range: 'Roll · Flat · Heavy-duty · Drawstring',
+    usage: 'Kitchens, restaurants, hotels, offices and cleaning services.',
+    handling: [STORE, ['Packing', 'Rolls or packs of 10–50, cartons']],
+    products: [
+      P('156114', 'HDPE Flat Trash Bag, Colour', 'HDPE', [['Material', 'HDPE'], ['Style', 'Flat, colours for waste sorting'], ['Size', '50 × 60 cm to 90 × 120 cm'], ['Thickness', '15–30 µm']]),
+      P('156123', 'HDPE Trash Bag on Roll, Black', 'HDPE', [['Material', 'HDPE'], ['Style', 'Perforated roll'], ['Size', '45 × 50 cm to 80 × 100 cm'], ['Thickness', '10–20 µm']]),
+      P('156213', 'LDPE Heavy-duty Trash Bag, Black', 'LDPE', [['Material', 'LDPE with recycled content'], ['Style', 'Flat, star-sealed bottom'], ['Size', '60 × 100 cm to 120 × 150 cm'], ['Thickness', '40–80 µm']]),
+      P('156333', 'LLDPE Drawstring Trash Bag, Black', 'LLDPE', [['Material', 'LLDPE'], ['Style', 'Drawstring closure, on roll'], ['Size', '50 × 60 cm to 80 × 100 cm'], ['Thickness', '15–30 µm']]),
     ],
-    handling: [
-      ['Applications', 'Water and beverages, edible oil, sauces, personal and home care'],
-      ['Packing', 'Cartons or bulk bags'],
-      ['Storage', 'Clean, dry, covered'],
-    ],
-    hs: '3923.30',
   }),
-  P({
-    slug: 'jars-closures',
-    name: 'Jars & Closures',
-    category: 'rigid',
-    image: 'pk-jars' as ImageKey,
-    alt: 'Plastic jars with screw caps',
-    note: 'PET and PP jars for food and cosmetics, with screw caps, flip-tops, pumps and triggers.',
-    spec: [
-      ['Materials', 'PET · PP · HDPE'],
-      ['Volume', '50 ml–2 L'],
-      ['Closures', 'Screw cap · Flip-top · Disc-top · Pump · Trigger'],
-      ['Colours', 'Clear, white or custom'],
+
+  /* ── Films & wraps ── */
+  I({
+    slug: 'cling-wrap',
+    name: 'Cling Wrap',
+    local: 'Plastik Wrap',
+    latin: 'PE · PVC',
+    category: 'films',
+    image: 'pk-ldpe' as ImageKey,
+    alt: 'Vegetables on trays wrapped in clear film',
+    note: 'Food wrap for covering, storing and tray packing. PVC for the strongest cling, PE as a plasticiser-free choice.',
+    range: 'PE · PVC',
+    usage: 'Kitchen prep, food storage and supermarket tray wrapping.',
+    handling: [STORE, ['Packing', 'Rolls in cutter boxes, 6 per carton']],
+    products: [
+      P('163211', 'PE Cling Wrap', 'PE', [['Material', 'LDPE/LLDPE'], ['Width', '30 · 45 cm'], ['Length', '100–500 m per roll'], ['Thickness', '9–12 µm']]),
+      P('163811', 'PVC Cling Wrap', 'PVC', [['Material', 'Food-wrap PVC'], ['Width', '30 · 45 cm'], ['Length', '300–1,500 m per roll'], ['Thickness', '8–12 µm']]),
     ],
-    handling: [
-      ['Applications', 'Food, confectionery, creams, supplements, household products'],
-      ['Packing', 'Cartons'],
-      ['Storage', 'Clean, dry, covered'],
-    ],
-    hs: '3923.30 · 3923.50',
   }),
-  P({
+  I({
+    slug: 'stretch-film',
+    name: 'Stretch Film',
+    local: 'Plastik Wrapping',
+    latin: 'LLDPE',
+    category: 'films',
+    image: 'pk-lldpe' as ImageKey,
+    alt: 'Pallets of goods wrapped in stretch film in a warehouse',
+    note: 'Cast LLDPE film for wrapping cartons and pallets by hand or machine. Clear or black for privacy.',
+    range: 'Hand Roll · Machine Roll',
+    usage: 'Bundling cartons, protecting goods in storage and shipping.',
+    handling: [STORE, ['Packing', 'Rolls on 3 in cores, 4–6 per carton']],
+    products: [
+      P('166311', 'Stretch Film, Hand Roll, Clear', 'LLDPE', [['Material', 'Cast LLDPE'], ['Width', '50 cm'], ['Thickness', '15–23 µm'], ['Roll', '2–4 kg']]),
+      P('166313', 'Stretch Film, Hand Roll, Black', 'LLDPE', [['Material', 'Cast LLDPE'], ['Width', '50 cm'], ['Thickness', '20–23 µm'], ['Roll', '2–4 kg']]),
+      P('166321', 'Stretch Film, Machine Roll, Clear', 'LLDPE', [['Material', 'Cast LLDPE, pre-stretch 250%'], ['Width', '50 cm'], ['Thickness', '17–23 µm'], ['Roll', '15–17 kg']]),
+    ],
+  }),
+
+  /* ── Sacks & bulk bags ── */
+  I({
+    slug: 'jumbo-bags',
+    name: 'Jumbo Bags',
+    local: 'Jumbo Bag',
+    latin: 'Woven PP',
+    category: 'sacks',
+    image: 'pm-jumbo-bags' as ImageKey,
+    alt: 'Worker lifting a large white bulk bag in a factory',
+    note: 'Flexible bulk bags of woven polypropylene, lifted by forklift or crane. Plain or with a PE liner for fine and food goods.',
+    range: 'Four-loop · Lined · Two-loop',
+    usage: 'Rice, sugar, flour, grain, salt, fertiliser and other bulk goods.',
+    handling: [STORE, ['Packing', 'Folded in bales of 20–50']],
+    products: [
+      P('173412', 'Jumbo Bag, Four-loop', 'PP', [['Material', 'Woven PP, uncoated or coated'], ['Safe working load', '500 · 1,000 · 1,500 kg'], ['Size', '90 × 90 × 100 cm to 100 × 100 × 150 cm'], ['Top / bottom', 'Open or spout top; flat or spout bottom']]),
+      P('173422', 'Jumbo Bag, Four-loop with PE Liner', 'PP', [['Material', 'Woven PP with LDPE liner'], ['Safe working load', '500 · 1,000 kg'], ['Size', '90 × 90 × 100 cm to 100 × 100 × 120 cm'], ['Top / bottom', 'Spout top, spout bottom']]),
+      P('173432', 'Jumbo Bag, Two-loop', 'PP', [['Material', 'Woven PP, tubular'], ['Safe working load', '500 · 1,000 kg'], ['Size', '90 × 90 × 100 cm to 95 × 95 × 130 cm'], ['Top / bottom', 'Open top, flat bottom']]),
+    ],
+  }),
+  I({
+    slug: 'jute-sacks',
+    name: 'Jute Sacks',
+    local: 'Karung Goni',
+    latin: 'Jute',
+    category: 'sacks',
+    image: 'spice-sacks' as ImageKey,
+    alt: 'Sacks of spices and dried seeds at a market',
+    note: 'Natural jute sacks that breathe, for coffee, cocoa, spices and produce. Plain or with a food-safe inner liner.',
+    range: 'Natural · Lined',
+    usage: 'Coffee beans, cocoa, spices, nuts, potatoes and onions.',
+    handling: [STORE, ['Packing', 'Bales of 50–100']],
+    products: [
+      P('175911', 'Jute Sack, Natural', 'Jute', [['Material', '100% jute, hessian weave'], ['Capacity', '25 · 50 · 60 · 70 kg'], ['Size', '60 × 100 cm to 75 × 115 cm'], ['Weight', '450–750 g per sack']]),
+      P('175921', 'Jute Sack, Lined', 'Jute', [['Material', 'Jute with PE inner liner'], ['Capacity', '25 · 50 kg'], ['Size', '60 × 100 cm to 70 × 110 cm'], ['Weight', '500–800 g per sack']]),
+    ],
+  }),
+  I({
+    slug: 'woven-sacks',
+    name: 'Woven Sacks',
+    local: 'Karung Plastik',
+    latin: 'Woven PP',
+    category: 'sacks',
+    image: 'pm-woven-sacks' as ImageKey,
+    alt: 'Stacked woven plastic sacks, close',
+    note: 'Strong, light woven polypropylene sacks for rice, sugar, flour and feed. Plain, laminated and printed, or with a PE liner.',
+    range: 'Plain · Laminated · Lined',
+    usage: 'Rice, sugar, flour, feed, salt and produce.',
+    handling: [STORE, ['Packing', 'Bales of 500–1,000']],
+    products: [
+      P('178412', 'Woven Sack, White', 'PP', [['Material', 'Woven PP, uncoated'], ['Capacity', '5 · 10 · 25 · 50 kg'], ['Size', '30 × 50 cm to 65 × 100 cm'], ['Fabric', '60–90 g/m²']]),
+      P('178425', 'Woven Sack, Laminated and Printed', 'PP', [['Material', 'Woven PP laminated with BOPP'], ['Capacity', '5 · 10 · 25 kg'], ['Size', '30 × 50 cm to 55 × 90 cm'], ['Print', 'Up to 8 colours']]),
+      P('178432', 'Woven Sack with PE Liner', 'PP', [['Material', 'Woven PP with LDPE liner'], ['Capacity', '25 · 50 kg'], ['Size', '50 × 80 cm to 65 × 100 cm'], ['Fabric', '70–90 g/m²']]),
+    ],
+  }),
+
+  /* ── Cups & containers ── */
+  I({
+    slug: 'cups-lids',
+    name: 'Cups & Lids',
+    local: 'Gelas Plastik',
+    latin: 'PP · PET',
+    category: 'food',
+    image: 'pk-ps' as ImageKey,
+    alt: 'Row of clear disposable plastic cups',
+    note: 'Clear takeaway cups for iced drinks and desserts, with flat and dome lids. Plain or printed.',
+    range: 'PP Cup · PET Cup · Lids',
+    usage: 'Coffee shops, juice and tea bars, desserts and events.',
+    handling: [STORE, ['Packing', 'Sleeves of 50, 1,000 per carton']],
+    products: [
+      P('183411', 'PP Cup, Clear', 'PP', [['Material', 'PP'], ['Volume', '8 · 12 · 14 · 16 · 22 oz'], ['Rim', '90 · 95 mm'], ['Use', 'Cold and warm drinks, cup sealer compatible']]),
+      P('183421', 'PP Lids, Flat and Dome', 'PP', [['Material', 'PP'], ['Fits', '90 · 95 mm rim'], ['Style', 'Flat with straw slot · Dome']]),
+      P('183611', 'PET Cup, Clear', 'PET', [['Material', 'PET'], ['Volume', '12 · 14 · 16 · 20 oz'], ['Rim', '95 · 98 mm'], ['Use', 'Cold drinks, crystal clear']]),
+    ],
+  }),
+  I({
     slug: 'food-containers',
     name: 'Food Containers',
+    local: 'Thinwall & Kotak Makanan',
+    latin: 'PP · PET',
     category: 'food',
-    image: 'pk-food' as ImageKey,
-    alt: 'Takeaway food containers with lids',
-    note: 'Takeaway containers, cups, lids and trays in microwave-safe PP and clear PET.',
-    spec: [
-      ['Forms', 'Containers · Cups · Lids · Trays · Clamshells'],
-      ['Materials', 'PP · PET · PS'],
-      ['Sizes', 'Containers 250–1,500 ml · Cups 8–22 oz'],
-      ['Features', 'Microwave-safe (PP) · Tamper-evident lids'],
+    image: 'pk-pp' as ImageKey,
+    alt: 'Stack of clear plastic food containers',
+    note: 'Thinwall containers with lids for takeaway and delivery, microwave-safe PP and clear PET clamshells.',
+    range: 'Round · Rectangular · Clamshell',
+    usage: 'Takeaway meals, soups, salads, bakery and fresh-cut fruit.',
+    handling: [STORE, ['Packing', 'Sleeves of 25–50, cartons']],
+    products: [
+      P('186411', 'PP Round Container with Lid', 'PP', [['Material', 'PP, microwave-safe'], ['Volume', '300 · 500 · 750 · 1,000 ml'], ['Colour', 'Clear or black base']]),
+      P('186421', 'PP Rectangular Container with Lid', 'PP', [['Material', 'PP, microwave-safe'], ['Volume', '500 · 650 · 750 · 1,000 ml'], ['Compartments', '1 · 2 · 3']]),
+      P('186631', 'PET Clamshell', 'PET', [['Material', 'PET'], ['Size', 'Small · Medium · Large'], ['Use', 'Salads, cakes, fruit and pastries']]),
     ],
-    handling: [
-      ['Applications', 'Takeaway, catering, bakery, fresh produce, beverages'],
-      ['Packing', 'Sleeves in cartons'],
-      ['Storage', 'Clean, dry, covered'],
-    ],
-    hs: '3924.10 · 3923.10',
-  }),
-  P({
-    slug: 'perfume-bottles',
-    name: 'Perfume Bottles',
-    category: 'glass',
-    image: 'pk-perfume-bottles' as ImageKey,
-    alt: 'Empty glass perfume bottles',
-    note: 'Glass perfume bottles in round, square and flat shapes, clear or coloured.',
-    spec: [
-      ['Volume', '5 ml–100 ml'],
-      ['Neck', 'FEA 13 · FEA 15 · screw neck 18/415'],
-      ['Glass', 'Flint (clear) or coloured'],
-      ['Decoration', 'Plain, frosted, sprayed or screen printed'],
-    ],
-    handling: [
-      ['Applications', 'Fine fragrance, body mist, reed diffusers'],
-      ['Packing', 'Cartons with dividers'],
-      ['Storage', 'Clean, dry, covered'],
-    ],
-    hs: '7010.90',
-  }),
-  P({
-    slug: 'sprayers-caps',
-    name: 'Sprayers & Caps',
-    category: 'glass',
-    image: 'pk-sprayers' as ImageKey,
-    alt: 'Perfume spray pumps and caps',
-    note: 'Crimp and screw sprayers, collars and caps to match standard glass necks.',
-    spec: [
-      ['Forms', 'Crimp sprayer · Screw sprayer · Collar · Cap'],
-      ['Neck', 'FEA 13 · FEA 15 · 18/415'],
-      ['Dosage', '0.07–0.10 ml per actuation'],
-      ['Finish', 'Silver, gold, black or custom'],
-    ],
-    handling: [
-      ['Applications', 'Perfume and body mist bottles'],
-      ['Packing', 'Cartons'],
-      ['Storage', 'Clean, dry, covered'],
-    ],
-    hs: '9616.10 · 3923.50',
-  }),
-  P({
-    slug: 'sample-vials',
-    name: 'Sample Vials',
-    category: 'glass',
-    image: 'pk-vials' as ImageKey,
-    alt: 'Small glass sample vials',
-    note: 'Small glass vials, spray vials and roll-ons for samples and travel sizes.',
-    spec: [
-      ['Forms', 'Vial with plug · Spray vial · Roll-on'],
-      ['Volume', '1 ml–10 ml'],
-      ['Glass', 'Clear or amber'],
-      ['Closure', 'Plastic plug, mini sprayer or roller ball'],
-    ],
-    handling: [
-      ['Applications', 'Perfume samples, discovery sets, essential oils'],
-      ['Packing', 'Cartons'],
-      ['Storage', 'Clean, dry, covered'],
-    ],
-    hs: '7010.90',
   }),
 ];

@@ -38,7 +38,7 @@ const IGNORE = [/src\/layouts\/BaseLayout\.astro/];
 /* Konteks yang sama dengan nama berbeda: blok di halaman ↔ tautan ke jangkarnya. */
 const OWNER_CTX = { PERFUMERY_PALETTE: '/perfumery/#palette', ABOUT_MORE: '/sustainability/' };
 /* Berkas produk lini → halaman Products-nya. */
-const LINE_FILES = { 'src/data/seafood.ts': '/fisheries/products/', 'src/data/packaging.ts': '/polymers/products/' };
+const LINE_FILES = { 'src/data/seafood.ts': '/fisheries/', 'src/data/packaging.ts': '/polymers/' };
 
 /* ── Kunci dan berkasnya ─────────────────────────────────────────────── */
 const imagesTs = readFileSync(join(SRC, 'data/images.ts'), 'utf8');
@@ -177,7 +177,7 @@ function contextAt(text, pos, file) {
      halaman lini yang menaut ke jangkar itu memakai salah satu foto ini. */
   if (LINE_FILES[rel(file)]) {
     const cat = owner?.endsWith('_CATEGORIES') ? full.match(/\bkey\s*:\s*'([\w-]+)'/)?.[1] : full.match(/\bcategory\s*:\s*'([\w-]+)'/)?.[1];
-    if (cat) return { ctx: `${LINE_FILES[rel(file)]}#${cat}`, how: `${owner?.endsWith('_CATEGORIES') ? 'kategori' : 'produk'} ${title ?? cat}`, lineNo };
+    if (cat) return { ctx: `${LINE_FILES[rel(file)]}?cat=${cat}#catalog`, how: `${owner?.endsWith('_CATEGORIES') ? 'kategori' : 'item'} ${title ?? cat}`, lineNo };
   }
   if (anchor && rel(file) === 'src/data/pages/perfumery.ts') return { ctx: `/perfumery/#${anchor}`, how: `bagian ${title ?? anchor}`, lineNo };
   if (href) return { ctx: norm(href), how: `tautan ${href}`, lineNo };

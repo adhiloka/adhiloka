@@ -44,16 +44,16 @@ export default defineConfig({
     '/natural-ingredients-perfumery/': '/fragrance/',
     '/natural-aromatics/': '/fragrance/',
     '/seafood/': '/fisheries/',
-    '/seafood/products/': '/fisheries/products/',
-    '/seafood/products/[slug]': '/fisheries/products/[slug]',
+    '/seafood/products/': '/fisheries/',
     '/marine-products/': '/fisheries/',
-    '/marine-products/products/': '/fisheries/products/',
-    '/marine-products/products/[slug]': '/fisheries/products/[slug]',
+    '/marine-products/products/': '/fisheries/',
+    // Katalog lini pindah ke halaman lini 27 Nov 2026 (#catalog).
+    '/fisheries/products/': '/fisheries/',
+    '/polymers/products/': '/polymers/',
     // Working With Us dilepas 27 Nov 2026 (pemilik); halamannya diparkir.
     '/ingredients/working-with-us/': '/contact/',
     '/plastics-packaging/': '/polymers/',
-    '/plastics-packaging/products/': '/polymers/products/',
-    '/plastics-packaging/products/[slug]': '/polymers/products/[slug]',
+    '/plastics-packaging/products/': '/polymers/',
   },
   build: { inlineStylesheets: 'auto' },
 

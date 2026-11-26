@@ -28,10 +28,10 @@ bilah sub-menu tiap lini: `src/data/businesses.ts`.
 | --- | --- |
 | `/` | **Beranda grup**: hero empat slide (We Are Adhiloka, tiga lini; `GROUP_HERO_SLIDES`) · kutipan grup (`GROUP_QUOTE`) · Our Businesses **bertab per lini ala adani.com** (`GROUP_TABS`: tiap tab empat tile 2 x 2 + foto besar berchip) · keberlanjutan · berita · Join Us |
 | `/our-businesses/` | Banner · pembuka · satu blok Feature per lini (pola adani.com/businesses). `/about/our-business/` dialihkan ke sini (halamannya diparkir jadi `_our-business.astro`) |
-| `/fragrance/` · `/fisheries/` · `/polymers/` | **Sub-halaman lini ringkas** (27 Nov 2026): banner · pembuka satu paragraf + satu tombol · kartu Our Portfolio (Fragrance: Ingredients dan Perfumery saja; dua lini lain: kategori menuju `products/#kategori`). **Tanpa bilah sub-menu lini** (`BusinessSubnav` tidak dipakai): remah banner + kartu, pola adani.com/businesses/materials |
-| `/fisheries/products/` · `/polymers/products/` | Products lini (`LineCatalog`): dikelompokkan per kategori (judul + paragraf kiri, foto berjudul 3 kolom kanan), jangkar `#kategori`, tanpa tab penyaring dan tanpa hitungan. Sengaja tidak meniru katalog bahan |
-| `…/products/<slug>/` | Halaman produk lini (`LineProductPage`): satu section terbelah (foto; nama, satu kalimat, tabel spesifikasi + penanganan, Request a Quotation) · slider produk sekategori |
-
+| `/fragrance/` | Sub-halaman lini ringkas: banner · pembuka + satu tombol · dua kartu (Ingredients, Perfumery). Tanpa bilah sub-menu lini (`BusinessSubnav` tidak dipakai): remah banner + kartu, pola adani.com/businesses/materials |
+| `/fisheries/` · `/polymers/` | Banner · pembuka + Request a Quotation · **katalog** (`LineCatalog`, `#catalog`) seperti Ingredient Catalog: kotak cari (ikut mencari kode), tab kategori pilihan tunggal (`?cat=`), kartu item berfoto 3 kolom satu tautan; tanpa hitungan |
+| `/fisheries/<item>/` · `/polymers/<item>/` | Halaman item (`LineItemPage`), susunan halaman bahan: kepala berwarna lini, strip fakta, Overview/Uses + Storage & packing, Products (semua kode), Samples & Quotations, slider item lain |
+| `…/<item>/<kode>/` | Halaman kode (`LineProductPage`), susunan halaman produk bahan: kepala berkode, strip fakta, Specification + Storage & packing, Samples & Quotations, daftar kode lain. Tanpa HS code dan tanpa "Typical values…" (komentar pemilik 27 Nov 2026) |
 Nama lini sejak 27 Nov 2026: Fragrance, Fisheries, Polymers (keputusan
 `decisions/2026-11-27 Business line names and line subpages.md`); alamat lama
 (`/natural-ingredients-perfumery/`, `/natural-aromatics/`, `/seafood/…`, `/marine-products/…`, `/plastics-packaging/…`) dialihkan di `astro.config.mjs`.
@@ -39,7 +39,7 @@ How We Work dihapus dari About dan Perfumery; Working With Us diparkir (`_workin
 Hub Ingredients memuat empat anaknya (Natural Ingredients, Catalog, Map, Technology) sebagai kartu 2 x 2.
 Kunci internal di kode tetap `naturals`, `seafood`, `packaging`.
 
-- Data produk: `src/data/seafood.ts`, `src/data/packaging.ts`, tipe dan helper di `line-products.ts`. Tanpa kode produk.
+- Data katalog: `src/data/seafood.ts`, `src/data/packaging.ts` (item → produk berkode 6 digit kepala 1, lihat `catalog/Product code register.md`), tipe dan helper di `line-products.ts`. Alamat lama `/…/products/` dialihkan ke halaman lini.
 - Menu atas: About Us · Our Businesses · Sustainability · Media · Connect. Perfumery dan Ingredients tidak di header; dicapai dari kartu halaman Fragrance dan remah banner (bilah sub-menu lini dilepas 27 Nov 2026).
 - Remah halaman lini: Home › lini › bagian › halaman (`PageBanner` + `businessOf`).
 - Kontak: kolom **Business** dan `?business=naturals|seafood|packaging`, `?product=<slug>` mengisi pesan.

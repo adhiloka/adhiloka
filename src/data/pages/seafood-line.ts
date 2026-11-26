@@ -1,8 +1,8 @@
 import type { PageIntro } from './types';
 
 /* Naskah lini Fisheries (nama sejak 27 Nov 2026; dulu Seafood).
- * Halaman lini = sub-halaman ringkas (pemilik, 27 Nov 2026: tidak dirinci
- * lagi, rinciannya sudah di beranda grup): banner, pembuka, kartu kategori.
+ * Halaman lini (pemilik, 27 Nov 2026): banner, pembuka, lalu katalog
+ * (LineCatalog) seperti Ingredient Catalog.
  * Pola halaman portofolio bisnis adani.com/businesses/materials. Tanpa
  * sertifikat, kapasitas, MOQ, atau lama kirim (adhiloka-external-claims). */
 
@@ -17,14 +17,5 @@ export const SEAFOOD_INTRO: PageIntro = {
 
 export const SEAFOOD_OPENING = {
   title: 'From Indonesian Waters',
-  body: 'We supply frozen and dried fish and shellfish to importers, processors and food service. Each lot is graded and packed to the buyer’s specification and kept cold all the way to the port.',
-};
-
-export const SEAFOOD_PRODUCTS_INTRO: PageIntro = {
-  title: 'Products',
-  metaTitle: 'Fisheries Products',
-  lede: '',
-  description: 'Frozen fish, shrimp and crab, squid, octopus and clams, and dried marine products from Adhiloka.',
-  image: 'sf-products',
-  caption: 'assorted seafood on ice',
+  body: 'We supply fish and seafood for restaurants, importers and processors, from live grouper and lobster to frozen shrimp and dried sea cucumber. Each lot is graded and packed to the buyer’s specification.',
 };

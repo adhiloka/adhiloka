@@ -1,0 +1,12 @@
+---
+import LineProductPage from '../../../components/blocks/LineProductPage.astro';
+import { PACKAGING_ITEMS } from '../../../data/packaging';
+import type { LineItem, LineProduct } from '../../../data/line-products';
+
+export function getStaticPaths() {
+  return PACKAGING_ITEMS.flatMap((item) => item.products.map((product) => ({ params: { slug: item.slug, code: product.code }, props: { item, product } })));
+}
+const { item, product } = Astro.props as { item: LineItem; product: LineProduct };
+---
+
+<LineProductPage item={item} product={product} />

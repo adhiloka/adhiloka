@@ -1,0 +1,12 @@
+---
+import LineItemPage from '../../components/blocks/LineItemPage.astro';
+import { SEAFOOD_ITEMS } from '../../data/seafood';
+import type { LineItem } from '../../data/line-products';
+
+export function getStaticPaths() {
+  return SEAFOOD_ITEMS.map((item) => ({ params: { slug: item.slug }, props: { item } }));
+}
+const { item } = Astro.props as { item: LineItem };
+---
+
+<LineItemPage item={item} />

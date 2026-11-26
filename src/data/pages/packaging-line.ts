@@ -1,8 +1,8 @@
 import type { PageIntro } from './types';
 
 /* Naskah lini Polymers (nama sejak 27 Nov 2026; dulu Plastics & Packaging).
- * Halaman lini = sub-halaman ringkas (pemilik, 27 Nov 2026): banner, pembuka,
- * kartu kategori. Rujukan isi: Formerra, Chandra Asri, Berlin Packaging
+ * Halaman lini (pemilik, 27 Nov 2026): banner, pembuka, lalu katalog
+ * (LineCatalog) seperti Ingredient Catalog. Fokus kemasan restoran dan toko. Rujukan isi: Formerra, Chandra Asri, Berlin Packaging
  * (market-research/references/Group site/). Tidak menyebut produksi sendiri
  * atau trading (pemilik). */
 
@@ -10,21 +10,12 @@ export const PACKAGING_INTRO: PageIntro = {
   title: 'Polymers',
   lede: '',
   description:
-    'Polymer resins, films, bags, bottles, jars, food containers and glass for fragrance, supplied from Indonesia.',
+    'Plastic packaging for shops and restaurants: carrier bags, clear bags, pouches, trash bags, wraps, sacks, jumbo bags and takeaway containers.',
   image: 'line-packaging',
   caption: 'clear plastic pellets held in an open hand',
 };
 
 export const PACKAGING_OPENING = {
-  title: 'From Resin to Finished Pack',
-  body: 'We supply polymers at every stage, from resin pellets for converters to the films, bottles and containers that reach the shelf. For fragrance and personal care, we add glass bottles, sprayers and vials.',
-};
-
-export const PACKAGING_PRODUCTS_INTRO: PageIntro = {
-  title: 'Products',
-  metaTitle: 'Polymers Range',
-  lede: '',
-  description: 'Polymer resins, films and pouches, bottles and jars, food containers and glass for fragrance from Adhiloka.',
-  image: 'pk-products',
-  caption: 'stacked plastic containers',
+  title: 'Packaging for Shops and Kitchens',
+  body: 'We supply the plastic packaging that shops, restaurants and food businesses use every day, from carrier bags and pouches to trash bags, sacks and takeaway containers. Each item comes in several materials, plain or printed.',
 };

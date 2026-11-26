@@ -3,7 +3,7 @@ import PageLayout from '../layouts/PageLayout.astro';
 import { OFFICES, ENQUIRY_KINDS, CONTACT_INTRO } from '../data/pages/contact';
 import { MATERIAL_NAMES } from '../data/material-names';
 import { BUSINESSES } from '../data/businesses';
-import { LINE_CATALOG } from '../data/line-products';
+import { LINE_CATALOG, LINE_PRODUCTS, type LineItem } from '../data/line-products';
 import { SITE } from '../data/site';
 import SiblingCards from '../components/blocks/SiblingCards.astro';
 
@@ -15,7 +15,8 @@ import SiblingCards from '../components/blocks/SiblingCards.astro';
 // Situs grup (26 Nov 2026): produk seafood dan plastik ikut, lewat ?product=slug.
 const materialNames = {
   ...MATERIAL_NAMES,
-  ...Object.fromEntries([...LINE_CATALOG.seafood.products, ...LINE_CATALOG.packaging.products].map((p) => [p.slug, p.name])),
+  ...Object.fromEntries(([...LINE_CATALOG.seafood.items, ...LINE_CATALOG.packaging.items] as LineItem[]).map((i) => [i.slug, i.name])),
+  ...Object.fromEntries(LINE_PRODUCTS.map(({ product }) => [product.code, `${product.name} (${product.code})`])),
 };
 
 const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? 'https://api.web3forms.com/submit';

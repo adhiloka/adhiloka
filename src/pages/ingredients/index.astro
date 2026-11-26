@@ -9,7 +9,6 @@ import {
   INGREDIENTS_INTRO,
   INGREDIENTS_OPENING,
   INGREDIENTS_CARDS,
-  INGREDIENTS_MILESTONES,
   INGREDIENTS_CLOSING,
 } from '../../data/pages/ingredients';
 
@@ -17,8 +16,8 @@ import {
  * 27 Nov 2026 (pemilik): lini Fragrance cukup Ingredients dan Perfumery;
  * katalog, peta bahan, teknologi dan Natural Ingredients dipadatkan di sini
  * sebagai Discover More (empat kartu 2 x 2, bukan slider). Working With Us dan
- * blok Technologies dilepas. Lalu lima langkah mendatar, pita unduhan
- * katalog, penutup. Slider Collections per keluarga pindah ke Natural
+ * blok Technologies dilepas. From Plant to Perfumer dilepas (komentar
+ * pemilik 27 Nov 2026). Lalu pita unduhan katalog dan penutup. Slider Collections per keluarga pindah ke Natural
  * Ingredients 13 Nov 2026. */
 ---
 
@@ -26,21 +25,6 @@ import {
   <Intro title={INGREDIENTS_INTRO.title} paragraphs={INGREDIENTS_OPENING} />
   <CardGrid title="Discover More" cards={INGREDIENTS_CARDS} grey />
 
-  <section class="sec ms" aria-labelledby="ms-title">
-    <div class="wrap">
-      <h2 class="h2" id="ms-title" data-anim="title">From Plant to Perfumer</h2>
-      <ol class="ms__track" data-anim="columns">
-        {
-          INGREDIENTS_MILESTONES.map((s) => (
-            <li class="ms__item" data-anim-item>
-              <p class="ms__year">{s.year}</p>
-              <h3 class="ms__title">{s.title}</h3>
-            </li>
-          ))
-        }
-      </ol>
-    </div>
-  </section>
 
 
   <PromoBanner

@@ -1,146 +1,229 @@
 ---
 import { Image } from 'astro:assets';
 import { images } from '../../data/images';
-import { LINE_CATALOG, lineProductHref, type LineProduct } from '../../data/line-products';
+import { LINE_CATALOG, lineItemHref, type LineItem, type LineKey } from '../../data/line-products';
 
-/* Halaman Products lini Fisheries / Polymers.
- * 27 Nov 2026 (pemilik: jangan ditiru atau terlalu mirip katalog bahan):
- * tanpa tab penyaring dan tanpa kartu berbingkai bernaskah. Produk
- * dikelompokkan per kategori, susunan `.headWithPara` adani.com: nama dan
- * satu paragraf kategori di kiri, foto produk berjudul di kanan (gaya kartu
- * CardGrid). Tiap kategori punya jangkar (#fish, #resins) yang dituju tile
- * beranda grup dan kartu halaman lini. Tanpa hitungan. */
+/* Katalog lini Fisheries / Polymers di halaman lini (#catalog).
+ * 27 Nov 2026 (pemilik: "buat seperti katalog Fragrance, cukup overview lalu
+ * katalog di bawahnya, detailnya di situ"): pola Ingredient Catalog. Kotak cari
+ * bulat, tab kategori pilihan tunggal bergaris bawah gradien, kartu berfoto
+ * 3 kolom yang seluruhnya satu tautan: nama yang dipahami orang awam, nama
+ * Indonesia, lalu jenis/bahan yang ada. Kode produk ikut dicari. Tanpa
+ * hitungan, tanpa "Discover →", tanpa fade saat menyaring. `?cat=` memilih tab. */
 interface Props {
-  line: LineProduct['line'];
+  line: LineKey;
 }
 const { line } = Astro.props;
-const { categories, products } = LINE_CATALOG[line];
-const arrow = '<path d="M0 6h16M11 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4"></path>';
+const { categories } = LINE_CATALOG[line];
+const items = LINE_CATALOG[line].items as readonly LineItem[];
+const haystack = (i: LineItem) =>
+  [i.name, i.local, i.latin, i.range, ...i.products.flatMap((p) => [p.code, p.name, p.type, ...p.spec.map((s) => s[1])])]
+    .join(' ')
+    .toLowerCase();
 ---
 
-<section class="sec lc">
+<section class="sec lc" id="catalog" data-line-catalog>
   <div class="wrap">
-    {
-      categories.map((c) => (
-        <div class="lc__group" id={c.key}>
-          <div class="lc__head" data-anim="sub">
-            <h2 class="lc__title">{c.label}</h2>
-            <p class="lc__body">{c.body}</p>
-          </div>
-          <ul class="lc__grid" data-anim="columns">
-            {products
-              .filter((p) => p.category === c.key)
-              .map((p) => (
-                <li data-anim-item>
-                  <a class="lc__card" href={lineProductHref(p)}>
-                    <span class="lc__media cover shade">
-                      <Image quality={70} src={images[p.image]} alt="" widths={[400, 720]} sizes="(max-width: 640px) 100vw, (max-width: 1026px) 46vw, 28vw" loading="lazy" />
-                      <span class="lc__name">
-                        {p.name}
-                        <svg viewBox="0 0 18 12" width="17" height="11" aria-hidden="true" set:html={arrow} />
-                      </span>
-                    </span>
-                    {p.latin && <span class:list={['lc__latin', { 'is-plain': line !== 'seafood' }]}>{p.latin}</span>}
-                  </a>
-                </li>
-              ))}
-          </ul>
-        </div>
-      ))
-    }
+    <div class="lc__head">
+      <h2 class="h2" data-anim="title">Catalog</h2>
+      <label class="lc__search">
+        <span class="sr-only">Search</span>
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"></circle><path d="m15.5 15.5 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>
+        <input type="search" name="q" placeholder="Search" autocomplete="off" />
+      </label>
+    </div>
+
+    <div class="lc__tabs" role="radiogroup" aria-label="Category">
+      <label class="stab">
+        <input type="radio" name={`cat-${line}`} value="" checked />
+        <span>All</span>
+      </label>
+      {
+        categories.map((c) => (
+          <label class="stab">
+            <input type="radio" name={`cat-${line}`} value={c.key} />
+            <span>{c.label}</span>
+          </label>
+        ))
+      }
+    </div>
+
+    <ul class="lc__grid">
+      {
+        items.map((i) => (
+          <li class="lc__card" data-cat={i.category} data-text={haystack(i)}>
+            <div class="lc__media cover">
+              <Image quality={70} src={images[i.image]} alt="" widths={[400, 720]} sizes="(max-width: 640px) 100vw, (max-width: 1026px) 46vw, 30vw" loading="lazy" />
+            </div>
+            <div class="lc__body">
+              <h3 class="lc__name">
+                <a class="lc__link" href={lineItemHref(i)}>{i.name}</a>
+              </h3>
+              <p class="lc__local">{i.local}</p>
+              <p class="lc__range">{i.range}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="lc__empty" hidden>Nothing matches your search.</p>
   </div>
 </section>
 
+<script>
+  /* Tab kategori + kotak cari. Kartu tampil bila kategorinya cocok dan semua
+     kata pencarian ada di teksnya (nama, nama Indonesia, jenis, kode). ?cat=
+     memilih tab awal dan diperbarui tanpa memuat ulang. */
+  document.querySelectorAll<HTMLElement>('[data-line-catalog]').forEach((root) => {
+    const radios = [...root.querySelectorAll<HTMLInputElement>('input[type="radio"]')];
+    const search = root.querySelector<HTMLInputElement>('input[type="search"]')!;
+    const cards = [...root.querySelectorAll<HTMLElement>('[data-cat]')];
+    const empty = root.querySelector<HTMLElement>('.lc__empty')!;
+    const apply = () => {
+      const cat = radios.find((r) => r.checked)?.value ?? '';
+      const words = search.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+      let shown = 0;
+      cards.forEach((c) => {
+        const on = (!cat || c.dataset.cat === cat) && words.every((w) => c.dataset.text!.includes(w));
+        c.hidden = !on;
+        if (on) shown++;
+      });
+      empty.hidden = shown > 0;
+      window.dispatchEvent(new CustomEvent('fx:refresh'));
+    };
+    const initial = new URLSearchParams(location.search).get('cat') ?? '';
+    const start = radios.find((r) => r.value === initial);
+    if (start) start.checked = true;
+    apply();
+    radios.forEach((r) =>
+      r.addEventListener('change', () => {
+        apply();
+        const url = new URL(location.href);
+        if (r.value) url.searchParams.set('cat', r.value);
+        else url.searchParams.delete('cat');
+        history.replaceState(null, '', url);
+      }),
+    );
+    search.addEventListener('input', apply);
+  });
+</script>
+
 <style>
-  .lc__group {
-    display: grid;
-    grid-template-columns: 30% 1fr;
-    gap: 32px 5%;
-    padding-block: 56px;
-    border-top: 1px solid var(--line);
-    scroll-margin-top: calc(var(--header-h) + 64px);
+  .lc__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px 40px;
+    flex-wrap: wrap;
   }
-  .lc__group:first-child { padding-top: 0; border-top: 0; }
-  .lc__group:last-child { padding-bottom: 0; }
-
-  .lc__title {
-    font-size: calc(clamp(24px, 2.2vw, 32px) * var(--fs));
-    line-height: 1.1;
-    font-weight: 530;
-    text-transform: uppercase;
-    color: var(--ink);
-  }
-  .lc__body {
-    margin-top: 16px;
-    font-size: calc(16px * var(--fs));
-    line-height: 1.6;
-    color: var(--ink-muted);
-  }
-
-  .lc__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 28px 2.4%;
-    align-content: start;
-  }
-  .lc__card { display: block; }
-  .lc__media { display: block; aspect-ratio: 3 / 2; }
-  .lc__media :global(img) { transition: transform var(--t-img) var(--ease-out); }
-  .lc__card:hover .lc__media :global(img),
-  .lc__card:focus-visible .lc__media :global(img) { transform: scale(1.05); }
-
-  .lc__name {
-    position: absolute;
-    z-index: 1;
-    left: 18px;
-    right: 18px;
-    bottom: 16px;
-    display: inline-flex;
+  .lc__search {
+    display: flex;
     align-items: center;
     gap: 12px;
-    font-size: calc(clamp(17px, 1.25vw, 19px) * var(--fs));
-    font-weight: 440;
-    color: #fff;
+    width: min(100%, 380px);
+    height: 52px;
+    padding: 0 22px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--bg);
+    color: var(--ink-muted);
+    transition: border-color var(--t-fast) var(--ease-std);
   }
-  .lc__name::after {
+  .lc__search:hover { border-color: var(--ink-muted); }
+  .lc__search:focus-within { border-color: var(--ink); }
+  .lc__search input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    font-size: calc(16px * var(--fs));
+    color: var(--ink);
+    outline: 0;
+  }
+
+  .lc__tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-top: 32px;
+    border-bottom: 1px solid var(--line);
+    scrollbar-width: none;
+  }
+  .lc__tabs::-webkit-scrollbar { display: none; }
+  .stab { position: relative; flex: none; cursor: pointer; }
+  .stab input { position: absolute; opacity: 0; pointer-events: none; }
+  .stab span {
+    position: relative;
+    display: block;
+    padding: 10px 14px 12px;
+    font-size: calc(16px * var(--fs));
+    font-weight: 440;
+    line-height: 1.2;
+    color: var(--ink-muted);
+    white-space: nowrap;
+    transition: color var(--t) var(--ease-std);
+  }
+  .stab span::after {
     content: '';
     position: absolute;
     left: 0;
-    bottom: -7px;
-    height: 2px;
-    width: 100%;
-    background: #fff;
+    right: 0;
+    bottom: -1px;
+    height: 3px;
+    background: var(--grad-bar);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.5s var(--ease-out);
   }
-  .lc__card:hover .lc__name::after,
-  .lc__card:focus-visible .lc__name::after { transform: none; }
-  /* Panah tersembunyi sampai hover di mana pun di kartu (pemilik, 22 Nov 2026). */
-  .lc__name svg {
-    flex: none;
-    margin-left: auto;
-    opacity: 0;
-    transform: translateX(-8px);
-    transition: opacity var(--t) var(--ease-std), transform 0.5s var(--ease-out);
-  }
-  .lc__card:hover .lc__name svg,
-  .lc__card:focus-visible .lc__name svg { opacity: 1; transform: none; }
+  .stab:hover span,
+  .stab input:checked + span { color: var(--ink); }
+  .stab input:checked + span::after { transform: none; }
+  .stab input:focus-visible + span { outline: 2px solid var(--brand-green-light); outline-offset: -2px; }
 
-  .lc__latin {
-    display: block;
-    margin-top: 12px;
-    font-size: calc(15px * var(--fs));
-    font-style: italic;
-    color: var(--ink-muted);
+  .lc__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px 2.4%;
+    margin-top: 32px;
   }
-  .lc__latin.is-plain { font-style: normal; }
+  .lc__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--line-soft);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bg);
+    transition: box-shadow var(--t) var(--ease-out), border-color var(--t) var(--ease-out);
+  }
+  .lc__card[hidden] { display: none; }
+  .lc__card:hover { border-color: var(--line); box-shadow: 0 18px 40px -24px rgb(0 0 0 / 0.35); }
+  .lc__card:has(.lc__link:focus-visible) { outline: 2px solid var(--brand-green-light); outline-offset: 3px; }
+  .lc__media { display: block; aspect-ratio: 4 / 3; }
+  .lc__media :global(img) { transition: transform var(--t-img) var(--ease-out); }
+  .lc__card:hover .lc__media :global(img) { transform: scale(1.05); }
+  .lc__body { display: flex; flex-direction: column; flex: 1; padding: 22px 24px 24px; }
+  .lc__name {
+    font-size: calc(22px * var(--fs));
+    line-height: 1.15;
+    font-weight: 670;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .lc__link { outline: 0; }
+  .lc__link::after { content: ''; position: absolute; inset: 0; z-index: 1; }
+  .lc__local { margin-top: 4px; font-size: calc(15px * var(--fs)); color: var(--ink-muted); }
+  .lc__range { margin-top: 14px; font-size: calc(15px * var(--fs)); line-height: 1.5; color: var(--ink); }
+  .lc__empty { margin-top: 32px; font-size: calc(16px * var(--fs)); color: var(--ink-muted); }
 
   @media (max-width: 1026px) {
-    .lc__group { grid-template-columns: 1fr; padding-block: 44px; }
-    .lc__grid { grid-template-columns: repeat(2, 1fr); }
+    .lc__grid { grid-template-columns: 1fr 1fr; }
   }
-  @media (max-width: 420px) {
+  @media (max-width: 767px) {
+    .lc__tabs { margin-inline: -5.56vw; padding-inline: 5.56vw; }
+  }
+  @media (max-width: 640px) {
     .lc__grid { grid-template-columns: 1fr; }
   }
 </style>

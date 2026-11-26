@@ -1,45 +1,60 @@
 import type { ImageKey } from './images';
 import type { BusinessKey } from './businesses';
-import { SEAFOOD_CATEGORIES, SEAFOOD_PRODUCTS } from './seafood';
-import { PACKAGING_CATEGORIES, PACKAGING_PRODUCTS } from './packaging';
+import { SEAFOOD_CATEGORIES, SEAFOOD_ITEMS } from './seafood';
+import { PACKAGING_CATEGORIES, PACKAGING_ITEMS } from './packaging';
 
-/* Produk lini Seafood dan Plastics & Packaging (situs grup, 26 Nov 2026).
- * Bentuknya lebih sederhana dari katalog bahan (materials.ts): satu produk =
- * satu halaman, dikelompokkan per kategori. Dipakai LineCatalog dan
- * LineProductPage. Tanpa kode produk. */
+/* Katalog lini Fisheries dan Polymers (pemilik, 27 Nov 2026: "buat seperti
+ * katalog Fragrance"). Bentuknya sama dengan katalog bahan: satu ITEM yang
+ * dipahami orang awam (Grouper, Carrier Bags) berisi beberapa PRODUK berkode
+ * 6 digit (jenis, bentuk, bahan, ukuran). Katalog tinggal di halaman lini
+ * (#catalog); item punya halaman sendiri, tiap kode punya halaman spesifikasi.
+ * Kode: kepala 1, lihat catalog/Product code register.md. */
 
-/** `image`: foto salah satu produk kategori ini yang mewakilinya (tile beranda, kartu halaman lini). Kosong = produk pertama. */
+export type LineKey = Exclude<BusinessKey, 'naturals'>;
+
+/** `image`: foto salah satu item kategori ini yang mewakilinya (tile beranda). Kosong = item pertama. */
 export type LineCategory = { key: string; label: string; body: string; image?: ImageKey };
 
 export type LineProduct = {
-  line: Exclude<BusinessKey, 'naturals'>;
+  code: string;
+  name: string;
+  /** Bentuk atau bahan, tampil di daftar Products halaman item. */
+  type: string;
+  spec: [string, string][];
+};
+
+export type LineItem = {
+  line: LineKey;
   slug: string;
   name: string;
-  /** Nama ilmiah (seafood) atau nama kimia (resin). Kosong = tidak dicetak. */
+  /** Nama dagang Indonesia. */
+  local: string;
+  /** Nama ilmiah (ikan) atau bahan (plastik). Kosong = tidak dicetak. */
   latin?: string;
   category: string;
   image: ImageKey;
   alt: string;
   /** Satu-dua kalimat untuk kartu dan kepala halaman. */
   note: string;
-  /** Baris spesifikasi [label, nilai]; baris pertama "Forms"/"Grades" tampil di kartu. */
-  spec: [string, string][];
+  /** Satu baris di kartu: jenis atau bahan yang ada. */
+  range: string;
+  usage: string;
   handling: [string, string][];
-  hs: string;
+  products: LineProduct[];
 };
 
 export const LINE_CATALOG = {
-  seafood: { base: '/fisheries/products/', categories: SEAFOOD_CATEGORIES, products: SEAFOOD_PRODUCTS },
-  packaging: { base: '/polymers/products/', categories: PACKAGING_CATEGORIES, products: PACKAGING_PRODUCTS },
+  seafood: { base: '/fisheries/', categories: SEAFOOD_CATEGORIES, items: SEAFOOD_ITEMS },
+  packaging: { base: '/polymers/', categories: PACKAGING_CATEGORIES, items: PACKAGING_ITEMS },
 } as const;
 
-export const lineProductHref = (p: LineProduct) => `${LINE_CATALOG[p.line].base}${p.slug}/`;
-/** Kategori = jangkar di halaman Products (27 Nov 2026: tanpa tab penyaring). */
-export const lineCategoryHref = (line: LineProduct['line'], cat: string) => `${LINE_CATALOG[line].base}#${cat}`;
-/** Foto kategori = foto produk pertama kategori itu (konteksnya kategori, lihat tools/photo-usage.mjs). */
-export const categoryImage = (line: LineProduct['line'], cat: string): ImageKey =>
-  LINE_CATALOG[line].categories.find((c) => c.key === cat)?.image ?? LINE_CATALOG[line].products.find((p) => p.category === cat)!.image;
-export const categoryLabel = (line: LineProduct['line'], cat: string) =>
-  LINE_CATALOG[line].categories.find((c) => c.key === cat)?.label ?? cat;
-/** Ringkasan untuk kartu: nilai baris spesifikasi pertama. */
-export const cardLine = (p: LineProduct) => p.spec[0]?.[1] ?? '';
+export const lineItemHref = (i: LineItem) => `${LINE_CATALOG[i.line].base}${i.slug}/`;
+export const lineProductHref = (i: LineItem, p: LineProduct) => `${lineItemHref(i)}${p.code}/`;
+/** Tab kategori di katalog halaman lini. */
+export const lineCategoryHref = (line: LineKey, cat: string) => `${LINE_CATALOG[line].base}?cat=${cat}#catalog`;
+export const categoryLabel = (line: LineKey, cat: string) => LINE_CATALOG[line].categories.find((c) => c.key === cat)?.label ?? cat;
+export const categoryImage = (line: LineKey, cat: string): ImageKey =>
+  LINE_CATALOG[line].categories.find((c) => c.key === cat)?.image ?? LINE_CATALOG[line].items.find((i) => i.category === cat)!.image;
+export const lineItemsOf = (line: LineKey, cat: string) => (LINE_CATALOG[line].items as readonly LineItem[]).filter((i) => i.category === cat);
+/** Semua kode lini, untuk formulir kontak dan pencarian. */
+export const LINE_PRODUCTS = ([...SEAFOOD_ITEMS, ...PACKAGING_ITEMS] as LineItem[]).flatMap((i) => i.products.map((p) => ({ item: i, product: p })));

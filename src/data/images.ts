@@ -208,6 +208,14 @@ import pkFood from '../assets/images/pk-food.jpg';
 import pkPerfumeBottles from '../assets/images/pk-perfume-bottles.jpg';
 import pkSprayers from '../assets/images/pk-sprayers.jpg';
 import pkVials from '../assets/images/pk-vials.jpg';
+// Katalog Fisheries dan Polymers, 27 Nov 2026.
+import fsMackerel from '../assets/images/fs-mackerel.jpg';
+import fsLobster from '../assets/images/fs-lobster.jpg';
+import pmCarrierBags from '../assets/images/pm-carrier-bags.jpg';
+import pmClearBags from '../assets/images/pm-clear-bags.jpg';
+import pmTrashBags from '../assets/images/pm-trash-bags.jpg';
+import pmJumboBags from '../assets/images/pm-jumbo-bags.jpg';
+import pmWovenSacks from '../assets/images/pm-woven-sacks.jpg';
 
 /* Satu-satunya tempat berkas gambar dipetakan ke kunci yang dipakai data.
  *
@@ -443,6 +451,14 @@ import pkVials from '../assets/images/pk-vials.jpg';
  *   pk-perfume-bottles  deretan botol parfum kaca kosong (Perfume Bottles)  [stock-photos/plastics-packaging/empty-perfume-bottles-pexels-14696052.jpg, Pexels License]
  *   pk-sprayers  jari menekan pompa semprot botol parfum (Sprayers & Caps)  [stock-photos/plastics-packaging/perfume-spray-pump-pexels-7033934.jpg, Pexels License]
  *   pk-vials  deretan vial kaca kecil (Sample Vials)  [stock-photos/plastics-packaging/glass-vials-row-pexels-9259964.jpg, Pexels License]
+ * 27 Nov 2026, katalog Fisheries dan Polymers, semua Pexels License.
+ *   fs-mackerel  ikan makerel segar bertumpuk di pasar (Spanish Mackerel)  [stock-photos/seafood/mackerel-pile-market-pexels-20121102.jpg, Pexels License]
+ *   fs-lobster  lobster duri hidup di akuarium (Lobster)  [stock-photos/seafood/spiny-lobsters-aquarium-pexels-248455.jpg, Pexels License]
+ *   pm-carrier-bags  kantong kresek bening berisi belanjaan di meja (Carrier Bags)  [stock-photos/plastics-packaging/cabbage-plastic-bags-pexels-5900192.jpg, Pexels License]
+ *   pm-clear-bags  bawang putih dalam kantong plastik bening di latar putih (Clear Bags)  [stock-photos/plastics-packaging/garlic-clear-bag-pexels-4084642.jpg, Pexels License]
+ *   pm-trash-bags  kantong sampah plastik hitam terikat (Trash Bags)  [stock-photos/plastics-packaging/black-garbage-bag-pexels-5994772.jpg, Pexels License]
+ *   pm-jumbo-bags  pekerja mengangkat jumbo bag putih di pabrik (Jumbo Bags)  [stock-photos/plastics-packaging/jumbo-bag-factory-pexels-36423786.jpg, Pexels License]
+ *   pm-woven-sacks  karung plastik anyaman bertumpuk, dekat (Woven Sacks)  [stock-photos/plastics-packaging/woven-sandbags-pexels-35972270.jpg, Pexels License]
  */
 export const images = {
   'hero-still-hall': heroStillHall,
@@ -649,6 +665,13 @@ export const images = {
   'pk-perfume-bottles': pkPerfumeBottles,
   'pk-sprayers': pkSprayers,
   'pk-vials': pkVials,
+  'fs-mackerel': fsMackerel,
+  'fs-lobster': fsLobster,
+  'pm-carrier-bags': pmCarrierBags,
+  'pm-clear-bags': pmClearBags,
+  'pm-trash-bags': pmTrashBags,
+  'pm-jumbo-bags': pmJumboBags,
+  'pm-woven-sacks': pmWovenSacks,
 } satisfies Record<string, ImageMetadata>;
 
 export type ImageKey = keyof typeof images;
