@@ -8,7 +8,8 @@ import { PACKAGING_CATEGORIES, PACKAGING_PRODUCTS } from './packaging';
  * satu halaman, dikelompokkan per kategori. Dipakai LineCatalog dan
  * LineProductPage. Tanpa kode produk. */
 
-export type LineCategory = { key: string; label: string; body: string };
+/** `image`: foto salah satu produk kategori ini yang mewakilinya (tile beranda, kartu halaman lini). Kosong = produk pertama. */
+export type LineCategory = { key: string; label: string; body: string; image?: ImageKey };
 
 export type LineProduct = {
   line: Exclude<BusinessKey, 'naturals'>;
@@ -28,12 +29,16 @@ export type LineProduct = {
 };
 
 export const LINE_CATALOG = {
-  seafood: { base: '/seafood/products/', categories: SEAFOOD_CATEGORIES, products: SEAFOOD_PRODUCTS },
-  packaging: { base: '/plastics-packaging/products/', categories: PACKAGING_CATEGORIES, products: PACKAGING_PRODUCTS },
+  seafood: { base: '/marine-products/products/', categories: SEAFOOD_CATEGORIES, products: SEAFOOD_PRODUCTS },
+  packaging: { base: '/polymers/products/', categories: PACKAGING_CATEGORIES, products: PACKAGING_PRODUCTS },
 } as const;
 
 export const lineProductHref = (p: LineProduct) => `${LINE_CATALOG[p.line].base}${p.slug}/`;
-export const lineCategoryHref = (line: LineProduct['line'], cat: string) => `${LINE_CATALOG[line].base}?cat=${cat}`;
+/** Kategori = jangkar di halaman Products (27 Nov 2026: tanpa tab penyaring). */
+export const lineCategoryHref = (line: LineProduct['line'], cat: string) => `${LINE_CATALOG[line].base}#${cat}`;
+/** Foto kategori = foto produk pertama kategori itu (konteksnya kategori, lihat tools/photo-usage.mjs). */
+export const categoryImage = (line: LineProduct['line'], cat: string): ImageKey =>
+  LINE_CATALOG[line].categories.find((c) => c.key === cat)?.image ?? LINE_CATALOG[line].products.find((p) => p.category === cat)!.image;
 export const categoryLabel = (line: LineProduct['line'], cat: string) =>
   LINE_CATALOG[line].categories.find((c) => c.key === cat)?.label ?? cat;
 /** Ringkasan untuk kartu: nilai baris spesifikasi pertama. */

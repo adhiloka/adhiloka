@@ -4,9 +4,9 @@ import { BUSINESSES, BUSINESS_LINKS } from './businesses';
 export const SITE = {
   name: 'Adhiloka',
   legalName: 'Adhiloka Group',
-  tagline: 'Natural Ingredients & Perfumery · Seafood · Plastics & Packaging',
+  tagline: 'Natural Aromatics · Marine Products · Polymers',
   description:
-    'Adhiloka Group is a family of businesses in Indonesia: natural ingredients and perfumery, seafood, and plastics and packaging.',
+    'Adhiloka Group is a family of businesses in Indonesia: natural aromatics, marine products and polymers.',
   locale: 'en_ID',
   lang: 'en',
   email: 'info@adhiloka.com',
@@ -36,7 +36,7 @@ export type NavItem = {
    foto yang sama dengan banner halaman yang dituju. Ganti keduanya bersamaan.
    Lima menu utama sejak situs jadi situs grup (pemilik, 26 Nov 2026), urutan
    kiri ke kanan di header. Perfumery dan Ingredients pindah ke bilah
-   sub-menu lini Natural Ingredients & Perfumery (businesses.ts). `panel.links` adalah isi
+   sub-menu lini Natural Aromatics (businesses.ts). `panel.links` adalah isi
    dropdown, daftar datar tanpa sub-menu atau label grup (pemilik, 13 Nov
    2026): panel mengisinya 3 ke bawah lalu pindah ke kolom kanan. Juga sumber
    remah roti, indeks pencarian dan 404. Tidak ada nama produk di sini:
@@ -64,7 +64,7 @@ export const NAV: NavItem[] = [
     label: 'Our Businesses',
     href: '/our-businesses/',
     match: BUSINESSES.flatMap((b) => b.paths),
-    blurb: 'Natural ingredients and perfumery, seafood, and plastics and packaging.',
+    blurb: 'Natural aromatics, marine products and polymers.',
     panel: {
       title: 'Our Businesses',
       shot: 'container ship at sea in warm evening light',
@@ -132,8 +132,8 @@ export const SOCIAL: { label: string; href: string }[] = [];
 export const SEARCH_SUGGESTIONS = [
   { label: 'Benzoin Sumatra', href: '/ingredients/catalog/benzoin-sumatra/' },
   { label: 'Patchouli', href: '/ingredients/catalog/patchouli/' },
-  { label: 'Seafood products', href: '/seafood/products/' },
-  { label: 'Plastic resins', href: '/plastics-packaging/products/?cat=resins' },
+  { label: 'Marine products', href: '/marine-products/products/' },
+  { label: 'Plastic resins', href: '/polymers/products/#resins' },
   { label: 'Working with us', href: '/ingredients/working-with-us/' },
   { label: 'Sample request', href: '/contact/?kind=sample' },
 ];

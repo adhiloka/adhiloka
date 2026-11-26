@@ -26,12 +26,16 @@ bilah sub-menu tiap lini: `src/data/businesses.ts`.
 
 | Jalur | Susunan |
 | --- | --- |
-| `/` | **Beranda grup**: hero empat slide (We Are Adhiloka, tiga lini; `GROUP_HERO_SLIDES`) · kutipan grup (`GROUP_QUOTE`) · Our Businesses 2 x 2 (`GROUP_PANES`) · keberlanjutan · berita · Join Us |
+| `/` | **Beranda grup**: hero empat slide (We Are Adhiloka, tiga lini; `GROUP_HERO_SLIDES`) · kutipan grup (`GROUP_QUOTE`) · Our Businesses **bertab per lini ala adani.com** (`GROUP_TABS`: tiap tab empat tile 2 x 2 + foto besar berchip) · keberlanjutan · berita · Join Us |
 | `/our-businesses/` | Banner · pembuka · satu blok Feature per lini (pola adani.com/businesses). `/about/our-business/` dialihkan ke sini (halamannya diparkir jadi `_our-business.astro`) |
-| `/natural-ingredients-perfumery/` | Beranda lini naturals: isi beranda lama apa adanya (hero final 21 Nov, tile final 22 Nov; `NATURALS_HERO_SLIDES`, `NATURALS_PANES`) + bilah sub-menu |
-| `/seafood/` · `/plastics-packaging/` | Beranda lini: banner · pembuka · Our Products (kategori, menuju katalog `?cat=`) · blok bergambar · Working With Us |
-| `/seafood/products/` · `/plastics-packaging/products/` | Katalog lini (`LineCatalog`): tab kategori pilihan tunggal, kartu berfoto 3 kolom satu tautan, tanpa hitungan; `?cat=` memilih tab |
-| `…/products/<slug>/` | Halaman produk lini (`LineProductPage`): kepala berwarna lini, strip fakta, Specification, Packing/Use, tombol permintaan, slider produk sekategori |
+| `/natural-aromatics/` · `/marine-products/` · `/polymers/` | **Sub-halaman lini ringkas** (27 Nov 2026): banner · pembuka satu paragraf + satu tombol · kartu Our Portfolio (naturals: halaman di dalam lini; dua lini lain: kategori menuju `products/#kategori`) |
+| `/marine-products/products/` · `/polymers/products/` | Products lini (`LineCatalog`): dikelompokkan per kategori (judul + paragraf kiri, foto berjudul 3 kolom kanan), jangkar `#kategori`, tanpa tab penyaring dan tanpa hitungan. Sengaja tidak meniru katalog bahan |
+| `…/products/<slug>/` | Halaman produk lini (`LineProductPage`): satu section terbelah (foto; nama, satu kalimat, tabel spesifikasi + penanganan, Request a Quotation) · slider produk sekategori |
+
+Nama lini sejak 27 Nov 2026: Natural Aromatics, Marine Products, Polymers (keputusan
+`decisions/2026-11-27 Business line names and line subpages.md`); alamat lama
+(`/natural-ingredients-perfumery/`, `/seafood/…`, `/plastics-packaging/…`) dialihkan di `astro.config.mjs`.
+Kunci internal di kode tetap `naturals`, `seafood`, `packaging`.
 
 - Data produk: `src/data/seafood.ts`, `src/data/packaging.ts`, tipe dan helper di `line-products.ts`. Tanpa kode produk.
 - Menu atas: About Us · Our Businesses · Sustainability · Media · Connect. Perfumery dan Ingredients tidak lagi di header; tautannya di **bilah sub-menu lini** (`BusinessSubnav`, otomatis di `PageLayout` untuk halaman lini).
@@ -65,7 +69,7 @@ ikut sendiri. "Life at Adhiloka" dilepas.
 
 | Jalur | Susunan |
 | --- | --- |
-| `/` (kini `/natural-ingredients-perfumery/`) | Hero slider empat slide tetap (About, Perfumery, Ingredients, Sustainability; pemilik 21 Nov 2026, foto slide = banner tujuan) · kutipan terbelah (tanpa label, garis dan nama, 15 Nov 2026) · Our Business (22 Nov 2026: tanpa tab, empat tile 2 x 2 Natural Ingredients, Perfumery, Technology, Sustainability yang memilih foto besar berchip + Explore More, dari `BUSINESS_PANES`) · akordeon keberlanjutan · Latest News · Join Us |
+| `/` (beranda naturals lama, dilepas 27 Nov 2026) | Hero slider empat slide tetap (About, Perfumery, Ingredients, Sustainability; pemilik 21 Nov 2026, foto slide = banner tujuan) · kutipan terbelah (tanpa label, garis dan nama, 15 Nov 2026) · Our Business (22 Nov 2026: tanpa tab, empat tile 2 x 2 Natural Ingredients, Perfumery, Technology, Sustainability yang memilih foto besar berchip + Explore More, dari `BUSINESS_PANES`) · akordeon keberlanjutan · Latest News · Join Us |
 | `/about/` | Pola /about-us Adani: banner · kutipan · Who We Are (slider foto fade dalam panel inset) · How We Work · nilai · kartu |
 | `/about/our-business/`, `/about/our-purpose/` | Banner · pembuka · isi halaman · Explore More |
 | `/about/our-leadership/`, `our-history/`, `our-locations/` | **Diparkir** (lihat "Halaman yang diparkir"); rutenya dialihkan ke `/about/` |

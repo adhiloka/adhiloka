@@ -1,0 +1,26 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Intro from '../../components/blocks/Intro.astro';
+import CardGrid from '../../components/blocks/CardGrid.astro';
+import { PACKAGING_CATEGORIES } from '../../data/packaging';
+import { lineCategoryHref, categoryImage } from '../../data/line-products';
+import { PACKAGING_INTRO, PACKAGING_OPENING } from '../../data/pages/packaging-line';
+
+/* Lini Polymers (pemilik, 27 Nov 2026): sub-halaman ringkas.
+   Banner · pembuka · kartu kategori (foto = foto wakil kategori, sama dengan
+   tile beranda grup) menuju jangkar kategori di halaman Products. */
+const cards = PACKAGING_CATEGORIES.map((c) => ({ title: c.label, href: lineCategoryHref('packaging', c.key), image: categoryImage('packaging', c.key) }));
+---
+
+<PageLayout intro={PACKAGING_INTRO}>
+  <Intro title={PACKAGING_OPENING.title} paragraphs={[PACKAGING_OPENING.body]}>
+    <p class="line__btns">
+      <a class="btn" href="/contact/?business=packaging&kind=quotation"><span class="btn__label">Request a Quotation</span></a>
+    </p>
+  </Intro>
+  <CardGrid title="Our Portfolio" cards={cards} grey />
+</PageLayout>
+
+<style>
+  .line__btns { margin-top: 32px; }
+</style>

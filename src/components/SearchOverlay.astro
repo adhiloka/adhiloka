@@ -23,11 +23,11 @@ const index = [
     kind: 'Product',
     extra: `${p.code} ${p.type} ${p.grade}`,
   })),
-  // Situs grup (26 Nov 2026): produk seafood dan plastik.
+  // Situs grup (26 Nov 2026): produk Marine Products dan Polymers.
   ...[...LINE_CATALOG.seafood.products, ...LINE_CATALOG.packaging.products].map((p) => ({
     label: p.name,
     href: lineProductHref(p),
-    kind: p.line === 'seafood' ? 'Seafood' : 'Plastics & Packaging',
+    kind: p.line === 'seafood' ? 'Marine Products' : 'Polymers',
     extra: `${p.latin ?? ''} ${categoryLabel(p.line, p.category)} ${p.spec[0]?.[1] ?? ''}`,
   })),
   ...NEWS.map((n) => ({ label: n.title, href: `/media/news/${n.slug}/`, kind: 'News' })),

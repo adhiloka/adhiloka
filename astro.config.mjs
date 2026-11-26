@@ -39,6 +39,15 @@ export default defineConfig({
     '/contact/suppliers/': '/contact/partners/',
     // Situs grup 26 Nov 2026: Our Business jadi Our Businesses di level grup.
     '/about/our-business/': '/our-businesses/',
+    // Nama lini diganti 27 Nov 2026 (pemilik): Natural Aromatics, Marine
+    // Products, Polymers. Alamat lama dialihkan.
+    '/natural-ingredients-perfumery/': '/natural-aromatics/',
+    '/seafood/': '/marine-products/',
+    '/seafood/products/': '/marine-products/products/',
+    '/seafood/products/[slug]': '/marine-products/products/[slug]',
+    '/plastics-packaging/': '/polymers/',
+    '/plastics-packaging/products/': '/polymers/products/',
+    '/plastics-packaging/products/[slug]': '/polymers/products/[slug]',
   },
   build: { inlineStylesheets: 'auto' },
 

@@ -7,20 +7,19 @@ import SustainAccordion from '../components/home/SustainAccordion.astro';
 import NewsCards from '../components/NewsCards.astro';
 import JoinUs from '../components/home/JoinUs.astro';
 import { SITE } from '../data/site';
-import { GROUP_HERO_SLIDES, GROUP_QUOTE, GROUP_PANES } from '../data/pages/home';
+import { GROUP_HERO_SLIDES, GROUP_QUOTE, GROUP_TABS } from '../data/pages/home';
 import { NEWS, byDate } from '../data/pages/media';
 
 /* Beranda grup (pemilik, 26 Nov 2026), urutan section beranda adani.com:
    hero tiga lini · kutipan grup · Our Businesses · keberlanjutan · berita ·
-   Join Us. Beranda lama (naturals) pindah apa adanya ke
-   /natural-ingredients-perfumery/. */
+   Join Us. Our Businesses bertab per lini seperti adani.com (27 Nov 2026). */
 const latest = [...NEWS].sort(byDate).slice(0, 3);
 ---
 
 <BaseLayout title={SITE.name} description={SITE.description}>
   <HeroSlider slides={GROUP_HERO_SLIDES} />
   <QuoteSplit {...GROUP_QUOTE} />
-  <BusinessShowcase panes={GROUP_PANES} title="Our Businesses" />
+  <BusinessShowcase tabs={GROUP_TABS} title="Our Businesses" />
   <SustainAccordion />
   <NewsCards title="Latest News" viewAll="/media/news/" articles={latest} />
   <JoinUs />

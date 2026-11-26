@@ -1,0 +1,26 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Intro from '../../components/blocks/Intro.astro';
+import CardGrid from '../../components/blocks/CardGrid.astro';
+import { SEAFOOD_CATEGORIES } from '../../data/seafood';
+import { lineCategoryHref, categoryImage } from '../../data/line-products';
+import { SEAFOOD_INTRO, SEAFOOD_OPENING } from '../../data/pages/seafood-line';
+
+/* Lini Marine Products (pemilik, 27 Nov 2026): sub-halaman ringkas.
+   Banner · pembuka · kartu kategori (foto = foto wakil kategori, sama dengan
+   tile beranda grup) menuju jangkar kategori di halaman Products. */
+const cards = SEAFOOD_CATEGORIES.map((c) => ({ title: c.label, href: lineCategoryHref('seafood', c.key), image: categoryImage('seafood', c.key) }));
+---
+
+<PageLayout intro={SEAFOOD_INTRO}>
+  <Intro title={SEAFOOD_OPENING.title} paragraphs={[SEAFOOD_OPENING.body]}>
+    <p class="line__btns">
+      <a class="btn" href="/contact/?business=seafood&kind=quotation"><span class="btn__label">Request a Quotation</span></a>
+    </p>
+  </Intro>
+  <CardGrid title="Our Portfolio" cards={cards} grey />
+</PageLayout>
+
+<style>
+  .line__btns { margin-top: 32px; }
+</style>

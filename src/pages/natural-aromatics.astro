@@ -1,0 +1,23 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Intro from '../components/blocks/Intro.astro';
+import CardGrid from '../components/blocks/CardGrid.astro';
+import { NATURALS_INTRO, NATURALS_OPENING, NATURALS_CARDS } from '../data/pages/naturals-line';
+
+/* Lini Natural Aromatics (pemilik, 27 Nov 2026): sub-halaman ringkas, sama
+   dengan dua lini lain. Banner · pembuka · kartu halaman di dalam lini.
+   Rincian lini sudah di beranda grup (Our Businesses bertab). */
+---
+
+<PageLayout intro={NATURALS_INTRO}>
+  <Intro title={NATURALS_OPENING.title} paragraphs={[NATURALS_OPENING.body]}>
+    <p class="line__btns">
+      <a class="btn" href="/contact/?business=naturals&kind=sample"><span class="btn__label">Request a Sample</span></a>
+    </p>
+  </Intro>
+  <CardGrid title="Our Portfolio" cards={NATURALS_CARDS} grey />
+</PageLayout>
+
+<style>
+  .line__btns { margin-top: 32px; }
+</style>

@@ -17,7 +17,7 @@ export const SEAFOOD_CATEGORIES: LineCategory[] = [
   { key: 'fish', label: 'Frozen Fish', body: 'Tuna, snapper and grouper, whole or cut into loins, steaks and fillets. Each fish is graded by size and frozen soon after landing to keep its colour and texture.' },
   { key: 'crustaceans', label: 'Shrimp & Crab', body: 'Vannamei and black tiger shrimp in every common cut, and blue swimming crab as pasteurised meat. We grade by count and pack to the glaze and net weight your market expects.' },
   { key: 'cephalopods', label: 'Squid, Octopus & Shellfish', body: 'Squid, octopus and clams, whole, cleaned or cut. Cephalopods are sorted by weight and frozen in blocks or individually.' },
-  { key: 'dried', label: 'Dried Marine Products', body: 'Sea cucumber, fish maw, shark fin and dried anchovy, sorted by size and grade. Dried products are kept cool and dry and packed in lined cartons.' },
+  { key: 'dried', label: 'Dried Marine Products', image: 'sf-anchovy', body: 'Sea cucumber, fish maw, shark fin and dried anchovy, sorted by size and grade. Dried products are kept cool and dry and packed in lined cartons.' },
 ];
 
 const P = (p: Omit<LineProduct, 'line'>): LineProduct => ({ ...p, line: 'seafood' });

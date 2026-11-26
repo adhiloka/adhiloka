@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { images } from '../../data/images';
-import type { BusinessPane } from '../../data/pages/home';
+import type { BusinessPane, BusinessTab } from '../../data/pages/home';
 
 /* Section "BUSINESSES" adani.com, diisi usaha Adhiloka.
  * 22 Nov 2026 (pemilik): bentuk tile + foto besar tetap, tetapi tab
@@ -12,70 +12,142 @@ import type { BusinessPane } from '../../data/pages/home';
  * Tile terpilih tidak ditutup gradien: tile lain meredup, yang terpilih tetap
  * terang dengan bilah gradien di dasarnya, garis bawah dan panah. */
 
-/* Situs grup (26 Nov 2026): isinya lewat prop. Beranda grup memberi
-   GROUP_PANES, beranda lini naturals NATURALS_PANES. */
+/* Situs grup: isinya lewat prop. `panes` = satu set tile tanpa tab.
+   `tabs` (beranda grup, pemilik 27 Nov 2026: "tiru Adani, bisnisnya sudah
+   tiga") = tab bergaris bawah per lini seperti section Businesses adani.com;
+   tiap tab punya empat tile dan foto besarnya sendiri. */
 interface Props {
-  panes: BusinessPane[];
+  panes?: BusinessPane[];
+  tabs?: BusinessTab[];
   title?: string;
 }
-const { panes, title = 'Our Business' } = Astro.props;
+const { panes = [], tabs, title = 'Our Business' } = Astro.props;
+const groups: BusinessTab[] = tabs ?? [{ key: 'all', label: '', href: '', panes }];
 const arrow = '<path d="M0 6h16M11 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4"></path>';
 ---
 
-<section class="sec sec--grey biz">
+<section class="sec sec--grey biz" data-tabs={tabs ? '' : undefined}>
   <div class="wrap">
-    <h2 class="h2" data-anim="title">{title}</h2>
-
-    <div class="biz__panel" data-picker>
-      <ul class="biz__tiles biz__tiles--pick">
-        {
-          panes.map((p, i) => (
-            <li data-anim="thumb">
-              <button class:list={['tile', 'shade', { 'is-active': i === 0 }]} type="button" data-pick={p.key} aria-pressed={i === 0 ? 'true' : 'false'}>
-                <Image quality={70} src={images[p.image]} alt="" widths={[320, 520]} sizes="(max-width: 767px) 50vw, 18vw" loading="lazy" />
-                <span class="tile__text">
-                  {p.label}
-                  <svg class="tile__arrow" viewBox="0 0 18 12" width="17" height="11" aria-hidden="true" set:html={arrow} />
-                </span>
+    <div class="biz__head">
+      <h2 class="h2" data-anim="title">{title}</h2>
+      {
+        tabs && (
+          <div class="biz__tabs" role="tablist" aria-label="Business" data-anim="title">
+            {tabs.map((t, i) => (
+              <button class:list={['tab', { 'is-active': i === 0 }]} type="button" role="tab" data-tab={t.key} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? undefined : '-1'}>
+                {t.label}
               </button>
-            </li>
-          ))
-        }
-      </ul>
-
-      <div class="biz__big" data-speed="0.9">
-        {
-          panes.map((p, i) => (
-            <div class="big" data-pane={p.key} hidden={i !== 0} data-anim="thumb">
-              <Image quality={70} class="big__img" src={images[p.image]} alt="" widths={[640, 960, 1400]} sizes="(max-width: 1026px) 100vw, 55vw" loading="lazy" />
-              <div class="big__links">
-                <ul>
-                  {p.chips.map((c) => (
-                    <li><a href={c.href}>{c.label}</a></li>
-                  ))}
-                </ul>
-                <div class="big__more">
-                  <a class="more" href={p.href}>
-                    <span class="more__label">Explore More</span>
-                    <svg class="more__arrow" viewBox="0 0 18 12" width="17" height="11" aria-hidden="true" set:html={arrow} />
-                  </a>
-                </div>
-              </div>
-            </div>
-          ))
-        }
-      </div>
+            ))}
+          </div>
+        )
+      }
     </div>
 
+    {
+      groups.map((g, gi) => (
+        <div class="biz__panel" data-panel={tabs ? g.key : undefined} role={tabs ? 'tabpanel' : undefined} hidden={gi !== 0} data-picker>
+          <ul class="biz__tiles biz__tiles--pick">
+            {g.panes.map((p, i) => (
+              <li data-anim={gi === 0 ? 'thumb' : undefined}>
+                <button class:list={['tile', 'shade', { 'is-active': i === 0 }]} type="button" data-pick={p.key} aria-pressed={i === 0 ? 'true' : 'false'}>
+                  <Image quality={70} src={images[p.image]} alt="" widths={[320, 520]} sizes="(max-width: 767px) 50vw, 18vw" loading="lazy" />
+                  <span class="tile__text">
+                    {p.label}
+                    <svg class="tile__arrow" viewBox="0 0 18 12" width="17" height="11" aria-hidden="true" set:html={arrow} />
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+
+          <div class="biz__big" data-speed="0.9">
+            {g.panes.map((p, i) => (
+              <div class="big" data-pane={p.key} hidden={i !== 0} data-anim={gi === 0 ? 'thumb' : undefined}>
+                <Image quality={70} class="big__img" src={images[p.image]} alt="" widths={[640, 960, 1400]} sizes="(max-width: 1026px) 100vw, 55vw" loading="lazy" />
+                <div class="big__links">
+                  <ul>
+                    {p.chips.map((c) => (
+                      <li>
+                        <a href={c.href}>{c.label}</a>
+                      </li>
+                    ))}
+                  </ul>
+                  <div class="big__more">
+                    <a class="more" href={p.href}>
+                      <span class="more__label">Explore More</span>
+                      <svg class="more__arrow" viewBox="0 0 18 12" width="17" height="11" aria-hidden="true" set:html={arrow} />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))
+    }
   </div>
 </section>
 
 <script>
-  import { initPickers } from '../../scripts/tabs';
+  import { initTabs, initPickers } from '../../scripts/tabs';
+  initTabs();
   initPickers();
 </script>
 
 <style>
+  .biz__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px 40px;
+    flex-wrap: wrap;
+  }
+  /* Tab ala `.business-right-tab` Adani: 20 px, aktif = teks bergradien +
+     garis gradien 4 px yang tumbuh dari kiri. */
+  .biz__tabs { display: flex; max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+  .biz__tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    position: relative;
+    flex: none;
+    padding: 10px 24px;
+    border-bottom: 1px solid var(--line);
+    font-size: calc(20px * var(--fs));
+    font-weight: 440;
+    color: var(--ink-muted);
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+    transition: color var(--t) var(--ease-std);
+  }
+  .tab::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 4px;
+    background: var(--grad-bar);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s var(--ease-out);
+  }
+  .tab:hover { color: var(--ink); }
+  .tab.is-active {
+    background: var(--grad-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .tab.is-active::after { transform: none; }
+  /* Panel tab yang baru tampil masuk pelan (bukan berkedip). */
+  .biz__panel:not([hidden]) { animation: biz-in 0.6s var(--ease-out); }
+  @keyframes biz-in {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .biz__panel:not([hidden]) { animation: none; }
+  }
+
   .biz__panel:not([hidden]) {
     display: flex;
     align-items: stretch;
@@ -279,8 +351,12 @@ const arrow = '<path d="M0 6h16M11 1l5 5-5 5" fill="none" stroke="currentColor" 
     .biz__panel:not([hidden]) { flex-direction: column; gap: 20px; }
     .biz__tiles { width: 100%; }
     .biz__big { width: 100%; min-height: 0; aspect-ratio: 4 / 3; }
+    .tab { padding: 10px 16px; font-size: calc(17px * var(--fs)); }
   }
   @media (max-width: 480px) {
+    /* Tiga tab muat selebar layar HP: dibagi rata, label boleh dua baris. */
+    .biz__tabs { width: 100%; }
+    .tab { flex: 1 1 0; padding: 10px 6px 12px; font-size: calc(15px * var(--fs)); line-height: 1.25; white-space: normal; text-align: center; }
     .biz__big { aspect-ratio: 1 / 1; }
     .big__links { padding: 0 16px; bottom: 16px; }
     .big__links li a { font-size: calc(14px * var(--fs)); padding: 9px 10px; }

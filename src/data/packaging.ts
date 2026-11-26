@@ -13,8 +13,8 @@ import type { LineCategory, LineProduct } from './line-products';
  * yang disepakati. Tanpa kode produk dan tanpa nama merek produsen. */
 
 export const PACKAGING_CATEGORIES: LineCategory[] = [
-  { key: 'resins', label: 'Plastic Resins', body: 'Polyethylene, polypropylene, PET, PVC and polystyrene in pellet and powder form. We match the grade to your process, whether film, injection, blow moulding or extrusion.' },
-  { key: 'flexible', label: 'Films & Flexible', body: 'Polyethylene film on rolls, and bags and pouches for food, retail and industry. Printed or plain, in the thickness and width you work with.' },
+  { key: 'resins', label: 'Plastic Resins', image: 'pk-pet', body: 'Polyethylene, polypropylene, PET, PVC and polystyrene in pellet and powder form. We match the grade to your process, whether film, injection, blow moulding or extrusion.' },
+  { key: 'flexible', label: 'Films & Flexible', image: 'pk-pouches', body: 'Polyethylene film on rolls, and bags and pouches for food, retail and industry. Printed or plain, in the thickness and width you work with.' },
   { key: 'rigid', label: 'Bottles & Jars', body: 'PET, HDPE and PP bottles and jars with matching caps and closures. For food, home care, personal care and chemicals.' },
   { key: 'food', label: 'Food Packaging', body: 'Containers, cups, lids and trays for takeaway, bakery and fresh food. Microwave-safe PP and clear PET in common sizes.' },
   { key: 'glass', label: 'Glass for Fragrance', body: 'Glass perfume bottles, sprayers, caps and sample vials. Clear or coloured glass in standard neck finishes.' },

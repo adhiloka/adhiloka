@@ -15,7 +15,7 @@ export const ABOUT_INTRO: PageIntro = {
   metaTitle: 'About',
   lede: '',
   description:
-    'Adhiloka Group brings together natural ingredients and perfumery, seafood, and plastics and packaging, from Indonesia.',
+    'Adhiloka Group brings together natural aromatics, marine products and polymers, from Indonesia.',
   image: 'hero-woman-golden-light',
   focus: '50% 30%',
   caption: 'smiling woman in late afternoon sun',
@@ -23,7 +23,7 @@ export const ABOUT_INTRO: PageIntro = {
 
 /* Situs grup (26 Nov 2026): Who We Are dan How We Work ditulis untuk grup. */
 export const ABOUT_WHO =
-  'Adhiloka Group brings together natural ingredients and perfumery, seafood, and plastics and packaging. Each business works with its own materials and its own customers, and all of them share one way of working: stay close to the source and stand behind what we supply.';
+  'Adhiloka Group brings together natural aromatics, marine products and polymers. Each business works with its own materials and its own customers, and all of them share one way of working: stay close to the source and stand behind what we supply.';
 
 export const ABOUT_HOW =
   'We know where every product comes from and who handled it before us. We check what we ship, keep to the agreed specification, and build relationships that last beyond the first order.';

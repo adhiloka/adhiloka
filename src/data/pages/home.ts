@@ -1,4 +1,6 @@
 import type { ImageKey } from '../images';
+import { businessByKey } from '../businesses';
+import { LINE_CATALOG, categoryImage, lineCategoryHref, lineProductHref } from '../line-products';
 
 /* Naskah beranda, disusun menurut urutan section adani.com:
  * hero slider → kutipan terbelah → Our Business → akordeon keberlanjutan →
@@ -36,59 +38,14 @@ export type HeroSlide = {
   focus?: string;
 };
 
-/* Situs grup (pemilik, 26 Nov 2026): empat slide di bawah ini (final 21 Nov
- * 2026) pindah apa adanya ke beranda lini /natural-ingredients-perfumery/.
- * Beranda grup memakai GROUP_HERO_SLIDES. */
-export const NATURALS_HERO_SLIDES: HeroSlide[] = [
-  {
-    title: ['We Are Adhiloka'],
-    line: ['Natural Ingredients & Perfumery'],
-    href: '/about/',
-    image: 'hero-woman-golden-light',
-    focus: '72% 50%',
-    alt: 'Smiling woman lit by the late afternoon sun',
-  },
-  {
-    title: ['Where Scent', 'Becomes Memory'],
-    line: ['Fine Fragrance & Consumer Fragrance'],
-    href: '/perfumery/',
-    image: 'hero-smelling-vial',
-    focus: '62% 50%',
-    alt: 'Woman with eyes closed smelling a small fragrance bottle',
-  },
-  {
-    title: ['The Raw Materials', 'of Fine Fragrance'],
-    line: ['Essential Oils, Resinoids & Extracts'],
-    href: '/ingredients/',
-    image: 'hero-blossom-golden',
-    focus: '45% 50%',
-    alt: 'Blossom backlit by the golden evening sun',
-  },
-  {
-    title: ['Rooted in Care'],
-    line: ['Responsible Sourcing for People and the Land'],
-    href: '/sustainability/',
-    image: 'hero-hands-seedling',
-    focus: '65% 50%',
-    alt: 'Hands holding a young seedling in soil',
-  },
-];
+/* Hero empat slide naturals (final 21 Nov 2026) dilepas 27 Nov 2026: halaman
+ * lini kini sub-halaman berbanner (pemilik). Isinya ada di riwayat git. */
 
 /* ── Kutipan terbelah ────────────────────────────────────────────────── */
 
 /* Kata yang diapit *bintang* dicetak tebal, seperti kata kunci pada kutipan
-   di beranda Adani. Sejak 18 Okt 2026 berupa pernyataan tujuan atas nama
-   perusahaan (gaya "Our purpose" Givaudan/Robertet), disetujui pemilik. */
-export const HOME_QUOTE = {
-  text: 'We bring the *scent of living plants* to those who create with it, and we look after *the land and the hands* behind every harvest.',
-  cta: 'Discover More',
-  href: '/about/our-purpose/',
-  /* Kutipan dan foto diganti 14 Nov 2026 (pemilik: yang anak-anak berlari
-     dibuat yang lain). Polanya pernyataan tujuan satu kalimat seperti
-     dsm-firmenich, Robertet dan Symrise; fotonya tegak, pas dengan bingkai. */
-  image: 'pepper-harvest-hands' as ImageKey,
-  alt: 'Hands picking pepper berries from the vine',
-};
+   di beranda Adani. Kutipan naturals (HOME_QUOTE) dilepas 27 Nov 2026
+   bersama beranda lini; kutipan grup di GROUP_QUOTE. */
 
 /* ── Akordeon keberlanjutan ──────────────────────────────────────────── */
 
@@ -150,7 +107,8 @@ export type BusinessPane = {
 };
 
 /* Situs grup: empat tile di bawah ini (final 22 Nov 2026) pindah apa adanya
- * ke beranda lini naturals. Beranda grup memakai GROUP_PANES. */
+ * ke beranda lini naturals; sejak 27 Nov 2026 jadi tab Natural Aromatics di
+ * Our Businesses beranda grup (GROUP_TABS). */
 export const NATURALS_PANES: BusinessPane[] = [
   {
     key: 'ingredients',
@@ -211,7 +169,7 @@ export const NATURALS_PANES: BusinessPane[] = [
 export const GROUP_HERO_SLIDES: HeroSlide[] = [
   {
     title: ['We Are Adhiloka'],
-    line: ['Natural Ingredients · Seafood · Plastics & Packaging'],
+    line: ['Natural Aromatics · Marine Products · Polymers'],
     href: '/about/',
     image: 'hero-woman-golden-light',
     focus: '72% 50%',
@@ -219,28 +177,28 @@ export const GROUP_HERO_SLIDES: HeroSlide[] = [
   },
   {
     title: ['Scent from', 'Living Plants'],
-    line: ['Natural Ingredients & Perfumery'],
-    href: '/natural-ingredients-perfumery/',
+    line: ['Natural Aromatics'],
+    href: '/natural-aromatics/',
     image: 'labelled-bottles',
     alt: 'Hands arranging labelled amber bottles on a marble table',
   },
   {
     title: ["The Sea's Harvest"],
-    line: ['Frozen & Dried Seafood'],
-    href: '/seafood/',
+    line: ['Marine Products'],
+    href: '/marine-products/',
     image: 'line-seafood',
     alt: 'Fresh fish laid on crushed ice',
   },
   {
     title: ['Made to Hold', 'and Protect'],
-    line: ['Resins, Films & Packaging'],
-    href: '/plastics-packaging/',
+    line: ['Polymers'],
+    href: '/polymers/',
     image: 'line-packaging',
     alt: 'Clear plastic pellets held in an open hand',
   },
 ];
 
-/* Kutipan grup, pola pernyataan tujuan satu kalimat seperti HOME_QUOTE. */
+/* Kutipan grup, pola pernyataan tujuan satu kalimat. */
 export const GROUP_QUOTE = {
   text: 'From *the land*, from *the sea*, and the *materials that carry them*: we know what we supply, and we stand behind it.',
   cta: 'Discover More',
@@ -249,56 +207,32 @@ export const GROUP_QUOTE = {
   alt: 'Fishing boats resting on calm water at first light',
 };
 
-/* Our Business beranda grup: bentuk tile 2 x 2 + foto besar tetap; tiga lini
- * dan Sustainability. Chip = bagian di halaman tujuan. */
-export const GROUP_PANES: BusinessPane[] = [
-  {
-    key: 'naturals',
-    label: 'Natural Ingredients & Perfumery',
-    image: 'labelled-bottles',
-    chips: [
-      { label: 'Ingredient Catalog', href: '/ingredients/catalog/' },
-      { label: 'Ingredients Map', href: '/ingredients/map/' },
-      { label: 'Technology', href: '/ingredients/technology/' },
-      { label: 'Perfumery', href: '/perfumery/' },
-    ],
-    href: '/natural-ingredients-perfumery/',
-  },
-  {
-    key: 'seafood',
-    label: 'Seafood',
-    image: 'line-seafood',
-    chips: [
-      { label: 'Frozen Fish', href: '/seafood/products/?cat=fish' },
-      { label: 'Shrimp & Crab', href: '/seafood/products/?cat=crustaceans' },
-      { label: 'Squid & Octopus', href: '/seafood/products/?cat=cephalopods' },
-      { label: 'Dried Marine Products', href: '/seafood/products/?cat=dried' },
-    ],
-    href: '/seafood/',
-  },
-  {
-    key: 'packaging',
-    label: 'Plastics & Packaging',
-    image: 'line-packaging',
-    chips: [
-      { label: 'Plastic Resins', href: '/plastics-packaging/products/?cat=resins' },
-      { label: 'Films & Flexible', href: '/plastics-packaging/products/?cat=flexible' },
-      { label: 'Bottles & Jars', href: '/plastics-packaging/products/?cat=rigid' },
-      { label: 'Glass for Fragrance', href: '/plastics-packaging/products/?cat=glass' },
-    ],
-    href: '/plastics-packaging/',
-  },
-  {
-    key: 'sustainability',
-    label: 'Sustainability',
-    image: 'hero-tea-hills',
-    chips: [
-      { label: 'Responsible Sourcing', href: '/sustainability/responsible-sourcing/' },
-      { label: 'Progress for People', href: '/sustainability/people/' },
-      { label: 'Partnerships', href: '/sustainability/people/#partnerships' },
-    ],
-    href: '/sustainability/',
-  },
+/* Our Businesses beranda grup (pemilik, 27 Nov 2026: "tiru Adani, sekarang
+ * bisnisnya sudah tiga"). Pola section Businesses adani.com: tab per lini,
+ * tiap tab empat tile 2 x 2 yang memilih foto besar berchip + Explore More.
+ *   Natural Aromatics = empat tile final 22 Nov 2026 (NATURALS_PANES).
+ *   Marine Products / Polymers = empat kategori; foto = foto produk pertama
+ *   kategori itu (categoryImage), chip = produknya, Explore More = jangkar
+ *   kategori di halaman Products. */
+export type BusinessTab = { key: string; label: string; href: string; panes: BusinessPane[] };
+
+const linePanes = (line: 'seafood' | 'packaging', cats: string[]): BusinessPane[] =>
+  cats.map((cat) => {
+    const { categories, products } = LINE_CATALOG[line];
+    const c = categories.find((x) => x.key === cat)!;
+    return {
+      key: `${line}-${cat}`,
+      label: c.label,
+      image: categoryImage(line, cat),
+      chips: products.filter((p) => p.category === cat).slice(0, 4).map((p) => ({ label: p.name, href: lineProductHref(p) })),
+      href: lineCategoryHref(line, cat),
+    };
+  });
+
+export const GROUP_TABS: BusinessTab[] = [
+  { key: 'naturals', label: businessByKey('naturals').name, href: businessByKey('naturals').href, panes: NATURALS_PANES },
+  { key: 'seafood', label: businessByKey('seafood').name, href: businessByKey('seafood').href, panes: linePanes('seafood', ['fish', 'crustaceans', 'cephalopods', 'dried']) },
+  { key: 'packaging', label: businessByKey('packaging').name, href: businessByKey('packaging').href, panes: linePanes('packaging', ['resins', 'flexible', 'rigid', 'glass']) },
 ];
 
 /* ── Join Us ─────────────────────────────────────────────────────────── */

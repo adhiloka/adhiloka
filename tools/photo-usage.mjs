@@ -37,6 +37,8 @@ const ALLOW = {};
 const IGNORE = [/src\/layouts\/BaseLayout\.astro/];
 /* Konteks yang sama dengan nama berbeda: blok di halaman ↔ tautan ke jangkarnya. */
 const OWNER_CTX = { PERFUMERY_PALETTE: '/perfumery/#palette', ABOUT_MORE: '/sustainability/' };
+/* Berkas produk lini → halaman Products-nya. */
+const LINE_FILES = { 'src/data/seafood.ts': '/marine-products/products/', 'src/data/packaging.ts': '/polymers/products/' };
 
 /* ── Kunci dan berkasnya ─────────────────────────────────────────────── */
 const imagesTs = readFileSync(join(SRC, 'data/images.ts'), 'utf8');
@@ -169,6 +171,14 @@ function contextAt(text, pos, file) {
   if (quote && owner) return { ctx: `kutipan ${owner}`, how: `kutipan ${owner}`, lineNo };
   if (owner === 'FAMILY_IMAGE' && prop) return { ctx: `/ingredients/catalog/?family=${prop}`, how: `keluarga ${prop}`, lineNo };
   if (OWNER_CTX[owner]) return { ctx: OWNER_CTX[owner], how: `blok ${owner}`, lineNo };
+  /* Produk lini Marine Products / Polymers (27 Nov 2026): kategori adalah
+     satuannya (tanpa kode produk), jadi foto produk dan foto wakil kategori
+     berkonteks kategori itu: /…/products/#<kategori>. Tile beranda dan kartu
+     halaman lini yang menaut ke jangkar itu memakai salah satu foto ini. */
+  if (LINE_FILES[rel(file)]) {
+    const cat = owner?.endsWith('_CATEGORIES') ? full.match(/\bkey\s*:\s*'([\w-]+)'/)?.[1] : full.match(/\bcategory\s*:\s*'([\w-]+)'/)?.[1];
+    if (cat) return { ctx: `${LINE_FILES[rel(file)]}#${cat}`, how: `${owner?.endsWith('_CATEGORIES') ? 'kategori' : 'produk'} ${title ?? cat}`, lineNo };
+  }
   if (anchor && rel(file) === 'src/data/pages/perfumery.ts') return { ctx: `/perfumery/#${anchor}`, how: `bagian ${title ?? anchor}`, lineNo };
   if (href) return { ctx: norm(href), how: `tautan ${href}`, lineNo };
   if (owner && (/_INTRO$/.test(owner) || owner === 'intro') && introPage[owner]) return { ctx: introPage[owner], how: `banner ${owner}`, lineNo };
