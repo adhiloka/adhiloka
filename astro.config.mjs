@@ -40,20 +40,26 @@ export default defineConfig({
     // Situs grup 26 Nov 2026: Our Business jadi Our Businesses di level grup.
     '/about/our-business/': '/our-businesses/',
     // Nama lini diganti 27 Nov 2026 (pemilik): Fragrance, Fisheries,
-    // Polymers. Alamat lama (dua putaran nama) dialihkan langsung.
+    // Polymers; 28 Nov 2026 jadi Marine Delicacies dan Packaging. Alamat lama
+    // (tiga putaran nama) dialihkan langsung ke alamat sekarang.
     '/natural-ingredients-perfumery/': '/fragrance/',
     '/natural-aromatics/': '/fragrance/',
-    '/seafood/': '/fisheries/',
-    '/seafood/products/': '/fisheries/',
-    '/marine-products/': '/fisheries/',
-    '/marine-products/products/': '/fisheries/',
-    // Katalog lini pindah ke halaman lini 27 Nov 2026 (#catalog).
-    '/fisheries/products/': '/fisheries/',
-    '/polymers/products/': '/polymers/',
+    '/seafood/': '/marine-delicacies/',
+    '/seafood/products/': '/marine-delicacies/',
+    '/marine-products/': '/marine-delicacies/',
+    '/marine-products/products/': '/marine-delicacies/',
+    '/fisheries/': '/marine-delicacies/',
+    '/fisheries/products/': '/marine-delicacies/',
+    '/fisheries/[slug]': '/marine-delicacies/[slug]',
+    '/fisheries/[slug]/[code]': '/marine-delicacies/[slug]/[code]',
+    '/plastics-packaging/': '/packaging/',
+    '/plastics-packaging/products/': '/packaging/',
+    '/polymers/': '/packaging/',
+    '/polymers/products/': '/packaging/',
+    '/polymers/[slug]': '/packaging/[slug]',
+    '/polymers/[slug]/[code]': '/packaging/[slug]/[code]',
     // Working With Us dilepas 27 Nov 2026 (pemilik); halamannya diparkir.
     '/ingredients/working-with-us/': '/contact/',
-    '/plastics-packaging/': '/polymers/',
-    '/plastics-packaging/products/': '/polymers/',
   },
   build: { inlineStylesheets: 'auto' },
 

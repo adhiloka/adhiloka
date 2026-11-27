@@ -21,10 +21,10 @@ import type { LineCategory, LineItem, LineProduct } from './line-products';
  * produksi sendiri atau trading; tanpa klaim food-contact bersertifikat. */
 
 export const PACKAGING_CATEGORIES: LineCategory[] = [
-  { key: 'bags', label: 'Bags & Pouches', body: 'Carrier bags, clear bags, zipper bags, stand-up pouches and trash bags for shops, restaurants and kitchens.' },
+  { key: 'bags', label: 'Bags & Pouches', body: 'Carrier bags, clear bags, zipper bags, stand-up pouches and trash bags for shops and kitchens.' },
   { key: 'films', label: 'Films & Wraps', image: 'pk-ldpe', body: 'Cling wrap for the kitchen and stretch film for wrapping cartons and pallets.' },
   { key: 'sacks', label: 'Sacks & Bulk Bags', image: 'pm-woven-sacks', body: 'Woven plastic sacks, jute sacks and jumbo bags for rice, flour, sugar, produce and bulk goods.' },
-  { key: 'food', label: 'Cups & Containers', body: 'Takeaway cups, lids and food containers for cafés, restaurants and delivery.' },
+  { key: 'food', label: 'Cups & Containers', body: 'Takeaway cups, lids and food containers for cafés, kitchens and delivery.' },
 ];
 
 const P = (code: string, name: string, type: string, spec: [string, string][]): LineProduct => ({ code, name, type, spec });

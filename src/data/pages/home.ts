@@ -163,38 +163,40 @@ export const NATURALS_PANES: BusinessPane[] = [
 /* ── Beranda grup (situs grup, pemilik 26 Nov 2026) ──────────────────── */
 
 /* Hero grup, takaran sama dengan hero naturals: judul pendek dua baris, satu
- * baris kecil. Slide 1 memakai foto dan tautan slide We Are Adhiloka yang
- * final; baris kecilnya menyebut ketiga lini. Foto slide lini = foto beranda
- * lini itu (businesses.ts). */
+ * baris kecil. Foto slide lini = foto halaman lini itu (businesses.ts).
+ * 28 Nov 2026 (pemilik): baris slide 1 tidak lagi mendaftar nama lini;
+ * judul dan baris slide 2 diganti; slide laut "Treasures of the Sea"
+ * (fotonya tetap); lini Fisheries jadi Marine Delicacies dan Polymers jadi
+ * Packaging, foto biji plastik diganti foto gelas takeaway. */
 export const GROUP_HERO_SLIDES: HeroSlide[] = [
   {
     title: ['We Are Adhiloka'],
-    line: ['Fragrance · Fisheries · Polymers'],
+    line: ['Adhiloka Group'],
     href: '/about/',
     image: 'hero-woman-golden-light',
     focus: '72% 50%',
     alt: 'Smiling woman lit by the late afternoon sun',
   },
   {
-    title: ['Scent from', 'Living Plants'],
-    line: ['Fragrance'],
+    title: ['Nature,', 'Distilled'],
+    line: ['Essential Oils & Perfumery'],
     href: '/fragrance/',
     image: 'labelled-bottles',
     alt: 'Hands arranging labelled amber bottles on a marble table',
   },
   {
-    title: ["The Sea's Harvest"],
-    line: ['Fisheries'],
-    href: '/fisheries/',
+    title: ['Treasures', 'of the Sea'],
+    line: ['Marine Delicacies'],
+    href: '/marine-delicacies/',
     image: 'line-seafood',
     alt: 'Fresh fish laid on crushed ice',
   },
   {
     title: ['Made to Hold', 'and Protect'],
-    line: ['Polymers'],
-    href: '/polymers/',
+    line: ['Packaging'],
+    href: '/packaging/',
     image: 'line-packaging',
-    alt: 'Clear plastic pellets held in an open hand',
+    alt: 'Barista handing a takeaway cup across the counter',
   },
 ];
 
@@ -207,31 +209,65 @@ export const GROUP_QUOTE = {
   alt: 'Fishing boats resting on calm water at first light',
 };
 
-/* Our Businesses beranda grup (pemilik, 27 Nov 2026: "tiru Adani, sekarang
- * bisnisnya sudah tiga"). Pola section Businesses adani.com: tab per lini,
- * tiap tab empat tile 2 x 2 yang memilih foto besar berchip + Explore More.
- *   Fragrance = empat tile final 22 Nov 2026 (NATURALS_PANES).
- *   Fisheries / Polymers = empat kategori; foto = foto produk pertama
- *   kategori itu (categoryImage), chip = produknya, Explore More = jangkar
- *   kategori di halaman Products. */
+/* Our Businesses beranda grup. 28 Nov 2026 (pemilik: "dua tab, bukan tiga;
+ * cek Adani"): pola section Businesses adani.com yang punya dua tab,
+ * Verticals dan Listed Companies.
+ *   Verticals = tiga lini + Sustainability, empat tile 2 x 2; foto = foto
+ *     halaman tujuan (lini: businesses.ts), chip = isi lini.
+ *   Products  = padanan Listed Companies: empat kelompok yang kami pasok.
+ *     Natural Ingredients dan Perfumery = tile final 22 Nov 2026; laut dan
+ *     kemasan = satu kategori katalog, foto = foto kategori (categoryImage).
+ * Kategori Fish tidak dipakai di beranda (pemilik: kami tidak menjual ikan). */
 export type BusinessTab = { key: string; label: string; href: string; panes: BusinessPane[] };
 
-const linePanes = (line: 'seafood' | 'packaging', cats: string[]): BusinessPane[] =>
-  cats.map((cat) => {
-    const c = LINE_CATALOG[line].categories.find((x) => x.key === cat)!;
-    return {
-      key: `${line}-${cat}`,
-      label: c.label,
-      image: categoryImage(line, cat),
-      chips: lineItemsOf(line, cat).slice(0, 5).map((i) => ({ label: i.name, href: lineItemHref(i) })),
-      href: lineCategoryHref(line, cat),
-    };
-  });
+const catChips = (line: 'seafood' | 'packaging', cats: string[]) =>
+  cats.map((cat) => ({ label: LINE_CATALOG[line].categories.find((x) => x.key === cat)!.label, href: lineCategoryHref(line, cat) }));
+
+const linePane = (line: 'seafood' | 'packaging', cats: string[]): BusinessPane => {
+  const b = businessByKey(line);
+  return { key: `v-${line}`, label: b.name, image: b.image, chips: catChips(line, cats), href: b.href };
+};
+
+const categoryPane = (line: 'seafood' | 'packaging', cat: string): BusinessPane => ({
+  key: `p-${line}-${cat}`,
+  label: LINE_CATALOG[line].categories.find((x) => x.key === cat)!.label,
+  image: categoryImage(line, cat),
+  chips: lineItemsOf(line, cat).slice(0, 5).map((i) => ({ label: i.name, href: lineItemHref(i) })),
+  href: lineCategoryHref(line, cat),
+});
+
+const fragrance = businessByKey('naturals');
+const paneOf = (key: string) => NATURALS_PANES.find((p) => p.key === key)!;
 
 export const GROUP_TABS: BusinessTab[] = [
-  { key: 'naturals', label: businessByKey('naturals').name, href: businessByKey('naturals').href, panes: NATURALS_PANES },
-  { key: 'seafood', label: businessByKey('seafood').name, href: businessByKey('seafood').href, panes: linePanes('seafood', ['fish', 'crustaceans', 'cephalopods', 'dried']) },
-  { key: 'packaging', label: businessByKey('packaging').name, href: businessByKey('packaging').href, panes: linePanes('packaging', ['bags', 'films', 'sacks', 'food']) },
+  {
+    key: 'verticals',
+    label: 'Verticals',
+    href: '/our-businesses/',
+    panes: [
+      {
+        key: 'v-fragrance',
+        label: fragrance.name,
+        image: fragrance.image,
+        chips: [
+          { label: 'Ingredients', href: '/ingredients/' },
+          { label: 'Perfumery', href: '/perfumery/' },
+          { label: 'Ingredient Catalog', href: '/ingredients/catalog/' },
+          { label: 'Technology', href: '/ingredients/technology/' },
+        ],
+        href: fragrance.href,
+      },
+      linePane('seafood', ['crustaceans', 'cephalopods', 'dried']),
+      linePane('packaging', ['bags', 'films', 'sacks', 'food']),
+      paneOf('sustainability'),
+    ],
+  },
+  {
+    key: 'products',
+    label: 'Products',
+    href: '/our-businesses/',
+    panes: [paneOf('ingredients'), paneOf('perfumery'), categoryPane('seafood', 'dried'), categoryPane('packaging', 'food')],
+  },
 ];
 
 /* ── Join Us ─────────────────────────────────────────────────────────── */

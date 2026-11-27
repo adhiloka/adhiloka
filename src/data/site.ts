@@ -4,9 +4,9 @@ import { BUSINESSES, BUSINESS_LINKS } from './businesses';
 export const SITE = {
   name: 'Adhiloka',
   legalName: 'Adhiloka Group',
-  tagline: 'Fragrance · Fisheries · Polymers',
+  tagline: 'Fragrance · Marine Delicacies · Packaging',
   description:
-    'Adhiloka Group is a family of businesses in Indonesia: fragrance, fisheries and polymers.',
+    'Adhiloka Group is a family of businesses in Indonesia: fragrance, marine delicacies and packaging.',
   locale: 'en_ID',
   lang: 'en',
   email: 'info@adhiloka.com',
@@ -64,7 +64,7 @@ export const NAV: NavItem[] = [
     label: 'Our Businesses',
     href: '/our-businesses/',
     match: BUSINESSES.flatMap((b) => b.paths),
-    blurb: 'Fragrance, fisheries and polymers.',
+    blurb: 'Fragrance, marine delicacies and packaging.',
     panel: {
       title: 'Our Businesses',
       shot: 'container ship at sea in warm evening light',
@@ -132,8 +132,8 @@ export const SOCIAL: { label: string; href: string }[] = [];
 export const SEARCH_SUGGESTIONS = [
   { label: 'Benzoin Sumatra', href: '/ingredients/catalog/benzoin-sumatra/' },
   { label: 'Patchouli', href: '/ingredients/catalog/patchouli/' },
-  { label: 'Fisheries products', href: '/fisheries/products/' },
-  { label: 'Plastic resins', href: '/polymers/products/#resins' },
+  { label: 'Marine delicacies', href: '/marine-delicacies/' },
+  { label: 'Packaging', href: '/packaging/' },
   { label: 'Perfumery', href: '/perfumery/' },
   { label: 'Sample request', href: '/contact/?kind=sample' },
 ];

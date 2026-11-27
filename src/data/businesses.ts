@@ -4,9 +4,11 @@ import type { NavLink } from './site';
 /* Tiga lini usaha Adhiloka Group (pemilik, 26 Nov 2026; keputusan
  * "2026-11-26 Website becomes group site"). Nama diganti 27 Nov 2026
  * dua kali (pemilik): jangan "Seafood", "Plastics & Packaging", "Natural
- * Aromatics", "Marine Products". Kini Fragrance · Fisheries · Polymers: kata
- * benda pendek bergaya nama segmen (Maruha Nichiro "Fishery segment", Saudi
- * Fisheries Company; Formerra "polymers"). Kunci internal
+ * Aromatics", "Marine Products". 28 Nov 2026 (pemilik): Fisheries ditolak
+ * (kami tidak menjual ikan) dan Polymers ditolak (terbaca jual biji plastik);
+ * kini Fragrance · Marine Delicacies · Packaging. Lini laut dan kemasan
+ * melayani kebutuhan usaha makanan-minuman, tetapi naskah tidak menyebut
+ * hotel atau restoran secara khusus (pemilik). Kunci internal
  * (naturals/seafood/packaging) tetap.
  * Satu-satunya sumber nama, alamat,
  * foto, dan bilah sub-menu tiap lini: dipakai menu Our Businesses (site.ts),
@@ -59,25 +61,25 @@ export const BUSINESSES: Business[] = [
   },
   {
     key: 'seafood',
-    name: 'Fisheries',
-    href: '/fisheries/',
-    paths: ['/fisheries/'],
+    name: 'Marine Delicacies',
+    href: '/marine-delicacies/',
+    paths: ['/marine-delicacies/'],
     image: 'line-seafood',
     alt: 'Fresh fish laid on crushed ice',
-    line: 'Frozen fish, shrimp, crab and cephalopods, and dried products from the sea, for importers and processors.',
+    line: 'Live lobster, shellfish and dried delicacies of the sea, graded for the kitchen.',
     color: '#1d5d78',
-    pages: [{ label: 'Products', href: '/fisheries/products/' }],
+    pages: [],
   },
   {
     key: 'packaging',
-    name: 'Polymers',
-    href: '/polymers/',
-    paths: ['/polymers/'],
+    name: 'Packaging',
+    href: '/packaging/',
+    paths: ['/packaging/'],
     image: 'line-packaging',
-    alt: 'Clear plastic pellets held in an open hand',
-    line: 'Polyethylene, polypropylene and other resins, films, bottles, food packaging and glass for fragrance.',
+    alt: 'Barista handing a takeaway cup across the counter',
+    line: 'Bags, wraps, cups and takeaway containers for the kitchens and shops that use them every day.',
     color: '#45596a',
-    pages: [{ label: 'Products', href: '/polymers/products/' }],
+    pages: [],
   },
 ];
 
