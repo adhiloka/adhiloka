@@ -168,10 +168,13 @@ export const NATURALS_PANES: BusinessPane[] = [
  * judul dan baris slide 2 diganti; slide laut "Treasures of the Sea"
  * ; lini Fisheries jadi Marine Delicacies, Polymers jadi Plastics. Putaran 2
  * (pemilik): foto ikan diganti lobster di terumbu; foto Plastics bertema
- * plastik (gelas plastik bening), bukan gelas kertas. */
+ * plastik (gelas plastik bening), bukan gelas kertas.
+ * Putaran 3 (pemilik, 28 Nov 2026, final): judul dan baris keempat slide
+ * ditetapkan pemilik kata per kata, termasuk tanda titiknya; jangan diubah
+ * kecuali pemilik sendiri yang menyuruh. Pemisah baris judul hanya tata letak. */
 export const GROUP_HERO_SLIDES: HeroSlide[] = [
   {
-    title: ['We Are Adhiloka'],
+    title: ['Beyond Boundaries,', 'Building Possibilities'],
     line: ['Adhiloka Group'],
     href: '/about/',
     image: 'hero-woman-golden-light',
@@ -179,23 +182,23 @@ export const GROUP_HERO_SLIDES: HeroSlide[] = [
     alt: 'Smiling woman lit by the late afternoon sun',
   },
   {
-    title: ['Nature,', 'Distilled'],
-    line: ['Essential Oils & Perfumery'],
+    title: ['The Essence', 'of Nature.'],
+    line: ['Natural Ingredients & Perfumery'],
     href: '/fragrance/',
     image: 'labelled-bottles',
     alt: 'Hands arranging labelled amber bottles on a marble table',
   },
   {
-    title: ['Treasures', 'of the Sea'],
-    line: ['Marine Delicacies'],
+    title: ['Treasures', 'of the Ocean.'],
+    line: ['Fine Seafood'],
     href: '/marine-delicacies/',
     image: 'line-seafood',
     focus: '38% 50%',
     alt: 'Spiny lobster on a colourful coral reef',
   },
   {
-    title: ['Made to Hold', 'and Protect'],
-    line: ['Plastics'],
+    title: ['Designed to Protect.', 'Made to Perform.'],
+    line: ['Packaging & Plastic Solutions'],
     href: '/plastics/',
     image: 'line-packaging',
     alt: 'Hand holding a clear plastic cup of iced coffee',
