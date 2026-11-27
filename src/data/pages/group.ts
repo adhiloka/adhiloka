@@ -9,7 +9,7 @@ export const OUR_BUSINESSES_INTRO: PageIntro = {
   title: 'Our Businesses',
   lede: '',
   description:
-    'Adhiloka Group: fragrance, marine delicacies and packaging, supplied from Indonesia.',
+    'Adhiloka Group: fragrance, marine delicacies and plastics, supplied from Indonesia.',
   image: 'biz-overview',
   caption: 'container ship at sea in warm evening light',
 };
@@ -24,7 +24,7 @@ export const BUSINESS_BODY: Record<string, string> = {
   naturals:
     'Essential oils, resinoids and extracts from resins, leaves, roots and spices, prepared for fragrance houses and independent perfumers. Alongside our ingredients, our perfumers create fragrances for fine fragrance and consumer products.',
   seafood:
-    'Frozen fish, shrimp, crab, squid and octopus, and dried marine products such as sea cucumber and fish maw. We grade, pack and freeze to each buyer’s specification and keep the cold chain unbroken to the port.',
+    'Live lobster and dried delicacies of the sea: sea cucumber, fish maw, shark fin and abalone. Each lot is graded and packed to the buyer’s specification.',
   packaging:
-    'Polyethylene, polypropylene and other resins in pellet form, together with films, pouches, bottles, jars and food packaging. For fragrance and personal care, we also supply glass bottles, sprayers and caps.',
+    'Plastic bags and pouches, cling wrap and stretch film, sacks and jumbo bags, and cups and takeaway containers. Each item comes in several materials, plain or printed.',
 };

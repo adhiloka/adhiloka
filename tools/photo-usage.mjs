@@ -38,7 +38,7 @@ const IGNORE = [/src\/layouts\/BaseLayout\.astro/];
 /* Konteks yang sama dengan nama berbeda: blok di halaman ↔ tautan ke jangkarnya. */
 const OWNER_CTX = { PERFUMERY_PALETTE: '/perfumery/#palette', ABOUT_MORE: '/sustainability/' };
 /* Berkas produk lini → halaman Products-nya. */
-const LINE_FILES = { 'src/data/seafood.ts': '/marine-delicacies/', 'src/data/packaging.ts': '/packaging/' };
+const LINE_FILES = { 'src/data/seafood.ts': '/marine-delicacies/', 'src/data/packaging.ts': '/plastics/' };
 
 /* ── Kunci dan berkasnya ─────────────────────────────────────────────── */
 const imagesTs = readFileSync(join(SRC, 'data/images.ts'), 'utf8');

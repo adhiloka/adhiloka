@@ -176,21 +176,6 @@ import linePackaging from '../assets/images/line-packaging.jpg';
 import groupQuote from '../assets/images/group-quote.jpg';
 import aboutSea from '../assets/images/about-sea.jpg';
 import aboutPlastics from '../assets/images/about-plastics.jpg';
-import sfProducts from '../assets/images/sf-products.jpg';
-import sfQuality from '../assets/images/sf-quality.jpg';
-import sfTuna from '../assets/images/sf-tuna.jpg';
-import sfSnapper from '../assets/images/sf-snapper.jpg';
-import sfGrouper from '../assets/images/sf-grouper.jpg';
-import sfVannamei from '../assets/images/sf-vannamei.jpg';
-import sfTiger from '../assets/images/sf-tiger.jpg';
-import sfCrab from '../assets/images/sf-crab.jpg';
-import sfSquid from '../assets/images/sf-squid.jpg';
-import sfOctopus from '../assets/images/sf-octopus.jpg';
-import sfClams from '../assets/images/sf-clams.jpg';
-import sfSeaCucumber from '../assets/images/sf-sea-cucumber.jpg';
-import sfFishMaw from '../assets/images/sf-fish-maw.jpg';
-import sfSharkFin from '../assets/images/sf-shark-fin.jpg';
-import sfAnchovy from '../assets/images/sf-anchovy.jpg';
 import pkProducts from '../assets/images/pk-products.jpg';
 import pkGrades from '../assets/images/pk-grades.jpg';
 import pkLdpe from '../assets/images/pk-ldpe.jpg';
@@ -209,8 +194,12 @@ import pkPerfumeBottles from '../assets/images/pk-perfume-bottles.jpg';
 import pkSprayers from '../assets/images/pk-sprayers.jpg';
 import pkVials from '../assets/images/pk-vials.jpg';
 // Katalog Fisheries dan Polymers, 27 Nov 2026.
-import fsMackerel from '../assets/images/fs-mackerel.jpg';
-import fsLobster from '../assets/images/fs-lobster.jpg';
+// Foto ikan Indonesia untuk katalog Fisheries, 27 Nov 2026 (Wikimedia Commons, kredit wajib).
+import fsSeaCucumber from '../assets/images/fs-sea-cucumber.jpg';
+import fsFishMaw from '../assets/images/fs-fish-maw.jpg';
+import fsSharkFin from '../assets/images/fs-shark-fin.jpg';
+import fsPearlLobster from '../assets/images/fs-pearl-lobster.jpg';
+import fsAbalone from '../assets/images/fs-abalone.jpg';
 import pmCarrierBags from '../assets/images/pm-carrier-bags.jpg';
 import pmClearBags from '../assets/images/pm-clear-bags.jpg';
 import pmTrashBags from '../assets/images/pm-trash-bags.jpg';
@@ -414,26 +403,11 @@ import pmWovenSacks from '../assets/images/pm-woven-sacks.jpg';
  *
  * 26 Nov 2026, situs grup (lini Seafood dan Plastics & Packaging), semua Pexels License.
  *   biz-overview  kapal kontainer di laut saat senja (Our Businesses)  [stock-photos/group/container-ship-sunset-pexels-14392678.jpg, Pexels License]
- *   line-seafood  ikan laut utuh bertumpuk di atas es (lini Seafood)  [stock-photos/seafood/sea-bass-on-ice-pexels-2042564.jpg, Pexels License]
- *   line-packaging  tangan memegang gelas berisi biji plastik biru (lini Plastics & Packaging)  [stock-photos/plastics-packaging/hands-plastic-granules-pexels-15158323.jpg, Pexels License]
+ *   line-seafood  lobster duri di terumbu karang berwarna (lini Marine Delicacies, sejak 28 Nov 2026; dulu ikan di atas es)  [stock-photos/seafood/spiny-lobster-reef-pexels-4610209.jpg, Pexels License]
+ *   line-packaging  tangan memegang gelas plastik bening berisi es kopi, latar hijau cerah (lini Plastics, sejak 28 Nov 2026)  [stock-photos/plastics-packaging/clear-plastic-cup-iced-drink-pexels-540533.jpg, Pexels License]
  *   group-quote  perahu nelayan tertambat di air tenang pagi hari, tegak (kutipan grup)  [stock-photos/group/fishing-boat-morning-pexels-30669124.jpg, Pexels License]
  *   about-sea  perahu kecil di air tenang di bawah langit senja (slider Who We Are)  [stock-photos/group/boats-calm-water-evening-pexels-33167436.jpg, Pexels License]
- *   about-plastics  biji plastik warna-warni berjajar (slider Who We Are)  [stock-photos/plastics-packaging/colourful-plastic-pellets-pexels-38741337.jpg, Pexels License]
- *   sf-products  hamparan ikan dan seafood di atas es dengan lemon (banner Seafood Products)  [stock-photos/seafood/seafood-flatlay-ice-pexels-20810997.jpg, Pexels License]
- *   sf-quality  ikan sea bass di atas es, dekat (Quality & Cold Chain)  [stock-photos/seafood/sea-bass-close-ice-pexels-10112459.jpg, Pexels License]
- *   sf-tuna  potongan loin tuna merah di atas es (Yellowfin Tuna)  [stock-photos/seafood/tuna-loin-ice-pexels-14062112.jpg, Pexels License]
- *   sf-snapper  kakap merah di atas es, dekat (Red Snapper)  [stock-photos/seafood/red-snapper-ice-pexels-8352787.jpg, Pexels License]
- *   sf-grouper  penjual ikan memegang kerapu utuh (Grouper)  [stock-photos/seafood/grouper-held-pexels-23626394.jpg, Pexels License]
- *   sf-vannamei  tumpukan udang mentah utuh (Vannamei Shrimp)  [stock-photos/seafood/raw-shrimp-heap-pexels-5273798.jpg, Pexels License]
- *   sf-tiger  udang windu mentah di atas es (Black Tiger Shrimp)  [stock-photos/seafood/tiger-prawns-ice-pexels-33653815.jpg, Pexels License]
- *   sf-crab  rajungan mentah bertumpuk (Blue Swimming Crab)  [stock-photos/seafood/blue-swimming-crabs-pexels-32987812.jpg, Pexels License]
- *   sf-squid  cumi segar di pasar ikan, dekat (Squid)  [stock-photos/seafood/squid-market-pexels-9995821.jpg, Pexels License]
- *   sf-octopus  gurita di nampan berisi es (Octopus)  [stock-photos/seafood/octopus-tray-ice-pexels-5589591.jpg, Pexels License]
- *   sf-clams  kerang segar dalam cangkang, dekat (Clams)  [stock-photos/seafood/clams-close-pexels-8352389.jpg, Pexels License]
- *   sf-sea-cucumber  tangan memegang teripang di atas air laut (Sea Cucumber)  [stock-photos/seafood/sea-cucumber-hand-pexels-8824660.jpg, Pexels License]
- *   sf-fish-maw  potongan ikan kering di nampan anyaman; bukan fish maw, pengganti sampai ada foto asli (Fish Maw)  [stock-photos/seafood/dried-fish-wicker-pexels-33634913.jpg, Pexels License]
- *   sf-shark-fin  seafood dijemur di pasar; bukan sirip hiu, pengganti sampai ada foto asli (Shark Fin)  [stock-photos/seafood/sun-dried-seafood-pexels-9638365.jpg, Pexels License]
- *   sf-anchovy  ikan kecil kering keemasan, dekat (Dried Anchovy)  [stock-photos/seafood/dried-small-fish-pexels-37035198.jpg, Pexels License]
+ *   about-plastics  stroberi dalam wadah plastik bening (slider Who We Are, sejak 28 Nov 2026; dulu biji plastik)  [stock-photos/plastics-packaging/strawberries-clear-plastic-punnets-pexels-175728.jpg, Pexels License]
  *   pk-products  krat plastik biru bertumpuk (banner Plastics & Packaging Products)  [stock-photos/plastics-packaging/blue-plastic-crates-pexels-24517725.jpg, Pexels License]
  *   pk-grades  botol bergerak di jalur mesin pengisian (The Right Grade for the Process)  [stock-photos/plastics-packaging/bottle-filling-line-pexels-18631423.jpg, Pexels License]
  *   pk-ldpe  sayuran di nampan berbalut film plastik bening (LDPE)  [stock-photos/plastics-packaging/vegetables-cling-film-pexels-30893267.jpg, Pexels License]
@@ -452,8 +426,12 @@ import pmWovenSacks from '../assets/images/pm-woven-sacks.jpg';
  *   pk-sprayers  jari menekan pompa semprot botol parfum (Sprayers & Caps)  [stock-photos/plastics-packaging/perfume-spray-pump-pexels-7033934.jpg, Pexels License]
  *   pk-vials  deretan vial kaca kecil (Sample Vials)  [stock-photos/plastics-packaging/glass-vials-row-pexels-9259964.jpg, Pexels License]
  * 27 Nov 2026, katalog Fisheries dan Polymers, semua Pexels License.
- *   fs-mackerel  ikan makerel segar bertumpuk di pasar (Spanish Mackerel)  [stock-photos/seafood/mackerel-pile-market-pexels-20121102.jpg, Pexels License]
- *   fs-lobster  lobster duri hidup di akuarium (Lobster)  [stock-photos/seafood/spiny-lobsters-aquarium-pexels-248455.jpg, Pexels License]
+ * 27 Nov 2026, foto ikan Indonesia pengganti foto ikan non-Asia (pemilik: "ikan Indonesia, jangan yang aneh-aneh"). Wikimedia Commons, kredit wajib:
+ *   fs-sea-cucumber  teripang duri kering, close-up (Sea Cucumber; sama dengan katalog PDF Marine Products, 28 Nov 2026)  [stock-photos/seafood/dried-sea-cucumber-close-unsplash-IF80KwHVh6Y.jpg, Unsplash License]
+ *   fs-fish-maw  satu fish maw kering, dipotong ke teksturnya seperti katalog PDF (Fish Maw)  [stock-photos/seafood/fish-maw-single-commons-yuentung.jpg, Wikimedia Commons]
+ *   fs-shark-fin  satu sirip hiu kering diperbesar seperti katalog PDF (Shark Fin)  [stock-photos/seafood/hk-skd-tko-tseung-kwan-o-lohas-park-mall-shop-kwon-commons-5ce0a949.jpg, CC BY-SA 4.0, Yuentung Kinmoralds]
+ *   fs-pearl-lobster  lobster mutiara di papan kayu (Lobster; sampul katalog PDF)  [stock-photos/seafood/csiro-scienceimage-2518-ornate-lobster-jpg-commons-503c6e75.jpg, CC BY 3.0, CSIRO]
+ *   fs-abalone  abalon kering bertumpuk (Abalone)  [stock-photos/seafood/dalian-dried-abalones-commons-cc0.jpg, CC0]
  *   pm-carrier-bags  kantong kresek bening berisi belanjaan di meja (Carrier Bags)  [stock-photos/plastics-packaging/cabbage-plastic-bags-pexels-5900192.jpg, Pexels License]
  *   pm-clear-bags  bawang putih dalam kantong plastik bening di latar putih (Clear Bags)  [stock-photos/plastics-packaging/garlic-clear-bag-pexels-4084642.jpg, Pexels License]
  *   pm-trash-bags  kantong sampah plastik hitam terikat (Trash Bags)  [stock-photos/plastics-packaging/black-garbage-bag-pexels-5994772.jpg, Pexels License]
@@ -633,21 +611,6 @@ export const images = {
   'group-quote': groupQuote,
   'about-sea': aboutSea,
   'about-plastics': aboutPlastics,
-  'sf-products': sfProducts,
-  'sf-quality': sfQuality,
-  'sf-tuna': sfTuna,
-  'sf-snapper': sfSnapper,
-  'sf-grouper': sfGrouper,
-  'sf-vannamei': sfVannamei,
-  'sf-tiger': sfTiger,
-  'sf-crab': sfCrab,
-  'sf-squid': sfSquid,
-  'sf-octopus': sfOctopus,
-  'sf-clams': sfClams,
-  'sf-sea-cucumber': sfSeaCucumber,
-  'sf-fish-maw': sfFishMaw,
-  'sf-shark-fin': sfSharkFin,
-  'sf-anchovy': sfAnchovy,
   'pk-products': pkProducts,
   'pk-grades': pkGrades,
   'pk-ldpe': pkLdpe,
@@ -665,8 +628,11 @@ export const images = {
   'pk-perfume-bottles': pkPerfumeBottles,
   'pk-sprayers': pkSprayers,
   'pk-vials': pkVials,
-  'fs-mackerel': fsMackerel,
-  'fs-lobster': fsLobster,
+  'fs-sea-cucumber': fsSeaCucumber,
+  'fs-fish-maw': fsFishMaw,
+  'fs-shark-fin': fsSharkFin,
+  'fs-pearl-lobster': fsPearlLobster,
+  'fs-abalone': fsAbalone,
   'pm-carrier-bags': pmCarrierBags,
   'pm-clear-bags': pmClearBags,
   'pm-trash-bags': pmTrashBags,

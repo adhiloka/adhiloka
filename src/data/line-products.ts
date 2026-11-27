@@ -3,7 +3,7 @@ import type { BusinessKey } from './businesses';
 import { SEAFOOD_CATEGORIES, SEAFOOD_ITEMS } from './seafood';
 import { PACKAGING_CATEGORIES, PACKAGING_ITEMS } from './packaging';
 
-/* Katalog lini Marine Delicacies dan Packaging (dulu Fisheries dan Polymers) (pemilik, 27 Nov 2026: "buat seperti
+/* Katalog lini Marine Delicacies dan Plastics (dulu Fisheries dan Polymers) (pemilik, 27 Nov 2026: "buat seperti
  * katalog Fragrance"). Bentuknya sama dengan katalog bahan: satu ITEM yang
  * dipahami orang awam (Grouper, Carrier Bags) berisi beberapa PRODUK berkode
  * 6 digit (jenis, bentuk, bahan, ukuran). Katalog tinggal di halaman lini
@@ -45,7 +45,7 @@ export type LineItem = {
 
 export const LINE_CATALOG = {
   seafood: { base: '/marine-delicacies/', categories: SEAFOOD_CATEGORIES, items: SEAFOOD_ITEMS },
-  packaging: { base: '/packaging/', categories: PACKAGING_CATEGORIES, items: PACKAGING_ITEMS },
+  packaging: { base: '/plastics/', categories: PACKAGING_CATEGORIES, items: PACKAGING_ITEMS },
 } as const;
 
 export const lineItemHref = (i: LineItem) => `${LINE_CATALOG[i.line].base}${i.slug}/`;

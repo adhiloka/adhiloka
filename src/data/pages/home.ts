@@ -166,8 +166,9 @@ export const NATURALS_PANES: BusinessPane[] = [
  * baris kecil. Foto slide lini = foto halaman lini itu (businesses.ts).
  * 28 Nov 2026 (pemilik): baris slide 1 tidak lagi mendaftar nama lini;
  * judul dan baris slide 2 diganti; slide laut "Treasures of the Sea"
- * (fotonya tetap); lini Fisheries jadi Marine Delicacies dan Polymers jadi
- * Packaging, foto biji plastik diganti foto gelas takeaway. */
+ * ; lini Fisheries jadi Marine Delicacies, Polymers jadi Plastics. Putaran 2
+ * (pemilik): foto ikan diganti lobster di terumbu; foto Plastics bertema
+ * plastik (gelas plastik bening), bukan gelas kertas. */
 export const GROUP_HERO_SLIDES: HeroSlide[] = [
   {
     title: ['We Are Adhiloka'],
@@ -189,14 +190,15 @@ export const GROUP_HERO_SLIDES: HeroSlide[] = [
     line: ['Marine Delicacies'],
     href: '/marine-delicacies/',
     image: 'line-seafood',
-    alt: 'Fresh fish laid on crushed ice',
+    focus: '38% 50%',
+    alt: 'Spiny lobster on a colourful coral reef',
   },
   {
     title: ['Made to Hold', 'and Protect'],
-    line: ['Packaging'],
-    href: '/packaging/',
+    line: ['Plastics'],
+    href: '/plastics/',
     image: 'line-packaging',
-    alt: 'Barista handing a takeaway cup across the counter',
+    alt: 'Hand holding a clear plastic cup of iced coffee',
   },
 ];
 
@@ -217,7 +219,7 @@ export const GROUP_QUOTE = {
  *   Products  = padanan Listed Companies: empat kelompok yang kami pasok.
  *     Natural Ingredients dan Perfumery = tile final 22 Nov 2026; laut dan
  *     kemasan = satu kategori katalog, foto = foto kategori (categoryImage).
- * Kategori Fish tidak dipakai di beranda (pemilik: kami tidak menjual ikan). */
+ * Katalog laut = lobster hidup + hasil laut kering (katalog PDF Marine Products). */
 export type BusinessTab = { key: string; label: string; href: string; panes: BusinessPane[] };
 
 const catChips = (line: 'seafood' | 'packaging', cats: string[]) =>
@@ -257,7 +259,7 @@ export const GROUP_TABS: BusinessTab[] = [
         ],
         href: fragrance.href,
       },
-      linePane('seafood', ['crustaceans', 'cephalopods', 'dried']),
+      linePane('seafood', ['live', 'dried']),
       linePane('packaging', ['bags', 'films', 'sacks', 'food']),
       paneOf('sustainability'),
     ],

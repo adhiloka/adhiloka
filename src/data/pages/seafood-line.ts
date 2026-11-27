@@ -10,12 +10,13 @@ export const SEAFOOD_INTRO: PageIntro = {
   title: 'Marine Delicacies',
   lede: '',
   description:
-    'Live lobster, shellfish and dried delicacies of the sea from Indonesia, graded and packed to each buyer’s specification.',
+    'Live lobster and dried delicacies of the sea from Indonesia: sea cucumber, fish maw, shark fin and abalone.',
   image: 'line-seafood',
-  caption: 'fresh fish laid on crushed ice',
+  focus: '38% 50%',
+  caption: 'spiny lobster on a colourful coral reef',
 };
 
 export const SEAFOOD_OPENING = {
   title: 'From Indonesian Waters',
-  body: 'We supply the delicacies of the sea that kitchens prize, from live lobster to dried sea cucumber and fish maw. Each lot is graded and packed to the buyer’s specification.',
+  body: 'Live lobster and dried delicacies from the warm tropical seas of Indonesia. Rare, exotic and full of flavour, they are the treasures that turn a meal into an occasion.',
 };

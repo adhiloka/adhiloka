@@ -6,7 +6,8 @@ import type { NavLink } from './site';
  * dua kali (pemilik): jangan "Seafood", "Plastics & Packaging", "Natural
  * Aromatics", "Marine Products". 28 Nov 2026 (pemilik): Fisheries ditolak
  * (kami tidak menjual ikan) dan Polymers ditolak (terbaca jual biji plastik);
- * kini Fragrance · Marine Delicacies · Packaging. Lini laut dan kemasan
+ * kini Fragrance · Marine Delicacies · Plastics (Packaging juga ditolak
+ * pemilik pada hari yang sama: tema lininya plastik). Lini laut dan kemasan
  * melayani kebutuhan usaha makanan-minuman, tetapi naskah tidak menyebut
  * hotel atau restoran secara khusus (pemilik). Kunci internal
  * (naturals/seafood/packaging) tetap.
@@ -65,19 +66,19 @@ export const BUSINESSES: Business[] = [
     href: '/marine-delicacies/',
     paths: ['/marine-delicacies/'],
     image: 'line-seafood',
-    alt: 'Fresh fish laid on crushed ice',
-    line: 'Live lobster, shellfish and dried delicacies of the sea, graded for the kitchen.',
+    alt: 'Spiny lobster on a colourful coral reef',
+    line: 'Live lobster and dried delicacies of the sea, from sea cucumber to abalone.',
     color: '#1d5d78',
     pages: [],
   },
   {
     key: 'packaging',
-    name: 'Packaging',
-    href: '/packaging/',
-    paths: ['/packaging/'],
+    name: 'Plastics',
+    href: '/plastics/',
+    paths: ['/plastics/'],
     image: 'line-packaging',
-    alt: 'Barista handing a takeaway cup across the counter',
-    line: 'Bags, wraps, cups and takeaway containers for the kitchens and shops that use them every day.',
+    alt: 'Hand holding a clear plastic cup of iced coffee',
+    line: 'Plastic bags, wraps, cups and takeaway containers for the kitchens and shops that use them every day.',
     color: '#45596a',
     pages: [],
   },
