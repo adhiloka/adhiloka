@@ -4,14 +4,14 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import CardSlider from './CardSlider.astro';
 import { images } from '../../data/images';
 import { businessByKey } from '../../data/businesses';
-import { LINE_CATALOG, lineItemHref, lineProductHref, categoryLabel, lineCategoryHref, localOf, type LineItem } from '../../data/line-products';
+import { LINE_CATALOG, lineItemHref, categoryLabel, lineCategoryHref, localOf, specOf, type LineItem } from '../../data/line-products';
 
-/* Halaman satu item katalog Fisheries / Polymers (27 Nov 2026), susunannya
- * sama dengan halaman bahan di Ingredient Catalog (pemilik: "buat seperti
- * Fragrance"): kepala berwarna lini dengan foto, nama, nama Indonesia dan
- * Request a Quotation; strip fakta; deskripsi dan pemakaian; Products = semua
- * kode item ini menuju halaman spesifikasinya; Samples & Quotations; slider
- * item lain sekategori dulu. Tanpa HS code (pemilik). */
+/* Halaman satu item katalog Fine Seafood / Packaging & Plastic Solutions,
+ * susunannya sama dengan halaman bahan di Ingredient Catalog: kepala berwarna
+ * lini dengan foto, nama, nama ilmiah atau nama Indonesia dan Request a
+ * Quotation; strip fakta; deskripsi dan pemakaian; Specification (28 Nov 2026,
+ * pemilik: tanpa kode produk, jadi tidak ada lagi daftar kode dan halaman per
+ * kode); Samples & Quotations; slider item lain sekategori dulu. Tanpa HS code. */
 interface Props {
   item: LineItem;
 }
@@ -21,15 +21,27 @@ const all = LINE_CATALOG[m.line].items as readonly LineItem[];
 const others = all.filter((o) => o.slug !== m.slug).sort((a, b) => Number(b.category === m.category) - Number(a.category === m.category)).slice(0, 9);
 const cat = categoryLabel(m.line, m.category);
 const contact = (kind: string) => `/contact/?business=${m.line}&product=${m.slug}&kind=${kind}`;
-const facts = [
-  { label: 'Category', value: cat },
-  { label: m.line === 'seafood' ? 'Scientific name' : 'Materials', value: m.latin ?? '', latin: m.line === 'seafood' },
-  { label: 'Range', value: m.range },
-  { label: 'Origin', value: 'Indonesia' },
-].filter((f) => f.value);
+const sea = m.line === 'seafood';
+const facts = (
+  sea
+    ? [
+        { label: 'Category', value: cat },
+        { label: 'Scientific name', value: m.latin ?? '', latin: true },
+        { label: 'Local name', value: m.local ?? '' },
+        { label: 'Form', value: specOf(m, 'Form') ?? '' },
+      ]
+    : [
+        { label: 'Category', value: cat },
+        { label: 'Material', value: specOf(m, 'Material') ?? '' },
+        { label: 'Heat resistance', value: specOf(m, 'Heat resistance') ?? '' },
+        { label: 'Microwave', value: specOf(m, 'Microwave') ?? '' },
+      ]
+).filter((f) => f.value);
+const spec = m.spec.filter(([k]) => !(sea && k === 'Scientific name'));
+const title = sea ? `${m.name} (${m.latin ?? m.local})` : `${m.name} (${specOf(m, 'Material')})`;
 ---
 
-<BaseLayout title={`${m.name} | ${biz.name}`} description={`${localOf(m) ? `${m.name} (${m.local})` : m.name} from Adhiloka. ${m.note}`} inner>
+<BaseLayout title={`${title} | ${biz.name}`} description={`${localOf(m) ? `${m.name} (${m.local})` : m.name} from Adhiloka. ${m.note}`} inner>
   <section class="ph" style={`--fam: ${biz.color}`}>
     <div class="wrap">
       <nav class="ph__crumbs" aria-label="Breadcrumb">
@@ -44,7 +56,7 @@ const facts = [
         <div class="ph__text">
           <p class="ph__fam">{cat}</p>
           <h1 class="ph__name">{m.name}</h1>
-          {localOf(m) && <p class="ph__latin">{m.local}</p>}
+          {sea && m.latin ? <p class="ph__latin">{m.latin}</p> : localOf(m) && <p class="ph__latin is-plain">{m.local}</p>}
           <a class="ph__sample" href={contact('quotation')}>Request a quotation</a>
         </div>
       </div>
@@ -94,25 +106,21 @@ const facts = [
     </div>
   </section>
 
-  <section class="sec prl" id="products">
+  <section class="sec spc" id="specification">
     <div class="wrap">
-      <h2 class="h2" data-anim="title">Products</h2>
-      <ul class="prl__list">
-        {
-          m.products.map((p) => (
-            <li>
-              <a class="prl__row" href={lineProductHref(m, p)}>
-                <span class="prl__code">{p.code}</span>
-                <span class="prl__name">{p.name}</span>
-                <span class="prl__type">{p.spec.find(([k]) => k === 'Local name')?.[1] ?? p.type}</span>
-                <span class="prl__arrow" aria-hidden="true">
-                  <svg viewBox="0 0 16 16" width="14" height="14"><path d="M3 8h10m-4-4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"></path></svg>
-                </span>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
+      <h2 class="h2" data-anim="title">Specification</h2>
+      <table class="spc__table">
+        <tbody>
+          {
+            spec.map(([k, v]) => (
+              <tr>
+                <th scope="row">{k}</th>
+                <td class:list={{ 'is-latin': k === 'Scientific name' }}>{v}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
     </div>
   </section>
 
@@ -268,27 +276,13 @@ const facts = [
   .kv dt { font-size: calc(14px * var(--fs)); font-weight: 530; color: var(--ink); }
   .kv dd { margin-top: 2px; font-size: calc(15px * var(--fs)); line-height: 1.5; color: var(--ink); }
 
-  /* ── Products: satu baris per kode ───────────────────────────────── */
-  .prl__list { margin-top: 28px; border-top: 1px solid var(--line); }
-  .prl__row {
-    display: grid;
-    grid-template-columns: 96px minmax(0, 1fr) minmax(0, 220px) 24px;
-    gap: 6px 24px;
-    align-items: center;
-    padding: 18px 0;
-    border-bottom: 1px solid var(--line-soft);
-    font-size: calc(16px * var(--fs));
-    color: var(--ink);
-    transition: color var(--t) var(--ease-std);
-  }
-  .prl__row:hover { color: var(--brand-green); }
-  .prl__code { font-weight: 530; font-variant-numeric: tabular-nums; color: var(--ink-muted); }
-  .prl__name { font-weight: 530; }
-  .prl__type { font-size: calc(14px * var(--fs)); color: var(--ink-muted); }
-  /* Panah baris tersembunyi sampai hover/fokus (pemilik, 22 Nov 2026). */
-  .prl__arrow { justify-self: end; opacity: 0; transform: translateX(-6px); transition: opacity var(--t) var(--ease-std), transform var(--t) var(--ease-std); }
-  .prl__row:hover .prl__arrow,
-  .prl__row:focus-visible .prl__arrow { opacity: 1; transform: none; }
+  /* ── Specification: tabel dua kolom ──────────────────────────────── */
+  .spc__table { width: 100%; max-width: 880px; margin-top: 28px; border-collapse: collapse; border-top: 1px solid var(--line); }
+  .spc__table th,
+  .spc__table td { padding: 16px 0; border-bottom: 1px solid var(--line-soft); font-size: calc(16px * var(--fs)); line-height: 1.5; text-align: left; vertical-align: top; }
+  .spc__table th { width: 34%; padding-right: 24px; font-weight: 530; color: var(--ink-muted); }
+  .spc__table .is-latin { font-style: italic; }
+  .ph__latin.is-plain { font-style: normal; }
 
   /* ── Samples & Documents ──────────────────────────────────────────── */
   .mord__grid {
@@ -321,8 +315,6 @@ const facts = [
     .ph__grid { grid-template-columns: 1fr; gap: 28px; margin-top: 28px; }
     .ph__media { width: min(100%, 320px); }
     .pf__grid { grid-template-columns: 1fr 1fr; }
-    .prl__row { grid-template-columns: 72px minmax(0, 1fr) 20px; }
-    .prl__type { grid-column: 2; grid-row: 2; }
-    .prl__arrow { grid-column: 3; grid-row: 1 / span 2; }
+    .spc__table th { width: 42%; }
   }
 </style>

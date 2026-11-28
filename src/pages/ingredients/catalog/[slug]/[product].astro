@@ -69,7 +69,8 @@ const handling = rows([
   ['Storage', p.storage],
   ['Packaging', p.packaging],
 ]);
-const title = `${p.name} ${p.code}`;
+// Tanpa kode produk di judul tab (28 Nov 2026, audit SEO); kode tetap di halaman.
+const title = `${p.name} (${m.latin})`;
 ---
 
 <BaseLayout title={title} description={`${p.name} (${p.code}), ${p.type.toLowerCase()} of ${m.name}, ${m.latin}. ${p.odour}.`} inner>

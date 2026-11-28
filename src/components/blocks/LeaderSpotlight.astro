@@ -1,4 +1,5 @@
 ---
+import { altText } from '../../data/alt';
 import { Image } from 'astro:assets';
 import { images, type ImageKey } from '../../data/images';
 import { leaderHref, type Leader } from '../../data/pages/about';
@@ -19,7 +20,7 @@ const img = leader.image ?? image;
   <div class="wrap">
     <div class="spot__frame" data-anim="sub">
       <span class="spot__media cover" data-parallax>
-        {img ? <Image quality={70} src={images[img]} alt="" widths={[768, 1280, 1920]} sizes="(max-width: 1219px) 100vw, 89vw" loading="lazy" /> : <span class="plate">{leader.shot}</span>}
+        {img ? <Image quality={70} src={images[img]} alt={altText(leader.shot, leader.name)} widths={[768, 1280, 1920]} sizes="(max-width: 1219px) 100vw, 89vw" loading="lazy" /> : <span class="plate">{leader.shot}</span>}
       </span>
       <div class="spot__badge">
         <p class="spot__name">{leader.name}</p>

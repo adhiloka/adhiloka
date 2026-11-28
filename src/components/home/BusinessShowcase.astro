@@ -1,7 +1,9 @@
 ---
 import { Image } from 'astro:assets';
 import { images } from '../../data/images';
-import type { BusinessPane, BusinessTab } from '../../data/pages/home';
+import type { BusinessPane } from '../../data/pages/home';
+
+type BusinessTab = { key: string; label: string; href: string; panes: BusinessPane[] };
 
 /* Section "BUSINESSES" adani.com, diisi usaha Adhiloka.
  * 22 Nov 2026 (pemilik): bentuk tile + foto besar tetap, tetapi tab
@@ -50,7 +52,7 @@ const arrow = '<path d="M0 6h16M11 1l5 5-5 5" fill="none" stroke="currentColor" 
             {g.panes.map((p, i) => (
               <li data-anim={gi === 0 ? 'thumb' : undefined}>
                 <button class:list={['tile', 'shade', { 'is-active': i === 0 }]} type="button" data-pick={p.key} aria-pressed={i === 0 ? 'true' : 'false'}>
-                  <Image quality={70} src={images[p.image]} alt="" widths={[320, 520]} sizes="(max-width: 767px) 50vw, 18vw" loading="lazy" />
+                  <Image quality={70} src={images[p.image]} alt={p.label} widths={[320, 520]} sizes="(max-width: 767px) 50vw, 18vw" loading="lazy" />
                   <span class="tile__text">
                     {p.label}
                     <svg class="tile__arrow" viewBox="0 0 18 12" width="17" height="11" aria-hidden="true" set:html={arrow} />
@@ -63,7 +65,7 @@ const arrow = '<path d="M0 6h16M11 1l5 5-5 5" fill="none" stroke="currentColor" 
           <div class="biz__big" data-speed="0.9">
             {g.panes.map((p, i) => (
               <div class="big" data-pane={p.key} hidden={i !== 0} data-anim={gi === 0 ? 'thumb' : undefined}>
-                <Image quality={70} class="big__img" src={images[p.image]} alt="" widths={[640, 960, 1400]} sizes="(max-width: 1026px) 100vw, 55vw" loading="lazy" />
+                <Image quality={70} class="big__img" src={images[p.image]} alt={p.label} widths={[640, 960, 1400]} sizes="(max-width: 1026px) 100vw, 55vw" loading="lazy" />
                 <div class="big__links">
                   <ul>
                     {p.chips.map((c) => (

@@ -1,6 +1,6 @@
 import type { ImageKey } from '../images';
 import { businessByKey } from '../businesses';
-import { LINE_CATALOG, categoryImage, lineCategoryHref, lineItemHref, lineItemsOf } from '../line-products';
+import { LINE_CATALOG, lineCategoryHref } from '../line-products';
 
 /* Naskah beranda, disusun menurut urutan section adani.com:
  * hero slider → kutipan terbelah → Our Business → akordeon keberlanjutan →
@@ -108,7 +108,7 @@ export type BusinessPane = {
 
 /* Situs grup: empat tile di bawah ini (final 22 Nov 2026) pindah apa adanya
  * ke beranda lini naturals; sejak 27 Nov 2026 jadi tab Fragrance di
- * Our Businesses beranda grup (GROUP_TABS). */
+ * Our Businesses beranda grup (GROUP_PANES). */
 export const NATURALS_PANES: BusinessPane[] = [
   {
     key: 'ingredients',
@@ -184,96 +184,74 @@ export const GROUP_HERO_SLIDES: HeroSlide[] = [
   {
     title: ['The Essence', 'of Nature.'],
     line: ['Natural Ingredients & Perfumery'],
-    href: '/fragrance/',
+    href: '/natural-ingredients-perfumery/',
     image: 'labelled-bottles',
     alt: 'Hands arranging labelled amber bottles on a marble table',
   },
   {
     title: ['Treasures', 'of the Ocean.'],
     line: ['Fine Seafood'],
-    href: '/marine-delicacies/',
+    href: '/fine-seafood/',
     image: 'line-seafood',
-    focus: '40% 35%',
-    alt: 'Spiny lobster served in warm restaurant light',
+    focus: '55% 55%',
+    alt: 'Live pearl lobsters close up in a seawater tank',
   },
   {
     title: ['Designed to Protect.', 'Made to Perform.'],
     line: ['Packaging & Plastic Solutions'],
-    href: '/plastics/',
+    href: '/packaging-plastic-solutions/',
     image: 'line-packaging',
-    focus: '50% 70%',
-    alt: 'Hands sealing a bowl with clear cling film',
+    focus: '50% 50%',
+    alt: 'Bread rolls packed in clear plastic wrap',
   },
 ];
 
 /* Kutipan grup, pola pernyataan tujuan satu kalimat. */
+/* Kutipan grup. 28 Nov 2026 malam (pemilik: "quotes diganti sama konteks yang
+   pas dengan business kita sekarang", foto juga diganti): kalimat pertama
+   menggemakan baris slide hero ketiga lini, kalimat kedua satu ukuran mutu
+   untuk ketiganya. Foto = tangan chef menata hidangan (meja yang dilayani
+   ketiga lini), tanpa menyebut hotel atau restoran. */
 export const GROUP_QUOTE = {
-  text: 'From *the land*, from *the sea*, and the *materials that carry them*: we know what we supply, and we stand behind it.',
+  text: 'The essence of nature, the treasures of the ocean and packaging made to perform. *Three businesses*, held to *one standard*.',
   cta: 'Discover More',
   href: '/about/',
   image: 'group-quote' as ImageKey,
-  alt: 'Fishing boats resting on calm water at first light',
+  alt: 'Chef’s hands plating a dish in warm light',
 };
 
-/* Our Businesses beranda grup. 28 Nov 2026 (pemilik: "dua tab, bukan tiga;
- * cek Adani"): pola section Businesses adani.com yang punya dua tab,
- * Verticals dan Listed Companies.
- *   Verticals = tiga lini + Sustainability, empat tile 2 x 2; foto = foto
- *     halaman tujuan (lini: businesses.ts), chip = isi lini.
- *   Products  = padanan Listed Companies: empat kelompok yang kami pasok.
- *     Natural Ingredients dan Perfumery = tile final 22 Nov 2026; laut dan
- *     kemasan = satu kategori katalog, foto = foto kategori (categoryImage).
- * Katalog laut = lobster hidup + hasil laut kering (katalog PDF Marine Products). */
-export type BusinessTab = { key: string; label: string; href: string; panes: BusinessPane[] };
+/* Our Businesses beranda grup. 28 Nov 2026 malam (pemilik: "yang tab
+ * vertical sama product nya dihapus aja"): tanpa tab, satu set empat tile
+ * 2 x 2 + foto besar berchip (bentuk tile Adani tetap): tiga lini +
+ * Sustainability. Foto = foto halaman tujuan (lini: businesses.ts), chip = isi
+ * lini (kategori katalog untuk laut dan kemasan). */
+const catChips = (line: 'seafood' | 'packaging') =>
+  LINE_CATALOG[line].categories.map((c) => ({ label: c.label, href: lineCategoryHref(line, c.key) }));
 
-const catChips = (line: 'seafood' | 'packaging', cats: string[]) =>
-  cats.map((cat) => ({ label: LINE_CATALOG[line].categories.find((x) => x.key === cat)!.label, href: lineCategoryHref(line, cat) }));
-
-const linePane = (line: 'seafood' | 'packaging', cats: string[]): BusinessPane => {
+const linePane = (line: 'seafood' | 'packaging'): BusinessPane => {
   const b = businessByKey(line);
-  return { key: `v-${line}`, label: b.name, image: b.image, chips: catChips(line, cats), href: b.href };
+  return { key: `v-${line}`, label: b.name, image: b.image, chips: catChips(line), href: b.href };
 };
-
-const categoryPane = (line: 'seafood' | 'packaging', cat: string): BusinessPane => ({
-  key: `p-${line}-${cat}`,
-  label: LINE_CATALOG[line].categories.find((x) => x.key === cat)!.label,
-  image: categoryImage(line, cat),
-  chips: lineItemsOf(line, cat).slice(0, 5).map((i) => ({ label: i.name, href: lineItemHref(i) })),
-  href: lineCategoryHref(line, cat),
-});
 
 const fragrance = businessByKey('naturals');
 const paneOf = (key: string) => NATURALS_PANES.find((p) => p.key === key)!;
 
-export const GROUP_TABS: BusinessTab[] = [
+export const GROUP_PANES: BusinessPane[] = [
   {
-    key: 'verticals',
-    label: 'Verticals',
-    href: '/our-businesses/',
-    panes: [
-      {
-        key: 'v-fragrance',
-        label: fragrance.name,
-        image: fragrance.image,
-        chips: [
-          { label: 'Ingredients', href: '/ingredients/' },
-          { label: 'Perfumery', href: '/perfumery/' },
-          { label: 'Ingredient Catalog', href: '/ingredients/catalog/' },
-          { label: 'Technology', href: '/ingredients/technology/' },
-        ],
-        href: fragrance.href,
-      },
-      linePane('seafood', ['live', 'dried']),
-      linePane('packaging', ['bags', 'films', 'sacks', 'food']),
-      paneOf('sustainability'),
+    key: 'v-fragrance',
+    label: fragrance.name,
+    image: fragrance.image,
+    chips: [
+      { label: 'Ingredients', href: '/ingredients/' },
+      { label: 'Perfumery', href: '/perfumery/' },
+      { label: 'Ingredient Catalog', href: '/ingredients/catalog/' },
+      { label: 'Technology', href: '/ingredients/technology/' },
     ],
+    href: fragrance.href,
   },
-  {
-    key: 'products',
-    label: 'Products',
-    href: '/our-businesses/',
-    panes: [paneOf('ingredients'), paneOf('perfumery'), categoryPane('seafood', 'dried'), categoryPane('packaging', 'food')],
-  },
+  linePane('seafood'),
+  linePane('packaging'),
+  paneOf('sustainability'),
 ];
 
 /* ── Join Us ─────────────────────────────────────────────────────────── */

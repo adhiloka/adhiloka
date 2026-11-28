@@ -1,4 +1,5 @@
 ---
+import { altText } from '../../data/alt';
 import { Image } from 'astro:assets';
 import { images } from '../../data/images';
 import type { Site } from '../../data/pages/about';
@@ -19,7 +20,7 @@ const { sites } = Astro.props;
         sites.map((s) => (
           <li class="loc__item" data-anim-item>
             <span class="loc__media cover shade">
-              {s.image ? <Image quality={70} src={images[s.image]} alt="" widths={[480, 800]} sizes="(max-width: 767px) 100vw, 30vw" loading="lazy" /> : <span class="plate">{s.shot}</span>}
+              {s.image ? <Image quality={70} src={images[s.image]} alt={altText(s.shot)} widths={[480, 800]} sizes="(max-width: 767px) 100vw, 30vw" loading="lazy" /> : <span class="plate">{s.shot}</span>}
               <span class="loc__kind">{s.kind}</span>
             </span>
             <div class="loc__body">

@@ -26,7 +26,7 @@ import { CATALOG_DOWNLOAD as cat, formatSize } from '../../data/downloads';
       <ul class="dl">
         <li class="dl__row">
           <a class="dl__cover" href={cat.href} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
-            <Image quality={75} src={cat.thumb} alt="" widths={[160, 320]} sizes="120px" loading="lazy" />
+            <Image quality={75} src={cat.thumb} alt={`Cover of the ${cat.title}`} widths={[160, 320]} sizes="120px" loading="lazy" />
           </a>
           <div>
             <h3 class="dl__title">{cat.title}</h3>

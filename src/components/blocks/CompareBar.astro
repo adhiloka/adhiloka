@@ -1,0 +1,179 @@
+---
+import { getImage } from 'astro:assets';
+import { images, type ImageKey } from '../../data/images';
+
+/* Bilah bawah + dialog tabel perbandingan katalog (scripts/compare.ts).
+ * Dipasang di dalam [data-compare-root]; kartu memuat kotak centang
+ * input[data-compare] (komponen ComparePick). */
+interface Props {
+  rows: readonly string[];
+  items: { id: string; name: string; href: string; image?: ImageKey; sub?: string; values: string[] }[];
+  /** Judul dialog, mis. "Compare ingredients". */
+  title: string;
+  /** Baris kecil di bawah nama item adalah nama ilmiah (dicetak miring). */
+  latinSub?: boolean;
+}
+const { rows, items, title, latinSub = false } = Astro.props;
+
+const thumbs = await Promise.all(
+  items.map(async (i) => (i.image ? (await getImage({ src: images[i.image], width: 320, height: 240, fit: 'cover', format: 'webp', quality: 60 })).src : '')),
+);
+const data = {
+  rows,
+  items: Object.fromEntries(items.map((i, n) => [i.id, { name: i.name, href: i.href, img: thumbs[n], sub: i.sub ?? '', values: i.values }])),
+};
+---
+
+<script type="application/json" data-compare-data set:html={JSON.stringify(data)} />
+
+<div class="cbar" data-compare-bar hidden>
+  <div class="wrap cbar__row">
+    <ul class="cbar__list" data-compare-list aria-label="Selected for comparison"></ul>
+    <div class="cbar__actions">
+      <button type="button" class="cbar__clear" data-compare-clear>Clear</button>
+      <button type="button" class="cbar__go" data-compare-go>Compare</button>
+    </div>
+  </div>
+</div>
+
+<dialog class:list={['cmp', { 'cmp--latin': latinSub }]} data-compare-dialog aria-labelledby="cmp-title">
+  <div class="cmp__head">
+    <h2 class="cmp__title" id="cmp-title">{title}</h2>
+    <button type="button" class="cmp__x" data-compare-close aria-label="Close comparison">
+      <svg viewBox="0 0 14 14" width="14" height="14" aria-hidden="true"><path d="m1 1 12 12M13 1 1 13" stroke="currentColor" stroke-width="1.5"></path></svg>
+    </button>
+  </div>
+  <div class="cmp__body" data-compare-table></div>
+</dialog>
+
+<style>
+  .cbar {
+    position: fixed;
+    z-index: 60;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 14px 0;
+    border-top: 1px solid var(--line-soft);
+    background: rgb(255 255 255 / 0.96);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 -16px 40px -28px rgb(0 0 0 / 0.4);
+  }
+  .cbar[hidden] { display: none; }
+  .cbar__row { display: flex; align-items: center; justify-content: space-between; gap: 16px 24px; }
+  .cbar__list { display: flex; flex-wrap: wrap; gap: 10px; min-width: 0; }
+  .cbar__list :global(li) {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 6px 4px 4px;
+    border: 1px solid var(--line-soft);
+    border-radius: 999px;
+    background: var(--bg);
+    font-size: calc(14px * var(--fs));
+    font-weight: 440;
+  }
+  .cbar__list :global(img) { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+  .cbar__list :global(button) { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; color: var(--ink-muted); }
+  .cbar__list :global(button:hover) { background: var(--bg-grey); color: var(--ink); }
+  .cbar__actions { display: flex; flex: none; align-items: center; gap: 18px; }
+  .cbar__clear { font-size: calc(15px * var(--fs)); text-decoration: underline; text-underline-offset: 4px; }
+  .cbar__go {
+    height: 46px;
+    padding: 0 26px;
+    border-radius: 999px;
+    background: var(--ink);
+    font-size: calc(15px * var(--fs));
+    font-weight: 440;
+    color: var(--bg);
+    transition: background var(--t-fast) var(--ease-std);
+  }
+  .cbar__go:hover:not(:disabled) { background: var(--brand-green); color: #fff; }
+  .cbar__go:disabled { background: var(--line); color: var(--ink-muted); cursor: not-allowed; }
+
+  .cmp {
+    width: min(1120px, calc(100% - 32px));
+    max-width: none;
+    max-height: calc(100dvh - 48px);
+    margin: auto;
+    padding: 0;
+    border: 0;
+    border-radius: 16px;
+    background: var(--bg);
+    color: var(--ink);
+    overflow: hidden;
+  }
+  .cmp[open] { display: flex; flex-direction: column; }
+  .cmp::backdrop { background: rgb(0 0 0 / 0.5); }
+  .cmp__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .cmp__title { font-size: calc(22px * var(--fs)); font-weight: 530; }
+  .cmp__x { display: grid; place-items: center; width: 36px; height: 36px; }
+  .cmp__body { overflow: auto; overscroll-behavior: contain; padding: 0 28px 28px; }
+  .cmp__body :global(table) { width: 100%; min-width: 640px; border-collapse: collapse; table-layout: fixed; }
+  .cmp__body :global(thead th),
+  .cmp__body :global(.cmp__corner) {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 20px 12px 16px;
+    background: var(--bg);
+    vertical-align: top;
+    text-align: left;
+  }
+  .cmp__body :global(.cmp__corner) { width: 180px; }
+  .cmp__body :global(thead th) { position: sticky; }
+  .cmp__body :global(thead a) { display: block; }
+  .cmp__body :global(thead img) { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; border-radius: 8px; object-fit: cover; }
+  .cmp__body :global(.cmp__name) { display: block; margin-top: 12px; font-size: calc(16px * var(--fs)); font-weight: 670; text-transform: uppercase; line-height: 1.2; }
+  .cmp__body :global(.cmp__sub) { display: block; margin-top: 4px; font-size: calc(14px * var(--fs)); color: var(--ink-muted); }
+  .cmp--latin .cmp__body :global(.cmp__sub) { font-style: italic; }
+  .cmp__body :global(thead a:hover .cmp__name) { color: var(--brand-green); }
+  .cmp__body :global(.cmp__drop) {
+    position: absolute;
+    top: 28px;
+    right: 20px;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgb(255 255 255 / 0.92);
+    color: var(--ink);
+  }
+  .cmp__body :global(tbody th),
+  .cmp__body :global(tbody td) {
+    padding: 13px 12px;
+    border-top: 1px solid var(--line-soft);
+    font-size: calc(15px * var(--fs));
+    line-height: 1.45;
+    text-align: left;
+    vertical-align: top;
+  }
+  .cmp__body :global(tbody th) { font-weight: 530; color: var(--ink-muted); }
+  .cmp__body :global(tbody tr:not(.is-same) td) { font-weight: 440; }
+  .cmp__body :global(tbody tr:nth-child(odd)) { background: var(--bg-grey); }
+
+  @media (max-width: 767px) {
+    .cbar { padding: 10px 0; }
+    .cbar__row { gap: 12px; }
+    /* HP: pilihan cukup foto bulat yang digeser mendatar, tombol di kanan. */
+    .cbar__list { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; gap: 6px; }
+    .cbar__list::-webkit-scrollbar { display: none; }
+    .cbar__list :global(li) { flex: none; gap: 2px; padding: 3px; }
+    .cbar__list :global(span) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    .cbar__list :global(button) { width: 22px; height: 22px; }
+    .cbar__actions { gap: 12px; }
+    .cbar__clear { display: none; }
+    .cbar__go { height: 42px; padding: 0 20px; }
+    .cbar__actions { justify-content: space-between; }
+    .cmp__head { padding: 16px 20px; }
+    .cmp__body { padding: 0 20px 20px; }
+    .cmp__body :global(.cmp__corner) { width: 120px; }
+  }
+</style>

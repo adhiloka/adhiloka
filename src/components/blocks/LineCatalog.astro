@@ -1,28 +1,31 @@
 ---
 import { Image } from 'astro:assets';
 import { images } from '../../data/images';
-import { LINE_CATALOG, lineItemHref, localOf, type LineItem, type LineKey } from '../../data/line-products';
+import { LINE_CATALOG, lineItemHref, localOf, specOf, type LineItem, type LineKey } from '../../data/line-products';
+import ComparePick from './ComparePick.astro';
+import CompareBar from './CompareBar.astro';
 
-/* Katalog lini Fisheries / Polymers di halaman lini (#catalog).
- * 27 Nov 2026 (pemilik: "buat seperti katalog Fragrance, cukup overview lalu
- * katalog di bawahnya, detailnya di situ"): pola Ingredient Catalog. Kotak cari
- * bulat, tab kategori pilihan tunggal bergaris bawah gradien, kartu berfoto
- * 3 kolom yang seluruhnya satu tautan: nama yang dipahami orang awam, nama
- * Indonesia, lalu jenis/bahan yang ada. Kode produk ikut dicari. Tanpa
- * hitungan, tanpa "Discover →", tanpa fade saat menyaring. `?cat=` memilih tab. */
+/* Katalog lini di halaman lini (#catalog).
+ * 28 Nov 2026 (pemilik): bentuknya sama dengan Ingredient Catalog dan tanpa
+ * kode produk. Kotak cari bulat, tab kategori pilihan tunggal bergaris bawah
+ * gradien, kartu berfoto 3 kolom yang seluruhnya satu tautan: nama, nama
+ * ilmiah (seafood) atau nama Indonesia (plastik), baris hijau kapital (nama
+ * lokal / bahan), lalu dua baris deskripsi. Plastik punya kotak "Compare" dan
+ * tabel perbandingan. Tanpa hitungan, tanpa "Discover →", tanpa fade saat
+ * menyaring. `?cat=` memilih tab. */
 interface Props {
   line: LineKey;
 }
 const { line } = Astro.props;
-const { categories } = LINE_CATALOG[line];
+const { categories, compare } = LINE_CATALOG[line];
 const items = LINE_CATALOG[line].items as readonly LineItem[];
-const haystack = (i: LineItem) =>
-  [i.name, i.local, i.latin, i.range, ...i.products.flatMap((p) => [p.code, p.name, p.type, ...p.spec.map((s) => s[1])])]
-    .join(' ')
-    .toLowerCase();
+const norm = (s: string) => s.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
+const haystack = (i: LineItem) => norm([i.name, i.local, i.latin, i.note, ...i.spec.map((s) => s[1])].join(' '));
+const sub = (i: LineItem) => (line === 'seafood' ? i.latin : localOf(i));
+const tag = (i: LineItem) => (line === 'seafood' ? localOf(i) : specOf(i, 'Material'));
 ---
 
-<section class="sec lc" id="catalog" data-line-catalog>
+<section class="sec lc" id="catalog" data-line-catalog data-compare-root={compare ? line : undefined}>
   <div class="wrap">
     <div class="lc__head">
       <h2 class="h2" data-anim="title">Catalog</h2>
@@ -53,14 +56,16 @@ const haystack = (i: LineItem) =>
         items.map((i) => (
           <li class="lc__card" data-cat={i.category} data-text={haystack(i)}>
             <div class="lc__media cover">
-              <Image quality={70} src={images[i.image]} alt="" widths={[400, 720]} sizes="(max-width: 640px) 100vw, (max-width: 1026px) 46vw, 30vw" loading="lazy" />
+              <Image quality={70} src={images[i.image]} alt={i.alt} widths={[400, 720]} sizes="(max-width: 640px) 100vw, (max-width: 1026px) 46vw, 30vw" loading="lazy" />
             </div>
             <div class="lc__body">
               <h3 class="lc__name">
                 <a class="lc__link" href={lineItemHref(i)}>{i.name}</a>
               </h3>
-              {localOf(i) && <p class="lc__local">{i.local}</p>}
-              <p class="lc__range">{i.range}</p>
+              {sub(i) && <p class:list={['lc__sub', { 'is-latin': line === 'seafood' }]}>{sub(i)}</p>}
+              {tag(i) && <p class="lc__tag">{tag(i)}</p>}
+              <p class="lc__desc">{i.note}</p>
+              {compare && <ComparePick id={i.slug} name={i.name} />}
             </div>
           </li>
         ))
@@ -68,12 +73,24 @@ const haystack = (i: LineItem) =>
     </ul>
     <p class="lc__empty" hidden>Nothing matches your search.</p>
   </div>
+
+  {
+    compare && (
+      <CompareBar
+        title="Compare packaging"
+        rows={compare}
+        items={items.map((i) => ({ id: i.slug, name: i.name, href: lineItemHref(i), image: i.image, sub: localOf(i), values: compare.map((r) => specOf(i, r) ?? '—') }))}
+      />
+    )
+  }
 </section>
 
 <script>
+  import { initCompare } from '../../scripts/compare';
   /* Tab kategori + kotak cari. Kartu tampil bila kategorinya cocok dan semua
-     kata pencarian ada di teksnya (nama, nama Indonesia, jenis, kode). ?cat=
-     memilih tab awal dan diperbarui tanpa memuat ulang. */
+     kata pencarian ada di teksnya (nama, nama Indonesia, nama ilmiah, isi
+     spesifikasi). ?cat= memilih tab awal dan diperbarui tanpa memuat ulang. */
+  const norm = (s: string) => s.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
   document.querySelectorAll<HTMLElement>('[data-line-catalog]').forEach((root) => {
     const radios = [...root.querySelectorAll<HTMLInputElement>('input[type="radio"]')];
     const search = root.querySelector<HTMLInputElement>('input[type="search"]')!;
@@ -81,7 +98,7 @@ const haystack = (i: LineItem) =>
     const empty = root.querySelector<HTMLElement>('.lc__empty')!;
     const apply = () => {
       const cat = radios.find((r) => r.checked)?.value ?? '';
-      const words = search.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+      const words = norm(search.value).trim().split(/\s+/).filter(Boolean);
       let shown = 0;
       cards.forEach((c) => {
         const on = (!cat || c.dataset.cat === cat) && words.every((w) => c.dataset.text!.includes(w));
@@ -106,6 +123,7 @@ const haystack = (i: LineItem) =>
     );
     search.addEventListener('input', apply);
   });
+  initCompare();
 </script>
 
 <style>
@@ -181,6 +199,7 @@ const haystack = (i: LineItem) =>
   .stab input:checked + span::after { transform: none; }
   .stab input:focus-visible + span { outline: 2px solid var(--brand-green-light); outline-offset: -2px; }
 
+  /* Kartu: takaran sama dengan kartu Ingredient Catalog (.mat). */
   .lc__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -213,8 +232,26 @@ const haystack = (i: LineItem) =>
   }
   .lc__link { outline: 0; }
   .lc__link::after { content: ''; position: absolute; inset: 0; z-index: 1; }
-  .lc__local { margin-top: 4px; font-size: calc(15px * var(--fs)); color: var(--ink-muted); }
-  .lc__range { margin-top: 14px; font-size: calc(15px * var(--fs)); line-height: 1.5; color: var(--ink); }
+  .lc__sub { margin-top: 4px; font-size: calc(15px * var(--fs)); color: var(--ink-muted); }
+  .lc__sub.is-latin { font-style: italic; }
+  .lc__tag {
+    margin-top: 12px;
+    font-size: calc(13px * var(--fs));
+    font-weight: 530;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--brand-green);
+  }
+  .lc__desc {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+    margin-top: 14px;
+    font-size: calc(15px * var(--fs));
+    line-height: 1.55;
+  }
   .lc__empty { margin-top: 32px; font-size: calc(16px * var(--fs)); color: var(--ink-muted); }
 
   @media (max-width: 1026px) {

@@ -4,10 +4,11 @@ import { SITE } from '../data/site';
 import type { PageIntro } from '../data/pages/types';
 
 /* Satu halaman untuk tiga tautan legal di footer. Isinya hanya menyatakan apa
- * yang benar-benar dilakukan situs ini: formulir kontak mengirim isian lewat
- * email (Web3Forms bila access key diisi), tidak ada cookie atau pelacak, dan
- * pilihan Accessibility disimpan di localStorage (scripts/a11y.ts). Ubah
- * naskahnya bila salah satu dari itu berubah, mis. saat memasang analitik. */
+ * yang benar-benar dilakukan situs ini: formulir kontak dikirim lewat Netlify
+ * Forms dan diteruskan ke email kami, statistik kunjungan dari Plausible yang
+ * tanpa cookie (28 Nov 2026, scripts/analytics.ts), dan pilihan Accessibility
+ * disimpan di localStorage (scripts/a11y.ts). Ubah naskahnya bila salah satu
+ * dari itu berubah. */
 const intro: PageIntro = {
   eyebrow: 'Legal',
   title: 'Legal',
@@ -31,7 +32,7 @@ const sections = [
     id: 'privacy',
     title: 'Privacy',
     body: [
-      'When you write to us through the contact form or by email, we receive the details you choose to give: your name, company, email address and message.',
+      'When you write to us through the contact form or by email, we receive the details you choose to give: your name, company, email address and message. Form messages are delivered to our inbox through our website host.',
       'We use these details only to answer your enquiry and to follow up on it. We do not sell them, and we do not use them for advertising.',
       `You can ask us at any time to correct or delete the details you have sent us by writing to ${SITE.email}.`,
     ],
@@ -41,6 +42,7 @@ const sections = [
     title: 'Cookies',
     body: [
       'This website does not use advertising or tracking cookies.',
+      'We count visits with Plausible Analytics, which works without cookies and does not collect personal data or follow you across other websites. It tells us which pages are read and which catalogs are downloaded, in total and never per person.',
       'If you change the display settings under Accessibility (colour theme or text size), your choice is saved in your own browser so that it is remembered on your next visit. It is not sent to us.',
     ],
   },

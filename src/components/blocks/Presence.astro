@@ -1,4 +1,5 @@
 ---
+import { altText } from '../../data/alt';
 import { Image } from 'astro:assets';
 import { images } from '../../data/images';
 import { presenceMap, MAP_W, MAP_H } from '../../data/map';
@@ -73,7 +74,7 @@ const areas = [...new Set(sites.map((s) => s.area))];
           items.map((s, i) => (
             <div class="pres__data" data-site={s.id} hidden={i !== 0}>
               <span class="pres__photo cover">
-                {s.image ? <Image quality={70} src={images[s.image]} alt="" widths={[480, 800]} sizes="(max-width: 1026px) 100vw, 34vw" loading="lazy" /> : <span class="plate">{s.shot}</span>}
+                {s.image ? <Image quality={70} src={images[s.image]} alt={altText(s.shot)} widths={[480, 800]} sizes="(max-width: 1026px) 100vw, 34vw" loading="lazy" /> : <span class="plate">{s.shot}</span>}
               </span>
               <p class="pres__kind">{s.kind}</p>
               <h3 class="pres__city">{s.city}</h3>

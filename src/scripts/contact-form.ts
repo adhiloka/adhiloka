@@ -1,6 +1,8 @@
-/** Formulir kontak: validasi di sisi klien, kirim lewat fetch ke penyedia
- *  formulir, dan keadaan "terkirim" seperti pada desain. Tanpa access key,
- *  tombolnya jatuh ke mailto alih-alih berpura-pura sudah mengirim. */
+/** Formulir kontak: validasi di sisi klien, kirim lewat fetch, lalu keadaan
+ *  "terkirim". Penyedia (28 Nov 2026): Netlify Forms (POST url-encoded ke "/",
+ *  dicatat Netlify dan diteruskan ke email), atau Web3Forms bila access key
+ *  diisi. Gagal kirim = pesan galat dengan alamat email, bukan sukses palsu.
+ *  Event "Form Submit" dikirim ke analytics (scripts/analytics.ts). */
 
 const MAIL_TO = 'info@adhiloka.com';
 
@@ -29,7 +31,7 @@ export function initContactForm() {
   const status = form.querySelector<HTMLElement>('[data-status]')!;
   const submit = form.querySelector<HTMLButtonElement>('[data-submit]')!;
   const submitLabel = form.querySelector<HTMLElement>('[data-submit-label]')!;
-  const configured = form.dataset.configured === 'true';
+  const provider = form.dataset.provider ?? 'netlify';
   const endpoint = form.dataset.endpoint!;
 
   /* Tombol di katalog dan halaman bahan membawa ?material=slug dan
@@ -126,47 +128,41 @@ export function initContactForm() {
     if (!validate()) return;
 
     const data = new FormData(form);
-
-    // Tanpa access key situs ini tidak bisa mengirim apa pun. Alih-alih
-    // menampilkan keberhasilan palsu, kita serahkan ke klien email pengguna.
-    if (!configured) {
-      const body = [
-        `Name: ${data.get('name')}`,
-        `Company: ${data.get('company')}`,
-        `Email: ${data.get('email')}`,
-        `Enquiry: ${data.get('kind')}`,
-        `Business: ${data.get('business') || 'Adhiloka Group'}`,
-        '',
-        String(data.get('message') ?? ''),
-      ].join('\n');
-      window.location.href =
-        `mailto:${MAIL_TO}?subject=${encodeURIComponent(String(data.get('kind') ?? 'Enquiry'))}` +
-        `&body=${encodeURIComponent(body)}`;
-      status.textContent = 'Opening your email client.';
-      return;
-    }
-
     submit.dataset.busy = 'true';
     submitLabel.textContent = 'Sending';
 
     try {
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { Accept: 'application/json' },
-        body: data,
-      });
-      const payload = (await res.json().catch(() => ({}))) as { success?: boolean; message?: string };
-
-      if (res.ok && payload.success !== false) {
-        showSent();
+      let ok = false;
+      let message = '';
+      if (provider === 'web3forms') {
+        const res = await fetch(endpoint, { method: 'POST', headers: { Accept: 'application/json' }, body: data });
+        const payload = (await res.json().catch(() => ({}))) as { success?: boolean; message?: string };
+        ok = res.ok && payload.success !== false;
+        message = payload.message || `Request failed (${res.status})`;
       } else {
-        throw new Error(payload.message || `Request failed (${res.status})`);
+        const body = new URLSearchParams();
+        data.forEach((v, k) => body.append(k, String(v)));
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: body.toString(),
+        });
+        ok = res.ok;
+        message = `Request failed (${res.status})`;
       }
+      if (!ok) throw new Error(message);
+      document.dispatchEvent(
+        new CustomEvent('form:sent', { detail: { kind: String(data.get('kind') ?? ''), business: String(data.get('business') || 'Adhiloka Group') } }),
+      );
+      showSent();
     } catch (err) {
       status.dataset.tone = 'error';
-      status.textContent =
-        `We could not send that — ${(err as Error).message}. ` +
-        `Please try again, or email ${MAIL_TO} directly.`;
+      status.innerHTML = '';
+      status.append(
+        `We could not send that (${(err as Error).message}). Please try again, or email `,
+        Object.assign(document.createElement('a'), { href: `mailto:${MAIL_TO}`, textContent: MAIL_TO }),
+        '.',
+      );
     } finally {
       submit.dataset.busy = 'false';
       submitLabel.textContent = 'Send enquiry';

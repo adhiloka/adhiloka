@@ -19,17 +19,17 @@ const index = [
     extra: `${m.latin} ${m.family} ${m.origin}`,
   })),
   ...PRODUCTS.map((p) => ({
-    label: `${p.name} ${p.code}`,
+    label: p.name,
     href: productHref(p),
     kind: 'Product',
     extra: `${p.code} ${p.type} ${p.grade}`,
   })),
-  // Situs grup (26 Nov 2026): produk Marine Delicacies dan Plastics.
+  // Situs grup: item Fine Seafood (per spesies) dan Packaging & Plastic Solutions, tanpa kode (28 Nov 2026).
   ...([...LINE_CATALOG.seafood.items, ...LINE_CATALOG.packaging.items] as LineItem[]).map((i) => ({
     label: i.name,
     href: lineItemHref(i),
     kind: businessByKey(i.line).name,
-    extra: `${i.local} ${i.latin ?? ''} ${categoryLabel(i.line, i.category)} ${i.range} ${i.products.map((p) => `${p.code} ${p.name}`).join(' ')}`,
+    extra: `${i.local ?? ''} ${i.latin ?? ''} ${categoryLabel(i.line, i.category)} ${i.spec.map(([, v]) => v).join(' ')}`,
   })),
   ...NEWS.map((n) => ({ label: n.title, href: `/media/news/${n.slug}/`, kind: 'News' })),
   { label: 'Contact', href: '/contact/', kind: 'Page' },

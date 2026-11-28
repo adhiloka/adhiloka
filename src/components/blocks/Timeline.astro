@@ -1,4 +1,5 @@
 ---
+import { altText } from '../../data/alt';
 import { Image } from 'astro:assets';
 import { images } from '../../data/images';
 import type { Era, EraGroup } from '../../data/pages/about';
@@ -59,7 +60,7 @@ const groups = eras.map((g, i) => ({
       <div class="tl__era" id={g.id} data-tl-era data-label={g.label}>
         <div class="tl__intro">
           <div class="tl__intro-media cover" data-parallax>
-            {g.image ? <Image quality={70} src={images[g.image]} alt="" widths={[768, 1280, 1920]} sizes="100vw" loading="lazy" /> : <span class="plate" />}
+            {g.image ? <Image quality={70} src={images[g.image]} alt={altText(g.name)} widths={[768, 1280, 1920]} sizes="100vw" loading="lazy" /> : <span class="plate" />}
           </div>
           <div class="wrap tl__intro-text">
             <span class="tl__intro-line" aria-hidden="true" />

@@ -26,22 +26,23 @@ bilah sub-menu tiap lini: `src/data/businesses.ts`.
 
 | Jalur | Susunan |
 | --- | --- |
-| `/` | **Beranda grup**: hero empat slide (We Are Adhiloka, tiga lini; `GROUP_HERO_SLIDES`) · kutipan grup (`GROUP_QUOTE`) · Our Businesses **bertab per lini ala adani.com** (`GROUP_TABS`: tiap tab empat tile 2 x 2 + foto besar berchip) · keberlanjutan · berita · Join Us |
+| `/` | **Beranda grup**: hero empat slide (We Are Adhiloka, tiga lini; `GROUP_HERO_SLIDES`) · kutipan grup (`GROUP_QUOTE`) · Our Businesses **tanpa tab** (`GROUP_PANES`: empat tile 2 x 2 + foto besar berchip, 28 Nov 2026) · keberlanjutan · berita · Join Us |
 | `/our-businesses/` | Banner · pembuka · satu blok Feature per lini (pola adani.com/businesses). `/about/our-business/` dialihkan ke sini (halamannya diparkir jadi `_our-business.astro`) |
-| `/fragrance/` | Sub-halaman lini ringkas: banner · pembuka + satu tombol · dua kartu (Ingredients, Perfumery). Tanpa bilah sub-menu lini (`BusinessSubnav` tidak dipakai): remah banner + kartu, pola adani.com/businesses/materials |
-| `/marine-delicacies/` · `/plastics/` | Banner · pembuka + Request a Quotation · **katalog** (`LineCatalog`, `#catalog`) seperti Ingredient Catalog: kotak cari (ikut mencari kode), tab kategori pilihan tunggal (`?cat=`), kartu item berfoto 3 kolom satu tautan; tanpa hitungan |
-| `/marine-delicacies/<item>/` · `/plastics/<item>/` | Halaman item (`LineItemPage`), susunan halaman bahan: kepala berwarna lini, strip fakta, Overview/Uses + Storage & packing, Products (semua kode), Samples & Quotations, slider item lain |
-| `…/<item>/<kode>/` | Halaman kode (`LineProductPage`), susunan halaman produk bahan: kepala berkode, strip fakta, Specification + Storage & packing, Samples & Quotations, daftar kode lain. Tanpa HS code dan tanpa "Typical values…" (komentar pemilik 27 Nov 2026) |
+| `/natural-ingredients-perfumery/` | Sub-halaman lini ringkas: banner · pembuka + satu tombol · dua kartu (Ingredients, Perfumery). Tanpa bilah sub-menu lini (`BusinessSubnav` tidak dipakai): remah banner + kartu, pola adani.com/businesses/materials |
+| `/fine-seafood/` · `/packaging-plastic-solutions/` | Banner · pembuka + Request a Quotation · **katalog** (`LineCatalog`, `#catalog`) berbentuk Ingredient Catalog, **tanpa kode produk** (28 Nov 2026): cari, tab kategori (`?cat=`; seafood = kelompok spesies), kartu berfoto 3 kolom. Plastik: kotak Compare + tabel perbandingan (`CompareBar`) |
+| `/fine-seafood/<spesies>/` · `/packaging-plastic-solutions/<item>/` | Halaman item (`LineItemPage`): kepala berwarna lini, strip fakta, Overview/Uses + Storage & packing, **Specification** (tabel), Samples & Quotations, slider item lain |
 Nama lini sejak 28 Nov 2026 = baris kecil slide hero beranda: **Natural Ingredients & Perfumery**
-(`/fragrance/`), **Fine Seafood** (`/marine-delicacies/`), **Packaging & Plastic Solutions** (`/plastics/`);
-alamat tidak ikut berganti (keputusan
+(`/natural-ingredients-perfumery/`), **Fine Seafood** (`/fine-seafood/`), **Packaging & Plastic Solutions** (`/packaging-plastic-solutions/`);
+slug ikut nama sejak 28 Nov 2026 malam, alamat lama dialihkan di `public/_redirects` (keputusan `decisions/2026-11-28 Line catalogs without product codes.md`; sebelumnya
 `decisions/2026-11-28 Business line names follow homepage hero.md`); alamat lama
 (`/natural-ingredients-perfumery/`, `/natural-aromatics/`, `/seafood/…`, `/marine-products/…`, `/plastics-packaging/…`) dialihkan di `astro.config.mjs`.
 How We Work dihapus dari About dan Perfumery; Working With Us diparkir (`_working-with-us.astro`, dialihkan ke `/contact/`).
 Hub Ingredients memuat empat anaknya (Natural Ingredients, Catalog, Map, Technology) sebagai kartu 2 x 2.
 Kunci internal di kode tetap `naturals`, `seafood`, `packaging`.
 
-- Data katalog: `src/data/seafood.ts`, `src/data/packaging.ts` (item → produk berkode 6 digit kepala 1, lihat `catalog/Product code register.md`), tipe dan helper di `line-products.ts`. Alamat lama `/…/products/` dialihkan ke halaman lini.
+- Data katalog: `src/data/seafood.ts` (satu item per spesies), `src/data/packaging.ts` (susunan pabrik kemasan Jepang, `PACKAGING_COMPARE`), tipe dan helper di `line-products.ts`. Tanpa kode produk di situs (28 Nov 2026).
+- Tabel perbandingan Ingredient Catalog dan plastik: `ComparePick`, `CompareBar`, `scripts/compare.ts`.
+- Formulir kontak: Netlify Forms (`enquiry`), analytics Plausible tanpa cookie (`scripts/analytics.ts`), header cache `public/_headers`, alt gambar `data/alt.ts`.
 - Menu atas: About Us · Our Businesses · Sustainability · Media · Connect. Perfumery dan Ingredients tidak di header; dicapai dari kartu halaman Fragrance dan remah banner (bilah sub-menu lini dilepas 27 Nov 2026).
 - Remah halaman lini: Home › lini › bagian › halaman (`PageBanner` + `businessOf`).
 - Kontak: kolom **Business** dan `?business=naturals|seafood|packaging`, `?product=<slug>` mengisi pesan.
@@ -349,8 +350,9 @@ Tanda logonya sama persis dengan versi sebelumnya, jadi favicon tidak berubah.
 
 ## Yang masih perlu dari pemilik
 
-1. **Formulir kontak.** Isi `PUBLIC_FORM_ACCESS_KEY` di variabel lingkungan Netlify (Web3Forms).
-   Selama kosong, tombol kirim membuka klien email pengunjung.
+1. **Formulir kontak (Netlify Forms, 28 Nov 2026).** Di Netlify: aktifkan Form detection, lalu Forms >
+   `enquiry` > notifikasi email ke info@adhiloka.com. **Plausible:** buat akun, tambah situs adhiloka.com,
+   buat Goal Form Submit, Catalog Download, WhatsApp Click, Sample Request, Quotation Request, Compare.
 2. **Foto.** Sejak 12 November 2026 sebagian besar slot memakai foto stok dari `../../../stock-photos/`
    (Pexels/Unsplash, tanpa atribusi), diperkecil ke 2400 px dan didaftarkan di `src/data/images.ts`
    beserta sumbernya. Keterangannya netral: orang di foto bukan staf/petani/pemasok Adhiloka, damar

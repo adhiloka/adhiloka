@@ -1,4 +1,5 @@
 ---
+import { altText } from '../../data/alt';
 import { Image } from 'astro:assets';
 import { images, type ImageKey } from '../../data/images';
 
@@ -23,7 +24,7 @@ const { title, text, cta, href, image, shot, grey = false } = Astro.props;
   <div class="wrap">
     <a class="promo" href={href} data-anim="sub">
       <span class="promo__media cover" data-parallax>
-        {image ? <Image quality={70} src={images[image]} alt="" widths={[768, 1280, 1920]} sizes="(max-width: 1219px) 100vw, 89vw" loading="lazy" /> : <span class="plate">{shot}</span>}
+        {image ? <Image quality={70} src={images[image]} alt={altText(shot, title)} widths={[768, 1280, 1920]} sizes="(max-width: 1219px) 100vw, 89vw" loading="lazy" /> : <span class="plate">{shot}</span>}
       </span>
       <span class="promo__text">
         <span class="h2 promo__title">{title}</span>

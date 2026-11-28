@@ -20,6 +20,12 @@ interface Props {
 
 const { title, description, active = Astro.url.pathname, ogImage, inner = false } = Astro.props;
 
+// Statistik kunjungan tanpa cookie (Plausible, 28 Nov 2026). Hanya di build
+// produksi; domain bisa diganti lewat PUBLIC_PLAUSIBLE_DOMAIN, kosongkan untuk
+// mematikan. Event khusus di scripts/analytics.ts. Halaman Legal menyebutnya.
+const analyticsDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN ?? 'adhiloka.com';
+const analytics = import.meta.env.PROD && analyticsDomain;
+
 const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).toString();
 // Pemisah "|" seperti judul tab Givaudan (keputusan pemilik 18 Okt 2026).
 const pageTitle = title === SITE.name ? `${SITE.name} | ${SITE.tagline}` : `${title} | ${SITE.name}`;
@@ -82,6 +88,14 @@ const organization = {
 
     <Font cssVariable="--font-sans" preload />
 
+    {
+      analytics && (
+        <>
+          <script is:inline defer data-domain={analyticsDomain} src="https://plausible.io/js/script.file-downloads.outbound-links.js" />
+          <script is:inline>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments); };</script>
+        </>
+      )
+    }
     <script type="application/ld+json" is:inline set:html={JSON.stringify(organization)} />
     <script is:inline>document.documentElement.classList.add('js');</script>
     <!-- Pilihan Accessibility (scripts/a11y.ts) dipasang sebelum halaman
@@ -120,7 +134,9 @@ const organization = {
 
     <script>
       import { initScrollFx } from '../scripts/scroll-fx';
+      import { initAnalytics } from '../scripts/analytics';
       initScrollFx();
+      initAnalytics();
     </script>
   </body>
 </html>

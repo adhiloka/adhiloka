@@ -8,12 +8,13 @@ import type { PageIntro } from './types';
 
 export const PACKAGING_INTRO: PageIntro = {
   title: 'Packaging & Plastic Solutions',
+  metaTitle: 'Packaging & Plastic Solutions: Bags, Food Containers, Cups & Wraps',
   lede: '',
   description:
-    'Plastic bags, pouches, trash bags, wraps, sacks, jumbo bags, cups and takeaway containers for food service and retail.',
+    'Plastic bags, OPP and zipper bags, stand-up pouches, vacuum bags, takeaway containers, cups and cling wrap for food service and retail.',
   image: 'line-packaging',
-  focus: '50% 70%',
-  caption: 'hands sealing a bowl with clear cling film',
+  focus: '50% 50%',
+  caption: 'bread rolls packed in clear plastic wrap',
 };
 
 export const PACKAGING_OPENING = {

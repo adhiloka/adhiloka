@@ -73,7 +73,7 @@ const { slides } = Astro.props;
     {
       slides.map((s, i) => (
         <button class="hero__card" type="button" data-card={i} aria-label={`Show slide ${i + 1}: ${s.title.join(' ')}`}>
-          <Image quality={70} src={images[s.image]} alt="" widths={[240, 400]} sizes="165px" loading="lazy" />
+          <Image quality={70} src={images[s.image]} alt={s.alt} widths={[240, 400]} sizes="165px" loading="lazy" />
         </button>
       ))
     }

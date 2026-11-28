@@ -564,7 +564,7 @@
   },
   {
    "code": "83",
-   "slug": "sugandh-mantri",
+   "slug": "homalomena",
    "name": "Homalomena",
    "latin": "Homalomena aromatica",
    "plantFamily": "Araceae",
@@ -1686,7 +1686,7 @@
    "hs": "3301.29",
    "apps": "Fragrance, Flavour",
    "packaging": "25 kg HDPE jerrycan; 180–200 kg drum; 1,000 kg IBC on request",
-   "slug": "patchouli-oil-heart-65",
+   "slug": "patchouli-heart-65",
    "ingredient": "patchouli"
   },
   {
@@ -1719,7 +1719,7 @@
    "hs": "3301.29",
    "apps": "Fragrance, Flavour",
    "packaging": "25 kg HDPE jerrycan; 180–200 kg drum; 1,000 kg IBC on request",
-   "slug": "patchouli-oil-heart-55",
+   "slug": "patchouli-heart-55",
    "ingredient": "patchouli"
   },
   {
@@ -1851,7 +1851,7 @@
    "hs": "3301.29",
    "apps": "Fragrance, Flavour",
    "packaging": "1 kg, 5 kg or 25 kg container",
-   "slug": "sweet-basil-oil",
+   "slug": "sweet-basil-oil-estragole",
    "ingredient": "sweet-basil"
   },
   {
@@ -2313,7 +2313,7 @@
    "hs": "3301.29",
    "apps": "Fragrance, Flavour",
    "packaging": "25 kg HDPE jerrycan; 180–200 kg drum; 1,000 kg IBC on request",
-   "slug": "clove-stem-oil-85-dark",
+   "slug": "clove-stem-oil-dark-85",
    "ingredient": "clove"
   },
   {
@@ -2445,7 +2445,7 @@
    "hs": "3301.29",
    "apps": "Fragrance, Flavour",
    "packaging": "25 kg HDPE jerrycan; 180–200 kg drum; 1,000 kg IBC on request",
-   "slug": "clove-stem-oil-85-md",
+   "slug": "clove-stem-oil-md-85",
    "ingredient": "clove"
   },
   {
@@ -3766,7 +3766,7 @@
    "apps": "Fragrance",
    "packaging": "1 kg, 5 kg or 25 kg container",
    "slug": "homalomena-oil",
-   "ingredient": "sugandh-mantri"
+   "ingredient": "homalomena"
   },
   {
    "code": "984511",

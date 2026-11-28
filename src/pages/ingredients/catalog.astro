@@ -1,10 +1,13 @@
 ---
+import { altText } from '../../data/alt';
 import { Image } from 'astro:assets';
 import PageLayout from '../../layouts/PageLayout.astro';
 import { images } from '../../data/images';
 import { MATERIALS, PRODUCTS, PRODUCT_TYPES, FAMILY_FILTERS, SCENTS, scentsOf, materialHref, productHref, productsOf, type Material, type Product } from '../../data/materials';
 import { CATALOG_INTRO } from '../../data/pages/ingredients';
 import { CATALOG_DOWNLOAD as cat, formatSize } from '../../data/downloads';
+import ComparePick from '../../components/blocks/ComparePick.astro';
+import CompareBar from '../../components/blocks/CompareBar.astro';
 
 /* Katalog bahan (dirombak 15 Nov 2026, pemilik). Rujukan: Ingredient Catalog
  * dsm-firmenich Studio (design-references/website-catalog/): grid kartu
@@ -44,10 +47,30 @@ const facets = [
   },
 ];
 const scents = SCENTS.map((s) => s.name).filter((s) => MATERIALS.some((m) => scentsOf(m).includes(s)));
+
+/* Tabel perbandingan (pemilik, 28 Nov 2026): centang Compare di kartu, lalu
+   bandingkan sampai empat bahan berdampingan (scripts/compare.ts). */
+const COMPARE_ROWS = ['Botanical name', 'Family', 'Scent', 'Olfactive notes', 'Plant part', 'Product types', 'Origin'];
+const compareItems = MATERIALS.map((m) => ({
+  id: m.slug,
+  name: m.name,
+  href: materialHref(m.slug),
+  image: m.image,
+  sub: m.latin,
+  values: [
+    m.latin,
+    m.family,
+    scentsOf(m).join(' · '),
+    m.notes,
+    m.part,
+    [...new Set(productsOf(m.slug).map((p) => p.type))].join(', '),
+    m.origin,
+  ],
+}));
 ---
 
 <PageLayout intro={CATALOG_INTRO}>
-  <section class="sec cat" data-catalog>
+  <section class="sec cat" data-catalog data-compare-root="ingredients">
     <div class="wrap">
       <form class="cat__form" data-cat-form role="search" aria-label="Search the catalog">
         <div class="cat__bar">
@@ -159,7 +182,7 @@ const scents = SCENTS.map((s) => s.name).filter((s) => MATERIALS.some((m) => sce
                 data-text={ingText(m)}
               >
                 <div class="mat__media cover">
-                  {m.image ? <Image quality={70} src={images[m.image]} alt="" widths={[400, 720]} sizes="(max-width: 640px) 100vw, (max-width: 1026px) 46vw, 30vw" loading="lazy" /> : <span class="plate">{m.shot}</span>}
+                  {m.image ? <Image quality={70} src={images[m.image]} alt={altText(m.shot, m.name)} widths={[400, 720]} sizes="(max-width: 640px) 100vw, (max-width: 1026px) 46vw, 30vw" loading="lazy" /> : <span class="plate">{m.shot}</span>}
                 </div>
                 <div class="mat__body">
                   <h2 class="mat__name"><a class="mat__link" href={materialHref(m.slug)}>{m.name}</a></h2>
@@ -179,6 +202,7 @@ const scents = SCENTS.map((s) => s.name).filter((s) => MATERIALS.some((m) => sce
                     </ul>
                     <a class="mat__hits-more" href={`${materialHref(m.slug)}#products`} data-hits-more hidden>More products</a>
                   </div>
+                  <ComparePick id={m.slug} name={m.name} />
                 </div>
               </li>
             );
@@ -187,12 +211,13 @@ const scents = SCENTS.map((s) => s.name).filter((s) => MATERIALS.some((m) => sce
       </ul>
       <p class="cat__empty" data-cat-empty hidden>No ingredients match your search.</p>
     </div>
+    <CompareBar title="Compare ingredients" rows={COMPARE_ROWS} items={compareItems} latinSub />
   </section>
 
   <section class="cdl" id="download" aria-labelledby="cdl-title">
     <div class="wrap cdl__grid">
       <a class="cdl__stack" href={cat.href} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
-        <Image class="cdl__cover" quality={80} src={cat.thumb} alt="" widths={[320, 640]} sizes="(max-width: 767px) 50vw, 300px" loading="lazy" />
+        <Image class="cdl__cover" quality={80} src={cat.thumb} alt={`Cover of the ${cat.title}`} widths={[320, 640]} sizes="(max-width: 767px) 50vw, 300px" loading="lazy" />
       </a>
       <div class="cdl__text">
         <p class="cdl__eyebrow">{cat.title}</p>
@@ -213,7 +238,9 @@ const scents = SCENTS.map((s) => s.name).filter((s) => MATERIALS.some((m) => sce
 
 <script>
   import { initCatalog } from '../../scripts/catalog-filter';
+  import { initCompare } from '../../scripts/compare';
   initCatalog();
+  initCompare();
 </script>
 
 <style>

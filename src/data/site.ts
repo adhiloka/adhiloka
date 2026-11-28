@@ -132,8 +132,8 @@ export const SOCIAL: { label: string; href: string }[] = [];
 export const SEARCH_SUGGESTIONS = [
   { label: 'Benzoin Sumatra', href: '/ingredients/catalog/benzoin-sumatra/' },
   { label: 'Patchouli', href: '/ingredients/catalog/patchouli/' },
-  { label: 'Fine seafood', href: '/marine-delicacies/' },
-  { label: 'Packaging & plastic solutions', href: '/plastics/' },
+  { label: 'Fine seafood', href: '/fine-seafood/' },
+  { label: 'Packaging & plastic solutions', href: '/packaging-plastic-solutions/' },
   { label: 'Perfumery', href: '/perfumery/' },
   { label: 'Sample request', href: '/contact/?kind=sample' },
 ];

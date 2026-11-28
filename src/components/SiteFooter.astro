@@ -10,29 +10,37 @@ import { BUSINESSES } from '../data/businesses';
  * di footer Adani; di sini tajuk pohon. Tautan legal menuju /legal/; ikon
  * sosial dilepas sampai akunnya ada. */
 
+/* Dirapikan 28 Nov 2026 malam (pemilik: "footernya dirapikan lagi, dicek
+   sudah benar"). Tiap kolom = satu induk menu dengan anaknya sendiri, tanpa
+   tautan ganda: dulu Our Businesses muncul di dua kolom dan halaman
+   Sustainability nyasar di kolom About Us. Kolom tebal di kanan = halaman
+   yang paling sering dicari (pola footer adani.com). */
 const COLUMNS = [
   {
     head: { label: 'About Us', href: '/about/' },
     links: [
-      { label: 'Our Businesses', href: '/our-businesses/' },
       { label: 'Our Purpose', href: '/about/our-purpose/' },
+      { label: 'News', href: '/media/news/' },
+      { label: 'Media Resources', href: '/media/media-resources/' },
+    ],
+  },
+  {
+    head: { label: 'Our Businesses', href: '/our-businesses/' },
+    links: BUSINESSES.map((b) => ({ label: b.name, href: b.href })),
+  },
+  {
+    head: { label: 'Sustainability', href: '/sustainability/' },
+    links: [
       { label: 'Responsible Sourcing', href: '/sustainability/responsible-sourcing/' },
       { label: 'Progress for People', href: '/sustainability/people/' },
     ],
   },
-  {
-    /* Situs grup: kolom kedua = tiga lini saja (27 Nov 2026: katalog dan
-       halaman produk lini dilepas dari footer supaya tingkatnya tidak campur). */
-    head: { label: 'Our Businesses', href: '/our-businesses/' },
-    links: BUSINESSES.map((b) => ({ label: b.name, href: b.href })),
-  },
 ];
 
 const MAJOR = [
-  { label: 'Sustainability', href: '/sustainability/' },
-  { label: 'Media', href: '/media/' },
-  { label: 'Downloads', href: '/media/media-resources/' },
+  { label: 'Ingredient Catalog', href: '/ingredients/catalog/' },
   { label: 'Careers', href: '/contact/careers/' },
+  { label: 'Partner with Us', href: '/contact/partners/' },
   { label: 'Contact Us', href: '/contact/' },
 ];
 
@@ -159,7 +167,8 @@ const ICONS: Record<string, { box: string; w: number; h: number; body: string }>
   .ftr__upper {
     position: relative;
     display: grid;
-    grid-template-columns: 24.3% 18.2% 18.2% 1fr;
+    grid-template-columns: 22% 16% 22% 18% 1fr;
+    column-gap: 0;
     align-items: start;
   }
 
@@ -245,6 +254,7 @@ const ICONS: Record<string, { box: string; w: number; h: number; body: string }>
   .ftr__policy a:hover { color: #fff; }
   .ftr__policy ul { display: flex; gap: 28px; flex-wrap: wrap; }
 
+  .ftr__col { padding-right: 20px; }
   @media (max-width: 1026px) {
     .ftr__upper { grid-template-columns: 1fr 1fr; gap: 40px 20px; }
     .ftr__brand { grid-column: 1 / -1; }

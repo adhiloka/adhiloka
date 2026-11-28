@@ -43,21 +43,33 @@ Tidak ada.
 | `farmer-portrait` | petani tua bercaping tersenyum di sawah (kutipan People) | mendatar | `kutipan PEOPLE_QUOTE` | src/pages/sustainability/people.astro:11 (kutipan PEOPLE_QUOTE) |
 | `farmers-standing` | tiga petani berdiri di kebun di bawah pohon (Close to the Source) | mendatar | `blok src/data/pages/sustainability.ts · Close to the Source` | src/data/pages/sustainability.ts:132 (blok Close to the Source) |
 | `fenugreek-jar` | fenugreek-seeds-jar-pexels-35156984.jpg | persegi | `/ingredients/catalog/fenugreek/` | catalog-data.json (bahan Fenugreek) |
-| `footer-leaves` | daun muda hijau kekuningan disinari matahari, latar kabur (latar footer, ganti agroforest-canopy; pemilik 22 Nov 2026) | mendatar | `blok src/components/SiteFooter.astro · ICONS` | src/components/SiteFooter.astro:74 (blok ICONS) |
+| `footer-leaves` | daun muda hijau kekuningan disinari matahari, latar kabur (latar footer, ganti agroforest-canopy; pemilik 22 Nov 2026) | mendatar | `blok src/components/SiteFooter.astro · ICONS` | src/components/SiteFooter.astro:82 (blok ICONS) |
 | `fragrance-petal` |  | mendatar | `blok /perfumery/ · Contact Us` | src/pages/perfumery/index.astro:30 (blok Contact Us) |
 | `fragrance-resin` |  | tegak | `/ingredients/catalog/?family=Root` | src/data/materials.ts:171 (keluarga Root) |
-| `fs-abalone` | abalon kering bertumpuk (Abalone) | persegi | `/marine-delicacies/?cat=dried#catalog` | src/data/seafood.ts:115 (item Abalone) |
-| `fs-fish-maw` | satu fish maw kering, dipotong ke teksturnya seperti katalog PDF (Fish Maw) | persegi | `/marine-delicacies/?cat=dried#catalog` | src/data/seafood.ts:83 (item Fish Maw) |
-| `fs-pearl-lobster` | lobster mutiara di papan kayu (Lobster; sampul katalog PDF) | mendatar | `/marine-delicacies/?cat=live#catalog` | src/data/seafood.ts:37 (item Lobster) |
-| `fs-sea-cucumber` | teripang duri kering, close-up (Sea Cucumber; sama dengan katalog PDF Marine Products, 28 Nov 2026) | mendatar | `/marine-delicacies/?cat=dried#catalog` | src/data/seafood.ts:56 (item Sea Cucumber) |
-| `fs-shark-fin` | satu sirip hiu kering diperbesar seperti katalog PDF (Shark Fin) | tegak | `/marine-delicacies/?cat=dried#catalog` | src/data/seafood.ts:100 (item Shark Fin) |
+| `fs-abalone` | abalon kering bertumpuk (Abalone) | persegi | `/fine-seafood/?cat=abalone#catalog` | src/data/seafood.ts:255 (item Donkey’s Ear Abalone) |
+| `fs-abalone-bali` | cangkang abalon Bali, sisi luar dan dalam (Bali Abalone) | mendatar | `/fine-seafood/?cat=abalone#catalog` | src/data/seafood.ts:268 (item Bali Abalone) |
+| `fs-bamboo-lobster` | lobster bambu berantena putih di antara karang (Bamboo Lobster) | mendatar | `/fine-seafood/?cat=lobster#catalog` | src/data/seafood.ts:83 (item Bamboo Lobster) |
+| `fs-batik-lobster` | lobster batik berbintik putih di akuarium (Batik Lobster) | mendatar | `/fine-seafood/?cat=lobster#catalog` | src/data/seafood.ts:96 (item Batik Lobster) |
+| `fs-fish-maw` | satu fish maw kering, dipotong ke teksturnya seperti katalog PDF (Fish Maw) | persegi | `/fine-seafood/?cat=fish-maw#catalog` | src/data/seafood.ts:202 (item Croaker Fish Maw) |
+| `fs-fish-maw-barramundi` | fish maw kering berjajar di toko (Barramundi Fish Maw) | tegak | `/fine-seafood/?cat=fish-maw#catalog` | src/data/seafood.ts:215 (item Barramundi Fish Maw) |
+| `fs-fish-maw-catfish` | dua fish maw kering di rak pajang (Catfish Fish Maw) | mendatar | `/fine-seafood/?cat=fish-maw#catalog` | src/data/seafood.ts:228 (item Catfish Fish Maw) |
+| `fs-pearl-lobster` | lobster mutiara di papan kayu (Lobster; sampul katalog PDF) | mendatar | `/fine-seafood/?cat=lobster#catalog` | src/data/seafood.ts:57 (item Pearl Lobster) |
+| `fs-sand-lobster` | lobster pasir pucat di akuarium berbatu (Sand Lobster) | mendatar | `/fine-seafood/?cat=lobster#catalog` | src/data/seafood.ts:70 (item Sand Lobster) |
+| `fs-sc-blackfish` | teripang lotong hitam di pasir karang (Blackfish) | mendatar | `/fine-seafood/?cat=sea-cucumber#catalog` | src/data/seafood.ts:149 (item Blackfish Sea Cucumber) |
+| `fs-sc-curryfish` | teripang gamat di pasir (Curryfish) | mendatar | `/fine-seafood/?cat=sea-cucumber#catalog` | src/data/seafood.ts:175 (item Curryfish Sea Cucumber) |
+| `fs-sc-golden` | teripang cokelat keemasan di tangan, latar laut (Golden Sandfish; spesies di foto belum dipastikan, ganti bila ada foto H. lessoni yang layak) | mendatar | `/fine-seafood/?cat=sea-cucumber#catalog` | src/data/seafood.ts:123 (item Golden Sandfish Sea Cucumber) |
+| `fs-sc-sandfish` | teripang pasir di dasar berpasir (Sandfish Sea Cucumber) | mendatar | `/fine-seafood/?cat=sea-cucumber#catalog` | src/data/seafood.ts:110 (item Sandfish Sea Cucumber) |
+| `fs-sc-stonefish` | teripang batu berbercak jingga di tangan, latar karang (Stonefish) | mendatar | `/fine-seafood/?cat=sea-cucumber#catalog` | src/data/seafood.ts:162 (item Stonefish Sea Cucumber) |
+| `fs-sc-teatfish` | teripang susu di dasar karang (White Teatfish) | mendatar | `/fine-seafood/?cat=sea-cucumber#catalog` | src/data/seafood.ts:136 (item White Teatfish Sea Cucumber) |
+| `fs-sea-cucumber` | teripang duri kering, close-up (Sea Cucumber; sama dengan katalog PDF Marine Products, 28 Nov 2026) | mendatar | `/fine-seafood/?cat=sea-cucumber#catalog` | src/data/seafood.ts:188 (item Spiky Sea Cucumber) |
+| `fs-shark-fin` | satu sirip hiu kering diperbesar seperti katalog PDF (Shark Fin) | tegak | `/fine-seafood/?cat=shark-fin#catalog` | src/data/seafood.ts:241 (item Shark Fin) |
 | `ginger-fresh` | pile-of-fresh-ginger-in-close-up-photography-7543128.jpg | mendatar | `/ingredients/catalog/ginger/` | catalog-data.json (bahan Ginger) |
 | `ginger-roots` | roots-of-ginger-20234970.jpg | mendatar | `/ingredients/catalog/red-ginger/` | catalog-data.json (bahan Red Ginger) |
 | `golden-sap` | golden-sap-dripping-pexels-28343754.jpg | tegak | `/ingredients/catalog/gurjun-balsam/` | catalog-data.json (bahan Gurjun Balsam) |
 | `grain-drying` | petani perempuan meratakan hasil panen yang dijemur (berita The Rhythm of the Harvest) | mendatar | `blok src/data/pages/media.ts · The Rhythm of the Harvest` | src/data/pages/media.ts:127 (blok The Rhythm of the Harvest) |
 | `green-hills-tea` | bukit kebun teh hijau di bawah langit cerah (penutup Sustainability) | mendatar | `blok /sustainability/ · Responsible Sourcing` | src/pages/sustainability/index.astro:21 (blok Responsible Sourcing) |
 | `green-leaves` | daun hijau lebar, dekat (keluarga Leaf) | tegak | `/ingredients/catalog/?family=Leaf` | src/data/materials.ts:172 (keluarga Leaf) |
-| `group-quote` | perahu nelayan tertambat di air tenang pagi hari, tegak (kutipan grup) | tegak | `kutipan GROUP_QUOTE` | src/data/pages/home.ts:214 (kutipan GROUP_QUOTE) |
+| `group-quote` | tangan chef menata hidangan di piring, nuansa krem hangat, tegak, tulisan di celemek dipotong (kutipan grup, sejak 28 Nov 2026 malam; sebelumnya perahu nelayan) | tegak | `kutipan GROUP_QUOTE` | src/data/pages/home.ts:219 (kutipan GROUP_QUOTE) |
 | `growers-field` | dua petani berdiri di ladang dengan hasil panen (Partnerships) | mendatar | `blok src/data/pages/sustainability.ts · Partnerships` | src/data/pages/sustainability.ts:53 (blok Partnerships) |
 | `herb-basket` | keranjang berisi daun herba segar di meja kayu (keluarga Herbal) | mendatar | `/ingredients/catalog/?family=Herbal` | src/data/materials.ts:177 (keluarga Herbal) |
 | `hero-blossom-golden` | kuncup bunga apel disinari matahari senja, latar keemasan (hero Ingredients dan halaman Ingredients) | mendatar | `/ingredients/` | src/data/pages/ingredients.ts:19 (banner INGREDIENTS_INTRO)<br>src/data/pages/naturals-line.ts:29 (tautan /ingredients/) |
@@ -72,7 +84,7 @@ Tidak ada.
 | `hero-still-hall` |  | mendatar | `/media/news/` | src/data/pages/media.ts:27 (tautan /media/news/)<br>src/data/pages/media.ts:50 (banner NEWS_INTRO) |
 | `hero-tea-hills` | perbukitan kebun teh hijau di bawah matahari cerah (hero The Source Collection dan Ingredient Catalog) | mendatar | `/sustainability/` | src/data/pages/home.ts:153 (tautan /sustainability/) |
 | `hero-woman-golden-light` | perempuan tersenyum disinari matahari sore dari belakang, latar kabur (hero We Are Adhiloka dan halaman About; bukan staf Adhiloka) | mendatar | `/about/` | src/components/blocks/SiblingCards.astro:28 (tautan /about/)<br>src/data/pages/about.ts:19 (banner ABOUT_INTRO)<br>src/data/pages/home.ts:180 (tautan /about/)<br>src/data/site.ts:55 (tautan /about/) |
-| `homalomena-leaves` | homalomena-stang-1zz.jpg | mendatar | `/ingredients/catalog/sugandh-mantri/` | catalog-data.json (bahan Homalomena) |
+| `homalomena-leaves` | homalomena-stang-1zz.jpg | mendatar | `/ingredients/catalog/homalomena/` | catalog-data.json (bahan Homalomena) |
 | `jasmine-grandiflorum-flowers` | jasmine-white-flowers-unsplash--cF4m5LEmlA.jpg | mendatar | `/ingredients/catalog/jasmine-grandiflorum/` | catalog-data.json (bahan Jasmine Grandiflorum) |
 | `jasmine-sambac` | jasmine-sambac-bud-unsplash-Zqai2COyXBw.jpg | mendatar | `/ingredients/catalog/jasmine-sambac/` | catalog-data.json (bahan Jasmine Sambac) |
 | `jungle-stream` | sungai kecil di hutan bercahaya | tegak | `/ingredients/map/` | src/data/pages/ingredients.ts:33 (tautan /ingredients/map/)<br>src/data/pages/ingredients.ts:88 (banner MAP_INTRO) |
@@ -80,37 +92,41 @@ Tidak ada.
 | `kaffir-lime-leaves` |  | mendatar | `/ingredients/catalog/kaffir-lime-leaf/` | catalog-data.json (bahan Kaffir Lime Leaf) |
 | `kencur-dried` | kaempferia-galanga-dried-sagisavas.jpg | persegi | `/ingredients/catalog/kencur/` | catalog-data.json (bahan Kencur) |
 | `lab-flash-point` | alat uji titik nyala Pensky-Martens | tegak | `/contact/?kind=specification` | src/data/pages/ingredients.ts:211 (tautan /contact/?kind=specification) |
-| `lab-technician` | teknisi berjas lab dan penutup rambut bekerja di meja laboratorium (Working at Adhiloka) | mendatar | `/contact/careers/` | src/data/pages/connect.ts:15 (tautan /contact/careers/)<br>src/data/pages/connect.ts:28 (banner CAREERS_INTRO)<br>src/data/pages/home.ts:289 (tautan /contact/careers/) |
+| `lab-technician` | teknisi berjas lab dan penutup rambut bekerja di meja laboratorium (Working at Adhiloka) | mendatar | `/contact/careers/` | src/data/pages/connect.ts:15 (tautan /contact/careers/)<br>src/data/pages/connect.ts:28 (banner CAREERS_INTRO)<br>src/data/pages/home.ts:267 (tautan /contact/careers/) |
 | `lab-woman-hall` | peneliti perempuan bekerja di laboratorium terang (Working at Adhiloka) | mendatar | `/contact/?kind=careers` | src/data/pages/connect.ts:39 (tautan /contact/?kind=careers) |
-| `labelled-bottles` | tangan menata botol amber berlabel di meja marmer | mendatar | `/fragrance/` | src/data/businesses.ts:54 (tautan /fragrance/)<br>src/data/pages/home.ts:188 (tautan /fragrance/)<br>src/data/pages/naturals-line.ts:13 (banner NATURALS_INTRO) |
+| `labelled-bottles` | tangan menata botol amber berlabel di meja marmer | mendatar | `/natural-ingredients-perfumery/` | src/data/businesses.ts:55 (tautan /natural-ingredients-perfumery/)<br>src/data/pages/home.ts:188 (tautan /natural-ingredients-perfumery/)<br>src/data/pages/naturals-line.ts:13 (banner NATURALS_INTRO) |
 | `lavender-flowers` | lavender-bed-closeup-unsplash-bIHJ4oxQlYs.jpg | mendatar | `/ingredients/catalog/lavender/` | catalog-data.json (bahan Lavender) |
 | `lemongrass-basket` | batang serai di keranjang bersama sayuran hijau (keluarga Citrus) | mendatar | `/ingredients/catalog/?family=Citrus` | src/data/materials.ts:176 (keluarga Citrus) |
 | `lemongrass-field` | pexels-38004213.jpg | mendatar | `/ingredients/catalog/lemongrass/` | catalog-data.json (bahan Lemongrass) |
-| `line-packaging` | tangan menutup mangkuk dengan cling film bening, close-up, meja kayu hangat (lini Packaging & Plastic Solutions, sejak 28 Nov 2026 sore; pemilik: plastik film close-up yang sedang dipakai mengemas; sebelumnya gelas plastik es kopi) | mendatar | `/plastics/` | src/data/businesses.ts:83 (tautan /plastics/)<br>src/data/pages/home.ts:203 (tautan /plastics/)<br>src/data/pages/packaging-line.ts:14 (banner PACKAGING_INTRO) |
-| `line-seafood` | lobster duri tersaji, cahaya restoran hangat keemasan (lini Fine Seafood, sejak 28 Nov 2026 sore; pemilik: lobster di terumbu terlalu ngejreng, beda palet dengan slide lain; sebelumnya ikan di atas es) | mendatar | `/marine-delicacies/` | src/data/businesses.ts:72 (tautan /marine-delicacies/)<br>src/data/pages/home.ts:195 (tautan /marine-delicacies/)<br>src/data/pages/seafood-line.ts:14 (banner SEAFOOD_INTRO) |
+| `line-packaging` | roti dalam kemasan plastik bening, close-up, cahaya hangat keemasan (lini Packaging & Plastic Solutions, sejak 28 Nov 2026 malam; pemilik: cari yang lebih bagus; sebelumnya cling film di mangkuk) | mendatar | `/packaging-plastic-solutions/` | src/data/businesses.ts:84 (tautan /packaging-plastic-solutions/)<br>src/data/pages/home.ts:203 (tautan /packaging-plastic-solutions/)<br>src/data/pages/packaging-line.ts:15 (banner PACKAGING_INTRO) |
+| `line-seafood` | lobster mutiara hidup di akuarium, close-up, keemasan (lini Fine Seafood, sejak 28 Nov 2026 malam; pemilik: lobster hidup close-up, bukan yang sudah dimasak; sebelumnya lobster tersaji) | mendatar | `/fine-seafood/` | src/data/businesses.ts:73 (tautan /fine-seafood/)<br>src/data/pages/home.ts:195 (tautan /fine-seafood/)<br>src/data/pages/seafood-line.ts:15 (banner SEAFOOD_INTRO) |
 | `material-benzoin` |  | persegi | `/ingredients/catalog/benzoin-sumatra/` | src/data/pages/about.ts:184 (banner HISTORY_INTRO (halaman diparkir))<br>catalog-data.json (bahan Benzoin Sumatra) |
 | `material-nutmeg` |  | mendatar | `blok /ingredients/ · Ingredient Catalog` | src/pages/ingredients/index.astro:40 (blok Ingredient Catalog) |
 | `misty-palm-forest` | hutan berkabut dengan pohon palem (wilayah Papua) | mendatar | `blok src/data/regions.ts · Papua` | src/data/regions.ts:64 (blok Papua) |
-| `notebook-pens` | buku catatan bergaris dan dua pena (Legal) | mendatar | `/legal/` | src/pages/legal.astro:16 (banner intro) |
+| `notebook-pens` | buku catatan bergaris dan dua pena (Legal) | mendatar | `/legal/` | src/pages/legal.astro:17 (banner intro) |
 | `nutmeg-in-hand` | buah pala terbelah di telapak tangan (Close to the Source) | mendatar | `kutipan PURPOSE_QUOTE` | src/pages/about/our-purpose.astro:14 (kutipan PURPOSE_QUOTE) |
 | `nutmeg-mace` | buah pala terbelah dengan fuli merah | mendatar | `/ingredients/catalog/nutmeg-mace/` | catalog-data.json (bahan Nutmeg & Mace) |
 | `nutmeg-on-tree` | buah pala di pohon | tegak | `blok src/data/regions.ts · Maluku` | src/data/regions.ts:57 (blok Maluku) |
 | `oil-on-palm` | minyak diteteskan dari botol amber ke telapak tangan (berita From Raw Material) | mendatar | `blok src/data/pages/media.ts · From Raw Material to Fragrance` | src/data/pages/media.ts:97 (blok From Raw Material to Fragrance) |
 | `palmarosa-grass` | cymbopogon-martini-upadhyay.jpg | tegak | `/ingredients/catalog/palmarosa/` | catalog-data.json (bahan Palmarosa) |
-| `partner-hands-coffee` | empat pasang tangan menangkup buah kopi merah, dari atas (Partner with Us, ganti chili-pickers; pemilik 22 Nov 2026) | mendatar | `/contact/partners/` | src/data/pages/connect.ts:16 (tautan /contact/partners/)<br>src/data/pages/connect.ts:51 (banner PARTNERS_INTRO)<br>src/data/pages/home.ts:290 (tautan /contact/partners/) |
+| `partner-hands-coffee` | empat pasang tangan menangkup buah kopi merah, dari atas (Partner with Us, ganti chili-pickers; pemilik 22 Nov 2026) | mendatar | `/contact/partners/` | src/data/pages/connect.ts:16 (tautan /contact/partners/)<br>src/data/pages/connect.ts:51 (banner PARTNERS_INTRO)<br>src/data/pages/home.ts:268 (tautan /contact/partners/) |
 | `patchouli-leaves` | daun nilam asli, Pogostemon cablin | mendatar | `/ingredients/catalog/patchouli/` | catalog-data.json (bahan Patchouli) |
 | `perfume-workshop` | meja racik parfum dari atas | mendatar |  | src/data/pages/about.ts:60 (banner BUSINESS_INTRO (halaman diparkir)) |
-| `pk-ldpe` | sayuran di nampan berbalut film plastik bening (LDPE) | mendatar | `/plastics/?cat=films#catalog` | src/data/packaging.ts:25 (kategori Films & Wraps)<br>src/data/packaging.ts:122 (item Cling Wrap) |
-| `pk-lldpe` | palet barang berbalut stretch film di gudang (LLDPE) | mendatar | `/plastics/?cat=films#catalog` | src/data/packaging.ts:139 (item Stretch Film) |
-| `pk-pouches` | dua standing pouch putih polos (Bags & Pouches) | mendatar | `/plastics/?cat=bags#catalog` | src/data/packaging.ts:82 (item Pouches & Zipper Bags) |
-| `pk-pp` | wadah makanan plastik bening bertumpuk (PP) | mendatar | `/plastics/?cat=food#catalog` | src/data/packaging.ts:232 (item Food Containers) |
-| `pk-ps` | deretan gelas plastik sekali pakai bening (PS) | mendatar | `/plastics/?cat=food#catalog` | src/data/packaging.ts:214 (item Cups & Lids) |
+| `pk-ldpe` | sayuran di nampan berbalut film plastik bening (LDPE) | mendatar | `/packaging-plastic-solutions/?cat=wraps#catalog` | src/data/packaging.ts:331 (item Cling Wrap) |
+| `pk-lldpe` | palet barang berbalut stretch film di gudang (LLDPE) | mendatar | `/packaging-plastic-solutions/?cat=wraps#catalog` | src/data/packaging.ts:354 (item Stretch Film) |
+| `pk-pouches` | dua standing pouch putih polos (Bags & Pouches) | mendatar | `/packaging-plastic-solutions/?cat=food-bags#catalog` | src/data/packaging.ts:168 (item Stand-up Pouches) |
+| `pk-ps` | deretan gelas plastik sekali pakai bening (PS) | mendatar | `/packaging-plastic-solutions/?cat=cups#catalog` | src/data/packaging.ts:284 (item Clear Cups) |
 | `plantation-rows` | barisan kebun di lereng bukit (wilayah Sulawesi) | mendatar | `blok src/data/regions.ts · Sulawesi` | src/data/regions.ts:50 (blok Sulawesi) |
-| `pm-carrier-bags` | kantong kresek bening berisi belanjaan di meja (Carrier Bags) | mendatar | `/plastics/?cat=bags#catalog` | src/data/packaging.ts:43 (item Carrier Bags) |
-| `pm-clear-bags` | bawang putih dalam kantong plastik bening di latar putih (Clear Bags) | mendatar | `/plastics/?cat=bags#catalog` | src/data/packaging.ts:62 (item Clear Bags) |
-| `pm-jumbo-bags` | pekerja mengangkat jumbo bag putih di pabrik (Jumbo Bags) | mendatar | `/plastics/?cat=sacks#catalog` | src/data/packaging.ts:159 (item Jumbo Bags) |
-| `pm-trash-bags` | kantong sampah plastik hitam terikat (Trash Bags) | mendatar | `/plastics/?cat=bags#catalog` | src/data/packaging.ts:101 (item Trash Bags) |
-| `pm-woven-sacks` | karung plastik anyaman bertumpuk, dekat (Woven Sacks) | mendatar | `/plastics/?cat=sacks#catalog` | src/data/packaging.ts:26 (kategori Sacks & Bulk Bags)<br>src/data/packaging.ts:194 (item Woven Sacks) |
+| `pm-carrier-bags` | kantong kresek bening berisi belanjaan di meja (Carrier Bags) | mendatar | `/packaging-plastic-solutions/?cat=bags#catalog` | src/data/packaging.ts:52 (item Carrier Bags) |
+| `pm-clear-bags` | bawang putih dalam kantong plastik bening di latar putih (Clear Bags) | mendatar | `/packaging-plastic-solutions/?cat=bags#catalog` | src/data/packaging.ts:77 (item Poly Bags) |
+| `pm-clear-containers` | dua donat dalam mika engsel bening (Clear Containers) | mendatar | `/packaging-plastic-solutions/?cat=containers#catalog` | src/data/packaging.ts:239 (item Clear Containers) |
+| `pm-opp-bags` | muffin dibungkus satu per satu dalam plastik OPP (OPP Bags) | mendatar | `/packaging-plastic-solutions/?cat=food-bags#catalog` | src/data/packaging.ts:122 (item OPP Bags) |
+| `pm-sauce-cups` | tangan memegang cup saus kecil, dipotong mendatar (Sauce Cups) | mendatar | `/packaging-plastic-solutions/?cat=containers#catalog` | src/data/packaging.ts:261 (item Sauce Cups) |
+| `pm-sealable-cups` | tiga gelas bubble tea bersegel di meja (Sealable Cups) | mendatar | `/packaging-plastic-solutions/?cat=cups#catalog` | src/data/packaging.ts:307 (item Sealable Cups) |
+| `pm-takeaway-containers` | wadah takeaway PP bertumpuk berisi nasi dan sayur (Takeaway Containers) | mendatar | `/packaging-plastic-solutions/?cat=containers#catalog` | src/data/packaging.ts:216 (item Takeaway Containers) |
+| `pm-trash-bags` | kantong sampah plastik hitam terikat (Trash Bags) | mendatar | `/packaging-plastic-solutions/?cat=bags#catalog` | src/data/packaging.ts:101 (item Trash Bags) |
+| `pm-vacuum-bags` | potongan daging dalam plastik vakum (Vacuum Bags) | mendatar | `/packaging-plastic-solutions/?cat=food-bags#catalog` | src/data/packaging.ts:192 (item Vacuum Bags) |
+| `pm-zipper-bags` | tangan memegang plastik klip berisi buah (Zipper Bags) | mendatar | `/packaging-plastic-solutions/?cat=food-bags#catalog` | src/data/packaging.ts:145 (item Zipper Bags) |
 | `rainforest-aerial` | hutan hujan dari udara | mendatar | `/sustainability/responsible-sourcing/` | src/data/pages/about.ts:72 (tautan /sustainability/responsible-sourcing/)<br>src/data/pages/home.ts:72 (tautan /sustainability/responsible-sourcing/)<br>src/data/pages/sustainability.ts:30 (tautan /sustainability/responsible-sourcing/)<br>src/data/pages/sustainability.ts:86 (banner SOURCING_INTRO) |
 | `reed-diffuser-home` |  | mendatar | `/perfumery/#consumer-fragrance` | src/data/pages/perfumery.ts:51 (bagian Consumer Fragrance)<br>src/data/pages/perfumery.ts:107 (tautan /perfumery/#consumer-fragrance) |
 | `resin-bark-close` | getah damar mengeras di kulit kayu, makro (berita Benzoin; bukan benzoin) | mendatar | `blok src/data/pages/media.ts · Benzoin, Tapped From Living Trees` | src/data/pages/media.ts:155 (blok Benzoin, Tapped From Living Trees) |
@@ -123,7 +139,6 @@ Tidak ada.
 | `seed-spoons` | sendok berisi biji dan rempah kering di meja gelap (berita katalog online) | mendatar | `blok src/data/pages/media.ts · Our Ingredient Catalog, Now Online` | src/data/pages/media.ts:82 (blok Our Ingredient Catalog, Now Online) |
 | `smelling-flowers` | mencium segenggam bunga kering | mendatar | `/media/` | src/data/pages/media.ts:17 (banner MEDIA_INTRO)<br>src/data/site.ts:96 (tautan /media/) |
 | `spice-market-trays` | deretan nampan rempah dan biji kering (berita katalog online) | mendatar | `/ingredients/natural-ingredients/` | src/data/pages/ingredients.ts:31 (tautan /ingredients/natural-ingredients/)<br>src/data/pages/ingredients.ts:70 (banner NATURAL_INTRO) |
-| `spice-sacks` | karung berisi rempah dan biji kering (What We Buy) | mendatar | `/plastics/?cat=sacks#catalog` | src/data/packaging.ts:177 (item Jute Sacks) |
 | `spices-spoons` | rempah utuh di sendok kayu | mendatar | `/ingredients/catalog/` | src/pages/ingredients/natural-ingredients.astro:41 (tautan /ingredients/catalog/) |
 | `star-anise-mace` | adas bintang dan fuli di permukaan gelap (slider Who We Are) | mendatar | `blok /about/ · baris 31` | src/pages/about/index.astro:31 (blok baris 31) |
 | `stationery-flatlay` | buku catatan, pena dan kartu di meja putih (Media Resources) | mendatar | `/media/media-resources/` | src/data/pages/media.ts:32 (tautan /media/media-resources/)<br>src/data/pages/media.ts:187 (banner RESOURCES_INTRO) |
@@ -190,12 +205,14 @@ Tidak ada.
 - `cloves-scattered` · mendatar · cengkih kering berserakan di permukaan abu (slider Who We Are)
 - `fine-fragrance-bottles` · mendatar · deretan botol parfum kaca; JANGAN DIPAKAI: label merek Lancôme terbaca (dilepas 22 Nov 2026)
 - `desk-laptop` · mendatar · meja kerja putih dengan laptop dan tanaman (How to Apply)
+- `spice-sacks` · mendatar · karung berisi rempah dan biji kering (What We Buy)
 - `cloves-bowl` · mendatar · cengkih kering di mangkuk keramik (What We Look For)
 - `warehouse-boxes` · mendatar · tumpukan kardus di gudang (Distribution)
 - `chili-pickers` · mendatar · dua petani bercaping memetik cabai (Partner with Us)
 - `pk-products` · mendatar · krat plastik biru bertumpuk (banner Plastics & Packaging Products)
 - `pk-grades` · mendatar · botol bergerak di jalur mesin pengisian (The Right Grade for the Process)
 - `pk-hdpe` · mendatar · krat plastik merah dan jingga bertumpuk (HDPE)
+- `pk-pp` · mendatar · wadah makanan plastik bening bertumpuk (PP)
 - `pk-pet` · mendatar · preform botol PET bening di krat (PET)
 - `pk-pvc` · mendatar · tumpukan pipa PVC abu-abu (PVC)
 - `pk-film` · mendatar · gulungan film dan mesin shrink film di gudang (Polyethylene Film)
@@ -205,3 +222,5 @@ Tidak ada.
 - `pk-perfume-bottles` · mendatar · deretan botol parfum kaca kosong (Perfume Bottles)
 - `pk-sprayers` · mendatar · jari menekan pompa semprot botol parfum (Sprayers & Caps)
 - `pk-vials` · mendatar · deretan vial kaca kecil (Sample Vials)
+- `pm-jumbo-bags` · mendatar · pekerja mengangkat jumbo bag putih di pabrik (Jumbo Bags)
+- `pm-woven-sacks` · mendatar · karung plastik anyaman bertumpuk, dekat (Woven Sacks)

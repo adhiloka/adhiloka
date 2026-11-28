@@ -29,6 +29,13 @@ const notes = m.notes.split(' · ');
 const contact = (kind: string) => `/contact/?material=${m.slug}&kind=${kind}`;
 const products = productsOf(m.slug);
 
+/* Judul tab (28 Nov 2026, audit SEO: "Tea | Adhiloka" terlalu umum): nama +
+   jenis produknya + nama botani, mis. "Clove Essential Oil & Oleoresin
+   (Syzygium aromaticum)". */
+const titleCase = (t: string) => t.replace(/\b([a-z])/g, (c) => c.toUpperCase()).replace(/\bCo2\b/g, 'CO2');
+const types = [...new Set(products.map((p) => titleCase(p.type)))].slice(0, 2);
+const pageTitle = `${m.name}${types.length ? ` ${types.join(' & ')}` : ''} (${m.latin})`;
+
 const facts = [
   { label: 'Botanical name', value: m.latin, latin: true },
   { label: 'Family', value: m.family },
@@ -37,7 +44,7 @@ const facts = [
 ];
 ---
 
-<BaseLayout title={m.name} description={`${m.name} (${m.latin}) from Adhiloka. ${m.note}`} inner>
+<BaseLayout title={pageTitle} description={`${m.name} (${m.latin}) from Adhiloka. ${m.note}`} inner>
   <section class="ph" style={`--fam: ${FAMILY_COLOR[m.family]}`}>
     <div class="wrap">
       <nav class="ph__crumbs" aria-label="Breadcrumb">

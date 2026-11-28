@@ -8,12 +8,13 @@ import type { PageIntro } from './types';
 
 export const SEAFOOD_INTRO: PageIntro = {
   title: 'Fine Seafood',
+  metaTitle: 'Fine Seafood: Live Lobster, Sea Cucumber, Fish Maw & Abalone',
   lede: '',
   description:
     'Live lobster and dried delicacies of the sea from Indonesia: sea cucumber, fish maw, shark fin and abalone.',
   image: 'line-seafood',
-  focus: '40% 35%',
-  caption: 'spiny lobster served in warm restaurant light',
+  focus: '55% 55%',
+  caption: 'live pearl lobsters close up in a seawater tank',
 };
 
 export const SEAFOOD_OPENING = {

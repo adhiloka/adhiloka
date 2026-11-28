@@ -1,4 +1,5 @@
 ---
+import { altText } from '../../data/alt';
 import { Image } from 'astro:assets';
 import { images } from '../../data/images';
 import { leaderHref, type Leader } from '../../data/pages/about';
@@ -38,7 +39,7 @@ const { title, people, viewAll, cols = 4, grey = false, flush = false } = Astro.
           <li class="ppl__item" data-anim-item>
             <a class="ppl__card" href={leaderHref(p)}>
               <span class="ppl__photo cover">
-                {p.image ? <Image quality={70} src={images[p.image]} alt="" widths={[400, 700]} sizes="(max-width: 767px) 100vw, 30vw" loading="lazy" /> : <span class="plate">{p.shot}</span>}
+                {p.image ? <Image quality={70} src={images[p.image]} alt={altText(p.shot, p.name)} widths={[400, 700]} sizes="(max-width: 767px) 100vw, 30vw" loading="lazy" /> : <span class="plate">{p.shot}</span>}
               </span>
               <span class="ppl__info">
                 <h3 class="ppl__name">

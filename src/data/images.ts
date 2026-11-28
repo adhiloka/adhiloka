@@ -205,6 +205,26 @@ import pmClearBags from '../assets/images/pm-clear-bags.jpg';
 import pmTrashBags from '../assets/images/pm-trash-bags.jpg';
 import pmJumboBags from '../assets/images/pm-jumbo-bags.jpg';
 import pmWovenSacks from '../assets/images/pm-woven-sacks.jpg';
+// Katalog per spesies dan plastik baru, 28 Nov 2026.
+import fsSandLobster from '../assets/images/fs-sand-lobster.jpg';
+import fsBambooLobster from '../assets/images/fs-bamboo-lobster.jpg';
+import fsBatikLobster from '../assets/images/fs-batik-lobster.jpg';
+import fsScSandfish from '../assets/images/fs-sc-sandfish.jpg';
+import fsScGolden from '../assets/images/fs-sc-golden.jpg';
+import fsScTeatfish from '../assets/images/fs-sc-teatfish.jpg';
+import fsScBlackfish from '../assets/images/fs-sc-blackfish.jpg';
+import fsScStonefish from '../assets/images/fs-sc-stonefish.jpg';
+import fsScCurryfish from '../assets/images/fs-sc-curryfish.jpg';
+import fsFishMawBarramundi from '../assets/images/fs-fish-maw-barramundi.jpg';
+import fsFishMawCatfish from '../assets/images/fs-fish-maw-catfish.jpg';
+import fsAbaloneBali from '../assets/images/fs-abalone-bali.jpg';
+import pmOppBags from '../assets/images/pm-opp-bags.jpg';
+import pmZipperBags from '../assets/images/pm-zipper-bags.jpg';
+import pmVacuumBags from '../assets/images/pm-vacuum-bags.jpg';
+import pmTakeawayContainers from '../assets/images/pm-takeaway-containers.jpg';
+import pmClearContainers from '../assets/images/pm-clear-containers.jpg';
+import pmSauceCups from '../assets/images/pm-sauce-cups.jpg';
+import pmSealableCups from '../assets/images/pm-sealable-cups.jpg';
 
 /* Satu-satunya tempat berkas gambar dipetakan ke kunci yang dipakai data.
  *
@@ -403,9 +423,9 @@ import pmWovenSacks from '../assets/images/pm-woven-sacks.jpg';
  *
  * 26 Nov 2026, situs grup (lini Seafood dan Plastics & Packaging), semua Pexels License.
  *   biz-overview  kapal kontainer di laut saat senja (Our Businesses)  [stock-photos/group/container-ship-sunset-pexels-14392678.jpg, Pexels License]
- *   line-seafood  lobster duri tersaji, cahaya restoran hangat keemasan (lini Fine Seafood, sejak 28 Nov 2026 sore; pemilik: lobster di terumbu terlalu ngejreng, beda palet dengan slide lain; sebelumnya ikan di atas es)  [stock-photos/seafood/lobster-dish-warm-light-pexels-37976933.jpg, Pexels License]
- *   line-packaging  tangan menutup mangkuk dengan cling film bening, close-up, meja kayu hangat (lini Packaging & Plastic Solutions, sejak 28 Nov 2026 sore; pemilik: plastik film close-up yang sedang dipakai mengemas; sebelumnya gelas plastik es kopi)  [stock-photos/plastics-packaging/hands-cling-film-bowl-pexels-7322628.jpg, Pexels License]
- *   group-quote  perahu nelayan tertambat di air tenang pagi hari, tegak (kutipan grup)  [stock-photos/group/fishing-boat-morning-pexels-30669124.jpg, Pexels License]
+ *   line-seafood  lobster mutiara hidup di akuarium, close-up, keemasan (lini Fine Seafood, sejak 28 Nov 2026 malam; pemilik: lobster hidup close-up, bukan yang sudah dimasak; sebelumnya lobster tersaji)  [stock-photos/seafood/spiny-lobsters-aquarium-pexels-248455.jpg, Pexels License]
+ *   line-packaging  roti dalam kemasan plastik bening, close-up, cahaya hangat keemasan (lini Packaging & Plastic Solutions, sejak 28 Nov 2026 malam; pemilik: cari yang lebih bagus; sebelumnya cling film di mangkuk)  [stock-photos/plastics-packaging/bread-rolls-clear-wrap-warm-pexels-15533810.jpg, Pexels License]
+ *   group-quote  tangan chef menata hidangan di piring, nuansa krem hangat, tegak, tulisan di celemek dipotong (kutipan grup, sejak 28 Nov 2026 malam; sebelumnya perahu nelayan)  [stock-photos/group/chef-plating-warm-plate-pexels-28445970.jpg, Pexels License]
  *   about-sea  perahu kecil di air tenang di bawah langit senja (slider Who We Are)  [stock-photos/group/boats-calm-water-evening-pexels-33167436.jpg, Pexels License]
  *   about-plastics  stroberi dalam wadah plastik bening (slider Who We Are, sejak 28 Nov 2026; dulu biji plastik)  [stock-photos/plastics-packaging/strawberries-clear-plastic-punnets-pexels-175728.jpg, Pexels License]
  *   pk-products  krat plastik biru bertumpuk (banner Plastics & Packaging Products)  [stock-photos/plastics-packaging/blue-plastic-crates-pexels-24517725.jpg, Pexels License]
@@ -437,6 +457,29 @@ import pmWovenSacks from '../assets/images/pm-woven-sacks.jpg';
  *   pm-trash-bags  kantong sampah plastik hitam terikat (Trash Bags)  [stock-photos/plastics-packaging/black-garbage-bag-pexels-5994772.jpg, Pexels License]
  *   pm-jumbo-bags  pekerja mengangkat jumbo bag putih di pabrik (Jumbo Bags)  [stock-photos/plastics-packaging/jumbo-bag-factory-pexels-36423786.jpg, Pexels License]
  *   pm-woven-sacks  karung plastik anyaman bertumpuk, dekat (Woven Sacks)  [stock-photos/plastics-packaging/woven-sandbags-pexels-35972270.jpg, Pexels License]
+ * 28 Nov 2026 malam, katalog Fine Seafood per spesies (pemilik: pemisahnya spesies) dan plastik baru.
+ * Foto spesies dari Wikimedia Commons (CC BY / CC BY-SA; kredit belum dipasang di situs sesuai keputusan
+ * pemilik 14 Nov 2026, daftar ini sumbernya). Teripang dan lobster difoto hidup, seperti foto tanaman di
+ * katalog bahan.
+ *   fs-sand-lobster  lobster pasir pucat di akuarium berbatu (Sand Lobster)  [stock-photos/seafood/panulirus-homarus-130-jpg-commons-efea9055.jpg, CC BY-SA 3.0, Vengolis]
+ *   fs-bamboo-lobster  lobster bambu berantena putih di antara karang (Bamboo Lobster)  [stock-photos/seafood/langosta-pintada-panulirus-versicolor-ambalihabe-m-commons-a8171f85.jpg, CC BY-SA 4.0, Diego Delso]
+ *   fs-batik-lobster  lobster batik berbintik putih di akuarium (Batik Lobster)  [stock-photos/seafood/panulirus-longipes-muroto2-jpg-commons-20c182d1.jpg, CC BY-SA 4.0, Totti]
+ *   fs-sc-sandfish  teripang pasir di dasar berpasir (Sandfish Sea Cucumber)  [stock-photos/seafood/holothuria-scabra-obs-169112195-inat-a7967037.jpg, CC BY, Leon Perrie]
+ *   fs-sc-golden  teripang cokelat keemasan di tangan, latar laut (Golden Sandfish; spesies di foto belum dipastikan, ganti bila ada foto H. lessoni yang layak)  [stock-photos/seafood/sea-cucumber-hand-pexels-8824660.jpg, Pexels License]
+ *   fs-sc-teatfish  teripang susu di dasar karang (White Teatfish)  [stock-photos/seafood/holothuria-fuscogilva-mayotte-jpg-commons-e34761c8.jpg, CC BY-SA 4.0, Frederic Ducarme]
+ *   fs-sc-blackfish  teripang lotong hitam di pasir karang (Blackfish)  [stock-photos/seafood/actinopyga-miliaris-jpg-commons-b47a9d50.jpg, CC BY-SA 4.0, Julien Bidet]
+ *   fs-sc-stonefish  teripang batu berbercak jingga di tangan, latar karang (Stonefish)  [stock-photos/seafood/actinopyga-lecanora-obs-313283496-inat-c6b16033.jpg, CC BY, Debra Baker]
+ *   fs-sc-curryfish  teripang gamat di pasir (Curryfish)  [stock-photos/seafood/stichopus-herrmanni-landaagiraavaru-jpg-commons-fdc14d9b.jpg, CC BY-SA 4.0, Frederic Ducarme]
+ *   fs-fish-maw-barramundi  fish maw kering berjajar di toko (Barramundi Fish Maw)  [stock-photos/seafood/a-fish-maws-from-tai-o-jpg-commons-671b0893.jpg, Wikimedia Commons]
+ *   fs-fish-maw-catfish  dua fish maw kering di rak pajang (Catfish Fish Maw)  [stock-photos/seafood/hk-skd-tko-tseung-kwan-o-lohas-park-mall-shop-kwon-commons-2582b811.jpg, CC BY-SA 4.0, Yuentung Kinmoralds]
+ *   fs-abalone-bali  cangkang abalon Bali, sisi luar dan dalam (Bali Abalone)  [stock-photos/seafood/haliotis-diversicolor-squamata-01-jpg-commons-ad8e781e.jpg, CC BY-SA 3.0, H. Zell]
+ *   pm-opp-bags  muffin dibungkus satu per satu dalam plastik OPP (OPP Bags)  [stock-photos/plastics-packaging/muffins-opp-bags-pexels-7694561.jpg, Pexels License]
+ *   pm-zipper-bags  tangan memegang plastik klip berisi buah (Zipper Bags)  [stock-photos/plastics-packaging/ziplock-bag-fruit-pexels-7890067.jpg, Pexels License]
+ *   pm-vacuum-bags  potongan daging dalam plastik vakum (Vacuum Bags)  [stock-photos/plastics-packaging/vacuum-packed-meats-pexels-12246958.jpg, Pexels License]
+ *   pm-takeaway-containers  wadah takeaway PP bertumpuk berisi nasi dan sayur (Takeaway Containers)  [stock-photos/plastics-packaging/meal-prep-containers-stack-pexels-30635719.jpg, Pexels License]
+ *   pm-clear-containers  dua donat dalam mika engsel bening (Clear Containers)  [stock-photos/plastics-packaging/donuts-clear-hinged-container-pexels-1028431.jpg, Pexels License]
+ *   pm-sauce-cups  tangan memegang cup saus kecil, dipotong mendatar (Sauce Cups)  [stock-photos/plastics-packaging/hands-sauce-portion-cups-pexels-5056828.jpg, Pexels License]
+ *   pm-sealable-cups  tiga gelas bubble tea bersegel di meja (Sealable Cups)  [stock-photos/plastics-packaging/three-bubble-tea-sealed-cups-pexels-12666797.jpg, Pexels License]
  */
 export const images = {
   'hero-still-hall': heroStillHall,
@@ -638,6 +681,25 @@ export const images = {
   'pm-trash-bags': pmTrashBags,
   'pm-jumbo-bags': pmJumboBags,
   'pm-woven-sacks': pmWovenSacks,
+  'fs-sand-lobster': fsSandLobster,
+  'fs-bamboo-lobster': fsBambooLobster,
+  'fs-batik-lobster': fsBatikLobster,
+  'fs-sc-sandfish': fsScSandfish,
+  'fs-sc-golden': fsScGolden,
+  'fs-sc-teatfish': fsScTeatfish,
+  'fs-sc-blackfish': fsScBlackfish,
+  'fs-sc-stonefish': fsScStonefish,
+  'fs-sc-curryfish': fsScCurryfish,
+  'fs-fish-maw-barramundi': fsFishMawBarramundi,
+  'fs-fish-maw-catfish': fsFishMawCatfish,
+  'fs-abalone-bali': fsAbaloneBali,
+  'pm-opp-bags': pmOppBags,
+  'pm-zipper-bags': pmZipperBags,
+  'pm-vacuum-bags': pmVacuumBags,
+  'pm-takeaway-containers': pmTakeawayContainers,
+  'pm-clear-containers': pmClearContainers,
+  'pm-sauce-cups': pmSauceCups,
+  'pm-sealable-cups': pmSealableCups,
 } satisfies Record<string, ImageMetadata>;
 
 export type ImageKey = keyof typeof images;

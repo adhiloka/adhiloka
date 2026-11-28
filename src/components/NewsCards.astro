@@ -1,4 +1,5 @@
 ---
+import { altText } from '../data/alt';
 import { Image } from 'astro:assets';
 import { images } from '../data/images';
 import { formatDate, type Article } from '../data/pages/media';
@@ -36,7 +37,7 @@ const H = headingLevel;
             <li class="news__item" data-anim-item>
               <a class="news__card" href={`/media/news/${a.slug}/`}>
                 <span class="news__media cover shade" data-parallax>
-                  {a.image ? <Image quality={70} src={images[a.image]} alt="" widths={[400, 720]} sizes="(max-width: 767px) 85vw, 28vw" loading="lazy" /> : <span class="plate">{a.shot}</span>}
+                  {a.image ? <Image quality={70} src={images[a.image]} alt={altText(a.shot, a.title)} widths={[400, 720]} sizes="(max-width: 767px) 85vw, 28vw" loading="lazy" /> : <span class="plate">{a.shot}</span>}
                   <span class="news__cat">{a.category}</span>
                 </span>
                 <time class="news__date" datetime={a.date}>{formatDate(a.date)}</time>
@@ -60,7 +61,7 @@ const H = headingLevel;
         >
           <a class="news__card" href={`/media/news/${a.slug}/`}>
             <span class="news__media cover shade">
-              {a.image ? <Image quality={70} src={images[a.image]} alt="" widths={[400, 720]} sizes="(max-width: 767px) 90vw, 28vw" loading="lazy" /> : <span class="plate">{a.shot}</span>}
+              {a.image ? <Image quality={70} src={images[a.image]} alt={altText(a.shot, a.title)} widths={[400, 720]} sizes="(max-width: 767px) 90vw, 28vw" loading="lazy" /> : <span class="plate">{a.shot}</span>}
               <span class="news__cat">{a.category}</span>
             </span>
             <time class="news__date" datetime={a.date}>{formatDate(a.date)}</time>

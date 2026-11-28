@@ -3,25 +3,27 @@ import PageLayout from '../layouts/PageLayout.astro';
 import { OFFICES, ENQUIRY_KINDS, CONTACT_INTRO } from '../data/pages/contact';
 import { MATERIAL_NAMES } from '../data/material-names';
 import { BUSINESSES } from '../data/businesses';
-import { LINE_CATALOG, LINE_PRODUCTS, type LineItem } from '../data/line-products';
-import { SITE } from '../data/site';
+import { LINE_CATALOG, type LineItem } from '../data/line-products';
 import SiblingCards from '../components/blocks/SiblingCards.astro';
 
 /* Contact ala adani.com/contact-us: banner, lalu formulir di kiri dan
- * alamat kantor di kanan. Formulir dan skripnya (contact-form.ts) tetap yang
- * lama: Web3Forms bila PUBLIC_FORM_ACCESS_KEY diisi, mailto bila belum. */
+ * alamat kantor di kanan.
+ * 28 Nov 2026 malam (pemilik: "maunya dia ketik disitu udh terkirim langsung
+ * ke kita"): formulir dikirim lewat Netlify Forms (situs di-host Netlify),
+ * tanpa kunci dan tanpa membuka klien email. Kiriman masuk ke Netlify > Forms
+ * > enquiry dan diteruskan ke info@adhiloka.com lewat notifikasi email formulir
+ * itu. Web3Forms dipakai hanya bila PUBLIC_FORM_ACCESS_KEY diisi. */
 
 // Peta slug ke nama, supaya ?material=nutmeg-mace terisi "Nutmeg & Mace".
 // Situs grup (26 Nov 2026): produk seafood dan plastik ikut, lewat ?product=slug.
 const materialNames = {
   ...MATERIAL_NAMES,
   ...Object.fromEntries(([...LINE_CATALOG.seafood.items, ...LINE_CATALOG.packaging.items] as LineItem[]).map((i) => [i.slug, i.name])),
-  ...Object.fromEntries(LINE_PRODUCTS.map(({ product }) => [product.code, `${product.name} (${product.code})`])),
 };
 
-const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? 'https://api.web3forms.com/submit';
 const accessKey = import.meta.env.PUBLIC_FORM_ACCESS_KEY ?? '';
-const configured = accessKey.length > 0;
+const provider = accessKey ? 'web3forms' : 'netlify';
+const endpoint = accessKey ? (import.meta.env.PUBLIC_FORM_ENDPOINT ?? 'https://api.web3forms.com/submit') : '/';
 ---
 
 <PageLayout intro={CONTACT_INTRO} bannerTitle="Contact Us">
@@ -37,18 +39,23 @@ const configured = accessKey.length > 0;
 
         <form
           class="form"
+          name="enquiry"
           data-form
+          data-provider={provider}
           data-endpoint={endpoint}
-          data-configured={String(configured)}
           data-materials={JSON.stringify(materialNames)}
           method="post"
-          action={endpoint}
+          action="/contact/?sent=1"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
           novalidate
         >
-          <input type="hidden" name="access_key" value={accessKey} />
+          <input type="hidden" name="form-name" value="enquiry" />
           <input type="hidden" name="subject" value="Enquiry from adhiloka.com" />
-          <input type="hidden" name="from_name" value="Adhiloka website" />
-          <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" hidden />
+          {accessKey && <input type="hidden" name="access_key" value={accessKey} />}
+          <p class="sr-only" aria-hidden="true">
+            <label>Leave this field empty <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+          </p>
 
           <div class="form__row">
             <label class="field">
@@ -94,14 +101,6 @@ const configured = accessKey.length > 0;
             <p class="form__status" role="status" aria-live="polite" data-status></p>
           </div>
 
-          {
-            !configured && (
-              <p class="form__notice">
-                This button opens your email client. You can also write to{' '}
-                <a href={`mailto:${SITE.email}`}>{SITE.email}</a> directly.
-              </p>
-            )
-          }
         </form>
       </div>
 

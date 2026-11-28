@@ -1,4 +1,5 @@
 ---
+import { altText } from '../../data/alt';
 import { Image } from 'astro:assets';
 import { images, type ImageKey } from '../../data/images';
 import 'swiper/css';
@@ -50,7 +51,7 @@ const { title, items, perView = 3, viewAll, grey = false } = Astro.props;
                 <a class="cs__card" href={c.href} data-anim-item>
                   <span class="cs__media cover">
                     {c.image ? (
-                      <Image quality={70} src={images[c.image]} alt="" widths={[480, 800]} sizes={perView === 3 ? '(max-width: 990px) 62vw, 29vw' : '(max-width: 990px) 70vw, 43vw'} loading="lazy" />
+                      <Image quality={70} src={images[c.image]} alt={altText(c.shot, c.title)} widths={[480, 800]} sizes={perView === 3 ? '(max-width: 990px) 62vw, 29vw' : '(max-width: 990px) 70vw, 43vw'} loading="lazy" />
                     ) : (
                       <span class="plate">{c.shot}</span>
                     )}

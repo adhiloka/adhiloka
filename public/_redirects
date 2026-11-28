@@ -24,3 +24,80 @@
 # http://www.adhiloka.com/*    /under-construction/   302!
 
 # ============================ AKHIR MODE =====================================
+
+# ============================================================================
+# ALAMAT LINI LAMA (28 Nov 2026). Slug lini = nama lini: /natural-ingredients-perfumery/,
+# /fine-seafood/, /packaging-plastic-solutions/. Katalog tanpa kode produk, jadi halaman
+# kode lama (/<lini>/<item>/<kode>/) ikut dialihkan ke item atau tab kategorinya.
+# Aturan pertama yang cocok menang: yang khusus di atas, wildcard di bawah.
+# ============================================================================
+/fragrance/*                      /natural-ingredients-perfumery/   301
+/natural-aromatics/*              /natural-ingredients-perfumery/   301
+/marine-delicacies/lobster/*      /fine-seafood/?cat=lobster        301
+/marine-delicacies/sea-cucumber/* /fine-seafood/?cat=sea-cucumber   301
+/marine-delicacies/fish-maw/*     /fine-seafood/?cat=fish-maw       301
+/marine-delicacies/shark-fin/*    /fine-seafood/shark-fin/          301
+/marine-delicacies/abalone/*      /fine-seafood/?cat=abalone        301
+/marine-delicacies/*              /fine-seafood/                    301
+/fisheries/lobster/*              /fine-seafood/?cat=lobster        301
+/fisheries/sea-cucumber/*         /fine-seafood/?cat=sea-cucumber   301
+/fisheries/fish-maw/*             /fine-seafood/?cat=fish-maw       301
+/fisheries/shark-fin/*            /fine-seafood/shark-fin/          301
+/fisheries/abalone/*              /fine-seafood/?cat=abalone        301
+/fisheries/*                      /fine-seafood/                    301
+/seafood/lobster/*                /fine-seafood/?cat=lobster        301
+/seafood/sea-cucumber/*           /fine-seafood/?cat=sea-cucumber   301
+/seafood/fish-maw/*               /fine-seafood/?cat=fish-maw       301
+/seafood/shark-fin/*              /fine-seafood/shark-fin/          301
+/seafood/abalone/*                /fine-seafood/?cat=abalone        301
+/seafood/*                        /fine-seafood/                    301
+/marine-products/lobster/*        /fine-seafood/?cat=lobster        301
+/marine-products/sea-cucumber/*   /fine-seafood/?cat=sea-cucumber   301
+/marine-products/fish-maw/*       /fine-seafood/?cat=fish-maw       301
+/marine-products/shark-fin/*      /fine-seafood/shark-fin/          301
+/marine-products/abalone/*        /fine-seafood/?cat=abalone        301
+/marine-products/*                /fine-seafood/                    301
+/plastics/carrier-bags/*          /packaging-plastic-solutions/carrier-bags/301
+/plastics/clear-bags/*            /packaging-plastic-solutions/poly-bags/301
+/plastics/pouches-zipper-bags/*   /packaging-plastic-solutions/stand-up-pouches/301
+/plastics/trash-bags/*            /packaging-plastic-solutions/trash-bags/301
+/plastics/cling-wrap/*            /packaging-plastic-solutions/cling-wrap/301
+/plastics/stretch-film/*          /packaging-plastic-solutions/stretch-film/301
+/plastics/cups-lids/*             /packaging-plastic-solutions/clear-cups/301
+/plastics/food-containers/*       /packaging-plastic-solutions/takeaway-containers/301
+/plastics/*                       /packaging-plastic-solutions/     301
+/polymers/carrier-bags/*          /packaging-plastic-solutions/carrier-bags/301
+/polymers/clear-bags/*            /packaging-plastic-solutions/poly-bags/301
+/polymers/pouches-zipper-bags/*   /packaging-plastic-solutions/stand-up-pouches/301
+/polymers/trash-bags/*            /packaging-plastic-solutions/trash-bags/301
+/polymers/cling-wrap/*            /packaging-plastic-solutions/cling-wrap/301
+/polymers/stretch-film/*          /packaging-plastic-solutions/stretch-film/301
+/polymers/cups-lids/*             /packaging-plastic-solutions/clear-cups/301
+/polymers/food-containers/*       /packaging-plastic-solutions/takeaway-containers/301
+/polymers/*                       /packaging-plastic-solutions/     301
+/packaging/carrier-bags/*         /packaging-plastic-solutions/carrier-bags/301
+/packaging/clear-bags/*           /packaging-plastic-solutions/poly-bags/301
+/packaging/pouches-zipper-bags/*  /packaging-plastic-solutions/stand-up-pouches/301
+/packaging/trash-bags/*           /packaging-plastic-solutions/trash-bags/301
+/packaging/cling-wrap/*           /packaging-plastic-solutions/cling-wrap/301
+/packaging/stretch-film/*         /packaging-plastic-solutions/stretch-film/301
+/packaging/cups-lids/*            /packaging-plastic-solutions/clear-cups/301
+/packaging/food-containers/*      /packaging-plastic-solutions/takeaway-containers/301
+/packaging/*                      /packaging-plastic-solutions/     301
+/plastics-packaging/carrier-bags/*/packaging-plastic-solutions/carrier-bags/301
+/plastics-packaging/clear-bags/*  /packaging-plastic-solutions/poly-bags/301
+/plastics-packaging/pouches-zipper-bags/*/packaging-plastic-solutions/stand-up-pouches/301
+/plastics-packaging/trash-bags/*  /packaging-plastic-solutions/trash-bags/301
+/plastics-packaging/cling-wrap/*  /packaging-plastic-solutions/cling-wrap/301
+/plastics-packaging/stretch-film/*/packaging-plastic-solutions/stretch-film/301
+/plastics-packaging/cups-lids/*   /packaging-plastic-solutions/clear-cups/301
+/plastics-packaging/food-containers/*/packaging-plastic-solutions/takeaway-containers/301
+/plastics-packaging/*             /packaging-plastic-solutions/     301
+
+# Slug produk bahan yang dirapikan 28 Nov 2026.
+/ingredients/catalog/clove/clove-stem-oil-85-dark/*     /ingredients/catalog/clove/clove-stem-oil-dark-85/      301
+/ingredients/catalog/clove/clove-stem-oil-85-md/*       /ingredients/catalog/clove/clove-stem-oil-md-85/        301
+/ingredients/catalog/patchouli/patchouli-oil-heart-65/* /ingredients/catalog/patchouli/patchouli-heart-65/      301
+/ingredients/catalog/patchouli/patchouli-oil-heart-55/* /ingredients/catalog/patchouli/patchouli-heart-55/      301
+/ingredients/catalog/sweet-basil/sweet-basil-oil/*      /ingredients/catalog/sweet-basil/sweet-basil-oil-estragole/  301
+/ingredients/catalog/sugandh-mantri/*                   /ingredients/catalog/homalomena/                        301

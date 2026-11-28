@@ -1,4 +1,5 @@
 ---
+import { altText } from '../data/alt';
 import { Image } from 'astro:assets';
 import { MENU } from '../data/menu';
 import { getImageFor } from '../data/images';
@@ -59,7 +60,7 @@ const path = Astro.url.pathname;
                           <Image
                             class="mega__img"
                             src={getImageFor(item.panel.image)!}
-                            alt=""
+                            alt={altText(item.panel.shot, item.panel.title)}
                             widths={[480, 800]}
                             sizes="(max-width: 1399px) 380px, 34vw"
                             quality={66}

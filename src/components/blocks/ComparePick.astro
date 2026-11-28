@@ -1,0 +1,53 @@
+---
+/* Kotak centang "Compare" di kartu katalog (scripts/compare.ts). Duduk di
+   atas tautan kartu (z-index 2) supaya mengeklik kotak tidak membuka halaman. */
+interface Props {
+  id: string;
+  name: string;
+}
+const { id, name } = Astro.props;
+---
+
+<label class="cpick" data-compare-pick>
+  <input type="checkbox" data-compare value={id} />
+  <span class="cpick__box" aria-hidden="true">
+    <svg viewBox="0 0 12 10" width="11" height="9"><path d="m1 5 3.5 3.5L11 1" fill="none" stroke="currentColor" stroke-width="1.8"></path></svg>
+  </span>
+  <span class="cpick__label">Compare<span class="sr-only"> {name}</span></span>
+</label>
+
+<style>
+  .cpick {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    align-self: flex-start;
+    margin-top: auto;
+    padding-top: 18px;
+    font-size: calc(14px * var(--fs));
+    font-weight: 440;
+    color: var(--ink-muted);
+    cursor: pointer;
+  }
+  .cpick input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .cpick__box {
+    display: grid;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    border: 1.5px solid var(--line);
+    border-radius: 5px;
+    background: var(--bg);
+    color: transparent;
+    transition: background var(--t-fast) var(--ease-std), border-color var(--t-fast) var(--ease-std), color var(--t-fast) var(--ease-std);
+  }
+  .cpick:hover { color: var(--ink); }
+  .cpick:hover .cpick__box { border-color: var(--ink-muted); }
+  .cpick input:checked + .cpick__box { border-color: var(--brand-green); background: var(--brand-green); color: #fff; }
+  .cpick.is-on { color: var(--ink); }
+  .cpick input:focus-visible + .cpick__box { outline: 2px solid var(--brand-green-light); outline-offset: 2px; }
+  .cpick input:disabled + .cpick__box { opacity: 0.4; }
+  .cpick:has(input:disabled) { cursor: not-allowed; opacity: 0.6; }
+</style>

@@ -1,0 +1,34 @@
+# Header Netlify (28 Nov 2026: cache aset salah konfigurasi).
+# Bawaan Netlify untuk semua berkas adalah "max-age=0, must-revalidate", jadi
+# CSS, JS, font dan gambar hasil build diunduh ulang di tiap kunjungan.
+# Berkas di /_astro/ bernama hash isi (berubah kalau isinya berubah), jadi
+# aman disimpan setahun. HTML tetap bawaan Netlify supaya halaman baru langsung
+# terlihat setelah deploy.
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Logo dan ikon: nama tetap, versi dipaksa lewat ?v= di BaseLayout.
+/brand/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+/favicon.ico
+  Cache-Control: public, max-age=604800
+/favicon.svg
+  Cache-Control: public, max-age=604800
+/favicon-32.png
+  Cache-Control: public, max-age=604800
+/apple-touch-icon.png
+  Cache-Control: public, max-age=604800
+/icon-192.png
+  Cache-Control: public, max-age=604800
+/icon-512.png
+  Cache-Control: public, max-age=604800
+
+# Katalog PDF: nama tetap, isinya bisa diperbarui; disimpan sehari lalu dicek.
+/downloads/*
+  Cache-Control: public, max-age=86400, must-revalidate
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN

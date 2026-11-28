@@ -1,4 +1,5 @@
 ---
+import { altText } from '../../data/alt';
 import { Image } from 'astro:assets';
 import { images } from '../../data/images';
 import { presenceMap, MAP_W, MAP_H } from '../../data/map';
@@ -64,7 +65,7 @@ const regions = REGIONS.map((r) => ({
                 <li>
                   <button type="button" data-region={r.id}>
                     <span class="imap__thumb cover">
-                      <Image quality={60} src={images[r.image]} alt="" widths={[160]} sizes="80px" loading="lazy" />
+                      <Image quality={60} src={images[r.image]} alt={altText(r.shot, r.name)} widths={[160]} sizes="80px" loading="lazy" />
                     </span>
                     <span class="imap__label">
                       <span class="imap__label-name">{r.name}</span>

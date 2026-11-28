@@ -13,14 +13,15 @@ import type { NavLink } from './site';
  * (naturals/seafood/packaging) tetap.
  * 28 Nov 2026 (pemilik, putaran akhir): nama lini = baris kecil slide hero
  * beranda, kata per kata: Natural Ingredients & Perfumery · Fine Seafood ·
- * Packaging & Plastic Solutions. Alamat (/fragrance/, /marine-delicacies/,
- * /plastics/) tetap.
+ * Packaging & Plastic Solutions. Alamat ikut nama sejak 28 Nov 2026 (pemilik:
+ * slug membingungkan): /natural-ingredients-perfumery/, /fine-seafood/,
+ * /packaging-plastic-solutions/; alamat lama dialihkan di public/_redirects.
  * Satu-satunya sumber nama, alamat,
  * foto, dan bilah sub-menu tiap lini: dipakai menu Our Businesses (site.ts),
  * beranda grup, /our-businesses/, dan remah PageBanner.
  *
  * Nama lini deskriptif, tanpa sub-merek. URL naturals tidak dipindah
- * (/ingredients/…, /perfumery/); halaman lininya /fragrance/.
+ * (/ingredients/…, /perfumery/); halaman lininya /natural-ingredients-perfumery/.
  * Foto lini = foto beranda lini itu: kartu, tile, slide hero, dan menu yang
  * menaut ke beranda lini memakai foto yang sama (aturan satu foto satu konteks). */
 
@@ -49,8 +50,8 @@ export const BUSINESSES: Business[] = [
   {
     key: 'naturals',
     name: 'Natural Ingredients & Perfumery',
-    href: '/fragrance/',
-    paths: ['/fragrance/', '/ingredients/', '/perfumery/'],
+    href: '/natural-ingredients-perfumery/',
+    paths: ['/natural-ingredients-perfumery/', '/ingredients/', '/perfumery/'],
     image: 'labelled-bottles',
     alt: 'Hands arranging labelled amber bottles on a marble table',
     line: 'Essential oils, resinoids and extracts for perfumers, and fragrances created in our own perfumery.',
@@ -67,10 +68,10 @@ export const BUSINESSES: Business[] = [
   {
     key: 'seafood',
     name: 'Fine Seafood',
-    href: '/marine-delicacies/',
-    paths: ['/marine-delicacies/'],
+    href: '/fine-seafood/',
+    paths: ['/fine-seafood/'],
     image: 'line-seafood',
-    alt: 'Spiny lobster served in warm restaurant light',
+    alt: 'Live pearl lobsters close up in a seawater tank',
     line: 'Live lobster and dried delicacies of the sea, from sea cucumber to abalone.',
     color: '#1d5d78',
     pages: [],
@@ -78,10 +79,10 @@ export const BUSINESSES: Business[] = [
   {
     key: 'packaging',
     name: 'Packaging & Plastic Solutions',
-    href: '/plastics/',
-    paths: ['/plastics/'],
+    href: '/packaging-plastic-solutions/',
+    paths: ['/packaging-plastic-solutions/'],
     image: 'line-packaging',
-    alt: 'Hands sealing a bowl with clear cling film',
+    alt: 'Bread rolls packed in clear plastic wrap',
     line: 'Plastic bags, wraps, cups and takeaway containers for the kitchens and shops that use them every day.',
     color: '#45596a',
     pages: [],
