@@ -58,3 +58,7 @@ export const categoryImage = (line: LineKey, cat: string): ImageKey =>
 export const lineItemsOf = (line: LineKey, cat: string) => (LINE_CATALOG[line].items as readonly LineItem[]).filter((i) => i.category === cat);
 /** Semua kode lini, untuk formulir kontak dan pencarian. */
 export const LINE_PRODUCTS = ([...SEAFOOD_ITEMS, ...PACKAGING_ITEMS] as LineItem[]).flatMap((i) => i.products.map((p) => ({ item: i, product: p })));
+
+/** Nama lokal item, hanya bila beda dari namanya (Lobster / Lobster tidak dicetak dua kali). */
+export const localOf = (i: { name: string; local?: string }) =>
+  i.local && i.local.toLowerCase() !== i.name.toLowerCase() ? i.local : undefined;

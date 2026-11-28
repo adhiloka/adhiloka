@@ -1,4 +1,7 @@
 import type { PageIntro } from './types';
+import { NATURALS_OPENING } from './naturals-line';
+import { SEAFOOD_OPENING } from './seafood-line';
+import { PACKAGING_OPENING } from './packaging-line';
 
 /* Halaman Our Businesses (situs grup, pemilik 26 Nov 2026), pola
  * adani.com/businesses: banner, pembuka, lalu satu blok bergambar per lini.
@@ -19,12 +22,10 @@ export const OUR_BUSINESSES_OPENING = {
   body: 'Adhiloka Group brings together three businesses with one way of working. We know where every product comes from, we check it before it leaves us, and we stay with our customers long after the first order.',
 };
 
-/* Naskah blok tiap lini, urutan sama dengan BUSINESSES. */
+/* Naskah blok tiap lini = naskah pembuka halaman lini itu (naskah pemilik,
+   komentar review 28 Nov 2026), supaya Our Businesses dan halaman lini sama. */
 export const BUSINESS_BODY: Record<string, string> = {
-  naturals:
-    'Essential oils, resinoids and extracts from resins, leaves, roots and spices, prepared for fragrance houses and independent perfumers. Alongside our ingredients, our perfumers create fragrances for fine fragrance and consumer products.',
-  seafood:
-    'Live lobster and dried delicacies of the sea: sea cucumber, fish maw, shark fin and abalone. Each lot is graded and packed to the buyer’s specification.',
-  packaging:
-    'Plastic bags and pouches, cling wrap and stretch film, sacks and jumbo bags, and cups and takeaway containers. Each item comes in several materials, plain or printed.',
+  naturals: NATURALS_OPENING.paragraphs.join(' '),
+  seafood: SEAFOOD_OPENING.paragraphs.join(' '),
+  packaging: PACKAGING_OPENING.paragraphs.join(' '),
 };

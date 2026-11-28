@@ -4,7 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import CardSlider from './CardSlider.astro';
 import { images } from '../../data/images';
 import { businessByKey } from '../../data/businesses';
-import { LINE_CATALOG, lineItemHref, lineProductHref, categoryLabel, lineCategoryHref, type LineItem } from '../../data/line-products';
+import { LINE_CATALOG, lineItemHref, lineProductHref, categoryLabel, lineCategoryHref, localOf, type LineItem } from '../../data/line-products';
 
 /* Halaman satu item katalog Fisheries / Polymers (27 Nov 2026), susunannya
  * sama dengan halaman bahan di Ingredient Catalog (pemilik: "buat seperti
@@ -29,7 +29,7 @@ const facts = [
 ].filter((f) => f.value);
 ---
 
-<BaseLayout title={`${m.name} | ${biz.name}`} description={`${m.name} (${m.local}) from Adhiloka. ${m.note}`} inner>
+<BaseLayout title={`${m.name} | ${biz.name}`} description={`${localOf(m) ? `${m.name} (${m.local})` : m.name} from Adhiloka. ${m.note}`} inner>
   <section class="ph" style={`--fam: ${biz.color}`}>
     <div class="wrap">
       <nav class="ph__crumbs" aria-label="Breadcrumb">
@@ -44,7 +44,7 @@ const facts = [
         <div class="ph__text">
           <p class="ph__fam">{cat}</p>
           <h1 class="ph__name">{m.name}</h1>
-          <p class="ph__latin">{m.local}</p>
+          {localOf(m) && <p class="ph__latin">{m.local}</p>}
           <a class="ph__sample" href={contact('quotation')}>Request a quotation</a>
         </div>
       </div>
@@ -130,7 +130,7 @@ const facts = [
   <CardSlider
     title={`More from ${biz.name}`}
     viewAll={`${biz.href}#catalog`}
-    items={others.map((o) => ({ href: lineItemHref(o), title: o.name, image: o.image, shot: o.alt, tag: o.local }))}
+    items={others.map((o) => ({ href: lineItemHref(o), title: o.name, image: o.image, shot: o.alt, tag: localOf(o) }))}
   />
 </BaseLayout>
 

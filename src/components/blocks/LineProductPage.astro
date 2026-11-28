@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { images } from '../../data/images';
 import { businessByKey } from '../../data/businesses';
-import { lineItemHref, lineProductHref, categoryLabel, type LineItem, type LineProduct } from '../../data/line-products';
+import { lineItemHref, lineProductHref, categoryLabel, localOf, type LineItem, type LineProduct } from '../../data/line-products';
 
 /* Halaman satu kode produk Fisheries / Polymers (27 Nov 2026), susunannya
  * sama dengan halaman produk Ingredient Catalog: kepala berwarna lini dengan
@@ -22,7 +22,7 @@ const contact = (kind: string) => `/contact/?business=${m.line}&product=${p.code
 const facts = [
   { label: 'Product code', value: p.code },
   { label: m.line === 'seafood' ? 'Form' : 'Material', value: p.type },
-  { label: 'Item', value: `${m.name} (${m.local})` },
+  { label: 'Item', value: localOf(m) ? `${m.name} (${m.local})` : m.name },
   { label: 'Origin', value: 'Indonesia' },
 ];
 ---

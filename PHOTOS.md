@@ -18,7 +18,7 @@ Tidak ada.
 | `agroforest-canopy` |  | mendatar |  | src/data/pages/about.ts:199 (banner LOCATIONS_INTRO (halaman diparkir))<br>src/data/pages/media.ts:204 (banner SOCIAL_INTRO (halaman diparkir)) |
 | `basil-plant` | basil-plant-6133135.jpg | mendatar | `/ingredients/catalog/sweet-basil/` | catalog-data.json (bahan Sweet Basil) |
 | `betel-leaves` | betel-leaves-40190512.jpg | mendatar | `/ingredients/catalog/betel-leaf/` | catalog-data.json (bahan Betel Leaf) |
-| `biz-overview` | kapal kontainer di laut saat senja (Our Businesses) | mendatar | `/our-businesses/` | src/data/pages/about.ts:36 (tautan /our-businesses/)<br>src/data/pages/group.ts:13 (banner OUR_BUSINESSES_INTRO)<br>src/data/site.ts:71 (tautan /our-businesses/) |
+| `biz-overview` | kapal kontainer di laut saat senja (Our Businesses) | mendatar | `/our-businesses/` | src/data/pages/about.ts:36 (tautan /our-businesses/)<br>src/data/pages/group.ts:16 (banner OUR_BUSINESSES_INTRO)<br>src/data/site.ts:71 (tautan /our-businesses/) |
 | `black-peppercorns` | black-peppercorns-macro-8559086.jpg | mendatar | `/ingredients/catalog/black-pepper/` | catalog-data.json (bahan Black Pepper) |
 | `brown-bottles-close` | botol kaca coklat kecil, dekat (pita unduh katalog di hub Ingredients) | mendatar | `/ingredients/catalog/#download` | src/pages/ingredients/index.astro:34 (tautan /ingredients/catalog/#download) |
 | `cajeput-tree` | melaleuca-leucadendra-ayuwadala-1.jpg | tegak | `/ingredients/catalog/cajeput/` | catalog-data.json (bahan Cajeput) |

@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { images } from '../../data/images';
-import { LINE_CATALOG, lineItemHref, type LineItem, type LineKey } from '../../data/line-products';
+import { LINE_CATALOG, lineItemHref, localOf, type LineItem, type LineKey } from '../../data/line-products';
 
 /* Katalog lini Fisheries / Polymers di halaman lini (#catalog).
  * 27 Nov 2026 (pemilik: "buat seperti katalog Fragrance, cukup overview lalu
@@ -59,7 +59,7 @@ const haystack = (i: LineItem) =>
               <h3 class="lc__name">
                 <a class="lc__link" href={lineItemHref(i)}>{i.name}</a>
               </h3>
-              <p class="lc__local">{i.local}</p>
+              {localOf(i) && <p class="lc__local">{i.local}</p>}
               <p class="lc__range">{i.range}</p>
             </div>
           </li>
