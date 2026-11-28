@@ -84,14 +84,14 @@
 /packaging/cups-lids/*            /packaging-plastic-solutions/clear-cups/  301
 /packaging/food-containers/*      /packaging-plastic-solutions/takeaway-containers/  301
 /packaging/*                      /packaging-plastic-solutions/     301
-/plastics-packaging/carrier-bags/*/packaging-plastic-solutions/carrier-bags/  301
+/plastics-packaging/carrier-bags/*  /packaging-plastic-solutions/carrier-bags/  301
 /plastics-packaging/clear-bags/*  /packaging-plastic-solutions/poly-bags/  301
-/plastics-packaging/pouches-zipper-bags/*/packaging-plastic-solutions/stand-up-pouches/  301
+/plastics-packaging/pouches-zipper-bags/*  /packaging-plastic-solutions/stand-up-pouches/  301
 /plastics-packaging/trash-bags/*  /packaging-plastic-solutions/trash-bags/  301
 /plastics-packaging/cling-wrap/*  /packaging-plastic-solutions/cling-wrap/  301
-/plastics-packaging/stretch-film/*/packaging-plastic-solutions/stretch-film/  301
+/plastics-packaging/stretch-film/*  /packaging-plastic-solutions/stretch-film/  301
 /plastics-packaging/cups-lids/*   /packaging-plastic-solutions/clear-cups/  301
-/plastics-packaging/food-containers/*/packaging-plastic-solutions/takeaway-containers/  301
+/plastics-packaging/food-containers/*  /packaging-plastic-solutions/takeaway-containers/  301
 /plastics-packaging/*             /packaging-plastic-solutions/     301
 
 # Slug produk bahan yang dirapikan 28 Nov 2026.
