@@ -6,7 +6,7 @@ export const CONTACT_INTRO: PageIntro = {
   metaTitle: 'Contact',
   lede: '',
   description:
-    'Contact Adhiloka Group for fragrance, marine delicacies and plastics.',
+    'Contact Adhiloka Group for natural ingredients and perfumery, fine seafood, and packaging and plastic solutions.',
   caption: 'smiling woman taking notes during a phone call',
   image: 'contact-phone-call',
   focus: '50% 18%',
@@ -19,7 +19,7 @@ export const OFFICES = [
   {
     role: 'General enquiries',
     city: 'Adhiloka Group',
-    address: 'Samples, quotations, fragrance projects, marine delicacies, plastics and press.',
+    address: 'Samples, quotations, fragrance projects, fine seafood, packaging and plastic solutions, and press.',
     contact: 'info@adhiloka.com',
     href: 'mailto:info@adhiloka.com',
   },

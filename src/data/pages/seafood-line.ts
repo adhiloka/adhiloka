@@ -7,16 +7,21 @@ import type { PageIntro } from './types';
  * sertifikat, kapasitas, MOQ, atau lama kirim (adhiloka-external-claims). */
 
 export const SEAFOOD_INTRO: PageIntro = {
-  title: 'Marine Delicacies',
+  title: 'Fine Seafood',
   lede: '',
   description:
     'Live lobster and dried delicacies of the sea from Indonesia: sea cucumber, fish maw, shark fin and abalone.',
   image: 'line-seafood',
-  focus: '38% 50%',
-  caption: 'spiny lobster on a colourful coral reef',
+  focus: '40% 35%',
+  caption: 'spiny lobster served in warm restaurant light',
 };
 
 export const SEAFOOD_OPENING = {
   title: 'From Indonesian Waters',
-  body: 'Live lobster and dried delicacies from the warm tropical seas of Indonesia. Rare, exotic and full of flavour, they are the treasures that turn a meal into an occasion.',
+  /* Naskah pemilik (komentar review 28 Nov 2026), kata per kata; menyebut
+     hotel dan restoran atas arahan pemilik sendiri. */
+  paragraphs: [
+    'We source and supply selected seafood delicacies for the hospitality and food service industry.',
+    'Our range includes distinctive marine products such as lobster, sea cucumber, and other specialty seafood, serving the needs of hotels, restaurants, and culinary establishments.',
+  ],
 };

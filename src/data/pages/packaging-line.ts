@@ -7,15 +7,20 @@ import type { PageIntro } from './types';
  * atau trading (pemilik). */
 
 export const PACKAGING_INTRO: PageIntro = {
-  title: 'Plastics',
+  title: 'Packaging & Plastic Solutions',
   lede: '',
   description:
     'Plastic bags, pouches, trash bags, wraps, sacks, jumbo bags, cups and takeaway containers for food service and retail.',
   image: 'line-packaging',
-  caption: 'hand holding a clear plastic cup of iced coffee',
+  focus: '50% 70%',
+  caption: 'hands sealing a bowl with clear cling film',
 };
 
 export const PACKAGING_OPENING = {
   title: 'Everyday Plastics for Kitchens and Shops',
-  body: 'We supply the plastic bags, wraps, cups and containers that kitchens, cafés and shops use every day. Each item comes in several materials, plain or printed.',
+  /* Naskah pemilik (komentar review 28 Nov 2026), kata per kata. */
+  paragraphs: [
+    'We provide plastic products and packaging solutions designed to support diverse commercial and industrial applications.',
+    'With a focus on functionality, product quality, and dependable supply, we aim to meet the practical requirements of businesses across various sectors.',
+  ],
 };

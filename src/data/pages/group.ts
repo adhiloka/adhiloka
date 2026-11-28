@@ -9,7 +9,7 @@ export const OUR_BUSINESSES_INTRO: PageIntro = {
   title: 'Our Businesses',
   lede: '',
   description:
-    'Adhiloka Group: fragrance, marine delicacies and plastics, supplied from Indonesia.',
+    'Adhiloka Group: natural ingredients and perfumery, fine seafood, and packaging and plastic solutions, supplied from Indonesia.',
   image: 'biz-overview',
   caption: 'container ship at sea in warm evening light',
 };

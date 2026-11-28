@@ -15,16 +15,20 @@ export const ABOUT_INTRO: PageIntro = {
   metaTitle: 'About',
   lede: '',
   description:
-    'Adhiloka Group brings together fragrance, marine delicacies and plastics, from Indonesia.',
+    'Adhiloka Group brings together natural ingredients and perfumery, fine seafood, and packaging and plastic solutions, from Indonesia.',
   image: 'hero-woman-golden-light',
   focus: '50% 30%',
   caption: 'smiling woman in late afternoon sun',
 };
 
 /* Situs grup (26 Nov 2026): Who We Are ditulis untuk grup. How We Work
-   dilepas dari semua halaman 27 Nov 2026 (pemilik). */
-export const ABOUT_WHO =
-  'Adhiloka Group brings together fragrance, marine delicacies and plastics. Each business works with its own materials and its own customers, and all of them share one way of working: stay close to the source and stand behind what we supply.';
+   dilepas dari semua halaman 27 Nov 2026 (pemilik).
+   Naskah Who We Are dari pemilik (komentar review 28 Nov 2026), kata per kata. */
+export const ABOUT_WHO = [
+  'Adhiloka Group is a diversified business group engaged in the sourcing, trading, and supply of products across multiple industries.',
+  'With business interests spanning natural ingredients and perfumery, fine seafood, and plastic solutions, we connect quality products with the businesses and industries that rely on them.',
+  'Built on a commitment to quality, reliability, and lasting partnerships, we seek to create meaningful value through every product we source and every relationship we build.',
+];
 
 /* Kartu halaman anak, dipakai grid penutup hub About dan bilah "Explore
    More" di halaman anaknya. */

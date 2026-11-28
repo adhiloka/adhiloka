@@ -6,7 +6,7 @@ import type { PageIntro, LinkCard } from './types';
  * (Ingredients, Perfumery). Foto kartu = foto banner halaman tujuannya. */
 
 export const NATURALS_INTRO: PageIntro = {
-  title: 'Fragrance',
+  title: 'Natural Ingredients & Perfumery',
   lede: '',
   description:
     'Adhiloka supplies natural aromatic ingredients from Indonesia, from benzoin and patchouli to roots and spices, and creates fragrances in its own perfumery.',
@@ -16,7 +16,11 @@ export const NATURALS_INTRO: PageIntro = {
 
 export const NATURALS_OPENING = {
   title: 'Ingredients and Perfumery',
-  body: 'We prepare essential oils, resinoids and extracts from resins, leaves, roots and spices for fragrance houses and independent perfumers. Our perfumers work with the same palette to create fragrances for fine fragrance and consumer products.',
+  /* Naskah pemilik (komentar review 28 Nov 2026), kata per kata. */
+  paragraphs: [
+    'We source and supply natural aromatic ingredients and perfumery materials, connecting distinctive botanical resources with the world of fragrance creation.',
+    'From natural resins to aromatic extracts, we focus on quality, authenticity, and the unique character of every ingredient.',
+  ],
 };
 
 /* Dua isi lini saja (pemilik, 27 Nov 2026): Ingredients dan Perfumery.

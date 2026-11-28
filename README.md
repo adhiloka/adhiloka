@@ -29,11 +29,13 @@ bilah sub-menu tiap lini: `src/data/businesses.ts`.
 | `/` | **Beranda grup**: hero empat slide (We Are Adhiloka, tiga lini; `GROUP_HERO_SLIDES`) · kutipan grup (`GROUP_QUOTE`) · Our Businesses **bertab per lini ala adani.com** (`GROUP_TABS`: tiap tab empat tile 2 x 2 + foto besar berchip) · keberlanjutan · berita · Join Us |
 | `/our-businesses/` | Banner · pembuka · satu blok Feature per lini (pola adani.com/businesses). `/about/our-business/` dialihkan ke sini (halamannya diparkir jadi `_our-business.astro`) |
 | `/fragrance/` | Sub-halaman lini ringkas: banner · pembuka + satu tombol · dua kartu (Ingredients, Perfumery). Tanpa bilah sub-menu lini (`BusinessSubnav` tidak dipakai): remah banner + kartu, pola adani.com/businesses/materials |
-| `/fisheries/` · `/polymers/` | Banner · pembuka + Request a Quotation · **katalog** (`LineCatalog`, `#catalog`) seperti Ingredient Catalog: kotak cari (ikut mencari kode), tab kategori pilihan tunggal (`?cat=`), kartu item berfoto 3 kolom satu tautan; tanpa hitungan |
-| `/fisheries/<item>/` · `/polymers/<item>/` | Halaman item (`LineItemPage`), susunan halaman bahan: kepala berwarna lini, strip fakta, Overview/Uses + Storage & packing, Products (semua kode), Samples & Quotations, slider item lain |
+| `/marine-delicacies/` · `/plastics/` | Banner · pembuka + Request a Quotation · **katalog** (`LineCatalog`, `#catalog`) seperti Ingredient Catalog: kotak cari (ikut mencari kode), tab kategori pilihan tunggal (`?cat=`), kartu item berfoto 3 kolom satu tautan; tanpa hitungan |
+| `/marine-delicacies/<item>/` · `/plastics/<item>/` | Halaman item (`LineItemPage`), susunan halaman bahan: kepala berwarna lini, strip fakta, Overview/Uses + Storage & packing, Products (semua kode), Samples & Quotations, slider item lain |
 | `…/<item>/<kode>/` | Halaman kode (`LineProductPage`), susunan halaman produk bahan: kepala berkode, strip fakta, Specification + Storage & packing, Samples & Quotations, daftar kode lain. Tanpa HS code dan tanpa "Typical values…" (komentar pemilik 27 Nov 2026) |
-Nama lini sejak 27 Nov 2026: Fragrance, Fisheries, Polymers (keputusan
-`decisions/2026-11-27 Business line names and line subpages.md`); alamat lama
+Nama lini sejak 28 Nov 2026 = baris kecil slide hero beranda: **Natural Ingredients & Perfumery**
+(`/fragrance/`), **Fine Seafood** (`/marine-delicacies/`), **Packaging & Plastic Solutions** (`/plastics/`);
+alamat tidak ikut berganti (keputusan
+`decisions/2026-11-28 Business line names follow homepage hero.md`); alamat lama
 (`/natural-ingredients-perfumery/`, `/natural-aromatics/`, `/seafood/…`, `/marine-products/…`, `/plastics-packaging/…`) dialihkan di `astro.config.mjs`.
 How We Work dihapus dari About dan Perfumery; Working With Us diparkir (`_working-with-us.astro`, dialihkan ke `/contact/`).
 Hub Ingredients memuat empat anaknya (Natural Ingredients, Catalog, Map, Technology) sebagai kartu 2 x 2.

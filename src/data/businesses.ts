@@ -11,6 +11,10 @@ import type { NavLink } from './site';
  * melayani kebutuhan usaha makanan-minuman, tetapi naskah tidak menyebut
  * hotel atau restoran secara khusus (pemilik). Kunci internal
  * (naturals/seafood/packaging) tetap.
+ * 28 Nov 2026 (pemilik, putaran akhir): nama lini = baris kecil slide hero
+ * beranda, kata per kata: Natural Ingredients & Perfumery · Fine Seafood ·
+ * Packaging & Plastic Solutions. Alamat (/fragrance/, /marine-delicacies/,
+ * /plastics/) tetap.
  * Satu-satunya sumber nama, alamat,
  * foto, dan bilah sub-menu tiap lini: dipakai menu Our Businesses (site.ts),
  * beranda grup, /our-businesses/, dan remah PageBanner.
@@ -44,7 +48,7 @@ export type Business = {
 export const BUSINESSES: Business[] = [
   {
     key: 'naturals',
-    name: 'Fragrance',
+    name: 'Natural Ingredients & Perfumery',
     href: '/fragrance/',
     paths: ['/fragrance/', '/ingredients/', '/perfumery/'],
     image: 'labelled-bottles',
@@ -62,22 +66,22 @@ export const BUSINESSES: Business[] = [
   },
   {
     key: 'seafood',
-    name: 'Marine Delicacies',
+    name: 'Fine Seafood',
     href: '/marine-delicacies/',
     paths: ['/marine-delicacies/'],
     image: 'line-seafood',
-    alt: 'Spiny lobster on a colourful coral reef',
+    alt: 'Spiny lobster served in warm restaurant light',
     line: 'Live lobster and dried delicacies of the sea, from sea cucumber to abalone.',
     color: '#1d5d78',
     pages: [],
   },
   {
     key: 'packaging',
-    name: 'Plastics',
+    name: 'Packaging & Plastic Solutions',
     href: '/plastics/',
     paths: ['/plastics/'],
     image: 'line-packaging',
-    alt: 'Hand holding a clear plastic cup of iced coffee',
+    alt: 'Hands sealing a bowl with clear cling film',
     line: 'Plastic bags, wraps, cups and takeaway containers for the kitchens and shops that use them every day.',
     color: '#45596a',
     pages: [],

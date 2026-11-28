@@ -193,15 +193,16 @@ export const GROUP_HERO_SLIDES: HeroSlide[] = [
     line: ['Fine Seafood'],
     href: '/marine-delicacies/',
     image: 'line-seafood',
-    focus: '38% 50%',
-    alt: 'Spiny lobster on a colourful coral reef',
+    focus: '40% 35%',
+    alt: 'Spiny lobster served in warm restaurant light',
   },
   {
     title: ['Designed to Protect.', 'Made to Perform.'],
     line: ['Packaging & Plastic Solutions'],
     href: '/plastics/',
     image: 'line-packaging',
-    alt: 'Hand holding a clear plastic cup of iced coffee',
+    focus: '50% 70%',
+    alt: 'Hands sealing a bowl with clear cling film',
   },
 ];
 

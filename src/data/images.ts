@@ -403,8 +403,8 @@ import pmWovenSacks from '../assets/images/pm-woven-sacks.jpg';
  *
  * 26 Nov 2026, situs grup (lini Seafood dan Plastics & Packaging), semua Pexels License.
  *   biz-overview  kapal kontainer di laut saat senja (Our Businesses)  [stock-photos/group/container-ship-sunset-pexels-14392678.jpg, Pexels License]
- *   line-seafood  lobster duri di terumbu karang berwarna (lini Marine Delicacies, sejak 28 Nov 2026; dulu ikan di atas es)  [stock-photos/seafood/spiny-lobster-reef-pexels-4610209.jpg, Pexels License]
- *   line-packaging  tangan memegang gelas plastik bening berisi es kopi, latar hijau cerah (lini Plastics, sejak 28 Nov 2026)  [stock-photos/plastics-packaging/clear-plastic-cup-iced-drink-pexels-540533.jpg, Pexels License]
+ *   line-seafood  lobster duri tersaji, cahaya restoran hangat keemasan (lini Fine Seafood, sejak 28 Nov 2026 sore; pemilik: lobster di terumbu terlalu ngejreng, beda palet dengan slide lain; sebelumnya ikan di atas es)  [stock-photos/seafood/lobster-dish-warm-light-pexels-37976933.jpg, Pexels License]
+ *   line-packaging  tangan menutup mangkuk dengan cling film bening, close-up, meja kayu hangat (lini Packaging & Plastic Solutions, sejak 28 Nov 2026 sore; pemilik: plastik film close-up yang sedang dipakai mengemas; sebelumnya gelas plastik es kopi)  [stock-photos/plastics-packaging/hands-cling-film-bowl-pexels-7322628.jpg, Pexels License]
  *   group-quote  perahu nelayan tertambat di air tenang pagi hari, tegak (kutipan grup)  [stock-photos/group/fishing-boat-morning-pexels-30669124.jpg, Pexels License]
  *   about-sea  perahu kecil di air tenang di bawah langit senja (slider Who We Are)  [stock-photos/group/boats-calm-water-evening-pexels-33167436.jpg, Pexels License]
  *   about-plastics  stroberi dalam wadah plastik bening (slider Who We Are, sejak 28 Nov 2026; dulu biji plastik)  [stock-photos/plastics-packaging/strawberries-clear-plastic-punnets-pexels-175728.jpg, Pexels License]

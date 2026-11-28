@@ -3,6 +3,7 @@ import { NAV_LINKS, SEARCH_SUGGESTIONS } from '../data/site';
 import { MATERIALS, PRODUCTS, materialHref, productHref } from '../data/materials';
 import { NEWS } from '../data/pages/media';
 import { LINE_CATALOG, lineItemHref, categoryLabel, type LineItem } from '../data/line-products';
+import { businessByKey } from '../data/businesses';
 
 /* Panel cari ala `.search-bar-wrapper` adani.com: lembar putih selayar yang
  * turun dari atas, satu kolom input besar, lalu "Popular Pages". Situs ini
@@ -27,7 +28,7 @@ const index = [
   ...([...LINE_CATALOG.seafood.items, ...LINE_CATALOG.packaging.items] as LineItem[]).map((i) => ({
     label: i.name,
     href: lineItemHref(i),
-    kind: i.line === 'seafood' ? 'Marine Delicacies' : 'Plastics',
+    kind: businessByKey(i.line).name,
     extra: `${i.local} ${i.latin ?? ''} ${categoryLabel(i.line, i.category)} ${i.range} ${i.products.map((p) => `${p.code} ${p.name}`).join(' ')}`,
   })),
   ...NEWS.map((n) => ({ label: n.title, href: `/media/news/${n.slug}/`, kind: 'News' })),

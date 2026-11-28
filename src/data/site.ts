@@ -4,9 +4,9 @@ import { BUSINESSES, BUSINESS_LINKS } from './businesses';
 export const SITE = {
   name: 'Adhiloka',
   legalName: 'Adhiloka Group',
-  tagline: 'Fragrance · Marine Delicacies · Plastics',
+  tagline: 'Natural Ingredients & Perfumery · Fine Seafood · Packaging & Plastic Solutions',
   description:
-    'Adhiloka Group is a family of businesses in Indonesia: fragrance, marine delicacies and plastics.',
+    'Adhiloka Group is a family of businesses in Indonesia: natural ingredients and perfumery, fine seafood, and packaging and plastic solutions.',
   locale: 'en_ID',
   lang: 'en',
   email: 'info@adhiloka.com',
@@ -36,7 +36,7 @@ export type NavItem = {
    foto yang sama dengan banner halaman yang dituju. Ganti keduanya bersamaan.
    Lima menu utama sejak situs jadi situs grup (pemilik, 26 Nov 2026), urutan
    kiri ke kanan di header. Perfumery dan Ingredients pindah ke bilah
-   sub-menu lini Fragrance (businesses.ts). `panel.links` adalah isi
+   sub-menu lini Natural Ingredients & Perfumery (businesses.ts). `panel.links` adalah isi
    dropdown, daftar datar tanpa sub-menu atau label grup (pemilik, 13 Nov
    2026): panel mengisinya 3 ke bawah lalu pindah ke kolom kanan. Juga sumber
    remah roti, indeks pencarian dan 404. Tidak ada nama produk di sini:
@@ -64,7 +64,7 @@ export const NAV: NavItem[] = [
     label: 'Our Businesses',
     href: '/our-businesses/',
     match: BUSINESSES.flatMap((b) => b.paths),
-    blurb: 'Fragrance, marine delicacies and plastics.',
+    blurb: 'Natural ingredients and perfumery, fine seafood, and packaging and plastic solutions.',
     panel: {
       title: 'Our Businesses',
       shot: 'container ship at sea in warm evening light',
@@ -132,8 +132,8 @@ export const SOCIAL: { label: string; href: string }[] = [];
 export const SEARCH_SUGGESTIONS = [
   { label: 'Benzoin Sumatra', href: '/ingredients/catalog/benzoin-sumatra/' },
   { label: 'Patchouli', href: '/ingredients/catalog/patchouli/' },
-  { label: 'Marine delicacies', href: '/marine-delicacies/' },
-  { label: 'Plastics', href: '/plastics/' },
+  { label: 'Fine seafood', href: '/marine-delicacies/' },
+  { label: 'Packaging & plastic solutions', href: '/plastics/' },
   { label: 'Perfumery', href: '/perfumery/' },
   { label: 'Sample request', href: '/contact/?kind=sample' },
 ];
