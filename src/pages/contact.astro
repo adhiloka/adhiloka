@@ -86,7 +86,7 @@ const endpoint = accessKey ? (import.meta.env.PUBLIC_FORM_ENDPOINT ?? 'https://a
           <label class="field">
             <span class="field__label">Business</span>
             <select name="business" data-business>
-              <option value="">Adhiloka Group</option>
+              <option value="Adhiloka Group">Adhiloka Group</option>
               {BUSINESSES.map((b) => <option value={b.name} data-key={b.key}>{b.name}</option>)}
             </select>
           </label>
