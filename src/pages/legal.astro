@@ -5,8 +5,8 @@ import type { PageIntro } from '../data/pages/types';
 
 /* Satu halaman untuk tiga tautan legal di footer. Isinya hanya menyatakan apa
  * yang benar-benar dilakukan situs ini: formulir kontak dikirim lewat Netlify
- * Forms dan diteruskan ke email kami, statistik kunjungan dari Plausible yang
- * tanpa cookie (28 Nov 2026, scripts/analytics.ts), dan pilihan Accessibility
+ * Forms dan diteruskan ke email kami, tidak ada analytics atau pelacak
+ * (Plausible dibatalkan pemilik 28 Nov 2026), dan pilihan Accessibility
  * disimpan di localStorage (scripts/a11y.ts). Ubah naskahnya bila salah satu
  * dari itu berubah. */
 const intro: PageIntro = {
@@ -42,7 +42,6 @@ const sections = [
     title: 'Cookies',
     body: [
       'This website does not use advertising or tracking cookies.',
-      'We count visits with Plausible Analytics, which works without cookies and does not collect personal data or follow you across other websites. It tells us which pages are read and which catalogs are downloaded, in total and never per person.',
       'If you change the display settings under Accessibility (colour theme or text size), your choice is saved in your own browser so that it is remembered on your next visit. It is not sent to us.',
     ],
   },

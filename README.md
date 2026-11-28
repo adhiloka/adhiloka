@@ -42,7 +42,7 @@ Kunci internal di kode tetap `naturals`, `seafood`, `packaging`.
 
 - Data katalog: `src/data/seafood.ts` (satu item per spesies), `src/data/packaging.ts` (susunan pabrik kemasan Jepang, `PACKAGING_COMPARE`), tipe dan helper di `line-products.ts`. Tanpa kode produk di situs (28 Nov 2026).
 - Tabel perbandingan Ingredient Catalog dan plastik: `ComparePick`, `CompareBar`, `scripts/compare.ts`.
-- Formulir kontak: Netlify Forms (`enquiry`), analytics Plausible tanpa cookie (`scripts/analytics.ts`), header cache `public/_headers`, alt gambar `data/alt.ts`.
+- Formulir kontak: Netlify Forms (`enquiry`, notifikasi ke info@adhiloka.com), tanpa analytics (Plausible dibatalkan pemilik 28 Nov 2026; Google Search Console untuk data pencarian), header cache `public/_headers`, alt gambar `data/alt.ts`.
 - Menu atas: About Us · Our Businesses · Sustainability · Media · Connect. Perfumery dan Ingredients tidak di header; dicapai dari kartu halaman Fragrance dan remah banner (bilah sub-menu lini dilepas 27 Nov 2026).
 - Remah halaman lini: Home › lini › bagian › halaman (`PageBanner` + `businessOf`).
 - Kontak: kolom **Business** dan `?business=naturals|seafood|packaging`, `?product=<slug>` mengisi pesan.
@@ -351,8 +351,7 @@ Tanda logonya sama persis dengan versi sebelumnya, jadi favicon tidak berubah.
 ## Yang masih perlu dari pemilik
 
 1. **Formulir kontak (Netlify Forms, 28 Nov 2026).** Di Netlify: aktifkan Form detection, lalu Forms >
-   `enquiry` > notifikasi email ke info@adhiloka.com. **Plausible:** buat akun, tambah situs adhiloka.com,
-   buat Goal Form Submit, Catalog Download, WhatsApp Click, Sample Request, Quotation Request, Compare.
+   `enquiry` > notifikasi email ke info@adhiloka.com (sudah aktif dan dikonfirmasi 28 Nov 2026).
 2. **Foto.** Sejak 12 November 2026 sebagian besar slot memakai foto stok dari `../../../stock-photos/`
    (Pexels/Unsplash, tanpa atribusi), diperkecil ke 2400 px dan didaftarkan di `src/data/images.ts`
    beserta sumbernya. Keterangannya netral: orang di foto bukan staf/petani/pemasok Adhiloka, damar

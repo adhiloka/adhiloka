@@ -2,7 +2,7 @@
  *  "terkirim". Penyedia (28 Nov 2026): Netlify Forms (POST url-encoded ke "/",
  *  dicatat Netlify dan diteruskan ke email), atau Web3Forms bila access key
  *  diisi. Gagal kirim = pesan galat dengan alamat email, bukan sukses palsu.
- *  Event "Form Submit" dikirim ke analytics (scripts/analytics.ts). */
+ */
 
 const MAIL_TO = 'info@adhiloka.com';
 
